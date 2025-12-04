@@ -1,0 +1,140 @@
+@font-face {
+    font-family: 'Futura Md BT';
+    src: local('Futura Medium Italic BT'), local('FuturaBT-MediumItalic'),
+        url('FuturaBT-MediumItalic.woff2') format('woff2'),
+        url('FuturaBT-MediumItalic.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Futura Md BT';
+    src: local('Futura Medium BT'), local('FuturaBT-Medium'),
+        url('FuturaBT-Medium.woff2') format('woff2'),
+        url('FuturaBT-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Futura';
+    src: local('Futura-Bold'),
+        url('Futura-Bold.woff2') format('woff2'),
+        url('Futura-Bold.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Futura Lt BT';
+    src: local('Futura Light Italic BT'), local('FuturaBT-LightItalic'),
+        url('FuturaBT-LightItalic.woff2') format('woff2'),
+        url('FuturaBT-LightItalic.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Futura XBlk BT';
+    src: local('Futura Extra Black BT'), local('FuturaBT-ExtraBlack'),
+        url('FuturaBT-ExtraBlack.woff2') format('woff2'),
+        url('FuturaBT-ExtraBlack.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Futura MdCn BT';
+    src: local('Futura Medium Condensed BT'), local('FuturaBT-MediumCondensed'),
+        url('FuturaBT-MediumCondensed.woff2') format('woff2'),
+        url('FuturaBT-MediumCondensed.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Futura LtCn BT';
+    src: local('Futura Light Condensed BT'), local('FuturaBT-LightCondensed'),
+        url('FuturaBT-LightCondensed.woff2') format('woff2'),
+        url('FuturaBT-LightCondensed.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Futura Lt BT';
+    src: local('Futura Light BT'), local('FuturaBT-Light'),
+        url('FuturaBT-Light.woff2') format('woff2'),
+        url('FuturaBT-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Futura Hv BT';
+    src: local('Futura Heavy Italic BT'), local('FuturaBT-HeavyItalic'),
+        url('FuturaBT-HeavyItalic.woff2') format('woff2'),
+        url('FuturaBT-HeavyItalic.woff') format('woff');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Futura';
+    src: local('Futura Condensed Light'), local('Futura-CondensedLight'),
+        url('Futura-CondensedLight.woff2') format('woff2'),
+        url('Futura-CondensedLight.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Futura Md BT';
+    src: local('Futura Bold Italic BT'), local('FuturaBT-BoldItalic'),
+        url('FuturaBT-BoldItalic.woff2') format('woff2'),
+        url('FuturaBT-BoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Futura BdCn BT';
+    src: local('Futura Bold Condensed BT'), local('FuturaBT-BoldCondensed'),
+        url('FuturaBT-BoldCondensed.woff2') format('woff2'),
+        url('FuturaBT-BoldCondensed.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Futura Hv BT';
+    src: local('Futura Heavy BT'), local('FuturaBT-Heavy'),
+        url('FuturaBT-Heavy.woff2') format('woff2'),
+        url('FuturaBT-Heavy.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Futura XBlk BT';
+    src: local('Futura Extra Black BT'), local('FuturaBT-ExtraBlack'),
+        url('FuturaBT-ExtraBlack.woff2') format('woff2'),
+        url('FuturaBT-ExtraBlack.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+

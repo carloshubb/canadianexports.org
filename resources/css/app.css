@@ -1,0 +1,591 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #0F52BA;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #4169E1;
+}
+[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    z-index: 1000;
+    bottom: 70%;
+    transform: translateX(-100%);
+    background: black;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+    font-size: 0.75rem;
+    margin-bottom: 0px;
+  }
+
+
+
+/* FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&family=Nunito:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Nunito:wght@300;400;600;700&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,800;0,900;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+/* general */
+
+
+/*********************************/
+/*             General            */
+/*===============================*/
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+@layer base {
+
+    @font-face {
+        font-family: 'Futura';
+        src: local('Futura Light BT'), local('FuturaBT-Light'),
+            url('/assets/fonts/FuturaBT-Light.woff2') format('woff2'),
+            url('/assets/fonts/FuturaBT-Light.woff') format('woff');
+        font-weight: 300;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'FuturaItalic';
+        src: local('Futura Light Italic BT'), local('FuturaBT-LightItalic'),
+            url('/assets/fonts/FuturaBT-LightItalic.woff2') format('woff2'),
+            url('/assets/fonts/FuturaBT-LightItalic.woff') format('woff');
+        font-weight: 300;
+        font-style: italic;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'FuturaMedium';
+        src: local('Futura Medium BT'), local('FuturaBT-Medium'),
+            url('/assets/fonts/FuturaBT-Medium.woff2') format('woff2'),
+            url('/assets/fonts/FuturaBT-Medium.woff') format('woff');
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'FuturaBold';
+        src: local('Futura-Bold'),
+            url('/assets/fonts/Futura-Bold.woff2') format('woff2'),
+            url('/assets/fonts/Futura-Bold.woff') format('woff');
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'FuturaHeavy';
+        src: local('Futura Heavy Italic BT'), local('FuturaBT-HeavyItalic'),
+            url('/assets/fonts/FuturaBT-HeavyItalic.woff2') format('woff2'),
+            url('/assets/fonts/FuturaBT-HeavyItalic.woff') format('woff');
+        font-weight: 900;
+        font-style: italic;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'FuturaBdCnBT';
+        src: local('Futura Bold Condensed BT'), local('FuturaBT-BoldCondensed'),
+            url('/assets/fonts/FuturaBT-BoldCondensed.woff2') format('woff2'),
+            url('/assets/fonts/FuturaBT-BoldCondensed.woff') format('woff');
+        font-weight: bold;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'FuturaMdCnBT';
+        src: local('Futura Medium Condensed BT'), local('FuturaBT-MediumCondensed'),
+            url('/assets/fonts/FuturaBT-MediumCondensed.woff2') format('woff2'),
+            url('/assets/fonts/FuturaBT-MediumCondensed.woff') format('woff');
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+    }
+}
+
+
+
+
+
+@layer components {
+    .can-exp-h1 {
+        font-size: 30px;
+        font-family: theme('fontFamily.FuturaMdCnBT');
+        /* color: theme('colors.primary'); */
+        margin-bottom: theme('margin.4');
+        font-weight: theme('fontWeight.medium');
+    }
+
+    .can-exp-h2 {
+        font-size: 24px;
+        font-family: theme('fontFamily.FuturaMdCnBT');
+        color: theme('colors.secondary');
+
+    }
+
+    .can-exp-h3 {
+        font-family: 'FuturaMdCnBT';
+        font-weight: 500;
+        font-size: 28px;
+        line-height: 36px;
+    }
+
+    .can-exp-h4 {
+        font-family: 'FuturaMdCnBT';
+        font-size: 24px;
+        line-height: 120%;
+    }
+
+    .can-exp-p {
+        font-size: theme('fontSize.base');
+        color: theme('colors.secondary');
+        text-align: justify;
+    }
+
+    .can-exp-a {
+        @apply text-base text-primary hover:text-secondary
+    }
+
+
+
+    h1 {
+        font-size: 30px;
+        font-family: theme('fontFamily.FuturaMdCnBT');
+        /* color: theme('colors.primary'); */
+        margin-bottom: theme('margin.4');
+        font-weight: theme('fontWeight.medium');
+    }
+
+    h2 {
+        font-size: 24px;
+        font-family: theme('fontFamily.FuturaMdCnBT');
+        color: theme('colors.secondary');
+
+    }
+
+    h3 {
+        font-family: theme('fontFamily.FuturaMdCnBT');
+        font-size: theme('fontSize.xl');
+    }
+
+    h4 {
+        font-family: theme('fontFamily.FuturaMdCnBT');
+        font-size: theme('fontSize.lg');
+    }
+
+    h5 {
+        font-size: theme('fontSize.lg');
+        font-family: theme('fontFamily.FuturaMdCnBT');
+        /* color: theme('colors.primary'); */
+        text-align: justify;
+    }
+
+    h6 {
+        @apply text-primary text-[28px] font-FuturaMdCnBT
+    }
+
+    p {
+        font-size: theme('fontSize.base');
+        color: theme('colors.secondary');
+        text-align: justify;
+    }
+
+    a {
+        @apply text-base text-primary hover:text-secondary
+    }
+
+    /* Buttons */
+
+    .button-exp-fill {
+        @apply bg-primary hover:bg-blue-500 text-white text-base rounded font-FuturaMdCnBT hover:font-FuturaMdCnBT px-5 py-2 border border-primary hover:border-blue-500 hover:text-white text-center focus:bg-blue-600 active:bg-blue-600;
+    }
+
+    .button-exp-no-fill {
+        @apply text-primary rounded font-FuturaMdCnBT px-5 py-2 text-base hover:bg-blue-100 border border-primary text-center hover:border-blue-500 hover:text-blue-500 focus:text-blue-500 active:bg-blue-100 active:border-blue-100 active:text-blue-500;
+    }
+
+    .button-exp {
+        @apply bg-transparent text-white border border-white text-base rounded font-FuturaMdCnBT px-5 py-2 hover:text-white;
+    }
+
+    /* Footer */
+
+    .footer-exp-heading {
+        @apply text-primary text-[28px] font-FuturaMdCnBT
+    }
+
+    .footer-exp ul {
+        @apply font-FuturaMdCnBT text-primary
+    }
+
+    .footer-exp ul li a {
+        @apply text-base text-white
+    }
+
+    /* Cards & input */
+
+    .card-heading {
+        @apply text-xl font-FuturaMdCnBT text-secondary
+    }
+
+    .responsive-heading {
+        font-size: theme('fontSize.2xl');
+        font-family: theme('fontFamily.FuturaMdCnBT');
+        color: theme('colors.secondary');
+    }
+
+    .card {
+        @apply rounded-md text-lg font-semibold text-secondary
+    }
+
+    .card-footer {
+        @apply text-lg text-white
+    }
+
+    .can-exp-input {
+        @apply border border-gray-300 text-base block w-full rounded px-3 py-1.5 focus:ring-blue-600 focus:ring-1
+    }
+
+    label{
+        font-size: 16px;
+    }
+
+    .widget-heading
+        {
+            font-size: theme('fontSize.lg');
+            color: theme('colors.white');
+            font-family: theme('fontFamily.FuturaMdCnBT');
+           margin-bottom: 8px;
+        }
+
+        .widget-text {
+            font-size: theme('fontSize.xs');
+            color: theme('colors.white');
+            text-align: left;
+        }
+        .swal2-styled.swal2-cancel{
+            font-size: theme('fontSize.base');
+        }
+        .swal2-styled.swal2-confirm{
+            font-size: theme('fontSize.base');
+        }
+
+    /* Tablet Media Screen */
+
+    @media screen and (min-width: 767px) {
+        h1 {
+            font-size: 36px;
+            font-family: theme('fontFamily.FuturaMdCnBT');
+            /* color: theme('colors.primary'); */
+            margin-bottom: theme('margin.4');
+            font-weight: theme('fontWeight.medium');
+
+        }
+
+        h2 {
+            font-size: 30px;
+            font-family: theme('fontFamily.FuturaMdCnBT');
+            color: theme('colors.secondary');
+
+        }
+
+        h3 {
+            font-family: theme('fontFamily.FuturaMdCnBT');
+            font-size: theme('fontSize.2xl');
+        }
+
+        h4 {
+            font-family: theme('fontFamily.FuturaMdCnBT');
+            font-size: theme('fontSize.xl');
+        }
+
+        .can-exp-h1 {
+            font-size: 36px;
+            font-family: theme('fontFamily.FuturaMdCnBT');
+            /* color: theme('colors.primary'); */
+            margin-bottom: theme('margin.4');
+            font-weight: theme('fontWeight.medium');
+        }
+
+        .can-exp-h2 {
+            font-size: 30px;
+            font-family: theme('fontFamily.FuturaMdCnBT');
+            color: theme('colors.secondary');
+
+        }
+
+        .can-exp-p {
+            font-size: theme('fontSize.base');
+            color: theme('colors.secondary');
+            text-align: justify;
+        }
+
+        p {
+            font-size: theme('fontSize.base');
+            color: theme('colors.secondary');
+            text-align: justify;
+        }
+
+        .card-heading {
+            @apply text-2xl font-FuturaMdCnBT text-secondary
+        }
+
+        .button-exp-fill {
+            @apply bg-primary hover:bg-blue-500 text-white text-base rounded font-FuturaMdCnBT hover:font-FuturaMdCnBT px-5 py-2 border border-primary hover:border-blue-500 hover:text-white text-center focus:bg-blue-600 active:bg-blue-600;
+        }
+
+        .button-exp-no-fill {
+            @apply text-primary rounded font-FuturaMdCnBT px-5 py-2 text-base hover:bg-blue-100 border border-primary text-center hover:border-blue-500 hover:text-blue-500 focus:text-blue-500 active:bg-blue-100 active:border-blue-100 active:text-blue-500;
+        }
+
+        .button-exp {
+            @apply bg-transparent text-white border border-white text-base rounded font-FuturaMdCnBT px-5 py-2 hover:text-white;
+        }
+
+        a {
+            @apply text-base text-primary hover:text-secondary
+        }
+
+        .can-exp-a {
+            @apply text-base text-primary hover:text-secondary
+        }
+
+        .footer-exp ul li a {
+            @apply text-base text-white
+        }
+
+        .can-exp-input {
+            @apply border border-gray-300 text-base block w-full rounded px-3 py-1.5 focus:ring-blue-600 focus:ring-1
+        }
+        label{
+            font-size: 16px;
+        }
+        .widget-heading
+        {
+            font-size: theme('fontSize.xl');
+            color: theme('colors.white');
+            font-family: theme('fontFamily.FuturaMdCnBT');
+           margin-bottom: 8px;
+        }
+
+        .widget-text {
+            font-size: theme('fontSize.base');
+            color: theme('colors.white');
+            text-align: left;
+        }
+        .swal2-styled.swal2-cancel{
+            font-size: theme('fontSize.base');
+        }
+        .swal2-styled.swal2-confirm{
+            font-size: theme('fontSize.base');
+        }
+    }
+
+
+    /* Desktop Media Screen */
+
+    @media screen and (min-width: 1200px) {
+        h1 {
+            font-size: 40px;
+            font-family: theme('fontFamily.FuturaMdCnBT');
+            /* color: theme('colors.primary'); */
+            margin-bottom: theme('margin.4');
+            font-weight: theme('fontWeight.medium');
+        }
+
+        h2 {
+            font-size: 36px;
+            font-family: theme('fontFamily.FuturaMdCnBT');
+            color: theme('colors.secondary');
+
+        }
+
+        h3 {
+            font-family: theme('fontFamily.FuturaMdCnBT');
+            font-size: theme('fontSize.3xl');
+        }
+
+        h4 {
+            font-family: theme('fontFamily.FuturaMdCnBT');
+            font-size: theme('fontSize.2xl');
+        }
+
+        .can-exp-h1 {
+            font-size: 40px;
+            font-family: theme('fontFamily.FuturaMdCnBT');
+            /* color: theme('colors.primary'); */
+            margin-bottom: theme('margin.4');
+            font-weight: theme('fontWeight.medium');
+        }
+
+        .can-exp-h2 {
+            font-size: 36px;
+            font-family: theme('fontFamily.FuturaMdCnBT');
+            color: theme('colors.secondary');
+
+        }
+
+        .can-exp-p {
+            font-size: theme('fontSize.lg');
+            color: theme('colors.secondary');
+            text-align: justify;
+        }
+
+        p {
+            font-size: theme('fontSize.lg');
+            color: theme('colors.secondary');
+            text-align: justify;
+        }
+
+        .card-heading {
+            @apply text-3xl font-FuturaMdCnBT text-secondary
+        }
+
+        .button-exp-fill {
+            @apply bg-primary hover:bg-blue-500 text-white text-lg rounded font-FuturaMdCnBT hover:font-FuturaMdCnBT px-5 py-2 border border-primary hover:border-blue-500 hover:text-white text-center focus:bg-blue-600 active:bg-blue-600;
+        }
+
+        .button-exp-no-fill {
+            @apply text-primary rounded font-FuturaMdCnBT px-5 py-2 text-lg hover:bg-blue-100 border border-primary text-center hover:border-blue-500 hover:text-blue-500 focus:text-blue-500 active:bg-blue-100 active:border-blue-100 active:text-blue-500;
+        }
+
+        .button-exp {
+            @apply bg-transparent text-white border border-white text-lg rounded font-FuturaMdCnBT px-5 py-2 hover:text-white;
+        }
+
+        a {
+            @apply text-lg text-primary hover:text-secondary
+        }
+
+        .can-exp-a {
+            @apply text-lg text-primary hover:text-secondary
+        }
+
+        .footer-exp ul li a {
+            @apply text-lg text-white
+        }
+
+        .can-exp-input {
+            @apply border border-gray-300 text-lg block w-full rounded px-3 py-1.5 focus:ring-blue-600 focus:ring-1
+        }
+        label{
+           font-size: 18px;
+        }
+        .widget-heading
+        {
+            font-size: theme('fontSize.2xl');
+            color: theme('colors.white');
+            font-family: theme('fontFamily.FuturaMdCnBT');
+           margin-bottom: 8px;
+        }
+
+        .widget-text {
+            font-size: theme('fontSize.base');
+            color: theme('colors.white');
+            text-align: left;
+        }
+        .swal2-styled.swal2-cancel{
+            font-size: theme('fontSize.lg');
+        }
+        .swal2-styled.swal2-confirm{
+            font-size: theme('fontSize.lg');
+        }
+    }
+
+}
+.tox .tox-toolbar--scrolling {
+    flex-wrap: wrap !important;
+    overflow-x: auto;
+}
+
+.filepond--root {
+    box-sizing: border-box;
+    position: relative;
+    margin-bottom: 1em;
+    font-size: 1rem;
+    line-height: normal;
+    font-family: 'Roboto', sans-serif !important;
+    font-weight: 450;
+    text-align: left;
+    text-rendering: optimizeLegibility;
+    direction: ltr;
+    contain: layout style size;
+}
+.xelent-pond .filepond--list {
+    width: calc(50% - 0.5em);
+    background-color: yellow;
+}
+.swal2-title {
+    position: relative;
+    max-width: 100%;
+    margin: 0 !important;
+    padding: 20px 12px 0px 12px !important;
+    color: inherit;
+    font-size: 30px !important;
+    font-weight: 400 !important;
+    text-align: center;
+    text-transform: none;
+    word-wrap: break-word;
+}
+  .swal2-confirm {
+    font-size: 16px !important;
+  }
+  .swal2-cancel {
+    font-size: 16px !important;
+  }
+
+
+  @media screen and (min-width: 1200px) {
+    .swal2-confirm {
+        font-size: 18px !important;
+      }
+      .swal2-cancel {
+        font-size: 18px !important;
+      }
+
+  }
+  .swal2-styled.swal2-confirm {
+    border: 0;
+    border-radius: 4px !important;
+    background: initial;
+    background-color: #006eb7 !important;
+    color: #fff;
+    font-size: 1em;
+  }
+  .swal2-styled {
+    margin: .3125em;
+    padding: 8px 20px !important;
+    transition: box-shadow .1s;
+    box-shadow: none !important;
+    font-weight: 500;
+    font-family: FuturaMdCnBT, cursive !important;
+}
+.tox-fullscreen{
+    z-index: 100 !important;
+    left: 0px !important;
+    right: 0px !important;
+    top: 66px !important;
+  }

@@ -1,0 +1,307 @@
+.calendersection {
+    width: 100%;
+    height: fit-content;
+    background-color: var(--foreground-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0px 0px 10px var(--box-shadow);
+}
+
+.calendar-toolbar > .current-month {
+    color: var(--highlight-text-color);
+}
+
+.calendar-toolbar > [class$="month-btn"] {
+    width: 40px;
+    aspect-ratio: 1;
+    text-align: center;
+    line-height: 40px;
+    font-size: 14px;
+    color: var(--highlight-text-color);
+    background: var(--btn-bg);
+    border: none;
+    border-radius: var(--border-radius);
+}
+
+.weekdays,
+.calendar-days {
+    display: flex;
+    flex-wrap: wrap;
+    padding-inline: var(--spacing);
+}
+
+.weekdays {
+    padding-top: 12px;
+}
+
+.calendar-days {
+    padding-bottom: 12px;
+}
+
+.weekday-name,
+[class$="-day"] {
+    width: 40px;
+    height: 40px;
+    color: var(--text-color);
+    text-align: center;
+    line-height: 40px;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.weekday-name {
+    color: var(--highlight-text-color);
+}
+
+.current-day {
+    background-color: #042870;
+    color: #e2e8f0;
+    border-radius: 100%;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.padding-day {
+    color: var(--inactive-text-color);
+    user-select: none;
+}
+
+.calendar-toolbar > [class$="month-btn"]:hover,
+.month-day:hover,
+.btn:hover {
+    border-radius: var(--border-radius);
+    background-color: var(--btn-bg);
+    color: var(--color-accent);
+    border-radius: var(--border-radius);
+    transition: 0.1s;
+    cursor: pointer;
+    box-shadow: inset 0px 0px 0px 1.5px var(--color-accent);
+}
+
+.calendar-toolbar > [class$="month-btn"]:focus,
+.month-day:focus,
+.btn:focus {
+    border-radius: var(--border-radius);
+    background-color: var(--color-accent);
+    color: var(--active-text-color);
+}
+
+/*sidebar css*/
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0px;
+    background: #106BC7;
+    /* padding: 0px 6px; */
+    z-index: 99;
+    transition: all 0.5s ease;
+    overflow-y: auto;
+}
+
+.sidebar.open {
+    width: 230px;
+}
+
+.sidebar .logo-details {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.sidebar .logo-details .icon {
+    opacity: 0;
+    transition: all 0.5s ease;
+}
+
+.sidebar .logo-details .logo_name {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    opacity: 0;
+    transition: all 0.5s ease;
+    display: none;
+}
+
+.sidebar.open .logo-details .icon,
+.sidebar.open .logo-details .logo_name {
+    opacity: 1;
+    display: block;
+}
+
+.sidebar.open .logo-details #btn {
+    text-align: right;
+}
+
+.sidebar .nav-list {
+    margin-top: 0px !important;
+    height: 100%;
+}
+
+.sidebar li {
+    position: relative;
+    margin: 8px 0;
+    list-style: none;
+}
+
+.sidebar li a {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: start;
+    text-decoration: none;
+    transition: 0.1s;
+}
+
+.sidebar li a .sidebar-links-icon {
+    width: 100%;
+    margin-top: 2px;
+}
+
+.sidebar.open li a .sidebar-links-icon {
+    max-width: 50px;
+}
+
+.sidebar.open li a .links_name {
+    opacity: 1;
+    pointer-events: auto;
+    display: block;
+}
+
+.sidebar li a .links_name {
+    display: none;
+}
+
+.header-section {
+    position: fixed;
+    top: 0;
+    transition: all 0.5s ease;
+    z-index: 100;
+}
+
+.home-section {
+    position: relative;
+    background: #e4e9f7;
+    min-height: 100vh;
+    transition: all 0.5s ease;
+    z-index: 2;
+}
+
+.sidebar.open ~ .home-section {
+    left: 230px;
+    width: calc(100% - 230px);
+}
+
+.sidebar.open ~ .header-section {
+    left: 230px;
+    width: calc(100% - 230px);
+}
+
+/*Cards css*/
+.Cards {
+    position: relative !important;
+    background: #ffffff;
+    float: left;
+    padding: 30px 10px;
+    width: 100%;
+}
+
+.Cards:after {
+    content: "";
+    position: absolute !important;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    border-right: #e2e8f0 7px solid;
+    border-bottom: #e2e8f0 7px solid;
+    -moz-border-radius: 0 0 20px 0;
+    -webkit-border-radius: 0 0 20px 0;
+    border-radius: 0 0 20px 0;
+    background-color: transparent;
+}
+
+.Cards:before {
+    content: "";
+    position: absolute !important;
+    z-index: 100;
+    top: 0;
+    right: 0;
+    border-left: #e2e8f0 7px solid;
+    border-bottom: #e2e8f0 7px solid;
+    -moz-border-radius: 0 0 0 20px;
+    -webkit-border-radius: 0 0 0 20px;
+    border-radius: 0 0 0 20px;
+}
+
+.Cards a:after {
+    content: "";
+    position: absolute !important;
+    z-index: 100;
+    bottom: 0;
+    left: 0;
+    border-right: #e2e8f0 7px solid;
+    border-top: #e2e8f0 7px solid;
+    -moz-border-radius: 0 20px 0 0;
+    -webkit-border-radius: 0 20px 0 0;
+    border-radius: 0 20px 0 0;
+}
+
+.Cards a:before {
+    content: "";
+    position: absolute !important;
+    z-index: 1000;
+    bottom: 0;
+    right: 0;
+    border-left: #e2e8f0 7px solid;
+    border-top: #e2e8f0 7px solid;
+    -moz-border-radius: 20px 0 0 0;
+    -webkit-border-radius: 20px 0 0 0;
+    border-radius: 20px 0 0 0;
+}
+a.filepond--credits {
+    display: none !important;
+}
+
+
+
+@media screen and (max-width: 810px) {
+    .header-section {
+        position: relative;
+        top: 0;
+        transition: all 0.5s ease;
+        z-index: 50;
+    }
+
+    .home-section {
+        position: relative;
+        background: #e4e9f7;
+        min-height: 100vh;
+        transition: all 0.5s ease;
+        z-index: 2;
+    }
+
+    .sidebar.open ~ .home-section {
+        left: 0;
+        width: 100%;
+    }
+
+    .sidebar.open ~ .header-section {
+        left: 0;
+        width: 100%;
+    }
+    /*sidebar css*/
+.sidebar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0px;
+    background: #106BC7;
+    /* padding: 0px 6px; */
+    z-index: 99;
+    transition: all 0.5s ease;
+    overflow-y: auto;
+}
+  }
