@@ -747,14 +747,17 @@
             <div class="grid md:grid-cols-2 md:gap-6 gap-4">
                 <div class="relative z-0 w-full group">
                     <label for="start_date" class="text-base md:text-base lg:text-lg">{{
-                        JSON.parse(eventsetting).start_date_label }}
+                        JSON.parse(eventsetting).start_date_label.toUpperCase() }}
                         <span class="text-red-500"></span></label>
                     <input type="date" name="start_date" id="start_date"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
-                        placeholder=" " :value="form.start_date" @input="
+                         placeholder="YYYY-MM-DD"
+                        :value="form.start_date"
+                        @input="
                             checkDateLength('start_date', $event);
-                        clearErrors('start_date');
-                        " />
+                            clearErrors('start_date');
+                            $store.commit('signup/setForm', { field: ['start_date'], value: $event.target.value });
+                        "  />
                     <div v-if="dateErrors.start_date"
                         class="mt-2 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-600 shadow-sm">
                         {{ dateErrors.start_date }}
@@ -763,7 +766,7 @@
                 </div>
                 <div class="relative z-0 w-full group">
                     <label for="end_date" class="text-base md:text-base lg:text-lg">{{
-                        JSON.parse(eventsetting).end_date_label }}
+                        JSON.parse(eventsetting).end_date_label.toUpperCase() }}
                         <span class="text-red-500"></span></label>
                     <input type="date" name="end_date" id="end_date"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
@@ -877,6 +880,43 @@
                         </template>
                     </div>
                     <Error fieldName="gallery_images" :validationErros="validationErros" />
+                </div>
+
+                <div>
+                    <!-- CTA Button Field - Only show for Premium and Featured packages -->
+                    <div class="relative w-full mb-4" >
+                        <label
+                            class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg"
+                            for="customer_profile_cta_btn"
+                            v-html="ctaBtnLabelFormatted"
+                        >
+                        </label>
+                        <input
+                            type="text"
+                            class="can-exp-input"
+                            :placeholder="
+                                regPageSetting?.reg_page_setting_detail?.[0]
+                                    ?.step_4_cta_btn_placeholder
+                            "
+                            @input="
+                                updateForm('customer_profile_cta_btn', $event.target.value);
+                                clearErrors('customer_profile_cta_btn');
+                            "
+                            :value="form.customer_profile_cta_btn"
+                            id="customer_profile_cta_btn"
+                        />
+                        <Error
+                            v-if="submitted"
+                            fieldName="customer_profile_cta_btn"
+                            :validationErros="validationErros"
+                            full_width="1"
+                        />
+                    </div>
+
+                    
+
+            
+                      
                 </div>
             </div>
 
@@ -1213,7 +1253,16 @@ import axios from "axios";
 import ErrorHandling from "../../ErrorHandling";
 import { mapState } from "vuex";
 export default {
-    computed: {
+     
+        computed: {
+        ...mapState({
+      form: (state) => state.signup.form,
+      regPageSetting: (state) => state.signup.regPageSetting,
+      validationErros: (state) => state.signup.validationErros,
+      package_type: (state) => state.signup.package_type, // Added package_type from Vuex
+    }),
+    
+
         years() {
             const currentYear = new Date().getFullYear();
             return Array.from(
@@ -1221,6 +1270,17 @@ export default {
                 (_, index) => currentYear + index
             );
         },
+        ctaBtnLabelFormatted() {
+       const rawLabel =
+        this.regPageSetting?.reg_page_setting_detail?.[0]?.step_4_cta_btn_label || "";
+        console.log("Raw Label:", rawLabel);
+        
+      if (!rawLabel) {
+        return "CTA";
+      }
+      
+      return rawLabel.replace(/\(5\)/g, '<sup class="footnote-indicator">(5)</sup>');
+    },
     },
     props: [
         "event_detail",
@@ -1310,7 +1370,7 @@ export default {
         };
     },
     mounted() {
-        console.log("------------>",JSON.parse(this.eventsetting)['post_submit_button_text']);
+      //  console.log("------------>",JSON.parse(this.eventsetting)['post_submit_button_text']);
         // Only load form data from localStorage if not in edit mode
         if (!this.isEditMode) {
             const savedForm = localStorage.getItem("event_signup_form");
@@ -1370,6 +1430,7 @@ export default {
 
             // Check if the value is in the correct format (YYYY-MM-DD)
             let dateParts = value.split("-");
+            // console.log(dateParts);
             if (dateParts.length === 3) {
                 if (dateParts[0].length > 4) {
                     dateParts[0] = dateParts[0].slice(0, 4);

@@ -37,8 +37,10 @@ class HomeController extends Controller
 
     public function index_abbreviation($abbreviation, $slug = null)
     {
+        
         updateLangByAbber($abbreviation);
         $response = $this->checkPageSlug($slug);
+        
         if ($response) {
             return Redirect::to($response);
         }

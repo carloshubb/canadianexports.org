@@ -550,7 +550,8 @@ export default {
             this.form.receiver_name !== '' &&
             this.form.receiver_email !== '' &&
             this.form.frequency !== null &&
-            this.form.terms_privacy_agreement === true
+            this.form.terms_privacy_agreement === true &&
+            this.form.non_refundable_agreement === true
         );
         },
         years() {

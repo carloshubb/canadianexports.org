@@ -57,7 +57,7 @@
               " />
           <Error fieldName="email" :validationErros="validationErros" />
         </div>
-        <div class="relative w-full mb-4" v-if="profile == '1' && JSON.parse(user)?.is_package_amount_paid">
+        <!-- <div class="relative w-full mb-4" v-if="profile == '1' && JSON.parse(user)?.is_package_amount_paid">
           <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg" for="profile-image">
             {{
               regPageSetting?.reg_page_setting_detail?.[0]
@@ -70,7 +70,7 @@
             ref="profile-image" v-bind:files="files" @init="handleProfileImageInit"
             @processfile="handleProfileImageProcess" @removefile="handleProfileImageRemoveFile" />
           <Error fieldName="profile_image" :validationErros="validationErros" />
-        </div>
+        </div> -->
         <div class="relative w-full mb-4" v-if="profile != '1'">
           <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg" for="password">
             {{

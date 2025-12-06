@@ -1,5 +1,5 @@
 <template>
-  <form class="lg:w-full" id="contact-us-form" @submit.prevent="recaptcha()">
+  <form class="lg:w-full" id="contact-us-form" @submit.prevent="displayDeleteProfile">
     <div class="my-4">
       <div class="grid mt-4 md:grid-cols-2 gap-4">
         <div class="relative w-full mb-3">
@@ -58,14 +58,13 @@
     <div class="mt-8 flex justify-center items-center">
       <button 
         aria-label="Canadian Exporters" 
-        :class="[
+        :class="[ 
           'button-exp-fill cursor-pointer transition-opacity',
-          { 'opacity-40 cursor-not-allowed': !isFormValid, 'opacity-100': isFormValid }
+          { 'opacity-40 cursor-not-allowed': !isFormValid || loading, 'opacity-100': isFormValid && !loading }
         ]"
-        type="button" 
+        type="submit"
         id="send-message"
         :disabled="!isFormValid || loading"
-        @click.prevent="displayDeleteProfile"
       >
         {{ JSON.parse(close_account_setting) ? JSON.parse(close_account_setting)["button_text"] : "" }}
       </button>
@@ -119,17 +118,24 @@ export default {
     },
   },
   methods: {
+    // Called when the user presses the submit button (or otherwise submits the form)
     displayDeleteProfile() {
-      // Validate form before showing popup
+      this.submitted = true;
+
       if (!this.isFormValid) {
-        this.submitted = true;
         this.validationErros.record({
           name: this.form.name.trim() === "" ? ["Name is required"] : [],
           email: this.form.email.trim() === "" ? ["Email is required"] : [],
           message: this.form.message.trim() === "" ? ["Message is required"] : [],
         });
-        return;
+        return; // don't show confirmation if not valid
       }
+
+      // Optional: If you want to block non-logged-in users here, add a guard like:
+      // if (!this.$store?.state?.authUser) {
+      //   swal.fire('Please login', 'You must be logged in to close your account', 'warning');
+      //   return;
+      // }
 
       swal.fire({
         title: this.popup_setting && JSON.parse(this.popup_setting) && JSON.parse(this.popup_setting)['message_30'] ? JSON.parse(this.popup_setting)['message_30'] : "Are you sure?",
@@ -149,14 +155,19 @@ export default {
         cancelButtonText: this.popup_setting && JSON.parse(this.popup_setting) && JSON.parse(this.popup_setting)['message_33'] ? JSON.parse(this.popup_setting)['message_33'] : "Cancel"
       }).then((result) => {
         if (result.isConfirmed) {
-          this.deleteProfile();
+          // run recaptcha then delete on success
+          this.recaptcha("delete");
+        } else {
+          // per request: after popup is closed (when user cancels), take them to Home
+          window.location.href = "/";
         }
       });
     },
 
     deleteProfile() {
+      // Set loading while we send
       this.loading = true;
-      
+
       const formData = {
         name: this.form.name,
         email: this.form.email,
@@ -172,12 +183,15 @@ export default {
           if (res.data.status == "Success") {
             const redirectUrl = res.data && res.data.data ? res.data.data.redirect_url : "/";
             
+            // show success then redirect (helper returns a promise)
             helper.swalSuccessMessageForWeb(res.data.message).then(() => {
-              // Redirect to home page or specified URL
               window.location.href = redirectUrl;
             });
           } else {
             helper.swalErrorMessageForWeb(res.data.message);
+            // After error popup close, send user home (you requested 'after popup closed, take user home')
+            // If you prefer not to redirect on server error, remove the next line.
+            window.location.href = "/";
           }
         })
         .catch((error) => {
@@ -189,7 +203,10 @@ export default {
               error.response.data.message) ||
             "Something went wrong. Please try again.";
           
-          helper.swalErrorMessageForWeb(message);
+          helper.swalErrorMessageForWeb(message).then(() => {
+            // after error popup closed, go to home (matches your request)
+            window.location.href = "/";
+          });
         });
     },
 
@@ -207,44 +224,60 @@ export default {
       this.submitted = false;
     },
 
-    async recaptcha() {
+    /**
+     * recaptcha(nextAction)
+     * - nextAction: "save" (default) or "delete"
+     *
+     * On success of server-side verifyRecaptcha, will call saveForm() or deleteProfile()
+     */
+    async recaptcha(nextAction = "save") {
       this.submitted = true;
-      
+
       if (!this.isFormValid) {
         return;
       }
 
+      // start loading only when running captcha
       this.loading = true;
       
-      load(process.env.MIX_reCAPTCHA_site_key).then((recaptcha) => {
+      try {
+        const recaptcha = await load(process.env.MIX_reCAPTCHA_site_key);
         recaptcha.showBadge();
-        recaptcha.execute("submit").then((token) => {
-          axios
-            .post(`${process.env.MIX_WEB_API_URL}verifyRecaptcha`, {
-              token: token,
-            })
-            .then((res) => {
-              setTimeout(() => {
-                recaptcha.hideBadge();
-              }, 3000);
-              
-              if (res.data.status == "Success") {
-                this.saveForm();
-              } else if (res.data.status == "Error") {
-                this.loading = false;
-                this.validationErros.record({
-                  captcha: [res.data.message],
-                });
-              }
-            })
-            .catch(() => {
-              this.loading = false;
-            });
-        });
-      });
+
+        const token = await recaptcha.execute("submit");
+        // send token to API to verify
+        const res = await axios.post(`${process.env.MIX_WEB_API_URL}verifyRecaptcha`, { token });
+
+        // always hide badge after a short delay
+        setTimeout(() => recaptcha.hideBadge(), 3000);
+
+        if (res.data.status == "Success") {
+          // on success, call the intended action
+          if (nextAction === "delete") {
+            // calls deleteProfile which will turn off loading on completion
+            this.deleteProfile();
+          } else {
+            // default: call existing saveForm (contact-like)
+            this.saveForm();
+          }
+        } else if (res.data.status == "Error") {
+          this.loading = false;
+          this.validationErros.record({ captcha: [res.data.message] });
+        } else {
+          // unknown response shape
+          this.loading = false;
+          this.validationErros.record({ captcha: ["reCAPTCHA verification failed"] });
+        }
+      } catch (err) {
+        // network or recaptcha error
+        this.loading = false;
+        // optionally show the user an error
+        // helper.swalErrorMessageForWeb('reCAPTCHA failed. Please try again.');
+      }
     },
 
     saveForm() {
+      // existing behavior retained for non-delete saves
       this.form.page_id = this.page_id;
       
       axios

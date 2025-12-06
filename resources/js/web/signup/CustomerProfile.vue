@@ -381,6 +381,7 @@ export default {
   data() {
     return {
       general_setting: null,
+      customer_profile_cta_btn: null,
     };
   },
   computed: {
@@ -399,6 +400,7 @@ export default {
       );
     },
     ctaBtnLabelFormatted() {
+      console.log("Computing CTA Button Label", this.regPageSetting);
       const rawLabel =
         this.regPageSetting?.reg_page_setting_detail?.[0]?.step_4_cta_btn_label || "";
 

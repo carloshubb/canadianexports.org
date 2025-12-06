@@ -106,10 +106,8 @@ class HelperController extends Controller
             ->orderBy('sort_order')
             ->orderBy('amount')
             ->get();
-
         // Group by frequency for easier frontend handling
         $grouped = $amounts->groupBy('frequency');
-
         return $this->successResponse([
             'amounts' => $amounts,
             'grouped' => $grouped,

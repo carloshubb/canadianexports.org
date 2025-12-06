@@ -57,6 +57,7 @@ class SignupController extends Controller
     {
 
         $request['business_categories_id'] = json_decode($request->business_categories_id);
+        dd($request['business_categories_id']);
         $request['gallery_images'] = json_decode($request->gallery_images);
         
         // Check if user is logged in or if email exists

@@ -38,8 +38,10 @@
               </div>
               </template>
             </fieldset>
-          </div>
+            
 
+          </div>
+          
           <div id="sponsorship_amount" class="relative w-full">
             <div class="flex gap-4 overflow-x-auto whitespace-nowrap pb-2">
               <div v-for="amount in getAmountsByFrequency(selectedFrequency)" :key="amount.id" class="flex-1">
@@ -52,11 +54,49 @@
                   "
                   @click="updateSponsorAmount(amount)"
                 >
-                  <span class="text-center font-bold select-none font-FuturaMdCnBT">${{ formatAmount(amount.amount) }}</span>
+                  <span class="text-center select-none font-FuturaMdCnBT">${{ formatAmount(amount.amount) }}</span>
                 </div>
               </div>
+              
             </div>
+              <div class="relative flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                              stroke="currentColor" class="absolute left-2 h-7 text-gray-500">
+                              <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z">
+                              </path>
+                </svg>
+                <input 
+                              type="text" 
+                              id="custom_amount1" 
+                              v-model="custom_amount1"
+                              @keypress="inputAmount(custom_amount1)"
+                              class="block mt-1 border-2 p-2.5 w-full rounded border-gray-200 focus:outline-none focus:border focus:border-blue-600 pl-10 h-12"
+                              :placeholder=" 'Enter your own amount'"
+                />
+              </div>
 
+            <div class="flex-1 mt-3">
+              <label
+                class="w-full h-full flex flex-col cursor-pointer px-5 py-6 rounded-md text-base md:text-lg font-medium text-center border-2 transition-all"
+                :class="
+                  form.talk_to_us_first
+                    ? 'text-white bg-primary border-primary shadow-lg'
+                    : 'text-primary bg-white border-gray-300 hover:border-primary'
+                "
+              >
+                <input
+                  type="radio"
+                  name="sponsorship_option"
+                  :value="true"
+                  class="sr-only"
+                  v-model="form.talk_to_us_first"
+                  @change="onOptionChange(true)"
+                />
+                <span class="font-bold font-FuturaMdCnBT">Talk to Us First</span>
+                <span class="text-sm mt-2 opacity-90">We're happy to discuss your goals and our partnership opportunities in detail before you make a selection.</span>
+              </label>
+            </div>
             <div
               v-if="getAmountsByFrequency(selectedFrequency).length === 0"
               class="text-center py-8 text-gray-500"
@@ -70,7 +110,7 @@
       </div>
 
       <!-- Beneficiary Selection (Only for "Enter Your Amount" option) -->
-      <div v-if="!form.talk_to_us_first" class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
+      <!-- <div v-if="!form.talk_to_us_first" class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
         <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
           <h4 class="text-white">Select Beneficiary</h4>
         </div>
@@ -94,7 +134,7 @@
             <Error v-if="submitted" fieldName="beneficiary_ids" :validationErros="validationErros" full_width="1" />
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- TALK TO US FIELDS (Only for "Talk to Us First" option) -->
       <div v-if="form.talk_to_us_first" class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
@@ -104,10 +144,10 @@
         <div class="p-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="relative w-full">
-              <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="talk_to_us_name">
-                Your Name
-                <span class="text-red-500">*</span>
-              </label>
+                <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="talk_to_us_name">
+                  Your Name and Title
+                   <span class="text-red-500">*</span>
+                </label>
               <input
                 type="text"
                 id="talk_to_us_name"
@@ -121,7 +161,7 @@
 
             <div class="relative w-full">
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="talk_to_us_phone">
-                Your Phone Number
+                Numbers Only. With Area Code
                 <span class="text-red-500">*</span>
               </label>
               <input
@@ -211,40 +251,40 @@
             </div>
 
             <div class="relative w-full">
-              <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="email">
-                Your Email
-                <span class="text-red-500">*</span>
-              </label>
-              <input
-                type="email"
-                id="email"
-                v-model="form.email"
-                class="can-exp-input"
-                placeholder="You will use this email to log in to your account"
-                @input="clearErrors('email')"
-              />
+                <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="email">
+                  Your Email
+                  <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  v-model="form.email"
+                  class="can-exp-input"
+                  placeholder="You will use this email to log in to your account"
+                  @input="clearErrors('email')" />
+               
               <Error v-if="submitted" fieldName="email" :validationErros="validationErros" />
             </div>
 
             <div class="relative w-full">
-              <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="contact_number">
-                Your Phone Number
-                <span class="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                id="contact_number"
-                v-model="form.contact_number"
-                class="can-exp-input"
-                placeholder="Numbers only. With area code"
-                @input="clearErrors('contact_number')"
-              />
+                <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="contact_number">
+                  Your Phone Number
+                  <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="contact_number"
+                  v-model="form.contact_number"
+                  class="can-exp-input"
+                  placeholder="Numbers only. With area code"
+                  @input="clearErrors('contact_number')"
+                />
               <Error v-if="submitted" fieldName="contact_number" :validationErros="validationErros" />
             </div>
 
             <div class="relative w-full" v-if="!isLoggedIn">
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="password">
-                Select Password (Min. 8 characters. uppercase & lowercase)
+                Select Password (Min. 8 characters. Must contain at least one lowercase and one uppercase)
                 <span class="text-red-500">*</span>
               </label>
               <div class="relative">
@@ -272,7 +312,7 @@
             </div>
 
             <div class="relative w-full" v-if="!isLoggedIn">
-              <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="password_confirmation">
+              <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="password_confirmation"><br></br>
                 Confirm Password
                 <span class="text-red-500">*</span>
               </label>
@@ -378,7 +418,7 @@
             <!-- Featured Image Upload (appears on Home page) -->
             <div class="relative w-full">
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="featured_image">
-                Featured Image (appears on the Home page)
+                Featured Image ((appears on the Home page). Allowed file types: PNG, GIF, JPG, JPEG. Max. 10MB.)
                 <span class="text-red-500">*</span>
               </label>
               <FilePond
@@ -400,7 +440,7 @@
             <!-- Profile Image Upload -->
             <div class="relative w-full">
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="logo">
-                Profile Image
+                Profile Image (Allowed file types: PNG, GIF, JPG, JPEG. Max. 10MB.)
                 <span class="text-red-500">*</span>
               </label>
               <FilePond
@@ -632,7 +672,7 @@ export default {
     if (this.isLoggedIn) {
       const user = JSON.parse(this.logged_in_user);
       this.form.email = user.email || '';
-      this.form.contact_name = user.name || '';
+      this.form.contact_name =  '';
     }
     
     this.fetchBeneficiaries();
@@ -743,20 +783,22 @@ export default {
         if (response.data.status === "Success") {
           this.sponsorAmounts = response.data.data.amounts || response.data.data;
           this.groupedAmounts = response.data.data.grouped || {};
+          console.log("sdsdfsdfsdfdsf Sponsor Amounts:", this.groupedAmounts);
           this.frequencies = response.data.data.frequencies || {};
          //console.log("Fetched Sponsor Amounts:",this.frequencies);
           const frequencyKeys = Object.keys(this.frequencies);
-          if (frequencyKeys.length) {
-            if (this.form.frequency && frequencyKeys.includes(this.form.frequency)) {
-              this.selectedFrequency = this.form.frequency;
-            } else if (frequencyKeys.includes('one_time')) {
-              this.selectedFrequency = 'one_time';
-              this.form.frequency = 'one_time';
-            } else {
-              this.selectedFrequency = frequencyKeys[0];
-              this.form.frequency = frequencyKeys[0];
-            }
-          }
+          //console.log("Available Frequencies:", frequencyKeys);
+          // if (frequencyKeys.length) {
+          //   if (this.form.frequency && frequencyKeys.includes(this.form.frequency)) {
+          //     this.selectedFrequency = this.form.frequency;
+          //   } else if (frequencyKeys.includes('one_time')) {
+          //     this.selectedFrequency = 'one_time';
+          //     this.form.frequency = 'one_time';
+          //   } else {
+          //     this.selectedFrequency = frequencyKeys[0];
+          //     this.form.frequency = frequencyKeys[0];
+          //   }
+          // }
 
           this.onFrequencyChange(this.selectedFrequency);
         }
@@ -774,7 +816,7 @@ export default {
       this.form.frequency = frequencyKey;
 
       const amounts = this.getAmountsByFrequency(frequencyKey);
-      //console.log("Amounts for frequency", frequencyKey, amounts);
+      console.log("Amounts for frequency", frequencyKey, amounts);
       const hasSelectedAmount = amounts.some(
         (amount) =>
           Number(amount.amount) === Number(this.form.sponsorship_amount) && amount.frequency === frequencyKey
@@ -799,6 +841,12 @@ export default {
       this.selectedFrequency = amount.frequency;
       this.form.sponsorship_amount = amount.amount;
       this.form.frequency = amount.frequency;
+      this.clearErrors("sponsorship_amount");
+    },
+    inputAmount(custom_amount1) {
+      
+      this.form.sponsorship_amount = custom_amount1;
+      
       this.clearErrors("sponsorship_amount");
     },
 
