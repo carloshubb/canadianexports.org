@@ -2278,9 +2278,6 @@ ul li {
 .w-\[45\%\] {
   width: 45% !important;
 }
-.w-\[57\%\] {
-  width: 57% !important;
-}
 .w-\[58\%\] {
   width: 58% !important;
 }
@@ -2311,15 +2308,6 @@ ul li {
 }
 .w-screen {
   width: 100vw !important;
-}
-.w-\[2\%\] {
-  width: 2% !important;
-}
-.w-\[90\%\] {
-  width: 90% !important;
-}
-.w-\[100\%\] {
-  width: 100% !important;
 }
 .min-w-0 {
   min-width: 0px !important;
@@ -2595,11 +2583,17 @@ ul li {
 .flex-row {
   flex-direction: row !important;
 }
+.flex-row-reverse {
+  flex-direction: row-reverse !important;
+}
 .flex-col {
   flex-direction: column !important;
 }
 .flex-wrap {
   flex-wrap: wrap !important;
+}
+.place-content-start {
+  place-content: start !important;
 }
 .place-items-end {
   place-items: end !important;
@@ -3027,10 +3021,6 @@ ul li {
 .border-gray-300 {
   --tw-border-opacity: 1 !important;
   border-color: rgb(209 213 219 / var(--tw-border-opacity)) !important;
-}
-.border-gray-400 {
-  --tw-border-opacity: 1 !important;
-  border-color: rgb(156 163 175 / var(--tw-border-opacity)) !important;
 }
 .border-gray-500 {
   --tw-border-opacity: 1 !important;
@@ -3936,9 +3926,6 @@ ul li {
 .tracking-wide {
   letter-spacing: 0.025em !important;
 }
-.tracking-wider {
-  letter-spacing: 0.05em !important;
-}
 .text-\[\#006EB7\] {
   --tw-text-opacity: 1 !important;
   color: rgb(0 110 183 / var(--tw-text-opacity)) !important;
@@ -3982,10 +3969,6 @@ ul li {
 .text-gray-100 {
   --tw-text-opacity: 1 !important;
   color: rgb(243 244 246 / var(--tw-text-opacity)) !important;
-}
-.text-gray-200 {
-  --tw-text-opacity: 1 !important;
-  color: rgb(229 231 235 / var(--tw-text-opacity)) !important;
 }
 .text-gray-300 {
   --tw-text-opacity: 1 !important;
@@ -8524,11 +8507,6 @@ right: 28px;
   .dark\:bg-gray-700 {
     --tw-bg-opacity: 1 !important;
     background-color: rgb(55 65 81 / var(--tw-bg-opacity)) !important;
-  }
-
-  .dark\:bg-gray-900 {
-    --tw-bg-opacity: 1 !important;
-    background-color: rgb(17 24 39 / var(--tw-bg-opacity)) !important;
   }
 
   .dark\:text-gray-400 {

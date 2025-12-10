@@ -220,7 +220,7 @@ body {
     /* Buttons */
 
     .button-exp-fill {
-        @apply bg-primary hover:bg-blue-500 text-white text-base rounded font-FuturaMdCnBT hover:font-FuturaMdCnBT px-5 py-2 border border-primary hover:border-blue-500 hover:text-white text-center focus:bg-blue-600 active:bg-blue-600;
+        @apply h-10 bg-primary hover:bg-blue-500 text-white text-base rounded font-FuturaMdCnBT hover:font-FuturaMdCnBT px-5 py-2 border border-primary hover:border-blue-500 hover:text-white text-center focus:bg-blue-600 active:bg-blue-600;
     }
 
     .button-exp-no-fill {
