@@ -238,15 +238,14 @@
                 Your Name and Title
                 <span class="text-red-500">*</span>
               </label>
-              <input
-                type="text"
-                id="contact_name"
-                v-model="form.contact_name"
-                class="can-exp-input"
-                :placeholder="contactNameInstruction"
-                :title="contactNameInstruction"
-                @input="clearErrors('contact_name')"
-              />
+              <textarea
+  id="contact_name"
+  v-model="form.contact_name"
+  class="can-exp-input scrollbar-textarea"
+  :placeholder="contactNameInstruction"
+  :title="contactNameInstruction"
+  @input="clearErrors('contact_name')"
+></textarea>
               <Error v-if="submitted" fieldName="contact_name" :validationErros="validationErros" />
             </div>
 

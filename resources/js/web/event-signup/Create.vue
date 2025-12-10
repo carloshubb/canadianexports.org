@@ -882,42 +882,48 @@
                     <Error fieldName="gallery_images" :validationErros="validationErros" />
                 </div>
 
-                <div>
-                    <!-- CTA Button Field - Only show for Premium and Featured packages -->
-                    <div class="relative w-full mb-4" >
-                        <label
-                            class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg"
-                            for="customer_profile_cta_btn"
-                            v-html="ctaBtnLabelFormatted"
-                        >
-                        </label>
-                        <input
-                            type="text"
-                            class="can-exp-input"
-                            :placeholder="
-                                regPageSetting?.reg_page_setting_detail?.[0]
-                                    ?.step_4_cta_btn_placeholder
-                            "
-                            @input="
-                                updateForm('customer_profile_cta_btn', $event.target.value);
-                                clearErrors('customer_profile_cta_btn');
-                            "
-                            :value="form.customer_profile_cta_btn"
-                            id="customer_profile_cta_btn"
-                        />
-                        <Error
-                            v-if="submitted"
-                            fieldName="customer_profile_cta_btn"
-                            :validationErros="validationErros"
-                            full_width="1"
-                        />
-                    </div>
+                
+                   <!-- CTA Button Field - Only show for Premium and Featured packages -->
+                <div class="relative z-0 w-full group" v-if="form.package_type && form.package_type.toLowerCase() !== 'free'">
+                    <label 
+                        for="cta_btn" 
+                        class="text-base md:text-base lg:text-lg "
+                        v-html="ctaBtnLabelFormatted"
+                    ></label>
+                    <input
+                        type="text"
+                        name="cta_btn"
+                        id="cta_btn"
+                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                        placeholder="Enter button text (e.g., Register Now, Learn More)"
+                        :value="form.cta_btn"
+                        @input="updateForm('cta_btn', $event.target.value); clearErrors('cta_btn');"
+                    />
+                    <Error v-if="submitted" fieldName="cta_btn" :validationErros="validationErros" />
+                </div>
 
-                    
-
+                <!-- CTA Link Field - Only show for Premium and Featured packages -->
+                <div class="relative z-0 w-full group" v-if="form.package_type && form.package_type.toLowerCase() !== 'free'">
+                    <label 
+                        for="cta_link" 
+                        class="text-base md:text-base lg:text-lg "
+                    >
+                        Call-to-Action URL
+                    </label>
+                    <input
+                        type="text"
+                        name="cta_link"
+                        id="cta_link"
+                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                        placeholder="https://example.com/register"
+                        :value="form.cta_link"
+                        @input="updateForm('cta_link', $event.target.value); clearErrors('cta_link');"
+                    />
+                    <Error v-if="submitted" fieldName="cta_link" :validationErros="validationErros" />
+                </div>
             
                       
-                </div>
+                
             </div>
 
             <div
@@ -1253,9 +1259,10 @@ import axios from "axios";
 import ErrorHandling from "../../ErrorHandling";
 import { mapState } from "vuex";
 export default {
+    
      
-        computed: {
-        ...mapState({
+    computed: {
+      ...mapState({
       form: (state) => state.signup.form,
       regPageSetting: (state) => state.signup.regPageSetting,
       validationErros: (state) => state.signup.validationErros,
@@ -1273,10 +1280,10 @@ export default {
         ctaBtnLabelFormatted() {
        const rawLabel =
         this.regPageSetting?.reg_page_setting_detail?.[0]?.step_4_cta_btn_label || "";
-        console.log("Raw Label:", rawLabel);
+        console.log("Raw Label:", this.regPageSetting);
         
       if (!rawLabel) {
-        return "CTA";
+        return "CTA: Call-to-Action (5)";
       }
       
       return rawLabel.replace(/\(5\)/g, '<sup class="footnote-indicator">(5)</sup>');

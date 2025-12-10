@@ -34,7 +34,7 @@ class EmailTemplateSeeder extends Seeder
             [
                 'key' => 'customer_verify_email',
                 'name' => 'Customer Verify Email',
-                'subject' => 'Verify your email address. Complete your registration',
+                'subject' => 'Please verify your email to complete your event listing.',
                 'body_html' => '@component(\'mail::message\')
 <p>Hi {{ $data[\'name\'] ?? $name ?? \'Customer\' }},</p>
 <p>Please verify your email by clicking the link below:</p>

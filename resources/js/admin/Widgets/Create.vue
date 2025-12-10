@@ -63,7 +63,7 @@
                         </p>
                     </div>
                     <div class="relative z-0 w-full group">
-                        <label :for="`button_text_${activeTab}`">Button text</label>
+                        <label :for="`button_text_${activeTab}`">banner text</label>
                         <input type="text" :name="`button_text_${activeTab}`" :id="`button_text_${activeTab}`"
                             class="can-exp-input w-full block border border-gray-300 rounded" placeholder=" "
                             :value="form['button_text'] &&
@@ -95,7 +95,7 @@
                         </p>
                     </div>
                     <div class="relative z-0 w-full group">
-                        <label :for="`button_link_${activeTab}`">Button URL</label>
+                        <label :for="`button_link_${activeTab}`">banner URL</label>
                         <input type="text" :name="`button_link_${activeTab}`" :id="`button_link_${activeTab}`"
                             class="can-exp-input w-full block border border-gray-300 rounded" placeholder=" "
                             :value="form['button_link'] &&
@@ -187,14 +187,14 @@
                 </div>
                 <div class="grid md:grid-cols-4 md:gap-6">
                     <div class="relative z-0 w-full group">
-                        <label for="#" class="mb-1">Right side banner</label>
+                        <label for="#" class="mb-1">banner</label>
                         <FilePond  labelIdle='<span class="cursor-pointer">Drag & Drop your files or <span class="filepond--label-action"> Browse </span></span>' class="cursor-pointer" name="image_path" class-name="my-pond" accepted-file-types="image/*"
                             @init="handleFilePondInit" @processfile="handleFilePondFlagIconProcess"
                             @removefile="handleFilePondFlagIconRemoveFile" credits="false" v-bind:files="image_path" />
                     <p class="mt-2 text-sm text-red-400" v-if="validationErros.has('image_path')"
                         v-text="validationErros.get('image_path')"></p>
                     </div>
-                    <div class="relative z-0 w-full group">
+                    <!-- <div class="relative z-0 w-full group">
                         <label for="#" class="mb-1">Left side banner</label>
                         <FilePond
                                 labelIdle='<span class="cursor-pointer">Drag & Drop your files or <span class="filepond--label-action"> Browse </span></span>'
@@ -211,7 +211,7 @@
                             />
                     <p class="mt-2 text-sm text-red-400" v-if="validationErros.has('image_path_2')"
                         v-text="validationErros.get('image_path_2')"></p>
-                    </div>
+                    </div> -->
                 </div>
 
                 <button type="submit" class="button-exp-fill" :disabled="loading">Submit</button>
@@ -551,6 +551,7 @@ import Editor from "@tinymce/tinymce-vue";
                 this.$store.dispatch('widgets/fetchWidget', {
                     url: `${process.env.MIX_ADMIN_API_URL}widgets/${id}?withWidgetDetail=1&withMedia=1&withMedia2=1`
                 }).then(res => {
+                    Log:info(['fetch_widget_response', res]);
                     if(res.data.status == 'Success'){
                         if(this.form.image_path){
                             this.convertImgUrlToBase64(this.form.media.full_path, `image/${this.form.media.extension}`);

@@ -35,7 +35,9 @@ class WidgetController extends Controller
 
     public function show(Widget $widget)
     {
+        // dd($_GET['withMedia']);
         if (isset($_GET['withMedia']) && $_GET['withMedia'] == '1') {
+            
             $widget = $widget->loadMissing('media');
         }
         if (isset($_GET['withMedia2']) && $_GET['withMedia2'] == '1') {
@@ -127,8 +129,8 @@ class WidgetController extends Controller
             if($language->is_default == '1'){
                 $requiredVal = 'required';
             }
-            $validationRule = array_merge($validationRule, ['text_detail.text_detail_' . $language->id => [$requiredVal, 'string']]);
-            $errorMessages = array_merge($errorMessages, ['text_detail.text_detail_' . $language->id . '.required' => 'Description in ' . $language->name . ' is required.']);
+            // $validationRule = array_merge($validationRule, ['text_detail.text_detail_' . $language->id => [$requiredVal, 'string']]);
+            // $errorMessages = array_merge($errorMessages, ['text_detail.text_detail_' . $language->id . '.required' => 'Description in ' . $language->name . ' is required.']);
 
             $validationRule = array_merge($validationRule, ['button_text.button_text_' . $language->id => [$requiredVal, 'string']]);
             $errorMessages = array_merge($errorMessages, ['button_text.button_text_' . $language->id . '.required' => 'Button text in ' . $language->name . ' is required.']);

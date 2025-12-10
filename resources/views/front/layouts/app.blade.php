@@ -185,6 +185,16 @@
                     {{ isset($cookie_setting['allow_cookies_button_text']) ? $cookie_setting['allow_cookies_button_text'] : '' }}
                 </button>
             </div>
+            <script>
+                function acceptCookies() {
+                    // Set cookie for 1 year
+                    document.cookie = "cookies_allow=1; path=/; max-age=" + 60 * 60 * 24 * 365;
+
+                    // Hide the banner on the current page
+                    const el = document.getElementById('cookies-contest');
+                    if (el) el.style.display = 'none';
+                }
+            </script>
         </div>
     @endif
 
