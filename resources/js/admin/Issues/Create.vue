@@ -28,7 +28,7 @@
                 <div class="grid my-5 grid-cols-1 sm:grid-cols-1 md:grid-cols-2  lg:grid-cols-2 gap-6 " v-for="language in languages" :key="language.id"
                     :class="(activeTab == null && language.is_default) || activeTab == language.id ? 'block' : 'hidden'">
                     <div class="relative z-0 w-full group">
-                        <label for="title">Title</label>
+                        <label for="title">Magazine Date</label>
                         <input type="text" name="title" id="title"
                             class="can-exp-input w-full block border border-gray-300 rounded"
                             placeholder=" " @input="handleInput($event.target.value, language, 'title')"
@@ -41,7 +41,7 @@
 
                 <div class="grid md:grid-cols-2 md:gap-6 gap-4">
                     <div class="relative z-0 w-full group">
-                        <label for="pdf">Pdf</label>
+                        <label for="pdf">Issue in PDF</label>
                         <input type="file" name="pdf" id="pdf"
                             class="can-exp-input w-full block border border-gray-300 rounded px-3 py-1.5 focus:ring-blue-600 focus:ring-1 focus:outline-blue-600 focus:border-blue-600"
                             placeholder=" " accept="application/pdf" @input="handleImage('pdf', $event)" />
@@ -55,6 +55,7 @@
                             <p class="mt-2 text-sm text-red-400" v-if="validationErros.has('file')"
                             v-text="validationErros.get('file')"></p>
                     </div>
+                    
                     <div class="relative z-0 w-full group hidden">
                         <label>&nbsp;</label>
                         <fieldset>
@@ -74,6 +75,7 @@
                 </div>
                 <div class="grid my-5 md:grid-cols-4 md:gap-6">
                     <div class="relative z-0 w-full group">
+                        <label>Cover page</label>
                         <FilePond  labelIdle='<span class="cursor-pointer">Drag & Drop your files or <span class="filepond--label-action"> Browse </span></span>' class="cursor-pointer" name="media_id" class-name="my-pond" accepted-file-types="image/*"
                             @init="handleFilePondInit" @processfile="handleFilePondFlagIconProcess"
                             @removefile="handleFilePondFlagIconRemoveFile" credits="false" />

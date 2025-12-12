@@ -20,9 +20,7 @@
                             @endphp
                             @foreach ($magazines as $magazine)
                                 <div class="flex flex-col h-full">
-                                    <h3 class="flex-1 text-primary card-heading mb-3">
-                                        {{ isset($magazine->issueDetail[0]) ? $magazine->issueDetail[0]->title : '' }}
-                                    </h3>
+                                    
 
                                     <a aria-label="Candian Exporters" class="flex-end flex justify-center items-center p-1 rounded shadow bg-white h-60" target="_blank"
                                         href="{{ isset($magazine->pdf) ? $magazine->pdf : '#' }}">
@@ -34,6 +32,10 @@
                                                 class="object-contain h-full" alt="Canadian Exports magazine" />
                                         @endif
                                     </a>
+
+                                    <h3 class="flex-1 text-primary card-heading mb-3"  style="font-family: Futura, sans-serif; font-size: 20px;">
+                                        {{ isset($magazine->issueDetail[0]) ? $magazine->issueDetail[0]->title : '' }}
+                                    </h3>
                                 </div>
                             @endforeach
 

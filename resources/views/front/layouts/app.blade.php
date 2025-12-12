@@ -114,7 +114,6 @@
             @yield('content')
             @php
                 $languages = getAllLanguages();
-                // dd($languages[0]->flagIcon->path);
                 $params = \Request::getRequestUri();
                 $params = explode('?', $params);
                 $params = isset($params[1]) ? $params[1] : null;
@@ -316,7 +315,7 @@
                 <!--header-->
 
                 <div class="flex items-center justify-between p-4 border-b rounded-t">
-                    <h3 class="card-heading text-primary mb-0">{{ isset($generalSetting['signup_modal_text']) ? $generalSetting['signup_modal_text'] : 'What do you want to register on Canadian Exports?' }}</h3>
+                    <h3 class="card-heading text-primary mb-0">{{ !empty($generalSetting['signup_modal_text']) ? $generalSetting['signup_modal_text'] : 'What do you want to register on Canadian Exports?' }}</h3>
                     <div>
                         <button type="button" class="mt-1 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-full border border-primary text-sm p-1 ml-auto inline-flex items-center" data-modal-hide="defaultModal" onclick="toggleRegistrationModal('modal-id')">
                             <svg aria-hidden="true" class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -331,14 +330,13 @@
                     <div class="flex items-center justify-center space-x-3 pb-2">
                         <div>
                             @php
-                            // dd($general_setting['user_signup_page']);
                                 $url = isset($general_setting['user_signup_page'])
                                     ? route('front.index', $general_setting['user_signup_page'])
                                     : '#';
                                 $url = langBasedURL($lang, $url);
                             @endphp
                             <a aria-label="Candian Exporters" href="{{ $url }}"
-                                class="button-exp-fill">{{ isset($generalSetting['signup_modal_exporter_button']) ? $generalSetting['signup_modal_exporter_button'] : 'Register an Exporter Profile' }}</a>
+                                class="button-exp-fill">{{ !empty($generalSetting['signup_modal_exporter_button']) ? $generalSetting['signup_modal_exporter_button'] : 'Register an Exporter Profile' }}</a>
                             </a>
                         </div>
                         <div>
@@ -356,7 +354,7 @@
                                 $url = langBasedURL($lang, $eventSignupRoute);
                             @endphp
                             <a aria-label="Candian Exporters" href="{{ $url }}"
-                                class="button-exp-no-fill">{{ isset($generalSetting['signup_modal_event_button']) ? $generalSetting['signup_modal_event_button'] : 'Create an Event' }}</a>
+                                class="button-exp-no-fill">{{ !empty($generalSetting['signup_modal_event_button']) ? $generalSetting['signup_modal_event_button'] : 'Create an Event' }}</a>
                             </a>
                         </div>
                     </div>

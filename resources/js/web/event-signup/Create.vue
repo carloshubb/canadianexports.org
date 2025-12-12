@@ -11,7 +11,7 @@
                 <div class="relative w-full mb-3">
                     <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="name">{{
                         JSON.parse(event_detail)["name_label"] }}
-                        <span class="text-red-500"></span></label>
+                        <span class="text-red-500">*</span></label>
                     <input @input="clearErrors('name')" type="text" class="can-exp-input" placeholder="" name="name"
                         id="name" v-model="form.name" />
                     <Error v-if="submitted" fieldName="name" :validationErros="validationErros" full_width="1" />
@@ -28,7 +28,7 @@
                 <div class="relative w-full mb-3">
                     <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="email">{{
                         JSON.parse(event_detail)["email_label"] }}
-                        <span class="text-red-500"></span></label>
+                        <span class="text-red-500">*</span></label>
                     <input @input="clearErrors('email')" type="email" class="can-exp-input" placeholder="" name="email"
                         id="email" v-model="form.email" @blur="checkEmailValidation($event.target.value)" />
                     <Error v-if="submitted" fieldName="email" :validationErros="validationErros" full_width="1" />
@@ -38,7 +38,7 @@
                 <div class="relative w-full mb-3" v-if="!isEditMode && !isLoggedIn">
                     <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="password">{{
                         JSON.parse(event_detail)["password_label"] }}
-                        <span class="text-red-500"></span></label>
+                        <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <input @input="clearErrors('password')" :type="display_password" class="can-exp-input"
                             :placeholder="JSON.parse(event_detail).password_placeholder
@@ -83,12 +83,13 @@
 
                     <Error v-if="submitted" fieldName="password" :validationErros="validationErros" full_width="1" />
                 </div>
-                <div class="relative w-full mb-3" v-if="!isEditMode && !isLoggedIn">
+
+                <div class="relative w-full mb-3" v-if="!isEditMode && !isLoggedIn"><br>
                     <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
                         for="password_confirmation">{{
                             JSON.parse(event_detail)["confirm_password_label"]
                         }}
-                        <span class="text-red-500"></span></label>
+                        <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <input @input="clearErrors('password_confirmation')" :type="display_confirm_password"
                             class="can-exp-input" placeholder="" name="password_confirmation" id="password_confirmation"
@@ -153,18 +154,18 @@
                                 " @click.prevent="
                                     updatePackageForm(premiumPackage)
                                     ">
-                                <div class="flex flex-col items-center justify-center text-center gap-y-1 relative">
-                                    <h3 id="tier-startup" class="text-xl leading-8 text-blue-600">
-                                        {{
-                                            premiumPackage
-                                                ?.registration_package_detail?.[0]
-                                                ?.name
-                                        }}
-                                    </h3>
-                                    <p class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600 absolute top-0 right-0"
-                                        v-if="premiumPackage?.is_default">
-                                        Most popular
-                                    </p>
+                                <div class="flex flex-col items-center justify-center text-center gap-y-2">
+    
+    
+
+                                        <h3 id="tier-startup" class="text-xl leading-8 text-blue-600">
+                                            {{ premiumPackage?.registration_package_detail?.[0]?.name }}
+                                        </h3>
+                                        <p v-if="premiumPackage?.is_default"
+                                        class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600">
+                                            Most popular
+                                        </p>
+
                                 </div>
                                 <p class="mt-4 text-sm leading-6 text-gray-600">
                                     {{
@@ -559,7 +560,7 @@
                 <div class="relative z-0 w-full group">
                     <label for="title" class="text-base md:text-base lg:text-lg">{{ JSON.parse(eventsetting).title_label
                     }}
-                        <span class="text-red-500"></span></label>
+                        <span class="text-red-500">*</span></label>
                     <input type="text" name="title" id="title"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                         placeholder=" " @input="
@@ -577,7 +578,7 @@
                 <div class="relative z-0 w-full group">
                     <label for="country" class="text-base md:text-base lg:text-lg">{{
                         JSON.parse(eventsetting).country_label }}
-                        <span class="text-red-500"></span></label>
+                        <span class="text-red-500">*</span></label>
                     <input type="text" name="country" id="country"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                         placeholder=" " @input="
@@ -599,7 +600,7 @@
                 <div class="relative z-0 w-full group">
                     <label for="city" class="text-base md:text-base lg:text-lg">{{ JSON.parse(eventsetting).city_label
                     }}
-                        <span class="text-red-500"></span></label>
+                        <span class="text-red-500">*</span></label>
                     <input type="text" name="city" id="city"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                         placeholder=" " @input="
@@ -684,7 +685,7 @@
                 <div class="relative z-0 w-full group">
                     <label for="short_description" class="text-base md:text-base lg:text-lg">
                         {{ JSON.parse(eventsetting).short_description_label }}
-                        <span class="text-red-500"></span>
+                        <span class="text-red-500">*</span>
                     </label>
                     <textarea id="short_description" rows="4"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
@@ -718,7 +719,7 @@
                 <div class="relative z-0 w-full mb-6 group">
                     <label for="description" class="text-base md:text-base lg:text-lg">
                         {{ JSON.parse(eventsetting).description_label }}
-                        <span class="text-red-500"></span>
+                        <span class="text-red-500">*</span>
                     </label>
                     <textarea id="description" rows="4"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
@@ -748,7 +749,7 @@
                 <div class="relative z-0 w-full group">
                     <label for="start_date" class="text-base md:text-base lg:text-lg">{{
                         JSON.parse(eventsetting).start_date_label.toUpperCase() }}
-                        <span class="text-red-500"></span></label>
+                        <span class="text-red-500">*</span></label>
                     <input type="date" name="start_date" id="start_date"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                          placeholder="YYYY-MM-DD"
@@ -767,7 +768,7 @@
                 <div class="relative z-0 w-full group">
                     <label for="end_date" class="text-base md:text-base lg:text-lg">{{
                         JSON.parse(eventsetting).end_date_label.toUpperCase() }}
-                        <span class="text-red-500"></span></label>
+                        <span class="text-red-500">*</span></label>
                     <input type="date" name="end_date" id="end_date"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                         placeholder=" " :value="form.end_date" @input="
@@ -783,7 +784,7 @@
                 <div class="relative z-0 w-full group">
                     <label for="event_website" class="text-base md:text-base lg:text-lg">{{
                         JSON.parse(eventsetting).event_website_label }}
-                        <span class="text-red-500"></span></label>
+                        <span class="text-red-500">*</span></label>
                     <input type="text" name="event_website" id="event_website"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                         :placeholder="JSON.parse(eventsetting).event_website_placeholder
@@ -856,7 +857,7 @@
                 
                 <!-- event media -->
                 <div class="w-full">
-                    <label for="" class="text-base md:text-base lg:text-lg  truncate">Main Event Image (Allowed formats: PNG, GIF, JPG, JPEG). Max size: 30MB<span class="text-red-500"></span></label>
+                    <label for="" class="text-base md:text-base lg:text-lg  truncate">Main Event Image (Allowed formats: PNG, GIF, JPG, JPEG). Max size: 30MB<span class="text-red-500">*</span></label>
                     <div class="relative z-0 w-full mb-6 group">
                         <template v-if="
                             current_user &&
@@ -938,7 +939,7 @@
                     <div class="relative z-0 w-full group">
                         <label :for="`contact-name-[${index}]`" class="text-base md:text-base lg:text-lg">
                             {{ JSON.parse(eventsetting).contact_name_label }}
-                            <span class="text-red-500"></span>
+                            <span class="text-red-500">*</span>
                         </label>
                         <input type="text" name="contact-name" :id="`contact-name-[${index}]`"
                             class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
@@ -957,7 +958,7 @@
                     <div class="relative z-0 w-full group">
                         <label :for="`contact-email-[${index}]`" class="text-base md:text-base lg:text-lg">
                             {{ JSON.parse(eventsetting).contact_email_label }}
-                            <span class="text-red-500"></span>
+                            <span class="text-red-500">*</span>
                         </label>
                         <input type="text" name="contact-email" :id="`contact-email-[${index}]`"
                             class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
@@ -976,7 +977,7 @@
                     <div class="relative z-0 w-full group">
                         <label :for="`contact-phone-[${index}]`" class="text-base md:text-base lg:text-lg">
                             {{ JSON.parse(eventsetting).contact_phone_label }}
-                            <span class="text-red-500"></span>
+                            <span class="text-red-500">*</span>
                         </label>
                         <input type="text" name="contact-phone" :id="`contact-phone-[${index}]`"
                             class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"

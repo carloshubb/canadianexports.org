@@ -30,7 +30,7 @@
             {{
               regPageSetting?.reg_page_setting_detail?.[0]?.step_2_name_label
             }}
-            <span class="text-red-500"></span>
+            <span class="text-red-500">*</span>
           </label>
           <textarea type="text" id="name" rows="1" class="can-exp-input min-h-[60px] lg:min-h-full overflow-auto"
             :placeholder="regPageSetting?.reg_page_setting_detail?.[0]
@@ -44,7 +44,7 @@
             {{
               regPageSetting?.reg_page_setting_detail?.[0]?.step_2_email_label
             }}
-            <span class="text-red-500"></span>
+            <span class="text-red-500">*</span>
           </label>
           <input type="text" id="email" rows="1" class="can-exp-input min-h-[60px] lg:min-h-full overflow-auto"
             :value="form && form.has('email') ? form.get('email') : ''" :placeholder="regPageSetting?.reg_page_setting_detail?.[0]
@@ -77,7 +77,7 @@
               regPageSetting?.reg_page_setting_detail?.[0]
                 ?.step_2_password_label
             }}
-            <span class="text-red-500"></span>
+            <span class="text-red-500">*</span>
           </label>
           <div class="relative">
             <input :type="display_password" id="password" class="can-exp-input" :placeholder="regPageSetting?.reg_page_setting_detail?.[0]
@@ -129,7 +129,7 @@
               regPageSetting?.reg_page_setting_detail?.[0]
                 ?.step_2_confirm_password_label
             }}
-            <span class="text-red-500"></span>
+            <span class="text-red-500">*</span>
           </label>
           <div class="relative">
             <input :type="display_confirm_password" id="confirm-password" class="can-exp-input" :placeholder="regPageSetting?.reg_page_setting_detail?.[0]
