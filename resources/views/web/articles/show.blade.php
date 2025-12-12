@@ -25,7 +25,7 @@
   </svg>
 </button>
 
-<section class="relative pt-28 md:pt-32 pb-10 md:pb-14">
+<section class="relative pt-28 md:pt-24 pb-10 md:pb-14">
   <div class="container">
     <!-- Breadcrumbs -->
     <nav class="mb-6 text-sm" aria-label="Breadcrumb">
@@ -64,38 +64,9 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
       <div class="lg:col-span-8">
         <!-- Article Header -->
-        <div class="mb-6 md:mb-8">
-          <h1 class="text-2xl md:text-4xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight">{{ $article->title }}</h1>
-          
-          <!-- Meta Information -->
-          <div class="flex flex-wrap items-center gap-3 md:gap-4 text-sm text-gray-600 pb-4 md:pb-6 border-b border-gray-200">
-            <!-- Author -->
-            @if($article->author)
-              <div class="flex items-center gap-2">
-                <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-full flex items-center justify-center text-white font-semibold shadow-sm">
-                  {{ strtoupper(substr($article->author->name, 0, 1)) }}
-                </div>
-                <div class="flex flex-col">
-                  <span class="text-gray-900 font-semibold">{{ $article->author->name }}</span>
-                  <span class="text-xs text-gray-500">Author</span>
-                </div>
-              </div>
-            @endif
-            
-            <!-- Published Date -->
-            <div class="flex items-center gap-1.5 text-gray-600">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span>{{ optional($article->published_at)->format('M d, Y') }}</span>
-            </div>
-            
-            <!-- Section Badge -->
-            @if($article->section)
-              <span class="px-3 py-1.5 bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 rounded-full text-sm font-medium border border-blue-200/50">
-                {{ $article->section->name }}
-              </span>
-            @endif
+        <div class="mb-1 md:mb-2">
+          <div class="border-b-4 border-[#6b2769] w-full flex items-center justify-between">
+            <h1 class="text-2xl md:text-4xl font-bold text-pink-700 mb-2 md:mb-2 leading-tight">{{ $article->title }}</h1>
           </div>
         </div>
 
@@ -105,31 +76,39 @@
           @if(in_array($tpl, ['image_left','image_right']))
             <div class="grid grid-cols-1 md:grid-cols-5 gap-6 items-start mb-6">
               @if($tpl === 'image_left')
-                <div class="md:col-span-2">
+                <div class="md:col-span-2 mt-4">
                   @include('web.articles.partials.media')
                 </div>
-                <div class="md:col-span-3 prose prose-lg max-w-none">{!! $article->body !!}</div>
+                <div class="md:col-span-3 prose prose-lg max-w-none break-words overflow-x-auto">
+                  {!! $article->body !!}
+                </div>
               @else
-                <div class="md:col-span-3 prose prose-lg max-w-none">{!! $article->body !!}</div>
-                <div class="md:col-span-2">@include('web.articles.partials.media')</div>
+                <div class="md:col-span-3 prose prose-lg max-w-none break-words overflow-x-auto">
+                  {!! $article->body !!}
+                </div>
+                <div class="md:col-span-2 mt-4">
+                  @include('web.articles.partials.media')
+                </div>
               @endif
             </div>
           @elseif($tpl === 'media_bottom')
-            <div class="prose prose-lg max-w-none mb-8">{!! $article->body !!}</div>
-            @include('web.articles.partials.media')
+            <div class="prose prose-lg max-w-none break-words overflow-x-auto">{!! $article->body !!}</div>
+            <div class="mb-8 mt-4">
+              @include('web.articles.partials.media')
+            </div>
           @else
             <!-- Standard Template - Show cover image first if no video -->
             @if(!$article->video_url && $article->cover_image)
-              <div class="mb-8">
+              <div class="mb-8 mt-4">
                 @include('web.articles.partials.media')
               </div>
             @endif
-            <div class="prose prose-lg max-w-none">{!! $article->body !!}</div>
+            <div class="prose prose-lg max-w-none break-words overflow-x-auto">{!! $article->body !!}</div>
           @endif
           
           <!-- Keywords/Tags -->
           @if($article->keywords && is_array($article->keywords) && count($article->keywords) > 0)
-            <div class="mt-8 pt-6 border-t border-gray-200">
+            <div class="mt-4 pt-3 border-t border-gray-200">
               <div class="flex items-center gap-2 flex-wrap">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
@@ -166,40 +145,61 @@
           </div>
         </div>
       </div>
-      <aside class="lg:col-span-4 mt-8 lg:mt-0">
+      <aside class="lg:col-span-4 mt-2 lg:mt-0">
         @if(($relatedByAuthor && $relatedByAuthor->count()) || ($relatedByKeywords && $relatedByKeywords->count()))
-          <div class="bg-white rounded-xl md:rounded-2xl border border-gray-200 shadow-sm p-4 md:p-6 lg:sticky lg:top-28">
-            <h3 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-              </svg>
-              Related Articles
-            </h3>
+          <div >
+            <div class="border-b-4 border-[#6b2769] w-full flex items-center justify-between">
+            <h1 class="text-2xl md:text-4xl font-bold text-pink-700 mb-2 md:mb-2 leading-tight">Related Articles</h1>
+          </div>
             
             @if($relatedByAuthor && $relatedByAuthor->count())
-              <div class="mb-6">
-                <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3 flex items-center gap-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                  By the same author
-                </h4>
-                <ul class="space-y-3">
-                  @foreach($relatedByAuthor as $ra)
-                    <li class="group">
-                      <a href="{{ route('web.articles.show', ['abbreviation' => request()->route('abbreviation'),'slug' => $ra->slug]) }}" class="block p-3 rounded-lg hover:bg-gray-50 transition">
-                        <div class="font-semibold text-gray-900 group-hover:text-primary transition line-clamp-2 mb-1">{{ $ra->title }}</div>
-                        <div class="text-xs text-gray-500 flex items-center gap-1">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          {{ optional($ra->published_at)->format('M d, Y') }}
-                        </div>
+            <div class="grid grid-cols-1 gap-6 w-full mt-5">
+              @foreach($relatedByAuthor as $article)
+                  <article class="bg-white w-full rounded-xl shadow-sm overflow-hidden border border-[#4babe3] hover:shadow-lg transition-all duration-300">
+                      <a href="{{ route('web.articles.show', ['abbreviation' => request()->route('abbreviation'), 'slug' => $article->slug]) }}" 
+                        class="flex items-center gap-6 p-4 w-full">
+
+                          {{-- LEFT: Circular Image --}}
+                          <div class="w-24 h-24 flex-shrink-0 overflow-hidden rounded-full">
+                              @if($article->cover_image)
+                                  <img src="{{ getImageUrl($article->cover_image) }}"
+                                      alt="{{ $article->title }}"
+                                      loading="lazy"
+                                      class="w-full h-full object-cover rounded-full 
+                                              transition-all duration-500 ease-out
+                                              group-hover:scale-150 group-hover:shadow-2xl">
+                              @else
+                                  <div class="w-full h-full bg-gray-200 flex items-center justify-center 
+                                              text-gray-400 rounded-full">
+                                      No image
+                                  </div>
+                              @endif
+                          </div>
+
+                          {{-- RIGHT SIDE CONTENT --}}
+                          <div class="flex-1 min-w-0">
+                              <h3 class="text-2xl font-bold text-[#b18142]">
+                                  {{ $article->title }}
+                              </h3>
+
+                              <p class="text-gray-900 mt-2 text-sm leading-snug break-words line-clamp-2 overflow-hidden">
+                                  {{ \Illuminate\Support\Str::limit($article->summary, 50) }}
+                              </p>
+                              <p class="text-sm">By: {{ $article->author->name }}</p>
+
+                              <div class="text-xs justify-end text-gray-500 flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                  {{ optional($article->published_at)->format('M d, Y') }}
+                              </div>
+                                
+                          </div>
                       </a>
-                    </li>
-                  @endforeach
-                </ul>
-              </div>
+                  </article>
+              @endforeach
+            </div>
+
             @endif
             
             @if($relatedByKeywords && $relatedByKeywords->count())
@@ -257,7 +257,7 @@
   (function() {
     const progressBar = document.getElementById('reading-progress');
     const scrollToTopBtn = document.getElementById('scroll-to-top');
-    
+    console.log(progressBar);
     if (progressBar) {
       window.addEventListener('scroll', function() {
         const windowHeight = window.innerHeight;

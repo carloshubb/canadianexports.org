@@ -117,7 +117,7 @@ Route::group(['middleware' => ['share.variable', 'user.status']], function () {
     // Articles pages (frontend)
     Route::get('/{abbreviation?}/articles', [ArticlePageController::class, 'index'])->name('web.articles.index')->whereIn('abbreviation', Language::pluck('abbreviation')->toArray());
     Route::get('/{abbreviation?}/articles/{slug}', [ArticlePageController::class, 'show'])->name('web.articles.show')->whereIn('abbreviation', Language::pluck('abbreviation')->toArray());
-
+    Route::get('/{abbreviation?}/articles/section/{subsection}', [ArticlePageController::class, 'subsection'])->name('web.articles.subsection')->whereIn('abbreviation', Language::pluck('abbreviation')->toArray());
     
 
     Route::group(['prefix' => 'user', 'middleware' => ['auth.user']], function () {

@@ -8,6 +8,7 @@ use App\Traits\ApiResponser;
 use App\Traits\FileUploadTrait;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Log;
 
 class ArticlesController extends Controller
 {
@@ -28,7 +29,6 @@ class ArticlesController extends Controller
             })
             ->orderByDesc('published_at')
             ->orderByDesc('id');
-
         $articles = $query->paginate($request->integer('per_page', 20));
         return $this->successResponse($articles);
     }
@@ -77,6 +77,8 @@ class ArticlesController extends Controller
     public function show(Article $article)
     {
         $article->load(['section','author']);
+        Log::info($article);
+
         return $this->successResponseArray($article);
     }
 

@@ -8,7 +8,7 @@
   <div class="container">
     <!-- Featured Article Hero -->
     @if($featuredArticle)
-    <div class="relative h-96 md:h-[500px] mb-12 rounded-3xl overflow-hidden shadow-2xl group">
+    <div class="relative h-96 md:h-[500px] mb-4 md:mx-20 rounded-3xl overflow-hidden shadow-2xl group">
       <!-- Background Image -->
       <img src="{{ getImageUrl($featuredArticle->cover_image) }}" 
            alt="{{ $featuredArticle->title }}" 
@@ -108,56 +108,49 @@
       
       <!-- Visual Section Navigation -->
       @if($sections->count())
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          <a href="?{{ http_build_query(array_filter(array_merge(request()->except('section'), ['section' => null]))) }}" 
-             class="group relative h-28 rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 {{ !request('section') ? 'ring-4 ring-primary/50' : '' }}">
-            <div class="absolute inset-0 bg-gradient-to-br from-gray-400 to-gray-600"></div>
-            <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-3">
-              <span class="text-3xl mb-1">📚</span>
-              <span class="font-semibold text-sm text-center">All Articles</span>
-              <span class="text-xs opacity-90 mt-1">{{ $articles->total() }}</span>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 gap-6 px-5">
+        @foreach($sections as $s)
+          @php $active = request('section') === $s->slug; @endphp
+          <a href="?{{ http_build_query(array_merge(request()->except('page'), ['section' => $s->id])) }}" 
+            class="group relative w-full aspect-square max-w-[14rem] rounded-full overflow-hidden transition-all duration-300 hover:scale-105 {{ $active ? 'ring-4 ring-primary/50' : '' }}">
+            
+            @if($s->cover_image)
+              <img src="{{ getImageUrl($s->cover_image) }}" 
+                  alt="{{ $s->name }}" 
+                  class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 rounded-full">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20 group-hover:from-black/80 transition-all rounded-full"></div>
+            @else
+              <div class="absolute inset-0 bg-gradient-to-br from-blue-400 to-indigo-600 group-hover:from-blue-500 group-hover:to-indigo-700 transition-all rounded-full"></div>
+            @endif
+
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-3 text-center">
+              <span class="font-bold text-sm line-clamp-2">{{ $s->name }}</span>
+              <span class="text-xs opacity-90 mt-1">{{ $s->children_count ?? 0 }} subsections</span>
             </div>
-            @if(!request('section'))
-              <div class="absolute inset-0 border-2 border-white"></div>
+
+            @if($active)
+              <div class="absolute inset-0 border-2 border-white rounded-full"></div>
             @endif
           </a>
-          
-          @foreach($sections as $s)
-            @php $active = request('section') === $s->slug; @endphp
-            <a href="?{{ http_build_query(array_merge(request()->except('page'), ['section' => $s->slug])) }}" 
-               class="group relative h-28 rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 {{ $active ? 'ring-4 ring-primary/50' : '' }}">
-              @if($s->cover_image)
-                <img src="{{ getImageUrl($s->cover_image) }}" alt="{{ $s->name }}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20 group-hover:from-black/80 transition-all"></div>
-              @else
-                <div class="absolute inset-0 bg-gradient-to-br from-blue-400 to-indigo-600 group-hover:from-blue-500 group-hover:to-indigo-700 transition-all"></div>
-              @endif
-              <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-3 text-center">
-                <span class="font-bold text-sm line-clamp-2">{{ $s->name }}</span>
-                <span class="text-xs opacity-90 mt-1">{{ $s->articles_count ?? 0 }} articles</span>
-              </div>
-              @if($active)
-                <div class="absolute inset-0 border-2 border-white"></div>
-              @endif
-            </a>
-          @endforeach
-        </div>
+        @endforeach
+      </div>
+
       @endif
     </div>
 
-    <!-- Enhanced Article Cards -->
-    @if($articles->count())
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        @foreach($articles as $a)
+    <!-- Subsections Cards -->
+    @if($subsections->count())
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-8">
+        @foreach($subsections as $a)
         <article class="group bg-white rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-primary/30">
           <!-- Cover Image -->
-          <a href="{{ route('web.articles.show', ['abbreviation' => request()->route('abbreviation'),'slug' => $a->slug]) }}" class="block relative overflow-hidden">
+          <a href="{{ route('web.articles.subsection', ['abbreviation' => request()->route('abbreviation'), 'subsection' => $a->id]) }}" class="block relative overflow-hidden">
             @if($a->cover_image)
               <div class="aspect-[16/9] bg-gray-100">
                 <img src="{{ getImageUrl($a->cover_image) }}" 
-                     alt="{{ $a->title }}" 
-                     loading="lazy"
-                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    alt="{{ $a->name }}" 
+                    loading="lazy"
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
               </div>
             @else
               <div class="aspect-[16/9] bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
@@ -166,61 +159,57 @@
                 </svg>
               </div>
             @endif
-            <!-- Gradient overlay on hover -->
-            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          </a>
-          
-          <!-- Content -->
-          <div class="p-6">
-            <!-- Meta Info -->
-            <div class="flex items-center gap-3 text-xs mb-3">
-              <time class="text-gray-500 flex items-center gap-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                {{ optional($a->published_at)->format('M d, Y') }}
-              </time>
-              @if($a->section)
-                <span class="px-2.5 py-1 bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 rounded-full text-xs font-medium border border-blue-200/50">
-                  {{ $a->section->name }}
-                </span>
-              @endif
-            </div>
-            
-            <!-- Title -->
-            <a href="{{ route('web.articles.show', ['abbreviation' => request()->route('abbreviation'),'slug' => $a->slug]) }}" class="block mb-3">
-              <h2 class="text-xl font-bold text-gray-900 group-hover:text-primary transition-colors leading-tight line-clamp-2">
-                {{ $a->title }}
+
+            <!-- Content -->
+            <div class="p-5 flex flex-col justify-between h-full">
+              <!-- Meta Info -->
+              <div class="flex items-center gap-3 text-xs mb-3">
+                <time class="text-gray-500 flex items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  {{ optional($a->updated_at)->format('M d, Y') }}
+                </time>
+                @if($a->parent)
+                  <span class="px-2.5 py-1 bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 rounded-full text-xs font-medium border border-blue-200/50">
+                    {{ $a->parent->name }}
+                  </span>
+                @endif
+              </div>
+
+              <!-- Title -->
+              <h2 class="text-xl font-bold text-primary transition-colors leading-tight line-clamp-2">
+                {{ $a->name }}
               </h2>
-            </a>
-            
-            <!-- Summary -->
-            @if($a->summary)
-              <p class="text-gray-600 line-clamp-3 mb-4 leading-relaxed">{{ $a->summary }}</p>
-            @endif
-            
-            <!-- Footer with Author & Read More -->
-            <div class="flex items-center justify-between pt-4 border-t border-gray-100">
-              @if($a->author)
-                <div class="flex items-center gap-2">
-                  <div class="w-8 h-8 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-full flex items-center justify-center text-white text-xs font-semibold shadow-sm">
-                    {{ strtoupper(substr($a->author->name, 0, 1)) }}
-                  </div>
-                  <span class="text-sm text-gray-600 font-medium">{{ $a->author->name }}</span>
-                </div>
-              @else
-                <div></div>
+
+              <!-- Summary -->
+              @if($a->description)
+                <p class="text-gray-600 line-clamp-3 mb-4 leading-relaxed">{{ $a->description }}</p>
               @endif
-              <a href="{{ route('web.articles.show', ['abbreviation' => request()->route('abbreviation'),'slug' => $a->slug]) }}" 
-                 class="text-primary font-semibold text-sm hover:text-secondary transition inline-flex items-center gap-1 group/link">
-                Read more
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover/link:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </a>
+
+              <!-- Footer with Author & Read More -->
+              <div class="flex items-center justify-between pt-4 border-t border-gray-100 mt-auto">
+                @if($a->slug)
+                  <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-full flex items-center justify-center text-white text-xs font-semibold shadow-sm">
+                      {{ strtoupper(substr($a->slug, 0, 1)) }}
+                    </div>
+                    <span class="text-sm text-gray-600 font-medium flex items-center">
+                      {{ $a->slug }}
+                    </span>
+                  </div>
+                @else
+                  <div></div>
+                @endif
+
+                <div class="text-primary font-semibold text-sm hover:text-secondary transition inline-flex items-center gap-1 group/link">
+                  {{ $a->articles_count }} articles
+                </div>
+              </div>
             </div>
-          </div>
+          </a>
         </article>
+
         @endforeach
       </div>
     @else
@@ -229,27 +218,8 @@
         <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 mx-auto text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
         </svg>
-        <h3 class="text-xl font-semibold text-gray-700 mb-2">No articles found</h3>
+        <h3 class="text-xl font-semibold text-gray-700 mb-2">No subsections found</h3>
         <p class="text-gray-500">{{ request('q') ? 'Try adjusting your search terms' : 'Check back soon for new content!' }}</p>
-      </div>
-    @endif
-    
-    <!-- Enhanced Pagination -->
-    @if($articles->hasPages())
-      <div class="mt-12">
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 px-4 py-6 bg-white rounded-2xl shadow-sm border border-gray-200">
-          <!-- Results Info -->
-          <div class="text-sm text-gray-600">
-            Showing <span class="font-semibold text-gray-900">{{ $articles->firstItem() }}</span> 
-            to <span class="font-semibold text-gray-900">{{ $articles->lastItem() }}</span> 
-            of <span class="font-semibold text-gray-900">{{ $articles->total() }}</span> articles
-          </div>
-          
-          <!-- Pagination Links -->
-          <div>
-            {{ $articles->links() }}
-          </div>
-        </div>
       </div>
     @endif
   </div>
