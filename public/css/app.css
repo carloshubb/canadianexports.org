@@ -851,6 +851,7 @@ a:hover {
 }
 /* Buttons */
 .button-exp-fill {
+  height: 2.5rem;
   border-radius: 0.25rem;
   border-width: 1px;
   --tw-border-opacity: 1;
@@ -2280,9 +2281,6 @@ label{
 .w-\[45\%\] {
   width: 45%;
 }
-.w-\[57\%\] {
-  width: 57%;
-}
 .w-\[58\%\] {
   width: 58%;
 }
@@ -2313,15 +2311,6 @@ label{
 }
 .w-screen {
   width: 100vw;
-}
-.w-\[2\%\] {
-  width: 2%;
-}
-.w-\[90\%\] {
-  width: 90%;
-}
-.w-\[100\%\] {
-  width: 100%;
 }
 .min-w-0 {
   min-width: 0px;

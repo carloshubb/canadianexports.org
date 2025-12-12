@@ -60,6 +60,9 @@ const signup = {
         setPaymentSetting(state, payload) {
             state.payment_setting = payload;
         },
+        setisFormAgreed(state, payload) {
+            state.isFormAgreed = payload;
+        },
         // setRegistrationPackagePrice(state, payload) {
         //     state.registration_package_price = payload;
         // },
@@ -159,6 +162,7 @@ const signup = {
                 "customer_profile_cta_link",
                 "customer_profile_cta_btn",
                 "is_agree",
+                "is_agree_kindness",  
                 "business_categories_id",
             ];
 
@@ -184,7 +188,14 @@ const signup = {
                 ) {
                     state.isRequiredFieldsFilled = false;
                     break;
-                } else {
+                } else if (
+                        field == "is_agree_kindness" &&
+                        (!state.form.has(field) || state.form.get(field) != "true")
+                    ) {
+                        state.isRequiredFieldsFilled = false;
+                        break;
+                    }
+                else {
                     state.isRequiredFieldsFilled = true;
                 }
             }

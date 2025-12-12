@@ -2278,9 +2278,6 @@ ul li {
 .w-\[45\%\] {
   width: 45% !important;
 }
-.w-\[57\%\] {
-  width: 57% !important;
-}
 .w-\[58\%\] {
   width: 58% !important;
 }
@@ -2311,15 +2308,6 @@ ul li {
 }
 .w-screen {
   width: 100vw !important;
-}
-.w-\[2\%\] {
-  width: 2% !important;
-}
-.w-\[90\%\] {
-  width: 90% !important;
-}
-.w-\[100\%\] {
-  width: 100% !important;
 }
 .min-w-0 {
   min-width: 0px !important;

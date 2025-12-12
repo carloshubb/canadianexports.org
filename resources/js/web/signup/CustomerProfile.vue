@@ -33,7 +33,7 @@
             {{
               regPageSetting?.reg_page_setting_detail?.[0]?.step_4_name_label
             }}
-            <span class="text-red-500"></span>
+            <span class="text-red-500">*</span>
           </label>
           <input
             type="text"
@@ -66,7 +66,7 @@
             {{
               regPageSetting?.reg_page_setting_detail?.[0]?.step_4_email_label
             }}
-            <span class="text-red-500"></span>
+            <span class="text-red-500">*</span>
           </label>
           <input
             type="text"
@@ -101,7 +101,7 @@
             {{
               regPageSetting?.reg_page_setting_detail?.[0]?.step_4_address_label
             }}
-            <span class="text-red-500"></span>
+            <span class="text-red-500">*</span>
           </label>
           <textarea
             rows="4"
@@ -132,7 +132,7 @@
             {{
               regPageSetting?.reg_page_setting_detail?.[0]?.step_4_phone_label
             }}
-            <span class="text-red-500"></span>
+            <span class="text-red-500">*</span>
           </label>
           <input
             type="text"
@@ -166,7 +166,7 @@
             {{
               regPageSetting?.reg_page_setting_detail?.[0]?.step_4_website_label
             }}
-            <span class="text-red-500"></span>
+            <span class="text-red-500">*</span>
           </label>
           <input
             type="text"
@@ -267,7 +267,7 @@
               regPageSetting?.reg_page_setting_detail?.[0]
                 ?.step_4_short_description_label
             }}
-            <span class="text-red-500"></span>
+            <span class="text-red-500">*</span>
           </label>
           <textarea
             rows="3"
@@ -303,7 +303,7 @@
               regPageSetting?.reg_page_setting_detail?.[0]
                 ?.step_4_description_label
             }}
-            <span class="text-red-500"></span>
+            <span class="text-red-500">*</span>
           </label>
           <textarea
             rows="6"
