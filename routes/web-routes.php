@@ -179,7 +179,7 @@ Route::group(['middleware' => ['share.variable', 'user.status']], function () {
     Route::post('/unsubscribe-holiday', [HelperController::class, 'unsubscribeHoliday'])->name('front.unsubscribe-holiday');
     Route::get('/customer-reactive-email/{email}/{id}', [SignupController::class, 'customerReactiveEmail'])->name('front.customer-reactive-email');
     Route::post('/update-customer-reactive-email', [SignupController::class, 'updateCustomerReactiveEmail'])->name('front.update-customer-reactive-email');
-    // Route::get('/{slug?}', [HomeController::class, 'index'])->name('front.index');
+    //Route::get('/{slug?}', [HomeController::class, 'index'])->name('front.index');
     Route::get('/{abbreviation?}/{slug?}', [HomeController::class, 'index_abbreviation'])->name('front.index')->whereIn('abbreviation', Language::pluck('abbreviation')->toArray())->middleware('auth.user');
     Route::get('/clear-cache', function () {
         Cache::flush();

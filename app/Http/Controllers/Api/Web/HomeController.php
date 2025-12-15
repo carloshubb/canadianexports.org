@@ -51,6 +51,7 @@ class HomeController extends Controller
         } else {
             $page = getFrontPage();
         }
+       
         if (!$page) {
             abort(404);
         }
