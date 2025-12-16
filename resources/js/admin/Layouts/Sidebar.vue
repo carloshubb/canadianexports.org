@@ -1029,6 +1029,27 @@
             <span class="links_name pointer-events-auto opacity-0 text-white">Alerts setting</span>
           </router-link>
         </li>
+        <li @click="hideBurgerMenu()">
+          <router-link
+            :to="{ name: 'admin.webinars.index' }"
+            class="py-2 flex items-start h-full w-full hover:bg-gradient-to-r from-secondarywhite to-transparent bg-opacity-50 group"
+            :class="$route.name == 'admin.webinars.index' ||
+              $route.name == 'admin.webinars.create' ||
+              $route.name == 'admin.webinars.edit' ||
+              $route.name == 'admin.webinars.registrations'
+              ? 'border-l-4 border-white bg-gradient-to-r from-secondarywhite to-transparent bg-opacity-50 group'
+              : ''
+              ">
+            <div class="sidebar-links-icon flex justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-6 h-6 text-white">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 18a7.5 7.5 0 0115 0v.75A2.25 2.25 0 0117.25 21h-10.5A2.25 2.25 0 014.5 18.75V18z" />
+              </svg>
+            </div>
+            <span class="links_name pointer-events-auto opacity-0 text-white">Webinars</span>
+          </router-link>
+        </li>
       </ul>
     </ul>
   </div>
@@ -1036,6 +1057,7 @@
 
 <script>
 import { mapState } from "vuex";
+
 export default {
   computed: mapState({
     isBurgerMenu: (state) => state.menus.isBurgerMenu,
@@ -1079,6 +1101,10 @@ export default {
       routeName == "admin.i2b.index" ||
       routeName == "admin.i2b.create" ||
       routeName == "admin.i2b.edit" ||
+      routeName == "admin.webinars.index" ||
+      routeName == "admin.webinars.create" ||
+      routeName == "admin.webinars.edit" ||
+      routeName == "admin.webinars.registrations" ||
       routeName == "admin.banners.index" ||
       routeName == "admin.banners.create" ||
       routeName == "admin.banners.edit" ||

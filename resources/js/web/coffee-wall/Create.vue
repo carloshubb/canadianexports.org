@@ -2,25 +2,29 @@
     <form class="lg:w-full" @submit.prevent="recaptcha()">
 
         <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6 p-8">
-            <h1 class="text-primary mb-2">{{ JSON.parse(coffee_wall_setting)["coffee_wall_heading"] ?? 'Coffee on Wall' }}</h1>
+            <h1 class="text-primary mb-2">{{ JSON.parse(coffee_wall_setting)["coffee_wall_heading"] ?? 'Coffee on Wall'
+                }}</h1>
             <p class="">
-                The <span class="font-bold">“Coffee on the Wall”</span> initiative was inspired by this beautiful story 
-                <a href="https://www.kindspring.org/story/view.php?sid=44089" target="_blank" rel="noopener" class="text-primary underline font-bold underline-none">
-                    beautiful story
+                The <span class="font-bold">“The Coffee on the Wall”</span> initiative was inspired by this 
+                <a href="https://www.kindspring.org/story/view.php?sid=44089" target="_blank" rel="noopener"
+                    class="text-primary underline font-bold underline-none">
+                    beautiful story.
                 </a>
+              
             </p>
             <p class="">
-                It's a wonderful example of how a simple act of kindness can change the way someone sees the world.
+                It's a wonderful example of how a simple act of kindness can change </p>
+             <p>the way someone sees the world.
             </p>
 
-        <div class="text-right mt-4 py-2 text-red-500 text-lg">
-            <span class="text-red-500">*</span> {{
-                JSON.parse(coffee_wall_setting)[
-                "coffee_on_wall_required_field"
-                ]
-                ?? ""
-            }}
-        </div>
+            <div class="text-right mt-4 py-2 text-red-500 text-lg">
+                <span class="text-red-500">*</span> {{
+                    JSON.parse(coffee_wall_setting)[
+                    "coffee_on_wall_required_field"
+                    ]
+                    ?? ""
+                }}
+            </div>
             <div class="bg-white rounded-lg overflow-hidden shadow-3xl mb-6">
                 <div
                     class="px-4 py-1.5 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
@@ -36,8 +40,8 @@
                             <label
                                 class="w-full block cursor-pointer px-5 py-5 rounded-l-md md:rounded-l-lg text-base md:text-2xl font-FuturaMdCnBT text-center border rounded-none"
                                 :class="form.frequency == ''
-                                        ? 'text-white bg-primary border-primary'
-                                        : 'text-primary bg-white border-gray-300'
+                                    ? 'text-white bg-primary border-primary'
+                                    : 'text-primary bg-white border-gray-300'
                                     ">
                                 <input type="radio" name="frequency" value="" class="sr-only" v-model="form.frequency"
                                     @click="
@@ -56,30 +60,9 @@
                         <div class="w-full">
                             <label
                                 class="cursor-pointer w-full block px-5 py-5 text-base md:text-2xl border text-center font-FuturaMdCnBT rounded-none"
-                                :class="form.frequency == 'weekly'
-                                        ? 'text-white bg-primary border-primary'
-                                        : 'text-primary bg-white border-gray-300'
-                                    ">
-                                <input type="radio" name="frequency" value="weekly" class="sr-only"
-                                    v-model="form.frequency" @click="
-                                        updateFrequency('weekly')
-                                        " />
-                                <span>
-                                    {{
-                                        JSON.parse(coffee_wall_setting)[
-                                        "weekly_label"
-                                        ]
-                                        ?? "Weekly"
-                                    }}
-                                </span>
-                            </label>
-                        </div>
-                        <div class="w-full">
-                            <label
-                                class="cursor-pointer w-full block px-5 py-5 rounded-r-md md:rounded-r-lg border text-center text-base md:text-2xl font-FuturaMdCnBT rounded-none"
                                 :class="form.frequency == 'monthly'
-                                        ? 'text-white bg-primary border-primary'
-                                        : 'text-primary bg-white border-gray-300'
+                                    ? 'text-white bg-primary border-primary'
+                                    : 'text-primary bg-white border-gray-300'
                                     ">
                                 <input type="radio" name="frequency" value="monthly" class="sr-only"
                                     v-model="form.frequency" @click="
@@ -95,16 +78,37 @@
                                 </span>
                             </label>
                         </div>
+                        <div class="w-full">
+                            <label
+                                class="cursor-pointer w-full block px-5 py-5 rounded-r-md md:rounded-r-lg border text-center text-base md:text-2xl font-FuturaMdCnBT rounded-none"
+                                :class="form.frequency == 'quareterly'
+                                    ? 'text-white bg-primary border-primary'
+                                    : 'text-primary bg-white border-gray-300'
+                                    ">
+                                <input type="radio" name="frequency" value="quareterly" class="sr-only"
+                                    v-model="form.frequency" @click="
+                                        updateFrequency('quareterly')
+                                        " />
+                                <span>
+                                    {{
+                                        JSON.parse(coffee_wall_setting)[
+                                        "quareterly_label"
+                                        ]
+                                        ?? "Quareterly"
+                                    }}
+                                </span>
+                            </label>
+                        </div>
                     </fieldset>
                     <div class="my-4 grid grid-cols-2 md:grid-cols-6 gap-4">
                         <div v-for="registration_package in packages" :key="registration_package.id">
                             <div class="bg-gray-50 rounded-md border shadow text-base md:text-2xl font-FuturaMdCnBT flex items-center justify-center h-12 hover:shadow-md border-gray-100 cursor-pointer peer-checked:border-green-500 peer-checked:border-2 peer-checked:text-green-500 hover:border-2 hover:border-green-500"
                                 :class="form.package_id == registration_package.id
-                                        ? 'border-2 border-green-500 text-green-500'
-                                        : ''
+                                    ? 'border-2 border-green-500 text-green-500'
+                                    : ''
                                     " @click.prevent="
-                                    updatePackageForm(registration_package)
-                                    ">
+                                        updatePackageForm(registration_package)
+                                        ">
                                 <!-- <div
                                     class="flex items-center lg:justify-between gap-x-4"
                                 >
@@ -146,15 +150,10 @@
                                 d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z">
                             </path>
                         </svg>
-                        <input 
-                            type="text" 
-                            id="custom_amount" 
-                            v-model="form.custom_amount"
-                            @keypress="restrictToPositiveIntegers"
-                            @input="clearPackageSelection"
+                        <input type="text" id="custom_amount" v-model="form.custom_amount"
+                            @keypress="restrictToPositiveIntegers" @input="clearPackageSelection"
                             class="block mt-1 border-2 p-2.5 w-full rounded border-gray-200 focus:outline-none focus:border focus:border-blue-600 pl-10 h-12"
-                            :placeholder="JSON.parse(coffee_wall_setting)['own_amount_label'] ?? 'Enter your amount'"
-                        />
+                            :placeholder="JSON.parse(coffee_wall_setting)['own_amount_label'] ?? 'Enter your amount'" />
                     </div>
                 </div>
             </div>
@@ -170,20 +169,21 @@
                         <div v-for="beneficiary in beneficiaries" :key="beneficiary.id">
                             <div class="bg-gray-50 rounded-md border shadow text-base md:text-lg font-FuturaMdCnBT flex items-center justify-center h-12 hover:shadow-md border-gray-100 cursor-pointer hover:border-2 hover:border-green-500"
                                 :class="isBeneficiarySelected(beneficiary.id)
-                                        ? 'border-2 border-green-500 text-green-500'
-                                        : ''
+                                    ? 'border-2 border-green-500 text-green-500'
+                                    : ''
                                     " @click.prevent="
-                                    toggleBeneficiary(beneficiary)
-                                    ">
+                                        toggleBeneficiary(beneficiary)
+                                        ">
                                 <span>
                                     {{ beneficiary.name }}
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <Error v-if="submitted" fieldName="beneficiary_ids" :validationErros="validationErros" full_width="1" />
+                    <Error v-if="submitted" fieldName="beneficiary_ids" :validationErros="validationErros"
+                        full_width="1" />
                 </div>
-            </div>  
+            </div>
             <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
                 <div
                     class="px-4 py-1.5 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
@@ -194,8 +194,9 @@
                 <div class="flex items-center space-x-1 relative w-full px-4 pt-4 gap-1">
                     <input @input="clearErrors('anonymous')" type="checkbox" class="" placeholder="" name="anonymous"
                         id="anonymous" v-model="form.anonymous" />
-                    <label class="block text-gray-900 text-base md:text-base lg:text-lg ml-2 fong-semibold font-bold" for="anonymous">{{
-                        JSON.parse(coffee_wall_setting)["anonymous_label"] ?? 'Make donation anonymous' }}
+                    <label class="block text-gray-900 text-base md:text-base lg:text-lg ml-2 fong-semibold font-bold"
+                        for="anonymous">{{
+                            JSON.parse(coffee_wall_setting)["anonymous_label"] ?? 'Make donation anonymous' }}
                     </label>
                     <Error v-if="submitted" fieldName="anonymous" :validationErros="validationErros" full_width="1" />
                 </div>
@@ -206,18 +207,21 @@
                                 JSON.parse(coffee_wall_setting)["name_label"] ?? 'Your name' }}
                                 <span class="text-red-500">*</span>
                             </label>
-                            <input @input="clearErrors('name')" type="text" class="can-exp-input" placeholder="" name="name"
-                                id="name" v-model="form.name" />
-                            <Error v-if="submitted" fieldName="name" :validationErros="validationErros" full_width="1" />
+                            <input @input="clearErrors('name')" type="text" class="can-exp-input" placeholder=""
+                                name="name" id="name" v-model="form.name" />
+                            <Error v-if="submitted" fieldName="name" :validationErros="validationErros"
+                                full_width="1" />
                         </div>
                         <div class="relative w-full">
-                            <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="business-name">{{
-                                JSON.parse(coffee_wall_setting)["email_label"] ?? 'Your email'
-                            }}
+                            <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
+                                for="business-name">{{
+                                    JSON.parse(coffee_wall_setting)["email_label"] ?? 'Your email'
+                                }}
                                 <span class="text-red-500">*</span></label>
-                            <input @input="clearErrors('business-name')" type="text" class="can-exp-input" placeholder=""
-                                name="business-name" id="business-name" v-model="form.email" />
-                            <Error v-if="submitted" fieldName="email" :validationErros="validationErros" full_width="1" />
+                            <input @input="clearErrors('business-name')" type="text" class="can-exp-input"
+                                placeholder="" name="business-name" id="business-name" v-model="form.email" />
+                            <Error v-if="submitted" fieldName="email" :validationErros="validationErros"
+                                full_width="1" />
                         </div>
                     </div>
                     <div class="relative w-full">
@@ -228,21 +232,45 @@
                             name="phone" id="phone" v-model="form.phone" />
                         <Error v-if="submitted" fieldName="phone" :validationErros="validationErros" full_width="1" />
                     </div>
-                    <div class="flex items-center space-x-1 relative w-full pt-4 gap-1">
-                        <input @input="clearErrors('notify_when_used')" type="checkbox" class="" placeholder="" name="notify_when_used"
-                            id="notify_when_used" v-model="form.notify_when_used" />
-                        <label class="block text-gray-900 text-base md:text-base lg:text-lg font-bold" for="notify_when_used">
+                    <div class="flex items-start gap-2 relative w-full pt-4">
+                        <input @input="clearErrors('notify_when_used')" type="checkbox" name="notify_when_used"
+                            id="notify_when_used" v-model="form.notify_when_used" class="mt-1" />
+
+                        <label for="notify_when_used"
+                            class="text-gray-900 text-base md:text-base lg:text-lg font-bold inline-flex items-center gap-1">
                             Let me know when my Coffee helps a business
+
+                            <!-- Info icon -->
+                            <span class="relative inline-flex items-center group">
+                                <span
+                                    class="flex items-center justify-center w-4 h-4 text-xs font-bold text-white bg-gray-500 rounded-full cursor-pointer">
+                                    !
+                                </span>
+
+                                <!-- Tooltip -->
+                                <span class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 
+                                            w-72 text-sm text-white bg-gray-800 rounded-md px-3 py-2
+                                            opacity-0 group-hover:opacity-100 transition
+                                            pointer-events-none z-50 whitespace-normal">
+                                    You’ll receive basic information about the buseiness. Some details are shared only if
+                                    the business chooses to make them public.
+                                </span>
+                            </span>
                         </label>
-                        <Error v-if="submitted" fieldName="notify_when_used" :validationErros="validationErros" full_width="1" />
+
+
+                        <Error v-if="submitted" fieldName="notify_when_used" :validationErros="validationErros"
+                            full_width="1" />
                     </div>
+
                 </div>
             </div>
             <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
                 <div
                     class="px-4 py-1.5 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
                     <h4 class="text-white">
-                        {{ payment_setting && JSON.parse(payment_setting) ? (JSON.parse(payment_setting)["select_payment_method"] ?? 'Select Payment Method *') : 'Select Payment Method *' }}
+                        {{ payment_setting && JSON.parse(payment_setting) ?
+                            (JSON.parse(payment_setting)["select_payment_method"] ?? 'Select Payment Method *') : 'Select Payment Method *' }}
                     </h4>
                 </div>
                 <div class="p-4">
@@ -266,6 +294,7 @@
                                             }}
                                         </label>
                                     </div>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <div class="flex items-center">
                                         <input id="paypal" value="paypal" name="payment-method" type="radio"
                                             class="h-4 w-4 border-gray-300 accent-primaryRed"
@@ -278,7 +307,9 @@
                                                     <path
                                                         d="M6.89999 2C7.29999 0.3 7.79999 0 9.49999 0C11.5 0 13.5 0 15.6 0C18.2 0.1 20.8 0.1 23.4 0.3C24.9 0.4 26.4 0.9 27.8 1.5C31.1 2.9 32.9 6.5 32.3 10.3C31.5 16 27.9 19.1 22.6 20.7C20.1 21.4 17.6 21.6 15 21.7C14.6 21.7 14.3 21.7 13.9 21.7C11.8 21.8 11 22.4 10.4 24.4C9.79999 26.7 9.09999 28.9 8.49999 31.2C8.19999 32.4 7.89999 32.6 6.59999 32.6C4.79999 32.6 2.99999 32.6 1.29999 32.4C0.0999947 32.3 -0.200005 31.9 0.0999947 30.7L6.89999 2ZM15.3 15.6C17 15.6 19.3 14.9 21 14.1C22.3 13.5 23 12.5 23.2 11.1C23.6 8.9 22.9 7.2 21.2 6.6C19.4 5.9 17.4 5.8 15.5 6.2C14.8 6.4 14.3 6.8 14.2 7.5C13.7 9.3 13.2 11.1 12.9 12.9C12.5 15.1 13 15.6 15.3 15.6ZM59.6 40.3C59.2 41 58.8 41.7 58.5 42.4C58.3 43 58.6 43.5 59.2 43.5C60.8 43.5 62.5 43.5 64.1 43.5C65.6 43.5 66.6 42.9 67.4 41.7C68 40.7 68.6 39.6 69.2 38.6C75.2 28.5 81.2 18.3 87.2 8.2C87.4 7.9 87.5 7.7 87.7 7.3C85.7 7.3 83.9 7.4 82 7.3C80 7.2 78.7 8.1 77.7 9.8C75.3 14 72.9 18.1 70.5 22.2C70.3 22.5 70.1 22.8 69.8 23.1C69.7 23.1 69.7 23 69.6 23C69.5 22.7 69.4 22.3 69.4 22C68.7 17.7 68 13.4 67.3 9.1C67.1 8.1 66.3 7.3 65.2 7.3C63.9 7.3 62.5 7.4 61.2 7.3C59.4 7.2 59.1 8.1 59.3 9.5L63 33.2C63.1 33.7 63 34.2 62.7 34.6L59.6 40.3ZM44.9 32.7C45.1 31.7 45.2 31 45.4 30.1C44.9 30.4 44.6 30.6 44.3 30.8C42.1 32 40 33 37.6 33.4C33.8 34 30.2 31.9 29.4 28.4C28.7 25.5 29.8 22.3 32.3 20.5C34.6 18.8 37.3 18.1 40 17.7C42.6 17.3 45.1 17 47.7 16.8C48.5 16.7 48.6 16.4 48.6 15.7C48.4 13.9 47.2 12.9 45 12.7C42.2 12.5 39.4 13.2 36.7 13.9C36.2 14 35.7 14.2 35.1 14.4C35.1 14.1 35 13.9 35 13.7C35.1 12.4 35.1 11.1 35.2 9.9C35.2 9.4 35.3 8.9 35.9 8.7C41 7.6 46.1 7 51.3 8.1C51.6 8.2 52 8.3 52.3 8.4C55.8 9.6 57 11.5 56.3 15.1C55.3 20.1 54.2 25.2 53.1 30.2C53 30.7 52.8 31.2 52.6 31.7C52.2 32.4 51.6 32.9 50.8 32.9C48.9 32.7 47 32.7 44.9 32.7ZM47.4 21C46.4 21.1 45.4 21.1 44.6 21.3C43 21.6 41.5 21.9 40 22.3C38.6 22.7 37.9 23.8 37.6 25.2C37.3 26.8 38 27.9 39.6 28.2C41.8 28.6 43.8 28 45.6 27C45.9 26.8 46.2 26.6 46.3 26.3C46.6 24.5 47 22.8 47.4 21Z"
                                                         fill="#162E53" />
-                                                        <path d="M91.7 1.4C92.1 0.3 92.6 0 93.7 0C95.9 0 98.1 0 100.3 0C102.9 0.1 105.5 0.1 108.1 0.3C109.6 0.5 111.1 0.9 112.5 1.5C115.7 2.8 117.5 6.3 117.1 9.9C116.5 15.3 113.1 19.2 107.3 20.6C105 21.2 102.5 21.3 100.1 21.6C99.6 21.7 99.1 21.6 98.5 21.6C96.5 21.7 95.7 22.3 95.1 24.2C94.5 26.4 93.8 28.7 93.2 30.9C92.8 32.2 92.6 32.4 91.2 32.4C89.5 32.4 87.9 32.4 86.2 32.3C84.6 32.2 84.4 31.8 84.7 30.3L91.7 1.4ZM102.3 5.9C101.7 6 100.9 6 100.2 6.2C99.7 6.4 99.2 6.8 99 7.2C98.4 9.3 97.9 11.4 97.5 13.5C97.2 15 97.7 15.4 99.2 15.5C101.4 15.6 103.5 15 105.5 14.1C107.1 13.4 107.8 12.2 108 10.5C108.2 8 107.2 6.6 104.8 6.1C104 6 103.2 6 102.3 5.9ZM119.7 14.1C119.8 13 119.8 11.9 119.9 10.8C120.1 8.3 119.8 8.7 122.3 8.2C126.2 7.4 130.1 7.1 134.1 7.6C135.2 7.7 136.4 8 137.4 8.4C140.5 9.5 141.7 11.5 141.1 14.7C140.1 19.8 138.9 24.9 137.8 30C137.7 30.5 137.5 31.1 137.2 31.5C136.8 32 136.2 32.6 135.7 32.6C133.7 32.7 131.6 32.7 129.5 32.7C129.7 31.8 129.8 31 130 30.2C129.3 30.6 128.7 31 128 31.3C125.9 32.4 123.7 33.5 121.3 33.5C117.8 33.6 115.1 31.9 114.1 29C113.1 26 114.2 22.4 116.9 20.5C119.2 18.8 121.9 18.1 124.6 17.7C127.2 17.3 129.7 17.1 132.3 16.8C132.9 16.7 133.2 16.5 133.1 15.8C133 14 131.7 12.9 129.5 12.7C126.5 12.5 123.6 13.2 120.8 14C120.5 14.1 120.2 14.2 120 14.2C120 14.2 119.9 14.1 119.7 14.1ZM132 21C131.1 21.1 130.2 21.1 129.4 21.2C127.8 21.5 126.2 21.7 124.7 22.2C123.4 22.6 122.5 23.5 122.2 24.9C121.8 26.7 122.5 27.8 124.3 28.1C126.4 28.4 128.4 27.9 130.2 26.8C130.5 26.6 130.8 26.3 130.9 25.9C131.3 24.4 131.6 22.7 132 21ZM156.3 0.1C154.3 0.1 152.5 0.1 150.6 0.1C149 0.1 148.6 0.4 148.2 2L142 30.1C141.6 31.8 141.9 32.2 143.7 32.2C144.9 32.2 146.2 32.3 147.4 32.3C148.9 32.3 149.2 32.1 149.5 30.6L156.3 0.1Z" fill="#1E6196" data-v-470ebd7e=""></path>
+                                                    <path
+                                                        d="M91.7 1.4C92.1 0.3 92.6 0 93.7 0C95.9 0 98.1 0 100.3 0C102.9 0.1 105.5 0.1 108.1 0.3C109.6 0.5 111.1 0.9 112.5 1.5C115.7 2.8 117.5 6.3 117.1 9.9C116.5 15.3 113.1 19.2 107.3 20.6C105 21.2 102.5 21.3 100.1 21.6C99.6 21.7 99.1 21.6 98.5 21.6C96.5 21.7 95.7 22.3 95.1 24.2C94.5 26.4 93.8 28.7 93.2 30.9C92.8 32.2 92.6 32.4 91.2 32.4C89.5 32.4 87.9 32.4 86.2 32.3C84.6 32.2 84.4 31.8 84.7 30.3L91.7 1.4ZM102.3 5.9C101.7 6 100.9 6 100.2 6.2C99.7 6.4 99.2 6.8 99 7.2C98.4 9.3 97.9 11.4 97.5 13.5C97.2 15 97.7 15.4 99.2 15.5C101.4 15.6 103.5 15 105.5 14.1C107.1 13.4 107.8 12.2 108 10.5C108.2 8 107.2 6.6 104.8 6.1C104 6 103.2 6 102.3 5.9ZM119.7 14.1C119.8 13 119.8 11.9 119.9 10.8C120.1 8.3 119.8 8.7 122.3 8.2C126.2 7.4 130.1 7.1 134.1 7.6C135.2 7.7 136.4 8 137.4 8.4C140.5 9.5 141.7 11.5 141.1 14.7C140.1 19.8 138.9 24.9 137.8 30C137.7 30.5 137.5 31.1 137.2 31.5C136.8 32 136.2 32.6 135.7 32.6C133.7 32.7 131.6 32.7 129.5 32.7C129.7 31.8 129.8 31 130 30.2C129.3 30.6 128.7 31 128 31.3C125.9 32.4 123.7 33.5 121.3 33.5C117.8 33.6 115.1 31.9 114.1 29C113.1 26 114.2 22.4 116.9 20.5C119.2 18.8 121.9 18.1 124.6 17.7C127.2 17.3 129.7 17.1 132.3 16.8C132.9 16.7 133.2 16.5 133.1 15.8C133 14 131.7 12.9 129.5 12.7C126.5 12.5 123.6 13.2 120.8 14C120.5 14.1 120.2 14.2 120 14.2C120 14.2 119.9 14.1 119.7 14.1ZM132 21C131.1 21.1 130.2 21.1 129.4 21.2C127.8 21.5 126.2 21.7 124.7 22.2C123.4 22.6 122.5 23.5 122.2 24.9C121.8 26.7 122.5 27.8 124.3 28.1C126.4 28.4 128.4 27.9 130.2 26.8C130.5 26.6 130.8 26.3 130.9 25.9C131.3 24.4 131.6 22.7 132 21ZM156.3 0.1C154.3 0.1 152.5 0.1 150.6 0.1C149 0.1 148.6 0.4 148.2 2L142 30.1C141.6 31.8 141.9 32.2 143.7 32.2C144.9 32.2 146.2 32.3 147.4 32.3C148.9 32.3 149.2 32.1 149.5 30.6L156.3 0.1Z"
+                                                        fill="#1E6196" data-v-470ebd7e=""></path>
                                                 </g>
                                                 <defs>
                                                     <clipPath id="clip0_6_187">
@@ -307,13 +338,13 @@
                                                 }}
                                                 </label>
                                                 <input type="text" class="can-exp-input" :placeholder="payment_setting &&
-                                                        JSON.parse(payment_setting)
-                                                        ? JSON.parse(
-                                                            payment_setting
-                                                        )[
-                                                        'cardholder_name_placeholder'
-                                                        ]
-                                                        : 'Enter cardholder name'
+                                                    JSON.parse(payment_setting)
+                                                    ? JSON.parse(
+                                                        payment_setting
+                                                    )[
+                                                    'cardholder_name_placeholder'
+                                                    ]
+                                                    : 'Enter cardholder name'
                                                     " v-model="form.card_holder_name" />
                                                 <Error fieldName="card_holder_name" :validationErros="validationErros"
                                                     full_width="1" />
@@ -330,11 +361,8 @@
                                                         : "Card details"
                                                 }}</label>
                                                 <div ref="stripeCard" class="can-exp-input"></div>
-                                                <Error
-                                                    fieldName="payment_method_id"
-                                                    :validationErros="validationErros"
-                                                    full_width="1"
-                                                />
+                                                <Error fieldName="payment_method_id" :validationErros="validationErros"
+                                                    full_width="1" />
                                             </div>
                                         </div>
                                     </div>
@@ -348,7 +376,8 @@
                                 </div> -->
                             </div>
                         </div>
-                        <Error v-if="submitted" fieldName="agree_terms" :validationErros="validationErros" full_width="1" />
+                        <Error v-if="submitted" fieldName="agree_terms" :validationErros="validationErros"
+                            full_width="1" />
                     </div>
                 </div>
             </div>
@@ -362,46 +391,36 @@
             <div class="px-4 space-y-4">
                 <!-- Non-refundable Donation Disclaimer -->
                 <div class="flex items-start space-x-2">
-                    <input 
-                        @input="clearErrors('non_refundable_agreement')" 
-                        type="checkbox" 
-                        class="mt-1" 
-                        name="non_refundable_agreement" 
-                        id="non_refundable_agreement" 
-                        v-model="form.non_refundable_agreement" 
-                    />
+                    <input @input="clearErrors('non_refundable_agreement')" type="checkbox" class="mt-1"
+                        name="non_refundable_agreement" id="non_refundable_agreement"
+                        v-model="form.non_refundable_agreement" />
                     <label class="block text-gray-900 text-sm md:text-base" for="non_refundable_agreement">
-                        I understand that my contribution is a voluntary act of kindness. As such, it is considered a donation and is non-refundable.
+                        I agree to allow Canadian Exports to inform the Kindness Partner who contributed to my Coffee. Only my business name, category, province, and the service received will be shared.
                     </label>
                 </div>
-                <Error v-if="submitted" fieldName="non_refundable_agreement" :validationErros="validationErros" full_width="1" />
+                <Error v-if="submitted" fieldName="non_refundable_agreement" :validationErros="validationErros"
+                    full_width="1" />
 
                 <!-- Terms and Conditions & Privacy Policy Agreement -->
                 <div class="flex items-start space-x-2">
-                    <input 
-                        @input="clearErrors('terms_privacy_agreement')" 
-                        type="checkbox" 
-                        class="mt-1" 
-                        name="terms_privacy_agreement" 
-                        id="terms_privacy_agreement" 
-                        v-model="form.terms_privacy_agreement" 
-                    />
-                    <p>By clicking "<strong>Make Someone's Day</strong>", you agree to our <a href="../../../en/terms-and-conditions" target="_blank" rel="noopener">Terms and Conditions</a>&nbsp;and&nbsp;<a href="../../../en/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a></p>
+                    <input @input="clearErrors('terms_privacy_agreement')" type="checkbox" class="mt-1"
+                        name="terms_privacy_agreement" id="terms_privacy_agreement"
+                        v-model="form.terms_privacy_agreement" />
+                    <p>By clicking "<strong>Make Someone's Day</strong>", you agree to our <a
+                            href="../../../en/terms-and-conditions" target="_blank" rel="noopener">Terms and
+                            Conditions</a>&nbsp;and&nbsp;<a href="../../../en/privacy-policy" target="_blank"
+                            rel="noopener">Privacy Policy</a></p>
                 </div>
-                <Error v-if="submitted" fieldName="terms_privacy_agreement" :validationErros="validationErros" full_width="1" />
+                <Error v-if="submitted" fieldName="terms_privacy_agreement" :validationErros="validationErros"
+                    full_width="1" />
             </div>
 
             <!-- <ListErrors :validationErrors="validationErros" /> -->
             <div class="flex justify-center items-center px-4 mt-6">
-                <button 
-                    type="submit"
-                    id="send-message"
-                    :disabled="!isFormValid"
-                    :class="[
-                        'button-exp-fill w-full sm:w-40 md:w-48 lg:w-56 transition-opacity duration-300',
-                        !isFormValid ? 'opacity-40 cursor-not-allowed' : 'opacity-100 cursor-pointer'
-                    ]"
-                >
+                <button type="submit" id="send-message" :disabled="!isFormValid" :class="[
+                    'button-exp-fill w-full sm:w-40 md:w-48 lg:w-56 transition-opacity duration-300',
+                    !isFormValid ? 'opacity-40 cursor-not-allowed' : 'opacity-100 cursor-pointer'
+                ]">
                     {{ JSON.parse(coffee_wall_setting)["pay_label"] ?? 'Pay' }}
                 </button>
             </div>
@@ -410,47 +429,35 @@
             <div class="mt-12 space-y-4" v-if="faqs.donor.length > 0 || faqs.beneficiary.length > 0">
                 <!-- FAQ for Donors -->
                 <div v-if="faqs.donor.length > 0" class="bg-white rounded-lg overflow-hidden shadow-3xl">
-                    <div
-                        @click="toggleFaqSection('donor')"
+                    <div @click="toggleFaqSection('donor')"
                         class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md cursor-pointer hover:opacity-90 transition-opacity flex justify-between items-center">
                         <h4 class="text-white">FAQ for the Donors</h4>
-                        <svg 
-                            xmlns="http://www.w3.org/2000/svg" 
-                            fill="none" 
-                            viewBox="0 0 24 24" 
-                            stroke-width="2" 
-                            stroke="currentColor" 
-                            class="w-5 h-5 text-white transition-transform duration-300"
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                            stroke="currentColor" class="w-5 h-5 text-white transition-transform duration-300"
                             :class="{ 'rotate-180': isFaqSectionOpen.donor }">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                         </svg>
                     </div>
                     <transition name="slide">
                         <div v-show="isFaqSectionOpen.donor" class="p-4 overflow-hidden">
-                            <div 
-                                v-for="(faq, index) in faqs.donor" 
-                                :key="faq.id"
-                                class="last:mb-0">
-                                <div 
-                                    @click="toggleFaqItem('donor', index)"
+                            <div v-for="(faq, index) in faqs.donor" :key="faq.id" class="last:mb-0">
+                                <div @click="toggleFaqItem('donor', index)"
                                     class="flex justify-between items-start cursor-pointer p-3 hover:bg-gray-50 rounded-md transition-colors">
                                     <h5 class="font-medium text-gray-900 flex-1 pr-4">
                                         {{ faq.question }}
                                     </h5>
-                                    <svg 
-                                        xmlns="http://www.w3.org/2000/svg" 
-                                        fill="none" 
-                                        viewBox="0 0 24 24" 
-                                        stroke-width="2" 
-                                        stroke="currentColor" 
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="2" stroke="currentColor"
                                         class="w-5 h-5 text-gray-500 transition-transform duration-300 flex-shrink-0"
                                         :class="{ 'rotate-180': openFaqItems.donor[index] }">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                     </svg>
                                 </div>
                                 <transition name="slide">
                                     <div v-show="openFaqItems.donor[index]" class="px-3 pb-3 overflow-hidden">
-                                        <p class="text-sm text-gray-600 leading-relaxed whitespace-pre-line">{{ faq.answer }}</p>
+                                        <p class="text-sm text-gray-600 leading-relaxed whitespace-pre-line">{{
+                                            faq.answer }}</p>
                                     </div>
                                 </transition>
                             </div>
@@ -460,47 +467,35 @@
 
                 <!-- FAQ for Beneficiaries -->
                 <div v-if="faqs.beneficiary.length > 0" class="bg-white rounded-lg overflow-hidden shadow-3xl">
-                    <div
-                        @click="toggleFaqSection('beneficiary')"
+                    <div @click="toggleFaqSection('beneficiary')"
                         class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md cursor-pointer hover:opacity-90 transition-opacity flex justify-between items-center">
                         <h4 class="text-white">FAQ for the Beneficiary</h4>
-                        <svg 
-                            xmlns="http://www.w3.org/2000/svg" 
-                            fill="none" 
-                            viewBox="0 0 24 24" 
-                            stroke-width="2" 
-                            stroke="currentColor" 
-                            class="w-5 h-5 text-white transition-transform duration-300"
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                            stroke="currentColor" class="w-5 h-5 text-white transition-transform duration-300"
                             :class="{ 'rotate-180': isFaqSectionOpen.beneficiary }">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                         </svg>
                     </div>
                     <transition name="slide">
                         <div v-show="isFaqSectionOpen.beneficiary" class="p-4 overflow-hidden">
-                            <div 
-                                v-for="(faq, index) in faqs.beneficiary" 
-                                :key="faq.id"
-                                class="last:mb-0">
-                                <div 
-                                    @click="toggleFaqItem('beneficiary', index)"
+                            <div v-for="(faq, index) in faqs.beneficiary" :key="faq.id" class="last:mb-0">
+                                <div @click="toggleFaqItem('beneficiary', index)"
                                     class="flex justify-between items-start cursor-pointer p-3 hover:bg-gray-50 rounded-md transition-colors">
                                     <h5 class="font-medium text-gray-900 flex-1 pr-4">
                                         {{ faq.question }}
                                     </h5>
-                                    <svg 
-                                        xmlns="http://www.w3.org/2000/svg" 
-                                        fill="none" 
-                                        viewBox="0 0 24 24" 
-                                        stroke-width="2" 
-                                        stroke="currentColor" 
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="2" stroke="currentColor"
                                         class="w-5 h-5 text-gray-500 transition-transform duration-300 flex-shrink-0"
                                         :class="{ 'rotate-180': openFaqItems.beneficiary[index] }">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                     </svg>
                                 </div>
                                 <transition name="slide">
                                     <div v-show="openFaqItems.beneficiary[index]" class="px-3 pb-3 overflow-hidden">
-                                        <p class="text-sm text-gray-600 leading-relaxed whitespace-pre-line">{{ faq.answer }}</p>
+                                        <p class="text-sm text-gray-600 leading-relaxed whitespace-pre-line">{{
+                                            faq.answer }}</p>
                                     </div>
                                 </transition>
                             </div>
@@ -546,13 +541,13 @@ export default {
     computed: {
         isFormValid() {
             return (
-            this.form.amount !== '' &&
-            this.form.receiver_name !== '' &&
-            this.form.receiver_email !== '' &&
-            this.form.frequency !== null &&
-            this.form.terms_privacy_agreement === true &&
-            this.form.non_refundable_agreement === true
-        );
+                this.form.amount !== '' &&
+                this.form.receiver_name !== '' &&
+                this.form.receiver_email !== '' &&
+                this.form.frequency !== null &&
+                this.form.terms_privacy_agreement === true &&
+                this.form.non_refundable_agreement === true
+            );
         },
         years() {
             const currentYear = new Date().getFullYear();
@@ -692,7 +687,7 @@ export default {
                                 } catch (e) {
                                     // Element not mounted, that's okay
                                 }
-                                
+
                                 try {
                                     // Mount to the DOM
                                     this.cardElement.mount(mountPoint);
@@ -778,7 +773,7 @@ export default {
 
             this.validationErros = new ErrorHandling();
             localStorage.removeItem("event_signup_form");
-            
+
             // Clear Stripe card element
             if (this.cardElement) {
                 this.cardElement.clear();
@@ -815,7 +810,7 @@ export default {
         },
         async processPayment() {
             this.loading = true;
-            
+
             // When using Stripe, create PaymentMethod on frontend and send id only
             if (this.form.payment_method === 'stripe' && this.form.order_amount > 0 && this.cardElement && this.stripe) {
                 try {
@@ -827,14 +822,14 @@ export default {
                             email: this.form.email,
                         }
                     });
-                    
+
                     if (error) {
                         this.validationErros.record({ payment_method_id: [error.message] });
                         helper.swalErrorMessageForWeb(error.message);
                         this.loading = false;
                         return;
                     }
-                    
+
                     // Add payment method ID to form
                     this.form.payment_method_id = paymentMethod.id;
                 } catch (error) {
@@ -844,7 +839,7 @@ export default {
                     return;
                 }
             }
-            
+
             // Submit form to backend
             this.addReg();
         },
@@ -862,7 +857,7 @@ export default {
                         } else {
                             // Stripe or free donation success
                             this.clearForm();
-                            
+
                             // Show success message with redirect
                             Swal.fire({
                                 title: 'Success!',
@@ -1185,7 +1180,7 @@ export default {
                     });
                 }
             });
-        
+
         // Fetch beneficiaries
         axios
             .get(

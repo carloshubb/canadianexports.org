@@ -45,6 +45,7 @@ import AddSponsorshipForm from "./web/become-sponsor/AddSponsorshipForm.vue";
 import CreateFinancingProgram from "./web/financing-program/FinancingProgram.vue";
 import ContactForRateForm from "./web/contact-for-rate/ContactForRateForm.vue";
 import CreateProfilePayment from "./web/profile-payment/ProfilePayment";
+import WebinarsIndex from "./web/Webinars/Index.vue";
 
 import LanguageModal from "./web/modals/LanguageModal.vue";
 import Message from "./web/components/Message.vue";
@@ -99,5 +100,6 @@ createApp({})
     .component("BusinessCategories", BusinessCategories)
     .component("RegistrationPackage", RegistrationPackage)
     .component("Rates", Rates)
+    .component("WebinarsIndex", WebinarsIndex)
     .use(store)
     .mount("#canexp-app");

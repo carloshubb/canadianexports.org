@@ -81,6 +81,9 @@ import Articles from '../admin/Articles/Articles.vue'
 import CreateArticle from '../admin/Articles/Create.vue'
 import ArticleSections from '../admin/ArticleSections/Sections.vue'
 import CreateArticleSection from '../admin/ArticleSections/Create.vue'
+import AdminWebinarsIndex from '../admin/Webinars/Index.vue'
+import AdminWebinarsCreate from '../admin/Webinars/Create.vue'
+import AdminWebinarsRegistrations from '../admin/Webinars/Registrations.vue'
 const routes = [
     {
         path: '/admin/dashboard',
@@ -1000,6 +1003,53 @@ const routes = [
             breadcrumbs: [
                 { name: 'Dashboard', routeName: 'admin.dashboard', isCurrentRoute: 0 },
                 { name: 'Coffee Wall FAQs', routeName: 'admin.coffee_wall_faqs.index', isCurrentRoute: 1 }
+            ],
+        },
+    },
+    {
+        path: '/admin/webinars',
+        name: 'admin.webinars.index',
+        component: AdminWebinarsIndex,
+        meta: {
+            breadcrumbs: [
+                { name: 'Dashboard', routeName: 'admin.dashboard', isCurrentRoute: 0 },
+                { name: 'Webinars', routeName: 'admin.webinars.index', isCurrentRoute: 1 }
+            ],
+        },
+    },
+    {
+        path: '/admin/webinars/create',
+        name: 'admin.webinars.create',
+        component: AdminWebinarsCreate,
+        meta: {
+            breadcrumbs: [
+                { name: 'Dashboard', routeName: 'admin.dashboard', isCurrentRoute: 0 },
+                { name: 'Webinars', routeName: 'admin.webinars.index', isCurrentRoute: 0 },
+                { name: 'Create', routeName: 'admin.webinars.create', isCurrentRoute: 1 }
+            ],
+        },
+    },
+    {
+        path: '/admin/webinars/:id/edit',
+        name: 'admin.webinars.edit',
+        component: AdminWebinarsCreate,
+        meta: {
+            breadcrumbs: [
+                { name: 'Dashboard', routeName: 'admin.dashboard', isCurrentRoute: 0 },
+                { name: 'Webinars', routeName: 'admin.webinars.index', isCurrentRoute: 0 },
+                { name: 'Edit', routeName: 'admin.webinars.edit', isCurrentRoute: 1 }
+            ],
+        },
+    },
+    {
+        path: '/admin/webinars/:id/registrations',
+        name: 'admin.webinars.registrations',
+        component: AdminWebinarsRegistrations,
+        meta: {
+            breadcrumbs: [
+                { name: 'Dashboard', routeName: 'admin.dashboard', isCurrentRoute: 0 },
+                { name: 'Webinars', routeName: 'admin.webinars.index', isCurrentRoute: 0 },
+                { name: 'Registrations', routeName: 'admin.webinars.registrations', isCurrentRoute: 1 }
             ],
         },
     },

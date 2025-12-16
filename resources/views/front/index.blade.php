@@ -278,6 +278,8 @@
         @include('front.pages.sponser-listing-template.index', ['page' => $page, 'lang' => $lang])
     @elseif(isset($page) && $page->template == null)
         @include('front.pages.about-us-template.index', ['page' => $page, 'lang' => $lang])
+     @elseif(isset($page) && $page->template == 'webinar_template')
+        @include('front.pages.webinar_template.index', ['page' => $page, 'lang' => $lang])
     @endif
     @if (Session::has('type') &&
             (Session::get('type') == 'success' || Session::get('type') == 'pre_success') &&
