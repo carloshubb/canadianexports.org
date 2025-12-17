@@ -1,5 +1,6 @@
 node_modules
 vendor
+storage
 .env
 public/images
 public/media
@@ -7,5 +8,5 @@ CaExp LoR July 18.docx
 *.sql
 .env.prod
 .env.dev
-storage
+
 
