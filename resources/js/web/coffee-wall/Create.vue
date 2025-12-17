@@ -14,8 +14,7 @@
             </p>
             <p class="">
                 It's a wonderful example of how a simple act of kindness can change </p>
-             <p>the way someone sees the world.
-            </p>
+             <p>the way someone sees the world.</p>
 
             <div class="text-right mt-4 py-2 text-red-500 text-lg">
                 <span class="text-red-500">*</span> {{
