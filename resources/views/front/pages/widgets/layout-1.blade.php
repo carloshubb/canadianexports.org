@@ -2,13 +2,13 @@
     @isset($widget, $widget->widgetDetail[0])
    
     <div class="h-48 lg:h-60  w-full bg-primary flex items-center relative rounded-lg">
-        <!-- <div class="h-48 lg:h-60 w-[58%] bg-red-600 absolute left-0 rounded-l-lg object-fill {{ isset(getDefaultLanguage(1)->direction) && getDefaultLanguage(1)->direction == 'ltr' ? 'order-1' : 'order-2' }}" style="clip-path: polygon(0 0, 75% 0%, 100% 100%, 0% 100%);">
+         <div class="h-48 lg:h-60 w-[58%] bg-red-600 absolute left-0 rounded-l-lg object-fill {{ isset(getDefaultLanguage(1)->direction) && getDefaultLanguage(1)->direction == 'ltr' ? 'order-1' : 'order-2' }}" style="clip-path: polygon(0 0, 75% 0%, 100% 100%, 0% 100%);">
              <a href="{!! $widget->widgetDetail[0]->button_link !!}" target="{{$widget->widgetDetail[0]->action == 'external' ? '_blank' : ''}}" class="button-exp-fill text-red-500 border-white bg-white hover:bg-white px-[10px] py-[5px] text-[10pt] md:px-5 md:py-2 md:text-base fix-url" onclick="fixUrls()">
                                 {!! $widget->widgetDetail[0]->button_text !!}
                         
             <img class="rounded-l-lg object-fill w-full h-full" src="{{ isset($widget->image_path) ? asset($widget->image_path) : asset('/media/banners/blue_banner_02.jpg') }}" alt="">
             </a>
-        </div> -->
+        </div> 
        <div class="relative h-48 lg:h-60 w-full bg-green-600 rounded-r-lg">
     <a href="{{ $widget->widgetDetail[0]->button_link }}"
        target="{{ $widget->widgetDetail[0]->action == 'external' ? '_blank' : '' }}">
@@ -18,14 +18,14 @@
             alt=""
         >
     </a>
-            <!-- <div class="relative z-10 flex items-center justify-center h-full w-full">
+             <div class="relative z-10 flex items-center justify-center h-full w-full">
                 <div class="w-[60%] px-4 md:px-8 {{ isset(getDefaultLanguage(1)->direction) && getDefaultLanguage(1)->direction == 'ltr' ? 'order-2' : 'order-1' }}">
                     <div class="truncate-text">
                         {!! $widget->widgetDetail[0]->text_detail !!}
                     </div>
                     
                 </div>
-            </div> -->
+            </div> 
         </div>
     </div>
     @endisset

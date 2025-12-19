@@ -62,7 +62,7 @@
                             ">
                         </p>
                     </div>
-                    <div class="relative z-0 w-full group">
+                    <!-- <div class="relative z-0 w-full group">
                         <label :for="`button_text_${activeTab}`">banner text</label>
                         <input type="text" :name="`button_text_${activeTab}`" :id="`button_text_${activeTab}`"
                             class="can-exp-input w-full block border border-gray-300 rounded" placeholder=" "
@@ -93,7 +93,7 @@
                                 )
                             ">
                         </p>
-                    </div>
+                    </div> -->
                     <div class="relative z-0 w-full group">
                         <label :for="`button_link_${activeTab}`">banner URL</label>
                         <input type="text" :name="`button_link_${activeTab}`" :id="`button_link_${activeTab}`"
