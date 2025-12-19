@@ -3,18 +3,18 @@
 
         <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6 p-8">
             <h1 class="text-primary mb-2">{{ JSON.parse(coffee_wall_setting)["coffee_wall_heading"] ?? 'Coffee on Wall'
-                }}</h1>
+            }}</h1>
             <p class="">
-                The <span class="font-bold">“The Coffee on the Wall”</span> initiative was inspired by this 
+                The <span class="font-bold">“The Coffee on the Wall”</span> initiative was inspired by this
                 <a href="https://www.kindspring.org/story/view.php?sid=44089" target="_blank" rel="noopener"
                     class="text-primary underline font-bold underline-none">
                     beautiful story.
                 </a>
-              
+
             </p>
             <p class="">
-                It's a wonderful example of how a simple act of kindness can change </p>
-             <p>the way someone sees the world.</p>
+                It's a wonderful example of how a simple act of kindness can change the way someone sees the world.</p>
+            <p>Through this community-driven initiative, sponsors can support small businesses by covering a Coffee when it’s needed most.</p>
 
             <div class="text-right mt-4 py-2 text-red-500 text-lg">
                 <span class="text-red-500">*</span> {{
@@ -29,132 +29,119 @@
                     class="px-4 py-1.5 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
                     <h4 class="text-white">
                         <!-- Please select amount and frequency * -->
-                        {{ JSON.parse(coffee_wall_setting)["select_amount_label"] ?? 'Please select your amount and frequency *' }}
+                        {{ JSON.parse(coffee_wall_setting)["select_amount_label"] ?? 'Please select your amount and  frequency *' }}
                     </h4>
                 </div>
                 <div class="p-4">
+                    <!-- Frequency -->
                     <fieldset
                         class="flex items-center border w-full overflow-hidden bg-white rounded-md md:rounded-lg shadow-sm">
+
+                        <!-- One-Time -->
                         <div class="w-full">
                             <label
-                                class="w-full block cursor-pointer px-5 py-5 rounded-l-md md:rounded-l-lg text-base md:text-2xl font-FuturaMdCnBT text-center border rounded-none"
-                                :class="form.frequency == ''
-                                    ? 'text-white bg-primary border-primary'
-                                    : 'text-primary bg-white border-gray-300'
-                                    ">
-                                <input type="radio" name="frequency" value="" class="sr-only" v-model="form.frequency"
-                                    @click="
-                                        updateFrequency('')
-                                        " />
+                                class="w-full block cursor-pointer px-5 py-5 text-base md:text-2xl font-FuturaMdCnBT text-center border rounded-none rounded-l-md md:rounded-l-lg"
+                                :class="form.frequency === 'one_time'
+                                    ? 'border-2 border-green-500 text-green-500'
+                                    : 'border-gray-200'">
+
+                                <input type="radio" name="frequency" value="one_time" class="sr-only"
+                                    v-model="form.frequency" @change="updateFrequency('one_time')" />
+
                                 <span>
                                     {{
-                                        JSON.parse(coffee_wall_setting)[
-                                        "one_time_label"
-                                        ]
-                                        ?? "One time"
+                                        JSON.parse(coffee_wall_setting)['one_time_label']
+                                        ?? 'One-Time'
                                     }}
                                 </span>
                             </label>
                         </div>
+
+                        <!-- Monthly (DEFAULT) -->
                         <div class="w-full">
                             <label
-                                class="cursor-pointer w-full block px-5 py-5 text-base md:text-2xl border text-center font-FuturaMdCnBT rounded-none"
-                                :class="form.frequency == 'monthly'
-                                    ? 'text-white bg-primary border-primary'
-                                    : 'text-primary bg-white border-gray-300'
-                                    ">
+                                class="w-full block cursor-pointer px-5 py-5 text-base md:text-2xl font-FuturaMdCnBT text-center border rounded-none"
+                                :class="form.frequency === 'monthly'
+                                    ? 'border-2 border-green-500 text-green-500'
+                                    : 'border-gray-200'">
+
                                 <input type="radio" name="frequency" value="monthly" class="sr-only"
-                                    v-model="form.frequency" @click="
-                                        updateFrequency('monthly')
-                                        " />
+                                    v-model="form.frequency" @change="updateFrequency('monthly')" />
+
                                 <span>
                                     {{
-                                        JSON.parse(coffee_wall_setting)[
-                                        "monthly_label"
-                                        ]
-                                        ?? "Monthly"
+                                        JSON.parse(coffee_wall_setting)['monthly_label']
+                                        ?? 'Monthly'
                                     }}
                                 </span>
                             </label>
                         </div>
+
+                        <!-- Quarterly -->
                         <div class="w-full">
                             <label
-                                class="cursor-pointer w-full block px-5 py-5 rounded-r-md md:rounded-r-lg border text-center text-base md:text-2xl font-FuturaMdCnBT rounded-none"
-                                :class="form.frequency == 'quareterly'
-                                    ? 'text-white bg-primary border-primary'
-                                    : 'text-primary bg-white border-gray-300'
-                                    ">
-                                <input type="radio" name="frequency" value="quareterly" class="sr-only"
-                                    v-model="form.frequency" @click="
-                                        updateFrequency('quareterly')
-                                        " />
+                                class="w-full block cursor-pointer px-5 py-5 text-base md:text-2xl font-FuturaMdCnBT text-center border rounded-none rounded-r-md md:rounded-r-lg"
+                                :class="form.frequency === 'quarterly'
+                                     ? 'border-2 border-green-500 text-green-500'
+                                    : 'border-gray-200'">
+
+                                <input type="radio" name="frequency" value="quarterly" class="sr-only"
+                                    v-model="form.frequency" @change="updateFrequency('quarterly')" />
+
                                 <span>
                                     {{
-                                        JSON.parse(coffee_wall_setting)[
-                                        "quareterly_label"
-                                        ]
-                                        ?? "Quareterly"
+                                        JSON.parse(coffee_wall_setting)['quarterly_label']
+                                        ?? 'Quarterly'
                                     }}
                                 </span>
                             </label>
                         </div>
                     </fieldset>
+
+                    <!-- Packages -->
                     <div class="my-4 grid grid-cols-2 md:grid-cols-6 gap-4">
                         <div v-for="registration_package in packages" :key="registration_package.id">
-                            <div class="bg-gray-50 rounded-md border shadow text-base md:text-2xl font-FuturaMdCnBT flex items-center justify-center h-12 hover:shadow-md border-gray-100 cursor-pointer peer-checked:border-green-500 peer-checked:border-2 peer-checked:text-green-500 hover:border-2 hover:border-green-500"
-                                :class="form.package_id == registration_package.id
+
+                            <div class="bg-gray-50 rounded-md border shadow text-base md:text-2xl font-FuturaMdCnBT flex flex-col items-center justify-center h-20 cursor-pointer hover:shadow-md"
+                                :class="form.package_id === registration_package.id
                                     ? 'border-2 border-green-500 text-green-500'
-                                    : ''
-                                    " @click.prevent="
-                                        updatePackageForm(registration_package)
-                                        ">
-                                <!-- <div
-                                    class="flex items-center lg:justify-between gap-x-4"
-                                >
-                                    <h3
-                                        id="tier-startup"
-                                        class="text-xl leading-8 text-blue-600"
-                                    >
-                                        {{
-                                            registration_package
-                                                ?.coffee_wall_package_detail?.[0]
-                                                ?.name
-                                        }}
-                                    </h3>
-                                    <p
-                                        class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600"
-                                        v-if="registration_package?.is_default == '1'"
-                                    >
-                                        Most popular
-                                    </p>
-                                </div> -->
-                                <p class="mt-4 text-sm leading-6 text-gray-600">
+                                    : 'border-gray-200'" @click.prevent="updatePackageForm(registration_package)">
+
+                                <p class="text-sm text-gray-600">
                                     {{
                                         registration_package
                                             ?.coffee_wall_package_detail?.[0]
                                             ?.short_description
                                     }}
                                 </p>
-                                <span>
+
+                                <span class="mt-1">
                                     ${{ registration_package?.price }}
                                 </span>
                             </div>
                         </div>
                     </div>
+
                     <Error v-if="submitted" fieldName="package_id" :validationErros="validationErros" full_width="1" />
-                    <div class="relative flex items-center gap-2">
+
+                    <!-- Custom Amount -->
+                    <div class="relative flex items-center gap-2 mt-4">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="absolute left-2 h-7 text-gray-500">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z">
-                            </path>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0
+                1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12
+                12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303
+                0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0
+                9 9 0 0 1 18 0Z" />
                         </svg>
-                        <input type="text" id="custom_amount" v-model="form.custom_amount"
-                            @keypress="restrictToPositiveIntegers" @input="clearPackageSelection"
-                            class="block mt-1 border-2 p-2.5 w-full rounded border-gray-200 focus:outline-none focus:border focus:border-blue-600 pl-10 h-12"
+
+                        <input type="text" v-model="form.custom_amount" @keypress="restrictToPositiveIntegers"
+                            @input="clearPackageSelection"
+                            class="block border-2 p-2.5 w-full rounded border-gray-200 focus:outline-none focus:border-blue-600 pl-10 h-12"
                             :placeholder="JSON.parse(coffee_wall_setting)['own_amount_label'] ?? 'Enter your amount'" />
                     </div>
                 </div>
+
             </div>
             <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
                 <div
@@ -183,7 +170,7 @@
                         full_width="1" />
                 </div>
             </div>
-            <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
+            <div class="bg-white rounded-lg overflow-visible shadow-3xl my-6  h-[400px]">
                 <div
                     class="px-4 py-1.5 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
                     <h4 class="text-white">
@@ -231,36 +218,37 @@
                             name="phone" id="phone" v-model="form.phone" />
                         <Error v-if="submitted" fieldName="phone" :validationErros="validationErros" full_width="1" />
                     </div>
-                    <div class="flex items-start gap-2 relative w-full pt-4">
+                         <div class="flex items-start gap-2 relative w-full pt-4">
                         <input @input="clearErrors('notify_when_used')" type="checkbox" name="notify_when_used"
                             id="notify_when_used" v-model="form.notify_when_used" class="mt-1" />
 
                         <label for="notify_when_used"
                             class="text-gray-900 text-base md:text-base lg:text-lg font-bold inline-flex items-center gap-1">
-                            Let me know when my Coffee helps a business
-
-                            <!-- Info icon -->
+                            Let Me Know When My Coffee Helps a Business
+                            
+                            <!-- Info Icon with Tooltip -->
                             <span class="relative inline-flex items-center group">
-                                <span
-                                    class="flex items-center justify-center w-4 h-4 text-xs font-bold text-white bg-gray-500 rounded-full cursor-pointer">
-                                    !
-                                </span>
-
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500 cursor-help" 
+                                     viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" 
+                                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" 
+                                          clip-rule="evenodd" />
+                                </svg>
+                                
                                 <!-- Tooltip -->
-                                <span class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 
-                                            w-72 text-sm text-white bg-gray-800 rounded-md px-3 py-2
-                                            opacity-0 group-hover:opacity-100 transition
-                                            pointer-events-none z-50 whitespace-normal">
-                                    You’ll receive basic information about the buseiness. Some details are shared only if
-                                    the business chooses to make them public.
+                                <span class="invisible group-hover:visible absolute left-6 top-0 w-64 p-3 bg-blue-600 text-white text-sm rounded-lg shadow-lg z-50">
+                                    You'll receive basic information about the business. Some details are shared only if the business chooses to make them public.
+                                    <!-- Arrow pointing left -->
+                                    <span class="absolute right-full top-3 border-8 border-transparent border-r-blue-600"></span>
                                 </span>
                             </span>
                         </label>
 
-
                         <Error v-if="submitted" fieldName="notify_when_used" :validationErros="validationErros"
                             full_width="1" />
                     </div>
+
+
 
                 </div>
             </div>
@@ -283,7 +271,7 @@
                                             @click="setPaymentMethod('stripe')"
                                             :checked="form.payment_method == 'stripe'" />
                                         <label for="stripe" class="ml-2 block text-gray-900">
-                                            {{
+                                            {{                                               
                                                 payment_setting &&
                                                     JSON.parse(payment_setting)
                                                     ? JSON.parse(payment_setting)[
@@ -393,10 +381,12 @@
                     <input @input="clearErrors('non_refundable_agreement')" type="checkbox" class="mt-1"
                         name="non_refundable_agreement" id="non_refundable_agreement"
                         v-model="form.non_refundable_agreement" />
-                    <label class="block text-gray-900 text-sm md:text-base" for="non_refundable_agreement">
-                        I agree to allow Canadian Exports to inform the Kindness Partner who contributed to my Coffee. Only my business name, category, province, and the service received will be shared.
+
+                    <label for="non_refundable_agreement" class="block text-gray-900">
+                        I understand that my contribution is a voluntary act of kindness. As such, it is considered a donation and is non-refundable.
                     </label>
                 </div>
+
                 <Error v-if="submitted" fieldName="non_refundable_agreement" :validationErros="validationErros"
                     full_width="1" />
 
@@ -581,7 +571,7 @@ export default {
                 beneficiary_ids: [],
                 order_amount: 0,
                 custom_amount: "",
-                frequency: "monthly",
+                frequency: 'monthly',
                 payment_method: "stripe",
                 anonymous: false,
                 notify_when_used: false,

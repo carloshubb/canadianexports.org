@@ -10,7 +10,7 @@
         </div>
         <Error fieldName="is_agree" :validationErros="validationErros" />
         <!-- ⭐ NEW checkbox (Kindness Partner Permission) -->
-        <div class="flex items-start pb-4">
+        <!-- <div class="flex items-start pb-4">
             <input id="is_agree_kindness" type="checkbox"
                 class="h-4 w-4 mt-1 rounded border-gray-300 text-primary focus:ring-primary"
                 @input="updateForm('is_agree_kindness', $event.target.checked)">
@@ -18,7 +18,7 @@
                 I agree to allow Canadian Exports to inform the Kindness Partner who contributed to my Coffee.
                 Only my business name, category, province, and the service received will be shared.
             </label>
-        </div>
+        </div> -->
     </div>
 </template>
 <script>
