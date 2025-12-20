@@ -203,10 +203,7 @@
           <input
             type="text"
             class="can-exp-input"
-            :placeholder="
-              regPageSetting?.reg_page_setting_detail?.[0]
-                ?.step_4_cta_btn_placeholder
-            "
+            :placeholder="'The button text that guides the user\'s next action; e.g., Learn More.'"
             @input="
               handleInput($event.target.value, 'customer_profile_cta_btn');
               clearValidationError('customer_profile_cta_btn');

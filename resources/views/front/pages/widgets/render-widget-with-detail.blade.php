@@ -4,6 +4,7 @@
 @if (preg_match_all($pattern, $page_detail, $matches))
     @php
         $widget_numbers = $matches[1];
+        //dd($widget_numbers);
     @endphp
     @foreach ($widget_numbers as $widget_number)
         @php
