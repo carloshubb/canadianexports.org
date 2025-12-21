@@ -52,9 +52,9 @@
           <thead class="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
               <th scope="col" class="px-6 py-3">Title</th>
+              <th scope="col" class="px-6 py-3">Type</th>
               <th scope="col" class="px-6 py-3">Presenter</th>
               <th scope="col" class="px-6 py-3">Scheduled</th>
-              <th scope="col" class="px-6 py-3">Duration</th>
               <th scope="col" class="px-6 py-3">Registrations</th>
               <th scope="col" class="px-6 py-3">Status</th>
               <th scope="col" class="px-6 py-3">Actions</th>
@@ -71,9 +71,13 @@
               <td class="px-6 py-4 font-medium text-gray-900">
                 {{ webinar.title }}
               </td>
+              <td class="px-6 py-4">
+                <span :class="getTypeClass(webinar.webinar_type)" class="px-2 py-1 rounded text-xs whitespace-nowrap">
+                  {{ getTypeLabel(webinar.webinar_type) }}
+                </span>
+              </td>
               <td class="px-6 py-4">{{ webinar.presenter_name || 'N/A' }}</td>
               <td class="px-6 py-4">{{ formatDate(webinar.scheduled_at) }}</td>
-              <td class="px-6 py-4">{{ webinar.duration_minutes }} min</td>
               <td class="px-6 py-4">
                 <router-link 
                   :to="{ name: 'admin.webinars.registrations', params: { id: webinar.id }}"
@@ -89,12 +93,27 @@
                 </span>
               </td>
               <td class="px-6 py-4">
-                <div class="flex gap-2">
+                <div class="flex flex-wrap gap-2">
                   <router-link 
                     :to="{ name: 'admin.webinars.edit', params: { id: webinar.id }}"
                     class="text-blue-600 hover:underline"
                   >
                     Edit
+                  </router-link>
+                  <router-link 
+                    v-if="webinar.allow_qa"
+                    :to="{ name: 'admin.webinars.questions', params: { id: webinar.id }}"
+                    class="text-purple-600 hover:underline"
+                  >
+                    Q&A
+                    <span v-if="webinar.unanswered_questions_count" class="text-xs">({{ webinar.unanswered_questions_count }})</span>
+                  </router-link>
+                  <router-link 
+                    v-if="webinar.allow_private_messages"
+                    :to="{ name: 'admin.webinars.messages', params: { id: webinar.id }}"
+                    class="text-green-600 hover:underline"
+                  >
+                    Messages
                   </router-link>
                   <button @click="deleteWebinar(webinar.id)" class="text-red-600 hover:underline">
                     Delete
@@ -231,6 +250,22 @@ export default {
         cancelled: 'bg-red-200 text-red-800',
       };
       return classes[status] || '';
+    },
+    getTypeClass(type) {
+      const classes = {
+        live_interactive: 'bg-purple-200 text-purple-800',
+        live_viewonly: 'bg-blue-200 text-blue-800',
+        recorded: 'bg-orange-200 text-orange-800',
+      };
+      return classes[type] || 'bg-gray-200 text-gray-800';
+    },
+    getTypeLabel(type) {
+      const labels = {
+        live_interactive: 'Live Interactive',
+        live_viewonly: 'Live View-Only',
+        recorded: 'Recorded',
+      };
+      return labels[type] || type;
     },
   },
   mounted() {

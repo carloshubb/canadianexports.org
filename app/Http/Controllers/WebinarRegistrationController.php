@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Webinar;
 use App\Models\WebinarRegistration;
+use App\Mail\WebinarRegistrationConfirmation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class WebinarRegistrationController extends Controller
 {
@@ -53,12 +55,16 @@ class WebinarRegistrationController extends Controller
 
         $registration = WebinarRegistration::create($validated);
 
-        // Send confirmation email (you'll need to create this mail class)
-        // Mail::to($registration->email)->send(new WebinarRegistrationConfirmation($registration));
+        // Send confirmation email
+        try {
+            Mail::to($registration->email)->send(new WebinarRegistrationConfirmation($webinar, $registration));
+        } catch (\Exception $e) {
+            Log::error('Failed to send webinar registration email: ' . $e->getMessage());
+        }
 
         return response()->json([
             'success' => true,
-            'message' => 'Successfully registered for the webinar',
+            'message' => 'Successfully registered for the webinar. A confirmation email has been sent.',
             'data' => $registration
         ], 201);
     }

@@ -27,6 +27,9 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         $schedule->call('App\Http\Controllers\Api\Web\CronJobController::holiday_emails')
         ->daily();
+
+        // Send webinar reminders every 30 minutes
+        $schedule->command('webinars:send-reminders')->everyThirtyMinutes();
     }
 
     /**

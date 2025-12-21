@@ -131,6 +131,57 @@
             </select>
           </div>
 
+          <!-- Webinar Type -->
+          <div>
+            <label for="webinar_type">Webinar Type *</label>
+            <select 
+              id="webinar_type" 
+              class="can-exp-input w-full block border border-gray-300 rounded" 
+              v-model="form.webinar_type"
+            >
+              <option value="live_interactive">Live Interactive (Q&A + Chat enabled)</option>
+              <option value="live_viewonly">Live View-Only (No interaction)</option>
+              <option value="recorded">Recorded/On-Demand</option>
+            </select>
+            <p class="mt-1 text-sm text-gray-500">
+              <template v-if="form.webinar_type === 'live_interactive'">Attendees can ask questions and chat in real-time</template>
+              <template v-else-if="form.webinar_type === 'live_viewonly'">Attendees can only watch, no interaction</template>
+              <template v-else>Pre-recorded webinar available on-demand</template>
+            </p>
+          </div>
+
+          <!-- Interaction Settings (shown for live_interactive) -->
+          <div class="md:col-span-2 bg-gray-50 p-4 rounded-lg" v-if="form.webinar_type === 'live_interactive'">
+            <h4 class="font-medium mb-3">Interaction Settings</h4>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <label class="flex items-center">
+                <input 
+                  type="checkbox" 
+                  class="mr-2" 
+                  v-model="form.allow_qa"
+                />
+                <span>Enable Q&A (questions to presenter)</span>
+              </label>
+              <label class="flex items-center">
+                <input 
+                  type="checkbox" 
+                  class="mr-2" 
+                  v-model="form.allow_chat"
+                />
+                <span>Enable Public Chat Room</span>
+              </label>
+              <label class="flex items-center">
+                <input 
+                  type="checkbox" 
+                  class="mr-2" 
+                  v-model="form.allow_private_messages"
+                />
+                <span>Enable Private Messages</span>
+              </label>
+            </div>
+            <p class="mt-2 text-sm text-gray-500">Private messages are visible only to sender, presenter, and admin</p>
+          </div>
+
           <!-- Description -->
           <div class="md:col-span-2">
             <label for="description">Description</label>
@@ -201,7 +252,7 @@
           </div>
 
           <!-- Recording URL -->
-          <div class="md:col-span-2" v-if="form.is_recorded">
+          <div class="md:col-span-2" v-if="form.is_recorded || form.webinar_type === 'recorded'">
             <label for="recording_url">Recording URL</label>
             <input 
               id="recording_url" 
@@ -210,6 +261,19 @@
               v-model="form.recording_url"
               placeholder="https://..."
             />
+          </div>
+
+          <!-- Embed Code -->
+          <div class="md:col-span-2" v-if="form.webinar_type === 'recorded'">
+            <label for="embed_code">Embed Code (optional)</label>
+            <textarea 
+              id="embed_code" 
+              rows="3" 
+              class="can-exp-input w-full block border border-gray-300 rounded font-mono text-sm" 
+              v-model="form.embed_code"
+              placeholder="<iframe src='...'></iframe>"
+            ></textarea>
+            <p class="mt-1 text-sm text-gray-500">Paste YouTube/Vimeo embed code for on-demand viewing</p>
           </div>
 
           <!-- Keywords -->
@@ -289,8 +353,13 @@ export default {
         cover_image: '',
         max_attendees: null,
         status: 'draft',
+        webinar_type: 'live_interactive',
+        allow_qa: true,
+        allow_chat: true,
+        allow_private_messages: true,
         is_recorded: false,
         recording_url: '',
+        embed_code: '',
         keywords: [],
         meta_title: '',
         meta_description: '',
@@ -346,8 +415,13 @@ export default {
           cover_image: webinar.cover_image || '',
           max_attendees: webinar.max_attendees || null,
           status: webinar.status || 'draft',
+          webinar_type: webinar.webinar_type || 'live_interactive',
+          allow_qa: webinar.allow_qa !== undefined ? webinar.allow_qa : true,
+          allow_chat: webinar.allow_chat !== undefined ? webinar.allow_chat : true,
+          allow_private_messages: webinar.allow_private_messages !== undefined ? webinar.allow_private_messages : true,
           is_recorded: webinar.is_recorded || false,
           recording_url: webinar.recording_url || '',
+          embed_code: webinar.embed_code || '',
           keywords: webinar.keywords || [],
           meta_title: webinar.meta_title || '',
           meta_description: webinar.meta_description || '',

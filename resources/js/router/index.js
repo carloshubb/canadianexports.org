@@ -84,6 +84,8 @@ import CreateArticleSection from '../admin/ArticleSections/Create.vue'
 import AdminWebinarsIndex from '../admin/Webinars/Index.vue'
 import AdminWebinarsCreate from '../admin/Webinars/Create.vue'
 import AdminWebinarsRegistrations from '../admin/Webinars/Registrations.vue'
+import AdminWebinarsQuestions from '../admin/Webinars/Questions.vue'
+import AdminWebinarsMessages from '../admin/Webinars/Messages.vue'
 const routes = [
     {
         path: '/admin/dashboard',
@@ -1050,6 +1052,30 @@ const routes = [
                 { name: 'Dashboard', routeName: 'admin.dashboard', isCurrentRoute: 0 },
                 { name: 'Webinars', routeName: 'admin.webinars.index', isCurrentRoute: 0 },
                 { name: 'Registrations', routeName: 'admin.webinars.registrations', isCurrentRoute: 1 }
+            ],
+        },
+    },
+    {
+        path: '/admin/webinars/:id/questions',
+        name: 'admin.webinars.questions',
+        component: AdminWebinarsQuestions,
+        meta: {
+            breadcrumbs: [
+                { name: 'Dashboard', routeName: 'admin.dashboard', isCurrentRoute: 0 },
+                { name: 'Webinars', routeName: 'admin.webinars.index', isCurrentRoute: 0 },
+                { name: 'Q&A', routeName: 'admin.webinars.questions', isCurrentRoute: 1 }
+            ],
+        },
+    },
+    {
+        path: '/admin/webinars/:id/messages',
+        name: 'admin.webinars.messages',
+        component: AdminWebinarsMessages,
+        meta: {
+            breadcrumbs: [
+                { name: 'Dashboard', routeName: 'admin.dashboard', isCurrentRoute: 0 },
+                { name: 'Webinars', routeName: 'admin.webinars.index', isCurrentRoute: 0 },
+                { name: 'Messages', routeName: 'admin.webinars.messages', isCurrentRoute: 1 }
             ],
         },
     },

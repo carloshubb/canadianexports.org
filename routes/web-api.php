@@ -76,4 +76,16 @@ Route::group(['prefix' => 'web', 'middleware' => ['auth.user']], function () {
     Route::get('/sponsor/profile', [BecomeSponsorController::class, 'getSponsorProfile']); // Get all sponsorships
     Route::get('/sponsor/profile/{id}', [BecomeSponsorController::class, 'getSponsorById']); // Get specific sponsorship
     Route::post('/sponsor/update-profile', [BecomeSponsorController::class, 'updateSponsorProfile']);
+
+    // Member Webinar routes (require authentication)
+    Route::prefix('member/webinars')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Api\Web\MemberWebinarController::class, 'index']);
+        Route::post('/', [\App\Http\Controllers\Api\Web\MemberWebinarController::class, 'store']);
+        Route::get('/{id}', [\App\Http\Controllers\Api\Web\MemberWebinarController::class, 'show']);
+        Route::put('/{id}', [\App\Http\Controllers\Api\Web\MemberWebinarController::class, 'update']);
+        Route::delete('/{id}', [\App\Http\Controllers\Api\Web\MemberWebinarController::class, 'destroy']);
+        Route::post('/{id}/cancel', [\App\Http\Controllers\Api\Web\MemberWebinarController::class, 'cancel']);
+        Route::get('/{id}/registrations', [\App\Http\Controllers\Api\Web\MemberWebinarController::class, 'registrations']);
+        Route::get('/{id}/questions', [\App\Http\Controllers\Api\Web\MemberWebinarController::class, 'questions']);
+    });
 });

@@ -896,7 +896,7 @@
                         name="cta_btn"
                         id="cta_btn"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
-                        placeholder="Enter button text (e.g., Register Now, Learn More)"
+                        placeholder="'The button text that guides the user\'s next action; e.g., Learn More.'"
                         :value="form.cta_btn"
                         @input="updateForm('cta_btn', $event.target.value); clearErrors('cta_btn');"
                     />
@@ -1284,7 +1284,7 @@ export default {
         console.log("Raw Label:", this.regPageSetting);
         
       if (!rawLabel) {
-        return "CTA: Call-to-Action (5)";
+        return "CTA(Call-to-Action) Button Title (Max. 5 words)";
       }
       
       return rawLabel.replace(/\(5\)/g, '<sup class="footnote-indicator">(5)</sup>');
