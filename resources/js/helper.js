@@ -1,4 +1,21 @@
 import swal from "sweetalert2";
+
+if (!document.getElementById('swal-custom-styles')) {
+    const style = document.createElement('style');
+    style.id = 'swal-custom-styles';
+    style.textContent = `
+        .swal2-container .swal2-popup.gradient-border-modal {
+            border: 3px solid transparent !important;
+            border-radius: 0.75rem !important;
+            background: 
+                linear-gradient(white, white) padding-box,
+                linear-gradient(120deg, #0077ff, #00ffff, #ff00ff, #ff8800) border-box !important;
+            outline: none !important;
+            box-shadow: none !important;
+        }
+    `;
+    document.head.appendChild(style);
+}
 const helpers = {
     cutText(text, length) {
         if (text.split(" ").length > 1) {
@@ -141,28 +158,29 @@ const helpers = {
         );
     },
     swalSuccessMessageForWeb(message) {
-        return swal.fire({
-            position: "center",
-            showConfirmButton: true,
-            confirmButtonText: 'Close',
-            showCloseButton: false,
-            background: "#fff",
-            buttonsStyling: false,
-            customClass: {
-                title: "swalSuccessClass",
-                htmlContainer: "swalSuccessClass",
-                confirmButton: 'button-exp-fill focus:outline-none',
-            },
-            html: `<p class="text-center">${message}</p>`,
-        });
-    },
+    return swal.fire({
+        position: "center",
+        showConfirmButton: true,
+        confirmButtonText: 'Close',
+        showCloseButton: false,
+        background: "#ffffffff",
+        buttonsStyling: false,
+        customClass: {
+            popup: "gradient-border-modal", // Add custom class for the popup container
+            title: "swalSuccessClass",
+            htmlContainer: "swalSuccessClass",
+            confirmButton: 'button-exp-fill focus:outline-none',
+        },
+        html: `<p class="text-center">${message}</p>`,
+    });
+},
     swalPreSuccessMessageForWeb(message) {
         swal.fire({
             position: "center",
             showConfirmButton: true,
             confirmButtonText: 'Close',
             showCloseButton: false,
-            background: "#fff",
+            background: "#ffffffff",
             buttonsStyling: false,
             customClass: {
                 title: "swalSuccessClass",
@@ -178,7 +196,7 @@ const helpers = {
             showConfirmButton: true,
             confirmButtonText: 'Close',
             showCloseButton: false,
-            background: "#fff",
+            background: "#ffffffff",
             buttonsStyling: false,
             customClass: {
                 title: "swalErrorClass",

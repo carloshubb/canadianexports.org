@@ -166,7 +166,7 @@ export default {
                         .then((res) => {
                             setTimeout(() => {
                                 recaptcha.hideBadge()
-                            }, 3000);
+                            }, 1);
                             if (res.data.status == "Success") {
                                 this.addForm();
                             } else if (res.data.status == "Error") {
@@ -190,8 +190,10 @@ export default {
                 .then((res) => {
                     this.loading = false;
                     if (res.data.status == "Success") {
+                        console.log("aaaaaaaaa",res.data.data.redirect_url);
                         // Clear localStorage on successful submission
                         localStorage.removeItem("formData");
+                        // Redirect after user clicks OK button (promise is already resolved in store)
                         window.location.href = res.data.data.redirect_url;
                     }
                 })

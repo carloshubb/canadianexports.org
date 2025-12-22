@@ -28,7 +28,6 @@ class RecaptchaController extends Controller
 
         
         $body = json_decode((string) $response->getBody());
-
         if ($body->success) {
             $score = $body->score;
             if ($score >= 0.5) {

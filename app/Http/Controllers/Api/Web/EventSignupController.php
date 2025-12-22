@@ -186,9 +186,18 @@ class EventSignupController extends Controller
             $sendWelcomeEmail = false;
             $isNewCustomer = false;
             
+            // Initialize activeEmailUrl variable
+            $activeEmailUrl = null;
+            
             if ($loggedInCustomer) {
                 // User is already logged in - use their account for additional event
                 $customer = $loggedInCustomer;
+                // Get existing active_email_url or create a new one if it doesn't exist
+                $activeEmailUrl = $customer->active_email_url;
+                if (!$activeEmailUrl) {
+                    $activeEmailUrl = Hash::make($customer->email);
+                    $customer->update(['active_email_url' => $activeEmailUrl]);
+                }
                 Log::info('Logged-in customer creating additional event', ['customer_id' => $customer->id]);
             } else {
                 // Not logged in - check if email exists
@@ -230,6 +239,12 @@ class EventSignupController extends Controller
                     // Email exists - allow user to create event with existing email
                     Log::info('Using existing customer email for new event', ['customer_id' => $customer->id]);
                     $isNewCustomer = false;
+                    // Get existing active_email_url or create a new one if it doesn't exist
+                    $activeEmailUrl = $customer->active_email_url;
+                    if (!$activeEmailUrl) {
+                        $activeEmailUrl = Hash::make($customer->email);
+                        $customer->update(['active_email_url' => $activeEmailUrl]);
+                    }
                     // Update event-related fields for existing customer
                     $customer->update([
                         'registration_package_id' => $request->package_id,
@@ -243,9 +258,11 @@ class EventSignupController extends Controller
                 }
             }
 
-            if (isset($request->gallery_images)) {
+            $galleryImages = null;
+            if (isset($request->gallery_images) && !empty($request->gallery_images)) {
                 $galleryImages = $this->moveFile($request->gallery_images, 'media/events', 'events');
             }
+            $contacts = $request->input('contacts', []);
             foreach ($languages as $language) {
                 if ($language->is_default == '1') {
                     $requiredVal = 'required';
@@ -304,7 +321,6 @@ class EventSignupController extends Controller
                         'description' => $request['description']['description_' . $language->id] ?? null,
                     ]);
                 }
-                $contacts = $request->input('contacts');
                 foreach ($contacts as $contactData) {
                     EventContact::create([
                         'event_id' => $event->id,
@@ -325,7 +341,7 @@ class EventSignupController extends Controller
             $data['user_id'] = $activeEmailUrl;
             $data['name'] = $request->name;
             $data['email'] = $request->email;
-            $data['contact_person_name'] = $contacts[0]['name'];
+            $data['contact_person_name'] = isset($contacts[0]['name']) ? $contacts[0]['name'] : $request->name;
             $data['company_name'] = $request->business_name;
             $data['business_categories_name'] = null;
             $data['package'] = $package;

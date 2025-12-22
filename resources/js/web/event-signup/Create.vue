@@ -885,7 +885,7 @@
 
                 
                    <!-- CTA Button Field - Only show for Premium and Featured packages -->
-                <div class="relative z-0 w-full group" v-if="form.package_type && form.package_type.toLowerCase() !== 'free'">
+                <div class="relative z-0 w-full group">
                     <label 
                         for="cta_btn" 
                         class="text-base md:text-base lg:text-lg "
@@ -904,19 +904,19 @@
                 </div>
 
                 <!-- CTA Link Field - Only show for Premium and Featured packages -->
-                <div class="relative z-0 w-full group" v-if="form.package_type && form.package_type.toLowerCase() !== 'free'">
+                <div class="relative z-0 w-full group">
                     <label 
                         for="cta_link" 
                         class="text-base md:text-base lg:text-lg "
                     >
-                        Call-to-Action URL
+                        CTA URL
                     </label>
                     <input
                         type="text"
                         name="cta_link"
                         id="cta_link"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
-                        placeholder="https://example.com/register"
+                        placeholder="See explanation in the footnotes below"
                         :value="form.cta_link"
                         @input="updateForm('cta_link', $event.target.value); clearErrors('cta_link');"
                     />
@@ -2188,6 +2188,7 @@ export default {
             .then((res) => {
                 if (res.data.status == "Success") {
                     this.packages = res.data.data;
+                    console.log("Packages:", this.packages);
                     this.freePackage = res.data.data.find(
                         (p) => p.package_type == "free"
                     );

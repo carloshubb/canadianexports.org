@@ -350,7 +350,7 @@ class SignupController extends Controller
             }
             // Only send verification email to NEW customers
             if ($isNewCustomer) {
-                // ----Mail::to($request->email)->send(new CustomerVerifyEmailMail($data));
+                Mail::to($request->email)->send(new CustomerVerifyEmailMail($data));
             }
 
             // if ($packagePrice <= 0) {

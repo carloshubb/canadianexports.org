@@ -37,6 +37,8 @@ use App\Models\Language;
 use App\Services\PaypalService;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
+
 
 Route::group(['prefix' => 'cron-job'], function () {
     Route::get('/info-letter-subscribe-emails', [CronJobController::class, 'infoLetterSubscribeEmails']);
@@ -184,14 +186,13 @@ Route::group(['middleware' => ['share.variable', 'user.status']], function () {
     Route::get('/clear-cache', function () {
         Cache::flush();
     });
-    Route::get('/test-email', function () {
-        $data = [
-            "company_name" => "Xelent Solutions",
-            "name" => "Umar aslam",
-            "email" => "umaraslam1163@gmail.com",
-            "country" => "Pakistan",
-        ];
-
-        return new \App\Mail\InfoLetterMail($data);
+   
+Route::get('/test-email', function () {
+    Mail::raw(config('mail.from.address'), function ($message) {
+        $message->to('jsmirnov041@gmail.com')
+                ->subject('Local SMTP Test');
     });
+
+    return 'Email sent';
+});
 });
