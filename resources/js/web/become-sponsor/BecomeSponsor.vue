@@ -1022,6 +1022,7 @@ export default {
         if (!this.form.talk_to_us_first) {
           // Payment option
           formData.sponsorship_amount = this.form.sponsorship_amount;
+          formData.frequency = this.form.frequency;
           formData.payment_method = this.form.payment_method;
           if (this.form.payment_method === "stripe") {
             formData.payment_method_id = this.form.payment_method_id;

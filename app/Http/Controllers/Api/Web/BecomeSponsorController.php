@@ -330,19 +330,29 @@ class BecomeSponsorController extends Controller
                     
                     if (!$customer) {
                         // Create new customer account for first-time sponsors
-                        $customer = Customer::create([
-                            'name' => $request->contact_name,
-                            'email' => $request->email,
-                            'business_name' => $request->company_name,
-                            'is_active' => 1,
-                            'password' => Hash::make($request->password),
-                            'type' => 'sponsor',
-                            'verify_customer_email' => 1,
-                            'is_package_amount_paid' => 1,
-                        ]);
-                        $sendWelcomeEmail = true;
-                        $isNewCustomer = true;
-                        Log::info('New sponsor customer created', ['customer_id' => $customer->id]);
+                        try {
+                            Log::info('Creating new customer account', ['email' => $request->email]);
+                            $customer = Customer::create([
+                                'name' => $request->contact_name,
+                                'email' => $request->email,
+                                'business_name' => $request->company_name,
+                                'is_active' => 1,
+                                'password' => Hash::make($request->password),
+                                'type' => 'sponsor',
+                                'verify_customer_email' => 1,
+                                'is_package_amount_paid' => 1,
+                            ]);
+                            $sendWelcomeEmail = true;
+                            $isNewCustomer = true;
+                            Log::info('New sponsor customer created', ['customer_id' => $customer->id]);
+                        } catch (\Exception $e) {
+                            Log::error('Failed to create customer account', [
+                                'error' => $e->getMessage(),
+                                'email' => $request->email,
+                                'trace' => $e->getTraceAsString()
+                            ]);
+                            throw new \Exception('Failed to create customer account: ' . $e->getMessage());
+                        }
                     } else {
                         // Email exists - allow sponsor to use it without logging in
                         // Just associate the sponsorship with the existing customer
@@ -365,19 +375,15 @@ class BecomeSponsorController extends Controller
             $isVisible = false; // Will be set to true after payment
 
             if (!$talkToUsFirst && $request->payment_method === 'stripe' && $request->sponsorship_amount > 0) {
-                Log::info('Processing Stripe payment');
+                Log::info('Processing Stripe payment', ['frequency' => $request->frequency]);
                 
                 \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
                 
                 try {
-                    // Create Stripe Customer with payment method ID (same as coffee wall)
+                    // Create Stripe Customer
                     $stripeCustomer = \Stripe\Customer::create([
                         'name' => $request->cardholder_name ?? $request->contact_name,
                         'email' => $request->email,
-                        'payment_method' => $request->payment_method_id,
-                        'invoice_settings' => [
-                            'default_payment_method' => $request->payment_method_id
-                        ]
                     ]);
 
                     $stripe_customer_id = $stripeCustomer->id;
@@ -388,38 +394,189 @@ class BecomeSponsorController extends Controller
                     $paymentMethod = \Stripe\PaymentMethod::retrieve($request->payment_method_id);
                     $paymentMethod->attach(['customer' => $stripe_customer_id]);
 
-                    // Create payment intent for one-time payment
-                    $paymentIntent = \Stripe\PaymentIntent::create([
-                        'amount' => intval($request->sponsorship_amount * 100), // Convert to cents
-                        'currency' => 'usd',
-                        'customer' => $stripe_customer_id,
-                        'payment_method' => $request->payment_method_id,
-                        'confirm' => true,
-                        'automatic_payment_methods' => [
-                            'enabled' => true,
-                            'allow_redirects' => 'never'
-                        ],
-                        'description' => 'Sponsorship - ' . $request->company_name,
-                        'metadata' => [
-                            'company_name' => $request->company_name,
-                            'contact_name' => $request->contact_name,
-                            'email' => $request->email,
-                            'beneficiary_ids' => $beneficiaryIds->implode(','),
-                        ],
+                    // Set the payment method as default for the customer
+                    \Stripe\Customer::update($stripe_customer_id, [
+                        'invoice_settings' => [
+                            'default_payment_method' => $request->payment_method_id
+                        ]
                     ]);
 
-                    if ($paymentIntent->status === 'succeeded') {
-                        $transactionId = $paymentIntent->id;
-                        $stripePaymentIntentId = $paymentIntent->id;
-                        $paymentStatus = 'paid';
-                        $status = 'active'; // Auto-approve
-                        $isVisible = true; // Make visible immediately
+                    $frequency = $request->frequency ?? 'one_time';
+
+                    // Handle one-time payment
+                    if ($frequency === 'one_time') {
+                        // Create payment intent for one-time payment
+                        $paymentIntent = \Stripe\PaymentIntent::create([
+                            'amount' => intval($request->sponsorship_amount * 100), // Convert to cents
+                            'currency' => 'usd',
+                            'customer' => $stripe_customer_id,
+                            'payment_method' => $request->payment_method_id,
+                            'confirm' => true,
+                            'automatic_payment_methods' => [
+                                'enabled' => true,
+                                'allow_redirects' => 'never'
+                            ],
+                            'description' => 'Sponsorship - ' . $request->company_name,
+                            'metadata' => [
+                                'company_name' => $request->company_name,
+                                'contact_name' => $request->contact_name,
+                                'email' => $request->email,
+                                'beneficiary_ids' => $beneficiaryIds->implode(','),
+                                'frequency' => $frequency,
+                            ],
+                        ]);
+
+                        Log::info('Payment Intent created', [
+                            'payment_intent_id' => $paymentIntent->id,
+                            'status' => $paymentIntent->status
+                        ]);
                         
-                        Log::info('Stripe payment succeeded', ['payment_intent_id' => $transactionId]);
+                        if ($paymentIntent->status === 'succeeded') {
+                            $transactionId = $paymentIntent->id;
+                            $stripePaymentIntentId = $paymentIntent->id;
+                            $paymentStatus = 'paid';
+                            $status = 'active'; // Auto-approve
+                            $isVisible = true; // Make visible immediately
+                            
+                            Log::info('Stripe one-time payment succeeded', ['payment_intent_id' => $transactionId]);
+                        } elseif ($paymentIntent->status === 'requires_action' || $paymentIntent->status === 'requires_payment_method') {
+                            Log::error('Stripe payment requires action', [
+                                'status' => $paymentIntent->status,
+                                'payment_intent_id' => $paymentIntent->id
+                            ]);
+                            return $this->errorResponse('Your card requires additional authentication. Please try again or use a different payment method.');
+                        } elseif ($paymentIntent->status === 'processing') {
+                            Log::info('Stripe payment is processing', ['payment_intent_id' => $paymentIntent->id]);
+                            // Payment is still processing - we'll mark it as pending
+                            $transactionId = $paymentIntent->id;
+                            $stripePaymentIntentId = $paymentIntent->id;
+                            $paymentStatus = 'pending';
+                            $status = 'pending';
+                        } else {
+                            Log::error('Stripe payment failed', [
+                                'status' => $paymentIntent->status,
+                                'payment_intent_id' => $paymentIntent->id,
+                                'last_payment_error' => $paymentIntent->last_payment_error ?? null
+                            ]);
+                            $errorMessage = 'Payment processing failed';
+                            if (isset($paymentIntent->last_payment_error)) {
+                                $errorMessage = $paymentIntent->last_payment_error->message ?? $errorMessage;
+                            }
+                            return $this->errorResponse($errorMessage);
+                        }
                     } else {
-                        Log::error('Stripe payment failed', ['status' => $paymentIntent->status]);
-                        return $this->errorResponse('Payment processing failed. Please try again.');
+                        // Handle recurring subscription
+                        // Map frequency to Stripe interval
+                        $intervalMap = [
+                            'monthly' => ['interval' => 'month', 'interval_count' => 1],
+                            'quarterly' => ['interval' => 'month', 'interval_count' => 3],
+                            'annually' => ['interval' => 'year', 'interval_count' => 1],
+                        ];
+
+                        if (!isset($intervalMap[$frequency])) {
+                            Log::error('Invalid frequency', ['frequency' => $frequency]);
+                            return $this->errorResponse('Invalid payment frequency selected.');
+                        }
+
+                        $interval = $intervalMap[$frequency];
+
+                        // Create a product for this sponsorship
+                        $product = \Stripe\Product::create([
+                            'name' => 'Sponsorship - ' . $request->company_name,
+                            'description' => 'Sponsorship payment',
+                        ]);
+
+                        // Create a price for this subscription
+                        $price = \Stripe\Price::create([
+                            'product' => $product->id,
+                            'unit_amount' => intval($request->sponsorship_amount * 100), // Convert to cents
+                            'currency' => 'usd',
+                            'recurring' => $interval,
+                        ]);
+
+                        Log::info('Created Stripe price for subscription', ['price_id' => $price->id, 'frequency' => $frequency]);
+
+                        // Create subscription with immediate payment
+                        $subscription = \Stripe\Subscription::create([
+                            'customer' => $stripe_customer_id,
+                            'items' => [
+                                ['price' => $price->id],
+                            ],
+                            'expand' => ['latest_invoice.payment_intent'],
+                            'metadata' => [
+                                'company_name' => $request->company_name,
+                                'contact_name' => $request->contact_name,
+                                'email' => $request->email,
+                                'beneficiary_ids' => $beneficiaryIds->implode(','),
+                                'frequency' => $frequency,
+                            ],
+                        ]);
+
+                        Log::info('Stripe subscription created', ['subscription_id' => $subscription->id]);
+
+                        // Check the payment intent from the invoice
+                        $invoice = $subscription->latest_invoice;
+                        $paymentIntent = is_string($invoice->payment_intent) 
+                            ? \Stripe\PaymentIntent::retrieve($invoice->payment_intent, ['expand' => ['payment_method']])
+                            : $invoice->payment_intent;
+                        
+                        if ($paymentIntent && $paymentIntent->status === 'succeeded') {
+                            $transactionId = $paymentIntent->id;
+                            $stripePaymentIntentId = $paymentIntent->id;
+                            $stripeSubscriptionId = $subscription->id;
+                            $paymentStatus = 'paid';
+                            $status = 'active'; // Auto-approve
+                            $isVisible = true; // Make visible immediately
+                            
+                            Log::info('Stripe subscription payment succeeded', [
+                                'subscription_id' => $subscription->id,
+                                'payment_intent_id' => $transactionId
+                            ]);
+                        } else if ($paymentIntent && $paymentIntent->status === 'requires_payment_method') {
+                            Log::error('Stripe subscription payment requires payment method', [
+                                'subscription_id' => $subscription->id,
+                                'payment_intent_id' => $paymentIntent->id
+                            ]);
+                            return $this->errorResponse('Payment method was declined. Please try a different card.');
+                        } else {
+                            // Payment requires action (3D Secure, etc.) or other status
+                            $transactionId = $paymentIntent->id ?? null;
+                            $stripePaymentIntentId = $paymentIntent->id ?? null;
+                            $stripeSubscriptionId = $subscription->id;
+                            $paymentStatus = 'pending';
+                            $status = 'pending';
+                            
+                            Log::info('Stripe subscription requires action', [
+                                'subscription_id' => $subscription->id,
+                                'payment_intent_status' => $paymentIntent->status ?? 'unknown',
+                                'payment_intent_id' => $paymentIntent->id ?? null
+                            ]);
+                            
+                            return $this->errorResponse('Payment requires additional authentication. Please try again or use a different payment method.');
+                        }
                     }
+                } catch (\Stripe\Exception\CardException $e) {
+                    Log::error('Stripe card error', [
+                        'error' => $e->getMessage(),
+                        'decline_code' => $e->getDeclineCode(),
+                        'code' => $e->getCode(),
+                    ]);
+                    return $this->errorResponse($e->getMessage());
+                } catch (\Stripe\Exception\RateLimitException $e) {
+                    Log::error('Stripe rate limit error', ['error' => $e->getMessage()]);
+                    return $this->errorResponse('Too many requests. Please try again later.');
+                } catch (\Stripe\Exception\InvalidRequestException $e) {
+                    Log::error('Stripe invalid request error', [
+                        'error' => $e->getMessage(),
+                        'param' => $e->getStripeParam(),
+                    ]);
+                    return $this->errorResponse('Invalid payment request: ' . $e->getMessage());
+                } catch (\Stripe\Exception\AuthenticationException $e) {
+                    Log::error('Stripe authentication error', ['error' => $e->getMessage()]);
+                    return $this->errorResponse('Payment authentication failed. Please contact support.');
+                } catch (\Stripe\Exception\ApiConnectionException $e) {
+                    Log::error('Stripe API connection error', ['error' => $e->getMessage()]);
+                    return $this->errorResponse('Payment service connection error. Please try again.');
                 } catch (\Exception $e) {
                     Log::error('Stripe payment error', [
                         'error' => $e->getMessage(),
@@ -437,59 +594,104 @@ class BecomeSponsorController extends Controller
             }
 
             // Create sponsor record
-            $sponsor = Sponsor::create([
-                'business_name' => $request->company_name,
-                'slug' => $slug,
-                'contact_name' => $request->contact_name,
-                'email' => $request->email,
-                'contact_number' => $request->contact_number,
-                'url' => $request->url,
-                'logo_media_id' => $logoMediaId,
-                'featured_media_id' => $featuredMediaId,
-                'summary' => $request->summary,
-                'detail_description' => $request->detail_description,
-                'message' => $request->message,
-                'sponsorship_type' => $sponsorshipType,
-                'sponsorship_amount' => $request->sponsorship_amount ?? null,
-                'frequency' => $request->frequency ?? 'one_time',
-                'talk_to_us_first' => $talkToUsFirst,
-                'preferred_call_time' => $request->preferred_call_time ?? null,
-                'preferred_call_date' => $request->preferred_call_date ?? null,
-                'talk_to_us_name' => $request->talk_to_us_name ?? null,
-                'talk_to_us_phone' => $request->talk_to_us_phone ?? null,
-                'beneficiary_id' => $primaryBeneficiaryId,
-                'payment_status' => $paymentStatus,
-                'payment_method' => $request->payment_method ?? null,
-                'transaction_id' => $transactionId,
-                'stripe_payment_intent_id' => $stripePaymentIntentId,
-                'stripe_subscription_id' => $stripeSubscriptionId,
-                'paypal_subscription_id' => $paypalSubscriptionId,
-                'paid_at' => $paymentStatus === 'paid' ? now() : null,
-                'status' => $status,
-                'is_visible' => $isVisible,
-                'customer_id' => $customer->id ?? null,
-            ]);
+            try {
+                Log::info('Creating sponsor record', [
+                    'company_name' => $request->company_name,
+                    'email' => $request->email,
+                    'payment_status' => $paymentStatus,
+                    'customer_id' => $customer->id ?? null
+                ]);
+                
+                $sponsor = Sponsor::create([
+                    'business_name' => $request->company_name,
+                    'slug' => $slug,
+                    'contact_name' => $request->contact_name,
+                    'email' => $request->email,
+                    'contact_number' => $request->contact_number,
+                    'url' => $request->url,
+                    'logo_media_id' => $logoMediaId,
+                    'featured_media_id' => $featuredMediaId,
+                    'summary' => $request->summary,
+                    'detail_description' => $request->detail_description,
+                    'message' => $request->message,
+                    'sponsorship_type' => $sponsorshipType,
+                    'sponsorship_amount' => $request->sponsorship_amount ?? null,
+                    'frequency' => $request->frequency ?? 'one_time',
+                    'talk_to_us_first' => $talkToUsFirst,
+                    'preferred_call_time' => $request->preferred_call_time ?? null,
+                    'preferred_call_date' => $request->preferred_call_date ?? null,
+                    'talk_to_us_name' => $request->talk_to_us_name ?? null,
+                    'talk_to_us_phone' => $request->talk_to_us_phone ?? null,
+                    'beneficiary_id' => $primaryBeneficiaryId,
+                    'payment_status' => $paymentStatus,
+                    'payment_method' => $request->payment_method ?? null,
+                    'transaction_id' => $transactionId,
+                    'stripe_payment_intent_id' => $stripePaymentIntentId,
+                    'stripe_subscription_id' => $stripeSubscriptionId,
+                    'paypal_subscription_id' => $paypalSubscriptionId,
+                    'paid_at' => $paymentStatus === 'paid' ? now() : null,
+                    'status' => $status,
+                    'is_visible' => $isVisible,
+                    'customer_id' => $customer->id ?? null,
+                ]);
 
-            Log::info('Sponsor created', ['sponsor_id' => $sponsor->id]);
-
-            if ($beneficiaryIds->isNotEmpty()) {
-                $sponsor->beneficiaries()->sync($beneficiaryIds->all());
+                Log::info('Sponsor created successfully', ['sponsor_id' => $sponsor->id]);
+            } catch (\Exception $e) {
+                Log::error('Failed to create sponsor record', [
+                    'error' => $e->getMessage(),
+                    'trace' => $e->getTraceAsString()
+                ]);
+                throw $e;
             }
 
-            $sponsor->load(['beneficiaries', 'beneficiary']);
-
-            // Send admin notifications
-            $general_setting = getGeneralSettingByKey();
-            if (isset($general_setting['admin_email'])) {
-                $adminEmailsArr = explode(',', $general_setting['admin_email']);
-                
-                if ($talkToUsFirst) {
-                    // Send "Talk to Us" notification
-                    Mail::to($adminEmailsArr)->send(new SponsorContactRequestNotification($sponsor));
-                } elseif ($paymentStatus === 'paid') {
-                    // Send payment success notification
-                    Mail::to($adminEmailsArr)->send(new NewSponsorPaymentNotification($sponsor));
+            // Sync beneficiaries
+            try {
+                if ($beneficiaryIds->isNotEmpty()) {
+                    Log::info('Syncing beneficiaries', ['beneficiary_ids' => $beneficiaryIds->toArray()]);
+                    $sponsor->beneficiaries()->sync($beneficiaryIds->all());
+                    Log::info('Beneficiaries synced successfully');
                 }
+            } catch (\Exception $e) {
+                Log::error('Failed to sync beneficiaries', [
+                    'error' => $e->getMessage(),
+                    'sponsor_id' => $sponsor->id,
+                    'beneficiary_ids' => $beneficiaryIds->toArray()
+                ]);
+                // Don't throw - continue even if beneficiary sync fails
+            }
+
+            try {
+                $sponsor->load(['beneficiaries', 'beneficiary']);
+            } catch (\Exception $e) {
+                Log::error('Failed to load sponsor relationships', [
+                    'error' => $e->getMessage(),
+                    'sponsor_id' => $sponsor->id
+                ]);
+                // Don't throw - continue even if loading fails
+            }
+
+            // Send admin notifications (wrap in try-catch to prevent email failures from breaking the flow)
+            try {
+                $general_setting = getGeneralSettingByKey();
+                if (isset($general_setting['admin_email'])) {
+                    $adminEmailsArr = explode(',', $general_setting['admin_email']);
+                    
+                    if ($talkToUsFirst) {
+                        // Send "Talk to Us" notification
+                        Mail::to($adminEmailsArr)->send(new SponsorContactRequestNotification($sponsor));
+                        Log::info('Admin notification sent (Talk to Us)');
+                    } elseif ($paymentStatus === 'paid') {
+                        // Send payment success notification
+                        Mail::to($adminEmailsArr)->send(new NewSponsorPaymentNotification($sponsor));
+                        Log::info('Admin notification sent (Payment success)');
+                    }
+                }
+            } catch (\Exception $e) {
+                Log::error('Failed to send admin notification', [
+                    'error' => $e->getMessage(),
+                    'sponsor_id' => $sponsor->id
+                ]);
+                // Don't throw - continue even if email fails
             }
 
             // Send welcome email to sponsor if new account (no password needed - they set it themselves)
@@ -500,10 +702,19 @@ class BecomeSponsorController extends Controller
                 // ]));
             }
 
-            // Send auto-response to customer
-            Mail::to($request->email)->send(new BecomeSponsorResponseMail([
-                'name' => $request->contact_name
-            ]));
+            // Send auto-response to customer (wrap in try-catch to prevent email failures from breaking the flow)
+            try {
+                Mail::to($request->email)->send(new BecomeSponsorResponseMail([
+                    'name' => $request->contact_name
+                ]));
+                Log::info('Auto-response email sent to customer');
+            } catch (\Exception $e) {
+                Log::error('Failed to send auto-response email', [
+                    'error' => $e->getMessage(),
+                    'email' => $request->email
+                ]);
+                // Don't throw - continue even if email fails
+            }
 
             // Auto-login the customer after successful payment (only for new customers)
             if (!$talkToUsFirst && $customer && $paymentStatus === 'paid' && $isNewCustomer && !$loggedInCustomer) {
@@ -578,9 +789,19 @@ class BecomeSponsorController extends Controller
                 'message' => $e->getMessage(),
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
-                'trace' => $e->getTraceAsString()
+                'trace' => $e->getTraceAsString(),
+                'request_data' => $request->except(['password', 'password_confirmation', 'logo', 'featured_image'])
             ]);
-            return $this->errorResponse('An error occurred while processing your request. Please try again.');
+            
+            // Return more specific error message if possible
+            $errorMessage = 'An error occurred while processing your request. Please try again.';
+            if (strpos($e->getMessage(), 'SQLSTATE') !== false) {
+                $errorMessage = 'Database error occurred. Please contact support.';
+            } elseif (strpos($e->getMessage(), 'Mail') !== false || strpos($e->getMessage(), 'email') !== false) {
+                $errorMessage = 'Payment processed successfully, but there was an issue sending confirmation email. Please contact support.';
+            }
+            
+            return $this->errorResponse($errorMessage);
         }
     }
 
