@@ -100,6 +100,7 @@ if (!function_exists("upload")) {
         if (isset($file)) {
             $fileName = preg_replace('/\s+/', '_', time() . ' ' . $file->getClientOriginalName());
             $path = $type . "/" . time() . "/" . $fileName;
+           
             if (!file_exists($type . "/" . time())) {
                 mkdir($type . "/" . time(), 0777);
             }
@@ -1884,5 +1885,46 @@ if (!function_exists('getImageUrl')) {
         // Build URL based on storage type
         $prefix = $useStorage ? '/storage/' : '/';
         return $prefix . $encodedPath;
+    }
+}
+
+if (!function_exists('getWebPublicPath')) {
+    /**
+     * Get the correct public path for file storage
+     * Handles Hostinger and similar shared hosting where web root differs from Laravel public
+     * 
+     * @param string $path Optional subpath to append
+     * @return string The full filesystem path to the web-accessible public directory
+     */
+    function getWebPublicPath(string $path = ''): string
+    {
+        // Get the document root (web root) - this is what the browser can access
+        $documentRoot = $_SERVER['DOCUMENT_ROOT'] ?? public_path();
+        
+        // On Hostinger, document root is typically public_html/
+        // Laravel's public_path() might be public_html/src/public/
+        // We want to use the document root (web root) for file storage
+        
+        // Check if we're in a subdirectory structure (like src/public/)
+        $laravelPublic = public_path();
+        $webRoot = rtrim($documentRoot, DIRECTORY_SEPARATOR);
+        
+        // If Laravel public is inside web root, use web root
+        // Otherwise, use Laravel public (for local development)
+        if (strpos($laravelPublic, $webRoot) === 0) {
+            // Laravel public is inside web root, use web root
+            $basePath = $webRoot;
+        } else {
+            // Use Laravel public path (local development)
+            $basePath = $laravelPublic;
+        }
+        
+        // Append the subpath if provided
+        if (!empty($path)) {
+            $path = ltrim($path, DIRECTORY_SEPARATOR . '/\\');
+            return $basePath . DIRECTORY_SEPARATOR . str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $path);
+        }
+        
+        return $basePath;
     }
 }

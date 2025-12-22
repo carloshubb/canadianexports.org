@@ -42,7 +42,7 @@ trait FileUploadTrait
     private function createMediaFolder($folderName = null): bool
     {
         $targetFolder = $folderName ?: $this->folderName;
-        $attachmentPath = public_path($targetFolder);
+        $attachmentPath = getWebPublicPath($targetFolder);
         
         if (!file_exists($attachmentPath)) {
             mkdir($attachmentPath, 0755, true);
@@ -205,13 +205,13 @@ trait FileUploadTrait
                 $sourcePath = $storageRoot . DIRECTORY_SEPARATOR . $normalizedTemp;
                 if (!file_exists($sourcePath) || !is_file($sourcePath)) {
                     // Try direct public path (e.g., public/media/temp/...)
-                    $altSourcePath = public_path($normalizedTemp);
+                    $altSourcePath = getWebPublicPath($normalizedTemp);
                     if (file_exists($altSourcePath) && is_file($altSourcePath)) {
                         $sourcePath = $altSourcePath;
                         Log::info("moveFile: Found file at alternative path (public): {$altSourcePath}");
                     } else {
                         // Try via public/storage symlink (e.g., public/storage/media/temp/...)
-                        $symlinkSourcePath = public_path('storage' . DIRECTORY_SEPARATOR . $normalizedTemp);
+                        $symlinkSourcePath = getWebPublicPath('storage' . DIRECTORY_SEPARATOR . $normalizedTemp);
                         if (file_exists($symlinkSourcePath) && is_file($symlinkSourcePath)) {
                             $sourcePath = $symlinkSourcePath;
                             Log::info("moveFile: Found file at symlink path: {$symlinkSourcePath}");
@@ -220,7 +220,7 @@ trait FileUploadTrait
                         }
                     }
                 }
-                $destinationPath = public_path($destinationFolder . DIRECTORY_SEPARATOR . basename($tempFile));
+                $destinationPath = getWebPublicPath($destinationFolder . DIRECTORY_SEPARATOR . basename($tempFile));
                 
                 if (file_exists($sourcePath) && is_file($sourcePath)) {
                     // Ensure destination directory exists
@@ -261,18 +261,18 @@ trait FileUploadTrait
             $sourcePath = config('filesystems.disks.public.root') . DIRECTORY_SEPARATOR . $normalizedTemp;
             if (!file_exists($sourcePath) || !is_file($sourcePath)) {
                 // Try direct public path (e.g., public/media/temp/...)
-                $altSourcePath = public_path($normalizedTemp);
+                $altSourcePath = getWebPublicPath($normalizedTemp);
                 if (file_exists($altSourcePath) && is_file($altSourcePath)) {
                     $sourcePath = $altSourcePath;
                 } else {
                     // Try via public/storage symlink (e.g., public/storage/media/temp/...)
-                    $symlinkSourcePath = public_path('storage' . DIRECTORY_SEPARATOR . $normalizedTemp);
+                    $symlinkSourcePath = getWebPublicPath('storage' . DIRECTORY_SEPARATOR . $normalizedTemp);
                     if (file_exists($symlinkSourcePath) && is_file($symlinkSourcePath)) {
                         $sourcePath = $symlinkSourcePath;
                     }
                 }
             }
-            $destinationPath = public_path($destinationFolder . DIRECTORY_SEPARATOR . basename($tempFiles));
+            $destinationPath = getWebPublicPath($destinationFolder . DIRECTORY_SEPARATOR . basename($tempFiles));
             
             if (file_exists($sourcePath) && is_file($sourcePath)) {
                 // Ensure destination directory exists
@@ -306,7 +306,7 @@ trait FileUploadTrait
     public function resizeFile($type, $fileName, $destinationFolder, $tempFile)
     {
         try {
-            $fullPath = public_path($fileName);
+            $fullPath = getWebPublicPath($fileName);
             if (!file_exists($fullPath)) {
                 Log::error("File not found for resizing: $fullPath");
                 return;
@@ -323,17 +323,17 @@ trait FileUploadTrait
                     if ($imgWidth > $general_setting['thumbnail_image_width']) {
                         $img->resize($general_setting['thumbnail_image_width'], $general_setting['thumbnail_image_height'], function ($const) {
                             $const->aspectRatio();
-                        })->save(public_path($destinationFolder . '/thumbnail-' . basename($tempFile)));
+                        })->save(getWebPublicPath($destinationFolder . '/thumbnail-' . basename($tempFile)));
                     } else {
-                        $img->save(public_path($destinationFolder . '/thumbnail-' . basename($tempFile)));
+                        $img->save(getWebPublicPath($destinationFolder . '/thumbnail-' . basename($tempFile)));
                     }
                 } else if ($imgHeight > $imgWidth) {
                     if ($imgHeight > $general_setting['thumbnail_image_height']) {
                         $img->resize($general_setting['thumbnail_image_height'], $general_setting['thumbnail_image_width'], function ($const) {
                             $const->aspectRatio();
-                        })->save(public_path($destinationFolder . '/thumbnail-' . basename($tempFile)));
+                        })->save(getWebPublicPath($destinationFolder . '/thumbnail-' . basename($tempFile)));
                     } else {
-                        $img->save(public_path($destinationFolder . '/thumbnail-' . basename($tempFile)));
+                        $img->save(getWebPublicPath($destinationFolder . '/thumbnail-' . basename($tempFile)));
                     }
                 }
             }
@@ -348,17 +348,17 @@ trait FileUploadTrait
                     if ($imgWidth > $general_setting['medium_image_width']) {
                         $img->resize($general_setting['medium_image_width'], $general_setting['medium_image_height'], function ($const) {
                             $const->aspectRatio();
-                        })->save(public_path($destinationFolder . '/medium-' . basename($tempFile)));
+                        })->save(getWebPublicPath($destinationFolder . '/medium-' . basename($tempFile)));
                     } else {
-                        $img->save(public_path($destinationFolder . '/medium-' . basename($tempFile)));
+                        $img->save(getWebPublicPath($destinationFolder . '/medium-' . basename($tempFile)));
                     }
                 } else if ($imgHeight > $imgWidth) {
                     if ($imgHeight > $general_setting['medium_image_height']) {
                         $img->resize($general_setting['medium_image_height'], $general_setting['medium_image_width'], function ($const) {
                             $const->aspectRatio();
-                        })->save(public_path($destinationFolder . '/medium-' . basename($tempFile)));
+                        })->save(getWebPublicPath($destinationFolder . '/medium-' . basename($tempFile)));
                     } else {
-                        $img->save(public_path($destinationFolder . '/medium-' . basename($tempFile)));
+                        $img->save(getWebPublicPath($destinationFolder . '/medium-' . basename($tempFile)));
                     }
                 }
             }
@@ -373,17 +373,17 @@ trait FileUploadTrait
                     if ($imgWidth > $general_setting['large_image_width']) {
                         $img->resize($general_setting['large_image_width'], $general_setting['large_image_height'], function ($const) {
                             $const->aspectRatio();
-                        })->save(public_path($destinationFolder . '/large-' . basename($tempFile)));
+                        })->save(getWebPublicPath($destinationFolder . '/large-' . basename($tempFile)));
                     } else {
-                        $img->save(public_path($destinationFolder . '/large-' . basename($tempFile)));
+                        $img->save(getWebPublicPath($destinationFolder . '/large-' . basename($tempFile)));
                     }
                 } else if ($imgHeight > $imgWidth) {
                     if ($imgHeight > $general_setting['large_image_height']) {
                         $img->resize($general_setting['large_image_height'], $general_setting['large_image_width'], function ($const) {
                             $const->aspectRatio();
-                        })->save(public_path($destinationFolder . '/large-' . basename($tempFile)));
+                        })->save(getWebPublicPath($destinationFolder . '/large-' . basename($tempFile)));
                     } else {
-                        $img->save(public_path($destinationFolder . '/large-' . basename($tempFile)));
+                        $img->save(getWebPublicPath($destinationFolder . '/large-' . basename($tempFile)));
                     }
                 }
             }

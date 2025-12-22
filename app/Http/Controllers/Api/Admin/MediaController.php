@@ -122,7 +122,7 @@ class MediaController extends Controller
             $image->move($destinationPath, $name);
             return '/documents/uploads/' . $request->upload_dir . '/' . $name;
         } else {
-            $destinationPath = public_path('/images');
+            $destinationPath = getWebPublicPath('images');
             $image->move($destinationPath, $name);
         }
         return '/images/' . $name;

@@ -50,7 +50,7 @@ class ProcessLogoJob implements ShouldQueue, ShouldBeUnique
                     $logoContent = $response->body();
                     $path = parse_url($this->data['url'], PHP_URL_PATH);
                     $extension = pathinfo($path, PATHINFO_EXTENSION);
-                    $storagePath = public_path('media/customers');
+                    $storagePath = getWebPublicPath('media/customers');
 
                     if (!File::exists($storagePath)) {
                         File::makeDirectory($storagePath, 0755, true);
