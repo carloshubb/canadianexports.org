@@ -10,10 +10,7 @@
               </h1>
             </div>
             <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-              <router-link
-                :to="{ name: 'admin.pages.index' }"
-                class="button-exp-fill"
-              >
+              <router-link :to="{ name: 'admin.pages.index' }" class="button-exp-fill">
                 Back to list of pages
               </router-link>
             </div>
@@ -21,182 +18,110 @@
         </div>
       </header>
       <form class="px-4 md:px-6 lg:px-8" @submit.prevent="addUpdateForm()">
-        <div
-          class="text-sm font-medium text-center text-gray-500 border-b border-gray-200"
-        >
+        <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200">
           <ul class="flex flex-wrap mb-2 overflow-x-auto gap-1 mt-4">
             <li class="mr-2" v-for="language in languages" :key="language.id">
-              <a
-                @click.prevent="changeLanguageTab(language)"
-                href="#"
-                :class="[
-                  'inline-block rounded font-FuturaMdCnBT px-5 py-2 lg:text-lg md:text-base sm:text-base text-base hover:bg-blue-100 border border-primary text-center hover:border-blue-500 hover:text-blue-600',
-                  (selectedLanguageId == null && language.is_default) ||
+              <a @click.prevent="changeLanguageTab(language)" href="#" :class="[
+                'inline-block rounded font-FuturaMdCnBT px-5 py-2 lg:text-lg md:text-base sm:text-base text-base hover:bg-blue-100 border border-primary text-center hover:border-blue-500 hover:text-blue-600',
+                (selectedLanguageId == null && language.is_default) ||
                   selectedLanguageId == language.id
-                    ? 'bg-blue-600 text-white'
-                    : '',
-                  validationErros.has(`name.name_${language.id}`)
-                    ? 'bg-red-600 border-red-600 text-white hover:text-white rounded hover:bg-red-600 hover:border-red-600'
-                    : '',
-                ]"
-                >{{ language.name }}</a
-              >
+                  ? 'bg-blue-600 text-white'
+                  : '',
+                validationErros.has(`name.name_${language.id}`)
+                  ? 'bg-red-600 border-red-600 text-white hover:text-white rounded hover:bg-red-600 hover:border-red-600'
+                  : '',
+              ]">{{ language.name }}</a>
             </li>
           </ul>
         </div>
 
-        <div
-          class="mx-auto grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mt-4"
-          v-for="(language, languageIndex) in languages"
-          :key="language.id"
-          :class="
-            (selectedLanguageId == null && language.is_default) ||
-            selectedLanguageId == language.id
+        <div class="mx-auto grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mt-4"
+          v-for="(language, languageIndex) in languages" :key="language.id" :class="(selectedLanguageId == null && language.is_default) ||
+              selectedLanguageId == language.id
               ? 'block'
               : 'hidden'
-          "
-        >
+            ">
           <div class="col-span-6 sm:col-span-3">
             <div class="rounded-lg bg-gray-50 shadow-sm ring-1 ring-gray-900/5">
               <dl class="flex flex-wrap">
                 <div class="flex-auto pl-6 pt-6">
-                  <span class="text-sm font-semibold leading-6 text-gray-900"
-                    >Page Settings</span
-                  >
+                  <span class="text-sm font-semibold leading-6 text-gray-900">Page Settings</span>
                 </div>
 
                 <div class="mt-4 w-full border-t border-gray-900/5 px-6 pt-4">
                   <div>
-                    <label
-                      for="name"
-                      class="block text-sm font-medium leading-6 text-gray-900"
-                      >Page name</label
-                    >
+                    <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Page name</label>
                     <div class="mt-2">
-                      <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        autocomplete="page-name"
+                      <input type="text" name="name" id="name" autocomplete="page-name"
                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        placeholder=" "
-                        @input="
+                        placeholder=" " @input="
                           handleInput($event.target.value, language, 'name')
-                        "
-                        :value="
-                          form['name'] && form['name'][`name_${language.id}`]
+                          " :value="form['name'] && form['name'][`name_${language.id}`]
                             ? form['name'][`name_${language.id}`]
                             : ''
-                        "
-                        :disabled="isFormEdit"
-                      />
-                      <p
-                        class="mt-2 text-sm text-red-400"
-                        v-if="validationErros.has(`name.name_${language.id}`)"
-                        v-text="validationErros.get(`name.name_${language.id}`)"
-                      ></p>
+                          " :disabled="isFormEdit" />
+                      <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`name.name_${language.id}`)"
+                        v-text="validationErros.get(`name.name_${language.id}`)"></p>
                     </div>
                   </div>
                   <div class="mt-4">
                     <div class="flex items-center justify-between">
-                      <label
-                        for="template"
-                        class="block text-sm font-medium leading-6 text-gray-900"
-                        >Page template (optional)</label
-                      >
-                      <fieldset
-                        v-if="
-                          form.template == 'register_template' ||
-                          form.template == 'login_template' ||
-                          form.template == 'event_signup_template' ||
-                          form.template == 'event_create_template' ||
-                          form.template == 'event_listing_template' ||
-                          form.template == 'sponser_listing_template' ||
-                          form.template == 'magazine_template' ||
-                          form.template == 'close_account_template'
-                        "
-                      >
+                      <label for="template" class="block text-sm font-medium leading-6 text-gray-900">Page template
+                        (optional)</label>
+                      <fieldset v-if="
+                        form.template == 'register_template' ||
+                        form.template == 'login_template' ||
+                        form.template == 'event_signup_template' ||
+                        form.template == 'event_create_template' ||
+                        form.template == 'event_listing_template' ||
+                        form.template == 'sponser_listing_template' ||
+                        form.template == 'magazine_template' ||
+                        form.template == 'close_account_template'
+                      ">
                         <legend class="sr-only">Set as default page</legend>
                         <div class="flex items-center">
-                          <input
-                            id="set_as_default_page"
-                            name="set_as_default_page"
-                            type="checkbox"
-                            value=""
+                          <input id="set_as_default_page" name="set_as_default_page" type="checkbox" value=""
                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-                            :checked="set_as_default_page"
-                            v-model="set_as_default_page"
-                          />
-                          <label
-                            for="set_as_default_page"
-                            class="ml-2 text-sm font-medium text-gray-900"
-                            >Set as default page</label
-                          >
+                            :checked="set_as_default_page" v-model="set_as_default_page" />
+                          <label for="set_as_default_page" class="ml-2 text-sm font-medium text-gray-900">Set as default
+                            page</label>
                         </div>
                       </fieldset>
                     </div>
                     <div class="mt-2">
-                      <select
-                        id="template"
-                        name="template"
-                        autocomplete="template-name"
+                      <select id="template" name="template" autocomplete="template-name"
                         class="inline-block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        @input="updateTemplate($event.target.value, 'template')"
-                      >
+                        @input="updateTemplate($event.target.value, 'template')">
                         <option value="">Select template</option>
-                        <option
-                          v-for="template in sortedTemplates"
-                          :key="template.id"
-                          :value="template.id"
-                          :selected="form.template == template.id"
-                        >
+                        <option v-for="template in sortedTemplates" :key="template.id" :value="template.id"
+                          :selected="form.template == template.id">
                           {{ template.name }}
                         </option>
                       </select>
-                      <p
-                        class="mt-2 text-sm text-red-400"
-                        v-if="validationErros.has(`template`)"
-                        v-text="validationErros.get(`template`)"
-                      ></p>
+                      <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`template`)"
+                        v-text="validationErros.get(`template`)"></p>
                     </div>
 
                     <div class="flex-none self-end py-4">
                       <dt class="sr-only">Set as home page</dt>
                       <dd
-                        class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20"
-                      >
+                        class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
                         <div class="flex items-center">
-                          <input
-                            id="is_home_page"
-                            name="is_home_page"
-                            type="checkbox"
-                            value=""
+                          <input id="is_home_page" name="is_home_page" type="checkbox" value=""
                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-                            :checked="is_home_page"
-                            v-model="is_home_page"
-                          />
-                          <label
-                            for="is_home_page"
-                            class="ml-2 text-sm font-medium text-gray-900"
-                            >Set as home page</label
-                          >
+                            :checked="is_home_page" v-model="is_home_page" />
+                          <label for="is_home_page" class="ml-2 text-sm font-medium text-gray-900">Set as home
+                            page</label>
                         </div>
                       </dd>
                     </div>
                     <div class="rounded-md bg-blue-50 p-4 mb-7">
                       <div class="flex">
                         <div class="flex-shrink-0">
-                          <svg
-                            class="h-5 w-5 text-blue-400"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                            aria-hidden="true"
-                          >
-                            <path
-                              fill-rule="evenodd"
+                          <svg class="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd"
                               d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z"
-                              clip-rule="evenodd"
-                            />
+                              clip-rule="evenodd" />
                           </svg>
                         </div>
                         <div class="ml-3 flex-1 md:flex md:justify-between">
@@ -209,81 +134,40 @@
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
                       <div>
-                        <label
-                          for="template"
-                          class="block text-sm font-medium leading-6 text-gray-900"
-                          >After header banner (optional)</label
-                        >
+                        <label for="template" class="block text-sm font-medium leading-6 text-gray-900">After header
+                          banner (optional)</label>
                         <div class="mt-2">
-                          <multiselect
-                            v-model="selectedAfterHeaderWidgetId"
-                            @select="updateAfterHeaderWidgetId"
-                            @remove="updateAfterHeaderWidgetId"
-                            :options="widgets"
-                            :multiple="false"
-                            :close-on-select="false"
-                            :clear-on-select="false"
-                            :preserve-search="true"
-                            placeholder="Select header banner"
-                            label="name"
-                            track-by="id"
-                            :preselect-first="false"
-                          >
+                          <multiselect v-model="selectedAfterHeaderWidgetId" @select="updateAfterHeaderWidgetId"
+                            @remove="updateAfterHeaderWidgetId" :options="widgets" :multiple="false"
+                            :close-on-select="false" :clear-on-select="false" :preserve-search="true"
+                            placeholder="Select header banner" label="name" track-by="id" :preselect-first="false">
                             <template #selection="{ values, search, isOpen }">
-                              <span
-                                class="multiselect__single"
-                                v-if="values.length"
-                                v-show="!isOpen"
-                                >{{ values.length }} banner selected</span
-                              >
+                              <span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length
+                                }} banner selected</span>
                             </template>
                           </multiselect>
-                          <p
-                            class="mt-2 text-sm text-red-400"
-                            v-if="validationErros.has(`after_header_widget_id`)"
-                            v-text="
-                              validationErros.get(`after_header_widget_id`)
-                            "
-                          ></p>
+                          <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`after_header_widget_id`)"
+                            v-text="validationErros.get(`after_header_widget_id`)
+                              "></p>
                         </div>
                       </div>
                       <div>
-                        <label
-                          for="template"
-                          class="block text-sm font-medium leading-6 text-gray-900"
-                          >Before footer banner (optional)</label
-                        >
+                        <label for="template" class="block text-sm font-medium leading-6 text-gray-900">Before footer
+                          banner
+                          (optional)</label>
                         <div class="mt-2">
-                          <multiselect
-                            v-model="selectedBeforeFooterWidgetId"
-                            @select="updateBeforeFooterWidgetId"
-                            @remove="updateBeforeFooterWidgetId"
-                            :options="widgets"
-                            :multiple="false"
-                            :close-on-select="false"
-                            :clear-on-select="false"
-                            :preserve-search="true"
-                            placeholder="Select footer banner"
-                            label="name"
-                            track-by="id"
-                            :preselect-first="false"
-                          >
+                          <multiselect v-model="selectedBeforeFooterWidgetId" @select="updateBeforeFooterWidgetId"
+                            @remove="updateBeforeFooterWidgetId" :options="widgets" :multiple="false"
+                            :close-on-select="false" :clear-on-select="false" :preserve-search="true"
+                            placeholder="Select footer banner" label="name" track-by="id" :preselect-first="false">
                             <template #selection="{ values, search, isOpen }">
-                              <span
-                                class="multiselect__single"
-                                v-if="values.length"
-                                v-show="!isOpen"
-                                >{{ values.length }} banner selected</span
-                              >
+                              <span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length
+                                }} banner selected</span>
                             </template>
                           </multiselect>
-                          <p
-                            class="mt-2 text-sm text-red-400"
-                            v-if="validationErros.has(`after_footer_widget_id`)"
-                            v-text="
-                              validationErros.get(`after_footer_widget_id`)
-                            "
-                          ></p>
+                          <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`after_footer_widget_id`)"
+                            v-text="validationErros.get(`after_footer_widget_id`)
+                              "></p>
                         </div>
                       </div>
                     </div>
@@ -297,117 +181,71 @@
             <div class="rounded-lg bg-gray-50 shadow-sm ring-1 ring-gray-900/5">
               <dl class="flex flex-wrap">
                 <div class="flex-auto pl-6 pt-6">
-                  <span class="text-sm font-semibold leading-6 text-gray-900"
-                    >SEO Settings</span
-                  >
+                  <span class="text-sm font-semibold leading-6 text-gray-900">SEO Settings</span>
                 </div>
                 <div class="mt-4 w-full border-t border-gray-900/5 px-6 pt-4">
                   <div class="relative z-0 w-full group">
-                    <label
-                      class="block text-sm font-medium leading-6 text-gray-900"
-                      :for="`description_${selectedLanguageId}`"
-                      >Meta description</label
-                    >
-                    <textarea
-                      name="description"
-                      id="description"
-                      rows="2"
+                    <label class="block text-sm font-medium leading-6 text-gray-900"
+                      :for="`description_${selectedLanguageId}`">Meta description</label>
+                    <textarea name="description" id="description" rows="2"
                       class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      placeholder=" "
-                      @input="
+                      placeholder=" " @input="
                         handleInput(
                           $event.target.value,
                           language,
                           'description'
                         )
-                      "
-                      v-text="
-                        form['description'] &&
-                        form['description'][`description_${language.id}`]
+                        " v-text="form['description'] &&
+                          form['description'][`description_${language.id}`]
                           ? form['description'][`description_${language.id}`]
                           : ''
-                      "
-                    ></textarea>
-                    <p
-                      class="mt-2 text-sm text-red-400"
-                      v-if="
-                        validationErros.has(
-                          `description.description_${selectedLanguageId}`
-                        )
-                      "
-                      v-text="
-                        validationErros.get(
-                          `description.description_${selectedLanguageId}`
-                        )
-                      "
-                    ></p>
+                        "></textarea>
+                    <p class="mt-2 text-sm text-red-400" v-if="
+                      validationErros.has(
+                        `description.description_${selectedLanguageId}`
+                      )
+                    " v-text="validationErros.get(
+                        `description.description_${selectedLanguageId}`
+                      )
+                        "></p>
                   </div>
                   <div class="mt-4">
-                    <label
-                      class="block text-sm font-medium leading-6 text-gray-900"
-                      :for="`meta_keywords_${selectedLanguageId}`"
-                      >Meta keywords</label
-                    >
-                    <textarea
-                      name="meta_keywords"
-                      id="meta_keywords"
-                      rows="2"
+                    <label class="block text-sm font-medium leading-6 text-gray-900"
+                      :for="`meta_keywords_${selectedLanguageId}`">Meta keywords</label>
+                    <textarea name="meta_keywords" id="meta_keywords" rows="2"
                       class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      placeholder=" "
-                      @input="
+                      placeholder=" " @input="
                         handleInput(
                           $event.target.value,
                           language,
                           'meta_keywords'
                         )
-                      "
-                      v-text="
-                        form['meta_keywords'] &&
-                        form['meta_keywords'][`meta_keywords_${language.id}`]
+                        " v-text="form['meta_keywords'] &&
+                          form['meta_keywords'][`meta_keywords_${language.id}`]
                           ? form['meta_keywords'][
-                              `meta_keywords_${language.id}`
-                            ]
+                          `meta_keywords_${language.id}`
+                          ]
                           : ''
-                      "
-                    ></textarea>
-                    <p
-                      class="mt-2 text-sm text-red-400"
-                      v-if="
-                        validationErros.has(
-                          `meta_keywords.meta_keywords_${selectedLanguageId}`
-                        )
-                      "
-                      v-text="
-                        validationErros.get(
-                          `meta_keywords.meta_keywords_${selectedLanguageId}`
-                        )
-                      "
-                    ></p>
+                        "></textarea>
+                    <p class="mt-2 text-sm text-red-400" v-if="
+                      validationErros.has(
+                        `meta_keywords.meta_keywords_${selectedLanguageId}`
+                      )
+                    " v-text="validationErros.get(
+                        `meta_keywords.meta_keywords_${selectedLanguageId}`
+                      )
+                        "></p>
                   </div>
                   <div class="mt-4 mb-4">
-                    <label
-                      class="block text-sm font-medium leading-6 text-gray-900"
-                      for="facebook_media_id"
-                      >Facebook image</label
-                    >
+                    <label class="block text-sm font-medium leading-6 text-gray-900" for="facebook_media_id">Facebook
+                      image</label>
                     <FilePond
                       labelIdle='<span class="cursor-pointer">Drag & drop or <span class="filepond--label-action"> Browse </span></span>'
-                      class="cursor-pointer"
-                      name="facebook_media"
-                      class-name="my-pond"
-                      accepted-file-types="image/*"
-                      credits="false"
-                      ref="facebook_media"
-                      v-bind:files="facebook"
-                      @init="handleFacebookInit"
-                      @processfile="handleFacebookProcess"
-                      @removefile="handleFacebookRemoveFile"
-                    />
-                    <p
-                      class="mt-2 text-sm text-red-400"
-                      v-if="validationErros.has(`facebook_media_id`)"
-                      v-text="validationErros.get(`facebook_media_id`)"
-                    ></p>
+                      class="cursor-pointer" name="facebook_media" class-name="my-pond" accepted-file-types="image/*"
+                      credits="false" ref="facebook_media" v-bind:files="facebook" @init="handleFacebookInit"
+                      @processfile="handleFacebookProcess" @removefile="handleFacebookRemoveFile" />
+                    <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`facebook_media_id`)"
+                      v-text="validationErros.get(`facebook_media_id`)"></p>
                   </div>
                 </div>
               </dl>
@@ -415,103 +253,68 @@
           </div>
 
           <div class="mt-4 col-span-6 relative">
-            <div
-              class="relative z-0 w-full group"
-              v-if="
-                (form.template == 'become_sponsor_template' ||
-                  form.template == 'online_business_directory_template' ||
-                  form.template == 'financing_program_template' ||
-                  form.template == 'contact_for_rates_template' ||
-                  form.template == 'scam_alert_template' ||
-                  form.template == 'close_account_template' ||
-                  form.template == 'event_create_template' ||
-                  form.template == 'event_listing_template' ||
-                  form.template == 'sponser_listing_template' ||
-                  form.template == 'event_template' ||
-                  form.template == 'event_signup_template' ||
+            <div class="relative z-0 w-full group" v-if="
+              (form.template == 'become_sponsor_template' ||
+                form.template == 'online_business_directory_template' ||
+                form.template == 'financing_program_template' ||
+                form.template == 'contact_for_rates_template' ||
+                form.template == 'scam_alert_template' ||
+                form.template == 'close_account_template' ||
+                form.template == 'event_create_template' ||
+                form.template == 'event_listing_template' ||
+                form.template == 'sponser_listing_template' ||
+                form.template == 'event_template' ||
+                form.template == 'event_signup_template' ||
                 //   form.template == 'event_template' ||
-                  form.template == 'faq_exporter_template' ||
-                  form.template == 'faq_importer_template' ||
-                  form.template == 'info_letter_template' ||
-                  form.template == 'inquiries_to_buy_template' ||
-                  form.template == 'sponsor_listing' ||
-                  form.template == 'rates_template' ||
-                  form.template == 'magazine_template' ||
-                  form.template == 'testimonial_template' ||
-                  form.template == 'success_stories_template' ||
-                  form.template == '' ||
-                  form.template == 'null' ||
-                  form.template == null) &&
-                isDataLoaded
-              "
-            >
-              <label
-                class="block text-sm font-medium leading-6 text-gray-900"
-                :for="`page_detail_${selectedLanguageId}`"
-                >Page description (In most cases this will appear at top of the
-                page)</label
-              >
-              <editor
-                @mouseleave="handleSelectionChange(language, 'page_detail')"
-                @keyup="handleSelectionChange(language, 'page_detail')"
-                :ref="`page_detail_${language.id}`"
-                :id="`page_detail_${language.id}`"
-                :initial-value="
-                  form[`page_detail`][`page_detail_${language?.id}`]
-                "
-                :tinymce-script-src="tinymceScriptSrc"
-                :init="editorConfig"
-              />
-              <p
-                class="mt-2 text-sm text-red-400"
-                v-if="
-                  validationErros.has(
-                    `page_detail.page_detail_${selectedLanguageId}`
-                  )
-                "
-                v-text="
-                  validationErros.get(
-                    `page_detail.page_detail_${selectedLanguageId}`
-                  )
-                "
-              ></p>
+                form.template == 'faq_exporter_template' ||
+                form.template == 'faq_importer_template' ||
+                form.template == 'info_letter_template' ||
+                form.template == 'inquiries_to_buy_template' ||
+                form.template == 'sponsor_listing' ||
+                form.template == 'rates_template' ||
+                form.template == 'magazine_template' ||
+                form.template == 'testimonial_template' ||
+                form.template == 'success_stories_template' ||
+                form.template == '' ||
+                form.template == 'null' ||
+                form.template == null) &&
+              isDataLoaded
+            ">
+              <label class="block text-sm font-medium leading-6 text-gray-900"
+                :for="`page_detail_${selectedLanguageId}`">Page
+                description (In most cases this will appear at top of the
+                page)</label>
+              <editor @mouseleave="handleSelectionChange(language, 'page_detail')"
+                @keyup="handleSelectionChange(language, 'page_detail')" :ref="`page_detail_${language.id}`"
+                :id="`page_detail_${language.id}`" :initial-value="form[`page_detail`][`page_detail_${language?.id}`]
+                  " :tinymce-script-src="tinymceScriptSrc" :init="editorConfig" />
+              <p class="mt-2 text-sm text-red-400" v-if="
+                validationErros.has(
+                  `page_detail.page_detail_${selectedLanguageId}`
+                )
+              " v-text="validationErros.get(
+                  `page_detail.page_detail_${selectedLanguageId}`
+                )
+                  "></p>
             </div>
-            <div
-              class="relative mt-4 z-0 w-full group col-span-6"
-              v-if="form.template == 'event_create_template' && isDataLoaded"
-            >
-              <label
-                class="block text-sm font-medium leading-6 text-gray-900"
-                :for="`edit_page_detail_${selectedLanguageId}`"
-                >Page description for edit</label
-              >
+            <div class="relative mt-4 z-0 w-full group col-span-6"
+              v-if="form.template == 'event_create_template' && isDataLoaded">
+              <label class="block text-sm font-medium leading-6 text-gray-900"
+                :for="`edit_page_detail_${selectedLanguageId}`">Page description for edit</label>
 
-              <editor
-                @mouseleave="
-                  handleSelectionChange(language, 'edit_page_detail')
-                "
-                @keyup="handleSelectionChange(language, 'edit_page_detail')"
-                :ref="`edit_page_detail_${language.id}`"
-                :id="`edit_page_detail_${language.id}`"
-                :initial-value="
-                  form[`edit_page_detail`][`edit_page_detail_${language?.id}`]
-                "
-                :tinymce-script-src="tinymceScriptSrc"
-                :init="editorConfig"
-              />
-              <p
-                class="mt-2 text-sm text-red-400"
-                v-if="
-                  validationErros.has(
-                    `edit_page_detail.edit_page_detail_${selectedLanguageId}`
-                  )
-                "
-                v-text="
-                  validationErros.get(
-                    `edit_page_detail.edit_page_detail_${selectedLanguageId}`
-                  )
-                "
-              ></p>
+              <editor @mouseleave="
+                handleSelectionChange(language, 'edit_page_detail')
+                " @keyup="handleSelectionChange(language, 'edit_page_detail')" :ref="`edit_page_detail_${language.id}`"
+                :id="`edit_page_detail_${language.id}`" :initial-value="form[`edit_page_detail`][`edit_page_detail_${language?.id}`]
+                  " :tinymce-script-src="tinymceScriptSrc" :init="editorConfig" />
+              <p class="mt-2 text-sm text-red-400" v-if="
+                validationErros.has(
+                  `edit_page_detail.edit_page_detail_${selectedLanguageId}`
+                )
+              " v-text="validationErros.get(
+                  `edit_page_detail.edit_page_detail_${selectedLanguageId}`
+                )
+                  "></p>
             </div>
           </div>
 
@@ -529,195 +332,98 @@
                 </template> -->
 
         <div v-if="form.template == 'home_template'">
-          <HomePageSetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
+          <HomePageSetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
         </div>
         <div v-else-if="form.template == 'register_template'">
-          <RegisterPageSetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
+          <RegisterPageSetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
         </div>
         <div v-else-if="form.template == 'login_template'">
-          <LoginPageSetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
+          <LoginPageSetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
         </div>
         <div v-else-if="form.template == 'about_us_template'">
-          <AboutUsPageSetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
+          <AboutUsPageSetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
         </div>
         <div v-else-if="form.template == 'contact_us_template'">
-          <ContactUsSetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
+          <ContactUsSetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
         </div>
         <div v-else-if="form.template == 'inquiries_to_buy_template'">
-          <I2BSetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
+          <I2BSetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
         </div>
         <div v-else-if="form.template == 'event_template'">
-          <EventSetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
+          <EventSetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
         </div>
         <div v-else-if="form.template == 'comments_template'">
-          <CommentsSetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
+          <CommentsSetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
         </div>
         <div v-else-if="form.template == 'close_account_template'">
-          <CloseAccountSetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
+          <CloseAccountSetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
         </div>
         <div v-else-if="form.template == 'event_listing_template'">
-          <EventListingSetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
-        </div><div v-else-if="form.template == 'sponser_listing_template'">
-          <SponserListingSetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
+          <EventListingSetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
+        </div>
+        <div v-else-if="form.template == 'sponser_listing_template'">
+          <SponserListingSetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
         </div>
         <div v-else-if="form.template == 'rates_template'">
-          <RatesSetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
+          <RatesSetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
         </div>
         <div v-else-if="form.template == 'advertiser_page_template'">
-          <AdvertiserSetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
+          <AdvertiserSetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
         </div>
         <div v-else-if="form.template == 'forget_page_template'">
-          <ForgetPageSetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
+          <ForgetPageSetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
         </div>
         <div v-else-if="form.template == 'become_sponsor_template'">
-          <BecomeSponsorSetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
+          <BecomeSponsorSetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
         </div>
         <div v-else-if="form.template == 'online_business_directory_template'">
-          <OnlineBusinessDirectorySetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
+          <OnlineBusinessDirectorySetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
         </div>
         <div v-else-if="form.template == 'financing_program_template'">
-          <FinancingProgramSetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
+          <FinancingProgramSetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
         </div>
         <div v-else-if="form.template == 'contact_for_rates_template'">
-          <ContactForRateSetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
+          <ContactForRateSetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
         </div>
         <div v-else-if="form.template == 'scam_alert_template'">
-          <ScamAlertSetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
+          <ScamAlertSetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
         </div>
         <div v-else-if="form.template == 'testimonial_template'">
-          <TestimonialSetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
+          <TestimonialSetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
         </div>
         <div v-else-if="form.template == 'success_stories_template'">
-          <SuccessStoriesSetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
+          <SuccessStoriesSetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
         </div>
         <div v-else-if="form.template == 'faq_exporter_template'">
-          <FaqExporterSetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
+          <FaqExporterSetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
         </div>
         <div v-else-if="form.template == 'faq_importer_template'">
-          <FaqImporterSetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
+          <FaqImporterSetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
         </div>
         <div v-else-if="form.template == 'one_more_thing_template'">
-          <OneMoreThingSetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
+          <OneMoreThingSetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
         </div>
         <div v-else-if="form.template == 'exporting_fair_template'">
-          <ExportingFairSetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
+          <ExportingFairSetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
         </div>
         <div v-else-if="form.template == 'info_letter_template'">
-          <InfoLetterSetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
+          <InfoLetterSetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
         </div>
         <div v-else-if="form.template == 'sponsor_listing'">
-          <SponsorPageSetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
+          <SponsorPageSetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
         </div>
         <div v-else-if="form.template == 'event_signup_template'">
-          <EventSignupSetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
+          <EventSignupSetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
         </div>
         <div v-else-if="form.template == 'event_create_template'">
-          <EventCreateSetting
-            @addUpdateFormParent="addUpdateForm"
-            :selectedLanguage="selectedLanguageId"
-          />
+          <EventCreateSetting @addUpdateFormParent="addUpdateForm" :selectedLanguage="selectedLanguageId" />
         </div>
         <div class="flex justify-end mt-4">
-          <button
-            type="submit"
-            class="inline-flex items-center gap-x-2 button-exp-fill"
-            :disabled="loading"
-          >
-            <svg
-              class="-ml-0.5 h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                fill-rule="evenodd"
+          <button type="submit" class="inline-flex items-center gap-x-2 button-exp-fill" :disabled="loading">
+            <svg class="-ml-0.5 h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd"
                 d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
-                clip-rule="evenodd"
-              />
+                clip-rule="evenodd" />
             </svg>
             Save page
           </button>
@@ -1014,6 +720,7 @@ export default {
       this.selectedLanguageId = language.id;
     },
     handleInput(value, language, inputName) {
+      if (inputName === "name") value = value.replace(/[^a-zA-Z\s-]/g, '');
       let obj = {};
       obj[`${inputName}_${language.id}`] = value;
       this.$store.commit("pages/updateHomePageSetting", {
