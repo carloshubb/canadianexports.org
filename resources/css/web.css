@@ -2374,3 +2374,22 @@ right: 28px;
   left: 72px !important;
   top: 20px !important;
 }
+
+/* @vuepic/vue-datepicker popup z-index fix */
+.dp__outer_menu_wrap {
+  z-index: 99999 !important;
+}
+
+.dp__menu {
+  z-index: 99999 !important;
+}
+
+.dp__menu_transitioned {
+  z-index: 99999 !important;
+}
+
+/* Ensure popup is above all grid elements and form containers */
+body > .dp__outer_menu_wrap,
+.grid ~ .dp__outer_menu_wrap {
+  z-index: 99999 !important;
+}

@@ -19,7 +19,8 @@
                 <div class="relative w-full mb-3">
                     <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="business-name">{{
                         JSON.parse(event_detail)["business_name_label"]
-                        }}<span class="ml-1 text-[0.95em] text-gray-600">(even if it the same as the name of the Event) </span></label>
+                        }}<span class="ml-1 text-[0.95em] text-gray-600">(even if it the same as the name of the Event)
+                        </span></label>
                     <input @input="clearErrors('business-name')" type="text" class="can-exp-input" placeholder=""
                         name="business-name" id="business-name" v-model="form.business_name" />
                     <Error v-if="submitted" fieldName="business_name" :validationErros="validationErros"
@@ -34,10 +35,12 @@
                     <Error v-if="submitted" fieldName="email" :validationErros="validationErros" full_width="1" />
                 </div>
                 <div class="relative w-full mb-3">
-                </div>  
+                </div>
                 <div class="relative w-full mb-3" v-if="!isEditMode && !isLoggedIn">
                     <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="password">{{
-                        JSON.parse(event_detail)["password_label"] }}<span class="ml-1 text-[0.95em] text-gray-600">(Min. 8 characters. Must contain at least one lowercase and one uppercase)</span><span class="text-red-500">*</span></label>
+                        JSON.parse(event_detail)["password_label"] }}<span
+                            class="ml-1 text-[0.95em] text-gray-600">(Min. 8 characters. Must contain at least one
+                            lowercase and one uppercase)</span><span class="text-red-500">*</span></label>
                     <div class="relative">
                         <input @input="clearErrors('password')" :type="display_password" class="can-exp-input"
                             :placeholder="JSON.parse(event_detail).password_placeholder
@@ -84,7 +87,7 @@
                 </div>
 
                 <div class="relative w-full mb-3">
-                </div> 
+                </div>
 
                 <div class="relative w-full mb-3" v-if="!isEditMode && !isLoggedIn"><br>
                     <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
@@ -150,23 +153,24 @@
                     <div class="mx-auto max-w-7xl px-6 lg:px-8">
                         <div
                             class="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-auto lg:max-w-3xl md:grid-cols-2 lg:grid-cols-2">
-                            <div v-if="premiumPackage" class="rounded-3xl p-6 xl:p-6 border bg-white cursor-pointer" :class="form.package_type == 'premium'
-                                ? 'ring-2 ring-[#006EB7]'
-                                : ''
-                                " @click.prevent="
-                                    updatePackageForm(premiumPackage)
-                                    ">
+                            <div v-if="premiumPackage" class="rounded-3xl p-6 xl:p-6 border bg-white cursor-pointer"
+                                :class="form.package_type == 'premium'
+                                    ? 'ring-2 ring-[#006EB7]'
+                                    : ''
+                                    " @click.prevent="
+                                        updatePackageForm(premiumPackage)
+                                        ">
                                 <div class="flex flex-col items-center justify-center text-center gap-y-2">
-    
-    
 
-                                        <h3 id="tier-startup" class="text-xl leading-8 text-blue-600">
-                                            {{ premiumPackage?.registration_package_detail?.[0]?.name }}
-                                        </h3>
-                                        <p v-if="premiumPackage?.is_default"
+
+
+                                    <h3 id="tier-startup" class="text-xl leading-8 text-blue-600">
+                                        {{ premiumPackage?.registration_package_detail?.[0]?.name }}
+                                    </h3>
+                                    <p v-if="premiumPackage?.is_default"
                                         class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600">
-                                            Most popular
-                                        </p>
+                                        Most popular
+                                    </p>
 
                                 </div>
                                 <p class="mt-4 text-sm leading-6 text-gray-600">
@@ -194,17 +198,18 @@
                                                 d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
                                                 clip-rule="evenodd" />
                                         </svg>
-                                    <span v-html="formatFeatureName(features?.name)"></span>
+                                        <span v-html="formatFeatureName(features?.name)"></span>
                                     </li>
                                 </ul>
                             </div>
 
-                            <div v-if="featuredPackage" class="rounded-3xl p-6 xl:p-6 border bg-white cursor-pointer" :class="form.package_type == 'featured'
-                                ? 'ring-2 ring-[#006EB7]'
-                                : ''
-                                " @click.prevent="
-                                    updatePackageForm(featuredPackage)
-                                    ">
+                            <div v-if="featuredPackage" class="rounded-3xl p-6 xl:p-6 border bg-white cursor-pointer"
+                                :class="form.package_type == 'featured'
+                                    ? 'ring-2 ring-[#006EB7]'
+                                    : ''
+                                    " @click.prevent="
+                                        updatePackageForm(featuredPackage)
+                                        ">
                                 <div class="flex flex-col items-center justify-center text-center gap-y-1">
                                     <h3 id="tier-startup" class="text-xl leading-8 text-blue-600">
                                         {{
@@ -748,40 +753,33 @@
                 </div>
             </div>
             <div class="grid md:grid-cols-2 md:gap-6 gap-4">
-                <div class="relative z-0 w-full group">
+                <div class="relative w-full group" style="z-index: auto;">
                     <label for="start_date" class="text-base md:text-base lg:text-lg">{{
-                        JSON.parse(eventsetting).start_date_label}}
+                        JSON.parse(eventsetting).start_date_label }}
                         <span class="text-red-500">*</span></label>
-                    <input type="date" name="start_date" id="start_date"
-                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
-                         placeholder="YYYY-MM-DD"
-                        :value="form.start_date"
-                        @input="
-                            checkDateLength('start_date', $event);
+                    <VueDatePicker name="start_date" v-model="form.start_date" placeholder="YYYY-MM-DD"
+                        model-type="yyyy-MM-dd" :formats="{ input: 'yyyy-MM-dd' }"
+                        :time-config="{ enableTimePicker: false }" auto-apply @update:model-value="
                             clearErrors('start_date');
-                            $store.commit('signup/setForm', { field: ['start_date'], value: $event.target.value });
-                        "  />
+                        $store.commit('signup/setForm', { field: ['start_date'], value: $event });">
+                    </VueDatePicker>
                     <div v-if="dateErrors.start_date"
                         class="mt-2 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-600 shadow-sm">
                         {{ dateErrors.start_date }}
                     </div>
                     <Error v-if="submitted" fieldName="start_date" :validationErros="validationErros" />
                 </div>
-                <div class="relative z-0 w-full group">
+                <div class="relative w-full group" style="z-index: auto;">
                     <label for="end_date" class="text-base md:text-base lg:text-lg">{{
                         JSON.parse(eventsetting).end_date_label }}
                         <span class="text-red-500">*</span></label>
-                        <input
-                            type="date"
-                            name="end_date"
-                            id="end_date"
-                            class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
-                            :value="form.end_date"
-                            @input="
-                                checkDateLength('end_date', $event);
-                                clearErrors('end_date');
-                            "
-                            />
+                    <VueDatePicker name="end_date" v-model="form.end_date" placeholder="YYYY-MM-DD"
+                        model-type="yyyy-MM-dd" :formats="{ input: 'yyyy-MM-dd' }"
+                        :time-config="{ enableTimePicker: false }" auto-apply @update:model-value="
+                            clearErrors('end_date');
+                        $store.commit('signup/setForm', { field: ['end_date'], value: $event });">
+                    </VueDatePicker>
+
                     <div v-if="dateErrors.end_date"
                         class="mt-2 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-600 shadow-sm">
                         {{ dateErrors.end_date }}
@@ -808,8 +806,7 @@
                         }}</label>
                     <textarea rows="2" name="exibitors_url" id="exibitors_url"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600 resize-y"
-                        :title="JSON.parse(eventsetting).exibitors_url_placeholder"
-                        :placeholder="JSON.parse(eventsetting).exibitors_url_placeholder
+                        :title="JSON.parse(eventsetting).exibitors_url_placeholder" :placeholder="JSON.parse(eventsetting).exibitors_url_placeholder
                             " :value="form.exibitors_url" @input="
                                 updateForm('exibitors_url', $event.target.value);
                             clearErrors(
@@ -822,8 +819,7 @@
                         JSON.parse(eventsetting).visitors_label }}</label>
                     <textarea rows="2" name="visitors_url" id="visitors_url"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600 resize-y"
-                        :title="JSON.parse(eventsetting).visitors_placeholder"
-                        :placeholder="JSON.parse(eventsetting).visitors_placeholder
+                        :title="JSON.parse(eventsetting).visitors_placeholder" :placeholder="JSON.parse(eventsetting).visitors_placeholder
                             " :value="form.visitors_url" @input="
                                 updateForm('visitors_url', $event.target.value);
                             clearErrors(
@@ -837,8 +833,7 @@
                         JSON.parse(eventsetting).press_url_label }}</label>
                     <textarea rows="2" name="press_url" id="press_url"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600 resize-y"
-                        :title="JSON.parse(eventsetting).press_url_placeholder"
-                        :placeholder="JSON.parse(eventsetting).press_url_placeholder
+                        :title="JSON.parse(eventsetting).press_url_placeholder" :placeholder="JSON.parse(eventsetting).press_url_placeholder
                             " :value="form.press_url" @input="
                                 updateForm('press_url', $event.target.value);
                             clearErrors('press_url');
@@ -846,25 +841,24 @@
                     <Error v-if="submitted" fieldName="press_url" :validationErros="validationErros" />
                 </div>
                 <div class="relative z-0 w-full group"></div>
-                <div
-                    class="relative z-0 w-full group flex flex-col">
-                    <label for="video_url"
-                        class="text-base md:text-base lg:text-lg">{{
+                <div class="relative z-0 w-full group flex flex-col">
+                    <label for="video_url" class="text-base md:text-base lg:text-lg">{{
                         JSON.parse(eventsetting).video_url_label }}</label>
                     <textarea rows="2" name="video_url" id="video_url"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600 resize-y"
-                        :title="JSON.parse(eventsetting).video_url_placeholder"
-                        :placeholder="JSON.parse(eventsetting).video_url_placeholder
+                        :title="JSON.parse(eventsetting).video_url_placeholder" :placeholder="JSON.parse(eventsetting).video_url_placeholder
                             " :value="form.video_url" @input="
                                 updateForm('video_url', $event.target.value);
                             clearErrors('video_url');
                             "></textarea>
                     <Error v-if="submitted" fieldName="video_url" :validationErros="validationErros" />
                 </div>
-                
+
                 <!-- event media -->
                 <div class="w-full">
-                    <label for="" class="text-base md:text-base lg:text-lg  truncate">Main Event Image <span class="ml-1 text-[0.95em] text-gray-600">(PNG, GIF, JPG, or JPEG format · 30 MB max)</span><span class="text-red-500">*</span></label>
+                    <label for="" class="text-base md:text-base lg:text-lg  truncate">Main Event Image <span
+                            class="ml-1 text-[0.95em] text-gray-600">(PNG, GIF, JPG, or JPEG format · 30 MB
+                            max)</span><span class="text-red-500">*</span></label>
                     <div class="relative z-0 w-full mb-6 group">
                         <template v-if="
                             current_user &&
@@ -890,48 +884,33 @@
                     <Error fieldName="gallery_images" :validationErros="validationErros" />
                 </div>
 
-                
-                   <!-- CTA Button Field - Only show for Premium and Featured packages -->
+
+                <!-- CTA Button Field - Only show for Premium and Featured packages -->
                 <div class="relative z-0 w-full group">
-                    <label 
-                        for="cta_btn" 
-                        class="text-base md:text-base lg:text-lg "
-                        v-html="ctaBtnLabelFormatted"
-                    ></label>
-                    <input
-                        type="text"
-                        name="cta_btn"
-                        id="cta_btn"
+                    <label for="cta_btn" class="text-base md:text-base lg:text-lg "
+                        v-html="ctaBtnLabelFormatted"></label>
+                    <input type="text" name="cta_btn" id="cta_btn"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                         placeholder="'The button text that guides the user\'s next action; e.g., Learn More.'"
                         :value="form.cta_btn"
-                        @input="updateForm('cta_btn', $event.target.value); clearErrors('cta_btn');"
-                    />
+                        @input="updateForm('cta_btn', $event.target.value); clearErrors('cta_btn');" />
                     <Error v-if="submitted" fieldName="cta_btn" :validationErros="validationErros" />
                 </div>
 
                 <!-- CTA Link Field - Only show for Premium and Featured packages -->
                 <div class="relative z-0 w-full group">
-                    <label 
-                        for="cta_link" 
-                        class="text-base md:text-base lg:text-lg "
-                    >
+                    <label for="cta_link" class="text-base md:text-base lg:text-lg ">
                         CTA URL
                     </label>
-                    <input
-                        type="text"
-                        name="cta_link"
-                        id="cta_link"
+                    <input type="text" name="cta_link" id="cta_link"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
-                        placeholder="See explanation in the footnotes below"
-                        :value="form.cta_link"
-                        @input="updateForm('cta_link', $event.target.value); clearErrors('cta_link');"
-                    />
+                        placeholder="See explanation in the footnotes below" :value="form.cta_link"
+                        @input="updateForm('cta_link', $event.target.value); clearErrors('cta_link');" />
                     <Error v-if="submitted" fieldName="cta_link" :validationErros="validationErros" />
                 </div>
-            
-                      
-                
+
+
+
             </div>
 
             <div
@@ -940,7 +919,7 @@
                     {{ JSON.parse(event_detail)["contact_section_heading"] ?? 'Step 4 of 5 - Contact information' }}
                 </h4>
             </div>
-            
+
             <div v-for="(contact, index) in contacts" :key="index">
                 <div class="grid md:grid-cols-3 md:gap-6 gap-4 mt-6 bg-white shadow rounded-lg p-6">
                     <div class="relative z-0 w-full group">
@@ -1067,7 +1046,8 @@
                     <div class="relative z-0 w-full group mt-2">
                         <label :for="`contact-image-[${index}]`" class="text-base md:text-base lg:text-lg">
                             {{ JSON.parse(eventsetting).profile_image_label }}
-                             <span class="ml-1 text-[0.95em] text-gray-600">(PNG, GIF, JPG, or JPEG format · 5 MB max) </span>
+                            <span class="ml-1 text-[0.95em] text-gray-600">(PNG, GIF, JPG, or JPEG format · 5 MB max)
+                            </span>
 
                         </label>
                         <input type="file" name="contact-image" :id="`contact-image-[${index}]`"
@@ -1222,16 +1202,14 @@
         </div>
 
         <div class="flex justify-center">
-            <button aria-label="Candian Exporters" type="submit"
-                :disabled="!form.is_agree"
-                :class="[
-                    'inline-flex items-center button-exp-fill mt-4 transition-opacity duration-200',
-                    { 'opacity-40 cursor-not-allowed': !form.is_agree }
-                ]">
+            <button aria-label="Candian Exporters" type="submit" :disabled="!form.is_agree" :class="[
+                'inline-flex items-center button-exp-fill mt-4 transition-opacity duration-200',
+                { 'opacity-40 cursor-not-allowed': !form.is_agree }
+            ]">
                 {{ JSON.parse(event_detail)["button_text"] }}
             </button>
         </div>
-          <!-- sdkfksflsdf;lsdal;fk -->
+        <!-- sdkfksflsdf;lsdal;fk -->
         <div class="my-4" v-html="JSON.parse(eventsetting)
             ? JSON.parse(eventsetting)['post_submit_button_text']
             : ''
@@ -1267,17 +1245,19 @@ import Error from "./../components/Error.vue";
 import axios from "axios";
 import ErrorHandling from "../../ErrorHandling";
 import { mapState } from "vuex";
+import { VueDatePicker } from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 export default {
-    
-     
+
+
     computed: {
-      ...mapState({
-      form: (state) => state.signup.form,
-      regPageSetting: (state) => state.signup.regPageSetting,
-      validationErros: (state) => state.signup.validationErros,
-      package_type: (state) => state.signup.package_type, // Added package_type from Vuex
-    }),
-    
+        ...mapState({
+            form: (state) => state.signup.form,
+            regPageSetting: (state) => state.signup.regPageSetting,
+            validationErros: (state) => state.signup.validationErros,
+            package_type: (state) => state.signup.package_type, // Added package_type from Vuex
+        }),
+
 
         years() {
             const currentYear = new Date().getFullYear();
@@ -1287,16 +1267,16 @@ export default {
             );
         },
         ctaBtnLabelFormatted() {
-       const rawLabel =
-        this.regPageSetting?.reg_page_setting_detail?.[0]?.step_4_cta_btn_label || "";
-        console.log("Raw Label:", this.regPageSetting);
-        
-      if (!rawLabel) {
-        return "CTA(Call-to-Action) Button Title (Max. 5 words)";
-      }
-      
-      return rawLabel.replace(/\(5\)/g, '<sup class="footnote-indicator">(5)</sup>');
-    },
+            const rawLabel =
+                this.regPageSetting?.reg_page_setting_detail?.[0]?.step_4_cta_btn_label || "";
+            console.log("Raw Label:", this.regPageSetting);
+
+            if (!rawLabel) {
+                return "CTA(Call-to-Action) Button Title (Max. 5 words)";
+            }
+
+            return rawLabel.replace(/\(5\)/g, '<sup class="footnote-indicator">(5)</sup>');
+        },
     },
     props: [
         "event_detail",
@@ -1315,6 +1295,7 @@ export default {
     components: {
         FilePond,
         Error,
+        VueDatePicker,
         // ListErrors,
     },
     data() {
@@ -1358,6 +1339,8 @@ export default {
                 visitors_url: null,
                 press_url: null,
                 video_url: null,
+                cta_btn: null,
+                cta_link: null,
                 facebook_url: null,
                 twitter_url: null,
                 linkedin_url: null,
@@ -1386,7 +1369,7 @@ export default {
         };
     },
     mounted() {
-      //  console.log("------------>",JSON.parse(this.eventsetting)['post_submit_button_text']);
+        //  console.log("------------>",JSON.parse(this.eventsetting)['post_submit_button_text']);
         // Only load form data from localStorage if not in edit mode
         if (!this.isEditMode) {
             const savedForm = localStorage.getItem("event_signup_form");
@@ -1399,6 +1382,9 @@ export default {
                 };
             }
         }
+
+        // Fix datepicker popup z-index issue
+        this.fixVueDatePickerZIndex();
     },
     watch: {
         form: {
@@ -1438,6 +1424,36 @@ export default {
         }
     },
     methods: {
+        fixVueDatePickerZIndex() {
+            // Function to apply z-index fix to datepicker popup
+            const applyFix = () => {
+                const menus = document.querySelectorAll('.dp__outer_menu_wrap, .dp__menu, .dp__menu_transitioned');
+                menus.forEach((menu) => {
+                    if (menu) {
+                        // Only set z-index, don't override position
+                        menu.style.setProperty('z-index', '99999', 'important');
+                    }
+                });
+            };
+
+            // Use MutationObserver to watch for datepicker popup being added to DOM
+            this.datePickerObserver = new MutationObserver(() => {
+                applyFix();
+            });
+
+            // Start observing the document body for changes
+            this.datePickerObserver.observe(document.body, {
+                childList: true,
+                subtree: true,
+                attributes: true,
+                attributeFilter: ['style', 'class']
+            });
+
+            // Also set it immediately if popup already exists
+            this.$nextTick(() => {
+                applyFix();
+            });
+        },
         showImagePopup(imageUrl) {
             this.popupImage = imageUrl;
         },
@@ -1664,15 +1680,15 @@ export default {
         async addReg() {
             this.form.contacts = this.contacts;
             this.loading = 1;
-            
+
             // When using Stripe, create PaymentMethod on frontend and send id only
             let payload = { ...this.form };
-            
+
             // Map package_id to registration_package_id for process-payment endpoint
             if (payload.package_id && !payload.registration_package_id) {
                 payload.registration_package_id = payload.package_id;
             }
-            
+
             if (this.form.payment_method === 'stripe' && this.cardElement && this.stripe && this.form.order_amount > 0) {
                 try {
                     const { error, paymentMethod } = await this.stripe.createPaymentMethod({
@@ -1694,18 +1710,18 @@ export default {
                     return;
                 }
             }
-            
+
             // Determine if we're editing or creating
             let requestMethod = 'post';
             let requestUrl = this.submit_url;
-            
+
             if (this.isEditMode && this.event_id) {
                 // For edit mode, use the edit endpoint
                 requestMethod = 'post';
                 requestUrl = `${process.env.MIX_WEB_API_URL}process-payment/${this.event_id}`;
                 payload.event_id = this.event_id;
             }
-            
+
             axios[requestMethod](requestUrl, payload)
                 .then((res) => {
                     this.loading = 0;
@@ -1843,7 +1859,7 @@ export default {
         },
         async setPaymentMethod(value) {
             this.form.payment_method = value;
-            
+
             // Remount Stripe card element when switching to Stripe
             if (value === 'stripe' && this.cardElement && this.$refs.stripeCard) {
                 await this.$nextTick();
@@ -2027,7 +2043,7 @@ export default {
                 .then((res) => {
                     if (res.data.status == "Success") {
                         const event = res.data.data;
-                        
+
                         // Populate basic event fields
                         this.updateForm("zipcode", event.zipcode);
                         this.updateForm("start_date", event.start_date);
@@ -2037,6 +2053,8 @@ export default {
                         this.updateForm("visitors_url", event.visitors_url);
                         this.updateForm("press_url", event.press_url);
                         this.updateForm("video_url", event.video_url);
+                        this.updateForm("cta_btn", event.cta_btn);
+                        this.updateForm("cta_link", event.cta_link);
                         this.updateForm("facebook_url", event.facebook_url);
                         this.updateForm("twitter_url", event.twitter_url);
                         this.updateForm("linkedin_url", event.linkedin_url);
@@ -2093,7 +2111,7 @@ export default {
                         if (event.event_media && event.event_media.length > 0) {
                             let galleryImages = [];
                             this.gallery_files = [];
-                            
+
                             event.event_media.forEach((media, index) => {
                                 if (media.media) {
                                     galleryImages.push(media.media.id);
@@ -2108,7 +2126,7 @@ export default {
                                     });
                                 }
                             });
-                            
+
                             this.form.gallery_images = JSON.stringify(galleryImages);
                         }
 
@@ -2142,7 +2160,7 @@ export default {
         } else if (!this.isEditMode) {
             this.addContact(1);
         }
-        
+
         this.activeTab = JSON.parse(this.lang)["id"];
         this.form.payment_frequency = "annually";
 
@@ -2169,7 +2187,7 @@ export default {
         } catch (e) {
             // ignore JSON parse errors silently
         }
-        
+
         // Initialize Stripe Elements
         (async () => {
             try {
@@ -2188,7 +2206,7 @@ export default {
                 console.error('Failed to initialize Stripe:', e);
             }
         })();
-        
+
         axios
             .get(
                 `${process.env.MIX_APP_URL}/get-registration-packages?getPackagesOnly=1&withPackageFeatures=1&getEventPackagesOnly=1`
@@ -2206,7 +2224,7 @@ export default {
                     this.premiumPackage = res.data.data.find(
                         (p) => p.package_type == "premium"
                     );
-                    
+
                     // Only set default package if not in edit mode
                     if (!this.isEditMode) {
                         this.packages.map((registrationPackage) => {
@@ -2223,6 +2241,13 @@ export default {
                     }
                 }
             });
+    },
+    beforeUnmount() {
+        // Clean up the MutationObserver when component is destroyed
+        if (this.datePickerObserver) {
+            this.datePickerObserver.disconnect();
+            this.datePickerObserver = null;
+        }
     },
 };
 </script>
@@ -2259,5 +2284,25 @@ export default {
     line-height: 1;
     color: #6b7280;
     font-weight: 400;
+}
+</style>
+
+<style>
+/* @vuepic/vue-datepicker popup z-index fix - needs to be global */
+.dp__outer_menu_wrap {
+    z-index: 99999 !important;
+}
+
+.dp__menu {
+    z-index: 99999 !important;
+}
+
+.dp__menu_transitioned {
+    z-index: 99999 !important;
+}
+
+/* Ensure popup is above all grid elements and form containers */
+body>.dp__outer_menu_wrap {
+    z-index: 99999 !important;
 }
 </style>

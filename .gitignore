@@ -4,9 +4,12 @@ storage
 .env
 public/images
 public/media
+public/js
+public/css
 CaExp LoR July 18.docx
 *.sql
 .env.prod
 .env.dev
+package-lock.json
 
 
