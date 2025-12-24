@@ -2,14 +2,17 @@
 @php
     echo \Illuminate\Support\Facades\Blade::render(
         $body_html ?? '',
-        array_merge(
-            ['data' => $data ?? []],
-            $data ?? [],
-            ['unsubscribeLink' => $unsubscribeLink ?? null],
-            ['sponsor' => $sponsor ?? null]
-        )
+        [
+            'data' => $data ?? [],
+            'advertiserName' => $advertiserName ?? null,
+            'messageContent' => $messageContent ?? null,
+            'unsubscribeLink' => $unsubscribeLink ?? null,
+            'customerProfile' => $customerProfile ?? null,
+            'sponsor' => $sponsor ?? null,
+        ]
     );
 @endphp
+
 @else
 @component('mail::message')
 @php
