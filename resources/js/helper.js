@@ -183,6 +183,7 @@ const helpers = {
             background: "#ffffffff",
             buttonsStyling: false,
             customClass: {
+                popup: "gradient-border-modal", // Add custom class for the popup container
                 title: "swalSuccessClass",
                 htmlContainer: "swalSuccessClass",
                 confirmButton: 'button-exp-fill focus:outline-none',
@@ -199,6 +200,7 @@ const helpers = {
             background: "#ffffffff",
             buttonsStyling: false,
             customClass: {
+                 popup: "gradient-border-modal", // Add custom class for the popup container
                 title: "swalErrorClass",
                 htmlContainer: "swalErrorClass",
                 confirmButton: 'button-exp-fill focus:outline-none',
@@ -215,6 +217,7 @@ const helpers = {
             background: "#fff",
             buttonsStyling: false,
             customClass: {
+                 popup: "gradient-border-modal", // Add custom class for the popup container
                 title: "swalSuccessClass",
                 htmlContainer: "swalSuccessClass",
                 confirmButton: 'button-exp-fill focus:outline-none',

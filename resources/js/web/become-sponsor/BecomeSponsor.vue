@@ -18,8 +18,8 @@
                   class="w-full block cursor-pointer px-5 py-5 text-base md:text-lg text-center border rounded-none"
                   :class="[
                     selectedFrequency === key 
-                      ? 'text-white bg-primary border-primary'
-                      : 'text-primary bg-white border-gray-300',
+                      ? 'border-2 border-green-500 text-green-500'
+                      : 'border-gray-200',
                     index === 0 ? 'rounded-l-md md:rounded-l-lg' : '',
                     index === Object.keys(frequencies).length - 2 ? 'rounded-r-md md:rounded-r-lg' : ''
                   ]"
@@ -59,6 +59,7 @@
               </div>
               
             </div>
+            <br></br>
               <div class="relative flex items-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                               stroke="currentColor" class="absolute left-2 h-7 text-gray-500">
@@ -66,6 +67,7 @@
                                   d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z">
                               </path>
                 </svg>
+                
                 <input 
                               type="text" 
                               id="custom_amount1" 
@@ -75,7 +77,7 @@
                               :placeholder=" 'Enter your own amount'"
                 />
               </div>
-
+              <br></br><br></br>
             <div class="flex-1 mt-3">
               <label
                 class="w-full h-full flex flex-col cursor-pointer px-5 py-6 rounded-md text-base md:text-lg font-medium text-center border-2 transition-all"
