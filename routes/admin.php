@@ -87,6 +87,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum']], function (
     Route::post('send-email', [InfoLetterSettingController::class, 'sendEmail']);
     Route::post('send-email/stats', [BusinessProfileStatsController::class, 'sendEmails']);
     Route::post('financingPrograms/send-email', [FinancingProgramController::class, 'sendEmail']);
+    Route::post('financingPrograms/selected', [FinancingProgramController::class, 'sendSelectedEmail']);
     Route::post('/update-profile', [AuthController::class, 'updateProfile']);
     Route::apiResource('holiday-emails', HolidayEmailController::class);
     Route::apiResource('banners', BannerController::class);
