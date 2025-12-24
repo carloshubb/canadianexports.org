@@ -753,15 +753,15 @@
                 </div>
             </div>
             <div class="grid md:grid-cols-2 md:gap-6 gap-4">
-                <div class="relative z-0 w-full group">
+                <div class="relative w-full group" style="z-index: auto;">
                     <label for="start_date" class="text-base md:text-base lg:text-lg">{{
                         JSON.parse(eventsetting).start_date_label }}
                         <span class="text-red-500">*</span></label>
                     <VueDatePicker name="start_date" v-model="form.start_date" placeholder="YYYY-MM-DD"
                         model-type="yyyy-MM-dd" :formats="{ input: 'yyyy-MM-dd' }"
-                        :time-config="{ enableTimePicker: false }" auto-apply @update:model-value="checkDateLength('start_date', $event);
+                        :time-config="{ enableTimePicker: false }" auto-apply @update:model-value="
                         clearErrors('start_date');
-                        $store.commit('signup/setForm', { field: ['start_date'], value: $event.target.value });">
+                        $store.commit('signup/setForm', { field: ['start_date'], value: $event });">
                     </VueDatePicker>
                     <div v-if="dateErrors.start_date"
                         class="mt-2 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-600 shadow-sm">
@@ -769,15 +769,15 @@
                     </div>
                     <Error v-if="submitted" fieldName="start_date" :validationErros="validationErros" />
                 </div>
-                <div class="relative z-0 w-full group">
+                <div class="relative w-full group" style="z-index: auto;">
                     <label for="end_date" class="text-base md:text-base lg:text-lg">{{
                         JSON.parse(eventsetting).end_date_label }}
                         <span class="text-red-500">*</span></label>
                     <VueDatePicker name="end_date" v-model="form.end_date" placeholder="YYYY-MM-DD"
                         model-type="yyyy-MM-dd" :formats="{ input: 'yyyy-MM-dd' }"
-                        :time-config="{ enableTimePicker: false }" auto-apply @update:model-value="checkDateLength('end_date', $event);
+                        :time-config="{ enableTimePicker: false }" auto-apply @update:model-value="
                         clearErrors('end_date');
-                        $store.commit('signup/setForm', { field: ['end_date'], value: $event.target.value });">
+                        $store.commit('signup/setForm', { field: ['end_date'], value: $event });">
                     </VueDatePicker>
 
                     <div v-if="dateErrors.end_date"
@@ -1380,6 +1380,9 @@ export default {
                 };
             }
         }
+        
+        // Fix datepicker popup z-index issue
+        this.fixVueDatePickerZIndex();
     },
     watch: {
         form: {
@@ -1419,6 +1422,36 @@ export default {
         }
     },
     methods: {
+        fixVueDatePickerZIndex() {
+            // Function to apply z-index fix to datepicker popup
+            const applyFix = () => {
+                const menus = document.querySelectorAll('.dp__outer_menu_wrap, .dp__menu, .dp__menu_transitioned');
+                menus.forEach((menu) => {
+                    if (menu) {
+                        // Only set z-index, don't override position
+                        menu.style.setProperty('z-index', '99999', 'important');
+                    }
+                });
+            };
+            
+            // Use MutationObserver to watch for datepicker popup being added to DOM
+            this.datePickerObserver = new MutationObserver(() => {
+                applyFix();
+            });
+            
+            // Start observing the document body for changes
+            this.datePickerObserver.observe(document.body, {
+                childList: true,
+                subtree: true,
+                attributes: true,
+                attributeFilter: ['style', 'class']
+            });
+            
+            // Also set it immediately if popup already exists
+            this.$nextTick(() => {
+                applyFix();
+            });
+        },
         showImagePopup(imageUrl) {
             this.popupImage = imageUrl;
         },
@@ -2205,6 +2238,13 @@ export default {
                 }
             });
     },
+    beforeUnmount() {
+        // Clean up the MutationObserver when component is destroyed
+        if (this.datePickerObserver) {
+            this.datePickerObserver.disconnect();
+            this.datePickerObserver = null;
+        }
+    },
 };
 </script>
 
@@ -2240,5 +2280,25 @@ export default {
     line-height: 1;
     color: #6b7280;
     font-weight: 400;
+}
+</style>
+
+<style>
+/* @vuepic/vue-datepicker popup z-index fix - needs to be global */
+.dp__outer_menu_wrap {
+    z-index: 99999 !important;
+}
+
+.dp__menu {
+    z-index: 99999 !important;
+}
+
+.dp__menu_transitioned {
+    z-index: 99999 !important;
+}
+
+/* Ensure popup is above all grid elements and form containers */
+body > .dp__outer_menu_wrap {
+    z-index: 99999 !important;
 }
 </style>
