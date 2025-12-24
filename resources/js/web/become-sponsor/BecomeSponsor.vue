@@ -1357,6 +1357,11 @@ export default {
   z-index: 99999 !important;
 }
 
+.dp__input {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
 .dp__menu {
   z-index: 99999 !important;
 }
