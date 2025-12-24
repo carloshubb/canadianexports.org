@@ -102,7 +102,7 @@
   >
     {{
       regPageSetting?.reg_page_setting_detail?.[0]?.step_5_title_label
-    }}
+    }}<span class="ml-1 text-[0.9em] text-gray-600">(Max. 10 words)</span> 
   </label>
   <textarea
     rows="1"
@@ -124,6 +124,7 @@
       regPageSetting?.reg_page_setting_detail?.[0]
         ?.step_5_description_label
     }}
+    <span class="ml-1 text-[0.9em] text-gray-600">(Max. 50 words)</span> 
   </label>
   <textarea
     rows="3"
@@ -145,6 +146,7 @@
             {{
               regPageSetting?.reg_page_setting_detail?.[0]?.step_5_video_label
             }}
+            
           </label>
           <textarea
             type="url"
@@ -175,6 +177,7 @@
             {{
               regPageSetting?.reg_page_setting_detail?.[0]?.step_5_logo_label
             }}
+             <span class="ml-1 text-[0.9em] text-gray-600">(10MB max. Allowed file types: PNG, GIF, JPG, JPEG)</span>
           </label>
           <FilePond
             class="cursor-pointer"
@@ -203,8 +206,9 @@
             {{
               regPageSetting?.reg_page_setting_detail?.[0]
                 ?.step_5_gallery_image_label
-            }}
-            {{ max_files }}</label
+            }}<span class="ml-1 text-[0.9em] text-gray-600">(5MB max.. Allowed file types: PNG, GIF, JPG, JPEG). Maximum number of images allowed: 8</span>
+
+            </label
           >
           <FilePond
             name="gallery_images"

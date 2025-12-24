@@ -196,10 +196,10 @@
         <div class="relative w-full mb-4" v-if="package_type && package_type.toLowerCase() !== 'free'">
           <label
             class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg"
-            for="cta_btn"
-            v-html="ctaBtnLabelFormatted"
-          >
+            for="cta_btn">CTA(Call-to-Action) Button Title
+          <span class="ml-1 text-[0.85em] text-gray-600">(Max. 5 words)</span> 
           </label>
+           
           <input
             type="text"
             class="can-exp-input"
@@ -263,7 +263,7 @@
             {{
               regPageSetting?.reg_page_setting_detail?.[0]
                 ?.step_4_short_description_label
-            }}
+            }}<span class="ml-1 text-[0.85em] text-gray-600">(Max. 30 words)</span> 
             <span class="text-red-500">*</span>
           </label>
           <textarea
@@ -299,7 +299,7 @@
             {{
               regPageSetting?.reg_page_setting_detail?.[0]
                 ?.step_4_description_label
-            }}
+            }}<span class="ml-1 text-[0.85em] text-gray-600">(Max. 300 words)</span> 
             <span class="text-red-500">*</span>
           </label>
           <textarea
