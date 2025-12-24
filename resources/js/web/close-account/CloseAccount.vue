@@ -5,7 +5,7 @@
         <div class="relative w-full mb-3">
           <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="name">
             {{ JSON.parse(close_account_setting)["name_label"] }}
-            <span class="text-red-500">*</span>
+            
           </label>
           <input 
             @input="clearErrors('name')" 
@@ -21,7 +21,7 @@
         <div class="relative w-full mb-3">
           <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="email">
             {{ JSON.parse(close_account_setting)["email_label"] }}
-            <span class="text-red-500">*</span>
+            
           </label>
           <input 
             @input="clearErrors('email')" 
@@ -37,7 +37,7 @@
         <div class="relative w-full mb-3 col-span-2">
           <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="message">
             {{ JSON.parse(close_account_setting)["message_label"] }}
-            <span class="text-red-500">*</span>
+            
           </label>
           <textarea 
             @input="clearErrors('message')" 
@@ -59,8 +59,8 @@
       <button 
         aria-label="Canadian Exporters" 
         :class="[ 
-          'button-exp-fill cursor-pointer transition-opacity',
-          { 'opacity-40 cursor-not-allowed': !isFormValid || loading, 'opacity-100': isFormValid && !loading }
+          'button-exp-fill',
+          
         ]"
         type="submit"
         id="send-message"

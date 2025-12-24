@@ -93,7 +93,7 @@
                   v-model="form.talk_to_us_first"
                   @change="onOptionChange(true)"
                 />
-                <span class="font-bold font-FuturaMdCnBT">Talk to Us First</span>
+                <span class="font-FuturaMdCnBT">Talk to Us First</span>
                 <span class="text-sm mt-2 opacity-90">We're happy to discuss your goals and our partnership opportunities in detail before you make a selection.</span>
               </label>
             </div>

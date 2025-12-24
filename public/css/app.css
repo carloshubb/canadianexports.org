@@ -3935,6 +3935,9 @@ label{
 .text-\[0\.625rem\] {
   font-size: 0.625rem;
 }
+.text-\[0\.95em\] {
+  font-size: 0.95em;
+}
 .text-\[10pt\] {
   font-size: 10pt;
 }
@@ -3957,6 +3960,12 @@ label{
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+.text-\[0\.9em\] {
+  font-size: 0.9em;
+}
+.text-\[0\.85em\] {
+  font-size: 0.85em;
 }
 .font-bold {
   font-weight: 700;

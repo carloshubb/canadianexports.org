@@ -3940,6 +3940,9 @@ ul li {
 .text-\[0\.625rem\] {
   font-size: 0.625rem !important;
 }
+.text-\[0\.95em\] {
+  font-size: 0.95em !important;
+}
 .text-\[10pt\] {
   font-size: 10pt !important;
 }
@@ -3962,6 +3965,12 @@ ul li {
 .text-xs {
   font-size: 0.75rem !important;
   line-height: 1rem !important;
+}
+.text-\[0\.9em\] {
+  font-size: 0.9em !important;
+}
+.text-\[0\.85em\] {
+  font-size: 0.85em !important;
 }
 .font-bold {
   font-weight: 700 !important;

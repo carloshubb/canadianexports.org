@@ -19,7 +19,7 @@
                 <div class="relative w-full mb-3">
                     <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="business-name">{{
                         JSON.parse(event_detail)["business_name_label"]
-                        }}</label>
+                        }}<span class="ml-1 text-[0.95em] text-gray-600">(even if it the same as the name of the Event) </span></label>
                     <input @input="clearErrors('business-name')" type="text" class="can-exp-input" placeholder=""
                         name="business-name" id="business-name" v-model="form.business_name" />
                     <Error v-if="submitted" fieldName="business_name" :validationErros="validationErros"
@@ -37,8 +37,7 @@
                 </div>  
                 <div class="relative w-full mb-3" v-if="!isEditMode && !isLoggedIn">
                     <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="password">{{
-                        JSON.parse(event_detail)["password_label"] }}
-                        <span class="text-red-500">*</span></label>
+                        JSON.parse(event_detail)["password_label"] }}<span class="ml-1 text-[0.95em] text-gray-600">(Min. 8 characters. Must contain at least one lowercase and one uppercase)</span><span class="text-red-500">*</span></label>
                     <div class="relative">
                         <input @input="clearErrors('password')" :type="display_password" class="can-exp-input"
                             :placeholder="JSON.parse(event_detail).password_placeholder
@@ -83,6 +82,9 @@
 
                     <Error v-if="submitted" fieldName="password" :validationErros="validationErros" full_width="1" />
                 </div>
+
+                <div class="relative w-full mb-3">
+                </div> 
 
                 <div class="relative w-full mb-3" v-if="!isEditMode && !isLoggedIn"><br>
                     <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
@@ -660,7 +662,7 @@
                         }}</label>
                     <input type="text" name="product_search" id="product_search"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
-                        :placeholder="JSON.parse(eventsetting).product_search_placeholder
+                        :placeholder="'(Max. 5, separated by commas.)'
                             " @input="
                                 handleInput(
                                     $event.target.value,
@@ -748,7 +750,7 @@
             <div class="grid md:grid-cols-2 md:gap-6 gap-4">
                 <div class="relative z-0 w-full group">
                     <label for="start_date" class="text-base md:text-base lg:text-lg">{{
-                        JSON.parse(eventsetting).start_date_label.toUpperCase() }}
+                        JSON.parse(eventsetting).start_date_label}}
                         <span class="text-red-500">*</span></label>
                     <input type="date" name="start_date" id="start_date"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
@@ -767,14 +769,19 @@
                 </div>
                 <div class="relative z-0 w-full group">
                     <label for="end_date" class="text-base md:text-base lg:text-lg">{{
-                        JSON.parse(eventsetting).end_date_label.toUpperCase() }}
+                        JSON.parse(eventsetting).end_date_label }}
                         <span class="text-red-500">*</span></label>
-                    <input type="date" name="end_date" id="end_date"
-                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
-                        placeholder=" " :value="form.end_date" @input="
-                            checkDateLength('end_date', $event);
-                        clearErrors('end_date');
-                        " />
+                        <input
+                            type="date"
+                            name="end_date"
+                            id="end_date"
+                            class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                            :value="form.end_date"
+                            @input="
+                                checkDateLength('end_date', $event);
+                                clearErrors('end_date');
+                            "
+                            />
                     <div v-if="dateErrors.end_date"
                         class="mt-2 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-600 shadow-sm">
                         {{ dateErrors.end_date }}
@@ -857,7 +864,7 @@
                 
                 <!-- event media -->
                 <div class="w-full">
-                    <label for="" class="text-base md:text-base lg:text-lg  truncate">Main Event Image (Allowed formats: PNG, GIF, JPG, JPEG). Max size: 30MB<span class="text-red-500">*</span></label>
+                    <label for="" class="text-base md:text-base lg:text-lg  truncate">Main Event Image <span class="ml-1 text-[0.95em] text-gray-600">(PNG, GIF, JPG, or JPEG format · 30 MB max)</span><span class="text-red-500">*</span></label>
                     <div class="relative z-0 w-full mb-6 group">
                         <template v-if="
                             current_user &&
@@ -1060,6 +1067,7 @@
                     <div class="relative z-0 w-full group mt-2">
                         <label :for="`contact-image-[${index}]`" class="text-base md:text-base lg:text-lg">
                             {{ JSON.parse(eventsetting).profile_image_label }}
+                             <span class="ml-1 text-[0.95em] text-gray-600">(PNG, GIF, JPG, or JPEG format · 5 MB max) </span>
 
                         </label>
                         <input type="file" name="contact-image" :id="`contact-image-[${index}]`"

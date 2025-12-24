@@ -16118,3 +16118,13 @@
 #50 E:\\Work\\Canadaexport\\server.php(21): require_once('E:\\\\Work\\\\Canadae...')
 #51 {main}
 "} 
+[2025-12-23 21:48:36] local.INFO: New exporter customer created {"customer_id":50031} 
+[2025-12-24 04:37:46] local.INFO: public/invoices/registration-invoice/CE0481.pdf  
+[2025-12-24 04:53:19] local.INFO: New event customer created {"customer_id":50032} 
+[2025-12-24 04:53:19] local.INFO: moveFile: Processing temp file {"original":"media/temp/694b71a8abd49/1766551976_kisspng-web-development-responsive-web-design-digital-mark-5adae949284980.003961131524296009165.jpg","normalized":"media/temp/694b71a8abd49/1766551976_kisspng-web-development-responsive-web-design-digital-mark-5adae949284980.003961131524296009165.jpg"} 
+[2025-12-24 04:57:16] local.INFO: ===== Event Signup Payment Started =====  
+[2025-12-24 04:57:16] local.INFO: Request Data: {"page_id":"41","create_page_id":"32","name":"carloslennix38","business_name":"carloslennix38gg","email":"carloslennix38gg@gmail.com","package_id":6,"order_amount":49,"payment_method":"stripe","package_type":"premium","payment_frequency":"annually","cta_btn":"q","cta_link":"https://seashell-squirrel-840185.hostingersite.com/","title":[],"country":[],"city":[],"street_name":[],"venue":[],"product_search":[],"short_description":[],"description":[],"start_date":null,"end_date":null,"event_website":null,"exibitors_url":null,"visitors_url":null,"press_url":null,"video_url":null,"facebook_url":null,"twitter_url":null,"linkedin_url":null,"youtube_url":null,"pintrest_url":null,"instagram_url":null,"snapchat_url":null,"gallery_images":null,"contacts":[{"id":null,"name":"carloslennix38gg@gmail.com","email":null,"phone":null,"designation":null,"image_path":null}],"business_categories_id":null} 
+[2025-12-24 04:57:16] local.INFO: Processing Stripe payment for event signup {"payment_method_id":"present","price":49.0} 
+[2025-12-24 04:57:20] local.INFO: Stripe payment processed successfully {"subscription_id":"pi_3Shk8TQ5xuu3Pqxr1cEtOqYB","stripe_customer_id":"cus_Tf4G6MsP5s6HFK"} 
+[2025-12-24 04:57:25] local.INFO: public/invoices/registration-invoice/CE0482.pdf  
+[2025-12-24 04:57:26] local.INFO: ===== Event Signup Payment Completed Successfully =====  
