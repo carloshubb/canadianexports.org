@@ -7,165 +7,99 @@
             <h1 class="can-exp-h3 mb-0 text-primary">
               {{ isFormEdit ? "Edit" : "Create" }} profile package
             </h1>
-            <router-link
-              :to="{ name: 'admin.packages.index' }"
-              class="button-exp-fill"
-            >
+            <router-link :to="{ name: 'admin.packages.index' }" class="button-exp-fill">
               Back
             </router-link>
           </div>
         </div>
       </header>
       <form class="px-4 md:px-6 lg:px-8" @submit.prevent="addUpdateForm()">
-        <div
-          class="text-sm font-medium text-center text-gray-500 border-b border-gray-200"
-        >
+        <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200">
           <ul class="flex flex-wrap mb-2 overflow-x-auto gap-1 mt-4">
             <li class="mr-2" v-for="language in languages" :key="language.id">
-              <a
-                @click.prevent="changeLanguageTab(language)"
-                href="#"
-                :class="[
-                  'inline-block rounded font-FuturaMdCnBT px-5 py-2 lg:text-lg md:text-base sm:text-base text-base hover:bg-blue-100 border border-primary text-center hover:border-blue-500 hover:text-blue-600',
-                  (activeTab == null && language.is_default) ||
+              <a @click.prevent="changeLanguageTab(language)" href="#" :class="[
+                'inline-block rounded font-FuturaMdCnBT px-5 py-2 lg:text-lg md:text-base sm:text-base text-base hover:bg-blue-100 border border-primary text-center hover:border-blue-500 hover:text-blue-600',
+                (activeTab == null && language.is_default) ||
                   activeTab == language.id
-                    ? 'bg-blue-600 text-white'
-                    : '',
-                  validationErros.has(`name.name_${language.id}`) ||
+                  ? 'bg-blue-600 text-white'
+                  : '',
+                validationErros.has(`name.name_${language.id}`) ||
                   validationErros.has(
                     `short_description.short_description_${language.id}`
                   )
-                    ? 'bg-red-600 border-red-600 text-white hover:text-white rounded hover:bg-red-600 hover:border-red-600'
-                    : '',
-                ]"
-                >{{ language.name }}</a
-              >
+                  ? 'bg-red-600 border-red-600 text-white hover:text-white rounded hover:bg-red-600 hover:border-red-600'
+                  : '',
+              ]">{{ language.name }}</a>
             </li>
           </ul>
         </div>
 
-        <div
-          class="grid my-5 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 md:gap-6"
-          v-for="language in languages"
-          :key="language.id"
-          :class="
-            (activeTab == null && language.is_default) ||
-            activeTab == language.id
+        <div class="grid my-5 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 md:gap-6"
+          v-for="language in languages" :key="language.id" :class="(activeTab == null && language.is_default) ||
+              activeTab == language.id
               ? 'block'
               : 'hidden'
-          "
-        >
+            ">
           <div class="relative z-0 w-full group">
             <label for="name">Name</label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              class="can-exp-input w-full block border border-gray-300 rounded"
-              placeholder=" "
-              @input="handleNameInput($event.target.value, language)"
-              :value="
-                form['name'] && form['name'][`name_${language.id}`]
+            <input type="text" name="name" id="name" class="can-exp-input w-full block border border-gray-300 rounded"
+              placeholder=" " @input="handleNameInput($event.target.value, language)" :value="form['name'] && form['name'][`name_${language.id}`]
                   ? form['name'][`name_${language.id}`]
                   : ''
-              "
-            />
-            <p
-              class="mt-2 text-sm text-red-400"
-              v-if="validationErros.has(`name.name_${language.id}`)"
-              v-text="validationErros.get(`name.name_${language.id}`)"
-            ></p>
+                " />
+            <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`name.name_${language.id}`)"
+              v-text="validationErros.get(`name.name_${language.id}`)"></p>
           </div>
           <div class="relative z-0 w-full group">
             <label for="short_description">Short description</label>
-            <input
-              type="text"
-              name="short_description"
-              id="short_description"
-              class="can-exp-input w-full block border border-gray-300 rounded"
-              placeholder=" "
-              @input="handleShortDescInput($event.target.value, language)"
-              :value="
-                form['short_description'] &&
-                form['short_description'][`short_description_${language.id}`]
+            <input type="text" name="short_description" id="short_description"
+              class="can-exp-input w-full block border border-gray-300 rounded" placeholder=" "
+              @input="handleShortDescInput($event.target.value, language)" :value="form['short_description'] &&
+                  form['short_description'][`short_description_${language.id}`]
                   ? form['short_description'][
-                      `short_description_${language.id}`
-                    ]
+                  `short_description_${language.id}`
+                  ]
                   : ''
-              "
-            />
-            <p
-              class="mt-2 text-sm text-red-400"
-              v-if="
-                validationErros.has(
-                  `short_description.short_description_${language.id}`
-                )
-              "
-              v-text="
-                validationErros.get(
-                  `short_description.short_description_${language.id}`
-                )
-              "
-            ></p>
+                " />
+            <p class="mt-2 text-sm text-red-400" v-if="
+              validationErros.has(
+                `short_description.short_description_${language.id}`
+              )
+            " v-text="validationErros.get(
+                `short_description.short_description_${language.id}`
+              )
+                "></p>
           </div>
         </div>
-        <div
-          v-for="language in languages"
-          :key="language.id"
-          :class="
-            (activeTab == null && language.is_default) ||
+        <div v-for="language in languages" :key="language.id" :class="(activeTab == null && language.is_default) ||
             activeTab == language.id
-              ? 'block'
-              : 'hidden'
-          "
-        >
+            ? 'block'
+            : 'hidden'
+          ">
           <div class="relative z-0 w-full group">
             <label for="features">Features</label>
-            <template
-              v-for="(features, index) in form['features'][
-                `features_${language.id}`
-              ]"
-              :key="index"
-            >
+            <template v-for="(features, index) in form['features'][
+              `features_${language.id}`
+            ]" :key="index">
               <div class="mt-4 flex justify-between items-center gap-4">
-                <input
-                  type="text"
-                  name="features"
-                  id="features"
-                  class="can-exp-input w-full block border border-gray-300 rounded"
-                  placeholder=" "
-                  @input="
+                <input type="text" name="features" id="features"
+                  class="can-exp-input w-full block border border-gray-300 rounded" placeholder=" " @input="
                     handleFeatureInput(language.id, $event.target.value, index)
-                  "
-                  :value="features"
-                />
-                <button
-                  class="button-exp-fill"
-                  type="button"
-                  @click="removeFeature(language.id, index)"
-                >
+                    " :value="features" />
+                <button class="button-exp-fill" type="button" @click="removeFeature(language.id, index)">
                   Remove
                 </button>
               </div>
             </template>
             <div class="text-right my-4">
-              <button
-                class="button-exp-fill"
-                type="button"
-                @click="addNewFeature(language.id)"
-              >
+              <button class="button-exp-fill" type="button" @click="addNewFeature(language.id)">
                 Add new feature
               </button>
             </div>
-            <p
-              class="mt-2 text-sm text-red-400"
-              v-if="validationErros.has(`features.features_${language.id}`)"
-              v-text="
-                validationErros.get(
-                  `short_description.short_description_${language.id}`
-                )
-              "
-            ></p>
+            <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`features.features_${language.id}`)" v-text="validationErros.get(
+              `short_description.short_description_${language.id}`
+            )
+              "></p>
           </div>
         </div>
 
@@ -176,58 +110,33 @@
               <fieldset>
                 <legend class="sr-only">Set as default</legend>
                 <div class="flex items-center">
-                  <input
-                    id="is_default"
-                    name="is_default"
-                    type="checkbox"
-                    value=""
+                  <input id="is_default" name="is_default" type="checkbox" value=""
                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-                    :checked="is_default"
-                    v-model="is_default"
-                  />
-                  <label
-                    for="is_default"
-                    class="ml-2 text-sm font-medium text-gray-900"
-                    >Set as default</label
-                  >
+                    :checked="is_default" v-model="is_default" />
+                  <label for="is_default" class="ml-2 text-sm font-medium text-gray-900">Set as default</label>
                 </div>
               </fieldset>
             </div>
-            <select
-              id="package_type"
-              @change="updateForm('package_type', $event.target.value)"
-              class="can-exp-input w-full block border border-gray-300 rounded"
-            >
+            <select id="package_type" @change="updateForm('package_type', $event.target.value)"
+              class="can-exp-input w-full block border border-gray-300 rounded">
               <option value="">Select package type...</option>
               <option value="free" v-if="form.type == 'profile'" :selected="form.package_type == 'free'">
                 Free package
               </option>
-              <option
-                value="featured"
-                :selected="form.package_type == 'featured'"
-              >
+              <option value="featured" :selected="form.package_type == 'featured'">
                 Featured package
               </option>
-              <option
-                value="premium"
-                :selected="form.package_type == 'premium'"
-              >
+              <option value="premium" :selected="form.package_type == 'premium'">
                 Premium package
               </option>
             </select>
-            <p
-              class="mt-2 text-sm text-red-400"
-              v-if="validationErros.has('package_type')"
-              v-text="validationErros.get('package_type')"
-            ></p>
+            <p class="mt-2 text-sm text-red-400" v-if="validationErros.has('package_type')"
+              v-text="validationErros.get('package_type')"></p>
           </div>
           <div class="relative z-0 w-full group">
             <label for="type">Package for</label>
-            <select
-              id="type"
-              @change="updateForm('type', $event.target.value)"
-              class="can-exp-input w-full block border border-gray-300 rounded"
-            >
+            <select id="type" @change="updateForm('type', $event.target.value)"
+              class="can-exp-input w-full block border border-gray-300 rounded">
               <option value="">Select package for...</option>
               <option value="profile" :selected="form.type == 'profile'">
                 Profile package
@@ -236,141 +145,71 @@
                 Event package
               </option>
             </select>
-            <p
-              class="mt-2 text-sm text-red-400"
-              v-if="validationErros.has('type')"
-              v-text="validationErros.get('type')"
-            ></p>
+            <p class="mt-2 text-sm text-red-400" v-if="validationErros.has('type')"
+              v-text="validationErros.get('type')"></p>
           </div>
           <div class="relative z-0 w-full group">
             <label for="events_allowed">Events allowed</label>
-            <input
-              type="number"
-              name="events_allowed"
-              id="events_allowed"
-              class="can-exp-input w-full block border border-gray-300 rounded"
-              placeholder=" "
-              :value="form.events_allowed"
-              @input="updateForm('events_allowed', $event.target.value)"
-            />
-            <p
-              class="mt-2 text-sm text-red-400"
-              v-if="validationErros.has('events_allowed')"
-              v-text="validationErros.get('events_allowed')"
-            ></p>
+            <input type="number" name="events_allowed" id="events_allowed"
+              class="can-exp-input w-full block border border-gray-300 rounded" placeholder=" "
+              :value="form.events_allowed" @input="updateForm('events_allowed', $event.target.value)" />
+            <p class="mt-2 text-sm text-red-400" v-if="validationErros.has('events_allowed')"
+              v-text="validationErros.get('events_allowed')"></p>
           </div>
           <div class="relative z-0 w-full group">
             <label for="images_allowed">Images allowed</label>
-            <input
-              type="number"
-              name="images_allowed"
-              id="images_allowed"
-              class="can-exp-input w-full block border border-gray-300 rounded"
-              placeholder=" "
-              :value="form.images_allowed"
-              @input="updateForm('images_allowed', $event.target.value)"
-            />
-            <p
-              class="mt-2 text-sm text-red-400"
-              v-if="validationErros.has('images_allowed')"
-              v-text="validationErros.get('images_allowed')"
-            ></p>
+            <input type="number" name="images_allowed" id="images_allowed"
+              class="can-exp-input w-full block border border-gray-300 rounded" placeholder=" "
+              :value="form.images_allowed" @input="updateForm('images_allowed', $event.target.value)" />
+            <p class="mt-2 text-sm text-red-400" v-if="validationErros.has('images_allowed')"
+              v-text="validationErros.get('images_allowed')"></p>
           </div>
         </div>
-        <template
-          v-if="
-            form.package_type == 'featured' || form.package_type == 'premium'
-          "
-        >
+        <template v-if="
+          form.package_type == 'featured' || form.package_type == 'premium'
+        ">
           <div class="grid md:grid-cols-2 gap-4 md:gap-6 mt-6" v-if="form.type == 'profile'">
             <div class="relative z-0 w-full group">
               <label for="monthly_price">Monthly Price</label>
-              <input
-                type="text"
-                name="monthly_price"
-                id="monthly_price"
-                class="can-exp-input w-full block border border-gray-300 rounded"
-                placeholder=" "
-                :value="form.monthly_price"
-                @input="updateForm('monthly_price', $event.target.value)"
-              />
-              <p
-                class="mt-2 text-sm text-red-400"
-                v-if="validationErros.has('monthly_price')"
-                v-text="validationErros.get('monthly_price')"
-              ></p>
+              <input type="text" name="monthly_price" id="monthly_price"
+                class="can-exp-input w-full block border border-gray-300 rounded" placeholder=" "
+                :value="form.monthly_price" @input="updateForm('monthly_price', $event.target.value)" />
+              <p class="mt-2 text-sm text-red-400" v-if="validationErros.has('monthly_price')"
+                v-text="validationErros.get('monthly_price')"></p>
             </div>
             <div class="relative z-0 w-full group">
               <label for="quarterly_price">Quarterly price per month</label>
-              <input
-                type="text"
-                name="quarterly_price"
-                id="quarterly_price"
-                class="can-exp-input w-full block border border-gray-300 rounded"
-                placeholder=" "
-                :value="form.quarterly_price"
-                @input="updateForm('quarterly_price', $event.target.value)"
-              />
-              <p
-                class="mt-2 text-sm text-red-400"
-                v-if="validationErros.has('quarterly_price')"
-                v-text="validationErros.get('quarterly_price')"
-              ></p>
+              <input type="text" name="quarterly_price" id="quarterly_price"
+                class="can-exp-input w-full block border border-gray-300 rounded" placeholder=" "
+                :value="form.quarterly_price" @input="updateForm('quarterly_price', $event.target.value)" />
+              <p class="mt-2 text-sm text-red-400" v-if="validationErros.has('quarterly_price')"
+                v-text="validationErros.get('quarterly_price')"></p>
             </div>
             <div class="relative z-0 w-full group">
-              <label for="semi_annual_price"
-                >Semi annually price per month</label
-              >
-              <input
-                type="text"
-                name="semi_annual_price"
-                id="semi_annual_price"
-                class="can-exp-input w-full block border border-gray-300 rounded"
-                placeholder=" "
-                :value="form.semi_annual_price"
-                @input="updateForm('semi_annual_price', $event.target.value)"
-              />
-              <p
-                class="mt-2 text-sm text-red-400"
-                v-if="validationErros.has('semi_annual_price')"
-                v-text="validationErros.get('semi_annual_price')"
-              ></p>
+              <label for="semi_annual_price">Semi annually price per month</label>
+              <input type="text" name="semi_annual_price" id="semi_annual_price"
+                class="can-exp-input w-full block border border-gray-300 rounded" placeholder=" "
+                :value="form.semi_annual_price" @input="updateForm('semi_annual_price', $event.target.value)" />
+              <p class="mt-2 text-sm text-red-400" v-if="validationErros.has('semi_annual_price')"
+                v-text="validationErros.get('semi_annual_price')"></p>
             </div>
             <div class="relative z-0 w-full group">
               <label for="annual_price">Annually price per month</label>
-              <input
-                type="text"
-                name="annual_price"
-                id="annual_price"
-                class="can-exp-input w-full block border border-gray-300 rounded"
-                placeholder=" "
-                :value="form.annual_price"
-                @input="updateForm('annual_price', $event.target.value)"
-              />
-              <p
-                class="mt-2 text-sm text-red-400"
-                v-if="validationErros.has('annual_price')"
-                v-text="validationErros.get('annual_price')"
-              ></p>
+              <input type="text" name="annual_price" id="annual_price"
+                class="can-exp-input w-full block border border-gray-300 rounded" placeholder=" "
+                :value="form.annual_price" @input="updateForm('annual_price', $event.target.value)" />
+              <p class="mt-2 text-sm text-red-400" v-if="validationErros.has('annual_price')"
+                v-text="validationErros.get('annual_price')"></p>
             </div>
           </div>
           <div class="grid md:grid-cols-2 gap-4 md:gap-6 mt-6" v-else-if="form.type == 'event'">
             <div class="relative z-0 w-full group">
               <label for="event_price">Price</label>
-              <input
-                type="text"
-                name="event_price"
-                id="event_price"
-                class="can-exp-input w-full block border border-gray-300 rounded"
-                placeholder=" "
-                :value="form.event_price"
-                @input="updateForm('event_price', $event.target.value)"
-              />
-              <p
-                class="mt-2 text-sm text-red-400"
-                v-if="validationErros.has('event_price')"
-                v-text="validationErros.get('event_price')"
-              ></p>
+              <input type="text" name="event_price" id="event_price"
+                class="can-exp-input w-full block border border-gray-300 rounded" placeholder=" "
+                :value="form.event_price" @input="updateForm('event_price', $event.target.value)" />
+              <p class="mt-2 text-sm text-red-400" v-if="validationErros.has('event_price')"
+                v-text="validationErros.get('event_price')"></p>
             </div>
           </div>
         </template>
@@ -417,7 +256,7 @@ export default {
         [field]: value,
       });
       if (field == "type" && value == 'event') {
-        if(this.form.package_type == 'free'){
+        if (this.form.package_type == 'free') {
           this.$store.commit("packages/setForm", {
             package_type: null,
           });
@@ -438,17 +277,17 @@ export default {
         });
       }
       if (field == "monthly_price") {
-        if(isNaN(value)){
+        if (isNaN(value)) {
           value = 0;
         }
         this.$store.commit("packages/setForm", {
-          quarterly_price: (value*3*0.9/3).toFixed(2),
+          quarterly_price: (value * 3 * 0.9 / 3).toFixed(2),
         });
         this.$store.commit("packages/setForm", {
-          semi_annual_price: (value*6*0.8/6).toFixed(2),
+          semi_annual_price: (value * 6 * 0.8 / 6).toFixed(2),
         });
         this.$store.commit("packages/setForm", {
-          annual_price: (value*12*0.7/12).toFixed(2),
+          annual_price: (value * 12 * 0.7 / 12).toFixed(2),
         });
       }
       if (field == "package_validity_months" || field == "package_type") {
@@ -480,6 +319,7 @@ export default {
       }
     },
     handleNameInput(value, language) {
+      value = value.replace(/[^a-zA-Z\s-]/g, '');
       this.$store.commit("packages/updateName", {
         name: value,
         id: language.id,

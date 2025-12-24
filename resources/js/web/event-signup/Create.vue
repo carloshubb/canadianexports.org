@@ -1607,6 +1607,8 @@ export default {
             );
         },
         updateContact(index, field, value) {
+            if (field === "name") value = value.replace(/[^a-zA-Z\s-]/g, '');
+
             this.contacts[index][field] = value;
             localStorage.setItem(
                 "eventContacts",

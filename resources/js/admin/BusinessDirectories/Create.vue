@@ -3,8 +3,9 @@
         <div class="relative shadow-md rounded-lg bg-white py-4">
             <header class="pt-4">
                 <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="flex flex-col sm:flex-col md:flex-row lg:flex-row items-center justify-center gap-4 md:justify-between">
-                        <h3 class="can-exp-h3 text-primary"> {{isFormEdit ? 'Edit' : 'Create'}} business directory </h3>
+                    <div
+                        class="flex flex-col sm:flex-col md:flex-row lg:flex-row items-center justify-center gap-4 md:justify-between">
+                        <h3 class="can-exp-h3 text-primary"> {{ isFormEdit ? 'Edit' : 'Create' }} business directory </h3>
                         <router-link :to="{ name: 'admin.business_directories.index' }"
                             class="inline-flex items-center button-exp-fill">
                             Back
@@ -34,32 +35,31 @@
                 </div>
 
                 <div class="grid my-5 md:grid-cols-2 md:gap-6" v-for="language in languages" :key="language.id" :class="(activeTab == null && language.is_default) ||
-                        activeTab == language.id
-                        ? 'block'
-                        : 'hidden'
+                    activeTab == language.id
+                    ? 'block'
+                    : 'hidden'
                     ">
                     <div class="relative z-0 w-full group">
                         <label for="name" class="block text-base lg:text-lg">Name</label>
                         <input type="text" name="name" id="name"
-                            class="can-exp-input w-full block border border-gray-300 rounded"
-                            placeholder=" " @input="
+                            class="can-exp-input w-full block border border-gray-300 rounded" placeholder=" " @input="
                                 handleMultipleInput(
                                     'name',
                                     $event.target.value,
                                     language
                                 )
                                 " :value="form['name'] && form['name'][`name_${language.id}`]
-                                ? form['name'][`name_${language.id}`]
-                                : ''
-                            " />
+                                    ? form['name'][`name_${language.id}`]
+                                    : ''
+                                    " />
                         <p class="mt-2 text-base text-primary" v-if="validationErros.has(`name.name_${language.id}`)"
                             v-text="validationErros.get(`name.name_${language.id}`)"></p>
                     </div>
                     <div class="relative z-0 w-full group">
                         <label for="address" class="block text-base lg:text-lg">Address</label>
                         <input type="text" name="address" id="address"
-                            class="can-exp-input w-full block border border-gray-300 rounded"
-                            placeholder=" " @input="handleInput($event.target.value, 'address')"
+                            class="can-exp-input w-full block border border-gray-300 rounded" placeholder=" "
+                            @input="handleInput($event.target.value, 'address')"
                             :value="form['address'] ? form['address'] : ''" />
                         <p class="mt-2 text-base text-primary" v-if="validationErros.has(`address`)"
                             v-text="validationErros.get(`address`)"></p>
@@ -67,8 +67,8 @@
                     <div class="relative z-0 w-full group">
                         <label for="city" class="block text-base lg:text-lg">City</label>
                         <input type="text" name="city" id="city"
-                            class="can-exp-input w-full block border border-gray-300 rounded"
-                            placeholder=" " @input="handleInput($event.target.value, 'city')"
+                            class="can-exp-input w-full block border border-gray-300 rounded" placeholder=" "
+                            @input="handleInput($event.target.value, 'city')"
                             :value="form['city'] ? form['city'] : ''" />
                         <p class="mt-2 text-base text-primary" v-if="validationErros.has(`city`)"
                             v-text="validationErros.get(`city`)"></p>
@@ -76,8 +76,8 @@
                     <div class="relative z-0 w-full group">
                         <label for="province" class="block text-base lg:text-lg">Province</label>
                         <input type="text" name="province" id="province"
-                            class="can-exp-input w-full block border border-gray-300 rounded"
-                            placeholder=" " @input="handleInput($event.target.value, 'province')"
+                            class="can-exp-input w-full block border border-gray-300 rounded" placeholder=" "
+                            @input="handleInput($event.target.value, 'province')"
                             :value="form['province'] ? form['province'] : ''" />
                         <p class="mt-2 text-base text-primary" v-if="validationErros.has(`province`)"
                             v-text="validationErros.get(`province`)"></p>
@@ -85,8 +85,8 @@
                     <div class="relative z-0 w-full group">
                         <label for="postal_code" class="block text-base lg:text-lg">Postal Code</label>
                         <input type="text" name="postal_code" id="postal_code"
-                            class="can-exp-input w-full block border border-gray-300 rounded"
-                            placeholder=" " @input="handleInput($event.target.value, 'postal_code')"
+                            class="can-exp-input w-full block border border-gray-300 rounded" placeholder=" "
+                            @input="handleInput($event.target.value, 'postal_code')"
                             :value="form['postal_code'] ? form['postal_code'] : ''" />
                         <p class="mt-2 text-base text-primary" v-if="validationErros.has(`postal_code`)"
                             v-text="validationErros.get(`postal_code`)"></p>
@@ -103,25 +103,23 @@
                     <div class="relative z-0 w-full group">
                         <label for="fax" class="block text-base lg:text-lg">Fax</label>
                         <input type="text" name="fax" id="fax"
-                            class="can-exp-input w-full block border border-gray-300 rounded"
-                            placeholder=" " @input="handleInput($event.target.value, 'fax')"
-                            :value="form['fax'] ? form['fax'] : ''" />
+                            class="can-exp-input w-full block border border-gray-300 rounded" placeholder=" "
+                            @input="handleInput($event.target.value, 'fax')" :value="form['fax'] ? form['fax'] : ''" />
                         <p class="mt-2 text-base text-primary" v-if="validationErros.has(`fax`)"
                             v-text="validationErros.get(`fax`)"></p>
                     </div>
                     <div class="relative z-0 w-full group">
                         <label for="industry" class="block text-base lg:text-lg">Industry</label>
                         <input type="text" name="industry" id="industry"
-                            class="can-exp-input w-full block border border-gray-300 rounded"
-                            placeholder=" " @input="handleInput($event.target.value, 'industry')"
+                            class="can-exp-input w-full block border border-gray-300 rounded" placeholder=" "
+                            @input="handleInput($event.target.value, 'industry')"
                             :value="form['industry'] ? form['industry'] : ''" />
                         <p class="mt-2 text-base text-primary" v-if="validationErros.has(`industry`)"
                             v-text="validationErros.get(`industry`)"></p>
                     </div>
                     <div class="relative z-0 w-full group">
                         <label for="status" class="block text-base lg:text-lg">Status</label>
-                        <select name="status"
-                            class="can-exp-input w-full block border border-gray-300 rounded"
+                        <select name="status" class="can-exp-input w-full block border border-gray-300 rounded"
                             @input="handleInput($event.target.value, 'status')">
                             <option value="">Select</option>
                             <option :selected="form['status'] == 'yes'" value="yes">
@@ -192,6 +190,7 @@ export default {
             }
         },
         handleMultipleInput(key, value, language) {
+            if (key === "name") value = value.replace(/[^a-zA-Z\s-]/g, '');
             this.$store.commit("business_directories/updateState", {
                 value: value,
                 id: language.id,
