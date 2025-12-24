@@ -10,5 +10,6 @@ CaExp LoR July 18.docx
 *.sql
 .env.prod
 .env.dev
+package-lock.json
 
 
