@@ -29,19 +29,24 @@ class SendCopyToUserMail extends Mailable
                 'advertiserName' => $this->customerProfile->company_name,
                 'messageContent' => $this->data['message'],
             ];
+           
             $rendered = $service->render('send_copy_to_user', $payload, $subject, null);
-
+            
             if (!empty($rendered['body_html'])) {
                 return $this->markdown('mails.dynamic-markdown')
                     ->subject($rendered['subject'] ?: $subject)
                     ->with([
                         'body_html' => $rendered['body_html'],
-                        'data' => $payload,
+                        'advertiserName' => $payload['advertiserName'],
+                        'messageContent' => $payload['messageContent'],
                     ]);
             }
 
             return $this->markdown('mails/sendCopyToUser')
                 ->subject($subject)
-                ->with($payload);
+                ->with([                        
+                        'advertiserName' => $payload['advertiserName'],
+                        'messageContent' => $payload['messageContent'],
+                    ]);
     }
 }
