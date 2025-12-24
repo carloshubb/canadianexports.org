@@ -365,21 +365,21 @@ const languages = {
                 })
                 .finally(() => commit("setLoading"));
         },
-        downloadCSV({ commit }, payload) {
+        downloadXLS({ commit }, payload) {
             let url = payload && payload.url
                 ? payload.url
-                : `${process.env.MIX_ADMIN_API_URL}translation/export-csv`;
+                : `${process.env.MIX_ADMIN_API_URL}translation/export-xls`;
 
             commit("setLoading");
             return axios.get(url)
-                    .then((res) => {
-                        return res;
-                    })
-                    .catch((error) => {
-                        return error;
-                    })
-                    .finally(() => commit("setLoading"));
-            
+                .then((res) => {
+                    return res;
+                })
+                .catch((error) => {
+                    return error;
+                })
+                .finally(() => commit("setLoading"));
+
         }
     },
 };

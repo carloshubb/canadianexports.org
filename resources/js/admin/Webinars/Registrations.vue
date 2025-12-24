@@ -8,7 +8,7 @@
               <h3 class="can-exp-h3 text-primary">Webinar Registrations</h3>
               <p class="text-gray-600 mt-1">{{ webinar?.title }}</p>
             </div>
-            <router-link :to="{ name: 'admin.webinars.index'}" class="button-exp-fill">
+            <router-link :to="{ name: 'admin.webinars.index' }" class="button-exp-fill">
               Back to Webinars
             </router-link>
           </div>
@@ -29,13 +29,14 @@
           <div>
             <p class="text-sm text-gray-600">Attended</p>
             <p class="font-semibold text-2xl text-green-600">
-              {{ registrations.filter(r => r.status === 'attended').length }}
+              {{registrations.filter(r => r.status === 'attended').length}}
             </p>
           </div>
           <div>
             <p class="text-sm text-gray-600">Available Seats</p>
             <p class="font-semibold text-2xl">
-              {{ webinar.max_attendees ? webinar.max_attendees - registrations.filter(r => r.status !== 'cancelled').length : '∞' }}
+              {{webinar.max_attendees ? webinar.max_attendees - registrations.filter(r => r.status !==
+                'cancelled').length : '∞' }}
             </p>
           </div>
         </div>
@@ -43,8 +44,8 @@
 
       <!-- Export Button -->
       <div class="px-4 sm:px-6 lg:px-8 py-4 flex justify-end">
-        <button @click="exportToCSV" class="button-exp-fill">
-          Export to CSV
+        <button @click="exportToXLS" class="button-exp-fill">
+          Export to Excel
         </button>
       </div>
 
@@ -81,18 +82,12 @@
                 </span>
               </td>
               <td class="px-6 py-4">
-                <button
-                  v-if="reg.status === 'registered'"
-                  @click="markAsAttended(reg.id)"
-                  class="text-green-600 hover:underline mr-3"
-                >
+                <button v-if="reg.status === 'registered'" @click="markAsAttended(reg.id)"
+                  class="text-green-600 hover:underline mr-3">
                   Mark Attended
                 </button>
-                <button
-                  v-if="reg.status !== 'cancelled'"
-                  @click="cancelRegistration(reg.id)"
-                  class="text-red-600 hover:underline"
-                >
+                <button v-if="reg.status !== 'cancelled'" @click="cancelRegistration(reg.id)"
+                  class="text-red-600 hover:underline">
                   Cancel
                 </button>
               </td>
@@ -165,7 +160,7 @@ export default {
         this.$swal('Error', error.response?.data?.message || 'Failed to cancel registration', 'error');
       }
     },
-    exportToCSV() {
+    exportToXLS() {
       const headers = ['Name', 'Email', 'Phone', 'Company', 'Registered At', 'Status'];
       const rows = this.registrations.map(reg => [
         reg.name,
@@ -181,14 +176,14 @@ export default {
         csvContent += row.map(cell => `"${cell}"`).join(',') + '\n';
       });
 
-      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const blob = new Blob([csvContent], { type: 'text/xls;charset=utf-8;' });
       const link = document.createElement('a');
       const url = URL.createObjectURL(blob);
-      
+
       link.setAttribute('href', url);
-      link.setAttribute('download', `webinar-registrations-${this.$route.params.id}.csv`);
+      link.setAttribute('download', `webinar-registrations-${this.$route.params.id}.xls`);
       link.style.visibility = 'hidden';
-      
+
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);

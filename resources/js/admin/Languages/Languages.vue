@@ -13,8 +13,8 @@
             <router-link :to="{ name: 'admin.languages.create' }" class="button-exp-fill">
               Add new language
             </router-link>
-            <button class="ml-3 inline-flex items-center button-exp-fill" @click="DownloadCSV()">
-              Download CSV
+            <button class="ml-3 inline-flex items-center button-exp-fill" @click="DownloadXLS()">
+              Download Excel
               <svg v-if="loading" class="ml-2 h-5 w-5 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none"
                 viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -178,11 +178,11 @@
       </div>
       <div class="px-4 sm:px-6 lg:px-8">
         <p class="mt-2 text-sm text-gray-700">
-          <b>Note:</b> Upload languages via CSV file. You should follow the same format as the downloaded CSV.
+          <b>Note:</b> Upload languages via XLS file. You should follow the same format as the downloaded XLS.
         </p>
-        <input type="file" @change="handleFileUpload($event)" accept=".csv" />
+        <input type="file" @change="handleFileUpload($event)" accept=".xls" />
         <button class="ml-3 inline-flex items-center button-exp-fill" @click="submitFile()">
-          Upload CSV
+          Upload XLS
           <svg v-if="loading" class="ml-2 h-5 w-5 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none"
             viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -316,16 +316,16 @@ export default {
       this.showModal = !this.showModal;
     },
 
-    DownloadCSV() {
+    DownloadXLS() {
       this.$store
-        .dispatch("languages/downloadCSV", {
-          // No additional parameters needed for CSV download
+        .dispatch("languages/downloadXLS", {
+          // No additional parameters needed for XLS download
         })
         .then((res) => {
           if (res.data.status === "Success") {
             const link = document.createElement("a");
             link.href = res.data.file_url;
-            link.download = "languages.csv";
+            link.download = "languages.xls";
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -340,19 +340,19 @@ export default {
         });
     },
 
-    // upload CSV file
+    // upload XLS file
     handleFileUpload(event) {
       this.csvFile = event.target.files[0];
     },
     submitFile() {
       if (!this.csvFile) {
-        alert("Please select a CSV file first");
+        alert("Please select a XLS file first");
         return;
       }
 
       let formData = new FormData();
       formData.append("file", this.csvFile);
-      var url = `${process.env.MIX_ADMIN_API_URL}translation/import-csv`;
+      var url = `${process.env.MIX_ADMIN_API_URL}translation/import-xls`;
       this.setLoading(true);
       axios.post(url, formData, {
         headers: { "Content-Type": "multipart/form-data" }
@@ -362,7 +362,7 @@ export default {
             this.$swal.fire({
               icon: "success",
               title: "Success",
-              text: res.data.message || "CSV imported successfully",
+              text: res.data.message || "XLS imported successfully",
             });
           } else {
             this.$swal.fire({
@@ -377,7 +377,7 @@ export default {
           this.$swal.fire({
             icon: "error",
             title: "Error",
-            text: err?.response?.data?.message || "Error uploading CSV",
+            text: err?.response?.data?.message || "Error uploading Excel",
           });
           this.setLoading(false);
         });
