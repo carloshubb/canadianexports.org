@@ -1,26 +1,26 @@
 <div class="my-5 md:my-7">
-    <div class="flex rounded-md overflow-hidden">
-        @isset($widget, $widget->widgetDetail[0])
-        {{-- {{dd($widget);}} --}}
-            <div class="md:h-48 lg:h-60 relative w-1/2 {{ isset(getDefaultLanguage(1)->direction) && getDefaultLanguage(1)->direction == 'ltr' ? 'rounded-l-lg' : 'rounded-r-lg' }}">
-                <img src="{{ isset($widget->media2) ? asset($widget->media2->path) : asset('/media/banners/blue_banner_03.jpg') }}" alt=""  class="h-full w-full object-fill" alt="">
-                <div class="absolute top-0 px-4 md:px-8 lg:px-16 py-1 text-white md:h-48 lg:h-60 rounded-lg flex items-center">
-                <div>
-                    <div class="truncate-text">
-                        {!! $widget->widgetDetail[0]->text_detail !!}
-                    </div>
-                        <button class="mt-4">
-                            <a href="{!! $widget->widgetDetail[0]->button_link !!}" target="{{$widget->widgetDetail[0]->action == 'external' ? '_blank' : ''}}" class="button-exp-fill text-red-500 border-white bg-white hover:bg-white px-[10px] py-[5px] text-[10pt] md:px-5 md:py-2 md:text-base fix-url" onclick="fixUrls()">
-                                {!! $widget->widgetDetail[0]->button_text !!}
-                            </a>
-                        </button>
-                 </div>
-                </div>
-            </div>
-            <div class="w-1/2 h-32 md:h-48 lg:h-60">
-                <img class="object-fill w-full h-full {{ isset(getDefaultLanguage(1)->direction) && getDefaultLanguage(1)->direction == 'ltr' ? 'rounded-r-lg' : 'rounded-l-lg' }}"
-                    src="{{ isset($widget->media) ? asset($widget->media->path) : '' }}" alt="" />
-            </div>
-        @endisset
+    @isset($widget)
+    @isset($widget->widgetDetail[0])
+    <div class="h-48 lg:h-60  w-full bg-primary flex items-center relative rounded-lg">
+        <div class="h-48 lg:h-60 w-[58%] bg-red-600 absolute left-0 rounded-l-lg object-fill {{ isset(getDefaultLanguage(1)->direction) && getDefaultLanguage(1)->direction == 'ltr' ? 'order-1' : 'order-2' }}" style="clip-path: polygon(0 0, 75% 0%, 100% 100%, 0% 100%);">
+            <a href="{!! $widget->widgetDetail[0]->button_link !!}" target="{{$widget->widgetDetail[0]->action == 'external' ? '_blank' : ''}}" class="button-exp-fill text-red-500 border-white bg-white hover:bg-white px-[10px] py-[5px] text-[10pt] md:px-5 md:py-2 md:text-base fix-url" onclick="fixUrls()">
+               
+
+                <img class="rounded-l-lg object-fill w-full h-full" src="{{ isset($widget->image_path) ? asset($widget->image_path) : asset('/media/banners/blue_banner_02.jpg') }}" alt="">
+            </a>
+        </div>
+        <div class="relative h-48 lg:h-60 w-full bg-green-600 rounded-r-lg">
+            <a href="{{ $widget->widgetDetail[0]->button_link }}"
+                target="{{ $widget->widgetDetail[0]->action == 'external' ? '_blank' : '' }}">
+                <img
+                    class="absolute top-0 rounded-r-lg object-fill w-full h-full"
+                    src="{{ isset($widget->media) ? asset($widget->media->path) : '' }}"
+                    alt="">
+
+                
+            </a>
+        </div>
     </div>
+    @endisset
+    @endisset
 </div>
