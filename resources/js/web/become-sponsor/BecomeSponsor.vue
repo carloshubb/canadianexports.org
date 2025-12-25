@@ -144,7 +144,7 @@
             <div class="relative w-full">
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="preferred_call_time">
                 Best Time to Call
-                <span class="text-red-500">*</span>
+                <!-- <span class="text-red-500">*</span> -->
               </label>
               <select id="preferred_call_time" v-model="form.preferred_call_time"
                 class="can-exp-input w-full block border border-gray-300 rounded"
@@ -221,6 +221,7 @@
             </div>
 
             <div class="relative w-full" v-if="!isLoggedIn">
+              <br>
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="password">
                 Select Password (Min. 8 characters. Must contain at least one lowercase and one uppercase)
                 <span class="text-red-500">*</span>
@@ -247,6 +248,7 @@
             </div>
 
             <div class="relative w-full" v-if="!isLoggedIn">
+              <Br></Br>
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="password_confirmation"><br></br>
                 Confirm Password
                 <span class="text-red-500">*</span>
@@ -330,7 +332,8 @@
             <!-- Featured Image Upload (appears on Home page) -->
             <div class="relative w-full">
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="featured_image">
-                Featured Image ((appears on the Home page). Allowed file types: PNG, GIF, JPG, JPEG. Max. 10MB.)
+                 Featured Image (<span class="text-[0.9em] text-gray-600">Appears on the Home page</span> · PNG, GIF, JPG, JPEG · <span class="text-[0.9em] text-gray-600"> 10 MB max</span>) 
+
                 <span class="text-red-500">*</span>
               </label>
               <FilePond @input="clearErrors('featured_image')" ref="filePondFeatured" name="featured_image"
@@ -344,7 +347,7 @@
             <!-- Profile Image Upload -->
             <div class="relative w-full">
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="logo">
-                Profile Image (Allowed file types: PNG, GIF, JPG, JPEG. Max. 10MB.)
+                Profile Image (Allowed file types: PNG, GIF, JPG, JPEG.<span class="text-[0.9em] text-gray-600">Max. 10MB.</span> )
                 <span class="text-red-500">*</span>
               </label>
               <FilePond @input="clearErrors('logo')" ref="filePondLogo" name="logo"
