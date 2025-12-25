@@ -1272,7 +1272,7 @@ export default {
             console.log("Raw Label:", this.regPageSetting);
 
             if (!rawLabel) {
-                return "CTA(Call-to-Action) Button Title (Max. 5 words)";
+                return "CTA(Call-to-Action) Button (Max. 5 words)";
             }
 
             return rawLabel.replace(/\(5\)/g, '<sup class="footnote-indicator">(5)</sup>');

@@ -78,7 +78,7 @@ Route::group(['middleware' => ['share.variable', 'user.status']], function () {
 
     Route::get('/{abbreviation?}/category/{slug}', [BusinessCategoryController::class, 'index'])->name('user.business-category.index')->whereIn('abbreviation', Language::pluck('abbreviation')->toArray());
     Route::get('/{abbreviation?}/sponsor-detail/{slug}', [SponsorController::class, 'show'])->name('user.sponsor-detail.show')->whereIn('abbreviation', Language::pluck('abbreviation')->toArray());
-    Route::get('/{abbreviation?}/profile/{slug}', [BusinessCategoryController::class, 'show'])->name('user.business-category.show')->whereIn('abbreviation', Language::pluck('abbreviation')->toArray());
+    Route::get('/{abbreviation?}/profile/{slug?}', [BusinessCategoryController::class, 'show'])->name('user.business-category.show')->whereIn('abbreviation', Language::pluck('abbreviation')->toArray());
     Route::get('/{abbreviation?}/event/{id}', [EventController::class, 'show'])->name('user.event.show')->whereIn('abbreviation', Language::pluck('abbreviation')->toArray());
     Route::get('/{abbreviation?}/exporting-fair/{id}', [ExportingFairController::class, 'show'])->name('user.exporting-fair.show')->whereIn('abbreviation', Language::pluck('abbreviation')->toArray());
     Route::post('/profile/send-message', [BusinessCategoryController::class, 'sendMessage'])->name('user.business-category.send-message');

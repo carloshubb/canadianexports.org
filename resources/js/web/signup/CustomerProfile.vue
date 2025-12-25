@@ -196,7 +196,7 @@
         <div class="relative w-full mb-4" v-if="package_type && package_type.toLowerCase() !== 'free'">
           <label
             class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg"
-            for="cta_btn">CTA(Call-to-Action) Button Title
+            for="cta_btn">CTA(Call-to-Action) Button
           <span class="ml-1 text-[0.85em] text-gray-600">(Max. 5 words)</span> 
           </label>
            

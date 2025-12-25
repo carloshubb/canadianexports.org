@@ -177,7 +177,7 @@
             {{
               regPageSetting?.reg_page_setting_detail?.[0]?.step_5_logo_label
             }}
-             <span class="ml-1 text-[0.9em] text-gray-600">(10MB max. Allowed file types: PNG, GIF, JPG, JPEG)</span>
+             <span class="ml-1 text-[0.9em] text-gray-600">Logo  (PNG, GIF, JPG, or JPEG format, max 10 MB.)</span>
           </label>
           <FilePond
             class="cursor-pointer"
@@ -206,7 +206,7 @@
             {{
               regPageSetting?.reg_page_setting_detail?.[0]
                 ?.step_5_gallery_image_label
-            }}<span class="ml-1 text-[0.9em] text-gray-600">(5MB max.. Allowed file types: PNG, GIF, JPG, JPEG). Maximum number of images allowed: 8</span>
+            }}<span class="ml-1 text-[0.9em] text-gray-600">Images (Up to 8 allowed, 5 MB max each, in PNG, GIF, JPG, or JPEG format.)</span>
 
             </label
           >
