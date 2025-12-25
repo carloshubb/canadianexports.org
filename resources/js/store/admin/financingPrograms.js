@@ -7,7 +7,6 @@ const financingPrograms = {
         error: null,
         form: {
             id: null,
-            // business_category_id: null,
             business_categories: [],
             name_title: {},
             business_name: {},
@@ -28,6 +27,7 @@ const financingPrograms = {
         limit: 10,
         param: "withFlagIcon=1",
         isFormEdit: false,
+        selectedRows: [], // New: Track selected rows
     },
     mutations: {
         setNameTitle(state, payload){
@@ -84,7 +84,6 @@ const financingPrograms = {
         updateCompanyOwnership(state, payload){
             state.form.company_ownership[`company_ownership_${payload.id}`] = payload.company_ownership;
         },
-
         updateForm(state, payload){
             state.form[payload.fieldName] = payload.value;
         },
@@ -133,7 +132,6 @@ const financingPrograms = {
         resetForm(state) {
             state.form = {
                 id: null,
-                // business_category_id: null,
                 business_categories: [],
                 name_title: {},
                 business_name: {},
@@ -161,6 +159,21 @@ const financingPrograms = {
         setError(state, payload) {
             state.error = payload;
         },
+        // New mutations for checkbox functionality
+        toggleRowSelection(state, id) {
+            const index = state.selectedRows.indexOf(id);
+            if (index > -1) {
+                state.selectedRows.splice(index, 1);
+            } else {
+                state.selectedRows.push(id);
+            }
+        },
+        selectAllRows(state, ids) {
+            state.selectedRows = [...ids];
+        },
+        deselectAllRows(state) {
+            state.selectedRows = [];
+        },
     },
     actions: {
         sendEmailToUsers({ commit }) {
@@ -173,6 +186,30 @@ const financingPrograms = {
                     .catch((error) => {
                         reject(error);
                     });
+            });
+        },
+        // New action to post selected rows
+        postSelectedRows({ commit, state }) {
+            commit("setLoading");
+            return new Promise((resolve, reject) => {
+                axios
+                    .post(`${process.env.MIX_ADMIN_API_URL}financingPrograms/selected`, {
+                        selected_ids: state.selectedRows
+                    })
+                    .then((response) => {
+                        if (response.data.status == "Success") {
+                            helper.swalSuccessMessage(response.data.message);
+                            commit("deselectAllRows");
+                            resolve(response);
+                        } else {
+                            helper.swalErrorMessage(response.data.message);
+                        }
+                    })
+                    .catch((error) => {
+                        helper.swalErrorMessage(error?.response?.data?.message || "Error posting selected rows");
+                        reject(error);
+                    })
+                    .finally(() => commit("setLoading"));
             });
         },
         addUpdateForm({ commit, state }) {

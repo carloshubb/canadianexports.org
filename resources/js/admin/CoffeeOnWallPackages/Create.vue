@@ -7,120 +7,74 @@
             <h1 class="can-exp-h3 mb-0 text-primary">
               {{ isFormEdit ? "Edit" : "Create" }} coffee on wall package
             </h1>
-            <router-link
-              :to="{ name: 'admin.coffee_on_wall_packages.index' }"
-              class="button-exp-fill"
-            >
+            <router-link :to="{ name: 'admin.coffee_on_wall_packages.index' }" class="button-exp-fill">
               Back
             </router-link>
           </div>
         </div>
       </header>
       <form class="px-4 md:px-6 lg:px-8" @submit.prevent="addUpdateForm()">
-        <div
-          class="text-sm font-medium text-center text-gray-500 border-b border-gray-200"
-        >
+        <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200">
           <ul class="flex flex-wrap mb-2 overflow-x-auto gap-1 mt-4">
             <li class="mr-2" v-for="language in languages" :key="language.id">
-              <a
-                @click.prevent="changeLanguageTab(language)"
-                href="#"
-                :class="[
-                  'inline-block rounded font-FuturaMdCnBT px-5 py-2 lg:text-lg md:text-base sm:text-base text-base hover:bg-blue-100 border border-primary text-center hover:border-blue-500 hover:text-blue-600',
-                  (activeTab == null && language.is_default) ||
+              <a @click.prevent="changeLanguageTab(language)" href="#" :class="[
+                'inline-block rounded font-FuturaMdCnBT px-5 py-2 lg:text-lg md:text-base sm:text-base text-base hover:bg-blue-100 border border-primary text-center hover:border-blue-500 hover:text-blue-600',
+                (activeTab == null && language.is_default) ||
                   activeTab == language.id
-                    ? 'bg-blue-600 text-white'
-                    : '',
-                  validationErros.has(`name.name_${language.id}`) ||
+                  ? 'bg-blue-600 text-white'
+                  : '',
+                validationErros.has(`name.name_${language.id}`) ||
                   validationErros.has(
                     `short_description.short_description_${language.id}`
                   )
-                    ? 'bg-red-600 border-red-600 text-white hover:text-white rounded hover:bg-red-600 hover:border-red-600'
-                    : '',
-                ]"
-                >{{ language.name }}</a
-              >
+                  ? 'bg-red-600 border-red-600 text-white hover:text-white rounded hover:bg-red-600 hover:border-red-600'
+                  : '',
+              ]">{{ language.name }}</a>
             </li>
           </ul>
         </div>
 
-        <div
-          class="grid my-5 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 md:gap-6"
-          v-for="language in languages"
-          :key="language.id"
-          :class="
-            (activeTab == null && language.is_default) ||
-            activeTab == language.id
+        <div class="grid my-5 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 md:gap-6"
+          v-for="language in languages" :key="language.id" :class="(activeTab == null && language.is_default) ||
+              activeTab == language.id
               ? 'block'
               : 'hidden'
-          "
-        >
+            ">
           <div class="relative z-0 w-full group">
             <label for="name">Name</label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              class="can-exp-input w-full block border border-gray-300 rounded"
-              placeholder=" "
-              @input="handleNameInput($event.target.value, language)"
-              :value="
-                form['name'] && form['name'][`name_${language.id}`]
+            <input type="text" name="name" id="name" class="can-exp-input w-full block border border-gray-300 rounded"
+              placeholder=" " @input="handleNameInput($event.target.value, language)" :value="form['name'] && form['name'][`name_${language.id}`]
                   ? form['name'][`name_${language.id}`]
                   : ''
-              "
-            />
-            <p
-              class="mt-2 text-sm text-red-400"
-              v-if="validationErros.has(`name.name_${language.id}`)"
-              v-text="validationErros.get(`name.name_${language.id}`)"
-            ></p>
+                " />
+            <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`name.name_${language.id}`)"
+              v-text="validationErros.get(`name.name_${language.id}`)"></p>
           </div>
         </div>
 
         <div class="grid md:grid-cols-2 gap-4 md:gap-6">
           <div class="relative z-0 w-full group">
             <label for="price">Price</label>
-            <input
-              type="number"
-              name="price"
-              id="price"
-              class="can-exp-input w-full block border border-gray-300 rounded"
-              placeholder=" "
-              :value="form.price"
-              @input="updateForm('price', $event.target.value)"
-            />
-            <p
-              class="mt-2 text-sm text-red-400"
-              v-if="validationErros.has('price')"
-              v-text="validationErros.get('price')"
-            ></p>
+            <input type="number" name="price" id="price"
+              class="can-exp-input w-full block border border-gray-300 rounded" placeholder=" " :value="form.price"
+              @input="updateForm('price', $event.target.value)" />
+            <p class="mt-2 text-sm text-red-400" v-if="validationErros.has('price')"
+              v-text="validationErros.get('price')"></p>
           </div>
         </div>
 
         <div class="relative z-0 w-full group mt-8">
-            <fieldset>
-                <legend class="sr-only">Set as default</legend>
-                <div class="flex items-center mb-4">
-                    <input
-                        id="is_default"
-                        name="is_default"
-                        type="checkbox"
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-                        v-model="is_default"
-                    />
-                    <label
-                        for="is_default"
-                        class="ml-2 text-sm font-medium text-gray-900"
-                        >Set as default</label
-                    >
-                </div>
-            </fieldset>
-            <p
-                class="mt-2 text-sm text-red-400"
-                v-if="validationErros.has('is_default')"
-                v-text="validationErros.get('is_default')"
-            ></p>
+          <fieldset>
+            <legend class="sr-only">Set as default</legend>
+            <div class="flex items-center mb-4">
+              <input id="is_default" name="is_default" type="checkbox"
+                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                v-model="is_default" />
+              <label for="is_default" class="ml-2 text-sm font-medium text-gray-900">Set as default</label>
+            </div>
+          </fieldset>
+          <p class="mt-2 text-sm text-red-400" v-if="validationErros.has('is_default')"
+            v-text="validationErros.get('is_default')"></p>
         </div>
 
         <button type="submit" class="button-exp-fill mt-5" :disabled="loading">
@@ -165,7 +119,7 @@ export default {
         [field]: value,
       });
       if (field == "type" && value == 'event') {
-        if(this.form.package_type == 'free'){
+        if (this.form.package_type == 'free') {
           this.$store.commit("coffee_wall_packages/setForm", {
             package_type: null,
           });
@@ -186,17 +140,17 @@ export default {
         });
       }
       if (field == "monthly_price") {
-        if(isNaN(value)){
+        if (isNaN(value)) {
           value = 0;
         }
         this.$store.commit("coffee_wall_packages/setForm", {
-          quarterly_price: (value*3*0.9/3).toFixed(2),
+          quarterly_price: (value * 3 * 0.9 / 3).toFixed(2),
         });
         this.$store.commit("coffee_wall_packages/setForm", {
-          semi_annually_price: (value*6*0.8/6).toFixed(2),
+          semi_annually_price: (value * 6 * 0.8 / 6).toFixed(2),
         });
         this.$store.commit("coffee_wall_packages/setForm", {
-          annually_price: (value*12*0.7/12).toFixed(2),
+          annually_price: (value * 12 * 0.7 / 12).toFixed(2),
         });
       }
       if (field == "package_validity_months" || field == "package_type") {
@@ -228,6 +182,7 @@ export default {
       }
     },
     handleNameInput(value, language) {
+      value = value.replace(/[^a-zA-Z\s-]/g, '');
       this.$store.commit("coffee_wall_packages/updateName", {
         name: value,
         id: language.id,
@@ -278,7 +233,7 @@ export default {
               obj
             );
             this.$store.commit("coffee_wall_packages/setForm", {
-                is_default: Number(res.data.data.is_default) === 1,
+              is_default: Number(res.data.data.is_default) === 1,
             });
           });
       }

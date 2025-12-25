@@ -25,7 +25,7 @@
       </div>
 
       <div class="my-4">
-        <div class="relative w-full mb-4">
+        <div class="relative w-full mb-8">
           <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg" for="name">
             {{
               regPageSetting?.reg_page_setting_detail?.[0]?.step_2_name_label
@@ -39,7 +39,7 @@
             @input="updateForm('name', $event.target.value)" ref="name"></textarea>
           <Error fieldName="name" :validationErros="validationErros" />
         </div>
-        <div class="relative w-full mb-4">
+        <div class="relative w-full mb-8">
           <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg" for="email">
             {{
               regPageSetting?.reg_page_setting_detail?.[0]?.step_2_email_label
@@ -71,7 +71,7 @@
             @processfile="handleProfileImageProcess" @removefile="handleProfileImageRemoveFile" />
           <Error fieldName="profile_image" :validationErros="validationErros" />
         </div> -->
-        <div class="relative w-full mb-4" v-if="profile != '1'">
+        <div class="relative w-full mb-8" v-if="profile != '1'">
           <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg" for="password">
             {{
               regPageSetting?.reg_page_setting_detail?.[0]
@@ -123,7 +123,7 @@
           </div>
           <Error fieldName="password" :validationErros="validationErros" />
         </div>
-        <div class="relative w-full mb-4" v-if="profile != '1'">
+        <div class="relative w-full mb-8" v-if="profile != '1'">
           <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg" for="confirm-password">
             {{
               regPageSetting?.reg_page_setting_detail?.[0]

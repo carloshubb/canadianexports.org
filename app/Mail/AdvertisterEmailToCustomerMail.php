@@ -78,6 +78,7 @@ class AdvertisterEmailToCustomerMail extends Mailable
                 ->subject($rendered['subject'] ?: $subject)
                 ->with([
                     'body_html' => $rendered['body_html'],
+                    'customerProfile' => $payload['customerProfile'],
                     'data' => $payload,
                 ]);
         }

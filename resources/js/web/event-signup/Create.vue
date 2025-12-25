@@ -19,7 +19,7 @@
                 <div class="relative w-full mb-3">
                     <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="business-name">{{
                         JSON.parse(event_detail)["business_name_label"]
-                    }}<span class="ml-1 text-[0.95em] text-gray-600">(even if it the same as the name of the Event)
+                        }}<span class="ml-1 text-[0.95em] text-gray-600">(even if it the same as the name of the Event)
                         </span></label>
                     <input @input="clearErrors('business-name')" type="text" class="can-exp-input" placeholder=""
                         name="business-name" id="business-name" v-model="form.business_name" />
@@ -566,7 +566,7 @@
                     ">
                 <div class="relative z-0 w-full group">
                     <label for="title" class="text-base md:text-base lg:text-lg">{{ JSON.parse(eventsetting).title_label
-                        }}
+                    }}
                         <span class="text-red-500">*</span></label>
                     <input type="text" name="title" id="title"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
@@ -606,7 +606,7 @@
                 </div>
                 <div class="relative z-0 w-full group">
                     <label for="city" class="text-base md:text-base lg:text-lg">{{ JSON.parse(eventsetting).city_label
-                        }}
+                    }}
                         <span class="text-red-500">*</span></label>
                     <input type="text" name="city" id="city"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
@@ -646,7 +646,7 @@
                 </div>
                 <div class="relative z-0 w-full group">
                     <label for="venue" class="text-base md:text-base lg:text-lg">{{ JSON.parse(eventsetting).venue_label
-                        }}
+                    }}
                     </label>
                     <input type="text" name="venue" id="venue"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
@@ -664,7 +664,7 @@
                 <div class="relative z-0 w-full group">
                     <label for="product_search" class="text-base md:text-base lg:text-lg">{{
                         JSON.parse(eventsetting).product_search_label
-                    }}</label>
+                        }}</label>
                     <input type="text" name="product_search" id="product_search"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                         :placeholder="'(Max. 5, separated by commas.)'
@@ -760,7 +760,7 @@
                     <VueDatePicker name="start_date" v-model="form.start_date" placeholder="YYYY-MM-DD"
                         model-type="yyyy-MM-dd" :formats="{ input: 'yyyy-MM-dd' }"
                         :time-config="{ enableTimePicker: false }" auto-apply @update:model-value="
-                        clearErrors('start_date');
+                            clearErrors('start_date');
                         $store.commit('signup/setForm', { field: ['start_date'], value: $event });">
                     </VueDatePicker>
                     <div v-if="dateErrors.start_date"
@@ -776,7 +776,7 @@
                     <VueDatePicker name="end_date" v-model="form.end_date" placeholder="YYYY-MM-DD"
                         model-type="yyyy-MM-dd" :formats="{ input: 'yyyy-MM-dd' }"
                         :time-config="{ enableTimePicker: false }" auto-apply @update:model-value="
-                        clearErrors('end_date');
+                            clearErrors('end_date');
                         $store.commit('signup/setForm', { field: ['end_date'], value: $event });">
                     </VueDatePicker>
 
@@ -803,7 +803,7 @@
                 <div class="relative z-0 w-full group flex flex-col">
                     <label for="exibitors_url" class="text-base md:text-base lg:text-lg">{{
                         JSON.parse(eventsetting).exibitors_url_label
-                    }}</label>
+                        }}</label>
                     <textarea rows="2" name="exibitors_url" id="exibitors_url"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600 resize-y"
                         :title="JSON.parse(eventsetting).exibitors_url_placeholder" :placeholder="JSON.parse(eventsetting).exibitors_url_placeholder
@@ -1097,7 +1097,7 @@
                 <div class="relative z-0 w-full group">
                     <label for="facebook_url" class="text-base md:text-base lg:text-lg">{{
                         JSON.parse(eventsetting).facebook_url_label
-                    }}</label>
+                        }}</label>
                     <input type="text" name="facebook_url" id="facebook_url"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                         placeholder=" " :value="form.facebook_url" @input="
@@ -1120,7 +1120,7 @@
                 <div class="relative z-0 w-full group">
                     <label for="linkedin_url" class="text-base md:text-base lg:text-lg">{{
                         JSON.parse(eventsetting).linkedin_url_label
-                    }}</label>
+                        }}</label>
                     <input type="text" name="linkedin_url" id="linkedin_url"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                         placeholder=" " :value="form.linkedin_url" @input="
@@ -1143,7 +1143,7 @@
                 <div class="relative z-0 w-full group">
                     <label for="pintrest_url" class="text-base md:text-base lg:text-lg">{{
                         JSON.parse(eventsetting).pintrest_url_label
-                    }}</label>
+                        }}</label>
                     <input type="text" name="pintrest_url" id="pintrest_url"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                         placeholder=" " :value="form.pintrest_url" @input="
@@ -1155,7 +1155,7 @@
                 <div class="relative z-0 w-full group">
                     <label for="instagram_url" class="text-base md:text-base lg:text-lg">{{
                         JSON.parse(eventsetting).instagram_url_label
-                    }}</label>
+                        }}</label>
                     <input type="text" name="instagram_url" id="instagram_url"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                         placeholder=" " :value="form.instagram_url" @input="
@@ -1167,7 +1167,7 @@
                 <div class="relative z-0 w-full group">
                     <label for="snapchat_url" class="text-base md:text-base lg:text-lg">{{
                         JSON.parse(eventsetting).snapchat_url_label
-                    }}</label>
+                        }}</label>
                     <input type="text" name="snapchat_url" id="snapchat_url"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                         placeholder=" " :value="form.snapchat_url" @input="
@@ -1272,7 +1272,7 @@ export default {
             console.log("Raw Label:", this.regPageSetting);
 
             if (!rawLabel) {
-                return "CTA(Call-to-Action) Button Title (Max. 5 words)";
+                return "CTA(Call-to-Action) Button (Max. 5 words)";
             }
 
             return rawLabel.replace(/\(5\)/g, '<sup class="footnote-indicator">(5)</sup>');
@@ -1339,6 +1339,8 @@ export default {
                 visitors_url: null,
                 press_url: null,
                 video_url: null,
+                cta_btn: null,
+                cta_link: null,
                 facebook_url: null,
                 twitter_url: null,
                 linkedin_url: null,
@@ -1380,7 +1382,7 @@ export default {
                 };
             }
         }
-        
+
         // Fix datepicker popup z-index issue
         this.fixVueDatePickerZIndex();
     },
@@ -1433,12 +1435,12 @@ export default {
                     }
                 });
             };
-            
+
             // Use MutationObserver to watch for datepicker popup being added to DOM
             this.datePickerObserver = new MutationObserver(() => {
                 applyFix();
             });
-            
+
             // Start observing the document body for changes
             this.datePickerObserver.observe(document.body, {
                 childList: true,
@@ -1446,7 +1448,7 @@ export default {
                 attributes: true,
                 attributeFilter: ['style', 'class']
             });
-            
+
             // Also set it immediately if popup already exists
             this.$nextTick(() => {
                 applyFix();
@@ -1605,6 +1607,8 @@ export default {
             );
         },
         updateContact(index, field, value) {
+            if (field === "name") value = value.replace(/[^a-zA-Z\s-]/g, '');
+
             this.contacts[index][field] = value;
             localStorage.setItem(
                 "eventContacts",
@@ -2051,6 +2055,8 @@ export default {
                         this.updateForm("visitors_url", event.visitors_url);
                         this.updateForm("press_url", event.press_url);
                         this.updateForm("video_url", event.video_url);
+                        this.updateForm("cta_btn", event.cta_btn);
+                        this.updateForm("cta_link", event.cta_link);
                         this.updateForm("facebook_url", event.facebook_url);
                         this.updateForm("twitter_url", event.twitter_url);
                         this.updateForm("linkedin_url", event.linkedin_url);
@@ -2298,7 +2304,7 @@ export default {
 }
 
 /* Ensure popup is above all grid elements and form containers */
-body > .dp__outer_menu_wrap {
+body>.dp__outer_menu_wrap {
     z-index: 99999 !important;
 }
 </style>

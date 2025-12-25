@@ -16,6 +16,14 @@
                         <button class="button-exp-fill ml-2 bg-green-500 hover:bg-green-600" @click="sendEmailToUsers">
                             Send List via Email
                         </button>
+                        <button 
+                            class="button-exp-fill ml-2 bg-blue-500 hover:bg-blue-600"
+                            @click="postSelectedRows"
+                            :disabled="selectedRows.length === 0"
+                            :class="{ 'opacity-50 cursor-not-allowed': selectedRows.length === 0 }"
+                        >
+                            Post Selected ({{ selectedRows.length }})
+                        </button>
                     </div>
                 </div>
                 <div class="mt-8 flow-root">
@@ -52,6 +60,14 @@
                             <table class="min-w-full divide-y divide-gray-300">
                                 <thead class="bg-gradient-to-l from-blue-500 to-blue-400">
                                     <tr>
+                                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                            <input 
+                                                type="checkbox" 
+                                                @change="toggleSelectAll"
+                                                :checked="isAllSelected"
+                                                class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                            />
+                                        </th>
                                         <th scope="col"
                                             class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Name</th>
                                         <th scope="col"
@@ -73,7 +89,16 @@
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 bg-white">
                                     <tr class="hover:shadow-lg" v-for="financingProgram in financingPrograms"
-                                        :key="financingProgram.id">
+                                        :key="financingProgram.id"
+                                        :class="{ 'bg-blue-50': isRowSelected(financingProgram.id) }">
+                                        <td class="px-3 py-4">
+                                            <input 
+                                                type="checkbox" 
+                                                :checked="isRowSelected(financingProgram.id)"
+                                                @change="toggleRowSelection(financingProgram.id)"
+                                                class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                            />
+                                        </td>
                                         <td
                                             class="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-1">
                                             {{
@@ -241,7 +266,14 @@ export default {
             validationErros: (state) => state.financingPrograms.financingPrograms,
             searchParam: (state) => state.financingPrograms.searchParam,
             loading: (state) => state.financingPrograms.loading,
+            selectedRows: (state) => state.financingPrograms.selectedRows,
         }),
+        isAllSelected() {
+            if (!this.financingPrograms || this.financingPrograms.length === 0) {
+                return false;
+            }
+            return this.financingPrograms.length === this.selectedRows.length;
+        },
     },
     data() {
         return {
@@ -252,6 +284,50 @@ export default {
         };
     },
     methods: {
+        toggleRowSelection(id) {
+            this.$store.commit("financingPrograms/toggleRowSelection", id);
+        },
+        isRowSelected(id) {
+            return this.selectedRows.includes(id);
+        },
+        toggleSelectAll() {
+            if (this.isAllSelected) {
+                this.$store.commit("financingPrograms/deselectAllRows");
+            } else {
+                const allIds = this.financingPrograms.map(fp => fp.id);
+                this.$store.commit("financingPrograms/selectAllRows", allIds);
+            }
+        },
+        postSelectedRows() {
+            if (this.selectedRows.length === 0) {
+                this.$swal.fire("Warning", "Please select at least one row", "warning");
+                return;
+            }
+
+            this.$swal
+                .fire({
+                    title: "Are you sure?",
+                    text: `You are about to post ${this.selectedRows.length} selected row(s).`,
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes, post them!",
+                    cancelButtonText: "Cancel",
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        this.$store
+                            .dispatch("financingPrograms/postSelectedRows")
+                            .then((response) => {
+                                this.$store.dispatch("financingPrograms/fetchFinancingPrograms");
+                            })
+                            .catch((error) => {
+                                console.error("Error posting selected rows:", error);
+                            });
+                    }
+                });
+        },
         sendEmailToUsers() {
             this.$swal
                 .fire({
@@ -266,7 +342,6 @@ export default {
                 })
                 .then((result) => {
                     if (result.isConfirmed) {
-                        // Dispatch the Vuex action to send the email
                         this.$store
                             .dispatch("financingPrograms/sendEmailToUsers")
                             .then((response) => {
@@ -340,14 +415,13 @@ export default {
                                 this.$swal.showValidationMessage("Password is required");
                                 reject();
                             } else {
-                                resolve(password); // Pass the entered password to the next step
+                                resolve(password);
                             }
                         });
                     },
                 })
                 .then((result) => {
                     if (result.isConfirmed) {
-                        // Show the second confirmation Swal
                         this.$swal
                             .fire({
                                 title: "Are you sure you want to delete it?",
@@ -360,11 +434,10 @@ export default {
                             })
                             .then((confirmResult) => {
                                 if (confirmResult.isConfirmed) {
-                                    // Perform the delete operation only if "Yes" is clicked
                                     this.$store
                                         .dispatch("financingPrograms/deleteFinancingProgram", {
                                             id: item.id,
-                                            password: result.value, // Use the password entered in the first Swal
+                                            password: result.value,
                                         })
                                         .then((res) => {
                                             if (res.data.status === "Success") {
@@ -386,7 +459,6 @@ export default {
                     }
                 });
         },
-
         quickSearchFilter: _.debounce(function () {
             this.$store.commit("financingPrograms/setSearchParam", this.quickSearch);
             this.$store.dispatch("financingPrograms/fetchFinancingPrograms");

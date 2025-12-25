@@ -52,6 +52,38 @@ class FinancingProgramController extends Controller
             'message' => 'Email sent successfully to featured and premium exporters.',
         ]);
     }
+
+    public function sendSelectedEmail(Request $request)
+    {
+        $selectedIds = $request->input('selected_ids', []);        
+        // Fetch the list of financing programs based on selected IDs
+        $financingPrograms = FinancingProgram::with('financingProgramDetail')
+            ->whereIn('id', $selectedIds)
+            ->get();
+
+        // Fetch the list of featured and premium exporters
+        $featuredExporters = CustomerProfile::whereHas('customer', function ($q) {
+            $q->where('is_active', 1)
+              ->where('is_package_amount_paid', 1)
+              ->where('package_expiry_date', '>=', date('Y-m-d'))
+              ->where('type', 'customer');
+        })->whereHas('customer.registrationPackage', function ($q) {
+            $q->whereIn('registration_packages.package_type', ['featured', 'premium']) // Use whereIn for multiple values
+              ->where('registration_packages.type', 'profile');
+        })->with('customer')->get();
+
+        // Send the email to each featured and premium exporter
+        foreach ($featuredExporters as $exporter) {
+            if ($exporter->customer && $exporter->customer->email) {
+                Mail::to($exporter->customer->email)->send(new FinancingProgramListMail($financingPrograms));
+            }
+        }
+
+        return response()->json([
+            'status' => 'Success',
+            'message' => 'Email sent successfully to featured and premium exporters with selected financing programs.',
+        ]);
+    }
   public function index()
     {
         $financingPrograms = FinancingProgram::query();

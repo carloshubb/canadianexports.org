@@ -87,6 +87,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum']], function (
     Route::post('send-email', [InfoLetterSettingController::class, 'sendEmail']);
     Route::post('send-email/stats', [BusinessProfileStatsController::class, 'sendEmails']);
     Route::post('financingPrograms/send-email', [FinancingProgramController::class, 'sendEmail']);
+    Route::post('financingPrograms/selected', [FinancingProgramController::class, 'sendSelectedEmail']);
     Route::post('/update-profile', [AuthController::class, 'updateProfile']);
     Route::apiResource('holiday-emails', HolidayEmailController::class);
     Route::apiResource('banners', BannerController::class);
@@ -139,8 +140,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum']], function (
     Route::apiResource('general-setting', GeneralSettingController::class)->only(['index', 'store']);
     Route::post('meta-tags-setting', [GeneralSettingController::class, 'saveMetaTagsSetting']);
     Route::apiResource('static-translation', StaticTranslationController::class)->only(['index', 'store']);
-    Route::any('/translation/export-csv', [StaticTranslationController::class, 'exportCsv']);
-    Route::any('/translation/import-csv', [StaticTranslationController::class, 'importCsv']);
+    Route::any('/translation/export-xls', [StaticTranslationController::class, 'exportXls']);
+    Route::any('/translation/import-xls', [StaticTranslationController::class, 'importXls']);
     Route::get('/advertiser-forms', [AdvertiserFormController::class, 'index']);
     Route::get('/coffee-wallets', [CoffeeWalletsController::class, 'index']);
     Route::get('/business-profile-stats', [BusinessProfileStatsController::class, 'index']);

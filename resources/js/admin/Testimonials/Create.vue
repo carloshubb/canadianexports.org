@@ -7,141 +7,81 @@
             <h3 class="can-exp-h3 text-primary">
               {{ isFormEdit ? "Edit" : "Create" }} testimonial
             </h3>
-            <router-link
-              :to="{ name: 'admin.testimonials.index' }"
-              class="button-exp-fill"
-            >
+            <router-link :to="{ name: 'admin.testimonials.index' }" class="button-exp-fill">
               Back
             </router-link>
           </div>
         </div>
       </header>
       <form class="px-4 md:px-6 lg:px-8" @submit.prevent="addUpdateForm()">
-        <div
-          class="text-sm font-medium text-center text-gray-500 border-b border-gray-200"
-        >
+        <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200">
           <ul class="flex flex-wrap mb-2 overflow-x-auto gap-1 mt-4">
             <li class="mr-2" v-for="language in languages" :key="language.id">
-              <a
-                @click.prevent="changeLanguageTab(language)"
-                href="#"
-                :class="[
-                  'inline-block rounded font-FuturaMdCnBT px-5 py-2 lg:text-lg md:text-base sm:text-base text-base hover:bg-blue-100 border border-primary text-center hover:border-blue-500 hover:text-blue-600',
-                  (activeTab == null && language.is_default) ||
+              <a @click.prevent="changeLanguageTab(language)" href="#" :class="[
+                'inline-block rounded font-FuturaMdCnBT px-5 py-2 lg:text-lg md:text-base sm:text-base text-base hover:bg-blue-100 border border-primary text-center hover:border-blue-500 hover:text-blue-600',
+                (activeTab == null && language.is_default) ||
                   activeTab == language.id
-                    ? 'bg-blue-600 text-white'
-                    : '',
-                  validationErros.has(`name.name_${language.id}`) ||
+                  ? 'bg-blue-600 text-white'
+                  : '',
+                validationErros.has(`name.name_${language.id}`) ||
                   validationErros.has(`place.place_${language.id}`) ||
                   validationErros.has(`email.email_${language.id}`) ||
                   validationErros.has(`comment.comment_${language.id}`)
-                    ? 'bg-red-600 border-red-600 text-white hover:text-white rounded hover:bg-red-600 hover:border-red-600'
-                    : '',
-                ]"
-                >{{ language.name }}</a
-              >
+                  ? 'bg-red-600 border-red-600 text-white hover:text-white rounded hover:bg-red-600 hover:border-red-600'
+                  : '',
+              ]">{{ language.name }}</a>
             </li>
           </ul>
         </div>
 
-        <div
-          class="grid my-5 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6"
-          v-for="language in languages"
-          :key="language.id"
-          :class="
-            (activeTab == null && language.is_default) ||
-            activeTab == language.id
+        <div class="grid my-5 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6"
+          v-for="language in languages" :key="language.id" :class="(activeTab == null && language.is_default) ||
+              activeTab == language.id
               ? 'block'
               : 'hidden'
-          "
-        >
+            ">
           <div class="relative z-0 w-full group">
             <label for="name">Name and title</label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              class="can-exp-input w-full block border border-gray-300 rounded"
-              placeholder=" "
-              @input="handleNameInput($event.target.value, language)"
-              :value="
-                form['name'] && form['name'][`name_${language.id}`]
+            <input type="text" name="name" id="name" class="can-exp-input w-full block border border-gray-300 rounded"
+              placeholder=" " @input="handleNameInput($event.target.value, language)" :value="form['name'] && form['name'][`name_${language.id}`]
                   ? form['name'][`name_${language.id}`]
                   : ''
-              "
-            />
-            <p
-              class="mt-2 text-sm text-red-400"
-              v-if="validationErros.has(`name.name_${language.id}`)"
-              v-text="validationErros.get(`name.name_${language.id}`)"
-            ></p>
+                " />
+            <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`name.name_${language.id}`)"
+              v-text="validationErros.get(`name.name_${language.id}`)"></p>
           </div>
           <div class="relative z-0 w-full group">
             <label for="place">Company name and country</label>
-            <input
-              type="text"
-              name="place"
-              id="place"
-              class="can-exp-input w-full block border border-gray-300 rounded"
-              placeholder=" "
-              @input="handlePlaceInput($event.target.value, language)"
-              :value="
-                form['place'] && form['place'][`place_${language.id}`]
+            <input type="text" name="place" id="place" class="can-exp-input w-full block border border-gray-300 rounded"
+              placeholder=" " @input="handlePlaceInput($event.target.value, language)" :value="form['place'] && form['place'][`place_${language.id}`]
                   ? form['place'][`place_${language.id}`]
                   : ''
-              "
-            />
-            <p
-              class="mt-2 text-sm text-red-400"
-              v-if="validationErros.has(`place.place_${language.id}`)"
-              v-text="validationErros.get(`place.place_${language.id}`)"
-            ></p>
+                " />
+            <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`place.place_${language.id}`)"
+              v-text="validationErros.get(`place.place_${language.id}`)"></p>
           </div>
           <div class="relative z-0 w-full group">
             <label for="email">Email</label>
-            <input
-              type="text"
-              name="email"
-              id="email"
-              class="can-exp-input w-full block border border-gray-300 rounded"
-              placeholder=" "
-              @input="handleEmailInput($event.target.value, language)"
-              :value="
-                form['email'] && form['email'][`email_${language.id}`]
+            <input type="text" name="email" id="email" class="can-exp-input w-full block border border-gray-300 rounded"
+              placeholder=" " @input="handleEmailInput($event.target.value, language)" :value="form['email'] && form['email'][`email_${language.id}`]
                   ? form['email'][`email_${language.id}`]
                   : ''
-              "
-            />
-            <p
-              class="mt-2 text-sm text-red-400"
-              v-if="validationErros.has(`email.email_${language.id}`)"
-              v-text="validationErros.get(`email.email_${language.id}`)"
-            ></p>
+                " />
+            <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`email.email_${language.id}`)"
+              v-text="validationErros.get(`email.email_${language.id}`)"></p>
           </div>
           <div class="relative z-0 w-full group col-span-2">
             <label for="comment">Comment</label>
-            <textarea
-              name="comment"
-              id="comment"
-              class="can-exp-input w-full block border border-gray-300 rounded"
-              placeholder=" "
-              @input="handleCommentInput($event.target.value, language)"
-              v-text="
-                form['comment'] && form['comment'][`comment_${language.id}`]
+            <textarea name="comment" id="comment" class="can-exp-input w-full block border border-gray-300 rounded"
+              placeholder=" " @input="handleCommentInput($event.target.value, language)" v-text="form['comment'] && form['comment'][`comment_${language.id}`]
                   ? form['comment'][`comment_${language.id}`]
                   : ''
-              "
-            ></textarea>
-            <p
-              class="mt-2 text-sm text-red-400"
-              v-if="validationErros.has(`comment.comment_${language.id}`)"
-              v-text="validationErros.get(`comment.comment_${language.id}`)"
-            ></p>
+                "></textarea>
+            <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`comment.comment_${language.id}`)"
+              v-text="validationErros.get(`comment.comment_${language.id}`)"></p>
           </div>
         </div>
-        <div
-          class="grid my-5 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6"
-        >
+        <div class="grid my-5 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
           <div class="relative z-0 w-full group">
             <label for="name">Business categories</label>
             <!-- <select
@@ -163,21 +103,11 @@
                 }}
               </option>
             </select> -->
-           <multiselect
-  v-model="form.business_categories"
-  :options="business_categories"
-  :multiple="true"
-  :close-on-select="false"
-  track-by="id"
-  label="category_name"
-  placeholder="Select business categories..."
-  @input="handleInput($event, 'business_categories')"
-></multiselect>
-            <p
-              class="mt-2 text-sm text-red-400"
-              v-if="validationErros.has('business_category_id')"
-              v-text="validationErros.get('business_category_id')"
-            ></p>
+            <multiselect v-model="form.business_categories" :options="business_categories" :multiple="true"
+              :close-on-select="false" track-by="id" label="category_name" placeholder="Select business categories..."
+              @input="handleInput($event, 'business_categories')"></multiselect>
+            <p class="mt-2 text-sm text-red-400" v-if="validationErros.has('business_category_id')"
+              v-text="validationErros.get('business_category_id')"></p>
           </div>
         </div>
 
@@ -194,7 +124,7 @@
 import { mapState } from "vuex";
 import Multiselect from 'vue-multiselect';
 export default {
-    components: {
+  components: {
     Multiselect,
   },
   computed: {
@@ -216,6 +146,7 @@ export default {
   },
   methods: {
     handleNameInput(value, language) {
+      value = value.replace(/[^a-zA-Z\s-]/g, '');
       this.$store.commit("testimonials/updateName", {
         name: value,
         id: language.id,
@@ -272,12 +203,12 @@ export default {
             //   "business_category_id"
             // );
             if (data[0].primary_industry) {
-                try {
+              try {
                 this.form.business_categories = JSON.parse(data[0].primary_industry);
                 console.log(this.form.business_categories);
-                } catch (error) {
+              } catch (error) {
                 console.error("Error parsing primary_industry:", error);
-                }
+              }
             }
             this.handleInput(res.data.data.company_name, "company_name");
             let obj = {};
@@ -342,14 +273,14 @@ export default {
       });
   },
   mounted() {
-        const apiUrl = `${process.env.MIX_WEB_API_URL}business-categories`;
-  axios.get(apiUrl)
-    .then(response => {
-      this.business_categories = response.data;
-    })
-    .catch(error => {
-      console.error("Error fetching business categories:", error);
-    });
-}
+    const apiUrl = `${process.env.MIX_WEB_API_URL}business-categories`;
+    axios.get(apiUrl)
+      .then(response => {
+        this.business_categories = response.data;
+      })
+      .catch(error => {
+        console.error("Error fetching business categories:", error);
+      });
+  }
 };
 </script>
