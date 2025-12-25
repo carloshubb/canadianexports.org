@@ -25,7 +25,7 @@
         </template>
       </div>
       <div class="my-4">
-        <div class="relative w-full mb-4">
+        <div class="relative w-full mb-8">
           <label
             class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg"
             for="company-name"
@@ -58,7 +58,7 @@
             :validationErros="validationErros"
           />
         </div>
-        <div class="relative w-full mb-4">
+        <div class="relative w-full mb-8">
           <label
             class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg"
             for="company-email"
@@ -93,7 +93,7 @@
             :validationErros="validationErros"
           />
         </div>
-        <div class="relative w-full mb-4">
+        <div class="relative w-full mb-8">
           <label
             class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg"
             for="mailing-address"
@@ -124,7 +124,7 @@
             :validationErros="validationErros"
           />
         </div>
-        <div class="relative w-full mb-4">
+        <div class="relative w-full mb-8">
           <label
             class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg"
             for="phone"
@@ -158,7 +158,7 @@
             :validationErros="validationErros"
           />
         </div>
-        <div class="relative w-full mb-4">
+        <div class="relative w-full mb-8">
           <label
             class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg"
             for="website"
@@ -193,7 +193,7 @@
         </div>
         
         <!-- CTA Button Field - Only show for Premium and Featured packages -->
-        <div class="relative w-full mb-4" v-if="package_type && package_type.toLowerCase() !== 'free'">
+        <div class="relative w-full mb-8" v-if="package_type && package_type.toLowerCase() !== 'free'">
           <label
             class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg"
             for="cta_btn">CTA(Call-to-Action) Button
@@ -222,7 +222,7 @@
         </div>
         
         <!-- CTA Link Field - Only show for Premium and Featured packages -->
-        <div class="relative w-full mb-4" v-if="package_type && package_type.toLowerCase() !== 'free'">
+        <div class="relative w-full mb-8" v-if="package_type && package_type.toLowerCase() !== 'free'">
           <label
             class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg"
             for="cta_link"
@@ -255,7 +255,7 @@
           />
         </div>
 
-        <div class="relative w-full mb-4">
+        <div class="relative w-full mb-8">
           <label
             class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg"
             for="short-description"
@@ -291,7 +291,7 @@
           />
         </div>
 
-        <div class="relative w-full mb-4">
+        <div class="relative w-full mb-8">
           <label
             class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg"
             for="detailed-description"
@@ -327,7 +327,7 @@
           />
         </div>
 
-        <div class="relative w-full mb-4">
+        <div class="relative w-full mb-8">
           <label
             class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg"
             for="keywords"
