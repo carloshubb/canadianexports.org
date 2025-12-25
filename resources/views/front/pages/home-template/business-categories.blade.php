@@ -2,20 +2,23 @@
 
     <div class="container">
 
-        <div class="relative grid grid-cols-1">
-            <p class="can-exp-p">
+        <div class="relative bg-center p-8" 
+             style="background-image: url('{{ asset("assets/images/bg_home_1.png") }}');">
+            <p class="can-exp-p text-center text-gray-700 mb-4">
                 {!! $homePageSettingDetail->section1_description !!}
             </p>
-            <h2 class="can-exp-h1">
-                {!! $homePageSettingDetail->section1_heading !!}
-            </h2>
+           
         </div>
+
+        
+        <h2 class="text-3xl text-center md:text-4xl font-bold text-gray-900 mb-6">Business Categories</h2>
+
         @php
             $businessCategories = getAllBusinessCategories();
         @endphp
         <div class="relative grid md:grid-cols-2 grid-cols-1 gap-[15px]">
             @foreach ($businessCategories as $businessCategory)
-                <div class="flex items-center p-2 text-base md:text-base lg:text-lg border border-yellow-300 rounded-lg bg-yellow-50"
+                <div class="flex items-center p-4 text-base md:text-base lg:text-lg border border-grey-300 rounded-lg bg-white/10"
                     role="alert">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                         class="flex-shrink-0 inline w-6 h-6 mr-3 text-green-500">
