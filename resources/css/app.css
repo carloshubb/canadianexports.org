@@ -521,23 +521,48 @@ body {
     overflow-x: auto;
 }
 
-.filepond--root {
-    box-sizing: border-box;
-    position: relative;
-    margin-bottom: 1em;
-    font-size: 1rem;
-    line-height: normal;
-    font-family: 'Roboto', sans-serif !important;
-    font-weight: 450;
-    text-align: left;
-    text-rendering: optimizeLegibility;
-    direction: ltr;
-    contain: layout style size;
+/* FilePond root */
+.xelent-pond {
+    max-height: 520px;      /* 🔥 FIXED HEIGHT */
+    overflow: hidden;       /* Prevent double scroll */
 }
+
+/* Scroll container */
+.xelent-pond .filepond--list-scroller {
+    max-height: 520px;      /* SAME AS ROOT */
+    overflow-y: auto;       /* 🔥 ENABLE SCROLL */
+    padding-right: 6px;
+}
+
+/* Grid layout */
 .xelent-pond .filepond--list {
-    width: calc(50% - 0.5em);
-    background-color: yellow;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 100%;
+    align-items: stretch;
 }
+
+/* Items */
+.xelent-pond .filepond--item {
+    width: calc(33.333% - 12px); /* 3 per row */
+    height: 220px;
+}
+
+/* Stretch preview */
+.xelent-pond .filepond--item-panel,
+.xelent-pond .filepond--image-preview-wrapper,
+.xelent-pond .filepond--image-preview {
+    height: 100% !important;
+}
+
+/* Image fit */
+.xelent-pond .filepond--image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .swal2-title {
     position: relative;
     max-width: 100%;

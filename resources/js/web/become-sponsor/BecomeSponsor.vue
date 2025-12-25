@@ -4,7 +4,7 @@
 
 
       <!-- Sponsorship Amount & Frequency (Only for "Enter Your Amount" option) -->
-      <div v-if="!form.talk_to_us_first" class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
+      <div  class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
         <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
           <h4 class="text-white">Select Your Sponsorship Amount & Frequency*</h4>
 
@@ -70,8 +70,8 @@
                   ? 'text-white bg-primary border-primary shadow-lg'
                   : 'text-primary bg-white border-gray-300 hover:border-primary'
                   ">
-                <input type="radio" name="sponsorship_option" :value="true" class="sr-only"
-                  v-model="form.talk_to_us_first" @change="onOptionChange(true)" />
+                <button type="radio" name="sponsorship_option" :value="true" class="sr-only"
+                  v-model="form.talk_to_us_first" @click="onOptionChange(true)" ></button>
                 <span class="font-FuturaMdCnBT">Talk to Us First</span>
                 <span class="text-sm mt-2 opacity-90">We're happy to discuss your goals and our partnership
                   opportunities in
@@ -114,14 +114,14 @@
         </div>
       </div> -->
 
-      <!-- TALK TO US FIELDS (Only for "Talk to Us First" option) -->
-      <div v-if="form.talk_to_us_first" class="bg-white rounded-lg shadow-3xl my-6">
+      <!-- TALK TO US FIELDS (Only for "Talk to Us First" option) --->
+      <div v-if="form.contact_preferences" class="bg-white rounded-lg shadow-3xl my-6">
         <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
           <h4 class="text-white">Contact Preferences</h4>
         </div>
         <div class="p-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="relative w-full">
+            <div class="relative w-full" hidden>
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="talk_to_us_name">
                 Your Name and Title
                 <span class="text-red-500">*</span>
@@ -131,7 +131,7 @@
               <Error v-if="submitted" fieldName="talk_to_us_name" :validationErros="validationErros" />
             </div>
 
-            <div class="relative w-full">
+            <div class="relative w-full" hidden>
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="talk_to_us_phone">
                 Numbers Only. With Area Code
                 <span class="text-red-500">*</span>
@@ -661,9 +661,11 @@ export default {
       });
     },
     onOptionChange(talkToUsFirst) {
+      console.log("Talk to Us First option changed to:", this.form.talk_to_us_first);
       this.form.talk_to_us_first = talkToUsFirst;
       this.validationErros = new ErrorHandling();
       this.submitted = false;
+      this.form.contact_preferences = !this.form.contact_preferences;
     },
 
     async fetchBeneficiaries() {
@@ -921,6 +923,7 @@ export default {
         // Prepare form data
         const formData = {
           talk_to_us_first: this.form.talk_to_us_first,
+          contact_preferences: false,
           company_name: this.form.company_name,
           contact_name: this.form.contact_name,
           email: this.form.email,

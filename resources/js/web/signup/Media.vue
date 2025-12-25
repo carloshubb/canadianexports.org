@@ -169,7 +169,7 @@
             :validationErros="validationErros"
           />
         </div>
-        <div class="relative col-span-2 mb-8">
+        <div class="relative col-span-2 mb-3">
           <label
             class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg"
             for="image-logo"
@@ -211,12 +211,12 @@
             </label
           >
           <FilePond
-            name="gallery_images"
-            class-name="my-pond xelent-pond"
+            allow-multiple
             accepted-file-types="image/*"
-            allow-multiple="true"
-            ref="gallery_images"
-            credits="false"
+            :imagePreviewHeight="150"
+            :stylePanelAspectRatio="1"
+            class-name="xelent-pond"
+            credits="false",
             :labelIdle="`<span class='cursor-pointer'>${regPageSetting?.reg_page_setting_detail?.[0]?.step_5_gallery_image_placeholder}</span>`"
             :max-files="max_files"
             :max-parallel-uploads="max_files"
