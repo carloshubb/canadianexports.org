@@ -379,7 +379,6 @@ class PaymentController extends Controller
             'phone' => $phone,
             'anonymous' => $anonymous,
             'package_id' => $_GET['package_id'],
-            'beneficiary_id' => $beneficiaryIds->first(),
             'frequency' => $frequency,
             'dr_amount' => $package->price,
             'paypal_id' => $request->subscription_id,

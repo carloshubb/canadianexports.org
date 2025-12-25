@@ -1,5 +1,6 @@
 @php
     $pattern = '/\[short_code=widget-(\d+)\]/';
+   
 @endphp
 @if (preg_match_all($pattern, $page_detail, $matches))
     @php

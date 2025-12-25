@@ -55,6 +55,7 @@ class HomeController extends Controller
         if (!$page) {
             abort(404);
         }
+        
         return view('front.index', compact('slug', 'page', 'lang'));
     }
 
@@ -330,7 +331,9 @@ class HomeController extends Controller
 
                 // Add the interval and interval_count if applicable
                 if ($interval) {
-                    $subscription_params['billing_cycle_anchor'] = now()->timestamp; // Anchor the subscription
+                    // Set billing_cycle_anchor to be in the future (at least 1 hour from now)
+                    // Stripe requires billing_cycle_anchor to be a future timestamp
+                    $subscription_params['billing_cycle_anchor'] = now()->addHour()->timestamp; // Anchor the subscription to 1 hour in the future
                     $subscription_items[0]['plan'] = [
                         'interval' => $interval,
                     ];
@@ -535,7 +538,6 @@ class HomeController extends Controller
                 'anonymous' => $request->anonymous ? $request->anonymous : 0,
                 'notify_when_used' => $request->notify_when_used ? $request->notify_when_used : 0,
                 'package_id' => $package->id,
-            'beneficiary_id' => $beneficiaryIds->first(),
                 'frequency' => $request->frequency ? $request->frequency : null,
                 'dr_amount' => $package_price,
                 'paypal_id' => null,

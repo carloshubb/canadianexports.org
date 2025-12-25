@@ -21,6 +21,11 @@ class CoffeeWallet extends Model
 
     public function beneficiaries()
     {
-        return $this->belongsToMany(CoffeeWallBeneficiary::class, 'coffee_wallet_beneficiary');
+        return $this->belongsToMany(
+            CoffeeWallBeneficiary::class, 
+            'coffee_wallet_beneficiary',
+            'coffee_wallet_id',
+            'beneficiary_id'
+        );
     }
 }

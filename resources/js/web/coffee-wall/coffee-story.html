@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee on the Wall</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #f5f3f0 0%, #e8e4df 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .hero-image {
+            width: 100%;
+            height: 400px;
+            background: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200') center/cover;
+            position: relative;
+        }
+        
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 100%);
+        }
+        
+        .content {
+            padding: 60px 50px;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            color: #6b4423;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 400;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #8b6f47;
+            font-size: 1.1em;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+        
+        p {
+            font-size: 1.1em;
+            margin-bottom: 25px;
+            text-align: justify;
+            color: #444;
+        }
+        
+        .footer-note {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #e8e4df;
+            font-size: 0.95em;
+            color: #888;
+            font-style: italic;
+            text-align: center;
+        }
+        
+        .decorative-line {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, #6b4423, #8b6f47);
+            margin: 30px auto;
+            border-radius: 2px;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                padding: 40px 30px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .hero-image {
+                height: 300px;
+            }
+            
+            p {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero-image"></div>
+        
+        <div class="content">
+            <h1>Coffee on the Wall</h1>
+            <div class="subtitle">A Story of Generosity and Dignity</div>
+            <div class="decorative-line"></div>
+            
+            <p>One day, in a well‑known coffee shop in a small town near Venice, Italy, two friends were enjoying their coffee when a man entered and sat at a nearby table.</p>
+            
+            <p>The man called the waiter and said, "Two cups of coffee — and put one on the wall."</p>
+            
+            <p>They watched as the waiter served him only one cup of coffee, yet the man paid for two. After he left, the waiter attached a small sign to the wall that read "A Cup of Coffee."</p>
+            
+            <p>Soon after, two more customers ordered coffee with "one on the wall" in the same way. They were served their own drinks, paid for an extra cup, and the waiter posted another "A Cup of Coffee" sign on the wall.</p>
+            
+            <p>Curious, the friends finished their drinks and left the café. A few days later, they returned. As they were sitting, a poorly dressed man entered and placed his order by saying, "One cup of coffee from the wall."</p>
+            
+            <p>With respect and dignity, the waiter served him a coffee. The man drank it and left without paying. The friends saw the waiter remove one of the "A Cup of Coffee" notices from the wall and toss it away.</p>
+            
+            <p>At that moment, the purpose of those cups on the wall became clear. The people of that town had created a way to help someone in need quietly and respectfully — so that someone could enjoy a cup of coffee without begging or embarrassment.</p>
+            
+            <p><strong>And indeed, that may be one of the most beautiful walls you could ever see.</strong></p>
+            
+            <div class="footer-note">
+                This story has been shared online in many places as an example of quiet generosity; the exact original source is not known.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

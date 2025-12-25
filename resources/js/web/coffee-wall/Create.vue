@@ -3,10 +3,10 @@
 
         <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6 p-8">
             <h1 class="text-primary mb-2">{{ JSON.parse(coffee_wall_setting)["coffee_wall_heading"] ?? 'Coffee on Wall'
-            }}</h1>
+                }}</h1>
             <p class="">
                 The <span class="font-bold">“The Coffee on the Wall”</span> initiative was inspired by this
-                <a href="https://www.kindspring.org/story/view.php?sid=44089" target="_blank" rel="noopener"
+                <a href="../../../en/Beautiful-story" target="_blank" rel="noopener"
                     class="text-primary underline font-bold underline-none">
                     beautiful story.
                 </a>
@@ -14,7 +14,8 @@
             </p>
             <p class="">
                 It's a wonderful example of how a simple act of kindness can change the way someone sees the world.</p>
-            <p>Through this community-driven initiative, sponsors can support small businesses by covering a Coffee when it’s needed most.</p>
+            <p>Through this community-driven initiative, sponsors can support small businesses by covering a Coffee when
+                it’s needed most.</p>
 
             <div class="text-right mt-4 py-2 text-red-500 text-lg">
                 <span class="text-red-500">*</span> {{
@@ -29,7 +30,7 @@
                     class="px-4 py-1.5 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
                     <h4 class="text-white">
                         <!-- Please select amount and frequency * -->
-                        {{ JSON.parse(coffee_wall_setting)["select_amount_label"] ?? 'Please select your amount and  frequency *' }}
+                        {{ JSON.parse(coffee_wall_setting)["select_amount_label"] ?? 'Please select your amount and   frequency *' }}
                     </h4>
                 </div>
                 <div class="p-4">
@@ -82,7 +83,7 @@
                             <label
                                 class="w-full block cursor-pointer px-5 py-5 text-base md:text-2xl font-FuturaMdCnBT text-center border rounded-none rounded-r-md md:rounded-r-lg"
                                 :class="form.frequency === 'quarterly'
-                                     ? 'border-2 border-green-500 text-green-500'
+                                    ? 'border-2 border-green-500 text-green-500'
                                     : 'border-gray-200'">
 
                                 <input type="radio" name="frequency" value="quarterly" class="sr-only"
@@ -212,13 +213,14 @@
                     </div>
                     <div class="relative w-full">
                         <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="phone">{{
-                            JSON.parse(coffee_wall_setting)["phone_label"] ?? "Your Phone Number (Optional - We won't call or text unless you ask us to)" }}
+                            JSON.parse(coffee_wall_setting)["phone_label"] ?? "Your Phone Number (Optional - We won't  call or text unless you ask us to)" }}
                         </label>
                         <input @input="clearErrors('phone')" type="phone" class="can-exp-input" placeholder=""
                             name="phone" id="phone" v-model="form.phone" />
                         <Error v-if="submitted" fieldName="phone" :validationErros="validationErros" full_width="1" />
                     </div>
-                         <div class="flex items-start gap-2 relative w-full pt-4">
+                    <br />
+                    <div class="flex items-start gap-2 relative w-full pt-4">
                         <input @input="clearErrors('notify_when_used')" type="checkbox" name="notify_when_used"
                             id="notify_when_used" v-model="form.notify_when_used" class="mt-1" />
 
@@ -229,21 +231,21 @@
                             <!-- Info Icon with Tooltip -->
                             <span class="relative inline-flex items-center group">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500 cursor-help" 
-                                     viewBox="0 0 20 20" fill="currentColor">
+                                    viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" 
-                                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" 
-                                          clip-rule="evenodd" />
+                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" 
+                                        clip-rule="evenodd" />
                                 </svg>
                                 
                                 <!-- Tooltip -->
-                                <span class="invisible group-hover:visible absolute left-6 top-0 w-64 p-3 bg-blue-600 text-white text-sm rounded-lg shadow-lg z-50">
-                                    You'll receive basic information about the business. Some details are shared only if the business chooses to make them public.
-                                    <!-- Arrow pointing left -->
-                                    <span class="absolute right-full top-3 border-8 border-transparent border-r-blue-600"></span>
+                                  <span class="invisible group-hover:visible absolute left-7 -top-8 w-64 p-3 bg-[rgb(0,110,183)] text-white text-sm rounded-lg shadow-lg z-50">
+                                        You'll receive basic information about the business. Some details are shared only if the business chooses to make them public.
+                                        <!-- Arrow pointing to middle of icon (triangle pointing left) -->
+                                        <span class="absolute -left-2 top-1/2 -translate-y-1/2 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-r-8 border-r-[rgb(0,110,183)]"></span>
+                                    </span>
                                 </span>
-                            </span>
+                            
                         </label>
-
                         <Error v-if="submitted" fieldName="notify_when_used" :validationErros="validationErros"
                             full_width="1" />
                     </div>
@@ -271,7 +273,7 @@
                                             @click="setPaymentMethod('stripe')"
                                             :checked="form.payment_method == 'stripe'" />
                                         <label for="stripe" class="ml-2 block text-gray-900">
-                                            {{                                               
+                                            {{
                                                 payment_setting &&
                                                     JSON.parse(payment_setting)
                                                     ? JSON.parse(payment_setting)[
@@ -377,25 +379,26 @@
             <!-- Disclaimer Checkboxes -->
             <div class="px-4 space-y-4">
                 <!-- Non-refundable Donation Disclaimer -->
-                <div class="flex items-start space-x-2">
+                <!-- <div class="flex items-start space-x-2">
                     <input @input="clearErrors('non_refundable_agreement')" type="checkbox" class="mt-1"
                         name="non_refundable_agreement" id="non_refundable_agreement"
                         v-model="form.non_refundable_agreement" />
 
                     <label for="non_refundable_agreement" class="block text-gray-900">
-                        I understand that my contribution is a voluntary act of kindness. As such, it is considered a donation and is non-refundable.
+                        I understand that my contribution is a voluntary act of kindness. As such, it is considered a
+                        donation and is non-refundable.
                     </label>
-                </div>
+                </div> -->
 
-                <Error v-if="submitted" fieldName="non_refundable_agreement" :validationErros="validationErros"
-                    full_width="1" />
+                <!-- <Error v-if="submitted" fieldName="non_refundable_agreement" :validationErros="validationErros"
+                    full_width="1" /> -->
 
                 <!-- Terms and Conditions & Privacy Policy Agreement -->
                 <div class="flex items-start space-x-2">
                     <input @input="clearErrors('terms_privacy_agreement')" type="checkbox" class="mt-1"
                         name="terms_privacy_agreement" id="terms_privacy_agreement"
                         v-model="form.terms_privacy_agreement" />
-                    <p>By clicking "<strong>Make Someone's Day</strong>", you agree to our <a
+                    <p>I understand that my contribution is a voluntary donation and non-refundable.<br> By clicking "<strong>Make Someone's Day</strong>",  I agree to the <a
                             href="../../../en/terms-and-conditions" target="_blank" rel="noopener">Terms and
                             Conditions</a>&nbsp;and&nbsp;<a href="../../../en/privacy-policy" target="_blank"
                             rel="noopener">Privacy Policy</a></p>
@@ -534,8 +537,7 @@ export default {
                 this.form.receiver_name !== '' &&
                 this.form.receiver_email !== '' &&
                 this.form.frequency !== null &&
-                this.form.terms_privacy_agreement === true &&
-                this.form.non_refundable_agreement === true
+                this.form.terms_privacy_agreement === true 
             );
         },
         years() {
@@ -834,6 +836,14 @@ export default {
         },
         addReg() {
             this.loading = 1;
+            // Ensure agree_terms is set when terms_privacy_agreement is checked
+            if (this.form.terms_privacy_agreement) {
+                this.form.agree_terms = true;
+            }
+            // Ensure non_refundable_agreement is set when terms_privacy_agreement is checked
+            if (this.form.terms_privacy_agreement) {
+                this.form.non_refundable_agreement = true;
+            }
             axios
                 .post(this.submit_url, this.form)
                 .then((res) => {
@@ -853,8 +863,8 @@ export default {
                                 text: res.data.message || 'Thank you for your generosity!',
                                 icon: 'success',
                                 confirmButtonText: 'OK',
-                                timer: 3000,
-                                timerProgressBar: true,
+                                allowOutsideClick: false,
+                                allowEscapeKey: false,
                                 customClass: {
                                     confirmButton: 'button-exp-fill',
                                 },
