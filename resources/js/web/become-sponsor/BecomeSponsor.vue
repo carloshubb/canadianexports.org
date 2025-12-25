@@ -121,7 +121,7 @@
         </div>
         <div class="p-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="relative w-full">
+            <div class="relative w-full" hidden>
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="talk_to_us_name">
                 Your Name and Title
                 <span class="text-red-500">*</span>
@@ -131,7 +131,7 @@
               <Error v-if="submitted" fieldName="talk_to_us_name" :validationErros="validationErros" />
             </div>
 
-            <div class="relative w-full">
+            <div class="relative w-full" hidden>
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="talk_to_us_phone">
                 Numbers Only. With Area Code
                 <span class="text-red-500">*</span>
