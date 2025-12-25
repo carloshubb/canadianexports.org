@@ -1,8 +1,13 @@
-<div class="relative isolate overflow-hidden bg-gray-900 lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10">
-    <div class="absolute w-full h-full bg-opacity-60 bg-black top-0 right-0"></div>
-    <img src="{{ asset($homePageSettingDetail->slider_image) }}" alt="slider image"
-        class="absolute inset-0 -z-10 h-full w-full object-cover object-right md:object-center">
-
+<div class="relative isolate lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10 min-h-[800px] flex items-center">
+    <!-- Background Image Container - Fixed positioning -->
+    <div class="absolute inset-0 w-full h-full">
+        <img src="{{ asset($homePageSettingDetail->slider_image) }}" alt="slider image"
+            class="absolute inset-0 w-full h-full object-cover">
+        <!-- Dark overlay on top of image -->
+        <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+    </div>
+    
+    <!-- Decorative SVG gradients -->
     <svg viewBox="0 0 1097 845" aria-hidden="true"
         class="hidden transform-gpu blur-3xl sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:w-[68.5625rem]">
         <path fill="url(#10724532-9d81-43d2-bb94-866e98dd6e42)" fill-opacity=".2"
@@ -27,22 +32,21 @@
             </linearGradient>
         </defs>
     </svg>
-    <div class="container ">
-        <div class="mx-auto lg:mx-0 pt-20">
-            <h1 class="can-exp-h1 mb-4 text-center text-white">
+    
+    <!-- Content Container - Now centered vertically and horizontally -->
+    <div class="container relative z-10 w-full">
+        <div class="mx-auto lg:mx-0">
+            <h1 class="can-exp-h1 mb-4 text-center text-white  text-6xl">
                 {!! $homePageSettingDetail->slider_heading !!}
             </h1>
-            {{-- <h3 class="can-exp-h2">
-                {!! $homePageSettingDetail->slider_description !!}
-            </h3> --}}
         </div>
-        {{-- rounded-md flex flex-col sm:flex-col md:flex-row lg:flex-row justify-between items-start divide-y --}}
+        
         <div class="mx-auto mt-4 sm:w-[65%]">
             <div class="rounded-md flex flex-col sm:flex-col md:flex-row lg:flex-row items-start">
                 <div class="subcribe-form w-full">
                     @php
-                        $url = route('user.search.advanceSearch');
-                        $url = langBasedURL($lang, $url);
+                    $url = route('user.search.advanceSearch');
+                    $url = langBasedURL($lang, $url);
                     @endphp
                     <form class="relative w-full" method="get" action="{{ $url }}">
                         <input type="hidden" name="sorting" value="a-z" />
@@ -51,8 +55,8 @@
                         <input type="hidden" name="trade-shows-and-events[]" value="all" />
                         <div class="bg-white rounded-md p-2 bg-opacity-40">
                             <div
-                                class="rounded-md flex flex-col sm:flex-col md:flex-row lg:flex-row justify-between items-start">
-                                <div class="w-full md:w-2/3 flex items-center">
+                                class="rounded-md flex flex-col  sm:flex-col md:flex-row lg:flex-row justify-between items-start">
+                                <div class="w-full md:w-2/3 flex items-center text-2xl">
                                     <input type="search" name="search"
                                         class="w-full py-2 px-3 lg:text-lg focus:outline-none focus:ring-none {{ isset(getDefaultLanguage(1)->direction) && getDefaultLanguage(1)->direction == 'ltr' ? 'rounded-l-md md:rounded-l-md' : 'rounded-r-md md:rounded-r-md' }}"
                                         placeholder="{!! $homePageSettingDetail->slider_search_placeholder !!}" />
@@ -66,7 +70,7 @@
                                     </button>
                                 </div>
                                 @php
-                                    $advSearchSetting = getI2bModalSetting($lang, ['advance_search']);
+                                $advSearchSetting = getI2bModalSetting($lang, ['advance_search']);
                                 @endphp
                                 <div class="w-full md:w-[60%] lg:w-[45%] xl:w-[40%] hidden md:block">
                                     <select id="category" name="category"
@@ -82,7 +86,7 @@
                                         </option>
                                     </select>
                                 </div>
-                                <button class="hidden md:block sm:py-[8px] md:py-[8px] lg:py-2.5 h-full  button-exp-fill {{ isset(getDefaultLanguage(1)->direction) && getDefaultLanguage(1)->direction == 'ltr' ? 'rounded-l-none' : 'rounded-r-none' }}">
+                                <button class="hidden md:block sm:py-[8px] md:py-[8px] lg:py-2.5 h-full button-exp-fill {{ isset(getDefaultLanguage(1)->direction) && getDefaultLanguage(1)->direction == 'ltr' ? 'rounded-l-none' : 'rounded-r-none' }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -96,17 +100,17 @@
                 </div>
             </div>
 
-                <div class="flex justify-center mt-4">
-                    @php
-                        $url = route('user.search.advanceSearch', ['canadian-exporters' => ['all']]);
-                        $url = langBasedURL(null, $url);
-                    @endphp
-                    <div class="bg-white rounded-md p-2 py-3.5 bg-opacity-40">
-                        <a aria-label="Candian Exporters" href="{{ $url }}" class="button-exp-fill">
-                            {!! $homePageSettingDetail->slider_advance_search_text !!}
-                        </a>
-                    </div>
+            <div class="flex justify-center mt-4">
+                @php
+                $url = route('user.search.advanceSearch', ['canadian-exporters' => ['all']]);
+                $url = langBasedURL(null, $url);
+                @endphp
+                <div class="bg-white rounded-md p-2 py-3.5 bg-opacity-40">
+                    <a aria-label="Candian Exporters" href="{{ $url }}" class="button-exp-fill text-2xl">
+                        {!! $homePageSettingDetail->slider_advance_search_text !!}
+                    </a>
                 </div>
+            </div>
         </div>
     </div>
 </div>
