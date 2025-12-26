@@ -299,8 +299,7 @@
             <div class="relative w-full">
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="summary">
                 Brief Introduction
-                {{ !form.talk_to_us_first ? "(Required)" : "(Optional)" }}
-                <span v-if="!form.talk_to_us_first" class="text-red-500">*</span>
+               <span v-if="!form.talk_to_us_first" class="text-red-500">*</span>
               </label>
               <textarea id="summary" v-model="form.summary" rows="3" class="can-exp-input resize-none"
                 placeholder="Describe the nature of your business in no more than 30 words. You can write your business slogan, company mission, or highlight your competitive advantage. This information will appear next to your company name on the search result page and will help you to attract visitors to your profile page. Make sure to describe your business in an engaging, informative way so that when the importer reads it, they will be more inclined to click on your profile page. to check out your business profile. For example, if the importer is looking for product x, from Canada, they will carry out a search on the Canadian Exports website and may come up with 20+ search results. Each one of these results will have their own short business description and the importer will click on the one that appeals to them the most. That's why your description about what you offer needs to be as eye-catching as possible to stand out from the rest of your competitors."
@@ -310,8 +309,7 @@
 
             <div class="relative w-full">
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="detail_description">
-                Detailed Description
-                {{ !form.talk_to_us_first ? "(Required)" : "(Optional)" }}
+                Detailed Description             
                 <span v-if="!form.talk_to_us_first" class="text-red-500">*</span>
               </label>
               <textarea id="detail_description" v-model="form.detail_description" rows="4"
