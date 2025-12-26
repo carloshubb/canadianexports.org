@@ -21,6 +21,6 @@ class ValidUrl implements Rule
 
     public function message()
     {
-        return 'The :attribute is not a valid URL.';
+        return 'Please enter a valid URL';
     }
 }
