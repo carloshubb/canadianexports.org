@@ -6,11 +6,92 @@ $events = $events->where('featured', true);
 @endphp
 <section class="relative lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10">
     <div class="container">
-        <div class="grid grid-cols-1 text-center">
-            <h2 class="can-exp-h1 mb-4">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4 ">
+            <h2 class="can-exp-h1 mb-0 text-primary">
                 {!! $homePageSettingDetail->section5_heading !!}
             </h2>
+            
+            <div class="flex flex-wrap justify-end items-center gap-2">
+                <div class="flex justify-center">
+                    @php
+                    $url = $homePageSettingDetail->section5_see_all_button_url;
+                    $url = langBasedURL($lang, $url);
+                    // Get dynamic messages
+                    $general_messages = getStaticTranslationByKey($lang ?? null, 'general_messages', [
+                    'message_66',
+                    'message_66',
+                    ]);
+                    $message_66 = $general_messages['message_66'] ?? 'Sponsor accounts cannot access event listings.';
+                    $message_66 = $general_messages['message_66'] ?? 'Sponsor accounts cannot create events.';
+                    @endphp
+                    @if (Auth::guard('customers')->check() && Auth::guard('customers')->user()->type === 'sponsor')
+                    <a aria-label="Canadian Exporters" href="{!! $url !!}" class="button-exp-fill">
+                        {!! $homePageSettingDetail->section5_see_all_button_text !!}
+                    </a>
+                    @else
+                    <a aria-label="Canadian Exporters" href="{!! $url !!}" class="button-exp-fill">
+                        {!! $homePageSettingDetail->section5_see_all_button_text !!}
+                    </a>
+                    @endif
+                </div>
+
+                @php
+                $general_setting = getSignleGeneralSettingByKey(['user_event_signup_page']);
+                $eventSignupRoute = isset($general_setting['user_event_signup_page'])
+                ? route('front.index', $general_setting['user_event_signup_page'])
+                : '#';
+                $eventSignupUrl = langBasedURL($lang, $eventSignupRoute);
+                @endphp
+
+                @if (Auth::guard('customers')->check())
+                @php
+                $user = Auth::guard('customers')->user();
+                @endphp
+
+                @if ($user->type !== 'event')
+                <div class="flex justify-center">
+                    <a aria-label="Canadian Exporters" href="{!! $eventSignupUrl !!}" class="button-exp-no-fill">
+                        {!! $homePageSettingDetail->section5_add_event_text !!}
+                    </a>
+                </div>
+                @else
+                @php
+                $events_remaining = $user->events_remaining;
+                $hasPaid = $user->is_package_amount_paid;
+                $reviewConfirmationUrl = route('user.payment.index', [$lang->abbreviation]);
+                // Always use event-signup page (all 5 steps)
+                $eventSignupRoute = isset($general_setting['user_event_signup_page'])
+                ? route('front.index', $general_setting['user_event_signup_page'])
+                : '#';
+                $addEventUrl = langBasedURL($lang, $eventSignupRoute);
+                @endphp
+
+                @if ($events_remaining == null || $events_remaining <= 0)
+                    <div class="flex justify-center">
+                    <a aria-label="Canadian Exporters" href="{{ route('create_event_restriction') }}"
+                        class="button-exp-no-fill">
+                        {!! $homePageSettingDetail->section5_add_event_text !!}
+                    </a>
+            </div>
+            @else
+            <div class="flex justify-center">
+                <a aria-label="Canadian Exporters"
+                    href="{{ $hasPaid ? $addEventUrl : $reviewConfirmationUrl }}"
+                    class="button-exp-no-fill">
+                    {!! $homePageSettingDetail->section5_add_event_text !!}
+                </a>
+            </div>
+            @endif
+            @endif
+            @else
+            <div class="flex justify-center">
+                <a aria-label="Canadian Exporters" href="{!! $eventSignupUrl !!}" class="button-exp-no-fill">
+                    {!! $homePageSettingDetail->section5_add_event_text !!}
+                </a>
+            </div>
+            @endif
         </div>
+    </div>
 
         <div class="">
             <div class="swiper featured-events-slider-container relative z-0">
@@ -69,86 +150,6 @@ $events = $events->where('featured', true);
                 </div>
             </div>
         </div>
-
-        <div class="mt-10 flex justify-center items-center gap-2">
-            <div class="flex justify-center">
-                @php
-                $url = $homePageSettingDetail->section5_see_all_button_url;
-                $url = langBasedURL($lang, $url);
-                // Get dynamic messages
-                $general_messages = getStaticTranslationByKey($lang ?? null, 'general_messages', [
-                'message_66',
-                'message_66',
-                ]);
-                $message_66 = $general_messages['message_66'] ?? 'Sponsor accounts cannot access event listings.';
-                $message_66 = $general_messages['message_66'] ?? 'Sponsor accounts cannot create events.';
-                @endphp
-                @if (Auth::guard('customers')->check() && Auth::guard('customers')->user()->type === 'sponsor')
-                <a aria-label="Canadian Exporters" href="{!! $url !!}" class="button-exp-fill">
-                    {!! $homePageSettingDetail->section5_see_all_button_text !!}
-                </a>
-                @else
-                <a aria-label="Canadian Exporters" href="{!! $url !!}" class="button-exp-fill">
-                    {!! $homePageSettingDetail->section5_see_all_button_text !!}
-                </a>
-                @endif
-            </div>
-
-            @php
-            $general_setting = getSignleGeneralSettingByKey(['user_event_signup_page']);
-            $eventSignupRoute = isset($general_setting['user_event_signup_page'])
-            ? route('front.index', $general_setting['user_event_signup_page'])
-            : '#';
-            $eventSignupUrl = langBasedURL($lang, $eventSignupRoute);
-            @endphp
-
-            @if (Auth::guard('customers')->check())
-            @php
-            $user = Auth::guard('customers')->user();
-            @endphp
-
-            @if ($user->type !== 'event')
-            <div class="flex justify-center">
-                <a aria-label="Canadian Exporters" href="{!! $eventSignupUrl !!}" class="button-exp-no-fill">
-                    {!! $homePageSettingDetail->section5_add_event_text !!}
-                </a>
-            </div>
-            @else
-            @php
-            $events_remaining = $user->events_remaining;
-            $hasPaid = $user->is_package_amount_paid;
-            $reviewConfirmationUrl = route('user.payment.index', [$lang->abbreviation]);
-            // Always use event-signup page (all 5 steps)
-            $eventSignupRoute = isset($general_setting['user_event_signup_page'])
-                ? route('front.index', $general_setting['user_event_signup_page'])
-                : '#';
-            $addEventUrl = langBasedURL($lang, $eventSignupRoute);
-            @endphp
-
-            @if ($events_remaining == null || $events_remaining <= 0)
-                <div class="flex justify-center">
-                <a aria-label="Canadian Exporters" href="{{ route('create_event_restriction') }}"
-                    class="button-exp-no-fill">
-                    {!! $homePageSettingDetail->section5_add_event_text !!}
-                </a>
-        </div>
-        @else
-        <div class="flex justify-center">
-            <a aria-label="Canadian Exporters"
-                href="{{ $hasPaid ? $addEventUrl : $reviewConfirmationUrl }}"
-                class="button-exp-no-fill">
-                {!! $homePageSettingDetail->section5_add_event_text !!}
-            </a>
-        </div>
-        @endif
-        @endif
-        @else
-        <div class="flex justify-center">
-            <a aria-label="Canadian Exporters" href="{!! $eventSignupUrl !!}" class="button-exp-no-fill">
-                {!! $homePageSettingDetail->section5_add_event_text !!}
-            </a>
-        </div>
-        @endif
     </div>
     <div id="sponsorRestrictionModal"
         class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">

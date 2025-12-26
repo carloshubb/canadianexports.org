@@ -3,8 +3,20 @@
 @endphp
 <section class="lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10 desktop:px-80">
     <div class="container">
-        <h2 class="can-exp-h1 mb-4 text-center">{!! $homePageSettingDetail->section6_heading !!}</h2>
-        <div class="text-center">{!! $homePageSettingDetail->section6_description !!}</div>
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+            <div class="text-left">
+                <h2 class="can-exp-h1 mb-2 text-primary">{!! $homePageSettingDetail->section6_heading !!}</h2>
+                <div class="text-left">{!! $homePageSettingDetail->section6_description !!}</div>
+            </div>
+            
+            <div class="flex justify-end flex-shrink-0">
+                @php
+                    $url = isset($general_setting['see_all_magazine_page']) ? route('front.index', $general_setting['see_all_magazine_page']) : '#';
+                    $url = langBasedURL($lang, $url);
+                @endphp
+                <a aria-label="Canadian Exporters" href="{{ $url }}" class="bg-white border-gray-300 hover:border-secondary text-primary font-Futura font-semibold hover:bg-primary hover:text-white px-6 py-3 rounded-lg border transition duration-300 ease-in-out">{!! $homePageSettingDetail->section6_see_all_button !!}</a>
+            </div>
+        </div>
 
         <div class="swiper magazine-slider-container relative z-0">
             <div class="swiper-wrapper">
@@ -16,12 +28,9 @@
                         </a>
                     </div>
                 </div>
-            @endfor
-
-
+                @endfor
             </div>
             <div class="magazine-button-next-exp absolute top-1/2 right-0 z-50">
-
                 <div
                     class="w-8 h-8 md:w-12 md:h-12 bg-secondary text-white rounded-full flex justify-center items-center bg-opacity-40">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -42,15 +51,5 @@
                 </div>
             </div>
         </div>
-        <div class="mt-10 w-full flex justify-center">
-            @php
-                $url = isset($general_setting['see_all_magazine_page']) ? route('front.index', $general_setting['see_all_magazine_page']) : '#';
-                $url = langBasedURL($lang, $url);
-            @endphp
-            <a aria-label="Candian Exporters" href="{{ $url }}" class="button-exp-fill border-white">{!! $homePageSettingDetail->section6_see_all_button !!}</a>
-        </div>
-
-
     </div>
 </section>
-

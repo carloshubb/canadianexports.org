@@ -238,6 +238,7 @@ if (!function_exists("getAllBusinessCategories")) {
         $defaultLang = getDefaultLanguage(true);
         $businessCategories = BusinessCategory::addSelect(['category_name' => BusinessCategoryDetail::whereColumn('business_category_id', 'business_categories.id')->where('business_category_detail.language_id', $defaultLang->id)->select('name')])
             ->addSelect(['category_slug' => BusinessCategoryDetail::whereColumn('business_category_id', 'business_categories.id')->where('business_category_detail.language_id', $defaultLang->id)->select('slug')])
+            ->addSelect(['category_icon' => BusinessCategoryDetail::whereColumn('business_category_id', 'business_categories.id')->where('business_category_detail.language_id', $defaultLang->id)->select('icon')])
             ->orderBy('category_name', 'asc')->get();
         return $businessCategories;
     }

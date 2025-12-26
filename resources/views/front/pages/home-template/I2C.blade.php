@@ -1,11 +1,22 @@
-<section class="relative lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10 bg-primary">
+<section class="relative lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10 bg-gray-100">
     <div class="container">
-        <div class="grid grid-cols-1 text-center">
-            <h2 class="text-white can-exp-h1 mb-4">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+            <h2 class="text-primary can-exp-h1 mb-0">
                 {!! $homePageSettingDetail->section2_heading !!}
             </h2>
+            
+            <div class="flex justify-end">
+                @php
+                    $url = $homePageSettingDetail->section2_button_url;
+                    $url = langBasedURL($lang, $url);
+                    $hasPaid = isset($user) && $user->is_package_amount_paid;
+                @endphp
+                <a id="section2-button" aria-label="Canadian Exporters" href="{{ $url }}" class="bg-white border-gray-300 hover:border-secondary text-primary font-Futura font-semibold hover:bg-primary hover:text-white px-6 py-3 rounded-lg border transition duration-300 ease-in-out">
+                    {!! $homePageSettingDetail->section2_button_text !!}
+                </a>
+            </div>
         </div>
-        <!--end grid-->
+        <!--end header-->
 
         @php
             $inquiries = getLatestInquiries(6, $lang);
@@ -53,19 +64,6 @@
             </i2b-home>
         </div>
 
-
-
-        <div class="mt-10 flex justify-center">
-            @php
-                $url = $homePageSettingDetail->section2_button_url;
-                $url = langBasedURL($lang, $url);
-                $hasPaid = isset($user) && $user->is_package_amount_paid;
-            @endphp
-            <!-- {{ $hasPaid ? $url : '#' }} -->
-            <a id="section2-button" aria-label="Canadian Exporters" href="{{ $url }}" class="button-exp-fill border-white">
-                {!! $homePageSettingDetail->section2_button_text !!}
-            </a>
-        </div>
         <script>
             document.getElementById('section2-button').addEventListener('click', function(event) {
                 @if (isset($user) && !$user->is_package_amount_paid)

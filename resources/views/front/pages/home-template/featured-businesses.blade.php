@@ -1,9 +1,9 @@
 @php
     $customerProfiles = getFeaturedProfile($page->id);
 @endphp
-<section class="desktop:px-80 bg-primary lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10">
+<section class="desktop:px-80 bg-gray-100 lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10">
     <div class="container">
-    <h2 class="can-exp-h1 text-center text-white">
+    <h2 class="can-exp-h1 text-center text-primary">
             {!! $homePageSettingDetail->section4_heading !!}
         </h2>
 
@@ -12,19 +12,19 @@
                 <div class="swiper-wrapper">
                     @foreach ($customerProfiles as $customerProfile)
                     <div class="swiper-slide h-full">
-                        <div class="bg-white w-full rounded border flex flex-col featured-exporter-swiper-slide">
+                        <div class="w-full  flex flex-col featured-exporter-swiper-slide">
                             <div class="p-4 flex-1">
-                                <a aria-label="Candian Exporters" href="{{ route('user.business-category.show', ['abbreviation' => $lang->abbreviation, 'slug' => $customerProfile['slug']]) }}" target="_blank" class="rounded flex justify-center items-center aspect-video bg-gray-50 fix-url" onclick="fixUrls()">
+                                <a aria-label="Candian Exporters" href="{{ route('user.business-category.show', ['abbreviation' => $lang->abbreviation, 'slug' => $customerProfile['slug']]) }}" target="_blank" class="rounded flex justify-center items-center aspect-video  fix-url" onclick="fixUrls()">
                                     @if (isset($customerProfile['customer_media']['customer_logo']['medium_image']) && $customerProfile['customer_media']['customer_logo']['medium_image'])
-                                        <img src="{{ asset($customerProfile['customer_media']['customer_logo']['medium_image']) }}" class="object-cover aspect-video w-full rounded" alt="sponsor banner" />
+                                        <img src="{{ asset($customerProfile['customer_media']['customer_logo']['medium_image']) }}" class="object-cover aspect-video w-full rounded-full" alt="sponsor banner" />
                                     @else
-                                        <img src="{{ asset('assets/images/logocircle.png') }}" class="object-contain aspect-video w-full rounded" alt="sponsor banner" />
+                                        <img src="{{ asset('assets/images/logocircle.png') }}" class="object-contain aspect-video w-full rounded-full" alt="sponsor banner" />
                                     @endif
                                 </a>
 
-                                <div class="p-2 bg-gray-50 rounded-b">
+                                <div class="p-2  rounded-b">
                                     <h4 class="">
-                                        <a class="text-lg sm:text-xl lg:text-2xl" href="{{ route('user.business-category.show', ['abbreviation' => $lang->abbreviation, 'slug' => $customerProfile['slug']]) }}">
+                                        <a class="text-lg sm:text-xl lg:text-2xl text-black" href="{{ route('user.business-category.show', ['abbreviation' => $lang->abbreviation, 'slug' => $customerProfile['slug']]) }}">
                                             {{ $customerProfile['company_name'] }}
                                         </a>
                                     </h4>

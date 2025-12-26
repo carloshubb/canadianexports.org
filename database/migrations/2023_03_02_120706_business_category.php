@@ -22,6 +22,7 @@ return new class extends Migration
             $table->foreignId('business_category_id')->nullable()->constrained('business_categories')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('language_id')->nullable()->constrained('languages')->onUpdate('cascade')->onDelete('cascade');
             $table->string('name');
+            $table->string('icon')->nullable();
             $table->string('slug');
         });
     }
