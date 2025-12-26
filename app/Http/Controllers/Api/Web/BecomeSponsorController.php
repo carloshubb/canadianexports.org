@@ -163,16 +163,16 @@ class BecomeSponsorController extends Controller
             Log::info('Request data', $request->all());
 
             $defaultLang = getDefaultLanguage(1);
-            
+
             // Determine if this is "Talk to Us First" or payment option
             $talkToUsFirst = $request->input('talk_to_us_first', false);
-            
+
             // Check if user is already logged in
             $loggedInCustomer = \Illuminate\Support\Facades\Auth::guard('customers')->user();
-            
+
             // Check if this email already exists in the system
             $existingCustomer = Customer::where('email', $request->email)->first();
-            
+
             // Dynamic validation rules based on option selected
             $rules = [
                 'company_name' => 'required|string|max:255',
@@ -183,7 +183,7 @@ class BecomeSponsorController extends Controller
                 'beneficiary_ids' => 'nullable|array',
                 'beneficiary_ids.*' => 'exists:coffee_wall_beneficiaries,id',
             ];
-            
+
             // Password only required for NEW users (not logged in AND email doesn't exist)
             if (!$loggedInCustomer && !$existingCustomer) {
                 $rules['password'] = 'required|string|min:8|confirmed';
@@ -220,14 +220,46 @@ class BecomeSponsorController extends Controller
                 ]);
             }
 
-            // Normalize URL - add https:// if no protocol is present
-            // Trim whitespace and handle empty strings
+            // Normalize URL - add https:// if no protocol is present and handle www variations
             $url = trim($request->url ?? '');
+
             if (!empty($url)) {
+                // Add protocol if missing
                 if (!preg_match('/^https?:\/\//i', $url)) {
                     $url = 'https://' . $url;
                 }
-                $request->merge(['url' => $url]);
+
+                // Parse the URL to normalize it
+                $parsedUrl = parse_url($url);
+
+                if ($parsedUrl && isset($parsedUrl['host'])) {
+                    // Normalize the host by removing or standardizing 'www'
+                    $host = strtolower($parsedUrl['host']);
+
+                    // Remove 'www.' prefix for consistency (you can also choose to always add it instead)
+                    $host = preg_replace('/^www\./i', '', $host);
+
+                    // Rebuild the normalized URL
+                    $normalizedUrl = ($parsedUrl['scheme'] ?? 'https') . '://' . $host;
+
+                    if (isset($parsedUrl['port'])) {
+                        $normalizedUrl .= ':' . $parsedUrl['port'];
+                    }
+                    if (isset($parsedUrl['path'])) {
+                        $normalizedUrl .= $parsedUrl['path'];
+                    }
+                    if (isset($parsedUrl['query'])) {
+                        $normalizedUrl .= '?' . $parsedUrl['query'];
+                    }
+                    if (isset($parsedUrl['fragment'])) {
+                        $normalizedUrl .= '#' . $parsedUrl['fragment'];
+                    }
+
+                    $request->merge(['url' => $normalizedUrl]);
+                } else {
+                    // Invalid URL format
+                    $request->merge(['url' => $url]);
+                }
             } else {
                 // If URL is empty/whitespace, set to null for nullable validation
                 $request->merge(['url' => null]);
@@ -253,8 +285,8 @@ class BecomeSponsorController extends Controller
             Log::info('Validation passed');
 
             $beneficiaryIds = collect($request->input('beneficiary_ids', []))
-                ->map(fn ($id) => (int) $id)
-                ->filter(fn ($id) => $id > 0)
+                ->map(fn($id) => (int) $id)
+                ->filter(fn($id) => $id > 0)
                 ->unique()
                 ->values();
 
@@ -264,7 +296,7 @@ class BecomeSponsorController extends Controller
 
             if ($allBeneficiaryId) {
                 if ($beneficiaryIds->contains((int) $allBeneficiaryId) && $beneficiaryIds->count() > 1) {
-                    $beneficiaryIds = $beneficiaryIds->reject(fn ($id) => $id === (int) $allBeneficiaryId)->values();
+                    $beneficiaryIds = $beneficiaryIds->reject(fn($id) => $id === (int) $allBeneficiaryId)->values();
                 }
 
                 if ($beneficiaryIds->isEmpty()) {
@@ -327,7 +359,7 @@ class BecomeSponsorController extends Controller
                 } else {
                     // Not logged in - check if email exists
                     $customer = Customer::where('email', $request->email)->first();
-                    
+
                     if (!$customer) {
                         // Create new customer account for first-time sponsors
                         try {
@@ -376,9 +408,9 @@ class BecomeSponsorController extends Controller
 
             if (!$talkToUsFirst && $request->payment_method === 'stripe' && $request->sponsorship_amount > 0) {
                 Log::info('Processing Stripe payment', ['frequency' => $request->frequency]);
-                
+
                 \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-                
+
                 try {
                     // Create Stripe Customer
                     $stripeCustomer = \Stripe\Customer::create([
@@ -387,7 +419,7 @@ class BecomeSponsorController extends Controller
                     ]);
 
                     $stripe_customer_id = $stripeCustomer->id;
-                    
+
                     Log::info('Stripe customer created', ['customer_id' => $stripe_customer_id]);
 
                     // Attach the payment method to customer
@@ -430,14 +462,14 @@ class BecomeSponsorController extends Controller
                             'payment_intent_id' => $paymentIntent->id,
                             'status' => $paymentIntent->status
                         ]);
-                        
+
                         if ($paymentIntent->status === 'succeeded') {
                             $transactionId = $paymentIntent->id;
                             $stripePaymentIntentId = $paymentIntent->id;
                             $paymentStatus = 'paid';
                             $status = 'active'; // Auto-approve
                             $isVisible = true; // Make visible immediately
-                            
+
                             Log::info('Stripe one-time payment succeeded', ['payment_intent_id' => $transactionId]);
                         } elseif ($paymentIntent->status === 'requires_action' || $paymentIntent->status === 'requires_payment_method') {
                             Log::error('Stripe payment requires action', [
@@ -516,10 +548,10 @@ class BecomeSponsorController extends Controller
 
                         // Check the payment intent from the invoice
                         $invoice = $subscription->latest_invoice;
-                        $paymentIntent = is_string($invoice->payment_intent) 
+                        $paymentIntent = is_string($invoice->payment_intent)
                             ? \Stripe\PaymentIntent::retrieve($invoice->payment_intent, ['expand' => ['payment_method']])
                             : $invoice->payment_intent;
-                        
+
                         if ($paymentIntent && $paymentIntent->status === 'succeeded') {
                             $transactionId = $paymentIntent->id;
                             $stripePaymentIntentId = $paymentIntent->id;
@@ -527,7 +559,7 @@ class BecomeSponsorController extends Controller
                             $paymentStatus = 'paid';
                             $status = 'active'; // Auto-approve
                             $isVisible = true; // Make visible immediately
-                            
+
                             Log::info('Stripe subscription payment succeeded', [
                                 'subscription_id' => $subscription->id,
                                 'payment_intent_id' => $transactionId
@@ -545,13 +577,13 @@ class BecomeSponsorController extends Controller
                             $stripeSubscriptionId = $subscription->id;
                             $paymentStatus = 'pending';
                             $status = 'pending';
-                            
+
                             Log::info('Stripe subscription requires action', [
                                 'subscription_id' => $subscription->id,
                                 'payment_intent_status' => $paymentIntent->status ?? 'unknown',
                                 'payment_intent_id' => $paymentIntent->id ?? null
                             ]);
-                            
+
                             return $this->errorResponse('Payment requires additional authentication. Please try again or use a different payment method.');
                         }
                     }
@@ -586,7 +618,7 @@ class BecomeSponsorController extends Controller
                 }
             } elseif (!$talkToUsFirst && $request->payment_method === 'paypal' && $request->sponsorship_amount > 0) {
                 Log::info('Processing PayPal payment - redirecting to PayPal');
-                
+
                 // For PayPal, we need to create the sponsor first, then redirect
                 // We'll handle the actual payment completion in the success callback
                 $paymentStatus = 'pending';
@@ -601,7 +633,7 @@ class BecomeSponsorController extends Controller
                     'payment_status' => $paymentStatus,
                     'customer_id' => $customer->id ?? null
                 ]);
-                
+
                 $sponsor = Sponsor::create([
                     'business_name' => $request->company_name,
                     'slug' => $slug,
@@ -675,7 +707,7 @@ class BecomeSponsorController extends Controller
                 $general_setting = getGeneralSettingByKey();
                 if (isset($general_setting['admin_email'])) {
                     $adminEmailsArr = explode(',', $general_setting['admin_email']);
-                    
+
                     if ($talkToUsFirst) {
                         // Send "Talk to Us" notification
                         Mail::to($adminEmailsArr)->send(new SponsorContactRequestNotification($sponsor));
@@ -725,7 +757,7 @@ class BecomeSponsorController extends Controller
             // Handle PayPal redirect
             if (!$talkToUsFirst && $request->payment_method === 'paypal') {
                 $paypal = new PaypalService();
-                
+
                 // Create PayPal order for one-time payment
                 try {
                     $data = [
@@ -748,10 +780,10 @@ class BecomeSponsorController extends Controller
                     ];
 
                     $order = $paypal->createOrder($data);
-                    
+
                     if (isset($order['status']) && $order['status'] === 'CREATED') {
                         $approvalUrl = collect($order['links'])->firstWhere('rel', 'approve')['href'] ?? null;
-                        
+
                         if ($approvalUrl) {
                             return $this->successResponse([
                                 'type' => 'paypal',
@@ -760,7 +792,7 @@ class BecomeSponsorController extends Controller
                             ], 'Redirecting to PayPal...');
                         }
                     }
-                    
+
                     Log::error('PayPal order creation failed', ['response' => $order]);
                     return $this->errorResponse('PayPal payment initialization failed.');
                 } catch (\Exception $e) {
@@ -771,7 +803,7 @@ class BecomeSponsorController extends Controller
 
             Log::info('===== Sponsor Payment Processing Completed Successfully =====');
 
-            $message = $talkToUsFirst 
+            $message = $talkToUsFirst
                 ? 'Thank you! We will contact you shortly to discuss sponsorship opportunities.'
                 : 'Thank you for your sponsorship! Your profile is now live.';
 
@@ -779,7 +811,6 @@ class BecomeSponsorController extends Controller
                 'sponsor' => $sponsor,
                 'customer' => $customer
             ], $message);
-
         } catch (\Illuminate\Validation\ValidationException $e) {
             Log::error('Validation error', ['errors' => $e->errors()]);
             throw $e;
@@ -792,7 +823,7 @@ class BecomeSponsorController extends Controller
                 'trace' => $e->getTraceAsString(),
                 'request_data' => $request->except(['password', 'password_confirmation', 'logo', 'featured_image'])
             ]);
-            
+
             // Return more specific error message if possible
             $errorMessage = 'An error occurred while processing your request. Please try again.';
             if (strpos($e->getMessage(), 'SQLSTATE') !== false) {
@@ -800,7 +831,7 @@ class BecomeSponsorController extends Controller
             } elseif (strpos($e->getMessage(), 'Mail') !== false || strpos($e->getMessage(), 'email') !== false) {
                 $errorMessage = 'Payment processed successfully, but there was an issue sending confirmation email. Please contact support.';
             }
-            
+
             return $this->errorResponse($errorMessage);
         }
     }
@@ -828,7 +859,7 @@ class BecomeSponsorController extends Controller
     {
         try {
             $customer = \Illuminate\Support\Facades\Auth::guard('customers')->user();
-            
+
             if (!$customer) {
                 Log::warning('getSponsorProfile: No authenticated customer');
                 return $this->errorResponse('Unauthorized', 401);
@@ -865,7 +896,7 @@ class BecomeSponsorController extends Controller
     {
         try {
             $customer = \Illuminate\Support\Facades\Auth::guard('customers')->user();
-            
+
             if (!$customer) {
                 Log::warning('getSponsorById: No authenticated customer');
                 return $this->errorResponse('Unauthorized', 401);
@@ -902,7 +933,7 @@ class BecomeSponsorController extends Controller
     {
         try {
             $customer = \Illuminate\Support\Facades\Auth::guard('customers')->user();
-            
+
             if (!$customer) {
                 Log::warning('updateSponsorProfile: No authenticated customer');
                 return $this->errorResponse('Unauthorized', 401);
@@ -988,19 +1019,19 @@ class BecomeSponsorController extends Controller
                 if ($customer->name !== $request->contact_name) {
                     $customerUpdates['name'] = $request->contact_name;
                 }
-                
+
                 // Handle password change
                 if ($request->filled('current_password') && $request->filled('new_password')) {
                     // Verify current password
                     if (!Hash::check($request->current_password, $customer->password)) {
                         return $this->errorResponse('Current password is incorrect.', 422);
                     }
-                    
+
                     // Update password
                     $customerUpdates['password'] = Hash::make($request->new_password);
                     Log::info('Password updated for customer', ['customer_id' => $customer->id]);
                 }
-                
+
                 if (!empty($customerUpdates)) {
                     Customer::where('id', $customer->id)->update($customerUpdates);
                     Log::info('Customer info updated', ['customer_id' => $customer->id, 'updates' => array_keys($customerUpdates)]);
@@ -1009,7 +1040,7 @@ class BecomeSponsorController extends Controller
 
             // Reload sponsor with relationships
             $sponsor = $sponsor->fresh(['logoMedia', 'featuredMedia', 'beneficiary']);
-            
+
             Log::info('Sponsor profile updated successfully', ['sponsor_id' => $sponsor->id]);
             return $this->successResponse(new \App\Http\Resources\Web\SponsorResource($sponsor), 'Profile updated successfully');
         } catch (\Illuminate\Validation\ValidationException $e) {
