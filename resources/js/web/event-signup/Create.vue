@@ -19,7 +19,7 @@
                 <div class="relative w-full mb-3">
                     <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="business-name">{{
                         JSON.parse(event_detail)["business_name_label"]
-                        }}<span class="ml-1 text-[0.95em] text-gray-600">(even if it the same as the name of the Event)
+                    }}<span class="ml-1 text-[0.95em] text-gray-600">(even if it the same as the name of the Event)
                         </span></label>
                     <input @input="clearErrors('business-name')" type="text" class="can-exp-input" placeholder=""
                         name="business-name" id="business-name" v-model="form.business_name" />
@@ -566,7 +566,7 @@
                     ">
                 <div class="relative z-0 w-full group">
                     <label for="title" class="text-base md:text-base lg:text-lg">{{ JSON.parse(eventsetting).title_label
-                    }}
+                        }}
                         <span class="text-red-500">*</span></label>
                     <input type="text" name="title" id="title"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
@@ -606,7 +606,7 @@
                 </div>
                 <div class="relative z-0 w-full group">
                     <label for="city" class="text-base md:text-base lg:text-lg">{{ JSON.parse(eventsetting).city_label
-                    }}
+                        }}
                         <span class="text-red-500">*</span></label>
                     <input type="text" name="city" id="city"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
@@ -646,7 +646,7 @@
                 </div>
                 <div class="relative z-0 w-full group">
                     <label for="venue" class="text-base md:text-base lg:text-lg">{{ JSON.parse(eventsetting).venue_label
-                    }}
+                        }}
                     </label>
                     <input type="text" name="venue" id="venue"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
@@ -664,7 +664,7 @@
                 <div class="relative z-0 w-full group">
                     <label for="product_search" class="text-base md:text-base lg:text-lg">{{
                         JSON.parse(eventsetting).product_search_label
-                        }}</label>
+                    }}</label>
                     <input type="text" name="product_search" id="product_search"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                         :placeholder="'(Max. 5, separated by commas.)'
@@ -803,7 +803,7 @@
                 <div class="relative z-0 w-full group flex flex-col">
                     <label for="exibitors_url" class="text-base md:text-base lg:text-lg">{{
                         JSON.parse(eventsetting).exibitors_url_label
-                        }}</label>
+                    }}</label>
                     <textarea rows="2" name="exibitors_url" id="exibitors_url"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600 resize-y"
                         :title="JSON.parse(eventsetting).exibitors_url_placeholder" :placeholder="JSON.parse(eventsetting).exibitors_url_placeholder
@@ -967,14 +967,9 @@
                         </label>
                         <input type="text" name="contact-phone" :id="`contact-phone-[${index}]`"
                             class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
-                            v-model="contact.phone" placeholder="Numbers Only. With Area Code" @input="
-                                updateContact(
-                                    index,
-                                    'phone',
-                                    $event.target.value
-                                );
-                            clearErrors(`contacts.${index}.phone`);
-                            " />
+                            v-model="contact.phone" placeholder="15551234567" maxlength="15"
+                            @input="handleContactPhoneInput(index, $event.target.value)"
+                            @keypress="validatePhoneKeypress" />
                         <Error :fieldName="`contacts.${index}.phone`" :validationErros="validationErros" />
                     </div>
 
@@ -1097,7 +1092,7 @@
                 <div class="relative z-0 w-full group">
                     <label for="facebook_url" class="text-base md:text-base lg:text-lg">{{
                         JSON.parse(eventsetting).facebook_url_label
-                        }}</label>
+                    }}</label>
                     <input type="text" name="facebook_url" id="facebook_url"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                         placeholder=" " :value="form.facebook_url" @input="
@@ -1120,7 +1115,7 @@
                 <div class="relative z-0 w-full group">
                     <label for="linkedin_url" class="text-base md:text-base lg:text-lg">{{
                         JSON.parse(eventsetting).linkedin_url_label
-                        }}</label>
+                    }}</label>
                     <input type="text" name="linkedin_url" id="linkedin_url"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                         placeholder=" " :value="form.linkedin_url" @input="
@@ -1143,7 +1138,7 @@
                 <div class="relative z-0 w-full group">
                     <label for="pintrest_url" class="text-base md:text-base lg:text-lg">{{
                         JSON.parse(eventsetting).pintrest_url_label
-                        }}</label>
+                    }}</label>
                     <input type="text" name="pintrest_url" id="pintrest_url"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                         placeholder=" " :value="form.pintrest_url" @input="
@@ -1155,7 +1150,7 @@
                 <div class="relative z-0 w-full group">
                     <label for="instagram_url" class="text-base md:text-base lg:text-lg">{{
                         JSON.parse(eventsetting).instagram_url_label
-                        }}</label>
+                    }}</label>
                     <input type="text" name="instagram_url" id="instagram_url"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                         placeholder=" " :value="form.instagram_url" @input="
@@ -1167,7 +1162,7 @@
                 <div class="relative z-0 w-full group">
                     <label for="snapchat_url" class="text-base md:text-base lg:text-lg">{{
                         JSON.parse(eventsetting).snapchat_url_label
-                        }}</label>
+                    }}</label>
                     <input type="text" name="snapchat_url" id="snapchat_url"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                         placeholder=" " :value="form.snapchat_url" @input="
@@ -2144,7 +2139,51 @@ export default {
                     console.error("Error fetching event:", error);
                 });
         },
+        handleContactPhoneInput(index, value) {
+            // Remove any characters that aren't + or numbers
+            let cleanValue = value.replace(/[^0-9+]/g, '');
+
+            // Limit to 15 characters
+            if (cleanValue.length > 15) {
+                cleanValue = cleanValue.substring(0, 15);
+            }
+
+            // Update the contact
+            this.updateContact(index, 'phone', cleanValue);
+            this.clearErrors(`contacts.${index}.phone`);
+        },
+
+        validatePhoneKeypress(event) {
+            const char = event.key;
+            const input = event.target;
+            const value = input.value || '';
+
+            // Allow: backspace, delete, tab, escape, enter (navigation keys)
+            if (
+                event.key === 'Backspace' ||
+                event.key === 'Delete' ||
+                event.key === 'Tab' ||
+                event.key === 'Escape' ||
+                event.key === 'Enter' ||
+                event.key === 'ArrowLeft' ||
+                event.key === 'ArrowRight'
+            ) {
+                return;
+            }
+
+            // Check if already at 15 character limit
+            if (value.length >= 15) {
+                event.preventDefault();
+                return;
+            }
+
+            // Allow + or numbers (0-9)
+            if (char !== '+' && !/^[0-9]$/.test(char)) {
+                event.preventDefault();
+            }
+        },
     },
+
     created() {
         // Check if we're in edit mode
         if (this.event_id && this.event_id !== 'null' && this.event_id !== '') {

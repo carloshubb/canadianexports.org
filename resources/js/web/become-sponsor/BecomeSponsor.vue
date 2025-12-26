@@ -4,7 +4,7 @@
 
 
       <!-- Sponsorship Amount & Frequency (Only for "Enter Your Amount" option) -->
-      <div  class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
+      <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
         <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
           <h4 class="text-white">Select Your Sponsorship Amount & Frequency*</h4>
 
@@ -121,7 +121,7 @@
         </div>
         <div class="p-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="relative w-full">
+            <div class="relative w-full hidden">
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="talk_to_us_name">
                 Your Name and Title
                 <span class="text-red-500">*</span>
@@ -131,13 +131,14 @@
               <Error v-if="submitted" fieldName="talk_to_us_name" :validationErros="validationErros" />
             </div>
 
-            <div class="relative w-full">
+            <div class="relative w-full hidden">
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="talk_to_us_phone">
                 Numbers Only. With Area Code
                 <span class="text-red-500">*</span>
               </label>
               <input type="text" id="talk_to_us_phone" v-model="form.talk_to_us_phone" class="can-exp-input"
-                placeholder="+1 (555) 123-4567" @input="clearErrors('talk_to_us_phone')" />
+                placeholder="+15551234567" @input="handlePhoneInput('talk_to_us_phone')"
+                @keypress="validatePhoneKeypress" />
               <Error v-if="submitted" fieldName="talk_to_us_phone" :validationErros="validationErros" />
             </div>
 
@@ -216,7 +217,8 @@
                 <span class="text-red-500">*</span>
               </label>
               <input type="text" id="contact_number" v-model="form.contact_number" class="can-exp-input"
-                placeholder="Numbers only. With area code" @input="clearErrors('contact_number')" />
+                placeholder="+15551234567" @input="handlePhoneInput('contact_number')"
+                @keypress="validatePhoneKeypress" />
               <Error v-if="submitted" fieldName="contact_number" :validationErros="validationErros" />
             </div>
 
@@ -332,7 +334,9 @@
             <!-- Featured Image Upload (appears on Home page) -->
             <div class="relative w-full">
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="featured_image">
-                 Featured Image (<span class="text-[0.9em] text-gray-600">Appears on the Home page</span> · PNG, GIF, JPG, JPEG · <span class="text-[0.9em] text-gray-600"> 10 MB max</span>) 
+                Featured Image (<span class="text-[0.9em] text-gray-600">Appears on the Home page</span> · PNG, GIF,
+                JPG, JPEG
+                · <span class="text-[0.9em] text-gray-600"> 10 MB max</span>)
 
                 <span class="text-red-500">*</span>
               </label>
@@ -347,7 +351,8 @@
             <!-- Profile Image Upload -->
             <div class="relative w-full">
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="logo">
-                Profile Image (Allowed file types: PNG, GIF, JPG, JPEG.<span class="text-[0.9em] text-gray-600">Max. 10MB.</span> )
+                Profile Image (Allowed file types: PNG, GIF, JPG, JPEG.<span class="text-[0.9em] text-gray-600">Max.
+                  10MB.</span> )
                 <span class="text-red-500">*</span>
               </label>
               <FilePond @input="clearErrors('logo')" ref="filePondLogo" name="logo"
@@ -667,7 +672,7 @@ export default {
     onOptionChange(talkToUsFirst) {
       this.form.talk_to_us_first = talkToUsFirst;
       this.validationErros = new ErrorHandling();
-      console.log("show_contact_preference before toggle:", this.show_contact_preference);      
+      console.log("show_contact_preference before toggle:", this.show_contact_preference);
       this.show_contact_preference = !this.show_contact_preference;
       console.log("show_contact_preference after toggle:", this.show_contact_preference);
       this.submitted = false;
@@ -1260,6 +1265,49 @@ export default {
     handleFeaturedImageProcess(error, file) {
       if (!error) {
         this.uploaded_files.featured_image = file.serverId;
+      }
+    },
+    handlePhoneInput(fieldName) {
+      // Remove any characters that aren't + or numbers
+      const cleanValue = this.form[fieldName].replace(/[^0-9+]/g, '');
+      // Limit to 15 characters
+      console.log(cleanValue.length);
+
+      if (cleanValue.length > 15) {
+        cleanValue = cleanValue.substring(0, 15);
+
+      }
+      this.form[fieldName] = cleanValue;
+      this.clearErrors(fieldName);
+    },
+
+    validatePhoneKeypress(event) {
+      const char = event.key;
+      const input = event.target;
+      const value = input.value || '';
+
+      // Allow: backspace, delete, tab, escape, enter (navigation keys)
+      if (
+        event.key === 'Backspace' ||
+        event.key === 'Delete' ||
+        event.key === 'Tab' ||
+        event.key === 'Escape' ||
+        event.key === 'Enter' ||
+        event.key === 'ArrowLeft' ||
+        event.key === 'ArrowRight'
+      ) {
+        return;
+      }
+
+      // Check if already at 15 character limit
+      if (value.length >= 15) {
+        event.preventDefault();
+        return;
+      }
+
+      // Allow + or numbers (0-9)
+      if (char !== '+' && !/^[0-9]$/.test(char)) {
+        event.preventDefault();
       }
     },
 
