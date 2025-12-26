@@ -200,7 +200,6 @@ class SignupController extends Controller
                 'is_auto_renew' => isset($request->is_auto_renew) && $request->is_auto_renew == 'true' ? 1 : 0,
                 'is_active' => 1,
                 'active_email_url' => $activeEmailUrl,
-                'password' => Hash::make($request->password),
                 'type' => 'customer',
                 'registration_package_id' => $request->registration_package_id,
                 'payment_frequency' => $request->payment_frequency,
@@ -217,6 +216,11 @@ class SignupController extends Controller
                 'verify_customer_email' => 0,
                 'active_account_url' => null,
             ];
+            
+            // Only set password if provided (for new customers)
+            if ($request->filled('password')) {
+                $customerData['password'] = Hash::make($request->password);
+            }
 
             // Determine which customer to use
             $customer = null;
@@ -378,7 +382,12 @@ class SignupController extends Controller
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
-            return $this->errorResponse();
+            Log::error('Signup error: ' . $e->getMessage(), [
+                'exception' => $e,
+                'trace' => $e->getTraceAsString(),
+                'request_data' => $request->except(['password', 'password_confirmation'])
+            ]);
+            return response()->json($this->errorResponse('Something went wrong, please try again.'), 500);
         }
 
         $data = [];

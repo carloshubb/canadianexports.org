@@ -2,12 +2,23 @@
   <div class="relative shadow-md sm:rounded-lg bg-white py-6">
     <div class="px-4 sm:px-6 lg:px-8">
       <div class="mb-6">
-        <h2 class="can-exp-h2 text-primary mb-2">
-          Upcoming webinars
-        </h2>
-        <p class="text-gray-600" v-if="!webinars || webinars.length === 0">
-          There are currently no upcoming webinars. Please check back later.
-        </p>
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="can-exp-h2 text-primary mb-2">
+              Webinars
+            </h2>
+            <p class="text-gray-600" v-if="!webinars || webinars.length === 0">
+              There are currently no webinars available. Please check back later.
+            </p>
+          </div>
+          <a 
+            v-if="isLoggedIn" 
+            :href="getMyWebinarsUrl()" 
+            class="button-exp-fill whitespace-nowrap ml-4"
+          >
+            + Host a Webinar
+          </a>
+        </div>
       </div>
 
       <div
@@ -29,9 +40,17 @@
               <h3 class="text-xl font-semibold text-primary">
                 {{ webinar.title }}
               </h3>
-              <span :class="getTypeClass(webinar.webinar_type)" class="text-xs px-2 py-1 rounded whitespace-nowrap ml-2">
-                {{ getTypeLabel(webinar.webinar_type) }}
-              </span>
+              <div class="flex gap-1 ml-2">
+                <span :class="getTypeClass(webinar.webinar_type)" class="text-xs px-2 py-1 rounded whitespace-nowrap">
+                  {{ getTypeLabel(webinar.webinar_type) }}
+                </span>
+                <span v-if="isPast(webinar)" class="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded whitespace-nowrap">
+                  Past
+                </span>
+                <span v-else class="text-xs bg-green-200 text-green-700 px-2 py-1 rounded whitespace-nowrap">
+                  Upcoming
+                </span>
+              </div>
             </div>
             
             <!-- Presenter with image -->
@@ -88,16 +107,16 @@
               This webinar is fully booked.
             </div>
 
-            <!-- Tabs for registered users -->
+            <!-- Tabs for registered users (works for both upcoming and past webinars) -->
             <div v-if="isRegistered(webinar.id)" class="mb-4">
               <div class="text-green-600 text-sm mb-3 flex items-center">
                 <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                 </svg>
-                You are registered for this webinar
+                You {{ isPast(webinar) ? 'were registered' : 'are registered' }} for this webinar
               </div>
 
-              <!-- Webinar interaction tabs -->
+              <!-- Webinar interaction tabs (available for registered users on past webinars too) -->
               <div v-if="webinar.webinar_type === 'live_interactive'" class="border rounded-lg">
                 <div class="flex border-b">
                   <button 
@@ -222,8 +241,22 @@
               </div>
             </div>
 
+            <!-- Past webinars: No registration, but show message if registered -->
+            <div v-if="isPast(webinar)" class="mb-4">
+              <div v-if="isRegistered(webinar.id)" class="text-green-600 text-sm mb-3 flex items-center">
+                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                You were registered for this webinar
+              </div>
+              <div v-else class="text-gray-500 text-sm">
+                This webinar has already ended. Registration is no longer available.
+              </div>
+            </div>
+
+            <!-- Upcoming webinars: Show registration button -->
             <button
-              v-if="!isFull(webinar) && !isRegistered(webinar.id)"
+              v-if="!isPast(webinar) && !isFull(webinar) && !isRegistered(webinar.id)"
               type="button"
               class="button-exp-fill mb-3"
               @click="toggleForm(webinar.id)"
@@ -232,7 +265,7 @@
             </button>
 
             <form
-              v-if="activeFormId === webinar.id && !isFull(webinar) && !isRegistered(webinar.id)"
+              v-if="!isPast(webinar) && activeFormId === webinar.id && !isFull(webinar) && !isRegistered(webinar.id)"
               class="space-y-3"
               @submit.prevent="submit(webinar.id)"
             >
@@ -339,6 +372,10 @@ export default {
       type: String,
       required: true,
     },
+    isLoggedIn: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -418,6 +455,12 @@ export default {
       if (webinar.available_seats === "Unlimited") return false;
       return Number(webinar.available_seats) <= 0;
     },
+    isPast(webinar) {
+      if (!webinar || !webinar.scheduled_at) return false;
+      const scheduledDate = new Date(webinar.scheduled_at);
+      const endDate = new Date(scheduledDate.getTime() + (webinar.duration_minutes || 60) * 60000);
+      return new Date() > endDate;
+    },
     isRegistered(webinarId) {
       return !!this.registrations[webinarId];
     },
@@ -479,10 +522,25 @@ export default {
       return null;
     },
     getCoverImage(webinar) {
+      // Use accessor if available, otherwise parse manually
+      if (webinar.cover_image_url) {
+        return webinar.cover_image_url;
+      }
       return this.parseImagePath(webinar.cover_image);
     },
     getPresenterImage(webinar) {
+      // Use accessor if available, otherwise parse manually
+      if (webinar.presenter_image_url) {
+        return webinar.presenter_image_url;
+      }
       return this.parseImagePath(webinar.presenter_image);
+    },
+    getMyWebinarsUrl() {
+      // Extract language code from current URL
+      const path = window.location.pathname;
+      const segments = path.split('/').filter(s => s);
+      const langCode = segments[0] || 'en'; // Default to 'en' if not found
+      return `/${langCode}/my-webinars`;
     },
     getActiveTab(webinarId) {
       if (!this.activeTabs[webinarId]) {

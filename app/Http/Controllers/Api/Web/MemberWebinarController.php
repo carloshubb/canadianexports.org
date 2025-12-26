@@ -14,7 +14,7 @@ class MemberWebinarController extends Controller
      */
     public function index(Request $request)
     {
-        $customerId = auth('customer')->id();
+        $customerId = auth('customers')->id();
         
         if (!$customerId) {
             return response()->json([
@@ -38,7 +38,7 @@ class MemberWebinarController extends Controller
      */
     public function store(Request $request)
     {
-        $customerId = auth('customer')->id();
+        $customerId = auth('customers')->id();
         
         if (!$customerId) {
             return response()->json([
@@ -87,7 +87,7 @@ class MemberWebinarController extends Controller
      */
     public function show($id)
     {
-        $customerId = auth('customer')->id();
+        $customerId = auth('customers')->id();
         
         if (!$customerId) {
             return response()->json([
@@ -111,7 +111,7 @@ class MemberWebinarController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $customerId = auth('customer')->id();
+        $customerId = auth('customers')->id();
         
         if (!$customerId) {
             return response()->json([
@@ -167,7 +167,7 @@ class MemberWebinarController extends Controller
      */
     public function destroy($id)
     {
-        $customerId = auth('customer')->id();
+        $customerId = auth('customers')->id();
         
         if (!$customerId) {
             return response()->json([
@@ -199,7 +199,7 @@ class MemberWebinarController extends Controller
      */
     public function cancel($id)
     {
-        $customerId = auth('customer')->id();
+        $customerId = auth('customers')->id();
         
         if (!$customerId) {
             return response()->json([
@@ -225,7 +225,7 @@ class MemberWebinarController extends Controller
      */
     public function registrations($id)
     {
-        $customerId = auth('customer')->id();
+        $customerId = auth('customers')->id();
         
         if (!$customerId) {
             return response()->json([
@@ -251,7 +251,7 @@ class MemberWebinarController extends Controller
      */
     public function questions($id)
     {
-        $customerId = auth('customer')->id();
+        $customerId = auth('customers')->id();
         
         if (!$customerId) {
             return response()->json([

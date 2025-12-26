@@ -56,12 +56,17 @@ class NewCustomerAdminMail extends Mailable
     $defaultData = [
         'company_name' => $this->data['company_name'] ?? 'Unnamed Event',
         'email' => $this->data['email'] ?? '',
-        'contact_person_name' => $this->data['contact_person_name'] ?? '',
+        'name' => $this->data['name'] ?? $this->data['contact_person_name'] ?? '',
+        'contact_person_name' => $this->data['contact_person_name'] ?? $this->data['name'] ?? '',
         'event_slug' => $this->data['event_slug'] ?? '',
         'package_type' => $this->data['package_type'] ?? 'Free',
         'package_price' => $this->data['package_price'] ?? 0,
         'created_at' => $this->data['created_at'] ?? now(),
         'end_date' => $this->data['end_date'] ?? now(),
+        'payment_frequency' => $this->data['payment_frequency'] ?? '',
+        'business_categories_name' => $this->data['business_categories_name'] ?? [],
+        'package' => $this->data['package'] ?? null,
+        'user_id' => $this->data['user_id'] ?? '',
     ];
     $service = app(EmailTemplateService::class);
 

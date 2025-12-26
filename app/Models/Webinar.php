@@ -46,7 +46,7 @@ class Webinar extends Model
         'keywords' => 'array',
     ];
 
-    protected $appends = ['registrations_count', 'available_seats', 'questions_count', 'unanswered_questions_count'];
+    protected $appends = ['registrations_count', 'available_seats', 'questions_count', 'unanswered_questions_count', 'cover_image_url', 'presenter_image_url'];
 
     // Webinar types
     const TYPE_LIVE_INTERACTIVE = 'live_interactive';
@@ -123,6 +123,60 @@ class Webinar extends Model
     public function getUnansweredQuestionsCountAttribute()
     {
         return $this->questions()->where('is_answered', false)->whereIn('status', ['pending', 'approved'])->count();
+    }
+
+    /**
+     * Get cover image URL (parsed from JSON array or string)
+     */
+    public function getCoverImageUrlAttribute()
+    {
+        return $this->parseImagePath($this->cover_image);
+    }
+
+    /**
+     * Get presenter image URL (parsed from JSON array or string)
+     */
+    public function getPresenterImageUrlAttribute()
+    {
+        return $this->parseImagePath($this->presenter_image);
+    }
+
+    /**
+     * Parse image path from database (handles JSON array or string)
+     */
+    private function parseImagePath($imagePath)
+    {
+        if (!$imagePath) {
+            return null;
+        }
+
+        $path = null;
+
+        // If it's a JSON string (array), parse it
+        if (is_string($imagePath) && str_starts_with($imagePath, '[')) {
+            $parsed = json_decode($imagePath, true);
+            if (is_array($parsed) && count($parsed) > 0) {
+                $path = str_replace('\\', '/', $parsed[0]);
+            }
+        }
+        // If it's already an array
+        elseif (is_array($imagePath) && count($imagePath) > 0) {
+            $path = str_replace('\\', '/', $imagePath[0]);
+        }
+        // If it's a plain string path
+        elseif (is_string($imagePath) && strlen($imagePath) > 0) {
+            $path = str_replace('\\', '/', $imagePath);
+        }
+
+        if (!$path) {
+            return null;
+        }
+
+        // Remove leading slash if present (asset() will add it)
+        $path = ltrim($path, '/');
+        
+        // Return full URL using asset() helper
+        return asset($path);
     }
 
     public function isFull()

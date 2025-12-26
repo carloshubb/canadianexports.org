@@ -190,7 +190,7 @@ export default {
                 .then((res) => {
                     this.loading = false;
                     if (res.data.status == "Success") {
-                        console.log("aaaaaaaaa",res.data.data.redirect_url);
+                       // console.log("aaaaaaaaa",res.data.data.redirect_url);
                         // Clear localStorage on successful submission
                         localStorage.removeItem("formData");
                         // Redirect after user clicks OK button (promise is already resolved in store)

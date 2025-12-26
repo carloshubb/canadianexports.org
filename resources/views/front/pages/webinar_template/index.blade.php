@@ -1,39 +1,55 @@
 @php
     use App\Models\Webinar;
 
-    // Helper function to parse image path from database
-    function parseWebinarImage($imagePath) {
-        if (!$imagePath) return null;
-        
-        // If it's a JSON string (array), parse it
-        if (is_string($imagePath) && str_starts_with($imagePath, '[')) {
-            $parsed = json_decode($imagePath, true);
-            if (is_array($parsed) && count($parsed) > 0) {
-                return '/' . str_replace('\\', '/', $parsed[0]);
+    // Helper function to parse image path from database (only declare if not exists)
+    if (!function_exists('parseWebinarImage')) {
+        function parseWebinarImage($imagePath) {
+            if (!$imagePath) return null;
+            
+            // If it's a JSON string (array), parse it
+            if (is_string($imagePath) && str_starts_with($imagePath, '[')) {
+                $parsed = json_decode($imagePath, true);
+                if (is_array($parsed) && count($parsed) > 0) {
+                    return '/' . str_replace('\\', '/', $parsed[0]);
+                }
             }
+            // If it's already an array
+            if (is_array($imagePath) && count($imagePath) > 0) {
+                return '/' . str_replace('\\', '/', $imagePath[0]);
+            }
+            // If it's a plain string path
+            if (is_string($imagePath) && strlen($imagePath) > 0) {
+                return str_starts_with($imagePath, '/') ? $imagePath : '/' . $imagePath;
+            }
+            return null;
         }
-        // If it's already an array
-        if (is_array($imagePath) && count($imagePath) > 0) {
-            return '/' . str_replace('\\', '/', $imagePath[0]);
-        }
-        // If it's a plain string path
-        if (is_string($imagePath) && strlen($imagePath) > 0) {
-            return str_starts_with($imagePath, '/') ? $imagePath : '/' . $imagePath;
-        }
-        return null;
     }
 
-    // Upcoming webinars (future dates)
-    $upcomingWebinars = Webinar::where('status', 'published')
-        ->where('scheduled_at', '>', now())
-        ->orderBy('scheduled_at')
-        ->get();
+    // Get language abbreviation from URL or use default
+    $currentLang = $lang ?? getDefaultLanguage(true);
+    $langAbbreviation = $currentLang->abbreviation ?? 'en';
+    
+    // Extract from URL if not available
+    if (!isset($langAbbreviation) || empty($langAbbreviation)) {
+        $pathSegments = explode('/', trim(request()->path(), '/'));
+        $langAbbreviation = $pathSegments[0] ?? 'en';
+    }
 
-    // Past webinars (for recordings/replay)
-    $pastWebinars = Webinar::where('status', 'published')
-        ->where('scheduled_at', '<=', now())
+    // All published webinars (upcoming and past, excluding recorded type)
+    $allWebinars = Webinar::where('status', 'published')
+        ->where('webinar_type', '!=', 'recorded')
         ->orderBy('scheduled_at', 'desc')
         ->get();
+
+    // Upcoming webinars (future dates) - for reference
+    $upcomingWebinars = $allWebinars->filter(function($webinar) {
+        return $webinar->scheduled_at > now();
+    })->values();
+
+    // Past webinars (for recordings/replay)
+    $pastWebinars = $allWebinars->filter(function($webinar) {
+        return $webinar->scheduled_at <= now();
+    })->values();
 
     // Recorded/On-demand webinars
     $recordedWebinars = Webinar::where('status', 'published')
@@ -58,10 +74,26 @@
                 @endisset
 
                 <div class="container mt-8">
-                    {{-- Upcoming Webinars --}}
+                    {{-- Member Dashboard Section (if logged in) --}}
+                    @auth('customers')
+                        <div class="mb-8">
+                            <div class="bg-white rounded-lg shadow-md p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h2 class="text-2xl font-bold text-primary">My Webinars</h2>
+                                    <a href="{{ route('member.webinars', ['abbreviation' => $langAbbreviation]) }}" class="button-exp-fill">
+                                        Manage My Webinars →
+                                    </a>
+                                </div>
+                                <p class="text-gray-600">Create and manage your own webinars. Share your expertise with the community!</p>
+                            </div>
+                        </div>
+                    @endauth
+
+                    {{-- All Webinars (Upcoming and Past) --}}
                     <webinars-index
-                        :webinars='@json($upcomingWebinars)'
+                        :webinars='@json($allWebinars)'
                         register-url="{{ url('api/webinars') }}"
+                        :is-logged-in="{{ auth('customers')->check() ? 'true' : 'false' }}"
                     ></webinars-index>
 
                     {{-- Recorded/On-Demand Webinars Section --}}
@@ -71,16 +103,15 @@
                             <p class="text-gray-600 mb-6">Watch these webinars anytime at your convenience.</p>
                             <div class="grid gap-6 md:grid-cols-2">
                                 @foreach($recordedWebinars as $webinar)
-                                    @php $coverImg = parseWebinarImage($webinar->cover_image); @endphp
                                     <div class="border border-gray-200 rounded-lg overflow-hidden bg-white shadow-sm">
                                         {{-- Cover Image or Video Embed --}}
                                         @if($webinar->embed_code)
                                             <div class="aspect-video bg-black">
                                                 {!! $webinar->embed_code !!}
                                             </div>
-                                        @elseif($coverImg)
+                                        @elseif($webinar->cover_image_url)
                                             <div class="aspect-video bg-gray-200">
-                                                <img src="{{ $coverImg }}" alt="{{ $webinar->title }}" class="w-full h-full object-cover">
+                                                <img src="{{ $webinar->cover_image_url }}" alt="{{ $webinar->title }}" class="w-full h-full object-cover">
                                             </div>
                                         @elseif($webinar->recording_url)
                                             @php
@@ -146,16 +177,15 @@
                             <h2 class="can-exp-h2 text-primary mb-6">Past Webinar Recordings</h2>
                             <div class="grid gap-6 md:grid-cols-2">
                                 @foreach($pastWithRecordings as $webinar)
-                                    @php $coverImg = parseWebinarImage($webinar->cover_image); @endphp
                                     <div class="border border-gray-200 rounded-lg overflow-hidden bg-white shadow-sm">
                                         {{-- Cover Image or Video Embed --}}
                                         @if($webinar->embed_code)
                                             <div class="aspect-video bg-black">
                                                 {!! $webinar->embed_code !!}
                                             </div>
-                                        @elseif($coverImg)
+                                        @elseif($webinar->cover_image_url)
                                             <div class="aspect-video bg-gray-200">
-                                                <img src="{{ $coverImg }}" alt="{{ $webinar->title }}" class="w-full h-full object-cover">
+                                                <img src="{{ $webinar->cover_image_url }}" alt="{{ $webinar->title }}" class="w-full h-full object-cover">
                                             </div>
                                         @elseif($webinar->recording_url)
                                             @php

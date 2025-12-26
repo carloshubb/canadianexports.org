@@ -275,6 +275,16 @@ const signup = {
                             helper.swalErrorMessageForWeb(
                                 error.response.data.message
                             );
+                        } else if (error.response && error.response.data && error.response.data.message) {
+                            // Handle cases where error message is directly in response.data.message
+                            helper.swalErrorMessageForWeb(
+                                error.response.data.message
+                            );
+                        } else {
+                            // Fallback for network errors or unexpected error formats
+                            helper.swalErrorMessageForWeb(
+                                'Something went wrong, please try again.'
+                            );
                         }
                         reject(error);
                     })

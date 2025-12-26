@@ -181,6 +181,14 @@ Route::group(['middleware' => ['share.variable', 'user.status']], function () {
     Route::post('/unsubscribe-holiday', [HelperController::class, 'unsubscribeHoliday'])->name('front.unsubscribe-holiday');
     Route::get('/customer-reactive-email/{email}/{id}', [SignupController::class, 'customerReactiveEmail'])->name('front.customer-reactive-email');
     Route::post('/update-customer-reactive-email', [SignupController::class, 'updateCustomerReactiveEmail'])->name('front.update-customer-reactive-email');
+    // Member Webinars Dashboard
+    Route::get('/{abbreviation}/my-webinars', function ($abbreviation) {
+        if (!auth('customers')->check()) {
+            return redirect()->route('front.index', ['abbreviation' => $abbreviation]);
+        }
+        return view('front.pages.member-webinars');
+    })->name('member.webinars')->whereIn('abbreviation', Language::pluck('abbreviation')->toArray())->middleware('auth.user');
+
     //Route::get('/{slug?}', [HomeController::class, 'index'])->name('front.index');
     Route::get('/{abbreviation?}/{slug?}', [HomeController::class, 'index_abbreviation'])->name('front.index')->whereIn('abbreviation', Language::pluck('abbreviation')->toArray())->middleware('auth.user');
     Route::get('/clear-cache', function () {
