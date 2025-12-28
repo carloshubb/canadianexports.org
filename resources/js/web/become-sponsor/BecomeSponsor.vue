@@ -67,8 +67,8 @@
               <label
                 class="w-full h-full flex flex-col cursor-pointer px-5 py-6 rounded-md text-base md:text-lg font-medium text-center border-2 transition-all"
                 :class="show_contact_preference
-                  ? 'text-white bg-primary border-primary shadow-lg'
-                  : 'text-primary bg-white border-gray-300 hover:border-primary'
+                  ? 'border-2 border-green-500 text-green-500'
+                  : 'border-gray-200'
                   ">
                 <input type="radio" name="sponsorship_option" :value="true" class="sr-only"
                   v-model="form.talk_to_us_first" @click="onOptionChange(true)" />
@@ -332,9 +332,8 @@
             <!-- Featured Image Upload (appears on Home page) -->
             <div class="relative w-full">
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="featured_image">
-                Featured Image (<span class="text-[0.9em] text-gray-600">Appears on the Home page</span> · PNG, GIF,
-                JPG, JPEG
-                · <span class="text-[0.9em] text-gray-600"> 10 MB max</span>)
+                Featured Image (<span class="text-[0.85em]">Appears on the Home page · PNG, GIF,
+                JPG, JPEG ·  10 MB max)</span>
 
                 <span class="text-red-500">*</span>
               </label>
@@ -348,9 +347,8 @@
 
             <!-- Profile Image Upload -->
             <div class="relative w-full">
-              <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="logo">
-                Profile Image (Allowed file types: PNG, GIF, JPG, JPEG.<span class="text-[0.9em] text-gray-600">Max.
-                  10MB.</span> )
+              <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="logo">Profile Image
+                <span class="text-[0.85em]"> (Allowed file types: PNG, GIF, JPG, JPEG.Max.10MB.)</span> 
                 <span class="text-red-500">*</span>
               </label>
               <FilePond @input="clearErrors('logo')" ref="filePondLogo" name="logo"

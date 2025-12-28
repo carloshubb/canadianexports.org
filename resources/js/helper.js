@@ -95,10 +95,12 @@ const helpers = {
             title: "Success",
             timerProgressBar: true,
             customClass: {
+                popup: "gradient-border-modal",
                 title: "swalSuccessClass",
                 htmlContainer: "swalSuccessClass",
             },
             didOpen: (toast) => {
+                
                 toast.addEventListener("mouseenter", swal.stopTimer);
                 toast.addEventListener("mouseleave", swal.resumeTimer);
             },
@@ -117,6 +119,7 @@ const helpers = {
             title: "Error",
             timerProgressBar: true,
             customClass: {
+                popup: "gradient-border-modal",
                 title: "swalErrorClass",
                 htmlContainer: "swalErrorClass",
             },
@@ -200,7 +203,7 @@ const helpers = {
             background: "#ffffffff",
             buttonsStyling: false,
             customClass: {
-                 popup: "gradient-border-modal", // Add custom class for the popup container
+                popup: "gradient-border-modal", // Add custom class for the popup container
                 title: "swalErrorClass",
                 htmlContainer: "swalErrorClass",
                 confirmButton: 'button-exp-fill focus:outline-none',

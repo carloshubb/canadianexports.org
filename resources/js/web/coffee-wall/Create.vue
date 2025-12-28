@@ -212,6 +212,7 @@
                         </div>
                     </div>
                     <div class="relative w-full">
+                        <br>
                         <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="phone">{{
                             JSON.parse(coffee_wall_setting)["phone_label"] ?? "Your Phone Number (Optional - We won't  call or text unless you ask us to)" }}
                         </label>
@@ -398,7 +399,7 @@
                     <input @input="clearErrors('terms_privacy_agreement')" type="checkbox" class="mt-1"
                         name="terms_privacy_agreement" id="terms_privacy_agreement"
                         v-model="form.terms_privacy_agreement" />
-                    <p>I understand that my contribution is a voluntary donation and non-refundable.<br> By clicking "<strong>Make Someone's Day</strong>",  I agree to the <a
+                    <p>I understand that my contribution is a voluntary donation and non-refundable. By clicking "<strong>Make Someone's Day</strong>",  I agree to the <a
                             href="../../../en/terms-and-conditions" target="_blank" rel="noopener">Terms and
                             Conditions</a>&nbsp;and&nbsp;<a href="../../../en/privacy-policy" target="_blank"
                             rel="noopener">Privacy Policy</a></p>
@@ -859,10 +860,10 @@ export default {
 
                             // Show success message with redirect
                             Swal.fire({
-                                title: 'Success!',
-                                text: res.data.message || 'Thank you for your generosity!',
+                                
+                                text: res.data.message || 'This Coffee comes from you, who chose to support Canadian small businesses like yours.',
                                 icon: 'success',
-                                confirmButtonText: 'OK',
+                                confirmButtonText: 'Thank You',
                                 allowOutsideClick: false,
                                 allowEscapeKey: false,
                                 customClass: {
