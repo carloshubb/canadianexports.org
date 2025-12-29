@@ -114,11 +114,10 @@ class PageController extends Controller
     public function index()
     {
         $pages = Page::query();
-
         $pages = $this->whereClause($pages);
         $pages = $this->loadRelations($pages);
         $pages = $this->sortingAndLimit($pages);
-
+        
         return $this->apiSuccessResponse(PageResource::collection($pages), 'Data Get Successfully!');
     }
 

@@ -432,7 +432,10 @@ export default {
               name: "Testimonials",
               href: this.route("admin.testimonials.index"),
             },
-
+            {
+              name: "webinars",
+              href: this.route("admin.webinars.index"),
+            },
           ],
         },
         {

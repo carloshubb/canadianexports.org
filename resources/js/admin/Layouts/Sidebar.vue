@@ -99,7 +99,7 @@
                   d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-7.5A3.375 3.375 0 005.25 11.625V14.25m14.25 0H4.5m15 0v2.625A3.375 3.375 0 0116.125 20.25h-7.5A3.375 3.375 0 015.25 16.875V14.25m0 0V8.25A3.375 3.375 0 018.625 4.875h6.75A3.375 3.375 0 0118.75 8.25V14.25" />
               </svg>
             </div>
-            <span class="links_name pointer-events-auto opacity-0 text-white">Articles</span>
+            <span class="links_name pointer-events-auto opacity-0 text-white">Articles123</span>
           </router-link>
         </li>
         <li @click="hideBurgerMenu()">
