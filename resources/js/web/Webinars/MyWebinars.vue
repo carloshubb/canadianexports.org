@@ -430,18 +430,41 @@ export default {
     parseImagePath(imagePath) {
       if (!imagePath) return null;
       try {
+        let path = null;
+        
+        // If it's a JSON string (array), parse it
         if (typeof imagePath === "string" && imagePath.startsWith("[")) {
           const parsed = JSON.parse(imagePath);
           if (Array.isArray(parsed) && parsed.length > 0) {
-            return "/" + parsed[0].replace(/\\/g, "/");
+            path = parsed[0];
           }
         }
-        if (Array.isArray(imagePath) && imagePath.length > 0) {
-          return "/" + imagePath[0].replace(/\\/g, "/");
+        // If it's already an array
+        else if (Array.isArray(imagePath) && imagePath.length > 0) {
+          path = imagePath[0];
         }
-        if (typeof imagePath === "string" && imagePath.length > 0) {
-          return imagePath.startsWith("/") ? imagePath : "/" + imagePath;
+        // If it's a plain string path
+        else if (typeof imagePath === "string" && imagePath.length > 0) {
+          path = imagePath;
         }
+        
+        if (!path) return null;
+        
+        // Normalize slashes
+        path = path.replace(/\\/g, "/");
+        
+        // Remove leading slash
+        path = path.replace(/^\/+/, "");
+        
+        // Files are stored in storage/app/public/media/temp/...
+        // They need to be accessed via storage symlink: storage/media/temp/...
+        if (path.startsWith("media/")) {
+          // Prepend 'storage/' to make it accessible via the symlink
+          path = "storage/" + path;
+        }
+        
+        // Ensure it starts with /
+        return path.startsWith("/") ? path : "/" + path;
       } catch (e) {
         console.error("Error parsing image path:", e);
       }

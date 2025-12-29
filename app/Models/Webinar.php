@@ -146,38 +146,55 @@ class Webinar extends Model
      */
     private function parseImagePath($imagePath)
     {
-        if (!$imagePath) {
+        if (empty($imagePath)) {
             return null;
         }
 
         $path = null;
 
-        // If it's a JSON string (array), parse it
-        if (is_string($imagePath) && str_starts_with($imagePath, '[')) {
+        // JSON string (["media/temp/..."])
+        if (is_string($imagePath) && str_starts_with(trim($imagePath), '[')) {
             $parsed = json_decode($imagePath, true);
-            if (is_array($parsed) && count($parsed) > 0) {
-                $path = str_replace('\\', '/', $parsed[0]);
+
+            if (json_last_error() === JSON_ERROR_NONE && !empty($parsed[0])) {
+                $path = $parsed[0];
             }
         }
-        // If it's already an array
-        elseif (is_array($imagePath) && count($imagePath) > 0) {
-            $path = str_replace('\\', '/', $imagePath[0]);
+        // Array input
+        elseif (is_array($imagePath) && !empty($imagePath[0])) {
+            $path = $imagePath[0];
         }
-        // If it's a plain string path
-        elseif (is_string($imagePath) && strlen($imagePath) > 0) {
-            $path = str_replace('\\', '/', $imagePath);
+        // Plain string
+        elseif (is_string($imagePath)) {
+            $path = $imagePath;
         }
 
         if (!$path) {
             return null;
         }
 
-        // Remove leading slash if present (asset() will add it)
+        // Normalize slashes
+        $path = str_replace('\\', '/', $path);
+
+        // Remove leading slash
         $path = ltrim($path, '/');
-        
-        // Return full URL using asset() helper
-        return asset($path);
+
+        // Files are stored in storage/app/public/media/temp/...
+        // They need to be accessed via storage symlink: storage/media/temp/...
+        if (str_starts_with($path, 'media/')) {
+            // Prepend 'storage/' to make it accessible via the symlink
+            $path = 'storage/' . $path;
+        }
+
+        // If already starts with storage/, use as is
+        if (str_starts_with($path, 'storage/')) {
+            return asset($path);
+        }
+
+        // Default fallback - try with storage/ prefix
+        return asset('storage/' . $path);
     }
+
 
     public function isFull()
     {

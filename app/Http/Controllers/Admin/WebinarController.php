@@ -78,7 +78,6 @@ class WebinarController extends Controller
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
         ]);
-
         $webinar = Webinar::create($validated);
 
         return response()->json([
