@@ -368,10 +368,43 @@ class EventSignupController extends Controller
             }
 
             // Only send verification email to new customers
+            $emailSent = false;
             if ($isNewCustomer) {
-                Mail::to($request->email)->send(new CustomerVerifyEmailMail($data));
+                try {
+                    Log::info('Attempting to send verification email', [
+                        'email' => $request->email,
+                        'customer_id' => $customer->id ?? null,
+                        'is_new_customer' => $isNewCustomer
+                    ]);
+                    
+                    Mail::to($request->email)->send(new CustomerVerifyEmailMail($data));
+                    $emailSent = true;
+                    
+                    Log::info('Verification email sent successfully', [
+                        'email' => $request->email,
+                        'customer_id' => $customer->id ?? null
+                    ]);
+                } catch (\Exception $emailException) {
+                    // Log the email error but don't fail the entire registration
+                    Log::error('Failed to send verification email', [
+                        'email' => $request->email,
+                        'customer_id' => $customer->id ?? null,
+                        'error' => $emailException->getMessage(),
+                        'trace' => $emailException->getTraceAsString()
+                    ]);
+                    // Continue with registration even if email fails
+                }
+            } else {
+                Log::info('Skipping verification email - existing customer', [
+                    'email' => $request->email,
+                    'customer_id' => $customer->id ?? null
+                ]);
             }
         } catch (\Exception $e) {
+            Log::error('Event signup failed', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
             return $this->errorResponse($e->getMessage());
         }
 

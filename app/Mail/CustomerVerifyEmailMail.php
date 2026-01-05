@@ -5,11 +5,8 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Services\EmailTemplateService;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Lottery;
-use Illuminate\Queue\Middleware\RateLimited;
 
 class CustomerVerifyEmailMail extends Mailable
 {

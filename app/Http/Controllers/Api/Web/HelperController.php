@@ -913,10 +913,34 @@ class HelperController extends Controller
                 //     }
                 // }
 
+                // Reload event with all necessary relationships for EventResource
+                $event = Event::whereId($id)
+                    ->with(['eventDetail', 'eventMedia', 'eventContacts', 'media', 'registrationPackage', 'customer'])
+                    ->first();
+
                 $general_messages = getStaticTranslationByKey((isset($defaultLang) ? $defaultLang : null), 'general_messages', ['message_21']);
                 $message_21 = isset($general_messages['message_21']) ? $general_messages['message_21'] : '';
 
-                return $this->apiSuccessResponse(new EventResource($event), $message_21);
+                // Get redirect URL for event listing page
+                $general_setting = getGeneralSettingByKey();
+                $redirectUrl = null;
+                if (isset($general_setting['user_event_listing_page'])) {
+                    $redirectUrl = langBasedURL(null, url($general_setting['user_event_listing_page']));
+                } else {
+                    // Fallback to signin page if event listing page is not set
+                    $redirectUrl = langBasedURL(null, $general_setting['user_signin_page'] ?? route('front.index'));
+                }
+
+                // Return response in format expected by frontend: { status, message, data: { ...event, redirect_url } }
+                $eventData = (new EventResource($event))->toArray(request());
+                // langBasedURL already returns a full URL, so use it directly
+                $eventData['redirect_url'] = $redirectUrl;
+
+                return response()->json([
+                    'status' => 'Success',
+                    'message' => $message_21,
+                    'data' => $eventData
+                ]);
             }
 
             return response()->json(['success' => true]);
