@@ -661,3 +661,591 @@
 "} 
 [2026-01-05 22:15:52] local.INFO: New exporter customer created {"customer_id":50094} 
 [2026-01-05 22:18:21] local.INFO: public/invoices/registration-invoice/CE0484.pdf  
+[2026-01-05 22:42:57] local.ERROR: Undefined array key "lang" {"view":{"view":"E:\\Work\\Canadaexport\\storage\\framework\\views\\794e6820ced2a8855f0c57d1601bae9b33a715ee.blade.php","data":{"errors":"<pre class=sf-dump id=sf-dump-1751976830 data-indent-pad=\"  \"><span class=sf-dump-note>Illuminate\\Support\\ViewErrorBag</span> {<a class=sf-dump-ref>#1597</a><samp data-depth=1 class=sf-dump-expanded>
+  #<span class=sf-dump-protected title=\"Protected property\">bags</span>: []
+</samp>}
+</pre><script>Sfdump(\"sf-dump-1751976830\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","general_setting":"<pre class=sf-dump id=sf-dump-1889108982 data-indent-pad=\"  \"><span class=sf-dump-note>Illuminate\\Support\\Collection</span> {<a class=sf-dump-ref>#1610</a><samp data-depth=1 class=sf-dump-expanded>
+  #<span class=sf-dump-protected title=\"Protected property\">items</span>: <span class=sf-dump-note>array:34</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>admin_email</span>\" => \"<span class=sf-dump-str title=\"16 characters\">ccaned@gmail.com</span>\"
+    \"<span class=sf-dump-key>user_signup_page</span>\" => \"<span class=sf-dump-str title=\"6 characters\">signup</span>\"
+    \"<span class=sf-dump-key>user_signin_page</span>\" => \"<span class=sf-dump-str title=\"6 characters\">signin</span>\"
+    \"<span class=sf-dump-key>user_event_signup_page</span>\" => \"<span class=sf-dump-str title=\"12 characters\">event-signup</span>\"
+    \"<span class=sf-dump-key>user_event_create_page</span>\" => \"<span class=sf-dump-str title=\"12 characters\">create-event</span>\"
+    \"<span class=sf-dump-key>user_event_listing_page</span>\" => \"<span class=sf-dump-str title=\"15 characters\">events-listings</span>\"
+    \"<span class=sf-dump-key>user_forget_password_page</span>\" => \"<span class=sf-dump-str title=\"20 characters\">user/forgot-password</span>\"
+    \"<span class=sf-dump-key>business_profile_page</span>\" => \"<span class=sf-dump-str title=\"10 characters\">Advertiser</span>\"
+    \"<span class=sf-dump-key>contact_us_page</span>\" => \"<span class=sf-dump-str title=\"10 characters\">contact-us</span>\"
+    \"<span class=sf-dump-key>close_account_page</span>\" => \"<span class=sf-dump-str title=\"13 characters\">close-account</span>\"
+    \"<span class=sf-dump-key>thumbnail_image_width</span>\" => \"<span class=sf-dump-str title=\"3 characters\">200</span>\"
+    \"<span class=sf-dump-key>thumbnail_image_height</span>\" => \"<span class=sf-dump-str title=\"3 characters\">200</span>\"
+    \"<span class=sf-dump-key>medium_image_width</span>\" => \"<span class=sf-dump-str title=\"3 characters\">400</span>\"
+    \"<span class=sf-dump-key>medium_image_height</span>\" => \"<span class=sf-dump-str title=\"3 characters\">600</span>\"
+    \"<span class=sf-dump-key>large_image_width</span>\" => \"<span class=sf-dump-str title=\"3 characters\">800</span>\"
+    \"<span class=sf-dump-key>large_image_height</span>\" => \"<span class=sf-dump-str title=\"3 characters\">640</span>\"
+    \"<span class=sf-dump-key>canadian_exporters_emails_per_day</span>\" => \"<span class=sf-dump-str title=\"3 characters\">100</span>\"
+    \"<span class=sf-dump-key>free_package_price_per_month</span>\" => \"<span class=sf-dump-str>0</span>\"
+    \"<span class=sf-dump-key>featured_package_price_per_month</span>\" => \"<span class=sf-dump-str title=\"6 characters\">100000</span>\"
+    \"<span class=sf-dump-key>premium_package_price_per_month</span>\" => \"<span class=sf-dump-str title=\"2 characters\">10</span>\"
+    \"<span class=sf-dump-key>facebook_meta_image</span>\" => \"<span class=sf-dump-str title=\"6 characters\">252896</span>\"
+    \"<span class=sf-dump-key>twitter_meta_image</span>\" => \"<span class=sf-dump-str title=\"3 characters\">435</span>\"
+    \"<span class=sf-dump-key>linkedin_meta_image</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>stripe_free_product</span>\" => \"<span class=sf-dump-str title=\"19 characters\">prod_QjRVuWqmhWnTJb</span>\"
+    \"<span class=sf-dump-key>stripe_featured_product</span>\" => \"<span class=sf-dump-str title=\"19 characters\">prod_TIgNfYhydRA0Fl</span>\"
+    \"<span class=sf-dump-key>stripe_premium_product</span>\" => \"<span class=sf-dump-str title=\"19 characters\">prod_TIgOvhcC0V2j7o</span>\"
+    \"<span class=sf-dump-key>stripe_pay_to_go_product</span>\" => \"<span class=sf-dump-str title=\"19 characters\">prod_QjRVGVo6XCWomX</span>\"
+    \"<span class=sf-dump-key>see_all_magazine_pag</span>\" => \"<span class=sf-dump-str title=\"17 characters\">see-all-magazines</span>\"
+    \"<span class=sf-dump-key>paypal_free_product</span>\" => \"<span class=sf-dump-str title=\"22 characters\">PROD-5TE37341RJ985762J</span>\"
+    \"<span class=sf-dump-key>paypal_featured_product</span>\" => \"<span class=sf-dump-str title=\"22 characters\">PROD-8SG92589P71338115</span>\"
+    \"<span class=sf-dump-key>paypal_premium_product</span>\" => \"<span class=sf-dump-str title=\"22 characters\">PROD-802624617R112292X</span>\"
+    \"<span class=sf-dump-key>paypal_pay_to_go_product</span>\" => \"<span class=sf-dump-str title=\"22 characters\">PROD-78Y29276DK774223A</span>\"
+    \"<span class=sf-dump-key>see_all_magazine_page</span>\" => \"<span class=sf-dump-str title=\"17 characters\">see-all-magazines</span>\"
+    \"<span class=sf-dump-key>user_sponser_listing_page</span>\" => \"<span class=sf-dump-str title=\"20 characters\">sponsor-listing-page</span>\"
+  </samp>]
+  #<span class=sf-dump-protected title=\"Protected property\">escapeWhenCastingToString</span>: <span class=sf-dump-const>false</span>
+</samp>}
+</pre><script>Sfdump(\"sf-dump-1889108982\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","data":"<pre class=sf-dump id=sf-dump-2005961925 data-indent-pad=\"  \"><span class=sf-dump-note>array:1</span> [<samp data-depth=1 class=sf-dump-expanded>
+  \"<span class=sf-dump-key>data</span>\" => <span class=sf-dump-note>array:4</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>token</span>\" => \"<span class=sf-dump-str title=\"64 characters\">AK5hix8aJuPVwGpJNIOT5DCZdzFV9TSIMBWOe1NkJcAI8O7l4GKK5Feq32jUX0Zy</span>\"
+    \"<span class=sf-dump-key>lang</span>\" => <span class=\"sf-dump-note sf-dump-ellipsization\" title=\"App\\Models\\Language
+\"><span class=\"sf-dump-ellipsis sf-dump-ellipsis-note\">App\\Models</span><span class=\"sf-dump-ellipsis sf-dump-ellipsis-note\">\\</span><span class=\"sf-dump-ellipsis-tail\">Language</span></span> {<a class=sf-dump-ref>#1636</a><samp data-depth=3 class=sf-dump-compact>
+      #<span class=sf-dump-protected title=\"Protected property\">connection</span>: \"<span class=sf-dump-str title=\"5 characters\">mysql</span>\"
+      #<span class=sf-dump-protected title=\"Protected property\">table</span>: \"<span class=sf-dump-str title=\"9 characters\">languages</span>\"
+      #<span class=sf-dump-protected title=\"Protected property\">primaryKey</span>: \"<span class=sf-dump-str title=\"2 characters\">id</span>\"
+      #<span class=sf-dump-protected title=\"Protected property\">keyType</span>: \"<span class=sf-dump-str title=\"3 characters\">int</span>\"
+      +<span class=sf-dump-public title=\"Public property\">incrementing</span>: <span class=sf-dump-const>true</span>
+      #<span class=sf-dump-protected title=\"Protected property\">with</span>: []
+      #<span class=sf-dump-protected title=\"Protected property\">withCount</span>: []
+      +<span class=sf-dump-public title=\"Public property\">preventsLazyLoading</span>: <span class=sf-dump-const>false</span>
+      #<span class=sf-dump-protected title=\"Protected property\">perPage</span>: <span class=sf-dump-num>15</span>
+      +<span class=sf-dump-public title=\"Public property\">exists</span>: <span class=sf-dump-const>true</span>
+      +<span class=sf-dump-public title=\"Public property\">wasRecentlyCreated</span>: <span class=sf-dump-const>false</span>
+      #<span class=sf-dump-protected title=\"Protected property\">escapeWhenCastingToString</span>: <span class=sf-dump-const>false</span>
+      #<span class=sf-dump-protected title=\"Protected property\">attributes</span>: <span class=sf-dump-note>array:9</span> [ &#8230;9]
+      #<span class=sf-dump-protected title=\"Protected property\">original</span>: <span class=sf-dump-note>array:9</span> [ &#8230;9]
+      #<span class=sf-dump-protected title=\"Protected property\">changes</span>: []
+      #<span class=sf-dump-protected title=\"Protected property\">casts</span>: []
+      #<span class=sf-dump-protected title=\"Protected property\">classCastCache</span>: []
+      #<span class=sf-dump-protected title=\"Protected property\">attributeCastCache</span>: []
+      #<span class=sf-dump-protected title=\"Protected property\">dates</span>: []
+      #<span class=sf-dump-protected title=\"Protected property\">dateFormat</span>: <span class=sf-dump-const>null</span>
+      #<span class=sf-dump-protected title=\"Protected property\">appends</span>: []
+      #<span class=sf-dump-protected title=\"Protected property\">dispatchesEvents</span>: []
+      #<span class=sf-dump-protected title=\"Protected property\">observables</span>: []
+      #<span class=sf-dump-protected title=\"Protected property\">relations</span>: []
+      #<span class=sf-dump-protected title=\"Protected property\">touches</span>: []
+      +<span class=sf-dump-public title=\"Public property\">timestamps</span>: <span class=sf-dump-const>true</span>
+      #<span class=sf-dump-protected title=\"Protected property\">hidden</span>: []
+      #<span class=sf-dump-protected title=\"Protected property\">visible</span>: []
+      #<span class=sf-dump-protected title=\"Protected property\">fillable</span>: <span class=sf-dump-note>array:6</span> [ &#8230;6]
+      #<span class=sf-dump-protected title=\"Protected property\">guarded</span>: <span class=sf-dump-note>array:1</span> [ &#8230;1]
+    </samp>}
+    \"<span class=sf-dump-key>email</span>\" => \"<span class=sf-dump-str title=\"24 characters\">carloslennix38@gmail.com</span>\"
+    \"<span class=sf-dump-key>name</span>\" => \"<span class=sf-dump-str title=\"5 characters\">jose1</span>\"
+  </samp>]
+</samp>]
+</pre><script>Sfdump(\"sf-dump-2005961925\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","advertiserName":"<pre class=sf-dump id=sf-dump-456454148 data-indent-pad=\"  \"><span class=sf-dump-const>null</span>
+</pre><script>Sfdump(\"sf-dump-456454148\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","messageContent":"<pre class=sf-dump id=sf-dump-656518693 data-indent-pad=\"  \"><span class=sf-dump-const>null</span>
+</pre><script>Sfdump(\"sf-dump-656518693\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","unsubscribeLink":"<pre class=sf-dump id=sf-dump-1413499608 data-indent-pad=\"  \"><span class=sf-dump-const>null</span>
+</pre><script>Sfdump(\"sf-dump-1413499608\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","customerProfile":"<pre class=sf-dump id=sf-dump-1103046503 data-indent-pad=\"  \"><span class=sf-dump-const>null</span>
+</pre><script>Sfdump(\"sf-dump-1103046503\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","sponsor":"<pre class=sf-dump id=sf-dump-811835480 data-indent-pad=\"  \"><span class=sf-dump-const>null</span>
+</pre><script>Sfdump(\"sf-dump-811835480\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+"}},"userId":4,"exception":"[object] (Spatie\\LaravelIgnition\\Exceptions\\ViewException(code: 0): Undefined array key \"lang\" at E:\\Work\\Canadaexport\\storage\\framework\\views\\794e6820ced2a8855f0c57d1601bae9b33a715ee.blade.php:24)
+[stacktrace]
+#0 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(270): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Undefined array...', 'E:\\\\Work\\\\Canadae...', 9)
+#1 E:\\Work\\Canadaexport\\storage\\framework\\views\\794e6820ced2a8855f0c57d1601bae9b33a715ee.blade.php(24): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->Illuminate\\Foundation\\Bootstrap\\{closure}(2, 'Undefined array...', 'E:\\\\Work\\\\Canadae...', 9)
+#2 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(109): require('E:\\\\Work\\\\Canadae...')
+#3 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(110): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
+#4 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\Work\\\\Canadae...', Array)
+#5 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(70): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('E:\\\\Work\\\\Canadae...', Array)
+#6 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(195): Illuminate\\View\\Engines\\CompilerEngine->get('E:\\\\Work\\\\Canadae...', Array)
+#7 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(178): Illuminate\\View\\View->getContents()
+#8 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(147): Illuminate\\View\\View->renderContents()
+#9 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Compilers\\BladeCompiler.php(320): Illuminate\\View\\View->render()
+#10 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Facades\\Facade.php(338): Illuminate\\View\\Compilers\\BladeCompiler::render('{{-- @component...', Array)
+#11 E:\\Work\\Canadaexport\\resources\\views\\mails\\dynamic-markdown.blade.php(2): Illuminate\\Support\\Facades\\Facade::__callStatic('render', Array)
+#12 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(109): require('E:\\\\Work\\\\Canadae...')
+#13 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(110): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
+#14 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\Work\\\\Canadae...', Array)
+#15 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(70): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('E:\\\\Work\\\\Canadae...', Array)
+#16 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(195): Illuminate\\View\\Engines\\CompilerEngine->get('E:\\\\Work\\\\Canadae...', Array)
+#17 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(178): Illuminate\\View\\View->getContents()
+#18 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(147): Illuminate\\View\\View->renderContents()
+#19 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Markdown.php(65): Illuminate\\View\\View->render()
+#20 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailable.php(334): Illuminate\\Mail\\Markdown->render('mails.dynamic-m...', Array)
+#21 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailable.php(304): Illuminate\\Mail\\Mailable->buildMarkdownView()
+#22 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailable.php(204): Illuminate\\Mail\\Mailable->buildView()
+#23 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Traits\\Localizable.php(19): Illuminate\\Mail\\Mailable->Illuminate\\Mail\\{closure}()
+#24 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailable.php(197): Illuminate\\Mail\\Mailable->withLocale(NULL, Object(Closure))
+#25 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailer.php(309): Illuminate\\Mail\\Mailable->send(Object(Illuminate\\Mail\\Mailer))
+#26 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailer.php(253): Illuminate\\Mail\\Mailer->sendMailable(Object(App\\Mail\\CustomerResetPasswordMail))
+#27 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\PendingMail.php(124): Illuminate\\Mail\\Mailer->send(Object(App\\Mail\\CustomerResetPasswordMail))
+#28 E:\\Work\\Canadaexport\\app\\Http\\Controllers\\Api\\Web\\SignupController.php(584): Illuminate\\Mail\\PendingMail->send(Object(App\\Mail\\CustomerResetPasswordMail))
+#29 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): App\\Http\\Controllers\\Api\\Web\\SignupController->forgotPassword(Object(Illuminate\\Http\\Request))
+#30 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction('forgotPassword', Array)
+#31 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(259): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\Web\\SignupController), 'forgotPassword')
+#32 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(205): Illuminate\\Routing\\Route->runController()
+#33 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(798): Illuminate\\Routing\\Route->run()
+#34 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#35 E:\\Work\\Canadaexport\\app\\Http\\Middleware\\UserStatus.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#36 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\UserStatus->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 E:\\Work\\Canadaexport\\app\\Http\\Middleware\\ShareVariableMiddleware.php(16): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#38 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\ShareVariableMiddleware->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 E:\\Work\\Canadaexport\\app\\Http\\Middleware\\StorePreviousUrl.php(23): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#40 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\StorePreviousUrl->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#42 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#43 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken.php(78): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#44 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#45 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Middleware\\ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#46 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#47 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(121): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#48 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest(Object(Illuminate\\Http\\Request), Object(Illuminate\\Session\\Store), Object(Closure))
+#49 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#50 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#51 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#52 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\EncryptCookies.php(67): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#53 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#54 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#55 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(797): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#56 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(776): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#57 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(740): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#58 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(729): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#59 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(190): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#60 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#61 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#62 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#63 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#64 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#65 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#66 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#67 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#68 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#69 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#70 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#71 E:\\Work\\Canadaexport\\vendor\\fruitcake\\laravel-cors\\src\\HandleCors.php(38): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#72 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Fruitcake\\Cors\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#73 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#74 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#75 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#76 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(165): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#77 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#78 E:\\Work\\Canadaexport\\public\\index.php(77): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#79 E:\\Work\\Canadaexport\\server.php(21): require_once('E:\\\\Work\\\\Canadae...')
+#80 {main}
+
+[previous exception] [object] (ErrorException(code: 0): Undefined array key \"lang\" at E:\\Work\\Canadaexport\\storage\\framework\\views\\2418283473338ed3afbcf673bab8b73802810d30.php:9)
+[stacktrace]
+#0 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(270): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Undefined array...', 'E:\\\\Work\\\\Canadae...', 9)
+#1 E:\\Work\\Canadaexport\\storage\\framework\\views\\2418283473338ed3afbcf673bab8b73802810d30.php(9): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->Illuminate\\Foundation\\Bootstrap\\{closure}(2, 'Undefined array...', 'E:\\\\Work\\\\Canadae...', 9)
+#2 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(109): require('E:\\\\Work\\\\Canadae...')
+#3 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(110): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
+#4 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\Work\\\\Canadae...', Array)
+#5 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(70): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('E:\\\\Work\\\\Canadae...', Array)
+#6 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(195): Illuminate\\View\\Engines\\CompilerEngine->get('E:\\\\Work\\\\Canadae...', Array)
+#7 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(178): Illuminate\\View\\View->getContents()
+#8 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(147): Illuminate\\View\\View->renderContents()
+#9 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Compilers\\BladeCompiler.php(320): Illuminate\\View\\View->render()
+#10 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Facades\\Facade.php(338): Illuminate\\View\\Compilers\\BladeCompiler::render('{{-- @component...', Array)
+#11 E:\\Work\\Canadaexport\\storage\\framework\\views\\b890bdfbd4fe488f8cfc965ba75406086e7b5e61.php(3): Illuminate\\Support\\Facades\\Facade::__callStatic('render', Array)
+#12 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(109): require('E:\\\\Work\\\\Canadae...')
+#13 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(110): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
+#14 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\Work\\\\Canadae...', Array)
+#15 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(70): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('E:\\\\Work\\\\Canadae...', Array)
+#16 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(195): Illuminate\\View\\Engines\\CompilerEngine->get('E:\\\\Work\\\\Canadae...', Array)
+#17 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(178): Illuminate\\View\\View->getContents()
+#18 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(147): Illuminate\\View\\View->renderContents()
+#19 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Markdown.php(65): Illuminate\\View\\View->render()
+#20 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailable.php(334): Illuminate\\Mail\\Markdown->render('mails.dynamic-m...', Array)
+#21 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailable.php(304): Illuminate\\Mail\\Mailable->buildMarkdownView()
+#22 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailable.php(204): Illuminate\\Mail\\Mailable->buildView()
+#23 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Traits\\Localizable.php(19): Illuminate\\Mail\\Mailable->Illuminate\\Mail\\{closure}()
+#24 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailable.php(197): Illuminate\\Mail\\Mailable->withLocale(NULL, Object(Closure))
+#25 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailer.php(309): Illuminate\\Mail\\Mailable->send(Object(Illuminate\\Mail\\Mailer))
+#26 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailer.php(253): Illuminate\\Mail\\Mailer->sendMailable(Object(App\\Mail\\CustomerResetPasswordMail))
+#27 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\PendingMail.php(124): Illuminate\\Mail\\Mailer->send(Object(App\\Mail\\CustomerResetPasswordMail))
+#28 E:\\Work\\Canadaexport\\app\\Http\\Controllers\\Api\\Web\\SignupController.php(584): Illuminate\\Mail\\PendingMail->send(Object(App\\Mail\\CustomerResetPasswordMail))
+#29 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): App\\Http\\Controllers\\Api\\Web\\SignupController->forgotPassword(Object(Illuminate\\Http\\Request))
+#30 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction('forgotPassword', Array)
+#31 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(259): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\Web\\SignupController), 'forgotPassword')
+#32 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(205): Illuminate\\Routing\\Route->runController()
+#33 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(798): Illuminate\\Routing\\Route->run()
+#34 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#35 E:\\Work\\Canadaexport\\app\\Http\\Middleware\\UserStatus.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#36 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\UserStatus->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 E:\\Work\\Canadaexport\\app\\Http\\Middleware\\ShareVariableMiddleware.php(16): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#38 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\ShareVariableMiddleware->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 E:\\Work\\Canadaexport\\app\\Http\\Middleware\\StorePreviousUrl.php(23): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#40 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\StorePreviousUrl->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#42 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#43 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken.php(78): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#44 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#45 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Middleware\\ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#46 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#47 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(121): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#48 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest(Object(Illuminate\\Http\\Request), Object(Illuminate\\Session\\Store), Object(Closure))
+#49 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#50 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#51 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#52 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\EncryptCookies.php(67): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#53 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#54 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#55 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(797): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#56 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(776): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#57 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(740): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#58 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(729): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#59 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(190): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#60 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#61 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#62 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#63 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#64 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#65 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#66 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#67 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#68 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#69 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#70 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#71 E:\\Work\\Canadaexport\\vendor\\fruitcake\\laravel-cors\\src\\HandleCors.php(38): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#72 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Fruitcake\\Cors\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#73 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#74 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#75 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#76 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(165): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#77 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#78 E:\\Work\\Canadaexport\\public\\index.php(77): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#79 E:\\Work\\Canadaexport\\server.php(21): require_once('E:\\\\Work\\\\Canadae...')
+#80 {main}
+"} 
+[2026-01-05 22:43:17] local.ERROR: Undefined array key "lang" {"view":{"view":"E:\\Work\\Canadaexport\\storage\\framework\\views\\794e6820ced2a8855f0c57d1601bae9b33a715ee.blade.php","data":{"errors":"<pre class=sf-dump id=sf-dump-2109907776 data-indent-pad=\"  \"><span class=sf-dump-note>Illuminate\\Support\\ViewErrorBag</span> {<a class=sf-dump-ref>#1607</a><samp data-depth=1 class=sf-dump-expanded>
+  #<span class=sf-dump-protected title=\"Protected property\">bags</span>: []
+</samp>}
+</pre><script>Sfdump(\"sf-dump-2109907776\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","general_setting":"<pre class=sf-dump id=sf-dump-1849358612 data-indent-pad=\"  \"><span class=sf-dump-note>Illuminate\\Support\\Collection</span> {<a class=sf-dump-ref>#1609</a><samp data-depth=1 class=sf-dump-expanded>
+  #<span class=sf-dump-protected title=\"Protected property\">items</span>: <span class=sf-dump-note>array:34</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>admin_email</span>\" => \"<span class=sf-dump-str title=\"16 characters\">ccaned@gmail.com</span>\"
+    \"<span class=sf-dump-key>user_signup_page</span>\" => \"<span class=sf-dump-str title=\"6 characters\">signup</span>\"
+    \"<span class=sf-dump-key>user_signin_page</span>\" => \"<span class=sf-dump-str title=\"6 characters\">signin</span>\"
+    \"<span class=sf-dump-key>user_event_signup_page</span>\" => \"<span class=sf-dump-str title=\"12 characters\">event-signup</span>\"
+    \"<span class=sf-dump-key>user_event_create_page</span>\" => \"<span class=sf-dump-str title=\"12 characters\">create-event</span>\"
+    \"<span class=sf-dump-key>user_event_listing_page</span>\" => \"<span class=sf-dump-str title=\"15 characters\">events-listings</span>\"
+    \"<span class=sf-dump-key>user_forget_password_page</span>\" => \"<span class=sf-dump-str title=\"20 characters\">user/forgot-password</span>\"
+    \"<span class=sf-dump-key>business_profile_page</span>\" => \"<span class=sf-dump-str title=\"10 characters\">Advertiser</span>\"
+    \"<span class=sf-dump-key>contact_us_page</span>\" => \"<span class=sf-dump-str title=\"10 characters\">contact-us</span>\"
+    \"<span class=sf-dump-key>close_account_page</span>\" => \"<span class=sf-dump-str title=\"13 characters\">close-account</span>\"
+    \"<span class=sf-dump-key>thumbnail_image_width</span>\" => \"<span class=sf-dump-str title=\"3 characters\">200</span>\"
+    \"<span class=sf-dump-key>thumbnail_image_height</span>\" => \"<span class=sf-dump-str title=\"3 characters\">200</span>\"
+    \"<span class=sf-dump-key>medium_image_width</span>\" => \"<span class=sf-dump-str title=\"3 characters\">400</span>\"
+    \"<span class=sf-dump-key>medium_image_height</span>\" => \"<span class=sf-dump-str title=\"3 characters\">600</span>\"
+    \"<span class=sf-dump-key>large_image_width</span>\" => \"<span class=sf-dump-str title=\"3 characters\">800</span>\"
+    \"<span class=sf-dump-key>large_image_height</span>\" => \"<span class=sf-dump-str title=\"3 characters\">640</span>\"
+    \"<span class=sf-dump-key>canadian_exporters_emails_per_day</span>\" => \"<span class=sf-dump-str title=\"3 characters\">100</span>\"
+    \"<span class=sf-dump-key>free_package_price_per_month</span>\" => \"<span class=sf-dump-str>0</span>\"
+    \"<span class=sf-dump-key>featured_package_price_per_month</span>\" => \"<span class=sf-dump-str title=\"6 characters\">100000</span>\"
+    \"<span class=sf-dump-key>premium_package_price_per_month</span>\" => \"<span class=sf-dump-str title=\"2 characters\">10</span>\"
+    \"<span class=sf-dump-key>facebook_meta_image</span>\" => \"<span class=sf-dump-str title=\"6 characters\">252896</span>\"
+    \"<span class=sf-dump-key>twitter_meta_image</span>\" => \"<span class=sf-dump-str title=\"3 characters\">435</span>\"
+    \"<span class=sf-dump-key>linkedin_meta_image</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>stripe_free_product</span>\" => \"<span class=sf-dump-str title=\"19 characters\">prod_QjRVuWqmhWnTJb</span>\"
+    \"<span class=sf-dump-key>stripe_featured_product</span>\" => \"<span class=sf-dump-str title=\"19 characters\">prod_TIgNfYhydRA0Fl</span>\"
+    \"<span class=sf-dump-key>stripe_premium_product</span>\" => \"<span class=sf-dump-str title=\"19 characters\">prod_TIgOvhcC0V2j7o</span>\"
+    \"<span class=sf-dump-key>stripe_pay_to_go_product</span>\" => \"<span class=sf-dump-str title=\"19 characters\">prod_QjRVGVo6XCWomX</span>\"
+    \"<span class=sf-dump-key>see_all_magazine_pag</span>\" => \"<span class=sf-dump-str title=\"17 characters\">see-all-magazines</span>\"
+    \"<span class=sf-dump-key>paypal_free_product</span>\" => \"<span class=sf-dump-str title=\"22 characters\">PROD-5TE37341RJ985762J</span>\"
+    \"<span class=sf-dump-key>paypal_featured_product</span>\" => \"<span class=sf-dump-str title=\"22 characters\">PROD-8SG92589P71338115</span>\"
+    \"<span class=sf-dump-key>paypal_premium_product</span>\" => \"<span class=sf-dump-str title=\"22 characters\">PROD-802624617R112292X</span>\"
+    \"<span class=sf-dump-key>paypal_pay_to_go_product</span>\" => \"<span class=sf-dump-str title=\"22 characters\">PROD-78Y29276DK774223A</span>\"
+    \"<span class=sf-dump-key>see_all_magazine_page</span>\" => \"<span class=sf-dump-str title=\"17 characters\">see-all-magazines</span>\"
+    \"<span class=sf-dump-key>user_sponser_listing_page</span>\" => \"<span class=sf-dump-str title=\"20 characters\">sponsor-listing-page</span>\"
+  </samp>]
+  #<span class=sf-dump-protected title=\"Protected property\">escapeWhenCastingToString</span>: <span class=sf-dump-const>false</span>
+</samp>}
+</pre><script>Sfdump(\"sf-dump-1849358612\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","data":"<pre class=sf-dump id=sf-dump-213674989 data-indent-pad=\"  \"><span class=sf-dump-note>array:1</span> [<samp data-depth=1 class=sf-dump-expanded>
+  \"<span class=sf-dump-key>data</span>\" => <span class=sf-dump-note>array:4</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>token</span>\" => \"<span class=sf-dump-str title=\"64 characters\">kPmgLSBV1rHL0VikN5RyNVuT20l1VZOTsALFsVK01IuqkYW9Lb2Il5maTtipY56g</span>\"
+    \"<span class=sf-dump-key>lang</span>\" => <span class=\"sf-dump-note sf-dump-ellipsization\" title=\"App\\Models\\Language
+\"><span class=\"sf-dump-ellipsis sf-dump-ellipsis-note\">App\\Models</span><span class=\"sf-dump-ellipsis sf-dump-ellipsis-note\">\\</span><span class=\"sf-dump-ellipsis-tail\">Language</span></span> {<a class=sf-dump-ref>#1636</a><samp data-depth=3 class=sf-dump-compact>
+      #<span class=sf-dump-protected title=\"Protected property\">connection</span>: \"<span class=sf-dump-str title=\"5 characters\">mysql</span>\"
+      #<span class=sf-dump-protected title=\"Protected property\">table</span>: \"<span class=sf-dump-str title=\"9 characters\">languages</span>\"
+      #<span class=sf-dump-protected title=\"Protected property\">primaryKey</span>: \"<span class=sf-dump-str title=\"2 characters\">id</span>\"
+      #<span class=sf-dump-protected title=\"Protected property\">keyType</span>: \"<span class=sf-dump-str title=\"3 characters\">int</span>\"
+      +<span class=sf-dump-public title=\"Public property\">incrementing</span>: <span class=sf-dump-const>true</span>
+      #<span class=sf-dump-protected title=\"Protected property\">with</span>: []
+      #<span class=sf-dump-protected title=\"Protected property\">withCount</span>: []
+      +<span class=sf-dump-public title=\"Public property\">preventsLazyLoading</span>: <span class=sf-dump-const>false</span>
+      #<span class=sf-dump-protected title=\"Protected property\">perPage</span>: <span class=sf-dump-num>15</span>
+      +<span class=sf-dump-public title=\"Public property\">exists</span>: <span class=sf-dump-const>true</span>
+      +<span class=sf-dump-public title=\"Public property\">wasRecentlyCreated</span>: <span class=sf-dump-const>false</span>
+      #<span class=sf-dump-protected title=\"Protected property\">escapeWhenCastingToString</span>: <span class=sf-dump-const>false</span>
+      #<span class=sf-dump-protected title=\"Protected property\">attributes</span>: <span class=sf-dump-note>array:9</span> [ &#8230;9]
+      #<span class=sf-dump-protected title=\"Protected property\">original</span>: <span class=sf-dump-note>array:9</span> [ &#8230;9]
+      #<span class=sf-dump-protected title=\"Protected property\">changes</span>: []
+      #<span class=sf-dump-protected title=\"Protected property\">casts</span>: []
+      #<span class=sf-dump-protected title=\"Protected property\">classCastCache</span>: []
+      #<span class=sf-dump-protected title=\"Protected property\">attributeCastCache</span>: []
+      #<span class=sf-dump-protected title=\"Protected property\">dates</span>: []
+      #<span class=sf-dump-protected title=\"Protected property\">dateFormat</span>: <span class=sf-dump-const>null</span>
+      #<span class=sf-dump-protected title=\"Protected property\">appends</span>: []
+      #<span class=sf-dump-protected title=\"Protected property\">dispatchesEvents</span>: []
+      #<span class=sf-dump-protected title=\"Protected property\">observables</span>: []
+      #<span class=sf-dump-protected title=\"Protected property\">relations</span>: []
+      #<span class=sf-dump-protected title=\"Protected property\">touches</span>: []
+      +<span class=sf-dump-public title=\"Public property\">timestamps</span>: <span class=sf-dump-const>true</span>
+      #<span class=sf-dump-protected title=\"Protected property\">hidden</span>: []
+      #<span class=sf-dump-protected title=\"Protected property\">visible</span>: []
+      #<span class=sf-dump-protected title=\"Protected property\">fillable</span>: <span class=sf-dump-note>array:6</span> [ &#8230;6]
+      #<span class=sf-dump-protected title=\"Protected property\">guarded</span>: <span class=sf-dump-note>array:1</span> [ &#8230;1]
+    </samp>}
+    \"<span class=sf-dump-key>email</span>\" => \"<span class=sf-dump-str title=\"24 characters\">carloslennix38@gmail.com</span>\"
+    \"<span class=sf-dump-key>name</span>\" => \"<span class=sf-dump-str title=\"5 characters\">jose1</span>\"
+  </samp>]
+</samp>]
+</pre><script>Sfdump(\"sf-dump-213674989\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","advertiserName":"<pre class=sf-dump id=sf-dump-1853317262 data-indent-pad=\"  \"><span class=sf-dump-const>null</span>
+</pre><script>Sfdump(\"sf-dump-1853317262\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","messageContent":"<pre class=sf-dump id=sf-dump-283168525 data-indent-pad=\"  \"><span class=sf-dump-const>null</span>
+</pre><script>Sfdump(\"sf-dump-283168525\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","unsubscribeLink":"<pre class=sf-dump id=sf-dump-1758141267 data-indent-pad=\"  \"><span class=sf-dump-const>null</span>
+</pre><script>Sfdump(\"sf-dump-1758141267\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","customerProfile":"<pre class=sf-dump id=sf-dump-1143021712 data-indent-pad=\"  \"><span class=sf-dump-const>null</span>
+</pre><script>Sfdump(\"sf-dump-1143021712\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","sponsor":"<pre class=sf-dump id=sf-dump-819130424 data-indent-pad=\"  \"><span class=sf-dump-const>null</span>
+</pre><script>Sfdump(\"sf-dump-819130424\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+"}},"userId":4,"exception":"[object] (Spatie\\LaravelIgnition\\Exceptions\\ViewException(code: 0): Undefined array key \"lang\" at E:\\Work\\Canadaexport\\storage\\framework\\views\\794e6820ced2a8855f0c57d1601bae9b33a715ee.blade.php:24)
+[stacktrace]
+#0 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(270): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Undefined array...', 'E:\\\\Work\\\\Canadae...', 9)
+#1 E:\\Work\\Canadaexport\\storage\\framework\\views\\794e6820ced2a8855f0c57d1601bae9b33a715ee.blade.php(24): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->Illuminate\\Foundation\\Bootstrap\\{closure}(2, 'Undefined array...', 'E:\\\\Work\\\\Canadae...', 9)
+#2 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(109): require('E:\\\\Work\\\\Canadae...')
+#3 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(110): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
+#4 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\Work\\\\Canadae...', Array)
+#5 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(70): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('E:\\\\Work\\\\Canadae...', Array)
+#6 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(195): Illuminate\\View\\Engines\\CompilerEngine->get('E:\\\\Work\\\\Canadae...', Array)
+#7 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(178): Illuminate\\View\\View->getContents()
+#8 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(147): Illuminate\\View\\View->renderContents()
+#9 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Compilers\\BladeCompiler.php(320): Illuminate\\View\\View->render()
+#10 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Facades\\Facade.php(338): Illuminate\\View\\Compilers\\BladeCompiler::render('{{-- @component...', Array)
+#11 E:\\Work\\Canadaexport\\resources\\views\\mails\\dynamic-markdown.blade.php(2): Illuminate\\Support\\Facades\\Facade::__callStatic('render', Array)
+#12 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(109): require('E:\\\\Work\\\\Canadae...')
+#13 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(110): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
+#14 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\Work\\\\Canadae...', Array)
+#15 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(70): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('E:\\\\Work\\\\Canadae...', Array)
+#16 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(195): Illuminate\\View\\Engines\\CompilerEngine->get('E:\\\\Work\\\\Canadae...', Array)
+#17 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(178): Illuminate\\View\\View->getContents()
+#18 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(147): Illuminate\\View\\View->renderContents()
+#19 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Markdown.php(65): Illuminate\\View\\View->render()
+#20 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailable.php(334): Illuminate\\Mail\\Markdown->render('mails.dynamic-m...', Array)
+#21 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailable.php(304): Illuminate\\Mail\\Mailable->buildMarkdownView()
+#22 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailable.php(204): Illuminate\\Mail\\Mailable->buildView()
+#23 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Traits\\Localizable.php(19): Illuminate\\Mail\\Mailable->Illuminate\\Mail\\{closure}()
+#24 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailable.php(197): Illuminate\\Mail\\Mailable->withLocale(NULL, Object(Closure))
+#25 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailer.php(309): Illuminate\\Mail\\Mailable->send(Object(Illuminate\\Mail\\Mailer))
+#26 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailer.php(253): Illuminate\\Mail\\Mailer->sendMailable(Object(App\\Mail\\CustomerResetPasswordMail))
+#27 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\PendingMail.php(124): Illuminate\\Mail\\Mailer->send(Object(App\\Mail\\CustomerResetPasswordMail))
+#28 E:\\Work\\Canadaexport\\app\\Http\\Controllers\\Api\\Web\\SignupController.php(584): Illuminate\\Mail\\PendingMail->send(Object(App\\Mail\\CustomerResetPasswordMail))
+#29 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): App\\Http\\Controllers\\Api\\Web\\SignupController->forgotPassword(Object(Illuminate\\Http\\Request))
+#30 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction('forgotPassword', Array)
+#31 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(259): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\Web\\SignupController), 'forgotPassword')
+#32 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(205): Illuminate\\Routing\\Route->runController()
+#33 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(798): Illuminate\\Routing\\Route->run()
+#34 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#35 E:\\Work\\Canadaexport\\app\\Http\\Middleware\\UserStatus.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#36 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\UserStatus->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 E:\\Work\\Canadaexport\\app\\Http\\Middleware\\ShareVariableMiddleware.php(16): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#38 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\ShareVariableMiddleware->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 E:\\Work\\Canadaexport\\app\\Http\\Middleware\\StorePreviousUrl.php(23): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#40 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\StorePreviousUrl->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#42 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#43 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken.php(78): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#44 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#45 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Middleware\\ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#46 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#47 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(121): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#48 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest(Object(Illuminate\\Http\\Request), Object(Illuminate\\Session\\Store), Object(Closure))
+#49 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#50 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#51 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#52 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\EncryptCookies.php(67): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#53 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#54 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#55 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(797): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#56 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(776): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#57 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(740): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#58 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(729): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#59 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(190): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#60 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#61 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#62 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#63 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#64 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#65 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#66 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#67 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#68 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#69 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#70 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#71 E:\\Work\\Canadaexport\\vendor\\fruitcake\\laravel-cors\\src\\HandleCors.php(38): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#72 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Fruitcake\\Cors\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#73 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#74 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#75 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#76 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(165): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#77 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#78 E:\\Work\\Canadaexport\\public\\index.php(77): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#79 E:\\Work\\Canadaexport\\server.php(21): require_once('E:\\\\Work\\\\Canadae...')
+#80 {main}
+
+[previous exception] [object] (ErrorException(code: 0): Undefined array key \"lang\" at E:\\Work\\Canadaexport\\storage\\framework\\views\\2418283473338ed3afbcf673bab8b73802810d30.php:9)
+[stacktrace]
+#0 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(270): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Undefined array...', 'E:\\\\Work\\\\Canadae...', 9)
+#1 E:\\Work\\Canadaexport\\storage\\framework\\views\\2418283473338ed3afbcf673bab8b73802810d30.php(9): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->Illuminate\\Foundation\\Bootstrap\\{closure}(2, 'Undefined array...', 'E:\\\\Work\\\\Canadae...', 9)
+#2 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(109): require('E:\\\\Work\\\\Canadae...')
+#3 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(110): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
+#4 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\Work\\\\Canadae...', Array)
+#5 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(70): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('E:\\\\Work\\\\Canadae...', Array)
+#6 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(195): Illuminate\\View\\Engines\\CompilerEngine->get('E:\\\\Work\\\\Canadae...', Array)
+#7 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(178): Illuminate\\View\\View->getContents()
+#8 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(147): Illuminate\\View\\View->renderContents()
+#9 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Compilers\\BladeCompiler.php(320): Illuminate\\View\\View->render()
+#10 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Facades\\Facade.php(338): Illuminate\\View\\Compilers\\BladeCompiler::render('{{-- @component...', Array)
+#11 E:\\Work\\Canadaexport\\storage\\framework\\views\\b890bdfbd4fe488f8cfc965ba75406086e7b5e61.php(3): Illuminate\\Support\\Facades\\Facade::__callStatic('render', Array)
+#12 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(109): require('E:\\\\Work\\\\Canadae...')
+#13 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(110): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
+#14 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\Work\\\\Canadae...', Array)
+#15 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(70): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('E:\\\\Work\\\\Canadae...', Array)
+#16 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(195): Illuminate\\View\\Engines\\CompilerEngine->get('E:\\\\Work\\\\Canadae...', Array)
+#17 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(178): Illuminate\\View\\View->getContents()
+#18 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(147): Illuminate\\View\\View->renderContents()
+#19 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Markdown.php(65): Illuminate\\View\\View->render()
+#20 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailable.php(334): Illuminate\\Mail\\Markdown->render('mails.dynamic-m...', Array)
+#21 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailable.php(304): Illuminate\\Mail\\Mailable->buildMarkdownView()
+#22 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailable.php(204): Illuminate\\Mail\\Mailable->buildView()
+#23 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Traits\\Localizable.php(19): Illuminate\\Mail\\Mailable->Illuminate\\Mail\\{closure}()
+#24 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailable.php(197): Illuminate\\Mail\\Mailable->withLocale(NULL, Object(Closure))
+#25 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailer.php(309): Illuminate\\Mail\\Mailable->send(Object(Illuminate\\Mail\\Mailer))
+#26 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailer.php(253): Illuminate\\Mail\\Mailer->sendMailable(Object(App\\Mail\\CustomerResetPasswordMail))
+#27 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\PendingMail.php(124): Illuminate\\Mail\\Mailer->send(Object(App\\Mail\\CustomerResetPasswordMail))
+#28 E:\\Work\\Canadaexport\\app\\Http\\Controllers\\Api\\Web\\SignupController.php(584): Illuminate\\Mail\\PendingMail->send(Object(App\\Mail\\CustomerResetPasswordMail))
+#29 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): App\\Http\\Controllers\\Api\\Web\\SignupController->forgotPassword(Object(Illuminate\\Http\\Request))
+#30 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction('forgotPassword', Array)
+#31 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(259): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\Web\\SignupController), 'forgotPassword')
+#32 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(205): Illuminate\\Routing\\Route->runController()
+#33 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(798): Illuminate\\Routing\\Route->run()
+#34 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#35 E:\\Work\\Canadaexport\\app\\Http\\Middleware\\UserStatus.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#36 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\UserStatus->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 E:\\Work\\Canadaexport\\app\\Http\\Middleware\\ShareVariableMiddleware.php(16): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#38 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\ShareVariableMiddleware->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 E:\\Work\\Canadaexport\\app\\Http\\Middleware\\StorePreviousUrl.php(23): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#40 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\StorePreviousUrl->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#42 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#43 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken.php(78): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#44 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#45 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Middleware\\ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#46 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#47 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(121): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#48 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest(Object(Illuminate\\Http\\Request), Object(Illuminate\\Session\\Store), Object(Closure))
+#49 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#50 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#51 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#52 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\EncryptCookies.php(67): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#53 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#54 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#55 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(797): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#56 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(776): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#57 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(740): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#58 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(729): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#59 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(190): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#60 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#61 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#62 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#63 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#64 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#65 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#66 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#67 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#68 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#69 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#70 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#71 E:\\Work\\Canadaexport\\vendor\\fruitcake\\laravel-cors\\src\\HandleCors.php(38): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#72 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Fruitcake\\Cors\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#73 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#74 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#75 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#76 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(165): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#77 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#78 E:\\Work\\Canadaexport\\public\\index.php(77): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#79 E:\\Work\\Canadaexport\\server.php(21): require_once('E:\\\\Work\\\\Canadae...')
+#80 {main}
+"} 
+[2026-01-06 04:07:55] local.ERROR: Call to a member function trashed() on null {"userId":3,"exception":"[object] (Error(code: 0): Call to a member function trashed() on null at E:\\Work\\Canadaexport\\app\\Http\\Controllers\\Api\\Admin\\DashboardController.php:77)
+[stacktrace]
+#0 [internal function]: App\\Http\\Controllers\\Api\\Admin\\DashboardController->App\\Http\\Controllers\\Api\\Admin\\{closure}(Object(App\\Models\\Order), 1)
+#1 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Collections\\Arr.php(560): array_map(Object(Closure), Array, Array)
+#2 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Collections\\Collection.php(768): Illuminate\\Support\\Arr::map(Array, Object(Closure))
+#3 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Collection.php(341): Illuminate\\Support\\Collection->map(Object(Closure))
+#4 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Collections\\Traits\\EnumeratesValues.php(368): Illuminate\\Database\\Eloquent\\Collection->map(Object(Closure))
+#5 E:\\Work\\Canadaexport\\app\\Http\\Controllers\\Api\\Admin\\DashboardController.php(68): Illuminate\\Support\\Collection->flatMap(Object(Closure))
+#6 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): App\\Http\\Controllers\\Api\\Admin\\DashboardController->show()
+#7 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction('show', Array)
+#8 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(259): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\Admin\\DashboardController), 'show')
+#9 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(205): Illuminate\\Routing\\Route->runController()
+#10 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(798): Illuminate\\Routing\\Route->run()
+#11 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#12 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#13 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#14 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Auth\\Middleware\\Authenticate.php(44): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#15 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Auth\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'sanctum')
+#16 E:\\Work\\Canadaexport\\vendor\\laravel\\sanctum\\src\\Http\\Middleware\\EnsureFrontendRequestsAreStateful.php(33): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#17 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Laravel\\Sanctum\\Http\\Middleware\\EnsureFrontendRequestsAreStateful->Laravel\\Sanctum\\Http\\Middleware\\{closure}(Object(Illuminate\\Http\\Request))
+#18 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken.php(78): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#19 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#20 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(121): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#21 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest(Object(Illuminate\\Http\\Request), Object(Illuminate\\Session\\Store), Object(Closure))
+#22 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#23 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#24 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#25 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\EncryptCookies.php(67): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#27 E:\\Work\\Canadaexport\\vendor\\laravel\\sanctum\\src\\Http\\Middleware\\EnsureFrontendRequestsAreStateful.php(26): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#28 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(162): Laravel\\Sanctum\\Http\\Middleware\\EnsureFrontendRequestsAreStateful->Laravel\\Sanctum\\Http\\Middleware\\{closure}(Object(Illuminate\\Http\\Request), Object(Closure))
+#29 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#30 E:\\Work\\Canadaexport\\vendor\\laravel\\sanctum\\src\\Http\\Middleware\\EnsureFrontendRequestsAreStateful.php(32): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#31 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Laravel\\Sanctum\\Http\\Middleware\\EnsureFrontendRequestsAreStateful->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#32 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#33 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(797): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#34 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(776): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#35 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(740): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#36 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(729): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#37 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(190): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#38 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#39 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#40 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#42 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#43 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#44 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#45 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#46 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#47 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#48 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#49 E:\\Work\\Canadaexport\\vendor\\fruitcake\\laravel-cors\\src\\HandleCors.php(52): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#50 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Fruitcake\\Cors\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#51 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#52 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#53 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#54 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(165): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#55 E:\\Work\\Canadaexport\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#56 E:\\Work\\Canadaexport\\public\\index.php(77): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#57 E:\\Work\\Canadaexport\\server.php(21): require_once('E:\\\\Work\\\\Canadae...')
+#58 {main}
+"} 

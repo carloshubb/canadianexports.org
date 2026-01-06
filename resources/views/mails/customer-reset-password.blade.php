@@ -17,16 +17,24 @@ Reset your password
 @endcomponent --}}
 
 @component('mail::message')
-# Hello {{ $data['name'] ?? 'User' }},
+# Hello {{ $data['name'] ?? ($data['data']['name'] ?? 'User') }},
 
 <p style="text-align: justify;">We have received a request to reset your password for your Canadian Exports account. To proceed with this process, please click on the following link:</p>
 
-<x-mail::button :url="route('password.reset', ['abbreviation' => $data['lang']['abbreviation'], 'token' => $data['token'], 'validity' => (isset($data['is_admin']) ? $data['is_admin'] : ''), 'email' => $data['email']])" color="primary">
+@php
+    $lang = $data['lang'] ?? $data['data']['lang'] ?? null;
+    $token = $data['token'] ?? $data['data']['token'] ?? '';
+    $email = $data['email'] ?? $data['data']['email'] ?? '';
+    $isAdmin = $data['is_admin'] ?? $data['data']['is_admin'] ?? '';
+    $abbreviation = $lang && isset($lang['abbreviation']) ? $lang['abbreviation'] : ($lang && is_object($lang) ? $lang->abbreviation : 'en');
+@endphp
+
+<x-mail::button :url="route('password.reset', ['abbreviation' => $abbreviation, 'token' => $token, 'validity' => $isAdmin, 'email' => $email])" color="primary">
 Reset your password
 </x-mail::button>
 
 <p style="text-align: justify;">If your browser does not permit you to click on the link above, please copy and paste this URL into your web browser's address bar:</p>
-<p><a href="{{route('password.reset', ['abbreviation' => $data['lang']['abbreviation'], 'token' => $data['token'], 'validity' => (isset($data['is_admin']) ? $data['is_admin'] : ''), 'email' => $data['email']])}}">{{route('password.reset', ['abbreviation' => $data['lang']['abbreviation'], 'token' => $data['token'], 'validity' => (isset($data['is_admin']) ? $data['is_admin'] : ''), 'email' => $data['email']])}}</a></p>
+<p><a href="{{route('password.reset', ['abbreviation' => $abbreviation, 'token' => $token, 'validity' => $isAdmin, 'email' => $email])}}">{{route('password.reset', ['abbreviation' => $abbreviation, 'token' => $token, 'validity' => $isAdmin, 'email' => $email])}}</a></p>
 
 <p style="text-align: justify;">You will be redirected to a page where you can select a new password</p>
 

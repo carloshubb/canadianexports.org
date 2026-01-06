@@ -579,6 +579,10 @@ class SignupController extends Controller
             'created_at' => Carbon::now()
         ]);
 
+        // Ensure defaultLang is always set (fallback to first language if null)
+        if (!$defaultLang) {
+            $defaultLang = Language::first();
+        }
 
         $data = ['token' => $token, 'lang' => $defaultLang, 'email' => $request->email, 'name' => $customer->name,];
         Mail::to($request->email)->send(new CustomerResetPasswordMail($data));

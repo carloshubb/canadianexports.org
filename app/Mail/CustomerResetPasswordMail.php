@@ -38,14 +38,16 @@ class CustomerResetPasswordMail extends Mailable
 {
     $subject = 'Reset your password';
     $service = app(EmailTemplateService::class);
-    $rendered = $service->render('customer_reset_password', ['data' => $this->data], $subject, null);
+    // Pass data both as nested and flat structure for template compatibility
+    $templateData = array_merge(['data' => $this->data], $this->data);
+    $rendered = $service->render('customer_reset_password', $templateData, $subject, null);
 
     if (!empty($rendered['body_html'])) {
         return $this->markdown('mails.dynamic-markdown')
             ->subject($rendered['subject'] ?: $subject)
             ->with([
                 'body_html' => $rendered['body_html'],
-                'data' => ['data' => $this->data],
+                'data' => $templateData,
             ]);
     }
 
