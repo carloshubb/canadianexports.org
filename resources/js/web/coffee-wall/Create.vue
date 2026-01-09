@@ -78,7 +78,7 @@
                             </label>
                         </div>
 
-                        <!-- Quarterly -->
+                        <!-- Quarterly c-->
                         <div class="w-full">
                             <label
                                 class="w-full block cursor-pointer px-5 py-5 text-base md:text-2xl font-FuturaMdCnBT text-center border rounded-none rounded-r-md md:rounded-r-lg"
