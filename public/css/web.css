@@ -3058,6 +3058,10 @@ ul li {
   --tw-border-opacity: 1 !important;
   border-color: rgb(209 213 219 / var(--tw-border-opacity, 1)) !important;
 }
+.border-gray-400 {
+  --tw-border-opacity: 1 !important;
+  border-color: rgb(156 163 175 / var(--tw-border-opacity, 1)) !important;
+}
 .border-gray-500 {
   --tw-border-opacity: 1 !important;
   border-color: rgb(107 114 128 / var(--tw-border-opacity, 1)) !important;
@@ -4041,6 +4045,9 @@ ul li {
 .tracking-wide {
   letter-spacing: 0.025em !important;
 }
+.tracking-wider {
+  letter-spacing: 0.05em !important;
+}
 .text-\[\#006EB7\] {
   --tw-text-opacity: 1 !important;
   color: rgb(0 110 183 / var(--tw-text-opacity, 1)) !important;
@@ -4088,6 +4095,10 @@ ul li {
 .text-gray-100 {
   --tw-text-opacity: 1 !important;
   color: rgb(243 244 246 / var(--tw-text-opacity, 1)) !important;
+}
+.text-gray-200 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(229 231 235 / var(--tw-text-opacity, 1)) !important;
 }
 .text-gray-300 {
   --tw-text-opacity: 1 !important;
@@ -8518,6 +8529,11 @@ body > .dp__outer_menu_wrap,
   .dark\:bg-gray-700 {
     --tw-bg-opacity: 1 !important;
     background-color: rgb(55 65 81 / var(--tw-bg-opacity, 1)) !important;
+  }
+
+  .dark\:bg-gray-900 {
+    --tw-bg-opacity: 1 !important;
+    background-color: rgb(17 24 39 / var(--tw-bg-opacity, 1)) !important;
   }
 
   .dark\:text-gray-400 {
