@@ -456,14 +456,31 @@ export default {
         // Remove leading slash
         path = path.replace(/^\/+/, "");
         
-        // Files are stored in storage/app/public/media/temp/...
-        // They need to be accessed via storage symlink: storage/media/temp/...
-        if (path.startsWith("media/")) {
-          // Prepend 'storage/' to make it accessible via the symlink
-          path = "storage/" + path;
+        // If path is already a full URL, return as is
+        if (path.startsWith("http://") || path.startsWith("https://")) {
+          return path;
         }
         
-        // Ensure it starts with /
+        // For temp media files (media/temp/...), try both paths
+        // On Hostinger: files are saved directly to web-accessible path (/media/temp/...)
+        // On local: files are in storage and accessed via symlink (/storage/media/temp/...)
+        if (path.startsWith("media/temp/")) {
+          // Try direct path first (Hostinger), backend accessor should handle this
+          return "/" + path;
+        }
+        
+        // For other media files
+        if (path.startsWith("media/")) {
+          // Try storage path first (local with symlink)
+          return "/storage/" + path;
+        }
+        
+        // If already starts with storage/, use as is
+        if (path.startsWith("storage/")) {
+          return "/" + path;
+        }
+        
+        // Default: ensure it starts with /
         return path.startsWith("/") ? path : "/" + path;
       } catch (e) {
         console.error("Error parsing image path:", e);

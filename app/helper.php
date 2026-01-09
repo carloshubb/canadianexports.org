@@ -1910,20 +1910,39 @@ if (!function_exists('getWebPublicPath')) {
         $laravelPublic = public_path();
         $webRoot = rtrim($documentRoot, DIRECTORY_SEPARATOR);
         
+        // Normalize paths for comparison (handle different directory separators)
+        $laravelPublicNormalized = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $laravelPublic);
+        $webRootNormalized = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $webRoot);
+        
         // If Laravel public is inside web root, use web root
         // Otherwise, use Laravel public (for local development)
-        if (strpos($laravelPublic, $webRoot) === 0) {
-            // Laravel public is inside web root, use web root
+        if (strpos($laravelPublicNormalized, $webRootNormalized) === 0 && $laravelPublicNormalized !== $webRootNormalized) {
+            // Laravel public is inside web root (Hostinger scenario), use web root
             $basePath = $webRoot;
         } else {
-            // Use Laravel public path (local development)
+            // Use Laravel public path (local development or same directory)
             $basePath = $laravelPublic;
         }
         
         // Append the subpath if provided
         if (!empty($path)) {
             $path = ltrim($path, DIRECTORY_SEPARATOR . '/\\');
-            return $basePath . DIRECTORY_SEPARATOR . str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $path);
+            $fullPath = $basePath . DIRECTORY_SEPARATOR . str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $path);
+            
+            // Log for debugging on Hostinger
+            if (strpos($path, 'media/temp') === 0) {
+                \Log::info('getWebPublicPath: Temp media path', [
+                    'input_path' => $path,
+                    'document_root' => $documentRoot,
+                    'laravel_public' => $laravelPublic,
+                    'web_root' => $webRoot,
+                    'base_path' => $basePath,
+                    'full_path' => $fullPath,
+                    'laravel_in_webroot' => strpos($laravelPublicNormalized, $webRootNormalized) === 0,
+                ]);
+            }
+            
+            return $fullPath;
         }
         
         return $basePath;

@@ -42,6 +42,12 @@ trait FileUploadTrait
     private function createMediaFolder($folderName = null): bool
     {
         $targetFolder = $folderName ?: $this->folderName;
+        
+        // For temp folders, include the full path with 'media/'
+        if (strpos($targetFolder, 'temp/') === 0 || strpos($targetFolder, 'temp\\') === 0) {
+            $targetFolder = $this->uploadPath . '/' . $targetFolder;
+        }
+        
         $attachmentPath = getWebPublicPath($targetFolder);
         
         if (!file_exists($attachmentPath)) {
@@ -104,6 +110,78 @@ trait FileUploadTrait
         $fileName = preg_replace('/\s+/', '_', time() . ' ' . $file->getClientOriginalName());
         $path     = $this->uploadPath . '/' . $this->folderName . '/';
 
+        // For temp media, ALWAYS save directly to web-accessible path (Hostinger compatibility)
+        // Check if folderName contains "temp" (more flexible check)
+        $isTempMedia = (
+            strpos($this->folderName, 'temp/') === 0 || 
+            strpos($this->folderName, 'temp\\') === 0 ||
+            strpos($this->folderName, 'temp') === 0
+        );
+        
+        if ($isTempMedia) {
+            // Get the full directory path (remove trailing slash for getWebPublicPath)
+            $pathForWeb = rtrim($path, '/\\');
+            $fullDirPath = getWebPublicPath($pathForWeb);
+            
+            // Log for debugging
+            \Log::info('putFile: Saving temp file', [
+                'folderName' => $this->folderName,
+                'isTempMedia' => $isTempMedia,
+                'path' => $path,
+                'pathForWeb' => $pathForWeb,
+                'fullDirPath' => $fullDirPath,
+                'fileName' => $fileName,
+                'document_root' => $_SERVER['DOCUMENT_ROOT'] ?? 'not set',
+                'public_path' => public_path(),
+                'web_public_path_test' => getWebPublicPath('media/temp/test'),
+            ]);
+            
+            // Ensure directory exists
+            if (!file_exists($fullDirPath)) {
+                $created = @mkdir($fullDirPath, 0755, true);
+                \Log::info('putFile: Created directory', [
+                    'fullDirPath' => $fullDirPath,
+                    'created' => $created,
+                    'exists_after' => file_exists($fullDirPath),
+                    'is_writable' => is_writable(dirname($fullDirPath)),
+                ]);
+            }
+            
+            // Full file path including filename
+            $fullFilePath = $fullDirPath . DIRECTORY_SEPARATOR . $fileName;
+            
+            // Move file to web-accessible location
+            try {
+                $moved = $file->move($fullDirPath, $fileName);
+                if ($moved) {
+                    \Log::info('putFile: File moved successfully', [
+                        'fullFilePath' => $fullFilePath,
+                        'exists' => file_exists($fullFilePath),
+                        'readable' => is_readable($fullFilePath),
+                    ]);
+                    // Return relative path (media/temp/.../filename) for database storage
+                    return $path . $fileName;
+                } else {
+                    \Log::error('putFile: File move failed - move() returned false', [
+                        'fullDirPath' => $fullDirPath,
+                        'fileName' => $fileName,
+                        'dir_exists' => file_exists($fullDirPath),
+                        'dir_writable' => is_writable($fullDirPath),
+                    ]);
+                }
+            } catch (\Exception $e) {
+                \Log::error('putFile: Exception during file move', [
+                    'error' => $e->getMessage(),
+                    'trace' => $e->getTraceAsString(),
+                    'fullDirPath' => $fullDirPath,
+                    'fileName' => $fileName,
+                ]);
+            }
+            
+            return false;
+        }
+
+        // For non-temp files, use Storage (works with symlink on local)
         if (Storage::putFileAs('public/' . $path, $file, $fileName)) {
             return $path . $fileName;
         }
@@ -146,13 +224,34 @@ trait FileUploadTrait
     {
         if (is_array($files)) {
             foreach ($files as $file) {
-                $filePath = config('filesystems.disks.public.root') . DIRECTORY_SEPARATOR . $file;
+                // Normalize path
+                $normalizedFile = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $file);
+                
+                // Check if it's a temp file (saved to web-accessible path on Hostinger)
+                if (strpos($normalizedFile, 'media' . DIRECTORY_SEPARATOR . 'temp') === 0) {
+                    // Try web-accessible path first (Hostinger)
+                    $filePath = getWebPublicPath($normalizedFile);
+                    if (!file_exists($filePath)) {
+                        // Fallback to storage path (local)
+                        $filePath = config('filesystems.disks.public.root') . DIRECTORY_SEPARATOR . $normalizedFile;
+                    }
+                } else {
+                    // Regular file in storage
+                    $filePath = config('filesystems.disks.public.root') . DIRECTORY_SEPARATOR . $normalizedFile;
+                }
+                
                 if (file_exists($filePath)) {
                     unlink($filePath);
                     $url = pathinfo($file, PATHINFO_DIRNAME);
                     $url_var = explode('/', $url);
                     $folderName = end($url_var);
-                    $tempDir = config('filesystems.disks.public.root') . DIRECTORY_SEPARATOR . 'media' . DIRECTORY_SEPARATOR . 'temp' . DIRECTORY_SEPARATOR . $folderName;
+                    
+                    // Try both paths for temp directory cleanup
+                    $tempDir = getWebPublicPath('media/temp/' . $folderName);
+                    if (!is_dir($tempDir)) {
+                        $tempDir = config('filesystems.disks.public.root') . DIRECTORY_SEPARATOR . 'media' . DIRECTORY_SEPARATOR . 'temp' . DIRECTORY_SEPARATOR . $folderName;
+                    }
+                    
                     if (is_dir($tempDir) && count(scandir($tempDir)) <= 2) {
                         rmdir($tempDir);
                     }
@@ -160,13 +259,34 @@ trait FileUploadTrait
             }
             return 1;
         } else {
-            $filePath = config('filesystems.disks.public.root') . DIRECTORY_SEPARATOR . $files;
+            // Normalize path
+            $normalizedFile = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $files);
+            
+            // Check if it's a temp file (saved to web-accessible path on Hostinger)
+            if (strpos($normalizedFile, 'media' . DIRECTORY_SEPARATOR . 'temp') === 0) {
+                // Try web-accessible path first (Hostinger)
+                $filePath = getWebPublicPath($normalizedFile);
+                if (!file_exists($filePath)) {
+                    // Fallback to storage path (local)
+                    $filePath = config('filesystems.disks.public.root') . DIRECTORY_SEPARATOR . $normalizedFile;
+                }
+            } else {
+                // Regular file in storage
+                $filePath = config('filesystems.disks.public.root') . DIRECTORY_SEPARATOR . $normalizedFile;
+            }
+            
             if (file_exists($filePath)) {
                 unlink($filePath);
                 $url = pathinfo($files, PATHINFO_DIRNAME);
                 $url_var = explode('/', $url);
                 $folderName = end($url_var);
-                $tempDir = config('filesystems.disks.public.root') . DIRECTORY_SEPARATOR . 'media' . DIRECTORY_SEPARATOR . 'temp' . DIRECTORY_SEPARATOR . $folderName;
+                
+                // Try both paths for temp directory cleanup
+                $tempDir = getWebPublicPath('media/temp/' . $folderName);
+                if (!is_dir($tempDir)) {
+                    $tempDir = config('filesystems.disks.public.root') . DIRECTORY_SEPARATOR . 'media' . DIRECTORY_SEPARATOR . 'temp' . DIRECTORY_SEPARATOR . $folderName;
+                }
+                
                 if (is_dir($tempDir) && count(scandir($tempDir)) <= 2) {
                     rmdir($tempDir);
                 }

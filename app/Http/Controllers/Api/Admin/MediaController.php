@@ -21,6 +21,17 @@ class MediaController extends Controller
         }
 
         $media = $this->saveFiles($request->media, $destinationFolder);
+        
+        // Log for debugging on Hostinger
+        \Log::info('Media upload process', [
+            'destinationFolder' => $destinationFolder ?? 'not set',
+            'uploadPath' => $this->uploadPath ?? 'not set',
+            'media' => $media,
+            'document_root' => $_SERVER['DOCUMENT_ROOT'] ?? 'not set',
+            'public_path' => public_path(),
+            'web_public_path' => getWebPublicPath('media/' . ($destinationFolder ?? '')),
+        ]);
+        
         foreach ($media as $file) {
             TemporaryMedia::create([
                 'path' => $file,

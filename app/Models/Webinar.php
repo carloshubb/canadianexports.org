@@ -179,20 +179,74 @@ class Webinar extends Model
         // Remove leading slash
         $path = ltrim($path, '/');
 
-        // Files are stored in storage/app/public/media/temp/...
-        // They need to be accessed via storage symlink: storage/media/temp/...
-        if (str_starts_with($path, 'media/')) {
-            // Prepend 'storage/' to make it accessible via the symlink
-            $path = 'storage/' . $path;
+        // Check if we're on Hostinger (shared hosting without symlink support)
+        // On Hostinger, temp files are saved directly to web-accessible path via getWebPublicPath
+        // So media/temp/... files should be accessed as /media/temp/... not /storage/media/temp/...
+        $isHostinger = $this->isHostingerEnvironment();
+
+        // For temp media files (media/temp/...)
+        if (str_starts_with($path, 'media/temp/')) {
+            if ($isHostinger) {
+                // On Hostinger, files are saved directly to web-accessible path
+                // Access them directly as /media/temp/...
+                return asset($path);
+            } else {
+                // On local with symlink, access via /storage/media/temp/...
+                return asset('storage/' . $path);
+            }
         }
 
-        // If already starts with storage/, use as is
+        // For other media files (not temp)
+        if (str_starts_with($path, 'media/')) {
+            // Check if file exists in web-accessible path (Hostinger) or storage (local)
+            $webPath = getWebPublicPath($path);
+            if (file_exists($webPath)) {
+                // File exists in web-accessible path (Hostinger)
+                return asset($path);
+            } else {
+                // File in storage, use symlink path (local)
+                return asset('storage/' . $path);
+            }
+        }
+
+        // If already starts with storage/, use as is (for local)
         if (str_starts_with($path, 'storage/')) {
             return asset($path);
         }
 
-        // Default fallback - try with storage/ prefix
-        return asset('storage/' . $path);
+        // Default fallback - try with storage/ prefix first, then direct
+        $storagePath = 'storage/' . $path;
+        $storageFullPath = public_path($storagePath);
+        if (file_exists($storageFullPath)) {
+            return asset($storagePath);
+        }
+        
+        // Try direct path (for Hostinger)
+        return asset($path);
+    }
+
+    /**
+     * Check if we're running on Hostinger or similar shared hosting
+     */
+    private function isHostingerEnvironment(): bool
+    {
+        // Check if document root differs from Laravel public path
+        // On Hostinger: DOCUMENT_ROOT = public_html, public_path() = public_html/src/public
+        $documentRoot = $_SERVER['DOCUMENT_ROOT'] ?? public_path();
+        $laravelPublic = public_path();
+        
+        // If Laravel public is inside document root, we're likely on shared hosting
+        if (strpos($laravelPublic, $documentRoot) === 0 && $laravelPublic !== $documentRoot) {
+            return true;
+        }
+        
+        // Check if storage symlink doesn't exist (another indicator)
+        $storageLink = public_path('storage');
+        if (!is_link($storageLink) && !file_exists($storageLink)) {
+            return true;
+        }
+        
+        return false;
     }
 
 
