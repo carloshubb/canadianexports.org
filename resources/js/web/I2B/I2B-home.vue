@@ -193,9 +193,9 @@
           class="flex min-h-full items-end justify-center p-4 sm:items-center sm:p-0"
         >
           <div
-            class="relative transform overflow-y-auto rounded-lg bg-white shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-4xl"
+            class="relative transform overflow-y-auto rounded-lg shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-4xl p-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"
           >
-            <div class="bg-white p-4">
+            <div class="bg-white rounded-lg p-6">
               <div class="sm:items-start">
                 <div class="sm:mt-0">
                   <div
@@ -225,8 +225,11 @@
                     </button>
                   </div>
                   <div class="">
-                    <p class="can-exp-p py-2">
+                    <p class="can-exp-p py-2" v-if="!isUserLoggedIn">
                       {{ displayModalBody() }}
+                    </p>
+                    <p class="can-exp-p py-2" v-else>
+                      Click <strong>"Submit"</strong> to receive the full details of this Purchase Inquiry by email.
                     </p>
                   </div>
                   <div class="" v-if="isUserLoggedIn">
@@ -264,167 +267,32 @@
                     </div>
                   </div>
                   <div v-else-if="!isUserLoggedIn">
-                    <form @submit.prevent="loginCustomer()">
-                      <div
-                        class="flex flex-col sm:flex-col md:flex-row lg:flex-row w-full items-center gap-4"
-                      >
-                        <div class="w-full">
-                          <label
-                            for="email"
-                            class="block text-gray-700 mb-2 text-base md:text-base lg:text-lg"
-                            >{{
-                              login_page_setting_detail &&
-                              JSON.parse(login_page_setting_detail)[
-                                "email_label"
-                              ]
-                                ? JSON.parse(login_page_setting_detail)[
-                                    "email_label"
-                                  ]
-                                : "Email"
-                            }}
-                            <span class="text-red-500">*</span></label
-                          >
-                          <div>
-                            <input
-                              type="text"
-                              class="can-exp-input"
-                              id="email"
-                              name="email"
-                              placeholder=""
-                              autofocus=""
-                              v-model="login_form.email"
-                            />
-                          </div>
-                          <Error
-                            fieldName="email"
-                            :validationErros="validationErros"
-                            full_width="1"
-                          />
+                    <div class="flex flex-col items-center justify-center gap-6 py-4">
+                      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
+                        <div class="text-base md:text-lg text-gray-700">
+                          Already a member?
                         </div>
-                        <div class="w-full">
-                          <label
-                            for="password"
-                            class="block text-gray-700 mb-2 text-base md:text-base lg:text-lg"
-                            >{{
-                              login_page_setting_detail &&
-                              JSON.parse(login_page_setting_detail)[
-                                "password_label"
-                              ]
-                                ? JSON.parse(login_page_setting_detail)[
-                                    "password_label"
-                                  ]
-                                : "Password"
-                            }}
-                            <span class="text-red-500">*</span></label
-                          >
-                          <div class="mt-2 relative">
-                            <input
-                              class="can-exp-input"
-                              id="password"
-                              :type="display_password"
-                              name="password"
-                              autocomplete="current-password"
-                              v-model="login_form.password"
-                            />
-                            <svg
-                              class="w-5 h-5 text-gray-500 absolute top-3"
-                              :class="
-                                lang &&
-                                JSON.parse(lang) &&
-                                JSON.parse(lang)['direction'] == 'ltr'
-                                  ? 'right-3'
-                                  : 'left-3'
-                              "
-                              @click="display_password = 'text'"
-                              v-if="display_password == 'password'"
-                              viewBox="0 0 51 35"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <g clip-path="url(#clip0_1249_2209)">
-                                <path
-                                  d="M28.22 0.59C27.73 0.53 27.24 0.49 26.75 0.43H24.2C23.63 0.5 23.06 0.56 22.49 0.63C18.95 1.07 15.69 2.29 12.64 4.13C8.56 6.6 5.23 9.88 2.39 13.68C1.62 14.71 0.93 15.8 0.21 16.86C0.14 16.95 0.07 17.04 0 17.13V17.21C0.69 18.22 1.35 19.25 2.08 20.23C4.89 24.01 8.16 27.31 12.15 29.86C12.19 29.89 12.23 29.91 12.27 29.93C12.33 29.8 12.4 29.69 12.48 29.57L15.51 24.97C14.14 22.86 13.27 20.55 13.11 17.99C12.67 11.02 17.98 5.1 24.95 4.8C26.2 4.75 27.39 4.88 28.54 5.16L31.18 1.16C30.21 0.91 29.23 0.72 28.22 0.59ZM49.22 14.6C46.3 10.58 42.89 7.08 38.68 4.43C38.61 4.55 38.55 4.65 38.48 4.76L35.45 9.37C35.78 9.87 36.07 10.4 36.34 10.94C37.91 14.11 38.37 17.4 37.33 20.82C35.74 26.05 30.92 29.58 24.98 29.58C24.12 29.57 23.24 29.45 22.37 29.24L19.77 33.2C20.51 33.4 21.27 33.55 22.04 33.67C22.64 33.76 23.25 33.83 23.85 33.91H27.11C27.62 33.84 28.13 33.78 28.64 33.71C32.31 33.22 35.68 31.91 38.8 29.93C43.22 27.13 46.74 23.41 49.69 19.12C50.12 18.49 50.54 17.84 50.96 17.21V17.13C50.38 16.29 49.82 15.43 49.22 14.6ZM37.38 3.65C37.34 3.75 37.28 3.85 37.22 3.94L34.46 8.13L20.88 28.78L18.26 32.77L17.98 33.19C17.49 33.93 16.68 34.34 15.85 34.34C15.37 34.34 14.89 34.2 14.46 33.92C13.39 33.21 13.02 31.83 13.56 30.7C13.61 30.6 13.67 30.5 13.73 30.4L16.47 26.24L30.04 5.61L32.69 1.6L32.98 1.15C33.47 0.41 34.28 0 35.1 0C35.58 0 36.07 0.14 36.5 0.42C37.58 1.13 37.93 2.52 37.38 3.65Z"
-                                  fill="currentcolor"
-                                />
-                              </g>
-                              <defs>
-                                <clipPath id="clip0_1249_2209">
-                                  <rect
-                                    width="50.96"
-                                    height="34.34"
-                                    fill="currentcolor"
-                                  />
-                                </clipPath>
-                              </defs>
-                            </svg>
-                            <svg
-                              class="w-5 h-5 text-gray-500 absolute top-3"
-                              :class="
-                                lang &&
-                                JSON.parse(lang) &&
-                                JSON.parse(lang)['direction'] == 'ltr'
-                                  ? 'right-3'
-                                  : 'left-3'
-                              "
-                              @click="display_password = 'password'"
-                              v-else-if="display_password == 'text'"
-                              viewBox="0 0 51 34"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <g clip-path="url(#clip0_1248_2207)">
-                                <path
-                                  d="M50.96 16.7C50.96 16.72 50.96 16.75 50.96 16.77C50.54 17.41 50.13 18.05 49.69 18.68C46.74 22.97 43.22 26.69 38.8 29.49C35.68 31.46 32.31 32.77 28.64 33.26C28.13 33.33 27.62 33.39 27.11 33.46C26.02 33.46 24.94 33.46 23.85 33.46C23.25 33.38 22.64 33.31 22.04 33.22C18.47 32.67 15.19 31.35 12.15 29.41C8.16 26.86 4.89 23.57 2.08 19.78C1.36 18.82 0.69 17.78 0 16.77C0 16.75 0 16.72 0 16.7C0.07 16.61 0.15 16.52 0.21 16.42C0.93 15.36 1.62 14.27 2.39 13.24C5.23 9.44 8.57 6.16 12.65 3.69C15.69 1.85 18.96 0.64 22.5 0.2C23.07 0.13 23.64 0.07 24.21 0C25.06 0 25.91 0 26.76 0C27.25 0.05 27.74 0.1 28.22 0.16C31.57 0.58 34.7 1.67 37.63 3.35C42.33 6.06 46.07 9.81 49.23 14.17C49.82 15 50.38 15.86 50.96 16.7ZM24.98 29.15C30.92 29.15 35.74 25.62 37.33 20.39C38.37 16.97 37.92 13.67 36.34 10.51C35.58 8.98 34.69 7.57 33.14 6.66C30.6 5.17 27.94 4.24 24.96 4.37C17.99 4.68 12.67 10.59 13.12 17.56C13.3 20.43 14.37 22.98 16.03 25.3C16.26 25.62 16.55 25.92 16.87 26.15C19.42 28.02 22.25 29.12 24.98 29.15Z"
-                                  fill="currentcolor"
-                                />
-                              </g>
-                              <defs>
-                                <clipPath id="clip0_1248_2207">
-                                  <rect
-                                    width="50.96"
-                                    height="33.48"
-                                    fill="currentcolor"
-                                  />
-                                </clipPath>
-                              </defs>
-                            </svg>
-                          </div>
-                          <Error
-                            fieldName="password"
-                            :validationErros="validationErros"
-                            full_width="1"
-                          />
-                        </div>
-                      </div>
-                      <div class="mt-5 flex items-center justify-center gap-4">
                         <a
-                          aria-label="Candian Exporters"
-                          :href="register_url"
-                          class="button-exp-no-fill"
-                          >{{
-                            JSON.parse(modal_setting)
-                              ? JSON.parse(modal_setting)["signup_button_text"]
-                              : ""
-                          }}</a
+                          href="../en/signin"
+                          class="button-exp-fill"
+                          aria-label="Log in"
                         >
-                        <button
-                          aria-label="Candian Exporters"
-                          type="submit"
-                          class="button-exp-fill border border-primary"
-                        >
-                          {{
-                            login_page_setting_detail &&
-                            JSON.parse(login_page_setting_detail)[
-                              "signin_btn_text"
-                            ]
-                              ? JSON.parse(login_page_setting_detail)[
-                                  "signin_btn_text"
-                                ]
-                              : "Login"
-                          }}
-                        </button>
+                          Log in
+                        </a>
                       </div>
-                    </form>
+                      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
+                        <div class="text-base md:text-lg text-gray-700">
+                          New to Canadian Exports?
+                        </div>
+                        <a
+                          href="../en/signup"
+                          class="button-exp-fill"
+                          aria-label="Register"
+                        >
+                          Register
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -504,6 +372,9 @@ export default {
   methods: {
     resetValues() {
       this.form.inquiry_id = "";
+      if (this.form.package_id) {
+        delete this.form.package_id;
+      }
       this.validationErros = new ErrorHandling();
       this.login_form.email = "";
       this.login_form.password = "";
@@ -540,50 +411,71 @@ export default {
     //     .finally(() => (this.loading = false));
     // },
     displayI2BModal(i2bId, i2bName) {
-  this.resetValues();
+      this.resetValues();
 
-  const langAbbr = this.lang?.abbreviation || 'en';
+      const langAbbr = this.lang?.abbreviation || 'en';
 
-    if (this.user && !JSON.parse(this.user).is_package_amount_paid) {
-      window.location.href = `${process.env.MIX_APP_URL}/${langAbbr}/user/review-confirmation`;
-      return;
-    }
-
-  this.resetValues();
-  this.loading = 1;
-  axios
-    .post(`${process.env.MIX_APP_URL}/get-logged-in-user`)
-    .then((res) => {
-      this.isI2BModalDisplayed = 1;
-      this.inquiryId = i2bId;
-      this.loading = 0;
-      if (res.data.status == "Success") {
-        this.isUserLoggedIn = true;
-        this.customer = res?.data?.data?.customer ?? null;
-        axios
-          .get(
-            `${process.env.MIX_APP_URL}/get-registration-packages?getPayToGoPackagesOnly=1`
-          )
-          .then((res) => {
-            if (res.data.status == "Success") {
-            }
-          });
-      } else {
-        this.isUserLoggedIn = false;
+      // Check if user has featured or premium package - they should always see the modal
+      if (this.user) {
+        const userData = JSON.parse(this.user);
+        const packageType = userData?.registration_package?.package_type;
+        
+        // If user has featured or premium package, show modal regardless of payment status
+        if (packageType === 'featured' || packageType === 'premium') {
+          // Show the modal
+        } else if (!userData.is_package_amount_paid) {
+          // Only redirect if they don't have a paid package and are not featured/premium
+          window.location.href = `${process.env.MIX_APP_URL}/${langAbbr}/user/review-confirmation`;
+          return;
+        }
       }
-    })
-    .finally(() => (this.loading = false));
-},
-handleI2bButtonClick(inquiryId) {
-    const langAbbr = this.lang?.abbreviation || 'en';
 
-    if (this.user && !JSON.parse(this.user).is_package_amount_paid) {
-      window.location.href = `${process.env.MIX_APP_URL}/${langAbbr}/user/review-confirmation`;
-    } else {
+      this.resetValues();
+      this.loading = 1;
+      axios
+        .post(`${process.env.MIX_APP_URL}/get-logged-in-user`)
+        .then((res) => {
+          this.isI2BModalDisplayed = 1;
+          this.inquiryId = i2bId;
+          this.loading = 0;
+          if (res.data.status == "Success") {
+            this.isUserLoggedIn = true;
+            this.customer = res?.data?.data?.customer ?? null;
+            axios
+              .get(
+                `${process.env.MIX_APP_URL}/get-registration-packages?getPayToGoPackagesOnly=1`
+              )
+              .then((res) => {
+                if (res.data.status == "Success") {
+                }
+              });
+          } else {
+            this.isUserLoggedIn = false;
+          }
+        })
+        .finally(() => (this.loading = false));
+    },
+    handleI2bButtonClick(inquiryId) {
+      const langAbbr = this.lang?.abbreviation || 'en';
+
+      // Check if user has featured or premium package - they should always see the modal
+      if (this.user) {
+        const userData = JSON.parse(this.user);
+        const packageType = userData?.registration_package?.package_type;
+        
+        // If user has featured or premium package, show modal regardless of payment status
+        if (packageType === 'featured' || packageType === 'premium') {
+          this.displayI2BModal(inquiryId);
+          return;
+        } else if (!userData.is_package_amount_paid) {
+          // Only redirect if they don't have a paid package and are not featured/premium
+          window.location.href = `${process.env.MIX_APP_URL}/${langAbbr}/user/review-confirmation`;
+          return;
+        }
+      }
 
       this.displayI2BModal(inquiryId);
-    }
-  },
+    },
     loginCustomer() {
       this.loading = true;
       this.login_form.inquiry_id = this.inquiryId;
@@ -619,31 +511,68 @@ handleI2bButtonClick(inquiryId) {
     },
     async recaptcha() {
       this.loading = 1;
-      load(process.env.MIX_reCAPTCHA_site_key).then((recaptcha) => {
+      try {
+        const recaptcha = await load(process.env.MIX_reCAPTCHA_site_key);
         recaptcha.showBadge();
-        recaptcha.execute("submit").then((token) => {
-          axios
-            .post(`${process.env.MIX_WEB_API_URL}verifyRecaptcha`, {
-              token: token,
-            })
-            .then((res) => {
-              setTimeout(() => {
-                recaptcha.hideBadge();
-              }, 3000);
-              if (res.data.status == "Success") {
-                this.saveForm();
-              } else if (res.data.status == "Error") {
-                this.loading = 0;
-                this.validationErros.record({
-                  captcha: [res.data.message],
-                });
-              }
+        const token = await recaptcha.execute("submit");
+        
+        try {
+          const res = await axios.post(`${process.env.MIX_WEB_API_URL}verifyRecaptcha`, {
+            token: token,
+          });
+          
+          setTimeout(() => {
+            recaptcha.hideBadge();
+          }, 3000);
+          
+          if (res.data.status == "Success") {
+            this.saveForm();
+          } else if (res.data.status == "Error") {
+            this.loading = 0;
+            this.validationErros.record({
+              captcha: [res.data.message || "reCAPTCHA verification failed"],
             });
-        });
-      });
+          }
+        } catch (error) {
+          this.loading = 0;
+          recaptcha.hideBadge();
+          const errorMessage = error.response?.data?.message || "reCAPTCHA verification failed. Please try again.";
+          this.validationErros.record({
+            captcha: [errorMessage],
+          });
+        }
+      } catch (error) {
+        this.loading = 0;
+        const errorMessage = error.message || "Failed to load reCAPTCHA. Please try again.";
+        helper.swalErrorMessageForWeb(errorMessage);
+      }
     },
     saveForm() {
       this.form.inquiry_id = this.inquiryId;
+      
+      // Include package_id from user if available and validate user status
+      if (this.user) {
+        try {
+          const userData = JSON.parse(this.user);
+          if (userData?.registration_package?.id) {
+            this.form.package_id = userData.registration_package.id;
+          }
+          
+          // Check if user should be able to submit
+          const packageType = userData?.registration_package?.package_type;
+          const isPaid = userData?.is_package_amount_paid == '1' || userData?.is_package_amount_paid == 1;
+          
+          // If user is not Featured/Premium and hasn't paid, show error
+          if (packageType !== 'featured' && packageType !== 'premium' && !isPaid && userData?.package_price > 0) {
+            this.loading = false;
+            helper.swalErrorMessageForWeb("Please complete your payment to access this feature.");
+            return;
+          }
+        } catch (e) {
+          console.error('Error parsing user data:', e);
+        }
+      }
+      
       this.loading = true;
       axios
         .post(`${process.env.MIX_APP_URL}/save-inquiry`, this.form)
@@ -653,11 +582,28 @@ handleI2bButtonClick(inquiryId) {
             if (res?.data?.data?.type == "paypal") {
               window.location.href = res?.data?.data?.redirect_url;
             } else {
-              helper.swalSuccessMessageForWeb(res.data.message);
+              this.$swal.fire({
+                position: "center",
+                showConfirmButton: true,
+                confirmButtonText: 'Close',
+                showCloseButton: false,
+                background: "#ffffffff",
+                buttonsStyling: false,
+                customClass: {
+                  popup: "gradient-border-modal",
+                  title: "swalSuccessClass",
+                  htmlContainer: "swalSuccessClass",
+                  confirmButton: 'button-exp-fill focus:outline-none',
+                },
+                html: `
+                  <p class="text-center mb-3">The full details of this Purchase Inquiry will be emailed to you at no additional cost within the next hour.</p>
+                  <p class="text-center">If you don't receive it within that time, please contact us.</p>
+                `,
+              });
               this.hideI2BModal();
             }
           } else if (res.data.status == "Error") {
-            helper.swalErrorMessageForWeb(res.data.message);
+            helper.swalErrorMessageForWeb(res.data.message || "Something went wrong, please try again.");
           }
         })
         .catch((error) => {
@@ -670,7 +616,13 @@ handleI2bButtonClick(inquiryId) {
             error.response.data &&
             error.response.data.status == "Error"
           ) {
+            helper.swalErrorMessageForWeb(error.response.data.message || "Something went wrong, please try again.");
+          } else if (error.response && error.response.data && error.response.data.message) {
             helper.swalErrorMessageForWeb(error.response.data.message);
+          } else {
+            // Network error or other unexpected error
+            const errorMessage = error.message || "Something went wrong, please try again.";
+            helper.swalErrorMessageForWeb(errorMessage);
           }
         })
         .finally(() => (this.loading = false));

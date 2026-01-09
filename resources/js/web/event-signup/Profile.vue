@@ -166,7 +166,7 @@
                                                 clip-rule="evenodd"
                                             />
                                         </svg>
-                                        {{ features?.name }}
+                                        <span v-html="formatFeatureName(features?.name)"></span>
                                     </li>
                                 </ul>
                             </div>
@@ -242,7 +242,7 @@
                                                 clip-rule="evenodd"
                                             />
                                         </svg>
-                                        {{ features?.name }}
+                                        <span v-html="formatFeatureName(features?.name)"></span>
                                     </li>
                                 </ul>
                             </div>
@@ -250,20 +250,23 @@
                     </div>
                 </div>
                 <!-- CTA fields for Premium/Featured packages only -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" v-if="form.package_type !== 'free'">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" v-if="form.package_type && form.package_type !== 'free'">
                     <div class="relative w-full mb-3">
                         <label
                             class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
                             for="cta_btn"
-                        >CTA Button Text</label>
+                        >CTA(Call-to-Action) Button
+                        <span class="ml-1 text-[0.85em] text-gray-600">(Max. 5 words)</span>
+                        </label>
                         <input
                             @input="clearErrors('cta_btn')"
                             type="text"
                             class="can-exp-input"
-                            placeholder=""
+                            placeholder="The button text that guides the user's next action; e.g., Learn More."
                             name="cta_btn"
                             id="cta_btn"
                             v-model="form.cta_btn"
+                            @input="restrictToCTAWords"
                         />
                         <Error
                             v-if="submitted"
@@ -300,7 +303,417 @@
                     :validationErros="validationErros"
                     full_width="1"
                 />
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            </div>
+            
+            <!-- Step 3: Event Details -->
+            <div
+                class="px-4 my-6 py-1.5 sm:px-6 text-center bg-gradient-to-r from-primary via-primary to-secondary rounded-md"
+            >
+                <h4 class="text-white">
+                    {{ JSON.parse(event_detail)["event_section_heading"] || 'Step 3 of 5 - Create your event' }}
+                </h4>
+            </div>
+            <div 
+                class="grid my-5 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6"
+                v-for="language in JSON.parse(languages)"
+                :key="language.id"
+                :class="(activeTab == null && language.is_default) || activeTab == language.id ? 'block' : 'hidden'"
+            >
+                <div class="relative z-0 w-full group">
+                    <label for="title" class="text-base md:text-base lg:text-lg">
+                        {{ JSON.parse(eventsetting).title_label }}
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        name="title"
+                        id="title"
+                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                        placeholder=" "
+                        @input="handleInput($event.target.value, language, 'title'); clearErrors('title.title_' + language.id);"
+                        :value="form['title'] && form['title'][`title_${language.id}`] ? form['title'][`title_${language.id}`] : ''"
+                    />
+                    <Error
+                        v-if="submitted"
+                        :fieldName="`title.title_${language.id}`"
+                        :validationErros="validationErros"
+                    />
+                </div>
+                <div class="relative z-0 w-full group">
+                    <label for="country" class="text-base md:text-base lg:text-lg">
+                        {{ JSON.parse(eventsetting).country_label }}
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        name="country"
+                        id="country"
+                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                        placeholder=" "
+                        @input="handleInput($event.target.value, language, 'country'); clearErrors('country.country_' + language.id);"
+                        :value="form['country'] && form['country'][`country_${language.id}`] ? form['country'][`country_${language.id}`] : ''"
+                    />
+                    <Error
+                        v-if="submitted"
+                        :fieldName="`country.country_${language.id}`"
+                        :validationErros="validationErros"
+                    />
+                </div>
+                <div class="relative z-0 w-full group">
+                    <label for="city" class="text-base md:text-base lg:text-lg">
+                        {{ JSON.parse(eventsetting).city_label }}
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        name="city"
+                        id="city"
+                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                        placeholder=" "
+                        @input="handleInput($event.target.value, language, 'city'); clearErrors('city.city_' + language.id);"
+                        :value="form['city'] && form['city'][`city_${language.id}`] ? form['city'][`city_${language.id}`] : ''"
+                    />
+                    <Error
+                        v-if="submitted"
+                        :fieldName="`city.city_${language.id}`"
+                        :validationErros="validationErros"
+                    />
+                </div>
+                <div class="relative z-0 w-full group">
+                    <label for="street_name" class="text-base md:text-base lg:text-lg">
+                        {{ JSON.parse(eventsetting).street_name_label }}
+                    </label>
+                    <input
+                        type="text"
+                        name="street_name"
+                        id="street_name"
+                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                        placeholder=" "
+                        @input="handleInput($event.target.value, language, 'street_name'); clearErrors('street_name.street_name_' + language.id);"
+                        :value="form['street_name'] && form['street_name'][`street_name_${language.id}`] ? form['street_name'][`street_name_${language.id}`] : ''"
+                    />
+                    <Error
+                        v-if="submitted"
+                        :fieldName="`street_name.street_name_${language.id}`"
+                        :validationErros="validationErros"
+                    />
+                </div>
+                <div class="relative z-0 w-full group">
+                    <label for="venue" class="text-base md:text-base lg:text-lg">
+                        {{ JSON.parse(eventsetting).venue_label }}
+                    </label>
+                    <input
+                        type="text"
+                        name="venue"
+                        id="venue"
+                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                        placeholder=" "
+                        @input="handleInput($event.target.value, language, 'venue'); clearErrors('venue.venue_' + language.id);"
+                        :value="form['venue'] && form['venue'][`venue_${language.id}`] ? form['venue'][`venue_${language.id}`] : ''"
+                    />
+                    <Error
+                        v-if="submitted"
+                        :fieldName="`venue.venue_${language.id}`"
+                        :validationErros="validationErros"
+                    />
+                </div>
+                <div class="relative z-0 w-full group">
+                    <label for="product_search" class="text-base md:text-base lg:text-lg">
+                        {{ JSON.parse(eventsetting).product_search_label }}
+                    </label>
+                    <input
+                        type="text"
+                        name="product_search"
+                        id="product_search"
+                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                        :placeholder="JSON.parse(eventsetting).product_search_placeholder"
+                        @input="handleInput($event.target.value, language, 'product_search'); clearErrors('product_search.product_search_' + language.id);"
+                        :value="form['product_search'] && form['product_search'][`product_search_${language.id}`] ? form['product_search'][`product_search_${language.id}`] : ''"
+                    />
+                    <Error
+                        v-if="submitted"
+                        :fieldName="`product_search.product_search_${language.id}`"
+                        :validationErros="validationErros"
+                    />
+                </div>
+            </div>
+            <div class="grid md:grid-cols-2 md:gap-6 gap-4 mt-6">
+                <div class="relative z-0 w-full group">
+                    <label for="start_date" class="text-base md:text-base lg:text-lg">
+                        {{ JSON.parse(eventsetting).start_date_label }}
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <input
+                        type="date"
+                        name="start_date"
+                        id="start_date"
+                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                        :value="form.start_date"
+                        @input="checkDateLength('start_date', $event); clearErrors('start_date');"
+                    />
+                    <Error
+                        v-if="submitted"
+                        fieldName="start_date"
+                        :validationErros="validationErros"
+                    />
+                </div>
+                <div class="relative z-0 w-full group">
+                    <label for="end_date" class="text-base md:text-base lg:text-lg">
+                        {{ JSON.parse(eventsetting).end_date_label }}
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <input
+                        type="date"
+                        name="end_date"
+                        id="end_date"
+                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                        :value="form.end_date"
+                        @input="checkDateLength('end_date', $event); clearErrors('end_date');"
+                    />
+                    <Error
+                        v-if="submitted"
+                        fieldName="end_date"
+                        :validationErros="validationErros"
+                    />
+                </div>
+                <div class="relative z-0 w-full group">
+                    <label for="event_website" class="text-base md:text-base lg:text-lg">
+                        {{ JSON.parse(eventsetting).event_website_label }}
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <textarea
+                        rows="2"
+                        name="event_website"
+                        id="event_website"
+                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                        :placeholder="JSON.parse(eventsetting).event_website_placeholder"
+                        :value="form.event_website"
+                        @input="updateForm('event_website', $event.target.value); clearErrors('event_website');"
+                    ></textarea>
+                    <Error
+                        v-if="submitted"
+                        fieldName="event_website"
+                        :validationErros="validationErros"
+                    />
+                </div>
+                <div class="relative z-0 w-full group">
+                    <label for="exibitors_url" class="text-base md:text-base lg:text-lg">
+                        {{ JSON.parse(eventsetting).exibitors_url_label }}
+                    </label>
+                    <textarea
+                        rows="2"
+                        name="exibitors_url"
+                        id="exibitors_url"
+                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                        :placeholder="JSON.parse(eventsetting).exibitors_url_placeholder"
+                        :value="form.exibitors_url"
+                        @input="updateForm('exibitors_url', $event.target.value); clearErrors('exibitors_url');"
+                    ></textarea>
+                    <Error
+                        v-if="submitted"
+                        fieldName="exibitors_url"
+                        :validationErros="validationErros"
+                    />
+                </div>
+                <div class="relative z-0 w-full group">
+                    <label for="visitors_url" class="text-base md:text-base lg:text-lg">
+                        {{ JSON.parse(eventsetting).visitors_label }}
+                    </label>
+                    <input
+                        type="text"
+                        name="visitors_url"
+                        id="visitors_url"
+                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                        :placeholder="JSON.parse(eventsetting).visitors_placeholder"
+                        :value="form.visitors_url"
+                        @input="updateForm('visitors_url', $event.target.value); clearErrors('visitors_url');"
+                    />
+                    <Error
+                        v-if="submitted"
+                        fieldName="visitors_url"
+                        :validationErros="validationErros"
+                    />
+                </div>
+                <div class="relative z-0 w-full group">
+                    <label for="press_url" class="text-base md:text-base lg:text-lg">
+                        {{ JSON.parse(eventsetting).press_url_label }}
+                    </label>
+                    <input
+                        type="text"
+                        name="press_url"
+                        id="press_url"
+                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                        :placeholder="JSON.parse(eventsetting).press_url_placeholder"
+                        :value="form.press_url"
+                        @input="updateForm('press_url', $event.target.value); clearErrors('press_url');"
+                    />
+                    <Error
+                        v-if="submitted"
+                        fieldName="press_url"
+                        :validationErros="validationErros"
+                    />
+                </div>
+            </div>
+            
+            <!-- Step 4: Event Description -->
+            <div
+                class="px-4 my-6 py-1.5 sm:px-6 text-center bg-gradient-to-r from-primary via-primary to-secondary rounded-md"
+            >
+                <h4 class="text-white">
+                    Step 4 of 5 - Event Description
+                </h4>
+            </div>
+            <div 
+                class="grid my-5 grid-cols-1 sm:grid-cols-1 gap-6"
+                v-for="language in JSON.parse(languages)"
+                :key="'desc-' + language.id"
+                :class="(activeTab == null && language.is_default) || activeTab == language.id ? 'block' : 'hidden'"
+            >
+                <div class="relative z-0 w-full group">
+                    <label for="short_description" class="text-base md:text-base lg:text-lg">
+                        {{ JSON.parse(eventsetting).short_description_label }}
+                        <span class="text-red-500">*</span>
+                        <span class="ml-1 text-[0.85em] text-gray-600">(Max. 30 words)</span>
+                    </label>
+                    <textarea
+                        id="short_description"
+                        rows="4"
+                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                        :placeholder="JSON.parse(eventsetting).short_description_placeholder"
+                        @input="restrictToLength($event, 30, language, 'short_description'); clearErrors('short_description.short_description_' + language.id);"
+                        :value="form['short_description'] && form['short_description'][`short_description_${language.id}`] ? form['short_description'][`short_description_${language.id}`] : ''"
+                    ></textarea>
+                    <Error
+                        v-if="submitted"
+                        :fieldName="`short_description.short_description_${language.id}`"
+                        :validationErros="validationErros"
+                    />
+                </div>
+                <div class="relative z-0 w-full mb-6 group">
+                    <label for="description" class="text-base md:text-base lg:text-lg">
+                        {{ JSON.parse(eventsetting).description_label }}
+                        <span class="text-red-500">*</span>
+                        <span class="ml-1 text-[0.85em] text-gray-600">(Max. 300 words)</span>
+                    </label>
+                    <textarea
+                        id="description"
+                        rows="6"
+                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                        :placeholder="JSON.parse(eventsetting).description_placeholder"
+                        @input="restrictToLength($event, 300, language, 'description'); clearErrors('description.description_' + language.id);"
+                        :value="form['description'] && form['description'][`description_${language.id}`] ? form['description'][`description_${language.id}`] : ''"
+                    ></textarea>
+                    <Error
+                        v-if="submitted"
+                        :fieldName="`description.description_${language.id}`"
+                        :validationErros="validationErros"
+                    />
+                </div>
+            </div>
+            
+            <!-- Step 5: Event Media -->
+            <div
+                class="px-4 my-6 py-1.5 sm:px-6 text-center bg-gradient-to-r from-primary via-primary to-secondary rounded-md"
+            >
+                <h4 class="text-white">
+                    Step 5 of 5 - Event Media
+                </h4>
+            </div>
+            <div class="grid md:grid-cols-2 md:gap-6 gap-4 my-5">
+                <div class="relative z-0 w-full group">
+                    <label for="video_url" class="text-base md:text-base lg:text-lg">
+                        {{ JSON.parse(eventsetting).video_url_label }}
+                    </label>
+                    <textarea
+                        rows="2"
+                        name="video_url"
+                        id="video_url"
+                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                        :placeholder="JSON.parse(eventsetting).video_url_placeholder"
+                        :value="form.video_url"
+                        @input="updateForm('video_url', $event.target.value); clearErrors('video_url');"
+                    ></textarea>
+                    <Error
+                        v-if="submitted"
+                        fieldName="video_url"
+                        :validationErros="validationErros"
+                    />
+                </div>
+            </div>
+            
+            <div
+                class="px-4 my-6 py-1.5 sm:px-6 text-center bg-gradient-to-r from-primary via-primary to-secondary rounded-md"
+            >
+                <h4 class="text-white">
+                    {{ JSON.parse(event_detail)["contact_section_heading"] || 'Contact Information' }}
+                </h4>
+            </div>
+            <div v-for="(contact, index) in contacts" :key="index" class="mb-6">
+                <div class="grid md:grid-cols-3 md:gap-6 gap-4 mt-6 bg-white shadow rounded-lg p-6">
+                    <div class="relative z-0 w-full group">
+                        <label :for="`contact-name-${index}`" class="text-base md:text-base lg:text-lg">
+                            {{ JSON.parse(eventsetting).contact_name_label }}
+                            <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                            type="text"
+                            name="contact-name"
+                            :id="`contact-name-${index}`"
+                            class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                            v-model="contact.name"
+                            placeholder=""
+                            @input="updateContact(index, 'name', $event.target.value); clearErrors(`contacts.${index}.name`);"
+                        />
+                        <Error
+                            v-if="submitted"
+                            :fieldName="`contacts.${index}.name`"
+                            :validationErros="validationErros"
+                        />
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <label :for="`contact-email-${index}`" class="text-base md:text-base lg:text-lg">
+                            {{ JSON.parse(eventsetting).contact_email_label }}
+                            <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                            type="text"
+                            name="contact-email"
+                            :id="`contact-email-${index}`"
+                            class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                            v-model="contact.email"
+                            placeholder=""
+                            @input="updateContact(index, 'email', $event.target.value); clearErrors(`contacts.${index}.email`);"
+                        />
+                        <Error
+                            v-if="submitted"
+                            :fieldName="`contacts.${index}.email`"
+                            :validationErros="validationErros"
+                        />
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <label :for="`contact-phone-${index}`" class="text-base md:text-base lg:text-lg">
+                            {{ JSON.parse(eventsetting).contact_phone_label }}
+                            <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                            type="text"
+                            name="contact-phone"
+                            :id="`contact-phone-${index}`"
+                            class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                            v-model="contact.phone"
+                            placeholder=""
+                            @input="updateContact(index, 'phone', $event.target.value); clearErrors(`contacts.${index}.phone`);"
+                        />
+                        <Error
+                            v-if="submitted"
+                            :fieldName="`contacts.${index}.phone`"
+                            :validationErros="validationErros"
+                        />
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div
                         class="flex flex-col space-y-3 mt-6"
                         v-if="form.order_amount > 0"
@@ -443,27 +856,56 @@
             </div>
         </div>
         <!-- <ListErrors :validationErrors="validationErros" /> -->
-        <div class="mt-8 flex justify-center items-center">
-            <button
-                aria-label="Candian Exporters"
-                class="button-exp-fill"
-                type="submit"
-                id="send-message"
-            >
-                {{ JSON.parse(event_detail)["button_text"] }}
-            </button>
+        <!-- Terms and Conditions Checkbox -->
+        <div class="mt-8">
+            <div class="flex items-start pb-4">
+                <input 
+                    tabindex="-1" 
+                    id="is_agree" 
+                    type="checkbox"
+                    class="h-4 w-4 mt-1 rounded border-gray-300 text-primary focus:ring-primary"
+                    :checked="form.is_agree === true"
+                    @input="updateTermsAgreement($event.target.checked)"
+                >
+                <label 
+                    for="is_agree" 
+                    class="ml-2 text-gray-900 text-base md:text-base lg:text-lg"
+                    v-html="event_detail && JSON.parse(event_detail)['terms_and_conditions_label'] ? JSON.parse(event_detail)['terms_and_conditions_label'] : 'I agree to the Terms and Conditions and Privacy Policy'"
+                ></label>
+            </div>
+            <Error 
+                v-if="submitted" 
+                fieldName="is_agree" 
+                :validationErros="validationErros" 
+                full_width="1"
+            />
         </div>
-        <div v-if="loading">
-            <div id="form_preloader">
-                <div id="form_status">
-                    <div class="form_spinner">
-                        <div class="form-double-bounce1"></div>
-                        <div class="form-double-bounce2"></div>
-                    </div>
+
+        <div class="pt-5 border-t border-gray-200">
+            <div class="flex justify-center">
+                <button
+                    aria-label="Candian Exporters"
+                    type="submit"
+                    class="button-exp-fill"
+                    id="send-message"
+                >
+                    {{ JSON.parse(event_detail)["button_text"] }}
+                </button>
+            </div>
+        </div>
+
+        <div class="text-base md:text-base lg:text-lg mt-4" v-html="event_detail && JSON.parse(event_detail)['post_submit_button_text'] ? JSON.parse(event_detail)['post_submit_button_text'] : ''"></div>
+    </form>
+    <div v-if="loading">
+        <div id="form_preloader">
+            <div id="form_status">
+                <div class="form_spinner">
+                    <div class="form-double-bounce1"></div>
+                    <div class="form-double-bounce2"></div>
                 </div>
             </div>
         </div>
-    </form>
+    </div>
 </template>
 
 <script>
@@ -534,6 +976,7 @@ export default {
                 payment_frequency: "annually",
                 cta_btn: "",
                 cta_link: "",
+                is_agree: false,
                 title: {},
                 country: {},
                 city: {},
@@ -1024,6 +1467,28 @@ export default {
                 }
             }
         },
+        formatFeatureName(name) {
+            if (!name) {
+                return "";
+            }
+            return String(name).replace(/\((\d+)\)/g, '<sup class="footnote-indicator">($1)</sup>');
+        },
+        restrictToCTAWords(event) {
+            let inputValue = event.target.value.trim();
+            let wordsArray = inputValue.match(/\S+/g) || [];
+            
+            if (wordsArray.length > 5) {
+                wordsArray = wordsArray.slice(0, 5);
+                event.target.value = wordsArray.join(" ");
+            }
+            
+            this.form.cta_btn = event.target.value;
+            this.clearErrors('cta_btn');
+        },
+        updateTermsAgreement(checked) {
+            this.form.is_agree = checked;
+            this.clearErrors('is_agree');
+        },
     },
     created() {
         this.gallery_files = [];
@@ -1119,5 +1584,11 @@ export default {
 
 .filepond--drip-blob {
     background-color: #7f8a9a;
+}
+
+.footnote-indicator {
+    font-size: 0.75em;
+    vertical-align: super;
+    line-height: 1;
 }
 </style>

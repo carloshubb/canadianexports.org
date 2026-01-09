@@ -30,13 +30,23 @@ class EmailTemplateService
     {
         try {
             // Blade::render handles full Blade syntax: @if, @php, @component, loops, etc.
-            // Also make data available as $data array plus individual variables for convenience
+            // Make data available as $data array plus individual variables for convenience
+            // Ensure 'data' key exists and contains the full data array
             $viewData = array_merge(['data' => $data], $data);
+            
+            // Ensure all required keys exist in the $data array for template access
+            if (!isset($viewData['data']['name'])) {
+                $viewData['data']['name'] = $viewData['data']['name'] ?? $viewData['name'] ?? 'User';
+            }
             
             return Blade::render($template, $viewData);
         } catch (\Exception $e) {
             // If Blade rendering fails, log error and return empty
-            Log::error('Email template rendering failed: ' . $e->getMessage());
+            Log::error('Email template rendering failed: ' . $e->getMessage(), [
+                'template' => substr($template, 0, 100),
+                'data_keys' => array_keys($data),
+                'exception' => $e->getMessage()
+            ]);
             return '';
         }
     }

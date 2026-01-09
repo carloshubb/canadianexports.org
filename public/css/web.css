@@ -3058,10 +3058,6 @@ ul li {
   --tw-border-opacity: 1 !important;
   border-color: rgb(209 213 219 / var(--tw-border-opacity, 1)) !important;
 }
-.border-gray-400 {
-  --tw-border-opacity: 1 !important;
-  border-color: rgb(156 163 175 / var(--tw-border-opacity, 1)) !important;
-}
 .border-gray-500 {
   --tw-border-opacity: 1 !important;
   border-color: rgb(107 114 128 / var(--tw-border-opacity, 1)) !important;
@@ -3154,6 +3150,30 @@ ul li {
 .border-yellow-400 {
   --tw-border-opacity: 1 !important;
   border-color: rgb(250 204 21 / var(--tw-border-opacity, 1)) !important;
+}
+.border-indigo-500 {
+  --tw-border-opacity: 1 !important;
+  border-color: rgb(99 102 241 / var(--tw-border-opacity, 1)) !important;
+}
+.border-orange-500 {
+  --tw-border-opacity: 1 !important;
+  border-color: rgb(249 115 22 / var(--tw-border-opacity, 1)) !important;
+}
+.border-pink-500 {
+  --tw-border-opacity: 1 !important;
+  border-color: rgb(236 72 153 / var(--tw-border-opacity, 1)) !important;
+}
+.border-secondary {
+  --tw-border-opacity: 1 !important;
+  border-color: rgb(17 24 39 / var(--tw-border-opacity, 1)) !important;
+}
+.border-teal-500 {
+  --tw-border-opacity: 1 !important;
+  border-color: rgb(20 184 166 / var(--tw-border-opacity, 1)) !important;
+}
+.border-yellow-500 {
+  --tw-border-opacity: 1 !important;
+  border-color: rgb(234 179 8 / var(--tw-border-opacity, 1)) !important;
 }
 .border-b-transparent {
   border-bottom-color: transparent !important;
@@ -4045,9 +4065,6 @@ ul li {
 .tracking-wide {
   letter-spacing: 0.025em !important;
 }
-.tracking-wider {
-  letter-spacing: 0.05em !important;
-}
 .text-\[\#006EB7\] {
   --tw-text-opacity: 1 !important;
   color: rgb(0 110 183 / var(--tw-text-opacity, 1)) !important;
@@ -4095,10 +4112,6 @@ ul li {
 .text-gray-100 {
   --tw-text-opacity: 1 !important;
   color: rgb(243 244 246 / var(--tw-text-opacity, 1)) !important;
-}
-.text-gray-200 {
-  --tw-text-opacity: 1 !important;
-  color: rgb(229 231 235 / var(--tw-text-opacity, 1)) !important;
 }
 .text-gray-300 {
   --tw-text-opacity: 1 !important;
@@ -8529,11 +8542,6 @@ body > .dp__outer_menu_wrap,
   .dark\:bg-gray-700 {
     --tw-bg-opacity: 1 !important;
     background-color: rgb(55 65 81 / var(--tw-bg-opacity, 1)) !important;
-  }
-
-  .dark\:bg-gray-900 {
-    --tw-bg-opacity: 1 !important;
-    background-color: rgb(17 24 39 / var(--tw-bg-opacity, 1)) !important;
   }
 
   .dark\:text-gray-400 {

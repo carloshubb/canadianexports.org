@@ -55,7 +55,15 @@ class InquiryController extends Controller
 
         //     return $this->errorResponse($message_5);
         // }
-        if (Auth::guard('customers')->user()->is_package_amount_paid == '0' && Auth::guard('customers')->user()->package_price > 0) {
+        $user = Auth::guard('customers')->user();
+        $user->load('registrationPackage');
+        
+        // Allow Featured and Premium users even if payment status is not marked as paid
+        $packageType = $user->registrationPackage ? $user->registrationPackage->package_type : null;
+        $isFeaturedOrPremium = in_array($packageType, ['featured', 'premium']);
+        
+        // Only block if user hasn't paid AND is not Featured/Premium
+        if ($user->is_package_amount_paid == '0' && $user->package_price > 0 && !$isFeaturedOrPremium) {
             return $this->errorResponse(); // Return an error response without a message
         }
 
@@ -121,9 +129,18 @@ class InquiryController extends Controller
         //     }
         // }
         $inquiry = getInquiryById($request->inquiry_id);
+        if (!$inquiry) {
+            return $this->errorResponse('Inquiry not found.');
+        }
+        
         $user = Auth::guard('customers')->user();
         $user = $user->loadMissing('customerProfile');
 
+        // Get inquiry detail name safely
+        $inquiryDetailName = null;
+        if ($inquiry->i2bDetail && count($inquiry->i2bDetail) > 0 && isset($inquiry->i2bDetail[0]->name)) {
+            $inquiryDetailName = $inquiry->i2bDetail[0]->name;
+        }
 
         $customerInquiry = CustomerInquiry::create([
             'i2b_id' => $request->inquiry_id,
@@ -131,13 +148,30 @@ class InquiryController extends Controller
             'customer_id' => Auth::guard('customers')->user()->id,
             'company_name' => isset($user->customerProfile->company_name) ? $user->customerProfile->company_name : null,
             'company_email' => isset($user->customerProfile->company_email) ? $user->customerProfile->company_email : null,
-            'inquiry_detail' => isset($inquiry->i2bDetail[0]) ? $inquiry->i2bDetail[0]->name : null,
+            'inquiry_detail' => $inquiryDetailName,
         ]);
 
-        $data['name'] = $user->name;
+        // Prepare data array for email - ensure all required keys are set
+        $data = [];
+        $data['inquiry_id'] = $request->inquiry_id;
+        
+        // Get user name with multiple fallbacks
+        $userName = 'User';
+        if (!empty($user->name)) {
+            $userName = $user->name;
+        } elseif (!empty($user->email)) {
+            $userName = $user->email;
+        } elseif (!empty($user->customerProfile->company_name)) {
+            $userName = $user->customerProfile->company_name;
+        }
+        $data['name'] = $userName;
+        
         $data['company_name'] = isset($user->customerProfile->company_name) ? $user->customerProfile->company_name : null;
         $data['company_email'] = isset($user->customerProfile->company_email) ? $user->customerProfile->company_email : null;
-        $data['inquiry_detail'] = isset($inquiry->i2bDetail[0]) ? $inquiry->i2bDetail[0]->name : null;
+        $data['inquiry_detail'] = $inquiryDetailName;
+        
+        // Log data for debugging (remove in production if needed)
+        \Log::info('Inquiry email data prepared', ['data_keys' => array_keys($data), 'has_name' => isset($data['name'])]);
 
 
 
@@ -188,23 +222,39 @@ class InquiryController extends Controller
         //     }
         // }
 
+        // Ensure adminEmailsArr is initialized
+        if (!isset($adminEmailsArr)) {
+            $adminEmailsArr = [];
+        }
+        
+        // Validate required data keys before dispatching
+        if (!isset($data['inquiry_id']) || empty($data['inquiry_id'])) {
+            \Log::error('Missing inquiry_id in email data', ['data' => $data]);
+            return $this->errorResponse('Invalid inquiry data.');
+        }
+        
+        if (!isset($data['name']) || empty($data['name'])) {
+            $data['name'] = 'User'; // Set default if somehow missing
+            \Log::warning('Name was missing in email data, using default', ['data' => $data]);
+        }
+        
         //job mail
         $to_email = isset($user->email) ? $user->email : null;
 
-if (isset($to_email)) {
-    SendInquiryMailJob::dispatch($data, $to_email, $adminEmailsArr);
-} else {
-    if (isset($adminEmailsArr) && count($adminEmailsArr) > 1) {
-        $to_email = $adminEmailsArr[0];
-        unset($adminEmailsArr[0]);
-        SendInquiryMailJob::dispatch($data, $to_email, $adminEmailsArr);
-    } else {
-        $to_email = isset($adminEmailsArr[0]) ? $adminEmailsArr[0] : null;
-        if ($to_email) {
-            SendInquiryMailJob::dispatch($data, $to_email, []);
+        if (isset($to_email)) {
+            SendInquiryMailJob::dispatch($data, $to_email, $adminEmailsArr);
+        } else {
+            if (isset($adminEmailsArr) && count($adminEmailsArr) > 1) {
+                $to_email = $adminEmailsArr[0];
+                unset($adminEmailsArr[0]);
+                SendInquiryMailJob::dispatch($data, $to_email, $adminEmailsArr);
+            } else {
+                $to_email = isset($adminEmailsArr[0]) ? $adminEmailsArr[0] : null;
+                if ($to_email) {
+                    SendInquiryMailJob::dispatch($data, $to_email, []);
+                }
+            }
         }
-    }
-}
 
 
 

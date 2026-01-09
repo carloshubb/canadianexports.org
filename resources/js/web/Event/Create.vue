@@ -1647,6 +1647,7 @@
 
 <script>
 import { load } from "recaptcha-v3";
+import swal from "sweetalert2";
 // Import filepond
 import vueFilePond, { setOptions } from "vue-filepond";
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.esm.js";
@@ -1987,6 +1988,7 @@ export default {
         handleGalleryImagesInit() {
             setOptions({
                 credits: false,
+                instantUpload: false,
                 server: {
                     url: process.env.MIX_APP_URL,
                     process: (
@@ -2052,6 +2054,18 @@ export default {
                                 'meta[name="csrf-token"]'
                             ).content
                         );
+
+                        request.onload = function () {
+                            if (request.status >= 200 && request.status < 300) {
+                                load();
+                            } else {
+                                error("Failed to revert file");
+                            }
+                        };
+
+                        request.onerror = function () {
+                            error("Network error while reverting file");
+                        };
 
                         request.send(formData);
 
@@ -2323,9 +2337,30 @@ export default {
                                 response?.data?.data?.redirect_url;
                         } else {
                             this.$store.commit("events/resetForm");
-                            helper.swalSuccessMessageForWeb(response.data.message).then(() => {
-                                window.location.href = this.url;
-                                resolve(res);
+                            // Use custom message for event updates
+                            const message = this.event_id ? "Your event has been updated" : response.data.message;
+                            
+                            // Show popup with proper configuration
+                            swal.fire({
+                                position: "center",
+                                showConfirmButton: true,
+                                confirmButtonText: 'Close',
+                                showCloseButton: false,
+                                background: "#ffffffff",
+                                buttonsStyling: false,
+                                allowOutsideClick: false,
+                                allowEscapeKey: false,
+                                customClass: {
+                                    popup: "gradient-border-modal",
+                                    title: "swalSuccessClass",
+                                    htmlContainer: "swalSuccessClass",
+                                    confirmButton: 'button-exp-fill focus:outline-none',
+                                },
+                                html: `<p class="text-center">${message}</p>`,
+                            }).then((result) => {
+                                if (result.isConfirmed || result.isDismissed) {
+                                    window.location.href = this.url;
+                                }
                             });
                         }
                     } else {

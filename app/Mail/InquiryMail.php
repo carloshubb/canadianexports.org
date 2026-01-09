@@ -63,33 +63,55 @@ class InquiryMail extends Mailable
 
 public function build()
 {
+    // Ensure inquiry_id exists
+    if (!isset($this->data['inquiry_id']) || empty($this->data['inquiry_id'])) {
+        throw new \Exception('Inquiry ID is missing from email data');
+    }
+    
     $i2b = I2b::with(['i2bDetail', 'businessCategory'])->whereId($this->data['inquiry_id'])->first();
+    
+    if (!$i2b) {
+        throw new \Exception('Inquiry not found');
+    }
+
+    // Safely get name with multiple fallbacks
+    $userName = 'User';
+    if (isset($this->data['name']) && !empty($this->data['name'])) {
+        $userName = $this->data['name'];
+    } elseif (isset($this->data['company_name']) && !empty($this->data['company_name'])) {
+        $userName = $this->data['company_name'];
+    } elseif (isset($this->data['company_email']) && !empty($this->data['company_email'])) {
+        $userName = $this->data['company_email'];
+    }
 
     $data = [
-        'name' => $this->data['name'],
-        'business_category' => $i2b->businessCategory->businessCategoryDetail->first()->name ?? 'N/A',
+        'name' => $userName,
+        'business_category' => $i2b->businessCategory && $i2b->businessCategory->businessCategoryDetail ? $i2b->businessCategory->businessCategoryDetail->first()->name ?? 'N/A' : 'N/A',
         'deadline_date' => !empty($i2b->deadline_date)
         ? Carbon::parse($i2b->deadline_date)->format('F d, Y')
         : 'N/A',
         'estimated_value' => $i2b->estimated_value ?? 'N/A',
-        'inquiry_details' => $i2b->i2bDetail->map(function ($detail) {
+        'inquiry_details' => $i2b->i2bDetail ? $i2b->i2bDetail->map(function ($detail) {
             return [
                 'name' => $detail->name ?? 'N/A',
                 'country' => $detail->country_name ?? 'N/A'
             ];
-        })->toArray(),
+        })->toArray() : [],
     ];
 
     $subject = 'Here are the Inquiries to buy details you asked for';
     $service = app(EmailTemplateService::class);
-    $rendered = $service->render('inquiry', ['data' => $data], $subject, null);
+    
+    // Pass data directly (not nested) so EmailTemplateService can merge it correctly
+    // The service will create both $data array and individual variables
+    $rendered = $service->render('inquiry', $data, $subject, null);
 
     if (!empty($rendered['body_html'])) {
         $mail = $this->markdown('mails.dynamic-markdown')
             ->subject($rendered['subject'] ?: $subject)
             ->with([
                 'body_html' => $rendered['body_html'],
-                'data' => ['data' => $data],
+                'data' => $data, // Pass data directly, not nested
             ]);
     } else {
         $mail = $this->markdown('mails/inquiry')
