@@ -15,6 +15,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 /*
 |--------------------------------------------------------------------------
@@ -193,6 +194,6 @@ Route::view('/admin/{any}', 'admin.app')
     ->middleware(['auth', 'auth:sanctum'])
     ->where('any', '.*');
 
-if (env('APP_ENV') != 'local') {
+if (config('app.env') !== 'local') {
     URL::forceScheme('https');
 }
