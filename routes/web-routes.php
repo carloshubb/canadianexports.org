@@ -162,6 +162,11 @@ Route::group(['middleware' => ['share.variable', 'user.status']], function () {
     Route::post('/process-i2b-package-payment', [PaymentController::class, 'processI2bPackagePayment']);
     Route::post('/save-inquiry', [InquiryController::class, 'savePremiumInquiry']);
     Route::post('/save-package-inquiry', [InquiryController::class, 'savePackageInquiry']);
+    
+    // Secure I2B PDF download route (requires signed URL for security)
+    Route::get('/i2b/{inquiryId}/download/{pdfNumber}', [\App\Http\Controllers\Api\Web\I2bDownloadController::class, 'download'])
+        ->middleware(['signed'])
+        ->name('i2b.download');
 
     Route::group(['prefix' => 'media'], function () {
         Route::post('/process', [MediaController::class, 'process']);

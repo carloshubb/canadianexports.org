@@ -27,7 +27,7 @@
                 ?.step_6_facebook_label
             }}
           </label>
-          <input type="url" class="can-exp-input" :placeholder="regPageSetting?.reg_page_setting_detail?.[0]
+          <input type="text" class="can-exp-input" :placeholder="regPageSetting?.reg_page_setting_detail?.[0]
             ?.step_6_facebook_placeholder
             " :value="form && form.has('customer_social_media_facebook')
               ? form.get('customer_social_media_facebook')
@@ -43,7 +43,7 @@
               regPageSetting?.reg_page_setting_detail?.[0]?.step_6_twitter_label
             }}
           </label>
-          <input type="url" class="can-exp-input" :placeholder="regPageSetting?.reg_page_setting_detail?.[0]
+          <input type="text" class="can-exp-input" :placeholder="regPageSetting?.reg_page_setting_detail?.[0]
             ?.step_6_twitter_placeholder
             " :value="form && form.has('customer_social_media_twitter')
               ? form.get('customer_social_media_twitter')
@@ -59,7 +59,7 @@
               regPageSetting?.reg_page_setting_detail?.[0]?.step_6_youtube_label
             }}
           </label>
-          <input type="url" class="can-exp-input" :placeholder="regPageSetting?.reg_page_setting_detail?.[0]
+          <input type="text" class="can-exp-input" :placeholder="regPageSetting?.reg_page_setting_detail?.[0]
             ?.step_6_youtube_placeholder
             " :value="form && form.has('customer_social_media_youtube')
               ? form.get('customer_social_media_youtube')
@@ -76,7 +76,7 @@
                 ?.step_6_linkedin_label
             }}
           </label>
-          <input type="url" class="can-exp-input" :placeholder="regPageSetting?.reg_page_setting_detail?.[0]
+          <input type="text" class="can-exp-input" :placeholder="regPageSetting?.reg_page_setting_detail?.[0]
             ?.step_6_linkedin_placeholder
             " :value="form && form.has('customer_social_media_linked_in')
               ? form.get('customer_social_media_linked_in')
@@ -93,7 +93,7 @@
                 ?.step_6_social_media5_label
             }}
           </label>
-          <input type="url" class="can-exp-input" :placeholder="regPageSetting?.reg_page_setting_detail?.[0]
+          <input type="text" class="can-exp-input" :placeholder="regPageSetting?.reg_page_setting_detail?.[0]
             ?.step_6_social_media5_placeholder
             " :value="form && form.has('customer_social_media_social_media5')
               ? form.get('customer_social_media_social_media5')

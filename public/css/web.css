@@ -2403,6 +2403,9 @@ ul li {
 .table-auto {
   table-layout: auto !important;
 }
+.border-collapse {
+  border-collapse: collapse !important;
+}
 .border-separate {
   border-collapse: separate !important;
 }

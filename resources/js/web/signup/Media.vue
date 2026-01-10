@@ -149,7 +149,6 @@
             
           </label>
           <textarea
-            type="url"
             rows="1"
             class="can-exp-input min-h-[60px] lg:min-h-full overflow-auto"
             :placeholder="

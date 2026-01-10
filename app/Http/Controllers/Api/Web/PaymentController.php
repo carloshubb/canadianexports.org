@@ -33,6 +33,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Stripe\Refund;
 use Stripe\Stripe;
+use Exception;
 
 class PaymentController extends Controller
 {
@@ -507,8 +508,22 @@ class PaymentController extends Controller
                     'email' => $customer->email,
                 ];
 
-                Mail::to($customer->email)->send(new CustomerVerifyEmailMail($data));
-
+                // Send verification email with error handling
+                try {
+                    Mail::to($customer->email)->send(new CustomerVerifyEmailMail($data));
+                    Log::info('Verification email sent after payment', [
+                        'email' => $customer->email,
+                        'customer_id' => $customer->id
+                    ]);
+                } catch (Exception $emailException) {
+                    Log::error('Failed to send verification email after payment', [
+                        'email' => $customer->email,
+                        'customer_id' => $customer->id,
+                        'error' => $emailException->getMessage(),
+                        'trace' => $emailException->getTraceAsString()
+                    ]);
+                    // Continue with invoice email even if verification email fails
+                }
 
                 $data = ['package_name' => $packageName, 'package_price' => $package_price, 'package_validity' => $packageValidity, 'payment_frequency' => $user->payment_frequency, 'customer' => $customer, 'order' => $order, 'package_expiry_date' => $package_expiry_date];
 
@@ -516,7 +531,24 @@ class PaymentController extends Controller
 
                 $PDFService->createRegistrationInvoicePDF(null, $data);
 
-                Mail::to($customer->email)->send(new RegistrationInvoiceToCustomerMail($data));
+                // Send invoice email with error handling
+                try {
+                    Mail::to($customer->email)->send(new RegistrationInvoiceToCustomerMail($data));
+                    Log::info('Invoice email sent after payment', [
+                        'email' => $customer->email,
+                        'customer_id' => $customer->id,
+                        'order_id' => $order->id
+                    ]);
+                } catch (Exception $emailException) {
+                    Log::error('Failed to send invoice email after payment', [
+                        'email' => $customer->email,
+                        'customer_id' => $customer->id,
+                        'order_id' => $order->id,
+                        'error' => $emailException->getMessage(),
+                        'trace' => $emailException->getTraceAsString()
+                    ]);
+                    // Continue even if invoice email fails
+                }
 
                 $general_messages = getStaticTranslationByKey((isset($defaultLang) ? $defaultLang : null), 'general_messages', ['message_38']);
                 $message_38 = isset($general_messages['message_38']) ? $general_messages['message_38'] : '';

@@ -597,7 +597,7 @@ export default {
                 },
                 html: `
                   <p class="text-center mb-3">The full details of this Purchase Inquiry will be emailed to you at no additional cost within the next hour.</p>
-                  <p class="text-center">If you don't receive it within that time, please contact us.</p>
+                  <p class="text-center" style="font-style: italic;">If you don't receive it within that time, please contact us.</p>
                 `,
               });
               this.hideI2BModal();

@@ -97,6 +97,8 @@ public function build()
                 'country' => $detail->country_name ?? 'N/A'
             ];
         })->toArray() : [],
+        // Include PDF download links if available
+        'pdf_download_links' => $this->data['pdf_download_links'] ?? [],
     ];
 
     $subject = 'Here are the Inquiries to buy details you asked for';
@@ -114,22 +116,13 @@ public function build()
                 'data' => $data, // Pass data directly, not nested
             ]);
     } else {
-        $mail = $this->markdown('mails/inquiry')
+        $mail = $this->view('mails.inquiry')
             ->subject($subject)
             ->with('data', $data);
     }
 
-    if (!empty($i2b->pdf_1) && file_exists(public_path($i2b->pdf_1))) {
-        $mail->attach(public_path($i2b->pdf_1));
-    }
-
-    if (!empty($i2b->pdf_2) && file_exists(public_path($i2b->pdf_2))) {
-        $mail->attach(public_path($i2b->pdf_2));
-    }
-
-    if (!empty($i2b->pdf_3) && file_exists(public_path($i2b->pdf_3))) {
-        $mail->attach(public_path($i2b->pdf_3));
-    }
+    // PDFs are now sent as secure download links in the email template, not as attachments
+    // This prevents email size issues and provides better security
 
     return $mail;
 }

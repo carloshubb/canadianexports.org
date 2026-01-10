@@ -18,10 +18,18 @@
             <div class="container">
                 <section class="">
                     <div class="flex justify-center mb-8 items-center space-x-2">
-                        @isset($customer->customerMedia->customerLogo)
-                            <img src="{{ asset($customer->customerMedia->customerLogo->thumbnail_image) }}" class="w-32"
-                                alt="Candian Exporters">
-                        @endisset
+                        @php
+                            $logoImage = null;
+                            if (isset($customer->customerMedia) && isset($customer->customerMedia->customerLogo)) {
+                                $logo = $customer->customerMedia->customerLogo;
+                                $logoImage = !empty($logo->thumbnail_image) ? $logo->thumbnail_image : 
+                                            (!empty($logo->medium_image) ? $logo->medium_image : 
+                                            (!empty($logo->large_image) ? $logo->large_image : null));
+                            }
+                        @endphp
+                        @if ($logoImage)
+                            <img src="{{ asset($logoImage) }}" class="w-32" alt="Candian Exporters">
+                        @endif
                         <h2 class="can-exp-h1 text-center mb-0">
                             {{ $customer->company_name }}</h2>
                     </div>

@@ -54,7 +54,7 @@ class EventCreationInvoiceMail extends Mailable
                 ]);
         }
 
-        return $this->markdown('mails/event-creation-invoice')
+        return $this->view('mails.event-creation-invoice')
             ->subject($subject)
             ->with($payload);
     }

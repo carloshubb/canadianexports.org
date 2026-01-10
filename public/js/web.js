@@ -45784,7 +45784,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                 htmlContainer: "swalSuccessClass",
                 confirmButton: 'button-exp-fill focus:outline-none'
               },
-              html: "\n                  <p class=\"text-center mb-3\">The full details of this Purchase Inquiry will be emailed to you at no additional cost within the next hour.</p>\n                  <p class=\"text-center\">If you don't receive it within that time, please contact us.</p>\n                "
+              html: "\n                  <p class=\"text-center mb-3\">The full details of this Purchase Inquiry will be emailed to you at no additional cost within the next hour.</p>\n                  <p class=\"text-center\" style=\"font-style: italic;\">If you don't receive it within that time, please contact us.</p>\n                "
             });
             _this4.hideI2BModal();
           }
@@ -67581,7 +67581,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     fieldName: "customer_media_description",
     validationErros: _ctx.validationErros
   }, null, 8 /* PROPS */, ["validationErros"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_ctx$regPageSetting9 = _ctx.regPageSetting) === null || _ctx$regPageSetting9 === void 0 || (_ctx$regPageSetting9 = _ctx$regPageSetting9.reg_page_setting_detail) === null || _ctx$regPageSetting9 === void 0 || (_ctx$regPageSetting9 = _ctx$regPageSetting9[0]) === null || _ctx$regPageSetting9 === void 0 ? void 0 : _ctx$regPageSetting9.step_5_video_label), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
-    type: "url",
     rows: "1",
     "class": "can-exp-input min-h-[60px] lg:min-h-full overflow-auto",
     placeholder: (_ctx$regPageSetting0 = _ctx.regPageSetting) === null || _ctx$regPageSetting0 === void 0 || (_ctx$regPageSetting0 = _ctx$regPageSetting0.reg_page_setting_detail) === null || _ctx$regPageSetting0 === void 0 || (_ctx$regPageSetting0 = _ctx$regPageSetting0[0]) === null || _ctx$regPageSetting0 === void 0 ? void 0 : _ctx$regPageSetting0.step_5_video_placeholder,
@@ -68354,7 +68353,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }, ["prevent"])),
     innerHTML: (_ctx$regPageSetting3 = _ctx.regPageSetting) === null || _ctx$regPageSetting3 === void 0 || (_ctx$regPageSetting3 = _ctx$regPageSetting3.reg_page_setting_detail) === null || _ctx$regPageSetting3 === void 0 || (_ctx$regPageSetting3 = _ctx$regPageSetting3[0]) === null || _ctx$regPageSetting3 === void 0 ? void 0 : _ctx$regPageSetting3.step_6_heading
   }, null, 8 /* PROPS */, _hoisted_4))]), $data.displaySocialMediaSection ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_ctx$regPageSetting4 = _ctx.regPageSetting) === null || _ctx$regPageSetting4 === void 0 || (_ctx$regPageSetting4 = _ctx$regPageSetting4.reg_page_setting_detail) === null || _ctx$regPageSetting4 === void 0 || (_ctx$regPageSetting4 = _ctx$regPageSetting4[0]) === null || _ctx$regPageSetting4 === void 0 ? void 0 : _ctx$regPageSetting4.step_6_facebook_label), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    type: "url",
+    type: "text",
     "class": "can-exp-input",
     placeholder: (_ctx$regPageSetting5 = _ctx.regPageSetting) === null || _ctx$regPageSetting5 === void 0 || (_ctx$regPageSetting5 = _ctx$regPageSetting5.reg_page_setting_detail) === null || _ctx$regPageSetting5 === void 0 || (_ctx$regPageSetting5 = _ctx$regPageSetting5[0]) === null || _ctx$regPageSetting5 === void 0 ? void 0 : _ctx$regPageSetting5.step_6_facebook_placeholder,
     value: _ctx.form && _ctx.form.has('customer_social_media_facebook') ? _ctx.form.get('customer_social_media_facebook') : '',
@@ -68366,7 +68365,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     fieldName: "customer_social_media_facebook",
     validationErros: _ctx.validationErros
   }, null, 8 /* PROPS */, ["validationErros"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_ctx$regPageSetting6 = _ctx.regPageSetting) === null || _ctx$regPageSetting6 === void 0 || (_ctx$regPageSetting6 = _ctx$regPageSetting6.reg_page_setting_detail) === null || _ctx$regPageSetting6 === void 0 || (_ctx$regPageSetting6 = _ctx$regPageSetting6[0]) === null || _ctx$regPageSetting6 === void 0 ? void 0 : _ctx$regPageSetting6.step_6_twitter_label), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    type: "url",
+    type: "text",
     "class": "can-exp-input",
     placeholder: (_ctx$regPageSetting7 = _ctx.regPageSetting) === null || _ctx$regPageSetting7 === void 0 || (_ctx$regPageSetting7 = _ctx$regPageSetting7.reg_page_setting_detail) === null || _ctx$regPageSetting7 === void 0 || (_ctx$regPageSetting7 = _ctx$regPageSetting7[0]) === null || _ctx$regPageSetting7 === void 0 ? void 0 : _ctx$regPageSetting7.step_6_twitter_placeholder,
     value: _ctx.form && _ctx.form.has('customer_social_media_twitter') ? _ctx.form.get('customer_social_media_twitter') : '',
@@ -68378,7 +68377,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     fieldName: "customer_social_media_twitter",
     validationErros: _ctx.validationErros
   }, null, 8 /* PROPS */, ["validationErros"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_ctx$regPageSetting8 = _ctx.regPageSetting) === null || _ctx$regPageSetting8 === void 0 || (_ctx$regPageSetting8 = _ctx$regPageSetting8.reg_page_setting_detail) === null || _ctx$regPageSetting8 === void 0 || (_ctx$regPageSetting8 = _ctx$regPageSetting8[0]) === null || _ctx$regPageSetting8 === void 0 ? void 0 : _ctx$regPageSetting8.step_6_youtube_label), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    type: "url",
+    type: "text",
     "class": "can-exp-input",
     placeholder: (_ctx$regPageSetting9 = _ctx.regPageSetting) === null || _ctx$regPageSetting9 === void 0 || (_ctx$regPageSetting9 = _ctx$regPageSetting9.reg_page_setting_detail) === null || _ctx$regPageSetting9 === void 0 || (_ctx$regPageSetting9 = _ctx$regPageSetting9[0]) === null || _ctx$regPageSetting9 === void 0 ? void 0 : _ctx$regPageSetting9.step_6_youtube_placeholder,
     value: _ctx.form && _ctx.form.has('customer_social_media_youtube') ? _ctx.form.get('customer_social_media_youtube') : '',
@@ -68390,7 +68389,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     fieldName: "customer_social_media_youtube",
     validationErros: _ctx.validationErros
   }, null, 8 /* PROPS */, ["validationErros"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_ctx$regPageSetting0 = _ctx.regPageSetting) === null || _ctx$regPageSetting0 === void 0 || (_ctx$regPageSetting0 = _ctx$regPageSetting0.reg_page_setting_detail) === null || _ctx$regPageSetting0 === void 0 || (_ctx$regPageSetting0 = _ctx$regPageSetting0[0]) === null || _ctx$regPageSetting0 === void 0 ? void 0 : _ctx$regPageSetting0.step_6_linkedin_label), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    type: "url",
+    type: "text",
     "class": "can-exp-input",
     placeholder: (_ctx$regPageSetting1 = _ctx.regPageSetting) === null || _ctx$regPageSetting1 === void 0 || (_ctx$regPageSetting1 = _ctx$regPageSetting1.reg_page_setting_detail) === null || _ctx$regPageSetting1 === void 0 || (_ctx$regPageSetting1 = _ctx$regPageSetting1[0]) === null || _ctx$regPageSetting1 === void 0 ? void 0 : _ctx$regPageSetting1.step_6_linkedin_placeholder,
     value: _ctx.form && _ctx.form.has('customer_social_media_linked_in') ? _ctx.form.get('customer_social_media_linked_in') : '',
@@ -68402,7 +68401,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     fieldName: "customer_social_media_linked_in",
     validationErros: _ctx.validationErros
   }, null, 8 /* PROPS */, ["validationErros"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_ctx$regPageSetting10 = _ctx.regPageSetting) === null || _ctx$regPageSetting10 === void 0 || (_ctx$regPageSetting10 = _ctx$regPageSetting10.reg_page_setting_detail) === null || _ctx$regPageSetting10 === void 0 || (_ctx$regPageSetting10 = _ctx$regPageSetting10[0]) === null || _ctx$regPageSetting10 === void 0 ? void 0 : _ctx$regPageSetting10.step_6_social_media5_label), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    type: "url",
+    type: "text",
     "class": "can-exp-input",
     placeholder: (_ctx$regPageSetting11 = _ctx.regPageSetting) === null || _ctx$regPageSetting11 === void 0 || (_ctx$regPageSetting11 = _ctx$regPageSetting11.reg_page_setting_detail) === null || _ctx$regPageSetting11 === void 0 || (_ctx$regPageSetting11 = _ctx$regPageSetting11[0]) === null || _ctx$regPageSetting11 === void 0 ? void 0 : _ctx$regPageSetting11.step_6_social_media5_placeholder,
     value: _ctx.form && _ctx.form.has('customer_social_media_social_media5') ? _ctx.form.get('customer_social_media_social_media5') : '',
@@ -70201,7 +70200,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.footnote-indicator[data-v-4bc956cf] {\n  font-size: 0.75em;\n  vertical-align: super;\n  line-height: 1;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.footnote-indicator[data-v-4bc956cf] {\r\n  font-size: 0.75em;\r\n  vertical-align: super;\r\n  line-height: 1;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -127657,9 +127656,11 @@ var signup = {
           if (res.data.status == "Success") {
             commit("setRegistrationPackages", res.data.data);
             resolve(res);
+          } else {
+            reject(new Error(res.data.message || "Failed to fetch registration packages"));
           }
-          reject(error);
         })["catch"](function (error) {
+          console.error("Error fetching registration packages:", error);
           reject(error);
         })["finally"](function () {
           return commit("setLoading");

@@ -150,7 +150,12 @@ if (!function_exists("getFeaturedProfile")) {
     {
         $customerProfileIds = HomePageFeaturedExporter::wherePageId($pageId)->pluck('business_category_id');
         $limit = HomePageSetting::wherePageId($pageId)->value('number_of_featured_exporters') ?? 6;
-        $customers = CustomerProfile::select('id', 'customer_id', 'company_name', 'slug', 'short_description', 'description')->with(['customerMedia:id,customer_id,customer_profile_id,logo', 'customerMedia.customerLogo']);
+        // Load all necessary columns for Media model including medium_image, thumbnail_image, etc.
+        $customers = CustomerProfile::select('id', 'customer_id', 'company_name', 'slug', 'short_description', 'description')
+            ->with([
+                'customerMedia:id,customer_id,customer_profile_id,logo',
+                'customerMedia.customerLogo:id,path,thumbnail_image,medium_image,large_image,extension,type'
+            ]);
 
         $customerProfiles = clone $customers;
 
@@ -177,15 +182,31 @@ if (!function_exists("getFeaturedProfile")) {
             // ]);
 
             $remainingCustomerProfiles = $customers->inRandomOrder()->limit($remainingProfiles)->get();
+        } else {
+            $remainingCustomerProfiles = collect([]);
         }
-        if ($remainingCustomerProfiles && $preferCustomerProfiles) {
-            $customers = array_merge($remainingCustomerProfiles->toArray(), $preferCustomerProfiles->toArray());
-        } else if ($remainingCustomerProfiles && !$preferCustomerProfiles) {
-            $customers = $remainingCustomerProfiles;
-        } else if (!$remainingCustomerProfiles && $preferCustomerProfiles) {
-            $customers = $preferCustomerProfiles;
+        
+        // Convert collections to arrays while preserving relationship structure
+        $result = [];
+        
+        if (isset($remainingCustomerProfiles) && $remainingCustomerProfiles->count() > 0 && isset($preferCustomerProfiles) && $preferCustomerProfiles->count() > 0) {
+            foreach ($remainingCustomerProfiles as $profile) {
+                $result[] = $profile->toArray();
+            }
+            foreach ($preferCustomerProfiles as $profile) {
+                $result[] = $profile->toArray();
+            }
+        } else if (isset($remainingCustomerProfiles) && $remainingCustomerProfiles->count() > 0) {
+            foreach ($remainingCustomerProfiles as $profile) {
+                $result[] = $profile->toArray();
+            }
+        } else if (isset($preferCustomerProfiles) && $preferCustomerProfiles->count() > 0) {
+            foreach ($preferCustomerProfiles as $profile) {
+                $result[] = $profile->toArray();
+            }
         }
-        return $customers;
+        
+        return $result;
     }
 }
 

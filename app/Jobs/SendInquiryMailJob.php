@@ -30,17 +30,8 @@ class SendInquiryMailJob implements ShouldQueue
     {
         $mail = new InquiryMail($this->data);
 
-        if (!empty($this->data['pdf_1']) && file_exists(public_path($this->data['pdf_1']))) {
-            $mail->attach(public_path($this->data['pdf_1']));
-        }
-
-        if (!empty($this->data['pdf_2']) && file_exists(public_path($this->data['pdf_2']))) {
-            $mail->attach(public_path($this->data['pdf_2']));
-        }
-
-        if (!empty($this->data['pdf_3']) && file_exists(public_path($this->data['pdf_3']))) {
-            $mail->attach(public_path($this->data['pdf_3']));
-        }
+        // PDFs are now sent as download links in the email template, not as attachments
+        // This prevents email size issues and provides better security
 
         Mail::to($this->toEmail)->cc($this->adminEmails)->send($mail);
     }

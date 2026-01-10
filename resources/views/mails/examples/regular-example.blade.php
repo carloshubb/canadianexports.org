@@ -1,7 +1,7 @@
 @extends('mails.layouts.regular')
 
 @section('content')
-    <h2>Hello {{ $data['name'] }},</h2>
+    <h2>Hello {{ $data['name'] ?? 'User' }},</h2>
     
     <p>Thank you for registering your exporter profile on the Canadian Exports platform.</p>
     

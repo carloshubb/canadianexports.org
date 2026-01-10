@@ -352,9 +352,27 @@ class SignupController extends Controller
                     Mail::to($to_email)->send(new NewCustomerAdminMail($data));
                 }
             }
-            // Only send verification email to NEW customers
-            if ($isNewCustomer) {
-                Mail::to($request->email)->send(new CustomerVerifyEmailMail($data));
+            // Send verification email to NEW customers or existing customers with unverified email
+            $shouldSendVerificationEmail = $isNewCustomer || ($customer->verify_customer_email == 0);
+            
+            if ($shouldSendVerificationEmail) {
+                try {
+                    Mail::to($request->email)->send(new CustomerVerifyEmailMail($data));
+                    Log::info('Verification email sent after signup', [
+                        'email' => $request->email,
+                        'customer_id' => $customer->id,
+                        'is_new_customer' => $isNewCustomer
+                    ]);
+                } catch (Exception $emailException) {
+                    // Log the email error but don't fail the entire registration
+                    Log::error('Failed to send verification email after signup', [
+                        'email' => $request->email,
+                        'customer_id' => $customer->id,
+                        'error' => $emailException->getMessage(),
+                        'trace' => $emailException->getTraceAsString()
+                    ]);
+                    // Continue with registration even if email fails
+                }
             }
 
             // if ($packagePrice <= 0) {

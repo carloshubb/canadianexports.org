@@ -37,6 +37,11 @@ use Illuminate\Support\Str;
 require __DIR__ . '/auth.php';
 require __DIR__ . '/web-routes.php';
 
+// Email template preview routes (only in local/development)
+if (app()->environment(['local', 'development'])) {
+    require __DIR__ . '/email-preview.php';
+}
+
 
 // Route::get('/delete-business-profile', function(){
 //     $ids = Customer::where('type', 'customer')->pluck('id');

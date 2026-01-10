@@ -170,6 +170,32 @@ class InquiryController extends Controller
         $data['company_email'] = isset($user->customerProfile->company_email) ? $user->customerProfile->company_email : null;
         $data['inquiry_detail'] = $inquiryDetailName;
         
+        // Generate secure download links for PDFs
+        $data['pdf_download_links'] = [];
+        $customerId = Auth::guard('customers')->user()->id;
+        
+        if (!empty($inquiry->pdf_1)) {
+            $data['pdf_download_links']['pdf_1'] = \App\Http\Controllers\Api\Web\I2bDownloadController::generateDownloadUrl(
+                $request->inquiry_id,
+                'pdf_1',
+                $customerId
+            );
+        }
+        if (!empty($inquiry->pdf_2)) {
+            $data['pdf_download_links']['pdf_2'] = \App\Http\Controllers\Api\Web\I2bDownloadController::generateDownloadUrl(
+                $request->inquiry_id,
+                'pdf_2',
+                $customerId
+            );
+        }
+        if (!empty($inquiry->pdf_3)) {
+            $data['pdf_download_links']['pdf_3'] = \App\Http\Controllers\Api\Web\I2bDownloadController::generateDownloadUrl(
+                $request->inquiry_id,
+                'pdf_3',
+                $customerId
+            );
+        }
+        
         // Log data for debugging (remove in production if needed)
         \Log::info('Inquiry email data prepared', ['data_keys' => array_keys($data), 'has_name' => isset($data['name'])]);
 

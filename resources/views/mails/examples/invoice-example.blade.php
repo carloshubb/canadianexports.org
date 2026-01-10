@@ -1,27 +1,16 @@
 @extends('mails.layouts.invoice')
 
 @section('content')
-    @php
-        $isEvent = ($data['customer']['type'] ?? null) === 'event';
-        $customerName = $data['customer']['name'] ?? 'Customer';
-    @endphp
-
-    <h2>Hello {{ $customerName }},</h2>
+    <h2>Hello {{ $data['customer']['name'] ?? $data['name'] ?? 'Customer' }},</h2>
     
-    @if($isEvent)
-        <p>Thank you for registering your event on the Canadian Exports platform. Please find your invoice details below.</p>
-    @else
-        <p>Thank you for registering with Canadian Exports. Please find your invoice details below.</p>
-    @endif
-
+    <p>Thank you for your registration. Please find your invoice details below.</p>
+    
     <div class="invoice-box">
         <div class="invoice-header">
             <div class="invoice-info">
                 <h3>{{ config('app.name') }}</h3>
                 <p>Invoice Date: {{ $data['created_at'] ?? date('F d, Y') }}</p>
-                @if(isset($data['package_expiry_date']))
-                <p>Expires On: {{ $data['package_expiry_date'] }}</p>
-                @endif
+                <p>Due Date: {{ $data['end_date'] ?? date('F d, Y', strtotime('+30 days')) }}</p>
             </div>
             <div class="invoice-number">
                 <div class="invoice-label">Invoice Number</div>
@@ -32,22 +21,22 @@
         <div class="invoice-items">
             <div class="invoice-item">
                 <span class="invoice-item-label">Membership Package:</span>
-                <span class="invoice-item-value">{{ $data['package_name'] ?? 'N/A' }}</span>
+                <span class="invoice-item-value">{{ $data['package_type'] ?? 'N/A' }}</span>
             </div>
+            @if(isset($data['eventDetail']) || isset($data['company_name']))
             <div class="invoice-item">
-                <span class="invoice-item-label">Payment Frequency:</span>
-                <span class="invoice-item-value">{{ ucfirst($data['payment_frequency'] ?? 'One-time') }}</span>
-            </div>
-            <div class="invoice-item">
-                <span class="invoice-item-label">Package Validity:</span>
-                <span class="invoice-item-value">{{ $data['package_validity'] ?? 'N/A' }}</span>
-            </div>
-            @if(isset($data['package_expiry_date']))
-            <div class="invoice-item">
-                <span class="invoice-item-label">Expires On:</span>
-                <span class="invoice-item-value">{{ $data['package_expiry_date'] }}</span>
+                <span class="invoice-item-label">Event/Business Name:</span>
+                <span class="invoice-item-value">{{ $data['company_name'][0]['title'] ?? $data['eventDetail'][0]['title'] ?? 'N/A' }}</span>
             </div>
             @endif
+            <div class="invoice-item">
+                <span class="invoice-item-label">Registered On:</span>
+                <span class="invoice-item-value">{{ $data['created_at'] ?? date('F d, Y') }}</span>
+            </div>
+            <div class="invoice-item">
+                <span class="invoice-item-label">Expires On:</span>
+                <span class="invoice-item-value">{{ $data['end_date'] ?? 'N/A' }}</span>
+            </div>
         </div>
         
         <div class="invoice-totals">
@@ -65,11 +54,11 @@
             </div>
         </div>
     </div>
-
+    
     <div class="invoice-note">
         <p><strong>Note:</strong> If you did not register with us, or believe that this email has reached you in error, please contact us as soon as possible.</p>
     </div>
-
+    
     <p>Thank you for your registration. We look forward to serving you!</p>
     
     <p><strong>Canadian Exports Team</strong></p>

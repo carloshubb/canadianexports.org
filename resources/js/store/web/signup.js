@@ -352,10 +352,12 @@ const signup = {
                         if (res.data.status == "Success") {
                             commit("setRegistrationPackages", res.data.data);
                             resolve(res);
+                        } else {
+                            reject(new Error(res.data.message || "Failed to fetch registration packages"));
                         }
-                        reject(error);
                     })
                     .catch((error) => {
+                        console.error("Error fetching registration packages:", error);
                         reject(error);
                     })
                     .finally(() => commit("setLoading"));

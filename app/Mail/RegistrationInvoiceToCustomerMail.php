@@ -54,7 +54,7 @@ class RegistrationInvoiceToCustomerMail extends Mailable
                     'data' => ['data' => $this->data],
                 ]);
         } else {
-            $email = $this->markdown('mails/registration-invoice-to-customer')
+            $email = $this->view('mails.registration-invoice-to-customer')
                 ->subject($subject)
                 ->with("data", $this->data);
         }

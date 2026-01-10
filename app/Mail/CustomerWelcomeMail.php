@@ -50,7 +50,7 @@ class CustomerWelcomeMail extends Mailable
                 ]);
         }
 
-        return $this->markdown('mails/customer-welcome')
+        return $this->view('mails.customer-welcome')
             ->subject($subject)
             ->with([
                 "data" => $this->data,
