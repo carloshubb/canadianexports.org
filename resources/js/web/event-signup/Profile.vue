@@ -1523,7 +1523,7 @@ export default {
                     });
                 }
             } catch (e) {
-                console.error('Error loading Stripe:', e);
+                console.error('Error loading Stripe:', e); //
             }
         })();
         axios
