@@ -4,7 +4,7 @@ storage
 .env
 public/images
 public/media
-
+public/storage
 CaExp LoR July 18.docx
 *.sql
 .env.prod

@@ -425,6 +425,13 @@ trait FileUploadTrait
     }
     public function resizeFile($type, $fileName, $destinationFolder, $tempFile)
     {
+        // Increase memory limit for image processing
+        $currentMemoryLimit = ini_get('memory_limit');
+        $memoryLimitBytes = $this->convertToBytes($currentMemoryLimit);
+        if ($memoryLimitBytes < 256 * 1024 * 1024) {
+            @ini_set('memory_limit', '256M');
+        }
+
         try {
             $fullPath = getWebPublicPath($fileName);
             if (!file_exists($fullPath)) {
@@ -456,6 +463,9 @@ trait FileUploadTrait
                         $img->save(getWebPublicPath($destinationFolder . '/thumbnail-' . basename($tempFile)));
                     }
                 }
+                // Destroy image object to free memory
+                $img->destroy();
+                unset($img);
             }
 
             $general_setting = getSignleGeneralSettingByKey(['medium_image_width', 'medium_image_height']);
@@ -481,6 +491,9 @@ trait FileUploadTrait
                         $img->save(getWebPublicPath($destinationFolder . '/medium-' . basename($tempFile)));
                     }
                 }
+                // Destroy image object to free memory
+                $img->destroy();
+                unset($img);
             }
 
             $general_setting = getSignleGeneralSettingByKey(['large_image_width', 'large_image_height']);
@@ -506,11 +519,42 @@ trait FileUploadTrait
                         $img->save(getWebPublicPath($destinationFolder . '/large-' . basename($tempFile)));
                     }
                 }
+                // Destroy image object to free memory
+                $img->destroy();
+                unset($img);
             }
         } catch (NotReadableException $e) {
             // Handle the error - log it, notify, etc.
             Log::error("The file at $fileName could not be read as a valid image. Error: " . $e->getMessage());
             return;
+        } catch (\Exception $e) {
+            // Handle memory exhaustion and other errors
+            Log::error("Error processing image at $fileName: " . $e->getMessage());
+            if (strpos($e->getMessage(), 'memory') !== false || strpos($e->getMessage(), 'Memory') !== false) {
+                Log::error("Memory error detected. Consider increasing PHP memory_limit or processing smaller images.");
+            }
+            return;
         }
+    }
+
+    /**
+     * Convert memory limit string to bytes
+     */
+    private function convertToBytes($memoryLimit)
+    {
+        $memoryLimit = trim($memoryLimit);
+        $last = strtolower($memoryLimit[strlen($memoryLimit) - 1]);
+        $memoryLimit = (int) $memoryLimit;
+
+        switch ($last) {
+            case 'g':
+                $memoryLimit *= 1024;
+            case 'm':
+                $memoryLimit *= 1024;
+            case 'k':
+                $memoryLimit *= 1024;
+        }
+
+        return $memoryLimit;
     }
 }

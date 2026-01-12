@@ -259,7 +259,6 @@
                         <span class="ml-1 text-[0.85em] text-gray-600">(Max. 5 words)</span>
                         </label>
                         <input
-                            @input="clearErrors('cta_btn')"
                             type="text"
                             class="can-exp-input"
                             placeholder="The button text that guides the user's next action; e.g., Learn More."
@@ -844,7 +843,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        
         <div class="mt-8 flex">
             <div class="">
                 <Error
