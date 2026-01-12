@@ -2,11 +2,16 @@
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
     </IfModule>
+
     RewriteEngine On
 
-RewriteEngine On
-RewriteCond %{REQUEST_URI} !^/public
-RewriteRule ^(.*)$ /public/$1 [L,QSA]
+    # Allow Let's Encrypt validation
+    RewriteCond %{REQUEST_URI} ^/\.well-known/acme-challenge/
+    RewriteRule ^ - [L]
+
+    # Redirect everything else to /public
+    RewriteCond %{REQUEST_URI} !^/public
+    RewriteRule ^(.*)$ /public/$1 [L,QSA]
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
@@ -21,10 +26,7 @@ RewriteRule ^(.*)$ /public/$1 [L,QSA]
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
-
 </IfModule>
 
-# DO NOT REMOVE THIS LINE AND THE LINES BELOW IPALLOWID:6ItAWCjwhA
-allow from 70.32.3.15
-# DO NOT REMOVE THIS LINE AND THE LINES ABOVE 6ItAWCjwhA:IPALLOWID
-
+# TEMPORARILY disable IP restriction for SSL
+# allow from 70.32.3.15
