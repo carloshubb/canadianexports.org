@@ -532,22 +532,24 @@ export default {
           return path;
         }
         
-        // For temp media files (media/temp/...), try both paths
-        // On Hostinger: files are saved directly to web-accessible path (/media/temp/...)
-        // On local: files are in storage and accessed via symlink (/storage/media/temp/...)
+        // For temp media files (media/temp/...)
+        // These are saved directly to web-accessible path on VPS
+        // So they should be accessed as /media/temp/... not /storage/media/temp/...
         if (path.startsWith('media/temp/')) {
-          // Try storage path first (local), then direct path (Hostinger)
-          // The backend accessor should handle this, but this is a fallback
+          // Return direct path (VPS/Hostinger)
+          // The backend accessor should handle this correctly, but this ensures consistency
           return '/' + path;
         }
         
         // For other media files
         if (path.startsWith('media/')) {
-          // Try storage path first (local with symlink)
-          return '/storage/' + path;
+          // Try direct path first (VPS), then storage path (local)
+          // Since we can't check file existence in Vue, we'll try direct path first
+          // If it doesn't work, the backend accessor should provide the correct URL
+          return '/' + path;
         }
         
-        // If already starts with storage/, use as is
+        // If already starts with storage/, use as is (for local)
         if (path.startsWith('storage/')) {
           return '/' + path;
         }

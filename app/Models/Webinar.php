@@ -179,34 +179,30 @@ class Webinar extends Model
         // Remove leading slash
         $path = ltrim($path, '/');
 
-        // Check if we're on Hostinger (shared hosting without symlink support)
-        // On Hostinger, temp files are saved directly to web-accessible path via getWebPublicPath
-        // So media/temp/... files should be accessed as /media/temp/... not /storage/media/temp/...
-        $isHostinger = $this->isHostingerEnvironment();
-
         // For temp media files (media/temp/...)
+        // These are ALWAYS saved directly to web-accessible path via getWebPublicPath
+        // So they should ALWAYS be accessed as /media/temp/... not /storage/media/temp/...
         if (str_starts_with($path, 'media/temp/')) {
-            if ($isHostinger) {
-                // On Hostinger, files are saved directly to web-accessible path
-                // Access them directly as /media/temp/...
-                return asset($path);
-            } else {
-                // On local with symlink, access via /storage/media/temp/...
-                return asset('storage/' . $path);
-            }
+            // Always use direct path (without storage/) for temp files
+            return asset($path);
         }
 
         // For other media files (not temp)
         if (str_starts_with($path, 'media/')) {
-            // Check if file exists in web-accessible path (Hostinger) or storage (local)
+            // Check if file exists in web-accessible path (VPS/Hostinger) first
             $webPath = getWebPublicPath($path);
             if (file_exists($webPath)) {
-                // File exists in web-accessible path (Hostinger)
+                // File exists in web-accessible path
                 return asset($path);
-            } else {
-                // File in storage, use symlink path (local)
-                return asset('storage/' . $path);
             }
+            // Fallback: try storage path (local development with symlink)
+            $storagePath = 'storage/' . $path;
+            $storageFullPath = public_path($storagePath);
+            if (file_exists($storageFullPath) || is_link(public_path('storage'))) {
+                return asset($storagePath);
+            }
+            // If neither exists, return direct path (let browser try)
+            return asset($path);
         }
 
         // If already starts with storage/, use as is (for local)
