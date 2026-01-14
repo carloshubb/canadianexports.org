@@ -4,10 +4,11 @@
     if (!$banners || count($banners) === 0) {
         $banners = getBanners('sponsor', 8);
     }
+    
 @endphp
-<section class="lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10 desktop:px-80">
+<section class="bg-[#F3F7FA] lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10 desktop:px-80">
     <div class="container">
-        <h2 class="can-exp-h1 mb-4 text-center">
+        <h2 class="can-exp-h1 mb-4 text-left font-semibold text-[#006EB7]">
             {!! $homePageSettingDetail->section3_heading !!}
         </h2>
 

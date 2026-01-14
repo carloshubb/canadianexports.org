@@ -1,7 +1,7 @@
-<section class="relative lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10 bg-gray-100">
+<section class="relative lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10">
     <div class="container">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-            <h2 class="text-primary can-exp-h1 mb-0">
+            <h2 class="text-left font-semibold text-[#006EB7] can-exp-h1 mb-0">
                 {!! $homePageSettingDetail->section2_heading !!}
             </h2>
             

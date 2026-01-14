@@ -1,11 +1,11 @@
 @php
     $issues = getLatestCurrentIssue($lang);
 @endphp
-<section class="lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10 desktop:px-80">
+<section class="lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10 desktop:px-80 bg-[#F3F7FA]">
     <div class="container">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
             <div class="text-left">
-                <h2 class="can-exp-h1 mb-2 text-primary">{!! $homePageSettingDetail->section6_heading !!}</h2>
+                <h2 class="can-exp-h1 mb-2 text-left font-semibold text-[#006EB7]">{!! $homePageSettingDetail->section6_heading !!}</h2>
                 <div class="text-left">{!! $homePageSettingDetail->section6_description !!}</div>
             </div>
             

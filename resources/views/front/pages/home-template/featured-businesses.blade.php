@@ -1,9 +1,9 @@
 @php
     $customerProfiles = getFeaturedProfile($page->id);
 @endphp
-<section class="desktop:px-80 bg-gray-100 lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10">
+<section class="desktop:px-80 lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10">
     <div class="container">
-    <h2 class="can-exp-h1 text-center text-primary">
+    <h2 class="can-exp-h1 text-left font-semibold text-[#006EB7]">
             {!! $homePageSettingDetail->section4_heading !!}
         </h2>
 

@@ -4,10 +4,10 @@ $events = getAllEvents(30, $lang, 'package_type');
 $events = $events->where('package_type', 'featured');
 $events = $events->where('featured', true);
 @endphp
-<section class="relative lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10">
+<section class="relative lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10 bg-[#F3F7FA]">
     <div class="container">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4 ">
-            <h2 class="can-exp-h1 mb-0 text-primary">
+            <h2 class="can-exp-h1 mb-0 text-left font-semibold text-[#006EB7]">
                 {!! $homePageSettingDetail->section5_heading !!}
             </h2>
             
