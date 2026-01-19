@@ -427,11 +427,25 @@ class EventSignupController extends Controller
     {
         $request['business_categories_id'] = json_decode($request->business_categories_id);
         $request['gallery_images'] = isset($request->gallery_images) && $request->gallery_images != null ? json_decode($request->gallery_images) : null;
+        
+        // Get authenticated user
+        $loggedInUser = auth()->guard('customers')->user();
+        
+        // If user is logged in and email is not provided, use their email
+        if ($loggedInUser && !$request->has('email')) {
+            $request->merge(['email' => $loggedInUser->email]);
+        }
+        
         $validationRule = [
             'name' => ['required', 'string'],
             'business_name' => ['nullable', 'string'],
+            'email' => ['required', 'email'], // Email is required but can come from authenticated user
             'package_id' => ['required', 'exists:registration_packages,id'],
             'zipcode' => ['nullable'],
+            'gallery_images' => ['required', 'array'], // Added gallery_images validation
+            'start_date' => ['required', 'date'], // Added start_date validation
+            'end_date' => ['required', 'date', 'after_or_equal:start_date'], // Added end_date validation
+            'event_website' => ['required', new ValidUrl()], // Added event_website validation
             'exibitors_url' => ['nullable', new ValidUrl()],
             'visitors_url' => ['nullable', new ValidUrl()],
             'press_url' => ['nullable', new ValidUrl()],
@@ -443,10 +457,11 @@ class EventSignupController extends Controller
             'pintrest_url' => ['nullable', new ValidUrl()],
             'instagram_url' => ['nullable', new ValidUrl()],
             'snapchat_url' => ['nullable', new ValidUrl()],
-            // 'contacts.*.name' => 'required|string|max:255',
-            // 'contacts.*.email' => 'required|email|max:255',
-            // 'contacts.*.phone' => 'required|string|max:20',
+            'contacts.*.name' => 'required|string|max:255', // Uncommented contacts validation
+            'contacts.*.email' => 'required|email|max:255',
+            'contacts.*.phone' => 'required|string|max:20',
             // 'contacts.*.designation' => 'required|string|max:255',
+            'contacts.*.image_path' => 'nullable|string|max:255',
         ];
         $niceNames = [];
         $defaultLang = getDefaultLanguage(1);
@@ -474,11 +489,11 @@ class EventSignupController extends Controller
             $niceNames['visitors_url'] = isset($setting->eventCreateSettingDetail[0]->visitors_url_error) ? $setting->eventCreateSettingDetail[0]->visitors_url_error : '';
             $niceNames['press_url'] = isset($setting->eventCreateSettingDetail[0]->press_url_error) ? $setting->eventCreateSettingDetail[0]->press_url_error : '';
             $niceNames['video_url'] = isset($setting->eventCreateSettingDetail[0]->video_url_error) ? $setting->eventCreateSettingDetail[0]->video_url_error : '';
-            // $niceNames['contacts.*.name'] = isset($setting->eventCreateSettingDetail[0]->contact_name_error) ? $setting->eventCreateSettingDetail[0]->contact_name_error : '';
-            // $niceNames['contacts.*.email'] = isset($setting->eventCreateSettingDetail[0]->contact_email_error) ? $setting->eventCreateSettingDetail[0]->contact_email_error : '';
-            // $niceNames['contacts.*.phone'] = isset($setting->eventCreateSettingDetail[0]->contact_phone_error) ? $setting->eventCreateSettingDetail[0]->contact_phone_error : '';
+            $niceNames['contacts.*.name'] = isset($setting->eventCreateSettingDetail[0]->contact_name_error) ? $setting->eventCreateSettingDetail[0]->contact_name_error : '';
+            $niceNames['contacts.*.email'] = isset($setting->eventCreateSettingDetail[0]->contact_email_error) ? $setting->eventCreateSettingDetail[0]->contact_email_error : '';
+            $niceNames['contacts.*.phone'] = isset($setting->eventCreateSettingDetail[0]->contact_phone_error) ? $setting->eventCreateSettingDetail[0]->contact_phone_error : '';
             // $niceNames['contacts.*.designation'] = isset($setting->eventCreateSettingDetail[0]->contact_designation_error) ? $setting->eventCreateSettingDetail[0]->contact_designation_error : '';
-            // $niceNames['contacts.*.image_path'] = isset($setting->eventCreateSettingDetail[0]->profile_image_error) ? $setting->eventCreateSettingDetail[0]->profile_image_error : '';
+            $niceNames['contacts.*.image_path'] = isset($setting->eventCreateSettingDetail[0]->profile_image_error) ? $setting->eventCreateSettingDetail[0]->profile_image_error : '';
             $niceNames['facebook_url'] = isset($setting->eventCreateSettingDetail[0]->facebook_url_error) ? $setting->eventCreateSettingDetail[0]->facebook_url_error : '';
             $niceNames['twitter_url'] = isset($setting->eventCreateSettingDetail[0]->twitter_url_error) ? $setting->eventCreateSettingDetail[0]->twitter_url_error : '';
             $niceNames['linkedin_url'] = isset($setting->eventCreateSettingDetail[0]->linkedin_url_error) ? $setting->eventCreateSettingDetail[0]->linkedin_url_error : '';
@@ -488,30 +503,92 @@ class EventSignupController extends Controller
             $niceNames['snapchat_url'] = isset($setting->eventCreateSettingDetail[0]->snapchat_url_error) ? $setting->eventCreateSettingDetail[0]->snapchat_url_error : '';
         }
 
+        // Add language-specific validation rules
+        $languages = getAllLanguages();
+        foreach ($languages as $language) {
+            $requiredVal = 'nullable';
+            if ($language->is_default == '1') {
+                $requiredVal = 'required';
+            }
+            $validationRule = array_merge($validationRule, ['title.title_' . $language->id => [$requiredVal, 'string', 'max:255']]);
+            $niceNames['title.title_' . $language->id] = isset($setting->eventCreateSettingDetail[0]->title_error) ? $setting->eventCreateSettingDetail[0]->title_error : '';
+
+            $validationRule = array_merge($validationRule, ['country.country_' . $language->id => [$requiredVal, 'string', 'max:255']]);
+            $niceNames['country.country_' . $language->id] = isset($setting->eventCreateSettingDetail[0]->country_error) ? $setting->eventCreateSettingDetail[0]->country_error : '';
+
+            $validationRule = array_merge($validationRule, ['city.city_' . $language->id => [$requiredVal, 'string', 'max:255']]);
+            $niceNames['city.city_' . $language->id] = isset($setting->eventCreateSettingDetail[0]->city_error) ? $setting->eventCreateSettingDetail[0]->city_error : '';
+
+            $validationRule = array_merge($validationRule, ['street_name.street_name_' . $language->id => ['nullable', 'string']]);
+            $niceNames['street_name.street_name_' . $language->id] = isset($setting->eventCreateSettingDetail[0]->street_name_error) ? $setting->eventCreateSettingDetail[0]->street_name_error : '';
+
+            $validationRule = array_merge($validationRule, ['venue.venue_' . $language->id => ['nullable', 'string', 'max:255']]);
+            $niceNames['venue.venue_' . $language->id] = isset($setting->eventCreateSettingDetail[0]->venue_error) ? $setting->eventCreateSettingDetail[0]->venue_error : '';
+
+            $validationRule = array_merge($validationRule, ['product_search.product_search_' . $language->id => ['nullable', 'string']]);
+            $niceNames['product_search.product_search_' . $language->id] = isset($setting->eventCreateSettingDetail[0]->product_search_error) ? $setting->eventCreateSettingDetail[0]->product_search_error : '';
+
+            $validationRule = array_merge($validationRule, ['short_description.short_description_' . $language->id => [$requiredVal, 'string', 'maxwords:30']]);
+            $niceNames['short_description.short_description_' . $language->id] = isset($setting->eventCreateSettingDetail[0]->short_description_error) ? $setting->eventCreateSettingDetail[0]->short_description_error : '';
+
+            $validationRule = array_merge($validationRule, ['description.description_' . $language->id => [$requiredVal, 'string', 'maxwords:300']]);
+            $niceNames['description.description_' . $language->id] = isset($setting->eventCreateSettingDetail[0]->description_error) ? $setting->eventCreateSettingDetail[0]->description_error : '';
+        }
+
         $package = getRegistrationPackage($request->package_id);
         $price = 0;
         $totalAmount = 0;
         $eventsAllowed = 0;
         if ($package) {
-            $price = $package->event_price;
-            $totalAmount = $package->event_price;
+            $price = $package->event_price ?? 0;
+            $totalAmount = $package->event_price ?? 0;
             $eventsAllowed = $package->events_allowed;
             $package_validity = date('Y-m-d', strtotime('+1 months'));
         }
-        if ($price > 0) {
+        
+        // For logged-in users, check if they're free users or already have a package
+        // If so, they don't need to pay for event registration
+        if ($loggedInUser) {
+            // If user is a free exporter or already has events_remaining, they don't need to pay
+            $isFreeUser = ($loggedInUser->package_price ?? 0) == 0;
+            $hasExistingPackage = ($loggedInUser->registration_package_id ?? null) !== null;
+            
+            if ($isFreeUser || $hasExistingPackage) {
+                $price = 0;
+                $totalAmount = 0;
+                Log::info('Event Signup Payment - Free user or existing package holder', [
+                    'user_id' => $loggedInUser->id,
+                    'is_free_user' => $isFreeUser,
+                    'has_existing_package' => $hasExistingPackage,
+                    'package_price' => $loggedInUser->package_price ?? 0
+                ]);
+            }
+        }
+        
+        // Log package details for debugging
+        Log::info('Event Signup Payment - Package Details', [
+            'package_id' => $request->package_id,
+            'package_name' => $package ? ($package->registrationPackageDetail[0]->name ?? 'N/A') : 'Not Found',
+            'event_price' => $price,
+            'has_payment_method' => $request->has('payment_method'),
+            'payment_method' => $request->payment_method ?? 'none',
+            'is_logged_in' => $loggedInUser ? true : false
+        ]);
+        
+        // Only require payment if price > 0 AND payment_method is provided
+        if ($price > 0 && $request->has('payment_method')) {
             $validationRule = array_merge($validationRule, [
                 'payment_method' => ['required', 'in:stripe,paypal'],
             ]);
-        }
-        if (isset($request->payment_method) && $request->payment_method == 'stripe' && $price > 0) {
-            $validationRule = array_merge($validationRule, [
-                'card_holder_name' => ['required'],
-                'payment_method_id' => ['required', 'string']
-            ]);
-            $niceNames = array_merge($niceNames, [
-                'payment_method_id' => 'Card information is required'
-            ]);
+            
             if ($request->payment_method == 'stripe') {
+                $validationRule = array_merge($validationRule, [
+                    'card_holder_name' => ['required'],
+                    'payment_method_id' => ['required', 'string']
+                ]);
+                $niceNames = array_merge($niceNames, [
+                    'payment_method_id' => 'Card information is required'
+                ]);
                 Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
             }
         }
@@ -522,17 +599,49 @@ class EventSignupController extends Controller
             'password.confirmed' => $message_29
         ];
 
-        $this->validate(
-            $request,
-            $validationRule,
-            $messages,
-            $niceNames
-        );
+        // Log request data for debugging
+        Log::info('Event Signup Payment - Validating request', [
+            'has_email' => $request->has('email'),
+            'has_gallery_images' => $request->has('gallery_images'),
+            'gallery_images_type' => gettype($request->gallery_images),
+            'has_start_date' => $request->has('start_date'),
+            'has_end_date' => $request->has('end_date'),
+            'has_event_website' => $request->has('event_website'),
+            'has_contacts' => $request->has('contacts'),
+            'contacts_count' => is_array($request->contacts) ? count($request->contacts) : 0,
+            'has_title' => $request->has('title'),
+            'has_country' => $request->has('country'),
+            'has_city' => $request->has('city'),
+        ]);
+
+        try {
+            $this->validate(
+                $request,
+                $validationRule,
+                $messages,
+                $niceNames
+            );
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            Log::error('Event Signup Payment - Validation Failed', [
+                'errors' => $e->errors(),
+                'failed_rules' => array_keys($e->errors())
+            ]);
+            throw $e;
+        }
 
         try {
             Log::info('===== Event Signup Payment Started =====');
             Log::info('Request Data:', $request->except(['password', 'password_confirmation', 'card_holder_name', 'payment_method_id']));
             
+            // Get the logged-in customer
+            $customer = auth()->guard('customers')->user();
+            
+            if (!$customer) {
+                Log::error('No authenticated customer found for event signup payment');
+                return $this->errorResponse('You must be logged in to register for an event.');
+            }
+            
+            // Process payment if price > 0
             if ($price > 0) {
                 if ($request->payment_method == 'stripe') {
                     Log::info('Processing Stripe payment for event signup', [
@@ -581,9 +690,9 @@ class EventSignupController extends Controller
                 }
             }
 
-            Customer::where('email', $request->email)->update([
+            // Update customer with package info
+            $customer->update([
                 'name' => $request->name,
-                'email' => $request->email,
                 'business_name' => $request->business_name,
                 'registration_package_id' => $request->package_id,
                 'package_price' => $price,
@@ -591,19 +700,101 @@ class EventSignupController extends Controller
                 'package_expiry_date' => $package_validity ?? date('Y-m-d'),
                 'is_package_amount_paid' => 1,
                 'events_allowed' => $eventsAllowed,
-                'events_remaining' => $eventsAllowed - 1,
+                'events_remaining' => max(0, ($customer->events_remaining ?? $eventsAllowed) - 1),
                 'images_allowed' => $package->images_allowed ?? 0,
                 'subscription_id' => $request->payment_method == 'stripe' && isset($subscription_id) ? $subscription_id : null,
-                'payment_method' => $request->payment_method,
+                'payment_method' => $request->payment_method ?? null,
                 'stripe_item_id' => isset($stripe_item_id) ? $stripe_item_id : null,
                 'stripe_customer_id' => $stripe_customer_id ?? null,
             ]);
 
-            $customer = Customer::where('email', $request->email)->first();
+            // Create the event
+            $galleryImages = null;
+            if (isset($request->gallery_images) && !empty($request->gallery_images)) {
+                $galleryImages = $this->moveFile($request->gallery_images, 'media/events', 'events');
+            }
+            
+            $contacts = $request->input('contacts', []);
+            $slug = null;
+            foreach ($languages as $language) {
+                if ($language->is_default == '1') {
+                    $slug = $request['title']['title_' . $language->id] ?? null;
+                }
+            }
+            
+            $event = Event::create([
+                'zipcode' => $request->zipcode,
+                'media_id' => isset($galleryImages, $galleryImages[0]) ? $galleryImages[0]->id : null,
+                'slug' => $this->generateUniqueSlug($slug),
+                'start_date' => $request->start_date,
+                'end_date' => $request->end_date,
+                'event_website' => $request->event_website,
+                'exibitors_url' => $request->exibitors_url,
+                'visitors_url' => $request->visitors_url,
+                'press_url' => $request->press_url,
+                'video_url' => $request->video_url,
+                'facebook_url' => $request->facebook_url,
+                'twitter_url' => $request->twitter_url,
+                'linkedin_url' => $request->linkedin_url,
+                'youtube_url' => $request->youtube_url,
+                'pintrest_url' => $request->pintrest_url,
+                'instagram_url' => $request->instagram_url,
+                'snapchat_url' => $request->snapchat_url,
+                'customer_id' => $customer->id,
+                'registration_package_id' => $request->package_id,
+                'package_price' => isset($package->discount_price) && $package->discount_price > 0 ? $package->discount_price : (isset($package->price) ? $package->price : 0),
+                'free_subscription_days' => isset($package->free_subscription_days) ? $package->free_subscription_days : 0,
+                'package_subscribed_date' => date('Y-m-d'),
+                'package_expiry_date' => date('Y-m-d', strtotime('+' . (isset($package) ? $package->package_validity_months : 0) . ' months')),
+                'is_package_amount_paid' => 1,
+                'payment_method' => $request->payment_method ?? null,
+                'payment_method_id' => isset($subscription_id) ? $subscription_id : null,
+            ]);
 
-            $event = Event::where('customer_id', $customer->id)->with(['eventDetail' => function ($q) use ($defaultLang) {
+            if ($event) {
+                // Save event media
+                if (isset($galleryImages)) {
+                    foreach ($galleryImages as $key => $file) {
+                        EventMedia::create([
+                            'event_id' => $event->id,
+                            'media_id' => $file->id,
+                        ]);
+                    }
+                }
+                
+                // Save event details for all languages
+                foreach ($languages as $language) {
+                    EventDetail::create([
+                        'event_id' => $event->id,
+                        'language_id' => $language->id,
+                        'title' => $request['title']['title_' . $language->id] ?? null,
+                        'country' => $request['country']['country_' . $language->id] ?? null,
+                        'city' => $request['city']['city_' . $language->id] ?? null,
+                        'street_name' => $request['street_name']['street_name_' . $language->id] ?? null,
+                        'venue' => $request['venue']['venue_' . $language->id] ?? null,
+                        'product_search' => $request['product_search']['product_search_' . $language->id] ?? null,
+                        'short_description' => $request['short_description']['short_description_' . $language->id] ?? null,
+                        'description' => $request['description']['description_' . $language->id] ?? null,
+                    ]);
+                }
+                
+                // Save event contacts
+                foreach ($contacts as $contactData) {
+                    EventContact::create([
+                        'event_id' => $event->id,
+                        'name' => $contactData['name'],
+                        'email' => $contactData['email'],
+                        'phone' => $contactData['phone'],
+                        // 'designation' => $contactData['designation'],
+                        'image_path' => $contactData['image_path'] ?? null,
+                    ]);
+                }
+            }
+            
+            // Reload event with details
+            $event = $event->load(['eventDetail' => function ($q) use ($defaultLang) {
                 $q->where('language_id', $defaultLang->id);
-            }])->first();
+            }]);
 
             if ($price > 0) {
                 CustomerPaymentMethod::create([
