@@ -338,19 +338,35 @@ class SignupController extends Controller
             $data['payment_frequency'] = $request->payment_frequency;
             $data['created_at'] = date("F d, Y, g:i a");
 
-            $general_setting = getGeneralSettingByKey();
-            if (isset($general_setting['admin_email'])) {
-                $adminEmailsArr = explode(',', $general_setting['admin_email']);
-            }
-            if (isset($adminEmailsArr) && count($adminEmailsArr) > 1) {
-                $to_email = $adminEmailsArr[0];
-                unset($adminEmailsArr[0]);
-                Mail::to($to_email)->cc($adminEmailsArr)->send(new NewCustomerAdminMail($data));
-            } else {
-                $to_email = isset($adminEmailsArr[0]) ? $adminEmailsArr[0] : null;
-                if ($to_email) {
-                    Mail::to($to_email)->send(new NewCustomerAdminMail($data));
+            // Send notification email to admin (with error handling)
+            try {
+                $general_setting = getGeneralSettingByKey();
+                if (isset($general_setting['admin_email'])) {
+                    $adminEmailsArr = explode(',', $general_setting['admin_email']);
                 }
+                if (isset($adminEmailsArr) && count($adminEmailsArr) > 1) {
+                    $to_email = $adminEmailsArr[0];
+                    unset($adminEmailsArr[0]);
+                    Mail::to($to_email)->cc($adminEmailsArr)->send(new NewCustomerAdminMail($data));
+                } else {
+                    $to_email = isset($adminEmailsArr[0]) ? $adminEmailsArr[0] : null;
+                    if ($to_email) {
+                        Mail::to($to_email)->send(new NewCustomerAdminMail($data));
+                    }
+                }
+                Log::info('Admin notification email sent after signup', [
+                    'email' => $request->email,
+                    'customer_id' => $customer->id
+                ]);
+            } catch (Exception $emailException) {
+                // Log the email error but don't fail the entire registration
+                Log::error('Failed to send admin notification email after signup', [
+                    'email' => $request->email,
+                    'customer_id' => $customer->id,
+                    'error' => $emailException->getMessage(),
+                    'trace' => $emailException->getTraceAsString()
+                ]);
+                // Continue with registration even if email fails
             }
             // Send verification email to NEW customers or existing customers with unverified email
             $shouldSendVerificationEmail = $isNewCustomer || ($customer->verify_customer_email == 0);
