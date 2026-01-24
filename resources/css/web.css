@@ -3,6 +3,26 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+/* Hide reCAPTCHA badge globally */
+.grecaptcha-badge {
+    visibility: hidden !important;
+    opacity: 0 !important;
+    display: none !important;
+}
+
+/* Hide reCAPTCHA badge iframe (backup method) */
+iframe[src*="recaptcha"] {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Hide reCAPTCHA badge container */
+div[data-sitekey] + div,
+.grecaptcha-badge-wrapper {
+    display: none !important;
+    visibility: hidden !important;
+}
+
  /* FONTS */
  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap');
  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&family=Nunito:wght@300;400;600;700&display=swap');

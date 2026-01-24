@@ -283,16 +283,13 @@ export default {
     async recaptcha() {
       this.loading = 1;
       load(process.env.MIX_reCAPTCHA_site_key).then((recaptcha) => {
-        recaptcha.showBadge();
+        // Badge removed - reCAPTCHA v3 works invisibly
         recaptcha.execute("submit").then((token) => {
           axios
             .post(`${process.env.MIX_WEB_API_URL}verifyRecaptcha`, {
               token: token,
             })
             .then((res) => {
-              setTimeout(() => {
-                recaptcha.hideBadge();
-              }, 3000);
               if (res.data.status == "Success") {
                 this.addUpdateForm();
               } else if (res.data.status == "Error") {
