@@ -66793,26 +66793,24 @@ var _hoisted_31 = {
 };
 var _hoisted_32 = ["innerHTML"];
 var _hoisted_33 = {
-  key: 0,
-  "class": "grid grid-cols-1 md:grid-cols-2 gap-4"
-};
-var _hoisted_34 = {
-  "class": "relative w-full mb-3"
-};
-var _hoisted_35 = {
-  "class": "relative w-full mb-3"
-};
-var _hoisted_36 = {
   "class": "px-4 my-6 py-1.5 sm:px-6 text-center bg-gradient-to-r from-primary via-primary to-secondary rounded-md"
 };
-var _hoisted_37 = {
+var _hoisted_34 = {
   "class": "text-white"
 };
+var _hoisted_35 = {
+  "class": "relative z-0 w-full group"
+};
+var _hoisted_36 = {
+  "for": "title",
+  "class": "text-base md:text-base lg:text-lg"
+};
+var _hoisted_37 = ["onInput", "value"];
 var _hoisted_38 = {
   "class": "relative z-0 w-full group"
 };
 var _hoisted_39 = {
-  "for": "title",
+  "for": "country",
   "class": "text-base md:text-base lg:text-lg"
 };
 var _hoisted_40 = ["onInput", "value"];
@@ -66820,7 +66818,7 @@ var _hoisted_41 = {
   "class": "relative z-0 w-full group"
 };
 var _hoisted_42 = {
-  "for": "country",
+  "for": "city",
   "class": "text-base md:text-base lg:text-lg"
 };
 var _hoisted_43 = ["onInput", "value"];
@@ -66828,7 +66826,7 @@ var _hoisted_44 = {
   "class": "relative z-0 w-full group"
 };
 var _hoisted_45 = {
-  "for": "city",
+  "for": "street_name",
   "class": "text-base md:text-base lg:text-lg"
 };
 var _hoisted_46 = ["onInput", "value"];
@@ -66836,7 +66834,7 @@ var _hoisted_47 = {
   "class": "relative z-0 w-full group"
 };
 var _hoisted_48 = {
-  "for": "street_name",
+  "for": "venue",
   "class": "text-base md:text-base lg:text-lg"
 };
 var _hoisted_49 = ["onInput", "value"];
@@ -66844,26 +66842,26 @@ var _hoisted_50 = {
   "class": "relative z-0 w-full group"
 };
 var _hoisted_51 = {
-  "for": "venue",
-  "class": "text-base md:text-base lg:text-lg"
-};
-var _hoisted_52 = ["onInput", "value"];
-var _hoisted_53 = {
-  "class": "relative z-0 w-full group"
-};
-var _hoisted_54 = {
   "for": "product_search",
   "class": "text-base md:text-base lg:text-lg"
 };
-var _hoisted_55 = ["placeholder", "onInput", "value"];
-var _hoisted_56 = {
+var _hoisted_52 = ["placeholder", "onInput", "value"];
+var _hoisted_53 = {
   "class": "grid md:grid-cols-2 md:gap-6 gap-4 mt-6"
 };
+var _hoisted_54 = {
+  "class": "relative z-0 w-full group"
+};
+var _hoisted_55 = {
+  "for": "start_date",
+  "class": "text-base md:text-base lg:text-lg"
+};
+var _hoisted_56 = ["value"];
 var _hoisted_57 = {
   "class": "relative z-0 w-full group"
 };
 var _hoisted_58 = {
-  "for": "start_date",
+  "for": "end_date",
   "class": "text-base md:text-base lg:text-lg"
 };
 var _hoisted_59 = ["value"];
@@ -66871,15 +66869,15 @@ var _hoisted_60 = {
   "class": "relative z-0 w-full group"
 };
 var _hoisted_61 = {
-  "for": "end_date",
+  "for": "event_website",
   "class": "text-base md:text-base lg:text-lg"
 };
-var _hoisted_62 = ["value"];
+var _hoisted_62 = ["placeholder", "value"];
 var _hoisted_63 = {
   "class": "relative z-0 w-full group"
 };
 var _hoisted_64 = {
-  "for": "event_website",
+  "for": "exibitors_url",
   "class": "text-base md:text-base lg:text-lg"
 };
 var _hoisted_65 = ["placeholder", "value"];
@@ -66887,7 +66885,7 @@ var _hoisted_66 = {
   "class": "relative z-0 w-full group"
 };
 var _hoisted_67 = {
-  "for": "exibitors_url",
+  "for": "visitors_url",
   "class": "text-base md:text-base lg:text-lg"
 };
 var _hoisted_68 = ["placeholder", "value"];
@@ -66895,18 +66893,20 @@ var _hoisted_69 = {
   "class": "relative z-0 w-full group"
 };
 var _hoisted_70 = {
-  "for": "visitors_url",
+  "for": "press_url",
   "class": "text-base md:text-base lg:text-lg"
 };
 var _hoisted_71 = ["placeholder", "value"];
 var _hoisted_72 = {
-  "class": "relative z-0 w-full group"
+  key: 0,
+  "class": "grid grid-cols-1 md:grid-cols-2 gap-4 mt-6"
 };
 var _hoisted_73 = {
-  "for": "press_url",
-  "class": "text-base md:text-base lg:text-lg"
+  "class": "relative z-0 w-full group"
 };
-var _hoisted_74 = ["placeholder", "value"];
+var _hoisted_74 = {
+  "class": "relative z-0 w-full group"
+};
 var _hoisted_75 = {
   "class": "px-4 my-6 py-1.5 sm:px-6 text-center bg-gradient-to-r from-primary via-primary to-secondary rounded-md"
 };
@@ -66965,14 +66965,14 @@ var _hoisted_96 = {
 var _hoisted_97 = ["for"];
 var _hoisted_98 = ["id", "onUpdate:modelValue", "onInput"];
 var _hoisted_99 = {
-  key: 0,
+  key: 1,
   "class": "px-4 my-6 py-1.5 sm:px-6 text-center bg-gradient-to-r from-primary via-primary to-secondary rounded-md"
 };
 var _hoisted_100 = {
   "class": "text-white"
 };
 var _hoisted_101 = {
-  key: 1,
+  key: 2,
   "class": "flex justify-center gap-6 items-stretch xl:gap-12 px-4 py-8 sm:px-10"
 };
 var _hoisted_102 = {
@@ -67061,14 +67061,14 @@ var _hoisted_130 = {
   "class": "text-center mt-auto"
 };
 var _hoisted_131 = {
-  key: 2,
+  key: 3,
   "class": "mt-8 flex"
 };
 var _hoisted_132 = {
   "class": ""
 };
 var _hoisted_133 = {
-  key: 3,
+  key: 4,
   "class": "pt-5 border-t border-gray-200"
 };
 var _hoisted_134 = {
@@ -67192,58 +67192,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
       innerHTML: $options.formatFeatureName(features === null || features === void 0 ? void 0 : features.name)
     }, null, 8 /* PROPS */, _hoisted_32)]);
-  }), 128 /* KEYED_FRAGMENT */))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 2 /* CLASS */)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" CTA fields for Premium/Featured packages only "), $data.form.package_type && $data.form.package_type !== 'free' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_34, [_cache[29] || (_cache[29] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-    "class": "block text-gray-900 mb-2 text-base md:text-base lg:text-lg",
-    "for": "cta_btn"
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("CTA(Call-to-Action) Button "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-    "class": "ml-1 text-[0.85em] text-gray-600"
-  }, "(Max. 5 words)")], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    type: "text",
-    "class": "can-exp-input",
-    placeholder: "The button text that guides the user's next action; e.g., Learn More.",
-    name: "cta_btn",
-    id: "cta_btn",
-    "onUpdate:modelValue": _cache[9] || (_cache[9] = function ($event) {
-      return $data.form.cta_btn = $event;
-    }),
-    onInput: _cache[10] || (_cache[10] = function () {
-      return $options.restrictToCTAWords && $options.restrictToCTAWords.apply($options, arguments);
-    })
-  }, null, 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.cta_btn]]), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
+  }), 128 /* KEYED_FRAGMENT */))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 2 /* CLASS */)])])]), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
     key: 0,
-    fieldName: "cta_btn",
-    validationErros: $data.validationErros,
-    full_width: "1"
-  }, null, 8 /* PROPS */, ["validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [_cache[30] || (_cache[30] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-    "class": "block text-gray-900 mb-2 text-base md:text-base lg:text-lg",
-    "for": "cta_link"
-  }, "CTA Link", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    onInput: _cache[11] || (_cache[11] = function ($event) {
-      return $options.clearErrors('cta_link');
-    }),
-    type: "text",
-    "class": "can-exp-input",
-    placeholder: "https://example.com",
-    name: "cta_link",
-    id: "cta_link",
-    "onUpdate:modelValue": _cache[12] || (_cache[12] = function ($event) {
-      return $data.form.cta_link = $event;
-    })
-  }, null, 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.cta_link]]), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
-    key: 0,
-    fieldName: "cta_link",
-    validationErros: $data.validationErros,
-    full_width: "1"
-  }, null, 8 /* PROPS */, ["validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
-    key: 1,
     fieldName: "package_id",
     validationErros: $data.validationErros,
     full_width: "1"
-  }, null, 8 /* PROPS */, ["validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Step 3: Event Details "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_36, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_37, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(JSON.parse($props.event_detail)["event_section_heading"] || 'Step 3 of 5 - Create your event'), 1 /* TEXT */)]), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(JSON.parse($props.languages), function (language) {
+  }, null, 8 /* PROPS */, ["validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Step 3: Event Details "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_34, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(JSON.parse($props.event_detail)["event_section_heading"] || 'Step 3 of 5 - Create your event'), 1 /* TEXT */)]), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(JSON.parse($props.languages), function (language) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["grid my-5 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6", $data.activeTab == null && language.is_default || $data.activeTab == language.id ? 'block' : 'hidden']),
       key: language.id
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_38, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_39, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(JSON.parse($props.eventsetting).title_label) + " ", 1 /* TEXT */), _cache[31] || (_cache[31] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_36, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(JSON.parse($props.eventsetting).title_label) + " ", 1 /* TEXT */), _cache[29] || (_cache[29] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
       "class": "text-red-500"
     }, "*", -1 /* CACHED */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
       type: "text",
@@ -67256,11 +67214,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         $options.clearErrors('title.title_' + language.id);
       },
       value: $data.form['title'] && $data.form['title']["title_".concat(language.id)] ? $data.form['title']["title_".concat(language.id)] : ''
-    }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_40), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
+    }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_37), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
       key: 0,
       fieldName: "title.title_".concat(language.id),
       validationErros: $data.validationErros
-    }, null, 8 /* PROPS */, ["fieldName", "validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(JSON.parse($props.eventsetting).country_label) + " ", 1 /* TEXT */), _cache[32] || (_cache[32] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    }, null, 8 /* PROPS */, ["fieldName", "validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_38, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_39, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(JSON.parse($props.eventsetting).country_label) + " ", 1 /* TEXT */), _cache[30] || (_cache[30] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
       "class": "text-red-500"
     }, "*", -1 /* CACHED */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
       type: "text",
@@ -67273,11 +67231,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         $options.clearErrors('country.country_' + language.id);
       },
       value: $data.form['country'] && $data.form['country']["country_".concat(language.id)] ? $data.form['country']["country_".concat(language.id)] : ''
-    }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_43), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
+    }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_40), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
       key: 0,
       fieldName: "country.country_".concat(language.id),
       validationErros: $data.validationErros
-    }, null, 8 /* PROPS */, ["fieldName", "validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_45, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(JSON.parse($props.eventsetting).city_label) + " ", 1 /* TEXT */), _cache[33] || (_cache[33] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    }, null, 8 /* PROPS */, ["fieldName", "validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(JSON.parse($props.eventsetting).city_label) + " ", 1 /* TEXT */), _cache[31] || (_cache[31] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
       "class": "text-red-500"
     }, "*", -1 /* CACHED */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
       type: "text",
@@ -67290,11 +67248,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         $options.clearErrors('city.city_' + language.id);
       },
       value: $data.form['city'] && $data.form['city']["city_".concat(language.id)] ? $data.form['city']["city_".concat(language.id)] : ''
-    }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_46), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
+    }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_43), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
       key: 0,
       fieldName: "city.city_".concat(language.id),
       validationErros: $data.validationErros
-    }, null, 8 /* PROPS */, ["fieldName", "validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_47, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_48, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(JSON.parse($props.eventsetting).street_name_label), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    }, null, 8 /* PROPS */, ["fieldName", "validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_45, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(JSON.parse($props.eventsetting).street_name_label), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
       type: "text",
       name: "street_name",
       id: "street_name",
@@ -67305,11 +67263,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         $options.clearErrors('street_name.street_name_' + language.id);
       },
       value: $data.form['street_name'] && $data.form['street_name']["street_name_".concat(language.id)] ? $data.form['street_name']["street_name_".concat(language.id)] : ''
-    }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_49), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
+    }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_46), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
       key: 0,
       fieldName: "street_name.street_name_".concat(language.id),
       validationErros: $data.validationErros
-    }, null, 8 /* PROPS */, ["fieldName", "validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_50, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_51, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(JSON.parse($props.eventsetting).venue_label), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    }, null, 8 /* PROPS */, ["fieldName", "validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_47, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_48, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(JSON.parse($props.eventsetting).venue_label), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
       type: "text",
       name: "venue",
       id: "venue",
@@ -67320,11 +67278,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         $options.clearErrors('venue.venue_' + language.id);
       },
       value: $data.form['venue'] && $data.form['venue']["venue_".concat(language.id)] ? $data.form['venue']["venue_".concat(language.id)] : ''
-    }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_52), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
+    }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_49), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
       key: 0,
       fieldName: "venue.venue_".concat(language.id),
       validationErros: $data.validationErros
-    }, null, 8 /* PROPS */, ["fieldName", "validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_53, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_54, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(JSON.parse($props.eventsetting).product_search_label), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    }, null, 8 /* PROPS */, ["fieldName", "validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_50, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_51, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(JSON.parse($props.eventsetting).product_search_label), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
       type: "text",
       name: "product_search",
       id: "product_search",
@@ -67335,12 +67293,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         $options.clearErrors('product_search.product_search_' + language.id);
       },
       value: $data.form['product_search'] && $data.form['product_search']["product_search_".concat(language.id)] ? $data.form['product_search']["product_search_".concat(language.id)] : ''
-    }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_55), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
+    }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_52), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
       key: 0,
       fieldName: "product_search.product_search_".concat(language.id),
       validationErros: $data.validationErros
     }, null, 8 /* PROPS */, ["fieldName", "validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])], 2 /* CLASS */);
-  }), 128 /* KEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_56, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_57, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_58, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(JSON.parse($props.eventsetting).start_date_label) + " ", 1 /* TEXT */), _cache[34] || (_cache[34] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  }), 128 /* KEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_53, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_54, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_55, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(JSON.parse($props.eventsetting).start_date_label) + " ", 1 /* TEXT */), _cache[32] || (_cache[32] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
     "class": "text-red-500"
   }, "*", -1 /* CACHED */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "date",
@@ -67348,15 +67306,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     id: "start_date",
     "class": "can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600",
     value: $data.form.start_date,
-    onInput: _cache[13] || (_cache[13] = function ($event) {
+    onInput: _cache[9] || (_cache[9] = function ($event) {
       $options.checkDateLength('start_date', $event);
       $options.clearErrors('start_date');
     })
-  }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_59), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
+  }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_56), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
     key: 0,
     fieldName: "start_date",
     validationErros: $data.validationErros
-  }, null, 8 /* PROPS */, ["validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_60, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_61, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(JSON.parse($props.eventsetting).end_date_label) + " ", 1 /* TEXT */), _cache[35] || (_cache[35] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  }, null, 8 /* PROPS */, ["validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_57, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_58, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(JSON.parse($props.eventsetting).end_date_label) + " ", 1 /* TEXT */), _cache[33] || (_cache[33] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
     "class": "text-red-500"
   }, "*", -1 /* CACHED */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "date",
@@ -67364,15 +67322,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     id: "end_date",
     "class": "can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600",
     value: $data.form.end_date,
-    onInput: _cache[14] || (_cache[14] = function ($event) {
+    onInput: _cache[10] || (_cache[10] = function ($event) {
       $options.checkDateLength('end_date', $event);
       $options.clearErrors('end_date');
     })
-  }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_62), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
+  }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_59), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
     key: 0,
     fieldName: "end_date",
     validationErros: $data.validationErros
-  }, null, 8 /* PROPS */, ["validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_63, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_64, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(JSON.parse($props.eventsetting).event_website_label) + " ", 1 /* TEXT */), _cache[36] || (_cache[36] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  }, null, 8 /* PROPS */, ["validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_60, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_61, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(JSON.parse($props.eventsetting).event_website_label) + " ", 1 /* TEXT */), _cache[34] || (_cache[34] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
     "class": "text-red-500"
   }, "*", -1 /* CACHED */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
     rows: "2",
@@ -67381,60 +67339,100 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600",
     placeholder: JSON.parse($props.eventsetting).event_website_placeholder,
     value: $data.form.event_website,
-    onInput: _cache[15] || (_cache[15] = function ($event) {
+    onInput: _cache[11] || (_cache[11] = function ($event) {
       $options.updateForm('event_website', $event.target.value);
       $options.clearErrors('event_website');
     })
-  }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_65), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
+  }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_62), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
     key: 0,
     fieldName: "event_website",
     validationErros: $data.validationErros
-  }, null, 8 /* PROPS */, ["validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_66, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_67, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(JSON.parse($props.eventsetting).exibitors_url_label), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
+  }, null, 8 /* PROPS */, ["validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_63, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_64, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(JSON.parse($props.eventsetting).exibitors_url_label), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
     rows: "2",
     name: "exibitors_url",
     id: "exibitors_url",
     "class": "can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600",
     placeholder: JSON.parse($props.eventsetting).exibitors_url_placeholder,
     value: $data.form.exibitors_url,
-    onInput: _cache[16] || (_cache[16] = function ($event) {
+    onInput: _cache[12] || (_cache[12] = function ($event) {
       $options.updateForm('exibitors_url', $event.target.value);
       $options.clearErrors('exibitors_url');
     })
-  }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_68), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
+  }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_65), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
     key: 0,
     fieldName: "exibitors_url",
     validationErros: $data.validationErros
-  }, null, 8 /* PROPS */, ["validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_69, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_70, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(JSON.parse($props.eventsetting).visitors_label), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 8 /* PROPS */, ["validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_66, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_67, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(JSON.parse($props.eventsetting).visitors_label), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     name: "visitors_url",
     id: "visitors_url",
     "class": "can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600",
     placeholder: JSON.parse($props.eventsetting).visitors_placeholder,
     value: $data.form.visitors_url,
-    onInput: _cache[17] || (_cache[17] = function ($event) {
+    onInput: _cache[13] || (_cache[13] = function ($event) {
       $options.updateForm('visitors_url', $event.target.value);
       $options.clearErrors('visitors_url');
     })
-  }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_71), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
+  }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_68), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
     key: 0,
     fieldName: "visitors_url",
     validationErros: $data.validationErros
-  }, null, 8 /* PROPS */, ["validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_72, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_73, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(JSON.parse($props.eventsetting).press_url_label), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 8 /* PROPS */, ["validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_69, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_70, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(JSON.parse($props.eventsetting).press_url_label), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     name: "press_url",
     id: "press_url",
     "class": "can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600",
     placeholder: JSON.parse($props.eventsetting).press_url_placeholder,
     value: $data.form.press_url,
-    onInput: _cache[18] || (_cache[18] = function ($event) {
+    onInput: _cache[14] || (_cache[14] = function ($event) {
       $options.updateForm('press_url', $event.target.value);
       $options.clearErrors('press_url');
     })
-  }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_74), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
+  }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_71), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
     key: 0,
     fieldName: "press_url",
     validationErros: $data.validationErros
-  }, null, 8 /* PROPS */, ["validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Step 4: Event Description "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_75, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_76, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_JSON$parse$contact_s = JSON.parse($props.event_detail)["contact_section_heading"]) !== null && _JSON$parse$contact_s !== void 0 ? _JSON$parse$contact_s : 'Step 4 of 5 - Contact information'), 1 /* TEXT */)]), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(JSON.parse($props.languages), function (language) {
+  }, null, 8 /* PROPS */, ["validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" CTA fields for Premium/Featured packages only - Moved to bottom of Step 3 "), $data.form.package_type && $data.form.package_type !== 'free' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_72, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_73, [_cache[35] || (_cache[35] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "class": "block text-gray-900 mb-2 text-base md:text-base lg:text-lg",
+    "for": "cta_btn"
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("CTA(Call-to-Action) Button "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    "class": "ml-1 text-[0.85em] text-gray-600"
+  }, "(Max. 5 words)")], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "text",
+    "class": "can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600",
+    placeholder: "The button text that guides the user's next action; e.g., Learn More.",
+    name: "cta_btn",
+    id: "cta_btn",
+    "onUpdate:modelValue": _cache[15] || (_cache[15] = function ($event) {
+      return $data.form.cta_btn = $event;
+    }),
+    onInput: _cache[16] || (_cache[16] = function () {
+      return $options.restrictToCTAWords && $options.restrictToCTAWords.apply($options, arguments);
+    })
+  }, null, 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.cta_btn]]), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
+    key: 0,
+    fieldName: "cta_btn",
+    validationErros: $data.validationErros
+  }, null, 8 /* PROPS */, ["validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_74, [_cache[36] || (_cache[36] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "class": "block text-gray-900 mb-2 text-base md:text-base lg:text-lg",
+    "for": "cta_link"
+  }, "CTA Link", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    onInput: _cache[17] || (_cache[17] = function ($event) {
+      return $options.clearErrors('cta_link');
+    }),
+    type: "text",
+    "class": "can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600",
+    placeholder: "https://example.com",
+    name: "cta_link",
+    id: "cta_link",
+    "onUpdate:modelValue": _cache[18] || (_cache[18] = function ($event) {
+      return $data.form.cta_link = $event;
+    })
+  }, null, 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.cta_link]]), $data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Error, {
+    key: 0,
+    fieldName: "cta_link",
+    validationErros: $data.validationErros
+  }, null, 8 /* PROPS */, ["validationErros"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Step 4: Event Description "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_75, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_76, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_JSON$parse$contact_s = JSON.parse($props.event_detail)["contact_section_heading"]) !== null && _JSON$parse$contact_s !== void 0 ? _JSON$parse$contact_s : 'Step 4 of 5 - Contact information'), 1 /* TEXT */)]), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(JSON.parse($props.languages), function (language) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["grid my-5 grid-cols-1 sm:grid-cols-1 gap-6", $data.activeTab == null && language.is_default || $data.activeTab == language.id ? 'block' : 'hidden']),
       key: 'desc-' + language.id

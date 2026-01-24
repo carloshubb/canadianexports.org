@@ -249,53 +249,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- CTA fields for Premium/Featured packages only -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" v-if="form.package_type && form.package_type !== 'free'">
-                    <div class="relative w-full mb-3">
-                        <label
-                            class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
-                            for="cta_btn"
-                        >CTA(Call-to-Action) Button
-                        <span class="ml-1 text-[0.85em] text-gray-600">(Max. 5 words)</span>
-                        </label>
-                        <input
-                            type="text"
-                            class="can-exp-input"
-                            placeholder="The button text that guides the user's next action; e.g., Learn More."
-                            name="cta_btn"
-                            id="cta_btn"
-                            v-model="form.cta_btn"
-                            @input="restrictToCTAWords"
-                        />
-                        <Error
-                            v-if="submitted"
-                            fieldName="cta_btn"
-                            :validationErros="validationErros"
-                            full_width="1"
-                        />
-                    </div>
-                    <div class="relative w-full mb-3">
-                        <label
-                            class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
-                            for="cta_link"
-                        >CTA Link</label>
-                        <input
-                            @input="clearErrors('cta_link')"
-                            type="text"
-                            class="can-exp-input"
-                            placeholder="https://example.com"
-                            name="cta_link"
-                            id="cta_link"
-                            v-model="form.cta_link"
-                        />
-                        <Error
-                            v-if="submitted"
-                            fieldName="cta_link"
-                            :validationErros="validationErros"
-                            full_width="1"
-                        />
-                    </div>
-                </div>
                 <Error
                     v-if="submitted"
                     fieldName="package_id"
@@ -549,6 +502,52 @@
                     <Error
                         v-if="submitted"
                         fieldName="press_url"
+                        :validationErros="validationErros"
+                    />
+                </div>
+            </div>
+            
+            <!-- CTA fields for Premium/Featured packages only - Moved to bottom of Step 3 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6" v-if="form.package_type && form.package_type !== 'free'">
+                <div class="relative z-0 w-full group">
+                    <label
+                        class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
+                        for="cta_btn"
+                    >CTA(Call-to-Action) Button
+                    <span class="ml-1 text-[0.85em] text-gray-600">(Max. 5 words)</span>
+                    </label>
+                    <input
+                        type="text"
+                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                        placeholder="The button text that guides the user's next action; e.g., Learn More."
+                        name="cta_btn"
+                        id="cta_btn"
+                        v-model="form.cta_btn"
+                        @input="restrictToCTAWords"
+                    />
+                    <Error
+                        v-if="submitted"
+                        fieldName="cta_btn"
+                        :validationErros="validationErros"
+                    />
+                </div>
+                <div class="relative z-0 w-full group">
+                    <label
+                        class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
+                        for="cta_link"
+                    >CTA Link</label>
+                    <input
+                        @input="clearErrors('cta_link')"
+                        type="text"
+                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                        placeholder="https://example.com"
+                        name="cta_link"
+                        id="cta_link"
+                        v-model="form.cta_link"
+                    />
+                    <Error
+                        v-if="submitted"
+                        fieldName="cta_link"
                         :validationErros="validationErros"
                     />
                 </div>
