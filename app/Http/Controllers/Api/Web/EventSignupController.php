@@ -46,7 +46,18 @@ class EventSignupController extends Controller
 
     public function signup(Request $request)
     {
-        $request['business_categories_id'] = json_decode($request->business_categories_id);
+        // Decode and clean business_categories_id if present (for consistency, even though not validated for events)
+        if ($request->has('business_categories_id') && $request->business_categories_id) {
+            $businessCategoriesId = json_decode($request->business_categories_id, true);
+            if (is_array($businessCategoriesId)) {
+                $businessCategoriesId = array_values(array_unique(array_filter($businessCategoriesId, function($id) {
+                    return !is_null($id) && $id !== '' && $id !== 0;
+                })));
+                $request['business_categories_id'] = $businessCategoriesId;
+            } else {
+                $request['business_categories_id'] = [];
+            }
+        }
         $request['gallery_images'] = isset($request->gallery_images) && $request->gallery_images != null ? json_decode($request->gallery_images) : null;
         
         // Check if user is already logged in or if email exists
@@ -440,7 +451,18 @@ class EventSignupController extends Controller
 
     public function signupPayment(Request $request)
     {
-        $request['business_categories_id'] = json_decode($request->business_categories_id);
+        // Decode and clean business_categories_id if present (for consistency, even though not validated for events)
+        if ($request->has('business_categories_id') && $request->business_categories_id) {
+            $businessCategoriesId = json_decode($request->business_categories_id, true);
+            if (is_array($businessCategoriesId)) {
+                $businessCategoriesId = array_values(array_unique(array_filter($businessCategoriesId, function($id) {
+                    return !is_null($id) && $id !== '' && $id !== 0;
+                })));
+                $request['business_categories_id'] = $businessCategoriesId;
+            } else {
+                $request['business_categories_id'] = [];
+            }
+        }
         $request['gallery_images'] = isset($request->gallery_images) && $request->gallery_images != null ? json_decode($request->gallery_images) : null;
         
         // Get authenticated user

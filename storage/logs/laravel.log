@@ -66,3 +66,7 @@
 [2026-01-24 18:51:05] local.INFO: moveFile: Processing temp file {"original":"media/temp/6975149376ac4/1769280659_1234.jpg","normalized":"media/temp/6975149376ac4/1769280659_1234.jpg"} 
 [2026-01-24 18:51:05] local.INFO: moveFile: Found file at alternative path (public): E:\Work\Canadaexport\public\media\temp\6975149376ac4\1769280659_1234.jpg  
 [2026-01-24 18:51:10] local.INFO: Existing verified customer - redirect to review without verification email {"email":"carloslennix38gg@gmail.com","customer_id":50139} 
+[2026-01-24 19:11:04] local.INFO: moveFile: Processing temp file {"original":"media/temp/6963b5e66379c/1768142310_anydesk.png","normalized":"media/temp/6963b5e66379c/1768142310_anydesk.png"} 
+[2026-01-24 19:11:04] local.INFO: moveFile: Found file at alternative path (public): E:\Work\Canadaexport\public\media\temp\6963b5e66379c\1768142310_anydesk.png  
+[2026-01-24 19:11:04] local.INFO: Package price is 0  
+[2026-01-24 19:11:04] local.INFO: public/invoices/registration-invoice/CE0488.pdf  

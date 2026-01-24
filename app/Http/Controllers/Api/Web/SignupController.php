@@ -55,9 +55,17 @@ class SignupController extends Controller
 
     public function signup(Request $request)
     {
-
-        $request['business_categories_id'] = json_decode($request->business_categories_id);
-        // dd($request['business_categories_id']);
+        // Decode and clean business_categories_id: remove duplicates, nulls, empty values
+        $businessCategoriesId = json_decode($request->business_categories_id, true);
+        if (!is_array($businessCategoriesId)) {
+            $businessCategoriesId = [];
+        }
+        // Remove nulls, empty strings, and duplicates, then re-index array
+        $businessCategoriesId = array_values(array_unique(array_filter($businessCategoriesId, function($id) {
+            return !is_null($id) && $id !== '' && $id !== 0;
+        })));
+        $request['business_categories_id'] = $businessCategoriesId;
+        
         $request['gallery_images'] = json_decode($request->gallery_images);
         
         // Check if user is logged in or if email exists
