@@ -36,11 +36,9 @@ class HomeController extends Controller
     }
 
     public function index_abbreviation($abbreviation, $slug = null)
-    {
-        
+    {   
         updateLangByAbber($abbreviation);
         $response = $this->checkPageSlug($slug);
-        
         if ($response) {
             return Redirect::to($response);
         }
@@ -55,7 +53,6 @@ class HomeController extends Controller
         if (!$page) {
             abort(404);
         }
-        
         return view('front.index', compact('slug', 'page', 'lang'));
     }
 
@@ -616,11 +613,9 @@ class HomeController extends Controller
         $general_setting = getGeneralSettingByKey();
         $lang = getDefaultLanguage(true);
         $currentUrl = langBasedURL($lang, Request::url());
-
         $user_event_create_page = isset($general_setting['user_event_create_page']) ? langBasedURL($lang, url($general_setting['user_event_create_page'])) : null;
         $user_event_listing_page = isset($general_setting['user_event_listing_page']) ? langBasedURL($lang, url($general_setting['user_event_listing_page'])) : null;
         $user_sponser_listing_page = isset($general_setting['user_sponser_listing_page']) ? langBasedURL($lang, url($general_setting['user_sponser_listing_page'])) : null;
-
         if (!Auth::guard('customers')->check()) {
             if (isset($user_event_create_page) && ($user_event_create_page == $currentUrl || $user_event_listing_page == $currentUrl|| $user_sponser_listing_page == $currentUrl)) {
                 $url = langBasedURL($lang, route('front.index', $general_setting['user_event_signup_page']));
