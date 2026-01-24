@@ -35,6 +35,7 @@ use Illuminate\Validation\Rules\Password as RulesPassword;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\URL;
 use Stripe\Stripe;
 
 class EventSignupController extends Controller
@@ -272,7 +273,7 @@ class EventSignupController extends Controller
             $event = Event::create([
                 'zipcode' => $request->zipcode,
                 'media_id' => isset($galleryImages, $galleryImages[0]) ? $galleryImages[0]->id : null,
-                'slug' => $this->generateUniqueSlug($slug),
+                'slug' => $this->generateUniqueEventSlug($slug),
                 'start_date' => $request->start_date,
                 'end_date' => $request->end_date,
                 'event_website' => $request->event_website,
@@ -294,8 +295,8 @@ class EventSignupController extends Controller
                 'package_subscribed_date' => date('Y-m-d'),
                 'package_expiry_date' => date('Y-m-d', strtotime('+' . (isset($package) ? $package->package_validity_months : 0) . ' months')),
                 'is_package_amount_paid' => 1,
-                'payment_method' => $request->payment_method,
-                'payment_method_id' => isset($subscription_id) ? $subscription_id : null,
+                'payment_method' => null,
+                'payment_method_id' => null,
             ]);
 
             if ($event) {
@@ -367,35 +368,42 @@ class EventSignupController extends Controller
                 }
             }
 
-            // Only send verification email to new customers
+            // Verification email and redirect: depend on new vs existing and verify_customer_email
             $emailSent = false;
-            if ($isNewCustomer) {
+            $redirectToReview = false;
+
+            $shouldSendVerification = $isNewCustomer
+                || (!$loggedInCustomer && $existingCustomer && ($customer->verify_customer_email ?? 0) != 1);
+
+            if ($shouldSendVerification) {
                 try {
                     Log::info('Attempting to send verification email', [
                         'email' => $request->email,
                         'customer_id' => $customer->id ?? null,
                         'is_new_customer' => $isNewCustomer
                     ]);
-                    
                     Mail::to($request->email)->send(new CustomerVerifyEmailMail($data));
                     $emailSent = true;
-                    
                     Log::info('Verification email sent successfully', [
                         'email' => $request->email,
                         'customer_id' => $customer->id ?? null
                     ]);
                 } catch (\Exception $emailException) {
-                    // Log the email error but don't fail the entire registration
                     Log::error('Failed to send verification email', [
                         'email' => $request->email,
                         'customer_id' => $customer->id ?? null,
                         'error' => $emailException->getMessage(),
                         'trace' => $emailException->getTraceAsString()
                     ]);
-                    // Continue with registration even if email fails
                 }
+            } elseif (!$loggedInCustomer && $existingCustomer && ($customer->verify_customer_email ?? 0) == 1) {
+                $redirectToReview = true;
+                Log::info('Existing verified customer - redirect to review without verification email', [
+                    'email' => $request->email,
+                    'customer_id' => $customer->id ?? null
+                ]);
             } else {
-                Log::info('Skipping verification email - existing customer', [
+                Log::info('Skipping verification email - logged-in customer', [
                     'email' => $request->email,
                     'customer_id' => $customer->id ?? null
                 ]);
@@ -408,18 +416,25 @@ class EventSignupController extends Controller
             return $this->errorResponse($e->getMessage());
         }
 
-        $general_messages = getStaticTranslationByKey((isset($defaultLang) ? $defaultLang : null), 'general_messages', ['message_37']);
-        $message_37 = isset($general_messages['message_37']) ? $general_messages['message_37'] : '';
+        $general_setting = getGeneralSettingByKey();
+        $general_messages = getStaticTranslationByKey((isset($defaultLang) ? $defaultLang : null), 'general_messages', ['message_37', 'message_20', 'message_20_review']);
 
+        if ($redirectToReview) {
+            $message_20_review = $general_messages['message_20_review'] ?? 'Your event has been submitted. You have been logged in.';
+            $data['redirect_url'] = URL::temporarySignedRoute(
+                'web.event-signup.verify-and-redirect',
+                now()->addMinutes(60),
+                ['customer_id' => $customer->id, 'abbreviation' => $defaultLang->abbreviation ?? 'en']
+            );
+            return $this->successResponse($data, $message_20_review);
+        }
+
+        $message_37 = $general_messages['message_37'] ?? '';
         Session::flash('message', $message_37);
         Session::flash('type', 'success');
-
-        $general_setting = getGeneralSettingByKey();
         $url = langBasedURL(null, $general_setting['user_signin_page']);
         $data['redirect_url'] = url($url);
-        $general_messages = getStaticTranslationByKey((isset($defaultLang) ? $defaultLang : null), 'general_messages', ['message_20']);
-        $message_20 = isset($general_messages['message_20']) ? $general_messages['message_20'] : '';
-
+        $message_20 = $general_messages['message_20'] ?? '';
         return $this->successResponse($data, $message_20);
     }
 
@@ -641,6 +656,12 @@ class EventSignupController extends Controller
                 return $this->errorResponse('You must be logged in to register for an event.');
             }
             
+            // Initialize payment-related vars (used when price > 0; avoid undefined when free)
+            $subscription_id = null;
+            $stripe_item_id = null;
+            $stripe_customer_id = null;
+            $payment_method_id = null;
+            
             // Process payment if price > 0
             if ($price > 0) {
                 if ($request->payment_method == 'stripe') {
@@ -725,7 +746,7 @@ class EventSignupController extends Controller
             $event = Event::create([
                 'zipcode' => $request->zipcode,
                 'media_id' => isset($galleryImages, $galleryImages[0]) ? $galleryImages[0]->id : null,
-                'slug' => $this->generateUniqueSlug($slug),
+                'slug' => $this->generateUniqueEventSlug($slug),
                 'start_date' => $request->start_date,
                 'end_date' => $request->end_date,
                 'event_website' => $request->event_website,
@@ -957,12 +978,71 @@ class EventSignupController extends Controller
         return $this->successResponse([], 'Email is valid!');
     }
 
+    /**
+     * Verify signed link and log in existing verified customer, then redirect to review-confirmation.
+     * Used when existing exporter (not logged in) creates event with already-verified email.
+     */
+    public function verifyAndRedirectToReview(Request $request)
+    {
+        $signinUrl = function () {
+            $general_setting = getGeneralSettingByKey();
+            $slug = $general_setting['user_signin_page'] ?? null;
+            return $slug ? url(langBasedURL(null, $slug)) : url('/');
+        };
+
+        if (!$request->hasValidSignature()) {
+            Log::warning('Event signup verify-and-redirect: invalid or expired signature');
+            return Redirect::to($signinUrl())->with('message', 'Invalid or expired link. Please sign in.')->with('type', 'error');
+        }
+
+        $customerId = $request->query('customer_id');
+        $abbreviation = $request->query('abbreviation', 'en');
+
+        if (!$customerId) {
+            Log::warning('Event signup verify-and-redirect: missing customer_id');
+            return Redirect::to($signinUrl())->with('message', 'Invalid link.')->with('type', 'error');
+        }
+
+        $customer = Customer::find($customerId);
+        if (!$customer) {
+            Log::warning('Event signup verify-and-redirect: customer not found', ['customer_id' => $customerId]);
+            return Redirect::to($signinUrl())->with('message', 'Invalid link.')->with('type', 'error');
+        }
+
+        Auth::guard('customers')->login($customer);
+
+        $defaultLang = getDefaultLanguage(1);
+        $general_messages = getStaticTranslationByKey($defaultLang, 'general_messages', ['message_20_review']);
+        $message = $general_messages['message_20_review'] ?? 'Your event has been submitted. You have been logged in.';
+
+        Session::flash('message', $message);
+        Session::flash('type', 'success');
+
+        return Redirect::to(url(route('user.payment.index', [$abbreviation])));
+    }
+
     protected function generateUniqueSlug($initialSlug): string
     {
         $slug = Str::slug($initialSlug);
         $count = 1;
 
         while (CustomerProfile::where('slug', $slug)->exists()) {
+            $slug = Str::slug($initialSlug . '-' . $count);
+            $count++;
+        }
+
+        return $slug;
+    }
+
+    /**
+     * Generate a unique slug for events (checked against Event model).
+     */
+    protected function generateUniqueEventSlug($initialSlug): string
+    {
+        $slug = Str::slug($initialSlug);
+        $count = 1;
+
+        while (Event::where('slug', $slug)->exists()) {
             $slug = Str::slug($initialSlug . '-' . $count);
             $count++;
         }

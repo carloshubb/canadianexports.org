@@ -62,6 +62,7 @@ Route::group(['middleware' => ['share.variable', 'user.status']], function () {
     Route::post('/event-signup', [EventSignupController::class, 'signup'])->name('web.event-signup.signup');
     Route::post('/event-signup-payment', [EventSignupController::class, 'signupPayment'])->name('web.event-signup.payment');
     Route::post('/event-signup-email-validation', [EventSignupController::class, 'emailValidation'])->name('web.event-signup.signup-email-validation');
+    Route::get('/event-signup/verify-and-redirect', [EventSignupController::class, 'verifyAndRedirectToReview'])->name('web.event-signup.verify-and-redirect');
 
     Route::get('/{abbreviation?}/user/forgot-password', [SignupController::class, 'showForgotPassword'])->name('web.password.request')->whereIn('abbreviation', Language::pluck('abbreviation')->toArray());
 

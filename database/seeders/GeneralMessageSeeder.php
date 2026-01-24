@@ -377,6 +377,23 @@ class GeneralMessageSeeder extends Seeder
             ]);
         }
 
+        $staticTranslationDetail = StaticTranslationDetail::where('language_id', $lang->id)->where('static_translation_id', $result->id)->where('key', 'message_20_review')->first();
+        $message_20_review_text = "Your event has been submitted. You have been logged in.";
+        if (!$staticTranslationDetail) {
+            StaticTranslationDetail::create([
+                'language_id' => $lang->id,
+                'static_translation_id' => $result->id,
+                'key' => 'message_20_review',
+                'display_text' => $message_20_review_text,
+                'value' => $message_20_review_text,
+            ]);
+        } else {
+            $staticTranslationDetail->update([
+                'display_text' => $message_20_review_text,
+                'value' => $message_20_review_text,
+            ]);
+        }
+
         $staticTranslationDetail = StaticTranslationDetail::where('language_id', $lang->id)->where('static_translation_id', $result->id)->where('key', 'message_21')->first();
         $message_21_text = "Event created message";
         if (!$staticTranslationDetail) {
