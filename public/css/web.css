@@ -2149,6 +2149,9 @@ ul li {
 .h-screen {
   height: 100vh !important;
 }
+.h-\[220px\] {
+  height: 220px !important;
+}
 .max-h-48 {
   max-height: 12rem !important;
 }
@@ -2315,6 +2318,9 @@ ul li {
 .w-screen {
   width: 100vw !important;
 }
+.w-\[85\%\] {
+  width: 85% !important;
+}
 .min-w-0 {
   min-width: 0px !important;
 }
@@ -2378,6 +2384,9 @@ ul li {
 }
 .max-w-xs {
   max-width: 20rem !important;
+}
+.max-w-screen-xl {
+  max-width: 1280px !important;
 }
 .flex-1 {
   flex: 1 1 0% !important;
@@ -7107,6 +7116,10 @@ body > .dp__outer_menu_wrap,
     height: 100vh !important;
   }
 
+  .sm\:h-\[300px\] {
+    height: 300px !important;
+  }
+
   .sm\:w-40 {
     width: 10rem !important;
   }
@@ -7137,6 +7150,14 @@ body > .dp__outer_menu_wrap,
 
   .sm\:w-full {
     width: 100% !important;
+  }
+
+  .sm\:w-\[70\%\] {
+    width: 70% !important;
+  }
+
+  .sm\:w-\[90\%\] {
+    width: 90% !important;
   }
 
   .sm\:max-w-2xl {
@@ -7419,6 +7440,11 @@ body > .dp__outer_menu_wrap,
     line-height: 1.75rem !important;
   }
 
+  .sm\:text-5xl {
+    font-size: 3rem !important;
+    line-height: 1 !important;
+  }
+
   .sm\:leading-6 {
     line-height: 1.5rem !important;
   }
@@ -7636,6 +7662,10 @@ body > .dp__outer_menu_wrap,
     height: 100% !important;
   }
 
+  .md\:h-\[380px\] {
+    height: 380px !important;
+  }
+
   .md\:w-10 {
     width: 2.5rem !important;
   }
@@ -7702,6 +7732,10 @@ body > .dp__outer_menu_wrap,
 
   .md\:w-full {
     width: 100% !important;
+  }
+
+  .md\:w-\[75\%\] {
+    width: 75% !important;
   }
 
   .md\:min-w-\[26rem\] {
@@ -8228,6 +8262,10 @@ body > .dp__outer_menu_wrap,
     width: 100% !important;
   }
 
+  .lg\:w-\[65\%\] {
+    width: 65% !important;
+  }
+
   .lg\:max-w-3xl {
     max-width: 48rem !important;
   }
@@ -8436,6 +8474,11 @@ body > .dp__outer_menu_wrap,
   .lg\:text-xl {
     font-size: 1.25rem !important;
     line-height: 1.75rem !important;
+  }
+
+  .lg\:text-6xl {
+    font-size: 3.75rem !important;
+    line-height: 1 !important;
   }
 }
 @media (min-width: 1280px) {

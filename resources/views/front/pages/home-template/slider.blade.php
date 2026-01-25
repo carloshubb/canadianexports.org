@@ -1,4 +1,4 @@
-<div class="relative isolate lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10 min-h-[800px] flex items-center">
+<div class="relative isolate lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10 min-h-[800px] flex items-center overflow-hidden">
     <!-- Background Image Container - Fixed positioning -->
     <div class="absolute inset-0 w-full h-full">
         <img src="{{ asset($homePageSettingDetail->slider_image) }}" alt="slider image"
@@ -6,7 +6,7 @@
         <!-- Dark overlay on top of image -->
         <div class="absolute inset-0 bg-black bg-opacity-60"></div>
     </div>
-    
+
     <!-- Decorative SVG gradients -->
     <svg viewBox="0 0 1097 845" aria-hidden="true"
         class="hidden transform-gpu blur-3xl sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:w-[68.5625rem]">
@@ -32,16 +32,16 @@
             </linearGradient>
         </defs>
     </svg>
-    
+
     <!-- Content Container - Now centered vertically and horizontally -->
-    <div class="container relative z-10 w-full">
+    <div class="container relative z-10 w-full px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto">
         <div class="mx-auto lg:mx-0">
-            <h1 class="can-exp-h1 mb-4 text-center text-white  text-6xl">
+            <h1 class="can-exp-h1 mb-4 text-center text-white text-4xl sm:text-5xl lg:text-6xl">
                 {!! $homePageSettingDetail->slider_heading !!}
             </h1>
         </div>
-        
-        <div class="mx-auto mt-4 sm:w-[65%]">
+
+        <div class="mx-auto mt-4 sm:w-[90%] md:w-[75%] lg:w-[65%]">
             <div class="rounded-md flex flex-col sm:flex-col md:flex-row lg:flex-row items-start">
                 <div class="subcribe-form w-full">
                     @php
@@ -55,10 +55,10 @@
                         <input type="hidden" name="trade-shows-and-events[]" value="all" />
                         <div class="bg-white rounded-md p-2 bg-opacity-40">
                             <div
-                                class="rounded-md flex flex-col  sm:flex-col md:flex-row lg:flex-row justify-between items-start">
-                                <div class="w-full md:w-2/3 flex items-center text-2xl">
+                                class="rounded-md flex flex-col sm:flex-col md:flex-row lg:flex-row justify-between items-start">
+                                <div class="w-full md:w-2/3 flex items-center text-lg sm:text-xl">
                                     <input type="search" name="search"
-                                        class="w-full py-2 px-3 lg:text-lg focus:outline-none focus:ring-none {{ isset(getDefaultLanguage(1)->direction) && getDefaultLanguage(1)->direction == 'ltr' ? 'rounded-l-md md:rounded-l-md' : 'rounded-r-md md:rounded-r-md' }}"
+                                        class="w-full py-2 px-3 focus:outline-none focus:ring-none {{ isset(getDefaultLanguage(1)->direction) && getDefaultLanguage(1)->direction == 'ltr' ? 'rounded-l-md md:rounded-l-md' : 'rounded-r-md md:rounded-r-md' }}"
                                         placeholder="{!! $homePageSettingDetail->slider_search_placeholder !!}" />
                                     <button class="h-full button-exp-fill md:hidden {{ isset(getDefaultLanguage(1)->direction) && getDefaultLanguage(1)->direction == 'ltr' ? 'rounded-r-md lg:rounded-r-md rounded-l-none rounded-none' : 'rounded-l-md lg:rounded-l-md rounded-r-none rounded-none' }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -74,7 +74,7 @@
                                 @endphp
                                 <div class="w-full md:w-[60%] lg:w-[45%] xl:w-[40%] hidden md:block">
                                     <select id="category" name="category"
-                                        class="w-full md:w-[255px] xl:w-full py-2 px-3 pr-8 lg:text-lg focus:outline-none focus:ring-none rounded-b-md md:rounded-none">
+                                        class="w-full py-2 px-3 pr-8 focus:outline-none focus:ring-none rounded-b-md md:rounded-none">
                                         <option value="canadian-exporters">
                                             {{ isset($advSearchSetting['canadian_exporters_text']) ? $advSearchSetting['canadian_exporters_text'] : '' }}
                                         </option>
@@ -86,7 +86,7 @@
                                         </option>
                                     </select>
                                 </div>
-                                <button class="hidden md:block sm:py-[8px] md:py-[8px] lg:py-2.5 h-full button-exp-fill {{ isset(getDefaultLanguage(1)->direction) && getDefaultLanguage(1)->direction == 'ltr' ? 'rounded-l-none' : 'rounded-r-none' }}">
+                                <button class="hidden md:block py-2.5 h-full button-exp-fill {{ isset(getDefaultLanguage(1)->direction) && getDefaultLanguage(1)->direction == 'ltr' ? 'rounded-l-none' : 'rounded-r-none' }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -106,7 +106,7 @@
                 $url = langBasedURL(null, $url);
                 @endphp
                 <div class="bg-white rounded-md p-2 py-3.5 bg-opacity-40">
-                    <a aria-label="Candian Exporters" href="{{ $url }}" class="button-exp-fill text-2xl">
+                    <a aria-label="Candian Exporters" href="{{ $url }}" class="button-exp-fill text-lg sm:text-xl">
                         {!! $homePageSettingDetail->slider_advance_search_text !!}
                     </a>
                 </div>
