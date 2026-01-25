@@ -860,7 +860,13 @@ class PaymentController extends Controller
                 $q->where('language_id', $defaultLang->id);
             }])->first();
 
-            $data = ['customer' => $customer, 'event_name' => $event->eventDetail[0]->title, 'package_name' => isset($package->registrationPackageDetail[0]) ? $package->registrationPackageDetail[0]->name : '', 'package_price' => $price];
+            // Safely get event name from eventDetail
+            $eventName = 'N/A';
+            if ($event && isset($event->eventDetail) && count($event->eventDetail) > 0 && isset($event->eventDetail[0]->title)) {
+                $eventName = $event->eventDetail[0]->title;
+            }
+
+            $data = ['customer' => $customer, 'event_name' => $eventName, 'package_name' => isset($package->registrationPackageDetail[0]) ? $package->registrationPackageDetail[0]->name : '', 'package_price' => $price];
             if (isset($_GET['e'])) {
                 Mail::to($_GET['e'])->send(new WelcomeEventMail($data));
             }
@@ -880,7 +886,7 @@ class PaymentController extends Controller
                 'invoice_no' => $invoiceNo
             ]);
 
-            $data = ['package_name' => isset($package->registrationPackageDetail[0]) ? $package->registrationPackageDetail[0]->name : '', 'package_price' => $price, 'customer' => $customer, 'order' => $order, 'event_name' => $event->eventDetail[0]->title];
+            $data = ['package_name' => isset($package->registrationPackageDetail[0]) ? $package->registrationPackageDetail[0]->name : '', 'package_price' => $price, 'customer' => $customer, 'order' => $order, 'event_name' => $eventName];
 
             $PDFService = new PDFService();
 

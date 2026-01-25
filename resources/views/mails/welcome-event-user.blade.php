@@ -1,10 +1,10 @@
 @component('mail::message')
-Thank you for registering your event {{ $data['event_name'] }} on the Canadian Exports platform. It is now live and users from all around the world can view it
+Thank you for registering your event {{ $data['event_name'] ?? 'N/A' }} on the Canadian Exports platform. It is now live and users from all around the world can view it
 
 ### Event details:
 <ul>
-    <li><strong>Event name:</strong> {{$data['event_name']}}</li>
-    <li><strong>Package:</strong> {{$data['package_name']}}</li>
+    <li><strong>Event name:</strong> {{ $data['event_name'] ?? 'N/A' }}</li>
+    <li><strong>Package:</strong> {{ $data['package_name'] ?? 'N/A' }}</li>
     <li><strong>Package price:</strong> ${{ number_format((isset($data['package_price']) ? $data['package_price'] : 0), 2) }}</li>
     <li><strong>Registered On:</strong> {{ date('F d, Y') }}</li>
     <li><strong>Expires On:</strong> {{ date('F d, Y', strtotime('+1 months')) }}</li>

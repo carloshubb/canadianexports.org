@@ -11,4 +11,6 @@ CaExp LoR July 18.docx
 .env.dev
 package-lock.json
 
-
+public/css/
+public/js/
+storage/logs

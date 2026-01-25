@@ -479,7 +479,7 @@ class EventSignupController extends Controller
             'email' => ['required', 'email'], // Email is required but can come from authenticated user
             'package_id' => ['required', 'exists:registration_packages,id'],
             'zipcode' => ['nullable'],
-            'gallery_images' => ['required', 'array'], // Added gallery_images validation
+            'gallery_images' => ['nullable', 'array'], // Optional: Review & Confirm page has no Main Event Image upload
             'start_date' => ['required', 'date'], // Added start_date validation
             'end_date' => ['required', 'date', 'after_or_equal:start_date'], // Added end_date validation
             'event_website' => ['required', new ValidUrl()], // Added event_website validation
@@ -853,7 +853,13 @@ class EventSignupController extends Controller
                 ]);
             }
 
-            $data = ['customer' => $customer, 'event_name' => $event->eventDetail[0]->title, 'package_name' => isset($package->registrationPackageDetail[0]) ? $package->registrationPackageDetail[0]->name : '', 'package_price' => $price];
+            // Safely get event name from eventDetail
+            $eventName = 'N/A';
+            if (isset($event->eventDetail) && count($event->eventDetail) > 0 && isset($event->eventDetail[0]->title)) {
+                $eventName = $event->eventDetail[0]->title;
+            }
+
+            $data = ['customer' => $customer, 'event_name' => $eventName, 'package_name' => isset($package->registrationPackageDetail[0]) ? $package->registrationPackageDetail[0]->name : '', 'package_price' => $price];
             Mail::to($request->email)->send(new WelcomeEventMail($data));
 
             if ($totalAmount > 0) {
@@ -874,7 +880,7 @@ class EventSignupController extends Controller
 
                 $customer = $customer->loadMissing('customerProfile');
 
-                $data = ['package_name' => isset($package->registrationPackageDetail[0]) ? $package->registrationPackageDetail[0]->name : '', 'package_price' => $price, 'customer' => $customer, 'order' => $order, 'event_name' => $event->eventDetail[0]->title];
+                $data = ['package_name' => isset($package->registrationPackageDetail[0]) ? $package->registrationPackageDetail[0]->name : '', 'package_price' => $price, 'customer' => $customer, 'order' => $order, 'event_name' => $eventName];
 
                 $PDFService = new PDFService();
 
@@ -895,7 +901,7 @@ class EventSignupController extends Controller
 
                 $customer = $customer->loadMissing('customerProfile');
 
-                $data = ['package_name' => isset($package->registrationPackageDetail[0]) ? $package->registrationPackageDetail[0]->name : '', 'package_price' => $price, 'customer' => $customer, 'order' => $order];
+                $data = ['package_name' => isset($package->registrationPackageDetail[0]) ? $package->registrationPackageDetail[0]->name : '', 'package_price' => $price, 'customer' => $customer, 'order' => $order, 'event_name' => $eventName];
 
                 $PDFService = new PDFService();
 

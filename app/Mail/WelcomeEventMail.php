@@ -8,13 +8,13 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use App\Services\EmailTemplateService;
 
 class WelcomeEventMail extends Mailable
 {
     use Queueable, SerializesModels;
-    
+
     private $data = [];
+
     /**
      * Create a new message instance.
      *
@@ -22,31 +22,26 @@ class WelcomeEventMail extends Mailable
      */
     public function __construct(array $data)
     {
-        $this->data = $data;
+        $this->data = array_merge([
+            'event_name' => null,
+            'package_name' => null,
+            'package_price' => 0,
+        ], $data);
     }
 
     /**
      * Build the message.
+     * Always use welcome-event-user view to avoid "Undefined array key event_name"
+     * when DB template (dynamic-markdown path) expects different $data structure.
      *
      * @return $this
      */
     public function build()
     {
         $subject = "Welcome to Canadian Exports. Your event is live!";
-        $service = app(EmailTemplateService::class);
-        $rendered = $service->render('welcome_event_user', ['data' => $this->data], $subject, null);
-
-        if (!empty($rendered['body_html'])) {
-            return $this->markdown('mails.dynamic-markdown')
-                ->subject($rendered['subject'] ?: $subject)
-                ->with([
-                    'body_html' => $rendered['body_html'],
-                    'data' => ['data' => $this->data],
-                ]);
-        }
 
         return $this->markdown('mails/welcome-event-user')
             ->subject($subject)
-            ->with("data", $this->data);
+            ->with('data', $this->data);
     }
 }
