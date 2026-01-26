@@ -18,9 +18,9 @@
                     @foreach ($banners as $banner)
                         <div class="swiper-slide h-full">
                             <div class="relative bg-white w-full rounded border flex flex-col sponsor-swiper-slide">
-                                <div class="absolute top-10 -left-2 h-fit w-fit py-1 px-8 text-white bg-primary">
+                                {{-- <div class="absolute top-10 -left-2 h-fit w-fit py-1 px-8 text-white bg-primary">
                                     Sponsor
-                                </div>
+                                </div> --}}
                                 <div class="p-4 flex-1">
                                     <a aria-label="Candian Exporters" href="{{ $banner->url }}" target="_blank"
                                         class="rounded flex justify-center items-center aspect-video bg-gray-50 fix-url"
@@ -89,14 +89,14 @@
                 $url = $homePageSettingDetail->section3_button_url;
                 $url = langBasedURL($lang, $url);
             @endphp
-            <a aria-label="Candian Exporters" href="{!! $url !!}" class="button-exp-fill">
+            <a aria-label="Candian Exporters" href="{!! $url !!}" class="button-exp-fill flex justify-center items-center w-40 h-12">
                 {!! $homePageSettingDetail->section3_button_text !!}
             </a>
             @php
                 $url = $homePageSettingDetail->sponsor_value_button_url;
                 $url = langBasedURL($lang, $url);
             @endphp
-            <a aria-label="Candian Exporters" href="{{ $url }}" class="button-exp-no-fill">
+            <a aria-label="Candian Exporters" href="{{ $url }}" class="button-exp-no-fill flex justify-center items-center w-40 h-12">
                 {!! $homePageSettingDetail->sponsor_value_button_text !!}
             </a>
         </div>
