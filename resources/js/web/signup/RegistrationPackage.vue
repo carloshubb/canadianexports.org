@@ -181,20 +181,22 @@
               class="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none md:grid-cols-2 lg:grid-cols-3"
             >
               <div
-                class="rounded-3xl p-6 xl:p-6 border bg-white cursor-pointer"
+                class="rounded-3xl p-6 xl:p-6 border-2 border-gray-300 bg-white cursor-pointer transition-opacity duration-300"
                 id="free-package"
-                :class="package_type == 'free' ? 'ring-2 ring-[#006EB7]' : ''"
+                :class="package_type == 'free' ? 'ring-2 ring-gray-300 opacity-100' : 'opacity-50'"
                 @click.prevent="updatePackageForm('package_type', freePackage)"
               >
-                <div class="flex items-center justify-center gap-x-4">
-                  <h3
-                    id="tier-free"
-                    class="text-center text-3xl font-medium text-primary"
-                  >
-                    {{ freePackage?.registration_package_detail?.[0]?.name }}
-                  </h3>
+                <div class="mb-4">
+                  <div class="bg-gray-300 rounded-t-lg px-4 py-3 text-center">
+                    <h3
+                      id="tier-free"
+                      class="text-3xl font-medium text-black"
+                    >
+                      {{ freePackage?.registration_package_detail?.[0]?.name }}
+                    </h3>
+                  </div>
                   <p
-                    class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600"
+                    class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600 text-center mt-2"
                     v-if="freePackage?.is_default"
                   >
                     Most popular
@@ -260,24 +262,26 @@
               </div>
 
               <div
-                class="rounded-3xl p-6 xl:p-6 border bg-white cursor-pointer"
+                class="rounded-3xl p-6 xl:p-6 border-2 border-red-600 bg-white cursor-pointer transition-opacity duration-300"
                 :class="
-                  package_type == 'premium' ? 'ring-2 ring-[#006EB7]' : ''
+                  package_type == 'premium' ? 'ring-2 ring-red-600 opacity-100' : 'opacity-50'
                 "
                 id="premium-package"
                 @click.prevent="
                   updatePackageForm('package_type', premiumPackage)
                 "
               >
-                <div class="flex items-center justify-center gap-x-4">
-                  <h3
-                    id="tier-premium"
-                    class="text-center text-3xl font-medium text-primary"
-                  >
-                    {{ premiumPackage?.registration_package_detail?.[0]?.name }}
-                  </h3>
+                <div class="mb-4">
+                  <div class="bg-red-600 rounded-t-lg px-4 py-3 text-center">
+                    <h3
+                      id="tier-premium"
+                      class="text-3xl font-medium text-white"
+                    >
+                      {{ premiumPackage?.registration_package_detail?.[0]?.name }}
+                    </h3>
+                  </div>
                   <p
-                    class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600"
+                    class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600 text-center mt-2"
                     v-if="premiumPackage?.is_default"
                   >
                     Most popular
@@ -342,26 +346,28 @@
               </div>
 
               <div
-                class="rounded-3xl p-6 xl:p-6 border bg-white cursor-pointer"
+                class="rounded-3xl p-6 xl:p-6 border-2 border-[#800020] bg-white cursor-pointer transition-opacity duration-300"
                 id="featured-package"
                 :class="
-                  package_type == 'featured' ? 'ring-2 ring-[#006EB7]' : ''
+                  package_type == 'featured' ? 'ring-2 ring-[#800020] opacity-100' : 'opacity-50'
                 "
                 @click.prevent="
                   updatePackageForm('package_type', featuredPackage)
                 "
               >
-                <div class="flex items-center justify-center gap-x-4">
-                  <h3
-                    id="tier-featured"
-                    class="text-center text-3xl font-medium text-primary"
-                  >
-                    {{
-                      featuredPackage?.registration_package_detail?.[0]?.name
-                    }}
-                  </h3>
+                <div class="mb-4">
+                  <div class="bg-[#800020] rounded-t-lg px-4 py-3 text-center">
+                    <h3
+                      id="tier-featured"
+                      class="text-3xl font-medium text-[#D4AF37]"
+                    >
+                      {{
+                        featuredPackage?.registration_package_detail?.[0]?.name
+                      }}
+                    </h3>
+                  </div>
                   <p
-                    class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600"
+                    class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600 text-center mt-2"
                     v-if="featuredPackage?.is_default"
                   >
                     Most popular
@@ -617,6 +623,10 @@ export default {
       this.updateAutoRenew("is_auto_renew", is_auto_renew);
     } else {
       this.updatePackageForm("payment_frequency", "annually");
+      // Set Premium as default if no package is selected
+      if (!this.package_type && this.premiumPackage) {
+        this.updatePackageForm("package_type", this.premiumPackage);
+      }
     }
   },
   mounted() {
@@ -632,6 +642,9 @@ export default {
         _this.updatePackageForm("package_type", _this.premiumPackage);
       } else if (_package == "featured") {
         _this.updatePackageForm("package_type", _this.featuredPackage);
+      } else if (!_this.package_type && _this.premiumPackage) {
+        // Set Premium as default if no package is selected and no URL parameter
+        _this.updatePackageForm("package_type", _this.premiumPackage);
       }
     }, 2000);
   },

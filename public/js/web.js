@@ -55678,6 +55678,10 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       this.updateAutoRenew("is_auto_renew", is_auto_renew);
     } else {
       this.updatePackageForm("payment_frequency", "annually");
+      // Set Premium as default if no package is selected
+      if (!this.package_type && this.premiumPackage) {
+        this.updatePackageForm("package_type", this.premiumPackage);
+      }
     }
   },
   mounted: function mounted() {
@@ -55693,6 +55697,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         _this.updatePackageForm("package_type", _this.premiumPackage);
       } else if (_package == "featured") {
         _this.updatePackageForm("package_type", _this.featuredPackage);
+      } else if (!_this.package_type && _this.premiumPackage) {
+        // Set Premium as default if no package is selected and no URL parameter
+        _this.updatePackageForm("package_type", _this.premiumPackage);
       }
     }, 2000);
   },
@@ -55902,18 +55909,33 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       url: "".concat("http://localhost:8000/api/web/", "get-registration-packages?getPackagesOnly=1&withPackageFeatures=1&getProfilePackagesOnly=1")
     }).then(function (res) {
       if (res.data.status == "Success") {
-        _this3.registrationPackages.map(function (registrationPackage) {
-          if (registrationPackage.is_default == "1") {
-            _this3.$store.commit("signup/setForm", {
-              field: "registration_package_id",
-              value: registrationPackage.id
-            });
-            _this3.$store.commit("signup/setPackageType", registrationPackage.package_type);
-            _this3.$store.commit("signup/setMaxFiles", registrationPackage.images_allowed);
-            _this3.$store.commit("signup/setSelectedPackageId", registrationPackage.id);
-            return true;
-          }
+        // Select Premium package by default
+        var premiumPackage = _this3.registrationPackages.find(function (p) {
+          return p.package_type == "premium";
         });
+        if (premiumPackage) {
+          _this3.$store.commit("signup/setForm", {
+            field: "registration_package_id",
+            value: premiumPackage.id
+          });
+          _this3.$store.commit("signup/setPackageType", premiumPackage.package_type);
+          _this3.$store.commit("signup/setMaxFiles", premiumPackage.images_allowed);
+          _this3.$store.commit("signup/setSelectedPackageId", premiumPackage.id);
+        } else {
+          // Fallback to is_default if Premium not found
+          _this3.registrationPackages.map(function (registrationPackage) {
+            if (registrationPackage.is_default == "1") {
+              _this3.$store.commit("signup/setForm", {
+                field: "registration_package_id",
+                value: registrationPackage.id
+              });
+              _this3.$store.commit("signup/setPackageType", registrationPackage.package_type);
+              _this3.$store.commit("signup/setMaxFiles", registrationPackage.images_allowed);
+              _this3.$store.commit("signup/setSelectedPackageId", registrationPackage.id);
+              return true;
+            }
+          });
+        }
       }
     });
     this.$store.dispatch("signup/fetchBusinessCategories");
@@ -69313,97 +69335,106 @@ var _hoisted_13 = {
   "class": "isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none md:grid-cols-2 lg:grid-cols-3"
 };
 var _hoisted_14 = {
-  "class": "flex items-center justify-center gap-x-4"
+  "class": "mb-4"
 };
 var _hoisted_15 = {
-  id: "tier-free",
-  "class": "text-center text-3xl font-medium text-primary"
+  "class": "bg-gray-300 rounded-t-lg px-4 py-3 text-center"
 };
 var _hoisted_16 = {
-  key: 0,
-  "class": "rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600"
+  id: "tier-free",
+  "class": "text-3xl font-medium text-black"
 };
 var _hoisted_17 = {
-  "class": "mt-4 text-sm leading-6 text-gray-700"
+  key: 0,
+  "class": "rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600 text-center mt-2"
 };
 var _hoisted_18 = {
-  "class": "mt-6 flex justify-center items-baseline gap-x-1"
+  "class": "mt-4 text-sm leading-6 text-gray-700"
 };
 var _hoisted_19 = {
-  "class": "text-4xl font-bold tracking-tight text-gray-900"
+  "class": "mt-6 flex justify-center items-baseline gap-x-1"
 };
 var _hoisted_20 = {
-  "class": "text-sm font-semibold leading-6 text-gray-600"
+  "class": "text-4xl font-bold tracking-tight text-gray-900"
 };
 var _hoisted_21 = {
+  "class": "text-sm font-semibold leading-6 text-gray-600"
+};
+var _hoisted_22 = {
   key: 0,
   role: "list",
   "class": "mt-8 space-y-3 text-sm leading-6 text-gray-600 xl:mt-10 p-0"
 };
-var _hoisted_22 = ["innerHTML"];
-var _hoisted_23 = {
-  "class": "flex items-center justify-center gap-x-4"
-};
+var _hoisted_23 = ["innerHTML"];
 var _hoisted_24 = {
-  id: "tier-premium",
-  "class": "text-center text-3xl font-medium text-primary"
+  "class": "mb-4"
 };
 var _hoisted_25 = {
-  key: 0,
-  "class": "rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600"
+  "class": "bg-red-600 rounded-t-lg px-4 py-3 text-center"
 };
 var _hoisted_26 = {
-  "class": "mt-4 text-sm leading-6 text-gray-700"
+  id: "tier-premium",
+  "class": "text-3xl font-medium text-white"
 };
 var _hoisted_27 = {
-  "class": "mt-6 flex justify-center items-baseline gap-x-1"
+  key: 0,
+  "class": "rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600 text-center mt-2"
 };
 var _hoisted_28 = {
-  "class": "text-4xl font-bold tracking-tight text-gray-900"
-};
-var _hoisted_29 = {
-  "class": "text-sm font-semibold leading-6 text-gray-600"
-};
-var _hoisted_30 = {
-  key: 0,
-  role: "list",
-  "class": "mt-8 space-y-3 text-sm leading-6 text-gray-600 xl:mt-10 p-0"
-};
-var _hoisted_31 = ["innerHTML"];
-var _hoisted_32 = {
-  "class": "flex items-center justify-center gap-x-4"
-};
-var _hoisted_33 = {
-  id: "tier-featured",
-  "class": "text-center text-3xl font-medium text-primary"
-};
-var _hoisted_34 = {
-  key: 0,
-  "class": "rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600"
-};
-var _hoisted_35 = {
   "class": "mt-4 text-sm leading-6 text-gray-700"
 };
-var _hoisted_36 = {
+var _hoisted_29 = {
   "class": "mt-6 flex justify-center items-baseline gap-x-1"
 };
-var _hoisted_37 = {
+var _hoisted_30 = {
   "class": "text-4xl font-bold tracking-tight text-gray-900"
 };
-var _hoisted_38 = {
+var _hoisted_31 = {
   "class": "text-sm font-semibold leading-6 text-gray-600"
 };
-var _hoisted_39 = {
+var _hoisted_32 = {
   key: 0,
   role: "list",
   "class": "mt-8 space-y-3 text-sm leading-6 text-gray-600 xl:mt-10 p-0"
 };
-var _hoisted_40 = ["innerHTML"];
+var _hoisted_33 = ["innerHTML"];
+var _hoisted_34 = {
+  "class": "mb-4"
+};
+var _hoisted_35 = {
+  "class": "bg-[#800020] rounded-t-lg px-4 py-3 text-center"
+};
+var _hoisted_36 = {
+  id: "tier-featured",
+  "class": "text-3xl font-medium text-[#D4AF37]"
+};
+var _hoisted_37 = {
+  key: 0,
+  "class": "rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600 text-center mt-2"
+};
+var _hoisted_38 = {
+  "class": "mt-4 text-sm leading-6 text-gray-700"
+};
+var _hoisted_39 = {
+  "class": "mt-6 flex justify-center items-baseline gap-x-1"
+};
+var _hoisted_40 = {
+  "class": "text-4xl font-bold tracking-tight text-gray-900"
+};
 var _hoisted_41 = {
+  "class": "text-sm font-semibold leading-6 text-gray-600"
+};
+var _hoisted_42 = {
+  key: 0,
+  role: "list",
+  "class": "mt-8 space-y-3 text-sm leading-6 text-gray-600 xl:mt-10 p-0"
+};
+var _hoisted_43 = ["innerHTML"];
+var _hoisted_44 = {
   "class": "flex items-center mb-4"
 };
-var _hoisted_42 = ["checked"];
-var _hoisted_43 = {
+var _hoisted_45 = ["checked"];
+var _hoisted_46 = {
   "for": "auto-renew",
   "class": "ml-2 text-gray-900 text-base md:text-base lg:text-lg"
 };
@@ -69474,12 +69505,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     fieldName: "registration_package_id",
     validationErros: _ctx.validationErros
   }, null, 8 /* PROPS */, ["validationErros"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["rounded-3xl p-6 xl:p-6 border bg-white cursor-pointer", _ctx.package_type == 'free' ? 'ring-2 ring-[#006EB7]' : '']),
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["rounded-3xl p-6 xl:p-6 border-2 border-gray-300 bg-white cursor-pointer transition-opacity duration-300", _ctx.package_type == 'free' ? 'ring-2 ring-gray-300 opacity-100' : 'opacity-50']),
     id: "free-package",
     onClick: _cache[4] || (_cache[4] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
       return $options.updatePackageForm('package_type', $options.freePackage);
     }, ["prevent"]))
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$options$freePackage = $options.freePackage) === null || _$options$freePackage === void 0 || (_$options$freePackage = _$options$freePackage.registration_package_detail) === null || _$options$freePackage === void 0 || (_$options$freePackage = _$options$freePackage[0]) === null || _$options$freePackage === void 0 ? void 0 : _$options$freePackage.name), 1 /* TEXT */), (_$options$freePackage2 = $options.freePackage) !== null && _$options$freePackage2 !== void 0 && _$options$freePackage2.is_default ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_16, " Most popular ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$options$freePackage3 = $options.freePackage) === null || _$options$freePackage3 === void 0 || (_$options$freePackage3 = _$options$freePackage3.registration_package_detail) === null || _$options$freePackage3 === void 0 || (_$options$freePackage3 = _$options$freePackage3[0]) === null || _$options$freePackage3 === void 0 ? void 0 : _$options$freePackage3.short_description), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_19, [$data.payment_frequency == 'monthly' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$options$freePackage = $options.freePackage) === null || _$options$freePackage === void 0 || (_$options$freePackage = _$options$freePackage.registration_package_detail) === null || _$options$freePackage === void 0 || (_$options$freePackage = _$options$freePackage[0]) === null || _$options$freePackage === void 0 ? void 0 : _$options$freePackage.name), 1 /* TEXT */)]), (_$options$freePackage2 = $options.freePackage) !== null && _$options$freePackage2 !== void 0 && _$options$freePackage2.is_default ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_17, " Most popular ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$options$freePackage3 = $options.freePackage) === null || _$options$freePackage3 === void 0 || (_$options$freePackage3 = _$options$freePackage3.registration_package_detail) === null || _$options$freePackage3 === void 0 || (_$options$freePackage3 = _$options$freePackage3[0]) === null || _$options$freePackage3 === void 0 ? void 0 : _$options$freePackage3.short_description), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_20, [$data.payment_frequency == 'monthly' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     key: 0
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" $" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$options$freePackage4 = $options.freePackage) === null || _$options$freePackage4 === void 0 ? void 0 : _$options$freePackage4.monthly_price), 1 /* TEXT */)], 64 /* STABLE_FRAGMENT */)) : $data.payment_frequency == 'quarterly' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     key: 1
@@ -69487,7 +69518,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     key: 2
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" $" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$options$freePackage6 = $options.freePackage) === null || _$options$freePackage6 === void 0 ? void 0 : _$options$freePackage6.semi_annually_price), 1 /* TEXT */)], 64 /* STABLE_FRAGMENT */)) : $data.payment_frequency == 'annually' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     key: 3
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" $" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$options$freePackage7 = $options.freePackage) === null || _$options$freePackage7 === void 0 ? void 0 : _$options$freePackage7.annually_price), 1 /* TEXT */)], 64 /* STABLE_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_20, "/ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_JSON$parse$month_lab = JSON.parse($props.payment_setting)["month_label"]) !== null && _JSON$parse$month_lab !== void 0 ? _JSON$parse$month_lab : "/month"), 1 /* TEXT */)]), (_$options$freePackage8 = $options.freePackage) !== null && _$options$freePackage8 !== void 0 && _$options$freePackage8.registration_package_feature ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", _hoisted_21, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)((_$options$freePackage9 = $options.freePackage) === null || _$options$freePackage9 === void 0 ? void 0 : _$options$freePackage9.registration_package_feature, function (features) {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" $" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$options$freePackage7 = $options.freePackage) === null || _$options$freePackage7 === void 0 ? void 0 : _$options$freePackage7.annually_price), 1 /* TEXT */)], 64 /* STABLE_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_21, "/ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_JSON$parse$month_lab = JSON.parse($props.payment_setting)["month_label"]) !== null && _JSON$parse$month_lab !== void 0 ? _JSON$parse$month_lab : "/month"), 1 /* TEXT */)]), (_$options$freePackage8 = $options.freePackage) !== null && _$options$freePackage8 !== void 0 && _$options$freePackage8.registration_package_feature ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", _hoisted_22, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)((_$options$freePackage9 = $options.freePackage) === null || _$options$freePackage9 === void 0 ? void 0 : _$options$freePackage9.registration_package_feature, function (features) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
       "class": "flex gap-x-3",
       key: features.id
@@ -69502,14 +69533,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       "clip-rule": "evenodd"
     })], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
       innerHTML: $options.formatFeatureName(features === null || features === void 0 ? void 0 : features.name)
-    }, null, 8 /* PROPS */, _hoisted_22)]);
+    }, null, 8 /* PROPS */, _hoisted_23)]);
   }), 128 /* KEYED_FRAGMENT */))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["rounded-3xl p-6 xl:p-6 border bg-white cursor-pointer", _ctx.package_type == 'premium' ? 'ring-2 ring-[#006EB7]' : '']),
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["rounded-3xl p-6 xl:p-6 border-2 border-red-600 bg-white cursor-pointer transition-opacity duration-300", _ctx.package_type == 'premium' ? 'ring-2 ring-red-600 opacity-100' : 'opacity-50']),
     id: "premium-package",
     onClick: _cache[5] || (_cache[5] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
       return $options.updatePackageForm('package_type', $options.premiumPackage);
     }, ["prevent"]))
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$options$premiumPack = $options.premiumPackage) === null || _$options$premiumPack === void 0 || (_$options$premiumPack = _$options$premiumPack.registration_package_detail) === null || _$options$premiumPack === void 0 || (_$options$premiumPack = _$options$premiumPack[0]) === null || _$options$premiumPack === void 0 ? void 0 : _$options$premiumPack.name), 1 /* TEXT */), (_$options$premiumPack2 = $options.premiumPackage) !== null && _$options$premiumPack2 !== void 0 && _$options$premiumPack2.is_default ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_25, " Most popular ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$options$premiumPack3 = $options.premiumPackage) === null || _$options$premiumPack3 === void 0 || (_$options$premiumPack3 = _$options$premiumPack3.registration_package_detail) === null || _$options$premiumPack3 === void 0 || (_$options$premiumPack3 = _$options$premiumPack3[0]) === null || _$options$premiumPack3 === void 0 ? void 0 : _$options$premiumPack3.short_description), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_28, [$data.payment_frequency == 'monthly' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$options$premiumPack = $options.premiumPackage) === null || _$options$premiumPack === void 0 || (_$options$premiumPack = _$options$premiumPack.registration_package_detail) === null || _$options$premiumPack === void 0 || (_$options$premiumPack = _$options$premiumPack[0]) === null || _$options$premiumPack === void 0 ? void 0 : _$options$premiumPack.name), 1 /* TEXT */)]), (_$options$premiumPack2 = $options.premiumPackage) !== null && _$options$premiumPack2 !== void 0 && _$options$premiumPack2.is_default ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_27, " Most popular ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$options$premiumPack3 = $options.premiumPackage) === null || _$options$premiumPack3 === void 0 || (_$options$premiumPack3 = _$options$premiumPack3.registration_package_detail) === null || _$options$premiumPack3 === void 0 || (_$options$premiumPack3 = _$options$premiumPack3[0]) === null || _$options$premiumPack3 === void 0 ? void 0 : _$options$premiumPack3.short_description), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_30, [$data.payment_frequency == 'monthly' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     key: 0
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" $" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$options$premiumPack4 = $options.premiumPackage) === null || _$options$premiumPack4 === void 0 ? void 0 : _$options$premiumPack4.monthly_price), 1 /* TEXT */)], 64 /* STABLE_FRAGMENT */)) : $data.payment_frequency == 'quarterly' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     key: 1
@@ -69517,7 +69548,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     key: 2
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" $" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$options$premiumPack6 = $options.premiumPackage) === null || _$options$premiumPack6 === void 0 ? void 0 : _$options$premiumPack6.semi_annually_price), 1 /* TEXT */)], 64 /* STABLE_FRAGMENT */)) : $data.payment_frequency == 'annually' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     key: 3
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" $" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$options$premiumPack7 = $options.premiumPackage) === null || _$options$premiumPack7 === void 0 ? void 0 : _$options$premiumPack7.annually_price), 1 /* TEXT */)], 64 /* STABLE_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_29, "/ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_JSON$parse$month_lab2 = JSON.parse($props.payment_setting)["month_label"]) !== null && _JSON$parse$month_lab2 !== void 0 ? _JSON$parse$month_lab2 : "/month"), 1 /* TEXT */)]), (_$options$premiumPack8 = $options.premiumPackage) !== null && _$options$premiumPack8 !== void 0 && _$options$premiumPack8.registration_package_feature ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", _hoisted_30, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)((_$options$premiumPack9 = $options.premiumPackage) === null || _$options$premiumPack9 === void 0 ? void 0 : _$options$premiumPack9.registration_package_feature, function (features) {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" $" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$options$premiumPack7 = $options.premiumPackage) === null || _$options$premiumPack7 === void 0 ? void 0 : _$options$premiumPack7.annually_price), 1 /* TEXT */)], 64 /* STABLE_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_31, "/ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_JSON$parse$month_lab2 = JSON.parse($props.payment_setting)["month_label"]) !== null && _JSON$parse$month_lab2 !== void 0 ? _JSON$parse$month_lab2 : "/month"), 1 /* TEXT */)]), (_$options$premiumPack8 = $options.premiumPackage) !== null && _$options$premiumPack8 !== void 0 && _$options$premiumPack8.registration_package_feature ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", _hoisted_32, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)((_$options$premiumPack9 = $options.premiumPackage) === null || _$options$premiumPack9 === void 0 ? void 0 : _$options$premiumPack9.registration_package_feature, function (features) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
       "class": "flex gap-x-3",
       key: features.id
@@ -69532,14 +69563,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       "clip-rule": "evenodd"
     })], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
       innerHTML: $options.formatFeatureName(features === null || features === void 0 ? void 0 : features.name)
-    }, null, 8 /* PROPS */, _hoisted_31)]);
+    }, null, 8 /* PROPS */, _hoisted_33)]);
   }), 128 /* KEYED_FRAGMENT */))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["rounded-3xl p-6 xl:p-6 border bg-white cursor-pointer", _ctx.package_type == 'featured' ? 'ring-2 ring-[#006EB7]' : '']),
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["rounded-3xl p-6 xl:p-6 border-2 border-[#800020] bg-white cursor-pointer transition-opacity duration-300", _ctx.package_type == 'featured' ? 'ring-2 ring-[#800020] opacity-100' : 'opacity-50']),
     id: "featured-package",
     onClick: _cache[6] || (_cache[6] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
       return $options.updatePackageForm('package_type', $options.featuredPackage);
     }, ["prevent"]))
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_33, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$options$featuredPac = $options.featuredPackage) === null || _$options$featuredPac === void 0 || (_$options$featuredPac = _$options$featuredPac.registration_package_detail) === null || _$options$featuredPac === void 0 || (_$options$featuredPac = _$options$featuredPac[0]) === null || _$options$featuredPac === void 0 ? void 0 : _$options$featuredPac.name), 1 /* TEXT */), (_$options$featuredPac2 = $options.featuredPackage) !== null && _$options$featuredPac2 !== void 0 && _$options$featuredPac2.is_default ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_34, " Most popular ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_35, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$options$featuredPac3 = $options.featuredPackage) === null || _$options$featuredPac3 === void 0 || (_$options$featuredPac3 = _$options$featuredPac3.registration_package_detail) === null || _$options$featuredPac3 === void 0 || (_$options$featuredPac3 = _$options$featuredPac3[0]) === null || _$options$featuredPac3 === void 0 ? void 0 : _$options$featuredPac3.short_description), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_36, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_37, [$data.payment_frequency == 'monthly' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_34, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_36, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$options$featuredPac = $options.featuredPackage) === null || _$options$featuredPac === void 0 || (_$options$featuredPac = _$options$featuredPac.registration_package_detail) === null || _$options$featuredPac === void 0 || (_$options$featuredPac = _$options$featuredPac[0]) === null || _$options$featuredPac === void 0 ? void 0 : _$options$featuredPac.name), 1 /* TEXT */)]), (_$options$featuredPac2 = $options.featuredPackage) !== null && _$options$featuredPac2 !== void 0 && _$options$featuredPac2.is_default ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_37, " Most popular ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_38, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$options$featuredPac3 = $options.featuredPackage) === null || _$options$featuredPac3 === void 0 || (_$options$featuredPac3 = _$options$featuredPac3.registration_package_detail) === null || _$options$featuredPac3 === void 0 || (_$options$featuredPac3 = _$options$featuredPac3[0]) === null || _$options$featuredPac3 === void 0 ? void 0 : _$options$featuredPac3.short_description), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_39, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_40, [$data.payment_frequency == 'monthly' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     key: 0
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" $" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$options$featuredPac4 = $options.featuredPackage) === null || _$options$featuredPac4 === void 0 ? void 0 : _$options$featuredPac4.monthly_price), 1 /* TEXT */)], 64 /* STABLE_FRAGMENT */)) : $data.payment_frequency == 'quarterly' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     key: 1
@@ -69547,7 +69578,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     key: 2
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" $" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$options$featuredPac6 = $options.featuredPackage) === null || _$options$featuredPac6 === void 0 ? void 0 : _$options$featuredPac6.semi_annually_price), 1 /* TEXT */)], 64 /* STABLE_FRAGMENT */)) : $data.payment_frequency == 'annually' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     key: 3
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" $" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$options$featuredPac7 = $options.featuredPackage) === null || _$options$featuredPac7 === void 0 ? void 0 : _$options$featuredPac7.annually_price), 1 /* TEXT */)], 64 /* STABLE_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_38, "/ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_JSON$parse$month_lab3 = JSON.parse($props.payment_setting)["month_label"]) !== null && _JSON$parse$month_lab3 !== void 0 ? _JSON$parse$month_lab3 : "/month"), 1 /* TEXT */)]), (_$options$featuredPac8 = $options.featuredPackage) !== null && _$options$featuredPac8 !== void 0 && _$options$featuredPac8.registration_package_feature ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", _hoisted_39, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)((_$options$featuredPac9 = $options.featuredPackage) === null || _$options$featuredPac9 === void 0 ? void 0 : _$options$featuredPac9.registration_package_feature, function (features) {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" $" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$options$featuredPac7 = $options.featuredPackage) === null || _$options$featuredPac7 === void 0 ? void 0 : _$options$featuredPac7.annually_price), 1 /* TEXT */)], 64 /* STABLE_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_41, "/ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_JSON$parse$month_lab3 = JSON.parse($props.payment_setting)["month_label"]) !== null && _JSON$parse$month_lab3 !== void 0 ? _JSON$parse$month_lab3 : "/month"), 1 /* TEXT */)]), (_$options$featuredPac8 = $options.featuredPackage) !== null && _$options$featuredPac8 !== void 0 && _$options$featuredPac8.registration_package_feature ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", _hoisted_42, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)((_$options$featuredPac9 = $options.featuredPackage) === null || _$options$featuredPac9 === void 0 ? void 0 : _$options$featuredPac9.registration_package_feature, function (features) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
       "class": "flex gap-x-3",
       key: features.id
@@ -69562,8 +69593,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       "clip-rule": "evenodd"
     })], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
       innerHTML: $options.formatFeatureName(features === null || features === void 0 ? void 0 : features.name)
-    }, null, 8 /* PROPS */, _hoisted_40)]);
-  }), 128 /* KEYED_FRAGMENT */))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 2 /* CLASS */)])])], 2 /* CLASS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    }, null, 8 /* PROPS */, _hoisted_43)]);
+  }), 128 /* KEYED_FRAGMENT */))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 2 /* CLASS */)])])], 2 /* CLASS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     id: "auto-renew",
     type: "checkbox",
     value: "",
@@ -69572,7 +69603,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $options.updateAutoRenew('is_auto_renew', $event.target.checked);
     }),
     checked: _ctx.form.get('is_auto_renew') && _ctx.form.get('is_auto_renew') == 'true' ? true : false
-  }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_42), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_43, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.regPageSetting && _ctx.regPageSetting.reg_page_setting_detail && _ctx.regPageSetting.reg_page_setting_detail[0] ? _ctx.regPageSetting.reg_page_setting_detail[0].step_1_auto_renew_label : ""), 1 /* TEXT */)])])]);
+  }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_45), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_46, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.regPageSetting && _ctx.regPageSetting.reg_page_setting_detail && _ctx.regPageSetting.reg_page_setting_detail[0] ? _ctx.regPageSetting.reg_page_setting_detail[0].step_1_auto_renew_label : ""), 1 /* TEXT */)])])]);
 }
 
 /***/ },

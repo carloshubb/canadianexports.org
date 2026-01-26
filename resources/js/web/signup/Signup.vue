@@ -268,27 +268,51 @@ export default {
             })
             .then((res) => {
                 if (res.data.status == "Success") {
-                    this.registrationPackages.map((registrationPackage) => {
-                        if (registrationPackage.is_default == "1") {
-                            this.$store.commit("signup/setForm", {
-                                field: "registration_package_id",
-                                value: registrationPackage.id,
-                            });
-                            this.$store.commit(
-                                "signup/setPackageType",
-                                registrationPackage.package_type
-                            );
-                            this.$store.commit(
-                                "signup/setMaxFiles",
-                                registrationPackage.images_allowed
-                            );
-                            this.$store.commit(
-                                "signup/setSelectedPackageId",
-                                registrationPackage.id
-                            );
-                            return true;
-                        }
-                    });
+                    // Select Premium package by default
+                    const premiumPackage = this.registrationPackages.find(
+                        (p) => p.package_type == "premium"
+                    );
+                    if (premiumPackage) {
+                        this.$store.commit("signup/setForm", {
+                            field: "registration_package_id",
+                            value: premiumPackage.id,
+                        });
+                        this.$store.commit(
+                            "signup/setPackageType",
+                            premiumPackage.package_type
+                        );
+                        this.$store.commit(
+                            "signup/setMaxFiles",
+                            premiumPackage.images_allowed
+                        );
+                        this.$store.commit(
+                            "signup/setSelectedPackageId",
+                            premiumPackage.id
+                        );
+                    } else {
+                        // Fallback to is_default if Premium not found
+                        this.registrationPackages.map((registrationPackage) => {
+                            if (registrationPackage.is_default == "1") {
+                                this.$store.commit("signup/setForm", {
+                                    field: "registration_package_id",
+                                    value: registrationPackage.id,
+                                });
+                                this.$store.commit(
+                                    "signup/setPackageType",
+                                    registrationPackage.package_type
+                                );
+                                this.$store.commit(
+                                    "signup/setMaxFiles",
+                                    registrationPackage.images_allowed
+                                );
+                                this.$store.commit(
+                                    "signup/setSelectedPackageId",
+                                    registrationPackage.id
+                                );
+                                return true;
+                            }
+                        });
+                    }
                 }
             });
         this.$store.dispatch("signup/fetchBusinessCategories");
