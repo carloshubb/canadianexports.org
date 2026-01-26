@@ -171,7 +171,7 @@
                 @php
                     $body_text = isset($cookie_setting['body_text']) ? $cookie_setting['body_text'] : '';
                     // Replace "cookies policy" (case-insensitive) with a link to Cookies Policy
-                    $body_text = preg_replace('/cookies policy/i', '<a href="https://canadianexporters.org/en/cookies-policy" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline font-FuturaMdCnBT">Cookies Policy</a>', $body_text);
+                    $body_text = preg_replace('/cookies policy/i', '<a href="https://canadianexports.org/en/cookies-policy" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline font-FuturaMdCnBT">Cookies Policy</a>', $body_text);
                 @endphp
                 {!! $body_text !!}
                 @php
