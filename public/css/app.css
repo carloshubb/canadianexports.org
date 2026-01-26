@@ -1696,6 +1696,9 @@ label{
 .top-\[55\%\] {
   top: 55%;
 }
+.bottom-4 {
+  bottom: 1rem;
+}
 .isolate {
   isolation: isolate;
 }
@@ -1719,6 +1722,9 @@ label{
 }
 .z-\[1000\] {
   z-index: 1000;
+}
+.z-\[9999\] {
+  z-index: 9999;
 }
 .order-1 {
   order: 1;
@@ -2676,6 +2682,9 @@ label{
 .gap-px {
   gap: 1px;
 }
+.gap-0\.5 {
+  gap: 0.125rem;
+}
 .gap-x-1 {
   -moz-column-gap: 0.25rem;
        column-gap: 0.25rem;
@@ -3424,6 +3433,9 @@ label{
 }
 .bg-opacity-80 {
   --tw-bg-opacity: 0.8;
+}
+.bg-opacity-90 {
+  --tw-bg-opacity: 0.9;
 }
 .bg-\[radial-gradient\(45rem_50rem_at_top\2c theme\(colors\.indigo\.100\)\2c white\)\] {
   background-image: radial-gradient(45rem 50rem at top,#e0e7ff,white);
@@ -4413,6 +4425,10 @@ label{
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(128 0 32 / var(--tw-ring-opacity, 1));
 }
+.ring-primary {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(4 150 255 / var(--tw-ring-opacity, 1));
+}
 .ring-opacity-5 {
   --tw-ring-opacity: 0.05;
 }
@@ -4852,6 +4868,9 @@ body {
 .hover\:bg-opacity-90:hover {
   --tw-bg-opacity: 0.9;
 }
+.hover\:bg-opacity-100:hover {
+  --tw-bg-opacity: 1;
+}
 .hover\:bg-gradient-to-r:hover {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
 }
@@ -4953,6 +4972,9 @@ body {
 }
 .hover\:opacity-90:hover {
   opacity: 0.9;
+}
+.hover\:opacity-75:hover {
+  opacity: 0.75;
 }
 .hover\:shadow-2xl:hover {
   --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);

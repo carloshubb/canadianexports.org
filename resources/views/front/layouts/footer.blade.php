@@ -103,10 +103,29 @@
                         style="{{ $socialImageStyle }}" />
                 </a>
             </div>
-            <div class="pb-8 md:pb-0">
+            <div class="pb-8 md:pb-0 relative">
                 <div class="text-white text-base md:text-base lg:text-lg text-center">
                     {!! $footerSettingDetail->copyright_text !!}
                 </div>
+                @php
+                    $languages = getAllLanguages();
+                    $params = \Request::getRequestUri();
+                    $params = explode('?', $params);
+                    $params = isset($params[1]) ? $params[1] : null;
+                @endphp
+                @foreach ($languages as $language)
+                    @isset($language->flagIcon)
+                        @php
+                            $language->flagIcon->full_path = asset($language->flagIcon->path);
+                        @endphp
+                    @endisset
+                @endforeach
+                @if (count($languages) > 1)
+                    <div class="absolute bottom-0 right-0 mb-2">
+                        <language-modal :languages="{{ $languages }}" current_url="{{ \Request::url() }}"
+                            url_params="{{ $params }}"></language-modal>
+                    </div>
+                @endif
             </div>
         </div>
     </footer>

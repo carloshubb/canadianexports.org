@@ -112,23 +112,6 @@
         <div class="relative flex-auto bg-gray-50">
             {{-- End Navbar --}}
             @yield('content')
-            @php
-                $languages = getAllLanguages();
-                $params = \Request::getRequestUri();
-                $params = explode('?', $params);
-                $params = isset($params[1]) ? $params[1] : null;
-            @endphp
-            @foreach ($languages as $language)
-                @isset($language->flagIcon)
-                    @php
-                        $language->flagIcon->full_path = asset($language->flagIcon->path);
-                    @endphp
-                @endisset
-            @endforeach
-            @if (count($languages) > 1)
-                <language-modal :languages="{{ $languages }}" current_url="{{ \Request::url() }}"
-                    url_params="{{ $params }}"></language-modal>
-            @endif
         </div>
         @php
             $user_event_listing_page = isset($general_setting['user_event_listing_page'])

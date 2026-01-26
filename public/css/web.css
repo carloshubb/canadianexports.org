@@ -1693,6 +1693,9 @@ ul li {
 .top-\[55\%\] {
   top: 55% !important;
 }
+.bottom-4 {
+  bottom: 1rem !important;
+}
 .isolate {
   isolation: isolate !important;
 }
@@ -1716,6 +1719,9 @@ ul li {
 }
 .z-\[1000\] {
   z-index: 1000 !important;
+}
+.z-\[9999\] {
+  z-index: 9999 !important;
 }
 .order-1 {
   order: 1 !important;
@@ -2673,6 +2679,9 @@ ul li {
 .gap-px {
   gap: 1px !important;
 }
+.gap-0\.5 {
+  gap: 0.125rem !important;
+}
 .gap-x-1 {
   -moz-column-gap: 0.25rem !important;
        column-gap: 0.25rem !important;
@@ -3421,6 +3430,9 @@ ul li {
 }
 .bg-opacity-80 {
   --tw-bg-opacity: 0.8 !important;
+}
+.bg-opacity-90 {
+  --tw-bg-opacity: 0.9 !important;
 }
 .bg-\[radial-gradient\(45rem_50rem_at_top\2c theme\(colors\.indigo\.100\)\2c white\)\] {
   background-image: radial-gradient(45rem 50rem at top,#e0e7ff,white) !important;
@@ -4412,6 +4424,10 @@ ul li {
 .ring-\[\#800020\] {
   --tw-ring-opacity: 1 !important;
   --tw-ring-color: rgb(128 0 32 / var(--tw-ring-opacity, 1)) !important;
+}
+.ring-primary {
+  --tw-ring-opacity: 1 !important;
+  --tw-ring-color: rgb(0 110 183 / var(--tw-ring-opacity, 1)) !important;
 }
 .ring-opacity-5 {
   --tw-ring-opacity: 0.05 !important;
@@ -6611,6 +6627,9 @@ body > .dp__outer_menu_wrap,
 .hover\:bg-opacity-90:hover {
   --tw-bg-opacity: 0.9 !important;
 }
+.hover\:bg-opacity-100:hover {
+  --tw-bg-opacity: 1 !important;
+}
 .hover\:bg-gradient-to-r:hover {
   background-image: linear-gradient(to right, var(--tw-gradient-stops)) !important;
 }
@@ -6712,6 +6731,9 @@ body > .dp__outer_menu_wrap,
 }
 .hover\:opacity-90:hover {
   opacity: 0.9 !important;
+}
+.hover\:opacity-75:hover {
+  opacity: 0.75 !important;
 }
 .hover\:shadow-2xl:hover {
   --tw-shadow: 0 25px 50px -12px rgb(60 72 88 / 0.25) !important;

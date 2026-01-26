@@ -1,14 +1,35 @@
 <template>
   <div>
-    <div class="fixed bottom-32 md:bottom-14 right-3 z-20">
-      <span
-        class="inline-flex h-10 w-fit px-2 items-center justify-center rounded-full bg-secondary bg-opacity-40 cursor-pointer"
+    <!-- Language button at bottom right of footer -->
+    <div class="relative">
+      <button
+        class="inline-flex items-center gap-2 h-10 px-3 rounded-lg bg-secondary bg-opacity-90 hover:bg-opacity-100 cursor-pointer transition-all shadow-lg"
         @click="toggleLanguageModal"
       >
-        <span class="font-semibold text-white">
-          {{ general_setting?.["language_button_text"] || "" }}
+        <!-- Globe icon -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="text-white"
+        >
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="2" y1="12" x2="22" y2="12"></line>
+          <path
+            d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+          ></path>
+        </svg>
+        <!-- Language abbreviation -->
+        <span class="font-semibold text-white text-sm">
+          {{ currentLanguageAbbr }}
         </span>
-      </span>
+      </button>
     </div>
     <!-- Main modal -->
     <div
@@ -57,20 +78,28 @@
           </div>
           <!-- Modal body -->
           <div class="p-6 space-y-6">
-            <div class="grid grid-cols-3 md:grid-cols-6 gap-2">
-              <div v-for="(language, key) in languages" :key="key">
+            <div class="grid grid-cols-3 md:grid-cols-6 gap-4">
+              <div
+                v-for="(language, key) in sortedLanguages"
+                :key="key"
+                class="text-center"
+              >
                 <a
                   aria-label="Candian Exporters"
                   :href="`/set-language/${language?.id}?url=${current_url}&url_params=${url_params}`"
+                  class="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-gray-100 transition-colors"
                 >
-                  <img
-                    :src="language?.flag_icon?.full_path"
-                    style="width: 32px; height: 32px"
-                    class="mx-auto"
-                  />
-                  {{ language?.name }}
-                  <span v-if="language.is_default != 1"
-                    >,{{ language?.native_name }}
+                  <span class="font-semibold text-gray-900 text-lg">
+                    {{ getLanguageAbbr(language) }}
+                  </span>
+                  <span class="text-sm text-gray-600">
+                    {{ language?.name }}
+                  </span>
+                  <span
+                    v-if="language.is_default != 1"
+                    class="text-xs text-gray-500"
+                  >
+                    {{ language?.native_name }}
                   </span>
                 </a>
               </div>
@@ -91,6 +120,24 @@ export default {
       general_setting: null,
     };
   },
+  computed: {
+    // Sort languages by abbreviation alphabetically
+    sortedLanguages() {
+      if (!this.languages || !Array.isArray(this.languages)) {
+        return [];
+      }
+      return [...this.languages].sort((a, b) => {
+        const abbrA = this.getLanguageAbbr(a).toUpperCase();
+        const abbrB = this.getLanguageAbbr(b).toUpperCase();
+        return abbrA.localeCompare(abbrB);
+      });
+    },
+    // Get current language abbreviation
+    currentLanguageAbbr() {
+      const currentLang = this.getCurrentLanguage();
+      return this.getLanguageAbbr(currentLang);
+    },
+  },
   created() {
     this.$store
       .dispatch("signup/fetchStaticSetting", {
@@ -105,6 +152,50 @@ export default {
   methods: {
     toggleLanguageModal() {
       this.showModal = !this.showModal;
+    },
+    // Get language abbreviation (two letters, uppercase, English alphabet only)
+    getLanguageAbbr(language) {
+      if (!language || !language.abbreviation) {
+        return "EN";
+      }
+      // Extract first two English alphabet letters, convert to uppercase
+      const letters = language.abbreviation
+        .toUpperCase()
+        .match(/[A-Z]/g) || [];
+      
+      // Take first two letters
+      let abbr = letters.slice(0, 2).join("");
+      
+      // If we don't have 2 letters, use default
+      if (abbr.length < 2) {
+        abbr = "EN";
+      }
+      return abbr;
+    },
+    // Get current active language
+    getCurrentLanguage() {
+      if (!this.languages || !Array.isArray(this.languages)) {
+        return null;
+      }
+      // Try to get language from URL path
+      const path = window.location.pathname;
+      const pathParts = path.split("/").filter((p) => p);
+      
+      // Check if first part of path matches any language abbreviation
+      if (pathParts.length > 0) {
+        const pathLang = pathParts[0].toUpperCase();
+        const foundLang = this.languages.find((lang) => {
+          const langAbbr = this.getLanguageAbbr(lang);
+          return langAbbr === pathLang;
+        });
+        if (foundLang) {
+          return foundLang;
+        }
+      }
+      
+      // Fallback to default language
+      const defaultLang = this.languages.find((lang) => lang.is_default == 1);
+      return defaultLang || this.languages[0] || null;
     },
   },
 };

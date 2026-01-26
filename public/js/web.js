@@ -54104,6 +54104,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["languages", "current_url", "url_params"],
   data: function data() {
@@ -54112,19 +54118,85 @@ __webpack_require__.r(__webpack_exports__);
       general_setting: null
     };
   },
+  computed: {
+    // Sort languages by abbreviation alphabetically
+    sortedLanguages: function sortedLanguages() {
+      var _this = this;
+      if (!this.languages || !Array.isArray(this.languages)) {
+        return [];
+      }
+      return _toConsumableArray(this.languages).sort(function (a, b) {
+        var abbrA = _this.getLanguageAbbr(a).toUpperCase();
+        var abbrB = _this.getLanguageAbbr(b).toUpperCase();
+        return abbrA.localeCompare(abbrB);
+      });
+    },
+    // Get current language abbreviation
+    currentLanguageAbbr: function currentLanguageAbbr() {
+      var currentLang = this.getCurrentLanguage();
+      return this.getLanguageAbbr(currentLang);
+    }
+  },
   created: function created() {
-    var _this = this;
+    var _this2 = this;
     this.$store.dispatch("signup/fetchStaticSetting", {
       url: "".concat("http://localhost:8000/api/web/", "get-static-setting?getGeneralSetting=1")
     }).then(function (res) {
       if (res.data.status == "Success") {
-        _this.general_setting = res.data.data;
+        _this2.general_setting = res.data.data;
       }
     });
   },
   methods: {
     toggleLanguageModal: function toggleLanguageModal() {
       this.showModal = !this.showModal;
+    },
+    // Get language abbreviation (two letters, uppercase, English alphabet only)
+    getLanguageAbbr: function getLanguageAbbr(language) {
+      if (!language || !language.abbreviation) {
+        return "EN";
+      }
+      // Extract first two English alphabet letters, convert to uppercase
+      var letters = language.abbreviation.toUpperCase().match(/[A-Z]/g) || [];
+
+      // Take first two letters
+      var abbr = letters.slice(0, 2).join("");
+
+      // If we don't have 2 letters, use default
+      if (abbr.length < 2) {
+        abbr = "EN";
+      }
+      return abbr;
+    },
+    // Get current active language
+    getCurrentLanguage: function getCurrentLanguage() {
+      var _this3 = this;
+      if (!this.languages || !Array.isArray(this.languages)) {
+        return null;
+      }
+      // Try to get language from URL path
+      var path = window.location.pathname;
+      var pathParts = path.split("/").filter(function (p) {
+        return p;
+      });
+
+      // Check if first part of path matches any language abbreviation
+      if (pathParts.length > 0) {
+        var pathLang = pathParts[0].toUpperCase();
+        var foundLang = this.languages.find(function (lang) {
+          var langAbbr = _this3.getLanguageAbbr(lang);
+          return langAbbr === pathLang;
+        });
+        if (foundLang) {
+          return foundLang;
+        }
+      }
+
+      // Fallback to default language
+      var defaultLang = this.languages.find(function (lang) {
+        return lang.is_default == 1;
+      });
+      return defaultLang || this.languages[0] || null;
     }
   }
 });
@@ -68367,10 +68439,10 @@ function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 
 var _hoisted_1 = {
-  "class": "fixed bottom-32 md:bottom-14 right-3 z-20"
+  "class": "relative"
 };
 var _hoisted_2 = {
-  "class": "font-semibold text-white"
+  "class": "font-semibold text-white text-sm"
 };
 var _hoisted_3 = {
   key: 0,
@@ -68395,21 +68467,48 @@ var _hoisted_8 = {
   "class": "p-6 space-y-6"
 };
 var _hoisted_9 = {
-  "class": "grid grid-cols-3 md:grid-cols-6 gap-2"
+  "class": "grid grid-cols-3 md:grid-cols-6 gap-4"
 };
 var _hoisted_10 = ["href"];
-var _hoisted_11 = ["src"];
+var _hoisted_11 = {
+  "class": "font-semibold text-gray-900 text-lg"
+};
 var _hoisted_12 = {
-  key: 0
+  "class": "text-sm text-gray-600"
+};
+var _hoisted_13 = {
+  key: 0,
+  "class": "text-xs text-gray-500"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _$data$general_settin;
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-    "class": "inline-flex h-10 w-fit px-2 items-center justify-center rounded-full bg-secondary bg-opacity-40 cursor-pointer",
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Language button at bottom right of footer "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": "inline-flex items-center gap-2 h-10 px-3 rounded-lg bg-secondary bg-opacity-90 hover:bg-opacity-100 cursor-pointer transition-all shadow-lg",
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.toggleLanguageModal && $options.toggleLanguageModal.apply($options, arguments);
     })
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(((_$data$general_settin = $data.general_setting) === null || _$data$general_settin === void 0 ? void 0 : _$data$general_settin["language_button_text"]) || ""), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Main modal "), $data.showModal ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Globe icon "), _cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "18",
+    height: "18",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    "stroke-width": "2",
+    "stroke-linecap": "round",
+    "stroke-linejoin": "round",
+    "class": "text-white"
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("circle", {
+    cx: "12",
+    cy: "12",
+    r: "10"
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("line", {
+    x1: "2",
+    y1: "12",
+    x2: "22",
+    y2: "12"
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+    d: "M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+  })], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Language abbreviation "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.currentLanguageAbbr), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Main modal "), $data.showModal ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "fixed inset-0 z-100 bg-gray-500 bg-opacity-75 transition-opacity",
     onClick: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
       return $options.toggleLanguageModal();
@@ -68422,27 +68521,21 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[2] || (_cache[2] = function () {
       return $options.toggleLanguageModal && $options.toggleLanguageModal.apply($options, arguments);
     })
-  }, _toConsumableArray(_cache[3] || (_cache[3] = [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+  }, _toConsumableArray(_cache[4] || (_cache[4] = [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     "class": "h-6",
     src: "/assets/icons/19-X-inside-circle-2.png",
     alt: "Candian Exporters"
   }, null, -1 /* CACHED */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
     "class": "sr-only"
-  }, "Close modal", -1 /* CACHED */)])))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Modal body "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.languages, function (language, key) {
-    var _language$flag_icon;
+  }, "Close modal", -1 /* CACHED */)])))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Modal body "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.sortedLanguages, function (language, key) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-      key: key
+      key: key,
+      "class": "text-center"
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
       "aria-label": "Candian Exporters",
-      href: "/set-language/".concat(language === null || language === void 0 ? void 0 : language.id, "?url=").concat($props.current_url, "&url_params=").concat($props.url_params)
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-      src: language === null || language === void 0 || (_language$flag_icon = language.flag_icon) === null || _language$flag_icon === void 0 ? void 0 : _language$flag_icon.full_path,
-      style: {
-        "width": "32px",
-        "height": "32px"
-      },
-      "class": "mx-auto"
-    }, null, 8 /* PROPS */, _hoisted_11), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(language === null || language === void 0 ? void 0 : language.name) + " ", 1 /* TEXT */), language.is_default != 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_12, "," + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(language === null || language === void 0 ? void 0 : language.native_name), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 8 /* PROPS */, _hoisted_10)]);
+      href: "/set-language/".concat(language === null || language === void 0 ? void 0 : language.id, "?url=").concat($props.current_url, "&url_params=").concat($props.url_params),
+      "class": "flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-gray-100 transition-colors"
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.getLanguageAbbr(language)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(language === null || language === void 0 ? void 0 : language.name), 1 /* TEXT */), language.is_default != 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(language === null || language === void 0 ? void 0 : language.native_name), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 8 /* PROPS */, _hoisted_10)]);
   }), 128 /* KEYED_FRAGMENT */))])])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
 }
 
