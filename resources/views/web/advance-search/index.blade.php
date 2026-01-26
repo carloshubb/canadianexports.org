@@ -49,7 +49,7 @@
                         $url = langBasedURL(null, $url);
                     @endphp
                     <form method="get" action="{{ $url }}">
-                        <div class="grid lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-1 gap-4 items-end">
+                        <div class="grid lg:grid-cols-[30%_35%_35%] md:grid-cols-[30%_35%_35%] sm:grid-cols-1 gap-4 items-end">
                             <div class="relative w-full mb-3">
                                 <label class="mb-2 text-primary text-base md:text-base lg:text-lg"
                                     for="">I am looking for:</label>
@@ -87,7 +87,7 @@
                                     ])
                                 @enderror
                             </div>
-                            <div class="relative w-full mb-3 md:col-span-2">
+                            <div class="relative w-full mb-3">
                                 <label class="mb-2 text-primary text-base md:text-base lg:text-lg"
                                     for="">{{ isset($advSearchSetting['select_industry_label']) ? $advSearchSetting['select_industry_label'] : '' }}</label>
                                 @php
@@ -279,12 +279,18 @@
         document.addEventListener("DOMContentLoaded", function() {
             const searchInput = document.getElementById("search");
             const defaultPlaceholder = "{{ isset($advSearchSetting['search_input_placeholder']) ? $advSearchSetting['search_input_placeholder'] : '' }}";
-            const canadianExportersPlaceholder = "Search name or product…";
+            
+            // Category-specific placeholders
+            const placeholders = {
+                'canadian-exporters': "Search over 30,000+ Canadian suppliers...",
+                'inquaries-to-buy': "Search for specific buying requests...",
+                'trade-shows-and-events': "Try: 'Mining Expo', 'Toronto', or 'May 2026'..."
+            };
 
             // Function to update placeholder based on category
             function updatePlaceholder(categoryValue) {
-                if (categoryValue === 'canadian-exporters') {
-                    searchInput.setAttribute('placeholder', canadianExportersPlaceholder);
+                if (placeholders[categoryValue]) {
+                    searchInput.setAttribute('placeholder', placeholders[categoryValue]);
                 } else {
                     searchInput.setAttribute('placeholder', defaultPlaceholder);
                 }

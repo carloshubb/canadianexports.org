@@ -122,7 +122,7 @@
         
         // Placeholder texts for each category
         const placeholders = {
-            'canadian-exporters': 'Search over 50,000+ Canadian suppliers...',
+            'canadian-exporters': 'Search over 30,000+ Canadian suppliers...',
             'inquaries-to-buy': 'Search for specific buying requests...',
             'trade-shows-and-events': 'Try: \'Mining Expo\', \'Toronto\', or \'May 2026\'...'
         };
