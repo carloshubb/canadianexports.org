@@ -165,10 +165,15 @@
     @endif
 
     @if (!$cookies_allow)
-        <div class="fixed bottom-16 left-0 right-0 z-10 mx-auto flex w-4/5 max-w-screen-lg flex-wrap items-center justify-center gap-4 rounded-lg bg-white p-5 text-center shadow md:bottom-0 md:flex-nowrap md:justify-between md:text-left lg:rounded-lg"
-            id="cookies-contest">
+        <div class="fixed bottom-16 left-0 right-0 z-10 mx-auto flex w-4/5 max-w-screen-lg flex-wrap items-center justify-center gap-4 rounded-lg bg-white p-5 text-center shadow md:bottom-0 md:flex-nowrap md:justify-between md:text-left lg:rounded-lg border-2 border-primary"
+            id="cookies-contest" style="display: none;">
             <div class="w-full text-sm md:text-sm lg:text-base">
-                {{ isset($cookie_setting['body_text']) ? $cookie_setting['body_text'] : '' }}
+                @php
+                    $body_text = isset($cookie_setting['body_text']) ? $cookie_setting['body_text'] : '';
+                    // Replace "cookies policy" (case-insensitive) with a link to Cookies Policy
+                    $body_text = preg_replace('/cookies policy/i', '<a href="https://canadianexporters.org/en/cookies-policy" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline font-FuturaMdCnBT">Cookies Policy</a>', $body_text);
+                @endphp
+                {!! $body_text !!}
                 @php
                     $learn_more_btn_link = isset($cookie_setting['learn_more_btn_link'])
                         ? $cookie_setting['learn_more_btn_link']
@@ -185,9 +190,48 @@
                 </button>
             </div>
             <script>
+                // Check on page load if cookie or localStorage is set
+                (function() {
+                    function getCookie(name) {
+                        const value = `; ${document.cookie}`;
+                        const parts = value.split(`; ${name}=`);
+                        if (parts.length === 2) return parts.pop().split(';').shift();
+                        return null;
+                    }
+
+                    // Check if cookie or localStorage indicates cookies were accepted
+                    const cookieAccepted = getCookie('cookies_allow') === '1';
+                    let localStorageAccepted = false;
+                    try {
+                        localStorageAccepted = localStorage.getItem('cookies_allow') === '1';
+                    } catch(e) {
+                        // localStorage not available
+                    }
+
+                    // If either is set, hide the popup
+                    const el = document.getElementById('cookies-contest');
+                    if (el) {
+                        if (cookieAccepted || localStorageAccepted) {
+                            el.style.display = 'none';
+                        } else {
+                            // Show the popup if neither is set
+                            el.style.display = 'flex';
+                        }
+                    }
+                })();
+
                 function acceptCookies() {
-                    // Set cookie for 1 year
-                    document.cookie = "cookies_allow=1; path=/; max-age=" + 60 * 60 * 24 * 365;
+                    // Set cookie for 10 years to ensure it never appears again
+                    const expirationDate = new Date();
+                    expirationDate.setFullYear(expirationDate.getFullYear() + 10);
+                    document.cookie = "cookies_allow=1; path=/; expires=" + expirationDate.toUTCString() + "; max-age=" + (60 * 60 * 24 * 365 * 10);
+
+                    // Also use localStorage as a backup
+                    try {
+                        localStorage.setItem('cookies_allow', '1');
+                    } catch(e) {
+                        // localStorage not available, continue with cookie only
+                    }
 
                     // Hide the banner on the current page
                     const el = document.getElementById('cookies-contest');

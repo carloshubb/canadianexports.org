@@ -49,43 +49,10 @@
                         $url = langBasedURL(null, $url);
                     @endphp
                     <form method="get" action="{{ $url }}">
-                        <div class="grid lg:grid-cols-5 md:grid-cols-5 sm:grid-cols-1 gap-4 items-end">
+                        <div class="grid lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-1 gap-4 items-end">
                             <div class="relative w-full mb-3">
                                 <label class="mb-2 text-primary text-base md:text-base lg:text-lg"
-                                    for="">{{ isset($advSearchSetting['search_input_label']) ? $advSearchSetting['search_input_label'] : '' }}</label>
-                                <input type="text" class="can-exp-input"
-                                    placeholder="{{ isset($advSearchSetting['search_input_placeholder']) ? $advSearchSetting['search_input_placeholder'] : '' }}"
-                                    id="search" name="search"
-                                    value="{{ isset($_GET['search']) ? $_GET['search'] : '' }}">
-                                @error('search')
-                                    @include('front.pages.error', [
-                                        'errorMessage' => "$message",
-                                        'postion' => 'absolute',
-                                    ])
-                                @enderror
-                            </div>
-                            {{-- <div class="relative w-full mb-3">
-                                <label class="mb-2 text-primary text-base md:text-base lg:text-lg"
-                                    for="">{{ isset($advSearchSetting['search_criteria_label']) ? $advSearchSetting['search_criteria_label'] : '' }}</label>
-                                <select class="block appearance-none can-exp-input pr-8" name="criteria" id="criteria">
-                                    @php
-                                        $criteriaSelected = isset($_GET['criteria']) ? $_GET['criteria'] : 'all-words';
-                                    @endphp
-                                    <option value="all-words" {{ $criteriaSelected == 'all-words' ? 'selected' : '' }}>
-                                        {{ isset($advSearchSetting['all_words_text']) ? $advSearchSetting['all_words_text'] : '' }}
-                                    </option>
-                                    <option value="any-words" {{ $criteriaSelected == 'any-words' ? 'selected' : '' }}>
-                                        {{ isset($advSearchSetting['any_words_text']) ? $advSearchSetting['any_words_text'] : '' }}
-                                    </option>
-                                    <option value="exact-phrase"
-                                        {{ $criteriaSelected == 'exact-phrase' ? 'selected' : '' }}>
-                                        {{ isset($advSearchSetting['exact_pharse_text']) ? $advSearchSetting['exact_pharse_text'] : '' }}
-                                    </option>
-                                </select>
-                            </div> --}}
-                            <div class="relative w-full mb-3">
-                                <label class="mb-2 text-primary text-base md:text-base lg:text-lg"
-                                    for="">{{ isset($advSearchSetting['search_cat_select_category_label']) ? $advSearchSetting['search_cat_select_category_label'] : '' }}</label>
+                                    for="">I am looking for:</label>
                                 <select class="block appearance-none  can-exp-input pr-8" name="category" id="category">
                                     @php
                                         $categorySelected = isset($_GET['category'])
@@ -102,9 +69,23 @@
                                     </option>
                                     <option value="trade-shows-and-events"
                                         {{ $categorySelected == 'trade-shows-and-events' ? 'selected' : '' }}>
-                                        {{ isset($advSearchSetting['events_text']) ? $advSearchSetting['events_text'] : '' }}
+                                        {{ isset($advSearchSetting['events_text']) ? str_replace(' and ', ' & ', $advSearchSetting['events_text']) : '' }}
                                     </option>
                                 </select>
+                            </div>
+                            <div class="relative w-full mb-3">
+                                <label class="mb-2 text-primary text-base md:text-base lg:text-lg"
+                                    for="">{{ isset($advSearchSetting['search_input_label']) ? $advSearchSetting['search_input_label'] : '' }}</label>
+                                <input type="text" class="can-exp-input"
+                                    placeholder="{{ isset($advSearchSetting['search_input_placeholder']) ? $advSearchSetting['search_input_placeholder'] : '' }}"
+                                    id="search" name="search"
+                                    value="{{ isset($_GET['search']) ? $_GET['search'] : '' }}">
+                                @error('search')
+                                    @include('front.pages.error', [
+                                        'errorMessage' => "$message",
+                                        'postion' => 'absolute',
+                                    ])
+                                @enderror
                             </div>
                             <div class="relative w-full mb-3 md:col-span-2">
                                 <label class="mb-2 text-primary text-base md:text-base lg:text-lg"
@@ -238,41 +219,6 @@
                                     ])
                                 @enderror
                             </div>
-                            <div class="relative w-full mb-3">
-                                <label class="mb-2 text-primary text-base md:text-base lg:text-lg" for=""
-                                    id="sorting-label">
-                                    @if ($categorySelected == 'canadian-exporters')
-                                        {{ isset($advSearchSetting['ce_sorting_order_label']) ? $advSearchSetting['ce_sorting_order_label'] : '' }}
-                                    @elseif($categorySelected == 'inquaries-to-buy')
-                                        {{ isset($advSearchSetting['i2b_sorting_order_label']) ? $advSearchSetting['i2b_sorting_order_label'] : '' }}
-                                    @elseif($categorySelected == 'trade-shows-and-events')
-                                        {{ isset($advSearchSetting['events_sorting_order_label']) ? $advSearchSetting['events_sorting_order_label'] : '' }}
-                                    @endif
-                                </label>
-                                <select class="block appearance-none can-exp-input pr-8" name="sorting" id="sorting">
-                                    @php
-                                        $sortingSelected = isset($_GET['sorting']) ? $_GET['sorting'] : 'a-z';
-                                    @endphp
-                                    <option value="a-z" {{ $sortingSelected == 'a-z' ? 'selected' : '' }}>
-                                        {{ isset($advSearchSetting['alphabetical_order_a_z']) ? $advSearchSetting['alphabetical_order_a_z'] : '' }}
-                                    </option>
-                                    <option value="z-a" {{ $sortingSelected == 'z-a' ? 'selected' : '' }}>
-                                        {{ isset($advSearchSetting['alphabetical_order_z_a']) ? $advSearchSetting['alphabetical_order_z_a'] : '' }}
-                                    </option>
-                                    @if ($categorySelected == 'trade-shows-and-events')
-                                        <option value="display-past-events"
-                                            {{ $sortingSelected == 'display-past-events' ? 'selected' : '' }}>
-                                            {{ isset($advSearchSetting['display_past_events']) ? $advSearchSetting['display_past_events'] : '' }}
-                                        </option>
-                                    @endif
-                                    @if ($categorySelected == 'inquaries-to-buy')
-                                        <option value="include-expired"
-                                            {{ $sortingSelected == 'include-expired' ? 'selected' : '' }}>
-                                            {{ isset($advSearchSetting['include_expired']) ? $advSearchSetting['include_expired'] : '' }}
-                                        </option>
-                                    @endif
-                                </select>
-                            </div>
                         </div>
                         <div class="flex justify-center mt-1">
                             <button aria-label="Candian Exporters" type="submit"
@@ -331,71 +277,39 @@
         }
 
         document.addEventListener("DOMContentLoaded", function() {
-            const sortingSelect = document.getElementById("sorting");
+            const searchInput = document.getElementById("search");
+            const defaultPlaceholder = "{{ isset($advSearchSetting['search_input_placeholder']) ? $advSearchSetting['search_input_placeholder'] : '' }}";
+            const canadianExportersPlaceholder = "Search name or product…";
+
+            // Function to update placeholder based on category
+            function updatePlaceholder(categoryValue) {
+                if (categoryValue === 'canadian-exporters') {
+                    searchInput.setAttribute('placeholder', canadianExportersPlaceholder);
+                } else {
+                    searchInput.setAttribute('placeholder', defaultPlaceholder);
+                }
+            }
+
+            // Set initial placeholder based on current category selection
+            const initialCategory = document.getElementById('category').value;
+            updatePlaceholder(initialCategory);
 
             document.getElementById('category').addEventListener('change', function() {
-                sortingSelect.innerHTML = '';
-
                 document.querySelector('#canadian-exporters').classList.add("hidden");
-                // document.querySelector('#canadian-exporters').value = "all";
                 $("#canadian-exporters-select").select2("val", ["all"]);
                 document.querySelector('#inquaries-to-buy').classList.add("hidden");
-                // document.querySelector('#inquaries-to-buy').value = 'all';
                 $("#inquaries-to-buy-select").select2("val", ["all"]);
                 document.querySelector('#trade-shows-and-events').classList.add("hidden");
-                // document.querySelector('#trade-shows-and-events').value = 'all';
                 $("#trade-shows-and-events-select").select2("val", ["all"]);
 
                 if (this.value) {
                     const el = document.querySelector('#' + this.value);
                     el.classList.remove("hidden");
                 }
-                if (this.value == 'inquaries-to-buy') {
-                    document.getElementById("sorting-label").innerHTML =
-                        "{{ isset($advSearchSetting['i2b_sorting_order_label']) ? $advSearchSetting['i2b_sorting_order_label'] : '' }}";
 
-                    addSortingOption("a-z",
-                        "{{ isset($advSearchSetting['alphabetical_order_a_z']) ? $advSearchSetting['alphabetical_order_a_z'] : '' }}"
-                    );
-                    addSortingOption("z-a",
-                        "{{ isset($advSearchSetting['alphabetical_order_z_a']) ? $advSearchSetting['alphabetical_order_z_a'] : '' }}"
-                    );
-                    addSortingOption("include-expired",
-                        "{{ isset($advSearchSetting['include_expired']) ? $advSearchSetting['include_expired'] : '' }}"
-                    );
-                } else if (this.value == 'trade-shows-and-events') {
-                    document.getElementById("sorting-label").innerHTML =
-                        "{{ isset($advSearchSetting['events_sorting_order_label']) ? $advSearchSetting['events_sorting_order_label'] : '' }}";
-
-                    addSortingOption("a-z",
-                        "{{ isset($advSearchSetting['alphabetical_order_a_z']) ? $advSearchSetting['alphabetical_order_a_z'] : '' }}"
-                    );
-                    addSortingOption("z-a",
-                        "{{ isset($advSearchSetting['alphabetical_order_z_a']) ? $advSearchSetting['alphabetical_order_z_a'] : '' }}"
-                    );
-                    addSortingOption("display-past-events",
-                        "{{ isset($advSearchSetting['display_past_events']) ? $advSearchSetting['display_past_events'] : '' }}"
-                    );
-                } else {
-                    document.getElementById("sorting-label").innerHTML =
-                        "{{ isset($advSearchSetting['ce_sorting_order_label']) ? $advSearchSetting['ce_sorting_order_label'] : '' }}";
-
-                    addSortingOption("a-z",
-                        "{{ isset($advSearchSetting['alphabetical_order_a_z']) ? $advSearchSetting['alphabetical_order_a_z'] : '' }}"
-                    );
-                    addSortingOption("z-a",
-                        "{{ isset($advSearchSetting['alphabetical_order_z_a']) ? $advSearchSetting['alphabetical_order_z_a'] : '' }}"
-                    );
-                }
+                // Update placeholder based on selected category
+                updatePlaceholder(this.value);
             });
-
-
-            function addSortingOption(value, text) {
-                const option = document.createElement("option");
-                option.value = value;
-                option.textContent = text;
-                sortingSelect.appendChild(option);
-            }
         });
 
 //         document.addEventListener("DOMContentLoaded", function() {
