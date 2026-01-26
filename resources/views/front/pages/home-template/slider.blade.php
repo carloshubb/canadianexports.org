@@ -57,9 +57,9 @@
                             <div
                                 class="rounded-md flex flex-col sm:flex-col md:flex-row lg:flex-row justify-between items-start">
                                 <div class="w-full md:w-2/3 flex items-center text-lg sm:text-xl">
-                                    <input type="search" name="search"
+                                    <input type="search" name="search" id="search-input"
                                         class="w-full py-2 px-3 focus:outline-none focus:ring-none {{ isset(getDefaultLanguage(1)->direction) && getDefaultLanguage(1)->direction == 'ltr' ? 'rounded-l-md md:rounded-l-md' : 'rounded-r-md md:rounded-r-md' }}"
-                                        placeholder="{!! $homePageSettingDetail->slider_search_placeholder !!}" />
+                                        placeholder="Search over 50,000+ Canadian suppliers..." />
                                     <button class="h-full button-exp-fill md:hidden {{ isset(getDefaultLanguage(1)->direction) && getDefaultLanguage(1)->direction == 'ltr' ? 'rounded-r-md lg:rounded-r-md rounded-l-none rounded-none' : 'rounded-l-md lg:rounded-l-md rounded-r-none rounded-none' }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -82,7 +82,7 @@
                                             {{ isset($advSearchSetting['i2b_text']) ? $advSearchSetting['i2b_text'] : '' }}
                                         </option>
                                         <option value="trade-shows-and-events">
-                                            {{ isset($advSearchSetting['events_text']) ? $advSearchSetting['events_text'] : '' }}
+                                            {{ isset($advSearchSetting['events_text']) ? str_replace(' and ', ' & ', $advSearchSetting['events_text']) : '' }}
                                         </option>
                                     </select>
                                 </div>
@@ -114,3 +114,29 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const categorySelect = document.getElementById('category');
+        const searchInput = document.getElementById('search-input');
+        
+        // Placeholder texts for each category
+        const placeholders = {
+            'canadian-exporters': 'Search over 50,000+ Canadian suppliers...',
+            'inquaries-to-buy': 'Search for specific buying requests...',
+            'trade-shows-and-events': 'Try: \'Mining Expo\', \'Toronto\', or \'May 2026\'...'
+        };
+        
+        // Set initial placeholder based on default selected value
+        if (categorySelect && searchInput) {
+            const initialValue = categorySelect.value || 'canadian-exporters';
+            searchInput.placeholder = placeholders[initialValue] || placeholders['canadian-exporters'];
+            
+            // Update placeholder when category changes
+            categorySelect.addEventListener('change', function() {
+                const selectedValue = this.value;
+                searchInput.placeholder = placeholders[selectedValue] || placeholders['canadian-exporters'];
+            });
+        }
+    });
+</script>
