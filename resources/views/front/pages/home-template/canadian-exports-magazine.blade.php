@@ -14,7 +14,7 @@
                     $url = isset($general_setting['see_all_magazine_page']) ? route('front.index', $general_setting['see_all_magazine_page']) : '#';
                     $url = langBasedURL($lang, $url);
                 @endphp
-                <a aria-label="Canadian Exporters" href="{{ $url }}" class="bg-white border-gray-300 hover:border-secondary text-primary font-Futura font-semibold hover:bg-primary hover:text-white px-6 py-3 rounded-lg border transition duration-300 ease-in-out">{!! $homePageSettingDetail->section6_see_all_button !!}</a>
+                <a aria-label="Canadian Exporters" href="{{ $url }}" class="button-exp-no-fill" >{!! $homePageSettingDetail->section6_see_all_button !!}</a>
             </div>
         </div>
 

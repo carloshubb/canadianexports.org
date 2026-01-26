@@ -1,5 +1,5 @@
 <section class="bg-bgLight px-4 py-6 md:p-12 desktop:px-80">
-    <h2 class="can-exp-h1 text-center">Inquiries to buy</h2>
+    <h2 class="can-exp-h1 text-center">Purchase / Procurement Inquiries</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div

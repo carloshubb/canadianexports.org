@@ -11,7 +11,7 @@
                     $url = langBasedURL($lang, $url);
                     $hasPaid = isset($user) && $user->is_package_amount_paid;
                 @endphp
-                <a id="section2-button" aria-label="Canadian Exporters" href="{{ $url }}" class="bg-white border-gray-300 hover:border-secondary text-primary font-Futura font-semibold hover:bg-primary hover:text-white px-6 py-3 rounded-lg border transition duration-300 ease-in-out">
+                <a id="section2-button" aria-label="Canadian Exporters" href="{{ $url }}" class="button-exp-no-fill">
                     {!! $homePageSettingDetail->section2_button_text !!}
                 </a>
             </div>
