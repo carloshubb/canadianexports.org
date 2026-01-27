@@ -369,7 +369,22 @@ export default {
     }
   }
 },
+  watch: {
+    max_files(newVal, oldVal) {
+      if (this.profile !== "1" && oldVal !== undefined && newVal < oldVal && this.gallery_files.length > newVal) {
+        this.trimGalleryToMax();
+      }
+    },
+  },
   methods: {
+    trimGalleryToMax() {
+      if (this.gallery_files.length <= this.max_files) return;
+      this.gallery_files = this.gallery_files.slice(0, this.max_files);
+      this.$store.commit("signup/updateValidationErros", {
+        field: "gallery_images",
+        message: `Please limit the number of your images to ${this.max_files}`,
+      });
+    },
     limitWords(event, fieldName, maxWords) {
     const inputElement = event.target;
     let val = inputElement.value;
@@ -591,10 +606,13 @@ export default {
     },
     handleGalleryImagesWarning(error, file, status) {
       if (error.code === 0) {
-        this.$store.commit("signup/updateValidationErros", {
-          field: "gallery_images",
-          message: `Please limit the number of your images to ${this.max_files}`,
-        });
+        const count = this.gallery_files ? this.gallery_files.length : 0;
+        if (count > this.max_files) {
+          this.$store.commit("signup/updateValidationErros", {
+            field: "gallery_images",
+            message: `Please limit the number of your images to ${this.max_files}`,
+          });
+        }
       }
     },
     handleGalleryImagesProcess(error, file) {
