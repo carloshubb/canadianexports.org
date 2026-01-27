@@ -212,8 +212,7 @@
           <FilePond
             allow-multiple
             accepted-file-types="image/*"
-            :imagePreviewHeight="150"
-            :stylePanelAspectRatio="1"
+            
             class-name="xelent-pond"
             credits="false",
             :labelIdle="`<span class='cursor-pointer'>${regPageSetting?.reg_page_setting_detail?.[0]?.step_5_gallery_image_placeholder}</span>`"
