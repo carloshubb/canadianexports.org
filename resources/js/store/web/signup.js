@@ -17,6 +17,7 @@ const signup = {
         subscription_status: 0,
         package_type: null,
         isRequiredFieldsFilled: true,
+        formRevision: 0,
         selectedRegistrationPackage: null,
         payment_frequency: null,
         // registration_package_price: 0,
@@ -67,7 +68,9 @@ const signup = {
         //     state.registration_package_price = payload;
         // },
         setForm(state, payload) {
-            state.form.set(payload.field, payload.value);
+            const field = Array.isArray(payload.field) ? payload.field[0] : payload.field;
+            state.form.set(field, payload.value);
+            state.formRevision = (state.formRevision || 0) + 1;
             this.commit('signup/checkRequiredFields');
         },
         resetGalleryImages(state, payload) {
