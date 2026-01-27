@@ -1,6 +1,10 @@
 node_modules
 vendor
 storage
+public/css/
+public/js/
+storage/logs
+
 .env
 public/images
 public/media
@@ -11,6 +15,3 @@ CaExp LoR July 18.docx
 .env.dev
 package-lock.json
 
-public/css/
-public/js/
-storage/logs
