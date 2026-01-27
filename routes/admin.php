@@ -144,6 +144,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum']], function (
     Route::any('/translation/import-xls', [StaticTranslationController::class, 'importXls']);
     Route::get('/advertiser-forms', [AdvertiserFormController::class, 'index']);
     Route::get('/coffee-wallets', [CoffeeWalletsController::class, 'index']);
+    Route::post('/coffee-wallets/{id}/notify-donor-used', [CoffeeWalletsController::class, 'notifyDonorUsed']);
     Route::get('/business-profile-stats', [BusinessProfileStatsController::class, 'index']);
     Route::get('/business-profile-stats/{id}', [BusinessProfileStatsController::class, 'show']);
     Route::get('/info-letter-forms', [InfoLetterController::class, 'index']);
