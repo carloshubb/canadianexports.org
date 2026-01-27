@@ -29,7 +29,7 @@
 
                     <div class="grid grid-cols-1 gap-12 container">
                         <div class="order-2 md:order-1">
-                            <close-account close_account_setting="{{ $closeAccountSettingDetail }}"
+                            <close-account :close_account_setting='@json($closeAccountSettingDetail)'
                                 submit_url="{{ route('web.user.delete-profile') }}" page_id="{{ $page->id }}"
                                 popup_setting="{{ json_encode($popup_setting) }}">
                             </close-account>
