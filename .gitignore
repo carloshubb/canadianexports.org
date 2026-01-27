@@ -1,8 +1,8 @@
 node_modules
 vendor
 storage
-public/css/
-public/js/
+public/css
+public/js
 storage/logs
 
 .env
