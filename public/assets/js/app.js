@@ -22,26 +22,16 @@ function toggleMenu() {
     var toggleElements = document.getElementsByClassName('isToggle');
 
     var navigation = document.getElementById('navigation');
-    navigation.classList.toggle('open');
+    if (!navigation) {
+        return;
+    }
 
+    // Toggle open state on navigation
+    navigation.classList.toggle('open');
 
     // Toggle the 'open' class on each element with the 'isToggle' class
     for (var i = 0; i < toggleElements.length; i++) {
         toggleElements[i].classList.toggle('open');
-    }
-
-    var isOpen = document.getElementById('navigation');
-
-    if (isOpen.style.opacity === "1") {
-        isOpen.style.opacity = "0";
-        setTimeout(function () {
-            isOpen.style.display = "none";
-        }, 300); // Transition duration in milliseconds (adjust as needed)
-    } else {
-        isOpen.style.display = "block";
-        setTimeout(function () {
-            isOpen.style.opacity = "1";
-        }, 0); // Wait for display to be set before applying opacity (adjust as needed)
     }
 }
 // Add a click event listener to the window

@@ -15,6 +15,11 @@
                                 <ul class="space-y-1 list-none p-0">
                                     @php
                                         $menuItems = json_decode($footerSetting->widget1Menu->menuDetail[0]->menu_items, 1);
+                                        $widget1Heading = strip_tags($footerSettingDetail->widget1 ?? '');
+                                        if (stripos($widget1Heading, 'To the Canadian Exporter') !== false && isset($general_setting['close_account_page'])) {
+                                            $menuItems[] = ['name' => 'How to Close Our Account', 'link' => $general_setting['close_account_page']];
+                                            usort($menuItems, fn ($a, $b) => strcasecmp($a['name'] ?? '', $b['name'] ?? ''));
+                                        }
                                     @endphp
                                     @foreach ($menuItems as $menuItem)
                                         @php
@@ -32,6 +37,11 @@
                                 <ul class="space-y-1 list-none p-0">
                                     @php
                                         $menuItems = json_decode($footerSetting->widget2Menu->menuDetail[0]->menu_items, 1);
+                                        $widget2Heading = strip_tags($footerSettingDetail->widget2 ?? '');
+                                        if (stripos($widget2Heading, 'To the Canadian Exporter') !== false && isset($general_setting['close_account_page'])) {
+                                            $menuItems[] = ['name' => 'How to Close Our Account', 'link' => $general_setting['close_account_page']];
+                                            usort($menuItems, fn ($a, $b) => strcasecmp($a['name'] ?? '', $b['name'] ?? ''));
+                                        }
                                     @endphp
                                     @foreach ($menuItems as $menuItem)
                                         @php
@@ -49,6 +59,11 @@
                                 <ul class="space-y-1 list-none p-0">
                                     @php
                                         $menuItems = json_decode($footerSetting->widget3Menu->menuDetail[0]->menu_items, 1);
+                                        $widget3Heading = strip_tags($footerSettingDetail->widget3 ?? '');
+                                        if (stripos($widget3Heading, 'To the Canadian Exporter') !== false && isset($general_setting['close_account_page'])) {
+                                            $menuItems[] = ['name' => 'How to Close Our Account', 'link' => $general_setting['close_account_page']];
+                                            usort($menuItems, fn ($a, $b) => strcasecmp($a['name'] ?? '', $b['name'] ?? ''));
+                                        }
                                     @endphp
                                     @foreach ($menuItems as $menuItem)
                                         @php

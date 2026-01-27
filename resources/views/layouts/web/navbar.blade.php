@@ -14,48 +14,14 @@
                 <div class="hidden md:flex items-center md:space-x-0 lg:space-x-3 ">
                     <!-- Primary Navbar items -->
                     <div class="flex md:space-x-1 md:text-sm lg:text-base lg:space-x-3">
-                        <div class="flex flex-wrap">
-                            <div class="w-full px-4">
-                                <div class="relative inline-flex align-middle w-full">
-                                    <button aria-label="Candian Exporters" type="button"
-                                        class="menu font-FuturaBdCnBT text-sm lg:text-base text-gray-800  hover:text-primaryRed font-medium transition duration-300 p-1 lg:p-2"
-                                        onclick="openDropdown(event,'dropdown-id')">
-                                        About us
-                                    </button>
-                                    <div class="hidden bg-white divide-y z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
-                                        style="min-width:12rem" id="dropdown-id">
-                                        <a aria-label="Candian Exporters" href="#"
-                                            class="menu font-FuturaBdCnBT text-sm lg:text-base py-2 px-4 block w-full whitespace-nowrap bg-transparent text-slate-700">
-                                            About us
-                                        </a>
-                                        <a aria-label="Candian Exporters" href="#"
-                                            class="menu font-FuturaBdCnBT text-sm lg:text-base py-2 px-4 block w-full whitespace-nowrap bg-transparent text-slate-700">
-                                            How the business categories came about
-                                        </a>
-                                        <a aria-label="Candian Exporters" href="#"
-                                            class="menu font-FuturaBdCnBT text-sm lg:text-base py-2 px-4 block w-full whitespace-nowrap bg-transparent text-slate-700">
-                                            Inquiries to buy
-                                        </a>
-                                        <a aria-label="Candian Exporters" href="#"
-                                            class="menu font-FuturaBdCnBT text-sm lg:text-base py-2 px-4 block w-full whitespace-nowrap bg-transparent text-slate-700">
-                                            How do we delete our profile
-                                        </a>
-                                        <a aria-label="Candian Exporters" href="#"
-                                            class="menu font-FuturaBdCnBT text-sm lg:text-base py-2 px-4 block w-full whitespace-nowrap bg-transparent text-slate-700">
-                                            Scam alerts
-                                        </a>
-                                        <a aria-label="Candian Exporters" href="#"
-                                            class="menu font-FuturaBdCnBT text-sm lg:text-base py-2 px-4 block w-full whitespace-nowrap bg-transparent text-slate-700">
-                                            Success stories
-                                        </a>
-                                        <a aria-label="Candian Exporters" href="#"
-                                            class="menu font-FuturaBdCnBT text-sm lg:text-base py-2 px-4 block w-full whitespace-nowrap bg-transparent text-slate-700">
-                                            Contact us
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @php
+                            $aboutUsSlug = \App\Models\Page::where('template', 'about_us_template')->value('slug');
+                            $aboutUsUrl = $aboutUsSlug ? route('front.index', $aboutUsSlug) : '#';
+                        @endphp
+                        <a aria-label="Candian Exporters" href="{{ $aboutUsUrl }}"
+                            class="menu font-FuturaBdCnBT text-sm lg:text-base text-gray-800 hover:text-primaryRed font-medium transition duration-300 p-1 lg:p-2">
+                            About us
+                        </a>
                         <a aria-label="Candian Exporters" href="#"
                             class="menu font-FuturaBdCnBT text-sm lg:text-base text-gray-800  hover:text-primaryRed font-medium transition duration-300 p-1 lg:p-2">
                             Career</a>

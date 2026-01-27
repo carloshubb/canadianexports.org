@@ -59,7 +59,24 @@
             <ul class="navigation-menu font-FuturaMdCnBT text-base md:text-base lg:text-lg" id="nav_items">
                 @isset($menuItems)
                     @foreach ($menuItems as $menuItem)
-                        @if (count($menuItem['menus']) > 0)
+                        @php
+                            $isAboutUs = (strtolower(trim($menuItem['name'] ?? '')) === 'about us');
+                            $hasChildren = count($menuItem['menus'] ?? []) > 0;
+                            $aboutUsAsLink = $isAboutUs && $hasChildren;
+                            $aboutUsUrl = '#';
+                            if ($aboutUsAsLink) {
+                                $aboutUsChild = collect($menuItem['menus'] ?? [])->first(fn ($c) => strtolower(trim($c['name'] ?? '')) === 'about us');
+                                $aboutUsUrl = $aboutUsChild ? ($aboutUsChild['link'] ?? ($menuItem['link'] ?? '#')) : ($menuItem['link'] ?? '#');
+                                $aboutUsUrl = langBasedURL($lang, $aboutUsUrl);
+                            }
+                        @endphp
+                        @if ($aboutUsAsLink)
+                            {{-- "About us" as direct link (no dropdown) --}}
+                            <li>
+                                <a aria-label="Candian Exporters" href="{{ $aboutUsUrl }}"
+                                    class="sub-menu-item font-FuturaMdCnBT">{{ $menuItem['name'] }}</a>
+                            </li>
+                        @elseif ($hasChildren)
                             {{-- display on desktop --}}
                             <li class="has-submenu parent-menu-item dropdown-menu-exp flex items-center">
 
@@ -141,6 +158,9 @@
                 @endif
             </ul>
         </div>
+
+        {{-- Mobile backdrop behind sliding navigation --}}
+        <div id="nav-backdrop" onclick="toggleMenu()"></div>
 
         <!--Login button Start-->
         <div class="hidden items-center gap-2 md:flex lg:gap-0">

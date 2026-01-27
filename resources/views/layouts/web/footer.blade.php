@@ -159,7 +159,7 @@
                             </ul>
                         </nav>
                     </div>
-                    <!--To the Canadian Exporter-->
+                    <!--To the Canadian Exporter (alphabetical order)-->
                     <div>
                         <h6 class="font-FuturaBdCnBT text-white text-2xl">To the Canadian Exporter</h6>
                         <nav aria-label="Footer Navigation - Company" class="mt-4">
@@ -172,7 +172,6 @@
                                         Circulation
                                     </a>
                                 </li>
-
                                 <li>
                                     <a aria-label="Candian Exporters" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
@@ -181,7 +180,22 @@
                                         FAQ (frequently asked questions)
                                     </a>
                                 </li>
-
+                                <li>
+                                    <a aria-label="Candian Exporters" href="{{ isset($general_setting['close_account_page']) ? url($general_setting['close_account_page']) : '#' }}" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                        </svg>
+                                        How to Close Our Account
+                                    </a>
+                                </li>
+                                <li>
+                                    <a aria-label="Candian Exporters" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                        </svg>
+                                        Our business
+                                    </a>
+                                </li>
                                 <li>
                                     <a aria-label="Candian Exporters" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
@@ -190,7 +204,6 @@
                                         Rates & information
                                     </a>
                                 </li>
-
                                 <li>
                                     <a aria-label="Candian Exporters" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
@@ -199,22 +212,12 @@
                                         Register my business
                                     </a>
                                 </li>
-
                                 <li>
                                     <a aria-label="Candian Exporters" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                         </svg>
                                         Satisfaction guarantee
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a aria-label="Candian Exporters" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                                        </svg>
-                                        Our business
                                     </a>
                                 </li>
                                 <li>
