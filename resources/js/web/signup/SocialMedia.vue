@@ -111,9 +111,10 @@
         (JSON.parse(user)['registration_package_id'] !=
           selectedRegistrationPackage.id ||
           JSON.parse(user)['payment_frequency'] != payment_frequency) && JSON.parse(user)['is_package_amount_paid'] == '1'
-      " class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
-        <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-          <h4 class="text-white">Payment Method</h4>
+      " >
+        <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
+          <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
+          <h4 class="text-white">Select Payment Method</h4>
         </div>
         <div class="flex justify-center gap-6 items-stretch xl:gap-12 px-4 py-8 sm:px-10">
           <div v-if="calTotalPrice() > 0" class="w-full flex">
@@ -121,10 +122,10 @@
               <div>
                 <!--Debit Card-->
                 <div class="flex justify-between items-center md:p-3">
-                  <div class="w-full">
+                  <div class="w-full flex flex-col gap-4">
                     <div class="flex items-center">
                       <input id="stripe" name="registration-package" type="radio"
-                        class="h-4 w-4 border-gray-300 accent-primaryRed" @click="setPaymentMethod('stripe')"
+                        class="flex h-4 w-4 border-gray-300 accent-primaryRed" @click="setPaymentMethod('stripe')"
                         :checked="payment_method == 'stripe'" />
                       <label for="stripe" class="ml-2 block text-gray-900">
                         {{
@@ -285,7 +286,14 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div>        
+        </div>
+        </div>
+        <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
+          <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
+          <h4 class="text-white">Order Summary</h4>
+        </div>
+         <div class="flex justify-center gap-6 items-stretch xl:gap-12 px-4 py-8 sm:px-10">          
           <div class="w-full mt-6 rounded-lg border bg-white p-4 md:p-6 shadow-md md:mt-0 flex flex-col h-full">
             <div class="mb-2 flex justify-between">
               <p class="text-gray-700">{{ payment_setting && JSON.parse(payment_setting) ?
@@ -311,7 +319,8 @@
               <p class="text-lg font-bold">{{ payment_setting && JSON.parse(payment_setting) ?
                 JSON.parse(payment_setting)["total_text"] : "" }}</p>
               <div class="">
-                <p class="mb-1 text-lg font-bold capitalize">${{ calTotalPrice() }}</p>
+
+                <p class="mb-1 text-lg font-bold capitalize">${{ Number(calTotalPrice()) > 1000 ? Number(calTotalPrice()).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) : calTotalPrice() }}</p>
               </div>
             </div>
             <div class="text-center mt-auto">
@@ -325,6 +334,9 @@
           </div>
 
         </div>
+        </div>
+
+        
       </div>
 
 
@@ -665,7 +677,6 @@ export default {
       } else if (this.payment_frequency == "annually") {
         price = this.selectedRegistrationPackage.annually_price * 12;
       }
-
       return price.toFixed(2);
     },
     async setPaymentMethod(value) {
