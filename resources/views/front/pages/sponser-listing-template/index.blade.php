@@ -30,7 +30,9 @@
             <all-sponsers
                 sponsor_become="{{ $lang }}"
                 page_id="{{ $page->id }}"
-                logged_in_user="{{ $logged_in_user ? $logged_in_user->toJson() : 'null' }}"></all-sponsers>
+                logged_in_user="{{ $logged_in_user ? $logged_in_user->toJson() : 'null' }}">
+            </all-sponsers>
+            
         </div>
 
         </section>
