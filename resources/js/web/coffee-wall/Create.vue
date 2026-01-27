@@ -406,6 +406,18 @@
                 </div>
                 <Error v-if="submitted" fieldName="terms_privacy_agreement" :validationErros="validationErros"
                     full_width="1" />
+
+                <!-- Kindness Partner share agreement -->
+                <div class="flex items-start space-x-2 mt-4">
+                    <input @input="clearErrors('kindness_partner_share_agreement')" type="checkbox" class="mt-1"
+                        name="kindness_partner_share_agreement" id="kindness_partner_share_agreement"
+                        v-model="form.kindness_partner_share_agreement" />
+                    <label for="kindness_partner_share_agreement" class="block text-gray-900">
+                        I agree to allow Canadian Exports to inform the Kindness Partner who contributed to my Coffee. Only my business name, category, province, and the service received will be shared.
+                    </label>
+                </div>
+                <Error v-if="submitted" fieldName="kindness_partner_share_agreement" :validationErros="validationErros"
+                    full_width="1" />
             </div>
 
             <!-- <ListErrors :validationErrors="validationErros" /> -->
@@ -538,7 +550,8 @@ export default {
                 this.form.receiver_name !== '' &&
                 this.form.receiver_email !== '' &&
                 this.form.frequency !== null &&
-                this.form.terms_privacy_agreement === true 
+                this.form.terms_privacy_agreement === true &&
+                this.form.kindness_partner_share_agreement === true
             );
         },
         years() {
@@ -581,6 +594,7 @@ export default {
                 agree_terms: "",
                 non_refundable_agreement: false,
                 terms_privacy_agreement: false,
+                kindness_partner_share_agreement: false,
             },
             freePackage: [],
             featuredPackage: [],
@@ -855,15 +869,16 @@ export default {
                             window.location.href =
                                 res?.data?.data?.redirect_url;
                         } else {
-                            // Stripe or free donation success
+                            // Stripe or free donation success — capture donor name before clearing form
+                            const donorName = this.form.name || this.form.card_holder_name || 'you';
                             this.clearForm();
 
-                            // Show success message with redirect
+                            // Show success popup in three sections: title, text, Thank you button
                             Swal.fire({
-                                
-                                text: res.data.message || 'This Coffee comes from you, who chose to support Canadian small businesses like yours.',
+                                title: "Your Coffee Is on Someone Today ☕💛",
+                                text: `This Coffee comes from ${donorName}, who chose to support Canadian small businesses like yours.`,
                                 icon: 'success',
-                                confirmButtonText: 'Thank You',
+                                confirmButtonText: 'Thank you',
                                 allowOutsideClick: false,
                                 allowEscapeKey: false,
                                 customClass: {
