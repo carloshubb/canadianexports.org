@@ -9,7 +9,8 @@
                     <p class="text-gray-600">
                         <template v-if="sponsers && sponsers.length == 0">
                             <span v-if="isLoggedInSponsor">
-                                You haven't created any sponsorships yet. Click "Add Another Sponsorship" to get started!
+                                You haven't created any sponsorships yet. Click "Add Another Sponsorship" to get
+                                started!
                             </span>
                             <span v-else>
                                 {{
@@ -45,10 +46,8 @@
                 </div>
                 <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
                     <div class="flex items-center justify-between gap-2">
-                        <a aria-label="Candian Exporters" 
-                            :href="`/${sponsor_become}/become-a-sponsor`"
-                            class="button-exp-fill" 
-                            v-if="isLoggedInSponsor">
+                        <a aria-label="Candian Exporters" :href="`/${sponsor_become}/become-a-sponsor`"
+                            class="button-exp-fill" v-if="isLoggedInSponsor">
                             {{
                                 sponser_setting &&
                                     sponser_setting.sponser_listing_setting_detail &&
@@ -95,12 +94,12 @@
                                         class="sticky top-0 z-0 bg-primary backdrop-blur backdrop-filter py-3.5 pl-3 pr-3 text-center font-FuturaMdCnBT text-white lg:text-xl md:text-lg text-lg font-normal">
                                         {{
                                             sponser_setting &&
-                                            sponser_setting.sponser_listing_setting_detail &&
-                                            sponser_setting
-                                                .sponser_listing_setting_detail[0]
+                                                sponser_setting.sponser_listing_setting_detail &&
+                                                sponser_setting
+                                                    .sponser_listing_setting_detail[0]
                                                 ? sponser_setting
-                                                      .sponser_listing_setting_detail[0]
-                                                      .action_text
+                                                    .sponser_listing_setting_detail[0]
+                                                    .action_text
                                                 : "Actions"
                                         }}
                                     </th>
@@ -112,11 +111,8 @@
                                     <td class="p-2 md:p-3 relative border-none">
                                         <div class="flex items-center gap-3">
                                             <div v-if="sponser.logo_media" class="w-12 h-12 flex-shrink-0">
-                                                <img 
-                                                    :src="`/${sponser.logo_media.path}`" 
-                                                    :alt="sponser.business_name"
-                                                    class="w-full h-full object-contain rounded"
-                                                />
+                                                <img :src="`/${sponser.logo_media.path}`" :alt="sponser.business_name"
+                                                    class="w-full h-full object-contain rounded" />
                                             </div>
                                             <div>
                                                 <div class="font-semibold">{{ sponser.business_name }}</div>
@@ -133,24 +129,20 @@
                                     </td>
                                     <td v-if="isLoggedInSponsor" class="p-2 md:p-3 relative border-none">
                                         <div class="flex flex-col gap-1">
-                                            <span
-                                                class="px-2 py-1 rounded-full text-xs font-medium inline-block w-fit"
+                                            <span class="px-2 py-1 rounded-full text-xs font-medium inline-block w-fit"
                                                 :class="{
                                                     'bg-green-100 text-green-800': sponser.status === 'active',
                                                     'bg-yellow-100 text-yellow-800': sponser.status === 'pending',
                                                     'bg-gray-100 text-gray-800': sponser.status === 'inactive',
-                                                }"
-                                            >
+                                                }">
                                                 {{ sponser.status }}
                                             </span>
-                                            <span
-                                                v-if="sponser.payment_status"
+                                            <span v-if="sponser.payment_status"
                                                 class="px-2 py-1 rounded-full text-xs font-medium inline-block w-fit"
                                                 :class="{
                                                     'bg-green-100 text-green-800': sponser.payment_status === 'paid',
                                                     'bg-yellow-100 text-yellow-800': sponser.payment_status === 'pending',
-                                                }"
-                                            >
+                                                }">
                                                 {{ sponser.payment_status }}
                                             </span>
                                         </div>
@@ -159,10 +151,10 @@
                                         <div class="flex gap-2 justify-center">
                                             <a :href="`/${sponsor_become}/user/sponsor-settings/${sponser.id}`"
                                                 class="px-3 py-1.5 bg-primary text-white rounded hover:bg-opacity-90 text-sm">
-                                                {{sponser_setting?.sponser_listing_setting_detail?.[0]?.edit_button_text || 'Edit'}}
+                                                {{ sponser_setting?.sponser_listing_setting_detail?.[0]?.edit_button_text
+                                                || 'Edit'}}
                                             </a>
-                                            <a :href="`/sponsor-detail/${sponser.slug}`"
-                                                target="_blank"
+                                            <a :href="`/sponsor-detail/${sponser.slug}`" target="_blank"
                                                 class="px-3 py-1.5 border border-gray-300 text-gray-700 rounded hover:bg-gray-50 text-sm">
                                                 View
                                             </a>
@@ -179,7 +171,7 @@
                         <div class="text-sm text-gray-600">
                             Showing <span class="font-medium">{{ pagination.from }}</span> to <span
                                 class="font-medium">{{
-                                pagination.to }}</span> of <span class="font-medium">{{ pagination.total }}</span>
+                                    pagination.to }}</span> of <span class="font-medium">{{ pagination.total }}</span>
                             entries
                         </div>
 
@@ -211,7 +203,18 @@
                                 Next
                             </button>
                         </div>
+
+
                     </div>
+                </div>
+                <!-- Become a Sponsor -->
+                <div v-if="sponsers.length === 0"  class="flex text-center justify-center mt-4">
+                    <!--Become a Sponsor -->
+                    <a :href="`/${sponsor_become}/become-a-sponsor`"
+                        class="button-exp-fill mt-6">
+                        Become a Sponsor
+                    </a>                  
+                 
                 </div>
             </div>
         </div>
@@ -332,6 +335,7 @@ export default {
 
                 if (response.data.status === "Success") {
                     this.sponsers = response.data.data;
+                    console.log("Fetched Sponsors:", this.sponsers); // Debug log
                     this.pagination = {
                         current_page: response.data.meta.current_page,
                         last_page: response.data.meta.last_page,
