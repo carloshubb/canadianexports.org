@@ -3,9 +3,9 @@
     <div class="mb-4">
       <div class="my-4" v-if="profile">
         <template v-if="JSON.parse(user)?.is_package_amount_paid">
-          <h4 class="font-Futura">{{ regPageSetting?.reg_page_setting_detail?.[0]
+          <h4 class="font-FuturaMdCnBT">{{ regPageSetting?.reg_page_setting_detail?.[0]
             ?.greeting_text ?? 'Welcome back' }} {{ JSON.parse(user)?.name }},</h4>
-          <p class="font-Futura" v-html="regPageSetting?.reg_page_setting_detail?.[0]
+          <p class="font-FuturaMdCnBT" v-html="regPageSetting?.reg_page_setting_detail?.[0]
               ?.step_2_acc_description
             "></p>
         </template>
