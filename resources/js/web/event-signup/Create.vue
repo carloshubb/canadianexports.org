@@ -1,151 +1,11 @@
 <template>
     <form class="lg:w-full" @submit.prevent="recaptcha()">
         <div class="my-4">
+            <!-- Step 1 of 4: Select Your Package -->
             <div
                 class="px-4 py-1.5 sm:px-6 text-center bg-gradient-to-r from-primary via-primary to-secondary rounded-md cursor-pointer my-6">
-                <h4 class="text-white">
-                    {{ JSON.parse(event_detail)["profile_section_heading"] }}
-                </h4>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="relative w-full mb-3">
-                    <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="name">{{
-                        JSON.parse(event_detail)["name_label"] }}
-                        <span class="text-red-500">*</span></label>
-                    <input @input="clearErrors('name')" type="text" class="can-exp-input" placeholder="" name="name"
-                        id="name" v-model="form.name" />
-                    <Error v-if="submitted" fieldName="name" :validationErros="validationErros" full_width="1" />
-                </div>
-                <div class="relative w-full mb-3">
-                    <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="business-name">{{
-                        JSON.parse(event_detail)["business_name_label"]
-                    }}<span class="ml-1 text-[0.95em] text-gray-600">(even if it the same as the name of the Event)
-                        </span></label>
-                    <input @input="clearErrors('business-name')" type="text" class="can-exp-input" placeholder=""
-                        name="business-name" id="business-name" v-model="form.business_name" />
-                    <Error v-if="submitted" fieldName="business_name" :validationErros="validationErros"
-                        full_width="1" />
-                </div>
-                <div class="relative w-full mb-3">
-                    <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="email">{{
-                        JSON.parse(event_detail)["email_label"] }}
-                        <span class="text-red-500">*</span></label>
-                    <input @input="clearErrors('email')" type="email" class="can-exp-input" placeholder="" name="email"
-                        id="email" v-model="form.email" @blur="checkEmailValidation($event.target.value)" />
-                    <Error v-if="submitted" fieldName="email" :validationErros="validationErros" full_width="1" />
-                </div>
-                <div class="relative w-full mb-3">
-                </div>
-                <div class="relative w-full mb-3" v-if="!isEditMode && !isLoggedIn">
-                    <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="password">{{
-                        JSON.parse(event_detail)["password_label"] }}<span
-                            class="ml-1 text-[0.95em] text-gray-600">(Min. 8 characters. Must contain at least one
-                            lowercase and one uppercase)</span><span class="text-red-500">*</span></label>
-                    <div class="relative">
-                        <input @input="clearErrors('password')" :type="display_password" class="can-exp-input"
-                            :placeholder="JSON.parse(event_detail).password_placeholder
-                                " name="password" id="password" v-model="form.password" />
-                        <svg class="w-5 h-5 text-gray-500 absolute top-3" :class="lang &&
-                            JSON.parse(lang) &&
-                            JSON.parse(lang)['direction'] == 'ltr'
-                            ? 'right-3'
-                            : 'left-3'
-                            " @click="display_password = 'text'" v-if="display_password == 'password'"
-                            viewBox="0 0 51 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_1249_2209)">
-                                <path
-                                    d="M28.22 0.59C27.73 0.53 27.24 0.49 26.75 0.43H24.2C23.63 0.5 23.06 0.56 22.49 0.63C18.95 1.07 15.69 2.29 12.64 4.13C8.56 6.6 5.23 9.88 2.39 13.68C1.62 14.71 0.93 15.8 0.21 16.86C0.14 16.95 0.07 17.04 0 17.13V17.21C0.69 18.22 1.35 19.25 2.08 20.23C4.89 24.01 8.16 27.31 12.15 29.86C12.19 29.89 12.23 29.91 12.27 29.93C12.33 29.8 12.4 29.69 12.48 29.57L15.51 24.97C14.14 22.86 13.27 20.55 13.11 17.99C12.67 11.02 17.98 5.1 24.95 4.8C26.2 4.75 27.39 4.88 28.54 5.16L31.18 1.16C30.21 0.91 29.23 0.72 28.22 0.59ZM49.22 14.6C46.3 10.58 42.89 7.08 38.68 4.43C38.61 4.55 38.55 4.65 38.48 4.76L35.45 9.37C35.78 9.87 36.07 10.4 36.34 10.94C37.91 14.11 38.37 17.4 37.33 20.82C35.74 26.05 30.92 29.58 24.98 29.58C24.12 29.57 23.24 29.45 22.37 29.24L19.77 33.2C20.51 33.4 21.27 33.55 22.04 33.67C22.64 33.76 23.25 33.83 23.85 33.91H27.11C27.62 33.84 28.13 33.78 28.64 33.71C32.31 33.22 35.68 31.91 38.8 29.93C43.22 27.13 46.74 23.41 49.69 19.12C50.12 18.49 50.54 17.84 50.96 17.21V17.13C50.38 16.29 49.82 15.43 49.22 14.6ZM37.38 3.65C37.34 3.75 37.28 3.85 37.22 3.94L34.46 8.13L20.88 28.78L18.26 32.77L17.98 33.19C17.49 33.93 16.68 34.34 15.85 34.34C15.37 34.34 14.89 34.2 14.46 33.92C13.39 33.21 13.02 31.83 13.56 30.7C13.61 30.6 13.67 30.5 13.73 30.4L16.47 26.24L30.04 5.61L32.69 1.6L32.98 1.15C33.47 0.41 34.28 0 35.1 0C35.58 0 36.07 0.14 36.5 0.42C37.58 1.13 37.93 2.52 37.38 3.65Z"
-                                    fill="currentcolor" />
-                            </g>
-                            <defs>
-                                <clipPath id="clip0_1249_2209">
-                                    <rect width="50.96" height="34.34" fill="currentcolor" />
-                                </clipPath>
-                            </defs>
-                        </svg>
-                        <svg class="w-5 h-5 text-gray-500 absolute top-3" :class="lang &&
-                            JSON.parse(lang) &&
-                            JSON.parse(lang)['direction'] == 'ltr'
-                            ? 'right-3'
-                            : 'left-3'
-                            " @click="display_password = 'password'" v-else-if="display_password == 'text'"
-                            viewBox="0 0 51 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_1248_2207)">
-                                <path
-                                    d="M50.96 16.7C50.96 16.72 50.96 16.75 50.96 16.77C50.54 17.41 50.13 18.05 49.69 18.68C46.74 22.97 43.22 26.69 38.8 29.49C35.68 31.46 32.31 32.77 28.64 33.26C28.13 33.33 27.62 33.39 27.11 33.46C26.02 33.46 24.94 33.46 23.85 33.46C23.25 33.38 22.64 33.31 22.04 33.22C18.47 32.67 15.19 31.35 12.15 29.41C8.16 26.86 4.89 23.57 2.08 19.78C1.36 18.82 0.69 17.78 0 16.77C0 16.75 0 16.72 0 16.7C0.07 16.61 0.15 16.52 0.21 16.42C0.93 15.36 1.62 14.27 2.39 13.24C5.23 9.44 8.57 6.16 12.65 3.69C15.69 1.85 18.96 0.64 22.5 0.2C23.07 0.13 23.64 0.07 24.21 0C25.06 0 25.91 0 26.76 0C27.25 0.05 27.74 0.1 28.22 0.16C31.57 0.58 34.7 1.67 37.63 3.35C42.33 6.06 46.07 9.81 49.23 14.17C49.82 15 50.38 15.86 50.96 16.7ZM24.98 29.15C30.92 29.15 35.74 25.62 37.33 20.39C38.37 16.97 37.92 13.67 36.34 10.51C35.58 8.98 34.69 7.57 33.14 6.66C30.6 5.17 27.94 4.24 24.96 4.37C17.99 4.68 12.67 10.59 13.12 17.56C13.3 20.43 14.37 22.98 16.03 25.3C16.26 25.62 16.55 25.92 16.87 26.15C19.42 28.02 22.25 29.12 24.98 29.15Z"
-                                    fill="currentcolor" />
-                            </g>
-                            <defs>
-                                <clipPath id="clip0_1248_2207">
-                                    <rect width="50.96" height="33.48" fill="currentcolor" />
-                                </clipPath>
-                            </defs>
-                        </svg>
-                    </div>
-
-                    <Error v-if="submitted" fieldName="password" :validationErros="validationErros" full_width="1" />
-                </div>
-
-                <div class="relative w-full mb-3">
-                </div>
-
-                <div class="relative w-full mb-3" v-if="!isEditMode && !isLoggedIn"><br>
-                    <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
-                        for="password_confirmation">{{
-                            JSON.parse(event_detail)["confirm_password_label"]
-                        }}
-                        <span class="text-red-500">*</span></label>
-                    <div class="relative">
-                        <input @input="clearErrors('password_confirmation')" :type="display_confirm_password"
-                            class="can-exp-input" placeholder="" name="password_confirmation" id="password_confirmation"
-                            @blur="checkPassword()" v-model="form.password_confirmation" />
-                        <svg class="w-5 h-5 text-gray-500 absolute top-3" :class="lang &&
-                            JSON.parse(lang) &&
-                            JSON.parse(lang)['direction'] == 'ltr'
-                            ? 'right-3'
-                            : 'left-3'
-                            " @click="display_confirm_password = 'text'" v-if="display_confirm_password == 'password'"
-                            viewBox="0 0 51 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_1249_2209)">
-                                <path
-                                    d="M28.22 0.59C27.73 0.53 27.24 0.49 26.75 0.43H24.2C23.63 0.5 23.06 0.56 22.49 0.63C18.95 1.07 15.69 2.29 12.64 4.13C8.56 6.6 5.23 9.88 2.39 13.68C1.62 14.71 0.93 15.8 0.21 16.86C0.14 16.95 0.07 17.04 0 17.13V17.21C0.69 18.22 1.35 19.25 2.08 20.23C4.89 24.01 8.16 27.31 12.15 29.86C12.19 29.89 12.23 29.91 12.27 29.93C12.33 29.8 12.4 29.69 12.48 29.57L15.51 24.97C14.14 22.86 13.27 20.55 13.11 17.99C12.67 11.02 17.98 5.1 24.95 4.8C26.2 4.75 27.39 4.88 28.54 5.16L31.18 1.16C30.21 0.91 29.23 0.72 28.22 0.59ZM49.22 14.6C46.3 10.58 42.89 7.08 38.68 4.43C38.61 4.55 38.55 4.65 38.48 4.76L35.45 9.37C35.78 9.87 36.07 10.4 36.34 10.94C37.91 14.11 38.37 17.4 37.33 20.82C35.74 26.05 30.92 29.58 24.98 29.58C24.12 29.57 23.24 29.45 22.37 29.24L19.77 33.2C20.51 33.4 21.27 33.55 22.04 33.67C22.64 33.76 23.25 33.83 23.85 33.91H27.11C27.62 33.84 28.13 33.78 28.64 33.71C32.31 33.22 35.68 31.91 38.8 29.93C43.22 27.13 46.74 23.41 49.69 19.12C50.12 18.49 50.54 17.84 50.96 17.21V17.13C50.38 16.29 49.82 15.43 49.22 14.6ZM37.38 3.65C37.34 3.75 37.28 3.85 37.22 3.94L34.46 8.13L20.88 28.78L18.26 32.77L17.98 33.19C17.49 33.93 16.68 34.34 15.85 34.34C15.37 34.34 14.89 34.2 14.46 33.92C13.39 33.21 13.02 31.83 13.56 30.7C13.61 30.6 13.67 30.5 13.73 30.4L16.47 26.24L30.04 5.61L32.69 1.6L32.98 1.15C33.47 0.41 34.28 0 35.1 0C35.58 0 36.07 0.14 36.5 0.42C37.58 1.13 37.93 2.52 37.38 3.65Z"
-                                    fill="currentcolor" />
-                            </g>
-                            <defs>
-                                <clipPath id="clip0_1249_2209">
-                                    <rect width="50.96" height="34.34" fill="currentcolor" />
-                                </clipPath>
-                            </defs>
-                        </svg>
-                        <svg class="w-5 h-5 text-gray-500 absolute top-3" :class="lang &&
-                            JSON.parse(lang) &&
-                            JSON.parse(lang)['direction'] == 'ltr'
-                            ? 'right-3'
-                            : 'left-3'
-                            " @click="display_confirm_password = 'password'"
-                            v-else-if="display_confirm_password == 'text'" viewBox="0 0 51 34" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_1248_2207)">
-                                <path
-                                    d="M50.96 16.7C50.96 16.72 50.96 16.75 50.96 16.77C50.54 17.41 50.13 18.05 49.69 18.68C46.74 22.97 43.22 26.69 38.8 29.49C35.68 31.46 32.31 32.77 28.64 33.26C28.13 33.33 27.62 33.39 27.11 33.46C26.02 33.46 24.94 33.46 23.85 33.46C23.25 33.38 22.64 33.31 22.04 33.22C18.47 32.67 15.19 31.35 12.15 29.41C8.16 26.86 4.89 23.57 2.08 19.78C1.36 18.82 0.69 17.78 0 16.77C0 16.75 0 16.72 0 16.7C0.07 16.61 0.15 16.52 0.21 16.42C0.93 15.36 1.62 14.27 2.39 13.24C5.23 9.44 8.57 6.16 12.65 3.69C15.69 1.85 18.96 0.64 22.5 0.2C23.07 0.13 23.64 0.07 24.21 0C25.06 0 25.91 0 26.76 0C27.25 0.05 27.74 0.1 28.22 0.16C31.57 0.58 34.7 1.67 37.63 3.35C42.33 6.06 46.07 9.81 49.23 14.17C49.82 15 50.38 15.86 50.96 16.7ZM24.98 29.15C30.92 29.15 35.74 25.62 37.33 20.39C38.37 16.97 37.92 13.67 36.34 10.51C35.58 8.98 34.69 7.57 33.14 6.66C30.6 5.17 27.94 4.24 24.96 4.37C17.99 4.68 12.67 10.59 13.12 17.56C13.3 20.43 14.37 22.98 16.03 25.3C16.26 25.62 16.55 25.92 16.87 26.15C19.42 28.02 22.25 29.12 24.98 29.15Z"
-                                    fill="currentcolor" />
-                            </g>
-                            <defs>
-                                <clipPath id="clip0_1248_2207">
-                                    <rect width="50.96" height="33.48" fill="currentcolor" />
-                                </clipPath>
-                            </defs>
-                        </svg>
-                    </div>
-
-                    <Error v-if="submitted" fieldName="password_confirmation" :validationErros="validationErros"
-                        full_width="1" />
-                </div>
-            </div>
-            <div
-                class="px-4 py-1.5 sm:px-6 text-center bg-gradient-to-r from-primary via-primary to-secondary rounded-md cursor-pointer my-6">
-                <h4 class="text-white">
-                    {{ JSON.parse(event_detail)["package_section_heading"] }}
+                <h4 class="text-center card-heading text-white">
+                    {{ JSON.parse(event_detail)["package_section_heading"] ?? '1 of 4 - Select Your Package' }}
                 </h4>
             </div>
             <div class="w-full">
@@ -153,20 +13,19 @@
                     <div class="mx-auto max-w-7xl px-6 lg:px-8">
                         <div
                             class="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-auto lg:max-w-3xl md:grid-cols-2 lg:grid-cols-2">
-                            <div v-if="premiumPackage" class="rounded-3xl p-6 xl:p-6 border bg-white cursor-pointer"
-                                :class="form.package_type == 'premium'
-                                    ? 'ring-2 ring-[#006EB7]'
-                                    : ''
-                                    " @click.prevent="
-                                        updatePackageForm(premiumPackage)
-                                        ">
+                            <div v-if="premiumPackage" class="rounded-3xl p-6 xl:p-6 bg-white cursor-pointer overflow-hidden transition-all duration-200"
+                                :class="[
+                                    form.package_type == 'premium'
+                                        ? 'border-[3px] border-red-600 opacity-100'
+                                        : 'border border-gray-300 opacity-55'
+                                ]"
+                                @click.prevent="updatePackageForm(premiumPackage)">
+                                <!-- Premium bar: red bg, white text, rounded top only; full color when selected (card opacity fades when not) -->
+                                <div class="w-full mb-6 rounded-t-xl rounded-b-none bg-red-600 py-2.5 flex items-center justify-center">
+                                    <span class="text-white font-semibold text-lg">Premium</span>
+                                </div>
                                 <div class="flex flex-col items-center justify-center text-center gap-y-2">
 
-
-
-                                    <h3 id="tier-startup" class="text-xl leading-8 text-blue-600">
-                                        {{ premiumPackage?.registration_package_detail?.[0]?.name }}
-                                    </h3>
                                     <p v-if="premiumPackage?.is_default"
                                         class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600">
                                         Most popular
@@ -203,21 +62,18 @@
                                 </ul>
                             </div>
 
-                            <div v-if="featuredPackage" class="rounded-3xl p-6 xl:p-6 border bg-white cursor-pointer"
-                                :class="form.package_type == 'featured'
-                                    ? 'ring-2 ring-[#006EB7]'
-                                    : ''
-                                    " @click.prevent="
-                                        updatePackageForm(featuredPackage)
-                                        ">
+                            <div v-if="featuredPackage" class="rounded-3xl p-6 xl:p-6 bg-white cursor-pointer overflow-hidden transition-all duration-200"
+                                :class="[
+                                    form.package_type == 'featured'
+                                        ? 'border-[3px] border-[#800000] opacity-100'
+                                        : 'border border-gray-100 opacity-55'
+                                ]"
+                                @click.prevent="updatePackageForm(featuredPackage)">
+                                <!-- Featured bar: maroon bg, warm gold text, rounded top only; full color when selected (card opacity fades when not). Unselected frame: very thin light grey -->
+                                <div class="w-full mb-6 rounded-t-xl rounded-b-none bg-[#800000] py-2.5 flex items-center justify-center">
+                                    <span class="font-semibold text-lg text-[#C9A227]">Featured</span>
+                                </div>
                                 <div class="flex flex-col items-center justify-center text-center gap-y-1">
-                                    <h3 id="tier-startup" class="text-xl leading-8 text-blue-600">
-                                        {{
-                                            featuredPackage
-                                                ?.registration_package_detail?.[0]
-                                                ?.name
-                                        }}
-                                    </h3>
                                     <p class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600 mt-1"
                                         v-if="featuredPackage?.is_default">
                                         Most popular
@@ -552,10 +408,117 @@
                 </div> -->
             </div>
 
+            <!-- Step 2 of 4: Organizer & Contact Information -->
+            <div class="px-4 my-6 py-1.5 sm:px-6 text-center bg-gradient-to-r from-primary via-primary to-secondary rounded-md">
+                <h4 class="text-center card-heading text-white">{{ JSON.parse(event_detail)["organizer_contact_section_heading"] ?? '2 of 4 - Organizer & Contact Information' }}</h4>
+            </div>
+            <div class="mb-6">
+                 <div class="border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
+                <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">Your Profile</h5>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="relative w-full mb-3">
+                        <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="name">{{ JSON.parse(event_detail)["name_label"] }} <span class="text-red-500">*</span></label>
+                        <input @input="clearErrors('name')" type="text" class="can-exp-input" :placeholder="JSON.parse(event_detail)['name_label'] || 'Full Name'" name="name" id="name" v-model="form.name" />
+                        <Error v-if="submitted" fieldName="name" :validationErros="validationErros" full_width="1" />
+                    </div>
+                    <div class="relative w-full mb-3">
+                        <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="job_title">Job Title</label>
+                        <input @input="clearErrors('job_title')" type="text" class="can-exp-input" placeholder="Job Title" name="job_title" id="job_title" v-model="form.job_title" />
+                        <Error v-if="submitted" fieldName="job_title" :validationErros="validationErros" full_width="1" />
+                    </div>
+                    <div class="relative w-full mb-3">
+                        <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="email">{{ JSON.parse(event_detail)["email_label"] }} <span class="text-red-500">*</span></label>
+                        <input @input="clearErrors('email')" type="email" class="can-exp-input" :placeholder="JSON.parse(event_detail)['email_label'] || 'Login Email'" name="email" id="email" v-model="form.email" @blur="checkEmailValidation($event.target.value)" />
+                        <Error v-if="submitted" fieldName="email" :validationErros="validationErros" full_width="1" />
+                    </div>
+                    <template v-if="!isEditMode && !isLoggedIn">
+                        <div class="relative w-full mb-3">
+                            <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="password">{{ JSON.parse(event_detail)["password_label"] || 'Create Password' }} <span class="text-red-500">*</span></label>
+                            <div class="relative">
+                                <input @input="clearErrors('password')" :type="display_password" class="can-exp-input" :placeholder="(JSON.parse(event_detail)['password_label'] || 'Create Password')" name="password" id="password" v-model="form.password" />
+                                <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 cursor-pointer text-sm" @click="display_password = display_password === 'password' ? 'text' : 'password'">{{ display_password === 'password' ? 'Show' : 'Hide' }}</span>
+                            </div>
+                            <Error v-if="submitted" fieldName="password" :validationErros="validationErros" full_width="1" />
+                        </div>
+                        <div class="relative w-full mb-3">
+                            <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="password_confirmation">{{ JSON.parse(event_detail)["confirm_password_label"] || 'Confirm Password' }} <span class="text-red-500">*</span></label>
+                            <input @input="clearErrors('password_confirmation')" :type="display_confirm_password" class="can-exp-input" :placeholder="(JSON.parse(event_detail)['confirm_password_label'] || 'Confirm Password')" name="password_confirmation" id="password_confirmation" @blur="checkPassword()" v-model="form.password_confirmation" />
+                            <Error v-if="submitted" fieldName="password_confirmation" :validationErros="validationErros" full_width="1" />
+                        </div>
+                    </template>
+                </div>
+            </div>
+            <div class="mb-6">
+             <div class="border border-gray-200 mt-6 rounded-lg p-6 bg-white shadow-sm">
+                <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">The Organizer</h5>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="relative w-full mb-3">
+                        <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="business-name">{{ JSON.parse(event_detail)["business_name_label"] || 'Organizer Name' }}</label>
+                        <input @input="clearErrors('business_name')" type="text" class="can-exp-input" :placeholder="(JSON.parse(event_detail)['business_name_label'] || 'Organizer Name')" name="business-name" id="business-name" v-model="form.business_name" />
+                        <Error v-if="submitted" fieldName="business_name" :validationErros="validationErros" full_width="1" />
+                    </div>
+                    <div class="relative w-full mb-3">
+                        <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="organizer_website">Organizer Website</label>
+                        <input @input="clearErrors('organizer_website')" type="url" class="can-exp-input" placeholder="Organizer Website" name="organizer_website" id="organizer_website" v-model="form.organizer_website" />
+                        <Error v-if="submitted" fieldName="organizer_website" :validationErros="validationErros" full_width="1" />
+                    </div>
+                    <div class="relative w-full mb-3">
+                        <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="organizer_phone">Phone</label>
+                        <input @input="clearErrors('organizer_phone')" type="text" class="can-exp-input" placeholder="Phone" name="organizer_phone" id="organizer_phone" v-model="form.organizer_phone" />
+                        <Error v-if="submitted" fieldName="organizer_phone" :validationErros="validationErros" full_width="1" />
+                    </div>
+                    <div class="relative w-full mb-3 md:col-span-2">
+                        <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="mailing_address">Mailing Address</label>
+                        <input @input="clearErrors('mailing_address')" type="text" class="can-exp-input" placeholder="Mailing Address" name="mailing_address" id="mailing_address" v-model="form.mailing_address" />
+                        <Error v-if="submitted" fieldName="mailing_address" :validationErros="validationErros" full_width="1" />
+                    </div>
+                </div>
+             </div>
+            </div>
+            <div class="mb-6">
+             <div class="border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
+                <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">Contact Person</h5>
+                <div v-for="(contact, index) in contacts" :key="index">
+                    <div class="grid md:grid-cols-2 md:gap-6 gap-4 mt-6 bg-white shadow rounded-lg p-6">
+                        <div class="relative z-0 w-full group">
+                            <label :for="`contact-name-[${index}]`" class="text-base md:text-base lg:text-lg">Full Name and Title <span class="text-red-500">*</span></label>
+                            <input type="text" name="contact-name" :id="`contact-name-[${index}]`" class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600" v-model="contact.name" placeholder="Full Name and Title" @input="updateContact(index, 'name', $event.target.value); clearErrors(`contacts.${index}.name`);" />
+                            <Error :fieldName="`contacts.${index}.name`" :validationErros="validationErros" />
+                        </div>
+                        <div class="relative z-0 w-full group">
+                            <label :for="`contact-phone-[${index}]`" class="text-base md:text-base lg:text-lg">Contact Phone <span class="text-gray-500 text-xs">(If different from the business phone)</span> <span class="text-red-500">*</span></label>
+                            <input type="text" name="contact-phone" :id="`contact-phone-[${index}]`" class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600" v-model="contact.phone" placeholder="Contact Phone (If different from the business phone)" maxlength="15" @input="handleContactPhoneInput(index, $event.target.value)" @keypress="validatePhoneKeypress" />
+                            <Error :fieldName="`contacts.${index}.phone`" :validationErros="validationErros" />
+                        </div>
+                        <div class="relative z-0 w-full group">
+                            <label :for="`contact-email-[${index}]`" class="text-base md:text-base lg:text-lg">Email <span class="text-gray-500 text-xs">(If different from the login email)</span> <span class="text-red-500">*</span></label>
+                            <input type="text" name="contact-email" :id="`contact-email-[${index}]`" class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600" v-model="contact.email" placeholder="Email (If different from the login email)" @input="updateContact(index, 'email', $event.target.value); clearErrors(`contacts.${index}.email`);" />
+                            <Error :fieldName="`contacts.${index}.email`" :validationErros="validationErros" />
+                        </div>
+                        <div class="relative z-0 w-full group">
+                            <label :for="`contact-image-[${index}]`" class="text-base md:text-base lg:text-lg inline-flex items-center gap-1">
+                                Contact Person's Photo <span class="text-gray-500 text-xs">(Optional)</span>
+                                <span class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-gray-400 text-white text-xs font-bold cursor-help flex-shrink-0" title="Adding a photo helps other delegates and attendees recognize you at the event!">!</span>
+                            </label>
+                            <input type="file" name="contact-image" :id="`contact-image-[${index}]`" class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600" @change="uploadImage($event, index)" @input="clearErrors(`contacts.${index}.image_path`)" />
+                            <div v-if="contact.image_path" class="mt-2"><img :src="contact.image_path" class="h-40 w-40 object-cover rounded-lg cursor-pointer hover:opacity-80 transition-opacity" @click="showImagePopup(contact.image_path)" /></div>
+                            <Error :fieldName="`contacts.${index}.image_path`" :validationErros="validationErros" />
+                        </div>
+                        <div v-if="index !== 0" class="relative z-0 w-full group">
+                            <button type="button" class="button-exp-fill mt-7" @click.prevent="deleteContact(index)">{{ JSON.parse(eventsetting).delete_btn_text }}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-right mt-2">
+                    <button type="button" class="button-exp-fill" @click.prevent="addContact">{{ JSON.parse(eventsetting).add_new_contact_btn_text }}</button>
+                </div>
+             </div>
+            </div>
+
             <div
                 class="px-4 my-6 py-1.5 sm:px-6 text-center bg-gradient-to-r from-primary via-primary to-secondary rounded-md">
                 <h4 class="text-center card-heading text-white">
-                    {{ JSON.parse(event_detail)["event_section_heading"] ?? 'Step 3 of 5 - Create your event' }}
+                    {{ JSON.parse(event_detail)["event_section_heading"] ?? 'Step 3 of 4 - Create Your Event' }}
                 </h4>
             </div>
             <div class="grid my-5 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6"
@@ -916,176 +879,7 @@
             <div
                 class="px-4 my-6 py-1.5 sm:px-6 text-center bg-gradient-to-r from-primary via-primary to-secondary rounded-md">
                 <h4 class="text-center card-heading text-white">
-                    {{ JSON.parse(event_detail)["contact_section_heading"] ?? 'Step 4 of 5 - Contact information' }}
-                </h4>
-            </div>
-
-            <div v-for="(contact, index) in contacts" :key="index">
-                <div class="grid md:grid-cols-3 md:gap-6 gap-4 mt-6 bg-white shadow rounded-lg p-6">
-                    <div class="relative z-0 w-full group">
-                        <label :for="`contact-name-[${index}]`" class="text-base md:text-base lg:text-lg">
-                            {{ JSON.parse(eventsetting).contact_name_label }}
-                            <span class="text-red-500">*</span>
-                        </label>
-                        <input type="text" name="contact-name" :id="`contact-name-[${index}]`"
-                            class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
-                            v-model="contact.name" placeholder="" @input="
-                                updateContact(
-                                    index,
-                                    'name',
-                                    $event.target.value
-                                );
-                            clearErrors(`contacts.${index}.name`);
-                            " />
-                        <Error :fieldName="`contacts.${index}.name`" :validationErros="validationErros" />
-                    </div>
-
-                    <!-- Contact Email -->
-                    <div class="relative z-0 w-full group">
-                        <label :for="`contact-email-[${index}]`" class="text-base md:text-base lg:text-lg">
-                            {{ JSON.parse(eventsetting).contact_email_label }}
-                            <span class="text-red-500">*</span>
-                        </label>
-                        <input type="text" name="contact-email" :id="`contact-email-[${index}]`"
-                            class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
-                            v-model="contact.email" placeholder="" @input="
-                                updateContact(
-                                    index,
-                                    'email',
-                                    $event.target.value
-                                );
-                            clearErrors(`contacts.${index}.email`);
-                            " />
-                        <Error :fieldName="`contacts.${index}.email`" :validationErros="validationErros" />
-                    </div>
-
-                    <!-- Contact Phone -->
-                    <div class="relative z-0 w-full group">
-                        <label :for="`contact-phone-[${index}]`" class="text-base md:text-base lg:text-lg">
-                            {{ JSON.parse(eventsetting).contact_phone_label }}
-                            <span class="text-red-500">*</span>
-                        </label>
-                        <input type="text" name="contact-phone" :id="`contact-phone-[${index}]`"
-                            class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
-                            v-model="contact.phone" placeholder="15551234567" maxlength="15"
-                            @input="handleContactPhoneInput(index, $event.target.value)"
-                            @keypress="validatePhoneKeypress" />
-                        <Error :fieldName="`contacts.${index}.phone`" :validationErros="validationErros" />
-                    </div>
-
-                    <!-- Contact Designation -->
-                    <!-- <div class="relative z-0 w-full group">
-                        <label
-                            :for="`contact-designation-[${index}]`"
-                            class="text-base md:text-base lg:text-lg"
-                        >
-                            {{
-                                JSON.parse(eventsetting)
-                                    .contact_designation_label
-                            }}
-                            <span class="text-red-500">*</span>
-                        </label>
-                        <input
-                            type="text"
-                            name="contact-designation"
-                            :id="`contact-designation-[${index}]`"
-                            class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
-                            v-model="contact.designation"
-                            placeholder=""
-                            @input="
-                                updateContact(
-                                    index,
-                                    'designation',
-                                    $event.target.value
-                                );
-                                clearErrors(`contacts.${index}.designation`);
-                            "
-                        />
-                        <Error
-                            :fieldName="`contacts.${index}.designation`"
-                            :validationErros="validationErros"
-                        />
-                    </div> -->
-
-                    <!-- Contact Image -->
-                    <!-- <div class="relative z-0 w-full group">
-                        <label
-                            :for="`contact-image-[${index}]`"
-                            class="text-base md:text-base lg:text-lg"
-                        >
-                            {{ JSON.parse(eventsetting).profile_image_label }}
-                            <span class="text-red-500">*</span>
-                        </label>
-                        <input
-                            type="file"
-                            name="contact-image"
-                            :id="`contact-image-[${index}]`"
-                            class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
-                            @change="uploadImage($event, index)"
-                            @input="clearErrors(`contacts.${index}.image_path`)"
-                        />
-                        <img
-                            v-if="contact.image_path"
-                            :src="contact.image_path"
-                            style="height: 100px; width: 100px"
-                        />
-                        <Error
-                            :fieldName="`file`"
-                            :validationErros="validationErros"
-                        />
-                        <Error
-                            :fieldName="`contacts.${index}.image_path`"
-                            :validationErros="validationErros"
-                        />
-                    </div> -->
-                    <div class="relative z-0 w-full group mt-2">
-                        <label :for="`contact-image-[${index}]`" class="text-base md:text-base lg:text-lg">
-                            {{ JSON.parse(eventsetting).profile_image_label }}
-                            <span class="ml-1 text-[0.95em] text-gray-600">(PNG, GIF, JPG, or JPEG format · 5 MB max)
-                            </span>
-
-                        </label>
-                        <input type="file" name="contact-image" :id="`contact-image-[${index}]`"
-                            class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
-                            @change="uploadImage($event, index)" @input="clearErrors(`contacts.${index}.image_path`)" />
-                        <div v-if="contact.image_path" class="mt-2">
-                            <img :src="contact.image_path"
-                                class="h-40 w-40 object-cover rounded-lg cursor-pointer hover:opacity-80 transition-opacity"
-                                @click="showImagePopup(contact.image_path)" />
-                        </div>
-                        <Error :fieldName="`file`" :validationErros="validationErros" />
-                        <Error :fieldName="`contacts.${index}.image_path`" :validationErros="validationErros" />
-                    </div>
-
-                    <div v-if="popupImage"
-                        class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
-                        <div class="relative max-w-4xl max-h-full">
-                            <img :src="popupImage" class="max-w-full max-h-screen" />
-                            <button @click="popupImage = null"
-                                class="absolute top-4 right-4 text-white text-2xl hover:text-gray-300">
-                                &times;
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Delete Contact Button -->
-                    <div v-if="index !== 0" class="relative z-0 w-full group">
-                        <button type="button" class="button-exp-fill mt-7" @click.prevent="deleteContact(index)">
-                            {{ JSON.parse(eventsetting).delete_btn_text }}
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="text-right">
-                <button type="button" class="button-exp-fill mt-7" @click.prevent="addContact">
-                    {{ JSON.parse(eventsetting).add_new_contact_btn_text }}
-                </button>
-            </div>
-
-            <div
-                class="px-4 my-6 py-1.5 sm:px-6 text-center bg-gradient-to-r from-primary via-primary to-secondary rounded-md">
-                <h4 class="text-center card-heading text-white">
-                    {{ JSON.parse(event_detail)["media_section_heading"] ?? 'Step 5 of 5 - Social media (Optional)' }}
+                    {{ JSON.parse(event_detail)["media_section_heading"] ?? 'Step 4 of 4 - Social Media (Optional)' }}
                 </h4>
             </div>
             <div class="grid md:grid-cols-2 md:gap-6 gap-4">
@@ -1172,6 +966,7 @@
                     <Error v-if="submitted" fieldName="snapchat_url" :validationErros="validationErros" />
                 </div>
             </div>
+        </div>
         </div>
         <div class="mt-8 flex">
             <div class="">
@@ -1314,6 +1109,10 @@ export default {
                 email: "",
                 password: "",
                 password_confirmation: "",
+                job_title: null,
+                organizer_website: null,
+                organizer_phone: null,
+                mailing_address: null,
                 package_id: "",
                 order_amount: 0,
                 payment_method: "stripe",
@@ -2263,19 +2062,11 @@ export default {
                         (p) => p.package_type == "premium"
                     );
 
-                    // Only set default package if not in edit mode
-                    if (!this.isEditMode) {
-                        this.packages.map((registrationPackage) => {
-                            if (registrationPackage.is_default == "1") {
-                                this.form.package_id = registrationPackage.id;
-                                this.form.order_amount =
-                                    registrationPackage.event_price;
-                                this.form.package_type =
-                                    registrationPackage.package_type;
-
-                                return true;
-                            }
-                        });
+                    // Premium is always selected by default when not in edit mode
+                    if (!this.isEditMode && this.premiumPackage) {
+                        this.form.package_id = this.premiumPackage.id;
+                        this.form.order_amount = this.premiumPackage.event_price;
+                        this.form.package_type = "premium";
                     }
                 }
             });
