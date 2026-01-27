@@ -43,6 +43,19 @@ const signup = {
         setMaxFiles(state, payload) {
             state.max_files = payload;
         },
+        trimGalleryImagesToLimit(state, maxFiles) {
+            let arr = [];
+            try {
+                const g = state.form.get("gallery_images");
+                if (g) arr = typeof g === "string" ? JSON.parse(g) : (Array.isArray(g) ? g : []);
+            } catch (e) {}
+            if (arr.length > maxFiles) {
+                const trimmed = arr.slice(0, maxFiles);
+                state.form.set("gallery_images", JSON.stringify(trimmed));
+                state.validationErros.set("gallery_images", `Please limit the number of your images to ${maxFiles}`);
+                state.formRevision = (state.formRevision || 0) + 1;
+            }
+        },
         setSelectedPackageId(state, payload) {
             state.selectedPackageId = payload;
         },

@@ -538,10 +538,9 @@ export default {
       }
     },
     updateForm(field, registrationPackage) {
-      this.$store.commit(
-        "signup/setMaxFiles",
-        registrationPackage.images_allowed
-      );
+      const newLimit = registrationPackage.images_allowed;
+      this.$store.commit("signup/trimGalleryImagesToLimit", newLimit);
+      this.$store.commit("signup/setMaxFiles", newLimit);
       this.$store.commit("signup/setSelectedPackageId", registrationPackage.id);
       this.$store.commit("signup/setForm", {
         field: [field],

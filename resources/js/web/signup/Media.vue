@@ -176,7 +176,7 @@
             {{
               regPageSetting?.reg_page_setting_detail?.[0]?.step_5_logo_label
             }}
-             <span class="ml-1 text-[0.9em] text-gray-600">Logo  (PNG, GIF, JPG, or JPEG format, max 10 MB.)</span>
+             <span class="ml-1 text-[0.9em] text-gray-600">(PNG, GIF, JPG, or JPEG format, max 10 MB.)</span>
           </label>
           <FilePond
             class="cursor-pointer"
@@ -205,15 +205,13 @@
             {{
               regPageSetting?.reg_page_setting_detail?.[0]
                 ?.step_5_gallery_image_label
-            }}<span class="ml-1 text-[0.9em] text-gray-600">Images (Up to 8 allowed, 5 MB max each, in PNG, GIF, JPG, or JPEG format.)</span>
+            }}<span class="ml-1 text-[0.9em] text-gray-600">(Up to {{ max_files }} allowed, 5 MB max each, in PNG, GIF, JPG, or JPEG format.)</span>
 
-            </label
-          >
+            </label>
           <FilePond
             allow-multiple
             accepted-file-types="image/*"
-            :imagePreviewHeight="150"
-            :stylePanelAspectRatio="1"
+            
             class-name="xelent-pond"
             credits="false",
             :labelIdle="`<span class='cursor-pointer'>${regPageSetting?.reg_page_setting_detail?.[0]?.step_5_gallery_image_placeholder}</span>`"
@@ -371,7 +369,22 @@ export default {
     }
   }
 },
+  watch: {
+    max_files(newVal, oldVal) {
+      if (this.profile !== "1" && oldVal !== undefined && newVal < oldVal && this.gallery_files.length > newVal) {
+        this.trimGalleryToMax();
+      }
+    },
+  },
   methods: {
+    trimGalleryToMax() {
+      if (this.gallery_files.length <= this.max_files) return;
+      this.gallery_files = this.gallery_files.slice(0, this.max_files);
+      this.$store.commit("signup/updateValidationErros", {
+        field: "gallery_images",
+        message: `Please limit the number of your images to ${this.max_files}`,
+      });
+    },
     limitWords(event, fieldName, maxWords) {
     const inputElement = event.target;
     let val = inputElement.value;
@@ -593,10 +606,13 @@ export default {
     },
     handleGalleryImagesWarning(error, file, status) {
       if (error.code === 0) {
-        this.$store.commit("signup/updateValidationErros", {
-          field: "gallery_images",
-          message: `Please limit the number of your images to ${this.max_files}`,
-        });
+        const count = this.gallery_files ? this.gallery_files.length : 0;
+        if (count > this.max_files) {
+          this.$store.commit("signup/updateValidationErros", {
+            field: "gallery_images",
+            message: `Please limit the number of your images to ${this.max_files}`,
+          });
+        }
       }
     },
     handleGalleryImagesProcess(error, file) {
