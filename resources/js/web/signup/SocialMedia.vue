@@ -108,16 +108,16 @@
         </div>
       </div>
 
-      <div class="flex justify-center gap-6 items-start xl:gap-12 px-4 py-8 sm:px-10" v-if="selectedRegistrationPackage && user &&
+      <div class="flex justify-center gap-6 items-stretch xl:gap-12 px-4 py-8 sm:px-10" v-if="selectedRegistrationPackage && user &&
         (JSON.parse(user)['registration_package_id'] !=
           selectedRegistrationPackage.id ||
           JSON.parse(user)['payment_frequency'] != payment_frequency) && JSON.parse(user)['is_package_amount_paid'] == '1'
       ">
-        <div v-if="calTotalPrice() > 0" class="w-full">
-          <div class="w-full">
+        <div v-if="calTotalPrice() > 0" class="w-full flex">
+          <div class="h-full w-full rounded-lg border bg-white p-4 md:p-6 shadow-md flex flex-col">
             <div>
               <!--Debit Card-->
-              <div class="flex justify-between items-center">
+              <div class="flex justify-between items-center md:p-3">
                 <div class="w-full">
                   <div class="flex items-center">
                     <input id="stripe" name="registration-package" type="radio"
@@ -160,7 +160,7 @@
                     v-if="calTotalPrice() > 0 && payment_method == 'stripe'">
                     <div class="flex justify-center items-center">
                       <div class="h-auto bg-white p-3 rounded-lg w-full">
-                        <div class="input_text mt-6 relative">
+                        <div class="input_text relative">
                           <label class="">{{
                             payment_setting &&
                               JSON.parse(payment_setting) &&
@@ -189,28 +189,15 @@
                           <Error fieldName="card_holder_name" :validationErros="validationErros" full_width="1" />
                         </div>
                         <div class="input_text mt-2 relative">
-                          <label class="">{{
-                            payment_setting &&
-                              JSON.parse(payment_setting) &&
-                              JSON.parse(payment_setting)["card_number_label"]
-                              ? JSON.parse(payment_setting)["card_number_label"]
-                              : ""
-                          }}</label>
-                          <i class="text-gray-400 fa fa-credit-card"></i>
-                          <input type="text" class="can-exp-input" :placeholder="payment_setting &&
-                            JSON.parse(payment_setting) &&
-                            JSON.parse(payment_setting)[
-                            'card_number_placeholder'
-                            ]
-                            ? JSON.parse(payment_setting)[
-                            'card_number_placeholder'
-                            ]
-                            : ''
-                            " @input="updateForm('card_no', $event.target.value)"
-                            @keypress="restrictToNumbers($event, 16)" id="card_no" />
-                          <Error fieldName="card_no" :validationErros="validationErros" full_width="1" />
+                          <label class="">Card details</label>
+                          <div ref="stripeCard" class="can-exp-input"></div>
+                          <Error
+                            fieldName="payment_method_id"
+                            :validationErros="validationErros"
+                            full_width="1"
+                          />
                         </div>
-                        <div class="input_text mt-2 relative">
+                        <div v-if="false" class="input_text mt-2 relative" style="display: none">
                           <label class="">{{
                             payment_setting &&
                               JSON.parse(payment_setting) &&
@@ -239,7 +226,7 @@
                           <Error fieldName="expiry_month" :validationErros="validationErros" full_width="1" />
                         </div>
 
-                        <div class="input_text mt-2 relative">
+                        <div v-if="false" class="input_text mt-2 relative">
                           <label class="">{{
                             payment_setting &&
                               JSON.parse(payment_setting) &&
@@ -259,7 +246,7 @@
                           <Error fieldName="expiry_year" :validationErros="validationErros" full_width="1" />
                         </div>
 
-                        <div class="input_text mt-2 relative">
+                        <div v-if="false" class="input_text mt-2 relative">
                           <div class="flex justify-between items-center">
                             <div>
                               <label class="">{{
@@ -300,49 +287,41 @@
             </div>
           </div>
         </div>
-        <div class="md:w-full mt-6 rounded-lg border bg-white p-4 md:p-6 shadow-md md:mt-0">
+        <div class="w-full mt-6 rounded-lg border bg-white p-4 md:p-6 shadow-md md:mt-0 flex flex-col h-full">
           <div class="mb-2 flex justify-between">
-            <p class="text-gray-700">{{ JSON.parse(payment_setting)["package_text"] }}</p>
+            <p class="text-gray-700">{{ payment_setting && JSON.parse(payment_setting) ? JSON.parse(payment_setting)["package_text"] : "" }}</p>
             <p class="text-gray-700 capitalize">
               {{ selectedRegistrationPackage?.package_type }}
             </p>
           </div>
           <div class="mb-2 flex justify-between">
-            <p class="text-gray-700">{{ JSON.parse(payment_setting)["payment_frequency_text"] }}</p>
+            <p class="text-gray-700">{{ payment_setting && JSON.parse(payment_setting) ? JSON.parse(payment_setting)["payment_frequency_text"] : "" }}</p>
             <p class="text-gray-700 capitalize">
               {{ payment_frequency }}
             </p>
           </div>
           <div class="mb-2 flex justify-between">
-            <p class="text-gray-700">{{ JSON.parse(payment_setting)["price_text"] }}</p>
+            <p class="text-gray-700">{{ payment_setting && JSON.parse(payment_setting) ? JSON.parse(payment_setting)["price_text"] : "" }}</p>
             <p class="text-gray-700 capitalize">${{ packagePrice() }}</p>
-          </div>
-          <div class="mb-2 flex justify-between" v-if="user &&
-            JSON.parse(user)['payment_method'] != 'paypal'
-          ">
-            <p class="text-gray-700">{{ JSON.parse(payment_setting)["refund_text"] }}</p>
-            <p class="text-gray-700 capitalize">${{ calRefundPrice() }}</p>
           </div>
           <hr class="my-4" />
           <div class="flex justify-between">
-            <p class="text-lg font-bold">{{ JSON.parse(payment_setting)["total_text"] }}</p>
+            <p class="text-lg font-bold">{{ payment_setting && JSON.parse(payment_setting) ? JSON.parse(payment_setting)["total_text"] : "" }}</p>
             <div class="">
               <p class="mb-1 text-lg font-bold capitalize">${{ calTotalPrice() }}</p>
             </div>
           </div>
-          <!-- <ListErrors :validationErrors="validationErros" /> -->
-          <div class="mb-2 text-center">
-            <button class="button-exp-fill mt-6" type="button" @click="processPayment()">
-              {{ calTotalPrice() > 0 ? JSON.parse(payment_setting)["confirm_and_pay_btn_text"] :
-                JSON.parse(payment_setting)["confirm_and_proceed_btn_text"] }}
+          <div class="text-center mt-auto">
+            <button
+              class="button-exp-fill mt-6"
+              type="button"
+              @click="recaptcha()"
+            >
+              {{ calTotalPrice() > 0 && payment_setting && JSON.parse(payment_setting) ? JSON.parse(payment_setting)["confirm_and_pay_btn_text"] : (payment_setting && JSON.parse(payment_setting) ? JSON.parse(payment_setting)["confirm_and_proceed_btn_text"] : "") }}
             </button>
           </div>
-          <div v-if="user &&
-            JSON.parse(user)['payment_method'] != 'stripe' && JSON.parse(user)['package_price'] > '0'
-          ">
-            <p class="text-gray-700">{{ JSON.parse(payment_setting)["refund_instruction_text"] }}</p>
-          </div>
         </div>
+        
       </div>
       <template v-else>
         <!-- <ListErrors :validationErrors="validationErros" /> -->
@@ -422,8 +401,10 @@
 </template>
 <script>
 import Swal from "sweetalert2";
+import { load } from "recaptcha-v3";
 import { mapState } from "vuex";
 import Error from "./../components/Error.vue";
+import { loadStripe } from "@stripe/stripe-js";
 // import ListErrors from "./../components/ListErrors.vue";
 
 export default {
@@ -444,6 +425,15 @@ export default {
       const currentYear = new Date().getFullYear();
       return Array.from({ length: 16 }, (_, index) => currentYear + index);
     },
+    paymentSectionVisible() {
+      return !!(
+        this.selectedRegistrationPackage &&
+        this.user &&
+        (JSON.parse(this.user)["registration_package_id"] !== this.selectedRegistrationPackage?.id ||
+          JSON.parse(this.user)["payment_frequency"] !== this.payment_frequency) &&
+        JSON.parse(this.user)["is_package_amount_paid"] == "1"
+      );
+    },
   },
   data() {
     return {
@@ -453,7 +443,30 @@ export default {
       payment_method: "stripe",
       showTooltip: false,
       loading: false,
+      reCAPTCHA_site_key: process.env.MIX_reCAPTCHA_site_key,
+      stripe: null,
+      elements: null,
+      cardElement: null,
     };
+  },
+  watch: {
+    payment_method(newMethod) {
+      if (newMethod === "stripe") {
+        this.$nextTick(() => {
+          setTimeout(() => this.mountStripeElement(), 100);
+        });
+      }
+    },
+    paymentSectionVisible: {
+      handler(visible) {
+        if (visible) {
+          this.$nextTick(() => {
+            setTimeout(() => this.mountStripeElement(), 200);
+          });
+        }
+      },
+      immediate: true,
+    },
   },
   created() {
     if (this.profile == "1") {
@@ -513,6 +526,19 @@ export default {
     for (const [field, value] of Object.entries(savedFormData)) {
       this.updateForm(field, value);
     }
+    // Initialize Stripe Elements
+    (async () => {
+      try {
+        this.stripe = await loadStripe(process.env.MIX_STRIPE_PUBLIC_KEY);
+        if (this.stripe) {
+          this.elements = this.stripe.elements();
+          this.cardElement = this.elements.create("card");
+          this.$nextTick(() => this.mountStripeElement());
+        }
+      } catch (e) {
+        console.error("Error loading Stripe:", e);
+      }
+    })();
   },
   methods: {
     toggleModal() {
@@ -643,6 +669,48 @@ export default {
         this.toggleModal();
       }
     },
+    async recaptcha() {
+      this.loading = true;
+      load(process.env.MIX_reCAPTCHA_site_key)
+        .then((recaptcha) => {
+          recaptcha.execute("submit").then((token) => {
+            axios
+              .post(`${process.env.MIX_WEB_API_URL}verifyRecaptcha`, {
+                token: token,
+              })
+              .then((res) => {
+                if (res.data.status == "Success") {
+                  this.processPayment();
+                } else if (res.data.status == "Error") {
+                  this.loading = false;
+                  this.$store.commit("signup/setValidationErros", {
+                    captcha: [res.data.message],
+                  });
+                }
+              });
+          });
+        });
+    },
+    mountStripeElement() {
+      const mountPoint = this.$refs.stripeCard;
+      if (!mountPoint || !this.stripe) return;
+      if (this.cardElement) {
+        try {
+          this.cardElement.unmount();
+        } catch (e) {}
+        try {
+          this.cardElement.mount(mountPoint);
+        } catch (e) {
+          if (this.elements) {
+            this.cardElement = this.elements.create("card");
+            this.cardElement.mount(mountPoint);
+          }
+        }
+      } else if (this.elements) {
+        this.cardElement = this.elements.create("card");
+        this.cardElement.mount(mountPoint);
+      }
+    },
     restrictToNumbers(event, allowedLength) {
       const keyCode = event.which ? event.which : event.keyCode;
       const valid = keyCode >= 48 && keyCode <= 57; // Check if the key code is between 0 and 9
@@ -695,42 +763,73 @@ export default {
         value: this.payment_method,
       });
       this.loading = true;
-      let url = `${process.env.MIX_WEB_API_URL}update-profile-setting`;
-      axios
-        .post(url, this.form)
-        .then((response) => {
-          if (response.data.status == "Success") {
-            if (response?.data?.data?.type == "paypal") {
-              // this.showCountdownModal(response?.data?.data?.redirect_url);
-              window.location.href = response?.data?.data?.redirect_url;
+      const proceed = async () => {
+        let payload = this.form;
+        if (
+          this.payment_method === "stripe" &&
+          this.calTotalPrice() > 0 &&
+          this.cardElement &&
+          this.stripe
+        ) {
+          const { error, paymentMethod } = await this.stripe.createPaymentMethod({
+            type: "card",
+            card: this.cardElement,
+            billing_details: {
+              name: this.form?.get ? this.form.get("card_holder_name") : undefined,
+            },
+          });
+          if (error) {
+            this.$store.commit("signup/setValidationErros", {
+              payment_method_id: [error.message],
+            });
+            this.loading = false;
+            return;
+          }
+          const data = {};
+          if (payload && payload.forEach) {
+            payload.forEach((v, k) => (data[k] = v));
+          }
+          data.payment_method_id = paymentMethod.id;
+          payload = data;
+        } else if (payload && payload.forEach) {
+          const data = {};
+          payload.forEach((v, k) => (data[k] = v));
+          payload = data;
+        }
+        let url = `${process.env.MIX_WEB_API_URL}update-profile-setting`;
+        axios
+          .post(url, payload)
+          .then((response) => {
+            if (response.data.status == "Success") {
+              if (response?.data?.data?.type == "paypal") {
+                window.location.href = response?.data?.data?.redirect_url;
+              } else {
+                window.location.href = this.url;
+              }
             } else {
-              // helper.swalSuccessMessageForWeb(response.data.message);
-              window.location.href = this.url;
+              helper.swalErrorMessageForWeb(response.data.message);
             }
-          } else {
-            helper.swalErrorMessageForWeb(response.data.message);
-          }
-          this.loading = false;
-        })
-        .catch((error) => {
-          this.loading = 0;
-          //   this.validationErros = new ErrorHandling();
-          this.$store.commit("signup/setEmptyError");
-          if (error.response && error.response.status == 422) {
-            this.$store.commit(
-              "signup/setValidationErros",
-              error.response.data.errors
-            );
-            // this.validationErros.record(error.response.data.errors);
-            this.focusOnFirstErrorInput(error.response.data.errors);
-          } else if (
-            error.response &&
-            error.response.data &&
-            error.response.data.status == "Error"
-          ) {
-            helper.swalErrorMessageForWeb(error.response.data.message);
-          }
-        });
+            this.loading = false;
+          })
+          .catch((error) => {
+            this.loading = false;
+            this.$store.commit("signup/setEmptyError");
+            if (error.response && error.response.status == 422) {
+              this.$store.commit(
+                "signup/setValidationErros",
+                error.response.data.errors
+              );
+              this.focusOnFirstErrorInput(error.response.data.errors);
+            } else if (
+              error.response &&
+              error.response.data &&
+              error.response.data.status == "Error"
+            ) {
+              helper.swalErrorMessageForWeb(error.response.data.message);
+            }
+          });
+      };
+      proceed();
     },
     alreadySelectedMonth(value) {
       let expiry_month = null;
