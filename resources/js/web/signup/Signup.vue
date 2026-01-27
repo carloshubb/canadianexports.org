@@ -132,7 +132,7 @@
                                     c5.883,0.84,10.02,6.206,9.503,12.024C310.715,146.699,307.871,166.61,303.087,186.457z"/>
                             </g>
                             </svg>
-                            <p class="can-exp-p" style="color: #187cbe; font-family: 'Futura BdCn BT'; font-size: 14pt;"> <p><span style="font-size: 18pt;"><strong><span style="color: #3498db; font-family: 'Futura BdCn BT';">Your Privacy is Our Priority</span></strong></span></p></p>
+                            <p class="can-exp-p" style="color: #187cbe; font-family: 'Futura BdCn BT'; font-size: 14pt;"> <span style="font-size: 18pt;"><strong><span style="color: #3498db; font-family: 'Futura BdCn BT';">Your Privacy is Our Priority</span></strong></span></p>
                         </div>
                         <div class="mt-2 can-exp-p">
                             <ul>
