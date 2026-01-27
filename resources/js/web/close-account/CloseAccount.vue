@@ -3,71 +3,45 @@
     <div class="my-4">
       <div class="grid mt-4 md:grid-cols-2 gap-4">
         <div class="relative w-full mb-3">
-          <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="name">
-            {{ JSON.parse(close_account_setting)["name_label"] }}
-            
+          <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="title">
+            {{ getSetting("name_label") }}
           </label>
-          <input 
-            @input="clearErrors('name')" 
-            type="text" 
-            class="can-exp-input" 
-            :placeholder="JSON.parse(close_account_setting)['name_placeholder']"
-            id="name" 
-            v-model="form.name" 
-          />
-          <Error v-if="submitted" fieldName="name" :validationErros="validationErros" />
+          <input @input="clearErrors('title')" type="text" class="can-exp-input"
+            :placeholder="getSetting('name_placeholder')" id="title" v-model="form.title" />
+          <Error v-if="submitted" fieldName="title" :validationErros="validationErros" />
         </div>
 
         <div class="relative w-full mb-3">
           <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="email">
-            {{ JSON.parse(close_account_setting)["email_label"] }}
-            
+            {{ getSetting("email_label") }}
           </label>
-          <input 
-            @input="clearErrors('email')" 
-            type="text" 
-            class="can-exp-input" 
-            :placeholder="JSON.parse(close_account_setting)['email_placeholder']"
-            id="email" 
-            v-model="form.email" 
-          />
+          <input @input="clearErrors('email')" type="email" class="can-exp-input"
+            :placeholder="getSetting('email_placeholder')" id="email" v-model="form.email" />
           <Error v-if="submitted" fieldName="email" :validationErros="validationErros" />
         </div>
 
         <div class="relative w-full mb-3 col-span-2">
-          <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="message">
-            {{ JSON.parse(close_account_setting)["message_label"] }}
-            
+          <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="opinion">
+            {{ getSetting("message_label") }}
           </label>
-          <textarea 
-            @input="clearErrors('message')" 
-            rows="5" 
-            type="text" 
-            class="can-exp-input" 
-            :placeholder="JSON.parse(close_account_setting)['message_placeholder']"
-            id="message" 
-            v-model="form.message">
+          <textarea @input="clearErrors('opinion')" rows="5" class="can-exp-input"
+            :placeholder="getSetting('message_placeholder')" id="opinion" v-model="form.opinion">
           </textarea>
-          <Error v-if="submitted" fieldName="message" :validationErros="validationErros" />
+          <Error v-if="submitted" fieldName="opinion" :validationErros="validationErros" />
         </div>
       </div>
     </div>
-    
+
     <Error v-if="submitted" fieldName="captcha" :validationErros="validationErros" />
-    
+
     <div class="mt-8 flex justify-center items-center">
-      <button 
-        aria-label="Canadian Exporters" 
-        :class="[ 
-          'button-exp-fill',
-          
-        ]"
-        type="submit"
-        id="send-message"
-        :disabled="!isFormValid || loading"
-      >
-        {{ JSON.parse(close_account_setting) ? JSON.parse(close_account_setting)["button_text"] : "" }}
+      <button aria-label="Canadian Exporters" :class="[
+        'button-exp-fill',
+        'whitespace-nowrap hover:text-white border border-primary cursor-pointer'
+      ]" type="submit" id="send-message" :disabled="!isFormValid || loading">
+        {{ getSetting("button_text") }}
       </button>
+
     </div>
 
     <div v-if="loading">
@@ -97,9 +71,9 @@ export default {
   data() {
     return {
       form: {
-        name: "",
+        title: "",
         email: "",
-        message: "",
+        opinion: "",
         page_id: "",
       },
       loading: false,
@@ -111,9 +85,9 @@ export default {
   computed: {
     isFormValid() {
       return (
-        this.form.name.trim() !== "" &&
+        this.form.title.trim() !== "" &&
         this.form.email.trim() !== "" &&
-        this.form.message.trim() !== ""
+        this.form.opinion.trim() !== ""
       );
     },
   },
@@ -124,9 +98,9 @@ export default {
 
       if (!this.isFormValid) {
         this.validationErros.record({
-          name: this.form.name.trim() === "" ? ["Name is required"] : [],
+          title: this.form.title.trim() === "" ? ["Title is required"] : [],
           email: this.form.email.trim() === "" ? ["Email is required"] : [],
-          message: this.form.message.trim() === "" ? ["Message is required"] : [],
+          opinion: this.form.opinion.trim() === "" ? ["Opinion is required"] : [],
         });
         return; // don't show confirmation if not valid
       }
@@ -169,9 +143,9 @@ export default {
       this.loading = true;
 
       const formData = {
-        name: this.form.name,
+        title: this.form.title,
         email: this.form.email,
-        message: this.form.message,
+        opinion: this.form.opinion,
         page_id: this.page_id,
       };
 
@@ -179,10 +153,10 @@ export default {
         .post(this.submit_url, formData)
         .then((res) => {
           this.loading = false;
-          
+
           if (res.data.status == "Success") {
             const redirectUrl = res.data && res.data.data ? res.data.data.redirect_url : "/";
-            
+
             // show success then redirect (helper returns a promise)
             helper.swalSuccessMessageForWeb(res.data.message).then(() => {
               window.location.href = redirectUrl;
@@ -196,13 +170,13 @@ export default {
         })
         .catch((error) => {
           this.loading = false;
-          
+
           const message =
             (error.response &&
               error.response.data &&
               error.response.data.message) ||
             "Something went wrong. Please try again.";
-          
+
           helper.swalErrorMessageForWeb(message).then(() => {
             // after error popup closed, go to home (matches your request)
             window.location.href = "/";
@@ -217,11 +191,22 @@ export default {
     },
 
     clearForm() {
-      this.form.name = "";
+      this.form.title = "";
       this.form.email = "";
-      this.form.message = "";
+      this.form.opinion = "";
       this.validationErros = new ErrorHandling();
       this.submitted = false;
+    },
+
+    getSetting(key) {
+      try {
+        const setting = typeof this.close_account_setting === "string"
+          ? JSON.parse(this.close_account_setting)
+          : this.close_account_setting;
+        return (setting && setting[key]) || "";
+      } catch {
+        return "";
+      }
     },
 
     /**
@@ -239,7 +224,7 @@ export default {
 
       // start loading only when running captcha
       this.loading = true;
-      
+
       try {
         const recaptcha = await load(process.env.MIX_reCAPTCHA_site_key);
         recaptcha.showBadge();
@@ -279,12 +264,12 @@ export default {
     saveForm() {
       // existing behavior retained for non-delete saves
       this.form.page_id = this.page_id;
-      
+
       axios
         .post(this.submit_url, this.form)
         .then((res) => {
           this.loading = false;
-          
+
           if (res.data.status == "Success") {
             helper.swalPreSuccessMessageForWeb(res.data.message);
             this.clearForm();
@@ -295,7 +280,7 @@ export default {
         .catch((error) => {
           this.loading = false;
           this.validationErros = new ErrorHandling();
-          
+
           if (error.response && error.response.status == 422) {
             this.validationErros.record(error.response.data.errors);
           } else if (

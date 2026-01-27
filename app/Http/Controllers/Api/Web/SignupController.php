@@ -14,6 +14,7 @@ use App\Mail\CustomerWelcomeMail;
 use App\Mail\NewCustomerAdminMail;
 use App\Mail\RegistrationInvoiceToCustomerMail;
 use App\Models\BusinessCategoryDetail;
+use App\Models\CloseAccountRequest;
 use App\Models\Customer;
 use App\Models\CustomerBusinessCategory;
 use App\Models\CustomerGalleryImage;
@@ -790,6 +791,19 @@ class SignupController extends Controller
             $customer = Customer::find(Auth::guard('customers')->user()->id);
             $company_name = $customer->customerProfile->company_name ?? 'N/A';
 
+            $title = $request->input('title', $request->input('name', $customer->name ?? ''));
+            $email = $request->input('email', $customer->email ?? '');
+            $opinion = $request->input('opinion', $request->input('message', 'No opinion provided'));
+
+            // Store title, email and opinion for this close-account request
+            CloseAccountRequest::create([
+                'title' => $title,
+                'email' => $email,
+                'opinion' => $opinion,
+                'customer_id' => $customer->id,
+                'page_id' => $request->input('page_id'),
+            ]);
+
             // Update the customer's account status
             Customer::whereId($customer->id)->update([
                 'is_account_closed' => 1
@@ -806,11 +820,13 @@ class SignupController extends Controller
             // Logout the customer
             Auth::guard('customers')->logout();
 
-            // Prepare email data
+            // Prepare email data (name/message used by existing mail templates; title/opinion for semantic clarity)
             $emailData = [
-                'name' => $request->input('name', $customer->name), // Use form data if available, otherwise use customer's name
-                'email' => $request->input('email', $customer->email), // Use form data if available, otherwise use customer's email
-                'message' => $request->input('message', 'No message provided'), // Use form data if available, otherwise use a default message
+                'name' => $title,
+                'email' => $email,
+                'message' => $opinion,
+                'title' => $title,
+                'opinion' => $opinion,
                 'account_closed_date' => \Carbon\Carbon::now()->format('Y-m-d H:i:s'),
                 'company_name' => $company_name,
             ];
