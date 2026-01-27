@@ -1,14 +1,16 @@
 node_modules
 vendor
 storage
-public/css
-public/js
-storage/logs
+
 
 .env
 public/images
 public/media
 public/storage
+public/css
+public/js
+storage/logs
+
 CaExp LoR July 18.docx
 *.sql
 .env.prod
