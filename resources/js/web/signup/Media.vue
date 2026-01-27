@@ -205,10 +205,9 @@
             {{
               regPageSetting?.reg_page_setting_detail?.[0]
                 ?.step_5_gallery_image_label
-            }}<span class="ml-1 text-[0.9em] text-gray-600">(Up to 8 allowed, 5 MB max each, in PNG, GIF, JPG, or JPEG format.)</span>
+            }}<span class="ml-1 text-[0.9em] text-gray-600">(Up to {{ max_files }} allowed, 5 MB max each, in PNG, GIF, JPG, or JPEG format.)</span>
 
-            </label
-          >
+            </label>
           <FilePond
             allow-multiple
             accepted-file-types="image/*"
