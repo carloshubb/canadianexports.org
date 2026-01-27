@@ -5,29 +5,35 @@
                 @isset($page->pageDetail[0])
                 <div class="">
                     @php
-                        $page_detail = $page->pageDetail[0]->page_detail;
+                    $page_detail = $page->pageDetail[0]->page_detail;
+                    $logged_in_user = auth()->guard('customers')->user() ?? null;                   
                     @endphp
+                    @if ($logged_in_user->sponsor->isNotEmpty())
                     @include('front.pages.widgets.render-widget-with-detail', [
-                        'page_detail' => $page_detail,
+                    'page_detail' => $page_detail,
                     ])
+                    @else
+                         <h1 style="text-align: center;">Sponsor Portal</h1>
+                    @endif
+
                 </div>
                 @endisset
                 @php
-// $upgrade_url = langBasedURL($lang, route('user.create-business-profile'));
-                $logged_in_user = auth()->guard('customers')->user() ?? null;
-$lang= app()->getLocale()
-@endphp
-                {{-- <div class="container"><all-sponsers sponsor_become="{{ $lang }}" page_id="{{$page->id}}" logged_in_user="{{$logged_in_user}}"></all-sponsers></div> --}}
+                // $upgrade_url = langBasedURL($lang, route('user.create-business-profile'));
 
-                <div class="container">
-                    <all-sponsers
-                        sponsor_become="{{ $lang }}"
-                        page_id="{{ $page->id }}"
-                        logged_in_user="{{ $logged_in_user ? $logged_in_user->toJson() : 'null' }}"
-                    ></all-sponsers>
-                </div>
+                $lang= app()->getLocale()
+                @endphp
+                {{-- <div class="container"><all-sponsers sponsor_become="{{ $lang }}" page_id="{{$page->id}}" logged_in_user="{{$logged_in_user}}"></all-sponsers>
+        </div> --}}
 
-            </section>
+        <div class="container">
+            <all-sponsers
+                sponsor_become="{{ $lang }}"
+                page_id="{{ $page->id }}"
+                logged_in_user="{{ $logged_in_user ? $logged_in_user->toJson() : 'null' }}"></all-sponsers>
         </div>
+
+        </section>
     </div>
+</div>
 </div>

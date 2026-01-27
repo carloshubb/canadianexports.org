@@ -12,11 +12,14 @@ class Customer extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
-    protected $fillable = ['name', 'email', 'password', 'registration_package_id', 'package_price', 'package_subscribed_date', 'package_expiry_date', 'is_package_amount_paid', 'type', 'events_allowed', 'events_remaining', 'images_allowed', 'is_active', 'active_email_url', 'stripe_customer_id', 'is_auto_renew', 'subscription_status', 'subscription_id', 'payment_method', 'stripe_item_id', 'paypal_subscription_id', 'temp_registration_package_id', 'verify_customer_email', 'first_pkg_expiry_mail', 'second_pkg_expiry_mail', 'third_pkg_expiry_mail', 'business_name', 'payment_frequency', 'is_account_closed', 'active_account_url', 'profile_image_id', 'temp_payment_frequency', 'temp_is_auto_renew', 'temp_type','is_subscribe','subscribe_hash'];
+    protected $fillable = ['name', 'email', 'password', 'registration_package_id', 'package_price', 'package_subscribed_date', 'package_expiry_date', 'is_package_amount_paid', 'type', 'events_allowed', 'events_remaining', 'images_allowed', 'is_active', 'active_email_url', 'stripe_customer_id', 'is_auto_renew', 'subscription_status', 'subscription_id', 'payment_method', 'stripe_item_id', 'paypal_subscription_id', 'temp_registration_package_id', 'verify_customer_email', 'first_pkg_expiry_mail', 'second_pkg_expiry_mail', 'third_pkg_expiry_mail', 'business_name', 'payment_frequency', 'is_account_closed', 'active_account_url', 'profile_image_id', 'temp_payment_frequency', 'temp_is_auto_renew', 'temp_type', 'is_subscribe', 'subscribe_hash'];
 
     protected $hidden = ['password', 'remember_token'];
 
     protected $casts = ['email_verified_at' => 'datetime'];
+
+    protected $appends = ['sponsor'];
+
 
     public function registrationPackage()
     {
@@ -62,4 +65,15 @@ class Customer extends Authenticatable
     {
         return $this->hasMany(InfoLetter::class, 'email', 'email');
     }
+
+    public function sponsor()
+    {
+        return $this->hasMany(Sponsor::class);
+    }
+    public function getSponsorAttribute()
+    {
+        return $this->sponsor()->get();
+    }
+
+
 }

@@ -3,11 +3,10 @@
         <div class="lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10 ">
             <div class="lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10">
                 <section class="">
-
                     @isset($page->pageDetail[0])
                         <div class="">
                             @php
-                                $page_detail = $page->pageDetail[0]->page_detail;
+                                $page_detail = $page->pageDetail[0]->page_detail;                                                            
                             @endphp
                             @include('front.pages.widgets.render-widget-with-detail', [
                                 'page_detail' => $page_detail,
