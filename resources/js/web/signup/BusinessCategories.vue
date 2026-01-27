@@ -6,19 +6,13 @@
         <template v-if="profile == '1'">
           <h4
             class="text-white"
-            v-html="
-              JSON.parse(user)?.is_package_amount_paid
-                ? regPageSetting?.reg_page_setting_detail?.[0]?.step_3_acc_heading
-                : regPageSetting?.reg_page_setting_detail?.[0]?.step_3_heading
-            "
+            v-html="step3HeadingDisplay"
           ></h4>
         </template>
         <template v-else>
           <h4
             class="text-white"
-            v-html="
-              regPageSetting?.reg_page_setting_detail?.[0]?.step_3_heading
-            "
+            v-html="step3HeadingDisplay"
           ></h4>
         </template>
       </div>
@@ -94,6 +88,13 @@
   export default {
     props: ["customer_business_categories", "profile", "page_id", "user"],
     computed: {
+      step3HeadingDisplay() {
+        const raw = this.regPageSetting?.reg_page_setting_detail?.[0]?.step_3_heading || "";
+        const acc = this.profile == "1" && JSON.parse(this.user || "{}")?.is_package_amount_paid
+          ? (this.regPageSetting?.reg_page_setting_detail?.[0]?.step_3_acc_heading || raw)
+          : raw;
+        return acc ? String(acc).replace(/\d+ of \d+ - /, "3 of 3 - ") : "3 of 3 - Select Your Business Categories (Industry Sectors)";
+      },
       ...mapState({
         regPageSetting: (state) => state.signup.regPageSetting,
         validationErros: (state) => state.signup.validationErros,

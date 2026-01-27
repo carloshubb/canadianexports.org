@@ -2070,3 +2070,6 @@
 #75 D:\\work\\_2025\\canadianexports.org\\server.php(21): require_once('D:\\\\work\\\\_2025\\\\c...')
 #76 {main}
 "} 
+[2026-01-27 15:11:18] local.INFO: New exporter customer created {"customer_id":50155} 
+[2026-01-27 15:11:22] local.INFO: Admin notification email sent after signup {"email":"carloslennix38@gmail.com","customer_id":50155} 
+[2026-01-27 15:11:23] local.INFO: Verification email sent after signup {"email":"carloslennix38@gmail.com","customer_id":50155,"is_new_customer":true} 

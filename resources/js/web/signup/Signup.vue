@@ -24,15 +24,7 @@
                             <div
                                 class="px-4 py-1.5 sm:px-6 text-center bg-gradient-to-r from-xblue via-primary to-blue-600 rounded-md">
                                 
-                                    <h4 class="text-white" v-html="regPageSetting &&
-                                        regPageSetting.reg_page_setting_detail &&
-                                        regPageSetting
-                                            .reg_page_setting_detail[0]
-                                        ? regPageSetting
-                                            .reg_page_setting_detail[0]
-                                            .step_1_heading
-                                        : ''
-                                    "></h4>
+                                    <h4 class="text-white" v-html="step1HeadingDisplay"></h4>
                             </div>
                             <div class="text-center mt-4 flex flex-col justify-center items-center">
                                 <p v-html="regPageSetting
@@ -51,13 +43,10 @@
                             <RegistrationPackage :payment_setting="payment_setting" />
                         </div>
                         <div class="pt-8">
-                            <UserProfile :lang="lang" />
+                            <CompanyAndContactInfo :lang="lang" />
                         </div>
                         <div class="pt-8">
                             <BusinessCategories />
-                        </div>
-                        <div class="pt-8">
-                            <CustomerProfile />
                         </div>
                         <div class="pt-8">
                             <Media ref="mediaComponent" />
@@ -167,10 +156,9 @@
 
 <script>
 import { load } from "recaptcha-v3";
-import CustomerProfile from "./CustomerProfile.vue";
 import BusinessCategories from "./BusinessCategories.vue";
 import RegistrationPackage from "./RegistrationPackage.vue";
-import UserProfile from "./UserProfile.vue";
+import CompanyAndContactInfo from "./CompanyAndContactInfo.vue";
 import Terms from "./Terms.vue";
 import SocialMedia from "./SocialMedia.vue";
 import Media from "./Media.vue";
@@ -187,6 +175,10 @@ export default {
             form: (state) => state.signup.form,
             formRevision: (state) => state.signup.formRevision || 0,
         }),
+        step1HeadingDisplay() {
+            const raw = this.regPageSetting?.reg_page_setting_detail?.[0]?.step_1_heading || "";
+            return raw ? String(raw).replace(/\d+ of \d+ - /, "1 of 3 - ") : "1 of 3 - Registration Package";
+        },
         isSubmitEnabled() {
             // formRevision changes on every setForm so this re-runs whenever any field is updated
             this.formRevision;
@@ -201,8 +193,7 @@ export default {
     components: {
         BusinessCategories,
         RegistrationPackage,
-        UserProfile,
-        CustomerProfile,
+        CompanyAndContactInfo,
         Terms,
         SocialMedia,
         Media,
