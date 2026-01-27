@@ -18,8 +18,8 @@
         <!-- Sub-section 1: Contact Person -->
         <div class="border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
           <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">
-  Contact Person
-</h5>
+            Contact Person
+          </h5>
 
           <div class="relative w-full mb-8">
             <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg" for="name">
