@@ -136,3 +136,19 @@
 [2026-01-28 06:57:58] local.INFO: Inquiry email data prepared {"data_keys":["inquiry_id","name","company_name","company_email","inquiry_detail","pdf_download_links"],"has_name":true} 
 [2026-01-28 07:00:35] local.INFO: Inquiry email data prepared {"data_keys":["inquiry_id","name","company_name","company_email","inquiry_detail","pdf_download_links"],"has_name":true} 
 [2026-01-28 07:01:07] local.INFO: Inquiry email data prepared {"data_keys":["inquiry_id","name","company_name","company_email","inquiry_detail","pdf_download_links"],"has_name":true} 
+[2026-01-28 08:46:18] local.ERROR: There are no commands defined in the "optimizer" namespace.
+
+Did you mean this?
+    optimize {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"optimizer\" namespace.
+
+Did you mean this?
+    optimize at D:\\work\\_2025\\canadianexports.org\\vendor\\symfony\\console\\Application.php:678)
+[stacktrace]
+#0 D:\\work\\_2025\\canadianexports.org\\vendor\\symfony\\console\\Application.php(729): Symfony\\Component\\Console\\Application->findNamespace('optimizer')
+#1 D:\\work\\_2025\\canadianexports.org\\vendor\\symfony\\console\\Application.php(266): Symfony\\Component\\Console\\Application->find('optimizer:clear')
+#2 D:\\work\\_2025\\canadianexports.org\\vendor\\symfony\\console\\Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 D:\\work\\_2025\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(102): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 D:\\work\\_2025\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(155): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 D:\\work\\_2025\\canadianexports.org\\artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#6 {main}
+"} 

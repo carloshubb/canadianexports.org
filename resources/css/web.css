@@ -504,11 +504,11 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 #topnav .navigation-menu > li:hover > a, #topnav .navigation-menu > li.active > a{
   --tw-text-opacity: 1 !important;
-  color: #333333 !important;
+  
 }
 .dark #topnav .navigation-menu > li:hover > a,.dark  #topnav .navigation-menu > li.active > a{
   --tw-text-opacity: 1 !important;
-  color: #333333 !important;
+  
 }
 #topnav .navigation-menu > li .submenu.megamenu li .megamenu-head{
   white-space: nowrap !important;
@@ -698,13 +698,13 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 @media screen and (max-width: 1024px) {
 
     #topnav .navigation-menu > li > a{
-      font-size: 16px !important;
+      font-size: 20px !important;
     }
   }
   @media screen and (min-width: 1024px) {
 
     #topnav .navigation-menu > li > a{
-      font-size: 18px !important;
+      font-size: 22px !important;
     }
   }
 
@@ -919,7 +919,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   }
   #topnav .navigation-menu > li:hover > a, #topnav .navigation-menu > li.active > a{
     --tw-text-opacity: 1 !important;
-    color:#333333 !important;
+   
   }
   .dark #topnav .navigation-menu > li:hover > a,.dark  #topnav .navigation-menu > li.active > a{
     --tw-text-opacity: 1 !important;
@@ -1123,7 +1123,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     padding-left: 20px;
     padding-right: 20px;
     --tw-text-opacity: 1;
-    color: #333333 !important;
+    color: #ffffff !important;
   }
   #topnav .navigation-menu > li > a::after{
     content: var(--tw-content);
@@ -1144,7 +1144,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   #topnav .navigation-menu > li > a:hover,
 #topnav .navigation-menu > li .submenu li a:hover, #topnav .navigation-menu > li.has-submenu.open > a{
     --tw-text-opacity: 1;
-    color: rgb(16 107 199 / var(--tw-text-opacity));
+    color: #ffffff !important;
   }
   #topnav .menu-extras .menu-item{
     --tw-border-opacity: 1;
@@ -1192,7 +1192,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     bottom: 0;
     right: 0;
     left: auto;
-    width: min(320px, 85%);
+    width: min(200px, 75%);
     max-width: 100%;
     height: 100vh;
     overflow-y: auto;
@@ -1208,6 +1208,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     transform: translateX(100%);
     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
     pointer-events: none;
+    font-size: 1.5rem;
   }
 
   [dir="ltr"] #navigation{
@@ -1243,6 +1244,12 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     visibility: visible;
     pointer-events: auto;
     transform: translateX(0);
+  }
+
+  /* Slide-out menu typography */
+  #navigation .navigation-menu a{
+    color: #ffffff;
+    font-size: 1.5em;
   }
 }
 @media (max-width: 768px) {
@@ -1372,6 +1379,45 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 /*===============================*/
 .container{
   position: relative;
+}
+
+.story-container {
+  position: relative;
+  max-width: 800px;   /* optional, limits line width */
+  margin: 20px auto;  /* center container */
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+.story-container h1 {
+  font-size: 22pt;
+  margin-bottom: 15px;
+}
+
+.story-image {
+  float: right;
+  width: 250px;       /* adjust size */
+  height: auto;
+  margin: 15% 0 15px 15px; /* bottom + left spacing */
+}
+
+.story-container p {
+  margin-bottom: 15px;
+}
+
+.footer-note {
+  font-size: 0.9em;
+  color: #555;
+  margin-top: 20px;
+}
+
+@media (max-width:1024px) {
+  .story-image {  
+  width: 100%;       /* adjust size */
+  height: auto;  
+}
+
+
 }
 
 @media (min-width:980px) and (max-width:1024px) {
