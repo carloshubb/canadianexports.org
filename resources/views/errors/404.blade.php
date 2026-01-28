@@ -31,9 +31,9 @@
             </div>
             
             <!-- Text Content -->
-            <div class="mb-8">
+            <div class="mb-8 font-FuturaMdCnBT">
                 <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">
-                    Oops! Page not found
+                    Oops! Page does not exist.
                 </h1>
                 <p class="text-gray-300 text-lg md:text-xl">
                     The page you are looking for has been moved, removed,
