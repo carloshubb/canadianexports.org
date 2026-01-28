@@ -54,11 +54,12 @@
             }
         @endphp
 
-        <div id="navigation" class="transition-all duration-300 ease-in-out">
+        <div id="navigation" class="duration-300 ease-in-out">
             <!-- Navigation Menu-->
             <ul class="navigation-menu font-FuturaMdCnBT text-base md:text-base lg:text-lg" id="nav_items">
                 @isset($menuItems)
                     @foreach ($menuItems as $menuItem)
+<<<<<<< HEAD
                         @php
                             $name = trim($menuItem['name'] ?? '');
                             $isAboutUs = strcasecmp($name, 'About us') === 0;
@@ -92,6 +93,9 @@
                                 @include('front.includes.navbar-child', ['childs' => $menuItem['menus']])
                             </li>
                             {{-- display on mobile --}}
+=======
+                        @if (count($menuItem['menus']) > 0)
+>>>>>>> 04d0d24863cf2530d91c0625da7e59f448a53180
                             <li class="has-submenu parent-menu-item dropdown-menu-exp-responsive">
                                 <a aria-label="Candian Exporters" class="" onclick="toggleCollapsible()"
                                     href="#">
@@ -123,7 +127,7 @@
                 @endisset
                 @guest('customers')
                     <li>
-                        <ul class="mt-4 flex list-none items-center justify-center gap-2 md:hidden">
+                        <ul class="mt-4 flex list-none items-center justify-center gap-2 lg:hidden">
                             <li>
                                 @php
                                     $url = isset($general_setting['user_signup_page'])
@@ -150,7 +154,7 @@
                 @if ($isMobile)
                     @guest
                         <li class="">
-                            <ul class="flex list-none items-center justify-center gap-2 py-3 md:hidden">
+                            <ul class="flex list-none items-center justify-center gap-2 py-3 lg:hidden">
                                 <li>
                                     {{-- <a aria-label="Candian Exporters" href="{{ url('/login') }}"
                                         class="button-exp border-primary text-primary">Admin log
@@ -164,10 +168,10 @@
         </div>
 
         <!--Login button Start-->
-        <div class="hidden items-center gap-2 md:flex lg:gap-0">
+        <div class="hidden items-center gap-2 lg:flex lg:gap-0">
             <ul class="buy-button m-0 mb-0 inline-flex list-none gap-2 p-0 font-Futura">
                 @auth('customers')
-                    <li class="mb-0 hidden md:inline-flex">
+                    <li class="mb-0 hidden lg:inline-flex">
                         @php
                             $url = route('coffee_on_wall');
                             $url = langBasedURL($lang, $url);
@@ -292,7 +296,7 @@
                     </li>
                 @endauth
                 @guest('customers')
-                    <li class="mb-0 hidden md:inline-flex">
+                    <li class="mb-0 hidden lg:inline-flex">
                         @php
                             $url = route('coffee_on_wall');
                             $url = langBasedURL($lang, $url);
@@ -300,7 +304,7 @@
                         <a aria-label="Candian Exporters" href="{{ $url }}" class="button-exp-no-fill">Coffee
                             on the Wall</a>
                     </li>
-                    <li class="mb-0 hidden md:inline-flex">
+                    <li class="mb-0 hidden lg:inline-flex">
                         @php
                             $url = isset($general_setting['user_signin_page'])
                                 ? route('front.index', $general_setting['user_signin_page'])
@@ -310,7 +314,7 @@
                         <a aria-label="Candian Exporters" href="{{ $url }}"
                             class="button-exp-fill whitespace-nowrap hover:text-white border border-primary">{{ isset($generalSetting['signin_button_text']) ? $generalSetting['signin_button_text'] : '' }}</a>
                     </li>
-                    <li class="mb-0 hidden pl-1 md:inline-flex">
+                    <li class="mb-0 hidden pl-1 lg:inline-flex">
                         @php
                             $url = isset($general_setting['user_signup_page'])
                                 ? route('front.index', $general_setting['user_signup_page'])
@@ -322,9 +326,9 @@
                     </li>
                 @endguest
             </ul>
-            <div class="menu-extras md:order-2">
+            <div class="menu-extras lg:order-2">
                 <div class="menu-item">
-                    <!-- Mobile menu toggle-->
+                    <!-- Mobile menu toggle (right-top)-->
                     <a aria-label="Candian Exporters" class="navbar-toggle isToggle" onclick="toggleMenu()">
                         <div class="lines m-0">
                             <span></span>
@@ -340,14 +344,14 @@
         <!--Login button End-->
 
         <!--Login button Start-->
-        <div class="flex items-center gap-2 md:hidden lg:gap-0">
+        <div class="flex items-center justify-end gap-2 lg:hidden lg:gap-0">
             <ul class="buy-button m-0 mb-0 inline-flex list-none gap-2 p-0 font-Futura">
                 @auth('customers')
                     <li class="mb-0 inline">
                         <div class="inline-flex align-middle">
                             <button aria-label="Candian Exporters" id="drawer-button" type="button"
                                 class="menu hover:text-primaryRed flex items-center space-x-2 p-1 font-Futura text-sm font-medium text-gray-800 transition duration-300 lg:p-2 lg:text-base">
-                                <span class="hidden md:block">{{ auth()->guard('customers')->user()->name }}</span>
+                                <span class="hidden lg:block">{{ auth()->guard('customers')->user()->name }}</span>
                                 @php
                                     $user = auth()->guard('customers')->user()->loadMissing('profileImage');
                                 @endphp
@@ -446,7 +450,7 @@
                     </li>
                 @endauth
                 @guest('customers')
-                    <li class="mb-0 hidden md:inline-flex">
+                    <li class="mb-0 hidden lg:inline-flex">
                         @php
                             $url = isset($general_setting['user_signin_page'])
                                 ? route('front.index', $general_setting['user_signin_page'])
@@ -456,7 +460,7 @@
                         <a aria-label="Candian Exporters" href="{{ $url }}"
                             class="button-exp-fill whitespace-nowrap hover:text-white">{{ isset($generalSetting['signin_button_text']) ? $generalSetting['signin_button_text'] : '' }}</a>
                     </li>
-                    <li class="mb-0 hidden pl-1 md:inline-flex">
+                    <li class="mb-0 hidden pl-1 lg:inline-flex">
                         @php
                             $url = isset($general_setting['user_signup_page'])
                                 ? route('front.index', $general_setting['user_signup_page'])
@@ -468,22 +472,20 @@
                     </li>
                 @endguest
             </ul>
-            @if ($isMobile)
-                <div class="menu-extras md:order-2">
-                    <div class="menu-item">
-                        <!-- Mobile menu toggle-->
-                        <a aria-label="Candian Exporters" class="navbar-toggle isToggle" id="toggle-btn"
-                            onclick="toggleMenu()">
-                            <div class="lines m-0">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </div>
-                        </a>
-                        <!-- End mobile menu toggle-->
-                    </div>
+            <div class="menu-extras lg:order-2">
+                <div class="menu-item">
+                    <!-- Mobile menu toggle (right-top)-->
+                    <a aria-label="Candian Exporters" class="navbar-toggle isToggle" id="toggle-btn"
+                        onclick="toggleMenu()">
+                        <div class="lines m-0">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </a>
+                    <!-- End mobile menu toggle-->
                 </div>
-            @endif
+            </div>
         </div>
 
         <!--Login button End-->

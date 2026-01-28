@@ -20,28 +20,12 @@ function fn() {
 /*********************/
 function toggleMenu() {
     var toggleElements = document.getElementsByClassName('isToggle');
-
     var navigation = document.getElementById('navigation');
+
     navigation.classList.toggle('open');
 
-
-    // Toggle the 'open' class on each element with the 'isToggle' class
     for (var i = 0; i < toggleElements.length; i++) {
         toggleElements[i].classList.toggle('open');
-    }
-
-    var isOpen = document.getElementById('navigation');
-
-    if (isOpen.style.opacity === "1") {
-        isOpen.style.opacity = "0";
-        setTimeout(function () {
-            isOpen.style.display = "none";
-        }, 300); // Transition duration in milliseconds (adjust as needed)
-    } else {
-        isOpen.style.display = "block";
-        setTimeout(function () {
-            isOpen.style.opacity = "1";
-        }, 0); // Wait for display to be set before applying opacity (adjust as needed)
     }
 }
 // Add a click event listener to the window
@@ -54,7 +38,21 @@ function toggleMenu() {
 //     }
 // });
 
+// Close the menu when clicking outside the navbar / menu area
+window.addEventListener('click', function (event) {
+    var menuContainer = document.getElementById('topnav');
+    var navigation = document.getElementById('navigation');
 
+    // If navigation is not open, do nothing
+    if (!navigation || !navigation.classList.contains('open')) {
+        return;
+    }
+
+    // If click is outside the navbar (logo, toggles, and menu), close the menu
+    if (menuContainer && !menuContainer.contains(event.target)) {
+        toggleMenu();
+    }
+});
 
 // function toggleMenu1() {
 //     document.getElementById('isToggle1').classList.toggle('open');
