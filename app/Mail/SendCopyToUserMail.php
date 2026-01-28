@@ -23,7 +23,8 @@ class SendCopyToUserMail extends Mailable
 
     public function build()
     {
-            $subject = 'Your message has been delivered';
+            // Sender's copy — subject must include "Copy - "
+            $subject = 'Copy - Your message has been delivered';
             $service = app(EmailTemplateService::class);
             $payload = [
                 'advertiserName' => $this->customerProfile->company_name,

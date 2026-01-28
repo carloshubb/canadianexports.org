@@ -801,7 +801,7 @@
         </div>
     </div>
 </transition>
-                        <div class="relative z-0 w-full group" v-if="index > 0">
+                        <div class="relative z-0 w-full group" v-if="contacts.length > 1">
                             <button
                                 type="button"
                                 class="button-exp-fill mt-7"
@@ -1010,10 +1010,10 @@ export default {
         //     this.contacts.splice(index, 1);
         // },
         deleteContact(index) {
-    if (this.contacts.length > 1) { // Only allow deleting if not the first contact
-        this.contacts.splice(index, 1);
-    }
-},
+            if (this.contacts.length > 1) {
+                this.contacts.splice(index, 1);
+            }
+        },
         uploadImage(e, index) {
             var file = new FormData();
             file.append("file", e.target.files[0]);

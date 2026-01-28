@@ -76,11 +76,13 @@
             @endphp
 
             @if ($events_remaining == null || $events_remaining <= 0)
+                {{-- Free exporter: show membership notice modal first (stay on page) --}}
                 <div class="flex justify-end">
-                    <a aria-label="Canadian Exporters" href="{{ route('create_event_restriction') }}" class="button-exp-fill">
+                    <a aria-label="Canadian Exporters" href="javascript:void(0)" onclick="openMembershipNoticeEventPostingModal(); return false;" class="button-exp-fill">
                         {!! $homePageSettingDetail->section5_add_event_text !!}
                     </a>
                 </div>
+                @include('front.pages.partials.membership-notice-event-posting-modal', ['eventSignupUrl' => $addEventUrl])
             @else
                 <div class="flex justify-end">
                     <a aria-label="Canadian Exporters" href="{{ $hasPaid ? $addEventUrl : $reviewConfirmationUrl }}" class="button-exp-fill">
