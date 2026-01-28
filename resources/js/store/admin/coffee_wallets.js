@@ -67,6 +67,23 @@ const coffee_wallets = {
                     .finally(() => commit("setLoading"));
             });
         },
+        notifyDonorUsed({ commit }, id) {
+            return new Promise(function (resolve, reject) {
+                axios
+                    .post(`${process.env.MIX_ADMIN_API_URL}coffee-wallets/${id}/notify-donor-used`)
+                    .then((res) => {
+                        if (res.data.status === "Success") {
+                            resolve(res);
+                        } else {
+                            reject(new Error(res.data.message || "Failed to notify donor."));
+                        }
+                    })
+                    .catch((error) => {
+                        const msg = error.response?.data?.message || error.message || "Failed to notify donor.";
+                        reject(new Error(msg));
+                    });
+            });
+        },
     },
 };
 

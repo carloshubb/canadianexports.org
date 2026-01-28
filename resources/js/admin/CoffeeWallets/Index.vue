@@ -89,6 +89,12 @@
                     >
                       Donation
                     </th>
+                    <th
+                      scope="col"
+                      class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
+                    >
+                      Actions
+                    </th>
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200 bg-white">
@@ -129,6 +135,20 @@
                       class="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell"
                     >
                       {{ stat.dr_amount }}
+                    </td>
+                    <td
+                      class="hidden px-3 py-4 text-sm lg:table-cell"
+                    >
+                      <button
+                        v-if="stat.email"
+                        type="button"
+                        :disabled="notifyLoading === stat.id"
+                        class="text-primary hover:underline disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium"
+                        @click="notifyDonor(stat.id)"
+                      >
+                        {{ notifyLoading === stat.id ? "Sending…" : "Notify donor (coffee used)" }}
+                      </button>
+                      <span v-else class="text-gray-400">—</span>
                     </td>
                   </tr>
                 </tbody>
@@ -236,9 +256,24 @@ export default {
   data() {
     return {
       quickSearch: null,
+      notifyLoading: null,
     };
   },
   methods: {
+    notifyDonor(id) {
+      this.notifyLoading = id;
+      this.$store
+        .dispatch("coffee_wallets/notifyDonorUsed", id)
+        .then(() => {
+          alert("Donor has been notified that their coffee was enjoyed.");
+        })
+        .catch((err) => {
+          alert(err.message || "Failed to notify donor.");
+        })
+        .finally(() => {
+          this.notifyLoading = null;
+        });
+    },
     capitalizeFirstLetter(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
     },

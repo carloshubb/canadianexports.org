@@ -5,12 +5,37 @@ namespace App\Http\Controllers\Api\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\CoffeeWalletsResource;
 use App\Models\CoffeeWallet;
+use App\Services\CoffeeUsedDonorNotification;
 use App\Traits\StatusResponser;
 use Illuminate\Http\Request;
 
 class CoffeeWalletsController extends Controller
 {
     use StatusResponser;
+
+    /**
+     * Send the "Someone just enjoyed your coffee!" email to the donor.
+     * Call this when a coffee has been used/redeemed.
+     */
+    public function notifyDonorUsed($id)
+    {
+        $wallet = CoffeeWallet::find($id);
+        if (!$wallet) {
+            return response()->json(['status' => 'Error', 'message' => 'Coffee wallet not found.', 'data' => null], 404);
+        }
+        if (!$wallet->email) {
+            return response()->json(['status' => 'Error', 'message' => 'This coffee wallet has no email; cannot notify donor.', 'data' => null], 422);
+        }
+        $sent = CoffeeUsedDonorNotification::send($wallet);
+        if (!$sent) {
+            return response()->json(['status' => 'Error', 'message' => 'Failed to send donor notification.', 'data' => null], 500);
+        }
+        return response()->json([
+            'status' => 'Success',
+            'message' => 'Donor has been notified that their coffee was enjoyed.',
+            'data' => null,
+        ], 200);
+    }
 
     public function index()
     {
