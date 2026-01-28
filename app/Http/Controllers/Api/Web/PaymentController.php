@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Web;
 
 use App\Http\Controllers\Controller;
+use App\Mail\CoffeeWallDonationConfirmationMail;
 use App\Mail\CustomerVerifyEmailMail;
 use App\Mail\CustomerWelcomeMail;
 use App\Mail\EventCreationInvoiceMail;
@@ -391,6 +392,25 @@ class PaymentController extends Controller
 
         if ($beneficiaryIds->isNotEmpty()) {
             $coffeeWallet->beneficiaries()->sync($beneficiaryIds->all());
+        }
+
+        // Send donation confirmation email to the donor after PayPal success
+        if (!empty($coffeeWallet->email)) {
+            try {
+                $donorName = $coffeeWallet->name ?: 'there';
+                $amount = $coffeeWallet->dr_amount ?? $package->price ?? 0;
+                Mail::to($coffeeWallet->email)->send(new CoffeeWallDonationConfirmationMail(
+                    $donorName,
+                    $amount,
+                    now()->format('F j, Y')
+                ));
+                Log::info('Coffee Wall donation confirmation email sent (PayPal)', ['email' => $coffeeWallet->email]);
+            } catch (\Exception $e) {
+                Log::error('Failed to send Coffee Wall donation confirmation email (PayPal)', [
+                    'email' => $coffeeWallet->email,
+                    'error' => $e->getMessage(),
+                ]);
+            }
         }
 
         Session::flash('status', 'success');
