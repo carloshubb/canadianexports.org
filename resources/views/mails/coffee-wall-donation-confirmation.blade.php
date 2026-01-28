@@ -1,33 +1,19 @@
 @component('mail::message')
 
-<p style="margin: 0 0 1em 0;">
-Hi {{ $donorName }},
-</p>
+# Hi {{ $donorName }},
 
-<p style="margin: 0 0 1em 0; text-align: justify;">
-Great news! The coffee you shared through Coffee on the Wall has just been enjoyed. Your kindness is making a difference and brightening someone's day.
-</p>
+Thank you for your generous Coffee on the Wall donation. Your kindness helps support Canadian small businesses and makes a real difference in our community.
 
-<p style="margin: 0 0 0.5em 0;">
-Here's a little snapshot of your impact:
-</p>
-<p style="margin: 0 0 0.25em 0;">
-Date: {{ $redemptionDate }}
-</p>
-<p style="margin: 0 0 1em 0;">
-Coffee shared with: {{ $beneficiarySharedInfo }}
-</p>
+**Donation amount:** ${{ $amount }}
 
-<p style="margin: 0 0 1em 0; text-align: justify;">
-Thank you for spreading warmth and generosity. Every cup you give helps support passionate entrepreneurs and keeps our community connected.
-</p>
+**Date:** {{ $donationDate }}
 
-<p style="margin: 0 0 0.25em 0;">
-Warmly,
-</p>
-<p style="margin: 0 0 0 0;">
-The Coffee on the Wall Team
-</p>
+Your Coffee is now on the wall. When it is enjoyed by a small business, we may notify you if you selected that option.
+
+Thank you for spreading warmth and generosity.
+
+Warmly,<br>
+**The Coffee on the Wall Team**
 
 <table style="margin-bottom: 24px; margin-top: 16px; width: 100%" cellpadding="0" cellspacing="0" role="none">
     <tr>

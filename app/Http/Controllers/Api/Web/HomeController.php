@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\Web;
 
 use App\Http\Controllers\Controller;
+use App\Mail\CoffeeWallDonationConfirmationMail;
+use App\Mail\CoffeeUsedDonorMail;
 use App\Models\BusinessDirectory;
 use App\Models\BusinessDirectoryDetail;
 use App\Models\CoffeeWallet;
@@ -15,6 +17,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use LVR\CreditCard\CardNumber;
@@ -36,7 +39,7 @@ class HomeController extends Controller
     }
 
     public function index_abbreviation($abbreviation, $slug = null)
-    {   
+    {
         updateLangByAbber($abbreviation);
         $response = $this->checkPageSlug($slug);
         if ($response) {
@@ -49,7 +52,7 @@ class HomeController extends Controller
         } else {
             $page = getFrontPage();
         }
-       
+
         if (!$page) {
             abort(404);
         }
@@ -81,12 +84,12 @@ class HomeController extends Controller
             'non_refundable_agreement' => 'required|accepted',
             'terms_privacy_agreement' => 'required|accepted',
         ];
-        
+
         Log::info('Validation Rules:', $validationRule);
-        
+
         $niceNames = [];
         $defaultLang = getDefaultLanguage(1);
-        
+
         if ($defaultLang) {
             App::setLocale($defaultLang->abbreviation);
             $coffee_wall_setting = getI2bModalSetting($defaultLang, ['coffee_wall_setting']);
@@ -263,7 +266,7 @@ class HomeController extends Controller
         }
 
         $package_price = $package->price;
-        
+
         Log::info('Package price determined', ['package_price' => $package_price]);
         Log::info('Payment method', ['payment_method' => $request->payment_method]);
 
@@ -307,7 +310,7 @@ class HomeController extends Controller
                 ]);
 
                 $stripe_customer_id = $stripeCustomer->id;
-                
+
                 Log::info('Stripe customer created', [
                     'customer_id' => $stripe_customer_id
                 ]);
@@ -344,7 +347,7 @@ class HomeController extends Controller
 
                 $subscription_id = $subscription->id;
                 $stripe_item_id = isset($subscription->items->data[0]) ? $subscription->items->data[0]->id : null;
-                
+
                 Log::info('Stripe subscription created successfully', [
                     'subscription_id' => $subscription_id,
                     'stripe_item_id' => $stripe_item_id
@@ -459,7 +462,7 @@ class HomeController extends Controller
                         'email_address' => $request->email,
                     ],
                     'application_context' => [
-                'return_url' => route('paypal.subscription.success.coffee_wall', [
+                        'return_url' => route('paypal.subscription.success.coffee_wall', [
                             'name' => $request->name,
                             'email' => $request->email,
                             'package_id' => $package->id,
@@ -496,7 +499,7 @@ class HomeController extends Controller
                 }
 
                 $responseData = $paypal->subscription($data);
-                
+
                 Log::info('PayPal subscription response', [
                     'status' => $responseData['status'] ?? 'unknown',
                     'redirect_url' => $responseData['redirect_url'] ?? null
@@ -519,15 +522,15 @@ class HomeController extends Controller
                 Log::error('PayPal subscription failed with unknown status');
                 return $this->errorResponse();
             }
-        Log::info('Creating CoffeeWallet record', [
-            'name' => $request->name,
-            'email' => $request->email,
-            'package_id' => $package->id,
-            'beneficiary_ids' => $beneficiaryIds->toArray(),
-            'frequency' => $request->frequency,
-            'dr_amount' => $package_price,
-            'payment_method' => $package_price > 0 ? $request->payment_method : null,
-        ]);
+            Log::info('Creating CoffeeWallet record', [
+                'name' => $request->name,
+                'email' => $request->email,
+                'package_id' => $package->id,
+                'beneficiary_ids' => $beneficiaryIds->toArray(),
+                'frequency' => $request->frequency,
+                'dr_amount' => $package_price,
+                'payment_method' => $package_price > 0 ? $request->payment_method : null,
+            ]);
 
             $coffee_wallet = CoffeeWallet::create([
                 'name' => $request->name,
@@ -545,9 +548,9 @@ class HomeController extends Controller
                 'status' => 'completed',
             ]);
 
-        if ($beneficiaryIds->isNotEmpty()) {
-            $coffee_wallet->beneficiaries()->sync($beneficiaryIds->all());
-        }
+            if ($beneficiaryIds->isNotEmpty()) {
+                $coffee_wallet->beneficiaries()->sync($beneficiaryIds->all());
+            }
 
             Log::info('CoffeeWallet created successfully', [
                 'coffee_wallet_id' => $coffee_wallet->id,
@@ -555,9 +558,28 @@ class HomeController extends Controller
             ]);
 
             $data['coffee_wallet'] = $coffee_wallet;
-            
+
+            // Send donation confirmation email to the donor (Stripe or free donation; PayPal sends from its success handler)
+            if (!empty($coffee_wallet->email)) {
+                try {
+                    $donorName = $coffee_wallet->name ?: 'there';
+                    $amount = $coffee_wallet->dr_amount ?? $package_price ?? 0;
+                    Mail::to($coffee_wallet->email)->send(new CoffeeUsedDonorMail(
+                        $donorName,  
+                        now()->format('F j, Y')
+                        
+                    ));
+                    Log::info('Coffee used donor email sent', ['email' => $coffee_wallet->email]);
+                } catch (\Exception $e) {
+                    Log::error('Failed to send Coffee used donor email', [
+                        'email' => $coffee_wallet->email,
+                        'error' => $e->getMessage(),
+                    ]);
+                }   
+            }
+
             Log::info('===== Coffee on Wall Form Submission Completed Successfully =====');
-            
+
             return $this->successResponse($data, isset($coffee_wall_setting['coffee_on_wall_success_message']) ? $coffee_wall_setting['coffee_on_wall_success_message'] : 'Thank you for your generosity. Please accept our best wishes');
         } catch (\Exception $e) {
             Log::error('===== Coffee on Wall Form Submission Failed =====');
@@ -618,7 +640,7 @@ class HomeController extends Controller
         $user_event_listing_page = isset($general_setting['user_event_listing_page']) ? langBasedURL($lang, url($general_setting['user_event_listing_page'])) : null;
         $user_sponser_listing_page = isset($general_setting['user_sponser_listing_page']) ? langBasedURL($lang, url($general_setting['user_sponser_listing_page'])) : null;
         if (!Auth::guard('customers')->check()) {
-            if (isset($user_event_create_page) && ($user_event_create_page == $currentUrl || $user_event_listing_page == $currentUrl|| $user_sponser_listing_page == $currentUrl)) {
+            if (isset($user_event_create_page) && ($user_event_create_page == $currentUrl || $user_event_listing_page == $currentUrl || $user_sponser_listing_page == $currentUrl)) {
                 $url = langBasedURL($lang, route('front.index', $general_setting['user_event_signup_page']));
                 return $url;
             }
@@ -711,7 +733,7 @@ class HomeController extends Controller
 
 
         // {!! $businessDirectories->withQueryString()->onEachSide(1)->links('custom_pagination') !!}
-        $businessDirectorySearchTranslations = getStaticTranslationByKey($lang, 'online_business_directory_search', ['fax_label_text','address_label_text','phone_label_text','postal_code_label_text','industry_label_text','city_label_text','province_label_text','name_label_text','page_title']);
-        return view('front.pages.online-business-directory-template.business-directory-search', compact('businessDirectories','businessDirectorySearchTranslations'));
+        $businessDirectorySearchTranslations = getStaticTranslationByKey($lang, 'online_business_directory_search', ['fax_label_text', 'address_label_text', 'phone_label_text', 'postal_code_label_text', 'industry_label_text', 'city_label_text', 'province_label_text', 'name_label_text', 'page_title']);
+        return view('front.pages.online-business-directory-template.business-directory-search', compact('businessDirectories', 'businessDirectorySearchTranslations'));
     }
 }

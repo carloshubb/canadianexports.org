@@ -216,8 +216,10 @@
                         <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="phone">{{
                             JSON.parse(coffee_wall_setting)["phone_label"] ?? "Your Phone Number (Optional - We won't  call or text unless you ask us to)" }}
                         </label>
-                        <input @input="clearErrors('phone')" type="phone" class="can-exp-input" placeholder=""
-                            name="phone" id="phone" v-model="form.phone" />
+                        <input :value="form.phone"
+                            @input="(e) => { clearErrors('phone'); restrictPhoneToLength(e, 15); }"
+                            type="tel" class="can-exp-input" placeholder=""
+                            name="phone" id="phone" />
                         <Error v-if="submitted" fieldName="phone" :validationErros="validationErros" full_width="1" />
                     </div>
                     <br />
@@ -746,6 +748,15 @@ export default {
         },
         updateForm(field, value, price = 0) {
             this.form[field] = value;
+        },
+        restrictPhoneToLength(event, maxLength = 15) {
+            // Only allow +, -, (, ), and digits
+            let v = event.target.value.replace(/[^\d+\-()]/g, '');
+            if (v.length > maxLength) {
+                v = v.slice(0, maxLength);
+            }
+            event.target.value = v;
+            this.form.phone = v;
         },
         restrictToLength(event, maxWords, language, fieldName) {
             let inputValue = event.target.value.trim();
