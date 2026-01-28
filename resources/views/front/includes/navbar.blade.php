@@ -59,10 +59,34 @@
             <ul class="navigation-menu font-FuturaMdCnBT text-base md:text-base lg:text-lg" id="nav_items">
                 @isset($menuItems)
                     @foreach ($menuItems as $menuItem)
-                        @if (count($menuItem['menus']) > 0)
+                        @php
+                            $name = trim($menuItem['name'] ?? '');
+                            $isAboutUs = strcasecmp($name, 'About us') === 0;
+                            $hasChildren = isset($menuItem['menus']) && is_array($menuItem['menus']) && count($menuItem['menus']) > 0;
+                        @endphp
+
+                        @if ($isAboutUs)
+                            {{-- \"About us\" as a direct link (no dropdown) --}}
+                            @php
+                                $aboutUsUrl = $menuItem['link'] ?? null;
+                                if ($hasChildren) {
+                                    // Prefer a child item explicitly named \"About us\" if it exists
+                                    foreach ($menuItem['menus'] as $child) {
+                                        if (isset($child['name']) && strcasecmp(trim($child['name']), 'About us') === 0) {
+                                            $aboutUsUrl = $child['link'] ?? $aboutUsUrl;
+                                            break;
+                                        }
+                                    }
+                                }
+                                $aboutUsUrl = $aboutUsUrl ? langBasedURL($lang, $aboutUsUrl) : '#';
+                            @endphp
+                            <li>
+                                <a aria-label="Candian Exporters" href="{{ $aboutUsUrl }}"
+                                    class="sub-menu-item font-FuturaMdCnBT">{{ $menuItem['name'] }}</a>
+                            </li>
+                        @elseif ($hasChildren)
                             {{-- display on desktop --}}
                             <li class="has-submenu parent-menu-item dropdown-menu-exp flex items-center">
-
                                 <a aria-label="Candian Exporters">{{ $menuItem['name'] }}</a><span
                                     class="menu-arrow"></span>
                                 @include('front.includes.navbar-child', ['childs' => $menuItem['menus']])
@@ -79,8 +103,6 @@
                                                 d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                         </svg>
                                     </span>
-
-
                                 </a>
                                 <div id="collapsibleContent" class="mx-auto hidden w-11/12 rounded bg-gray-50 p-2">
                                     @include('front.includes.mobile-navbar-child', [
@@ -90,7 +112,6 @@
                             </li>
                         @else
                             <li>
-
                                 @php
                                     $url = langBasedURL($lang, $menuItem['link']);
                                 @endphp
