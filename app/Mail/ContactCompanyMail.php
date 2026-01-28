@@ -33,7 +33,8 @@ class ContactCompanyMail extends Mailable
      */
     public function build()
     {
-        $subject = 'Copy -  Response to your "' . $this->company_name . '" profile on Canadian Exports';
+        // Exporter (recipient) receives the original message — subject must NOT include "Copy - "
+        $subject = 'Response to your "' . $this->company_name . '" profile on Canadian Exports';
         $service = app(EmailTemplateService::class);
 
         $payload = ["name" => $this->data['name'],"email" => $this->data['email'], "message" => $this->data['message'], "data" => $this->data, "company_name" => $this->company_name];
@@ -41,7 +42,7 @@ class ContactCompanyMail extends Mailable
 
         if (!empty($rendered['body_html'])) {
             return $this->markdown('mails.dynamic-markdown')
-                ->subject($rendered['subject'] ?: $subject)
+                ->subject($subject)
                 ->with([
                     'body_html' => $rendered['body_html'],
                     'data' => $payload,

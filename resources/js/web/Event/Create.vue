@@ -809,7 +809,7 @@
 </div>
 
                     <!-- Delete Contact Button -->
-                    <div v-if="index !== 0" class="relative z-0 w-full group">
+                    <div v-if="contacts.length > 1" class="relative z-0 w-full group">
                         <button
                             type="button"
                             class="button-exp-fill mt-7"

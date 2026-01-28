@@ -504,7 +504,7 @@
                             <div v-if="contact.image_path" class="mt-2"><img :src="contact.image_path" class="h-40 w-40 object-cover rounded-lg cursor-pointer hover:opacity-80 transition-opacity" @click="showImagePopup(contact.image_path)" /></div>
                             <Error :fieldName="`contacts.${index}.image_path`" :validationErros="validationErros" />
                         </div>
-                        <div v-if="index !== 0" class="relative z-0 w-full group">
+                        <div v-if="contacts.length > 1" class="relative z-0 w-full group">
                             <button type="button" class="button-exp-fill mt-7" @click.prevent="deleteContact(index)">{{ JSON.parse(eventsetting).delete_btn_text }}</button>
                         </div>
                     </div>

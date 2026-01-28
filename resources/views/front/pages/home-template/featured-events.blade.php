@@ -49,8 +49,9 @@ $events = $events->where('featured', true);
                 @endphp
 
                 @if ($user->type !== 'event')
+                {{-- Free exporter: show membership notice modal first --}}
                 <div class="flex justify-center">
-                    <a aria-label="Canadian Exporters" href="{!! $eventSignupUrl !!}" class="button-exp-no-fill">
+                    <a aria-label="Canadian Exporters" href="javascript:void(0)" onclick="openMembershipNoticeEventPostingModal(); return false;" class="button-exp-no-fill">
                         {!! $homePageSettingDetail->section5_add_event_text !!}
                     </a>
                 </div>
@@ -67,9 +68,9 @@ $events = $events->where('featured', true);
                 @endphp
 
                 @if ($events_remaining == null || $events_remaining <= 0)
+                    {{-- Free exporter (no event credits): show membership notice modal first --}}
                     <div class="flex justify-center">
-                    <a aria-label="Canadian Exporters" href="{{ route('create_event_restriction') }}"
-                        class="button-exp-no-fill">
+                    <a aria-label="Canadian Exporters" href="javascript:void(0)" onclick="openMembershipNoticeEventPostingModal(); return false;" class="button-exp-no-fill">
                         {!! $homePageSettingDetail->section5_add_event_text !!}
                     </a>
             </div>
@@ -151,6 +152,7 @@ $events = $events->where('featured', true);
             </div>
         </div>
     </div>
+    @include('front.pages.partials.membership-notice-event-posting-modal', ['eventSignupUrl' => $eventSignupUrl])
     <div id="sponsorRestrictionModal"
         class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
         <div class="bg-white rounded-lg p-6 max-w-md w-full">
