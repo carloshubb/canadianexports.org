@@ -59,7 +59,26 @@
             <ul class="navigation-menu font-FuturaMdCnBT text-base md:text-base lg:text-lg" id="nav_items">
                 @isset($menuItems)
                     @foreach ($menuItems as $menuItem)
-                        @if (count($menuItem['menus']) > 0)
+                        @php
+                            $menuName = trim($menuItem['name'] ?? '');
+                            $isAboutUs = strcasecmp($menuName, 'About us') === 0;
+                            $hasChildren = isset($menuItem['menus']) && is_array($menuItem['menus']) && count($menuItem['menus']) > 0;
+                            $aboutUsUrl = '#';
+                            if ($isAboutUs && $hasChildren) {
+                                $aboutUsChild = collect($menuItem['menus'])->first(fn ($c) => strcasecmp(trim($c['name'] ?? ''), 'About us') === 0);
+                                $aboutUsUrl = $aboutUsChild ? ($aboutUsChild['link'] ?? ($menuItem['link'] ?? '#')) : ($menuItem['link'] ?? '#');
+                                $aboutUsUrl = langBasedURL($lang, $aboutUsUrl);
+                            } elseif ($isAboutUs) {
+                                $aboutUsUrl = langBasedURL($lang, $menuItem['link'] ?? '#');
+                            }
+                        @endphp
+                        @if ($isAboutUs)
+                            {{-- About us: single link, no dropdown --}}
+                            <li>
+                                <a aria-label="Candian Exporters" href="{{ $aboutUsUrl }}"
+                                    class="sub-menu-item font-FuturaMdCnBT">{{ $menuItem['name'] }}</a>
+                            </li>
+                        @elseif ($hasChildren)
                             <li class="has-submenu parent-menu-item dropdown-menu-exp-responsive">
                                 <a aria-label="Candian Exporters" class="" onclick="toggleCollapsible()"
                                     href="#">
@@ -71,8 +90,6 @@
                                                 d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                         </svg>
                                     </span>
-
-
                                 </a>
                                 <div id="collapsibleContent" class="mx-auto hidden w-11/12 rounded bg-gray-50 p-2">
                                     @include('front.includes.mobile-navbar-child', [
@@ -82,7 +99,6 @@
                             </li>
                         @else
                             <li>
-
                                 @php
                                     $url = langBasedURL($lang, $menuItem['link']);
                                 @endphp
