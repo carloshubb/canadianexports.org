@@ -46,6 +46,17 @@ class SearchController extends Controller
         $searchCustomerProfiles = [];
 
         updateLangByAbber($abbreviation);
+
+        // Redirect to clean URL when only default params are present (no search, default category/filters)
+        $hasSearch = isset($_GET['search']) && trim((string) $_GET['search']) !== '';
+        $category = $_GET['category'] ?? 'canadian-exporters';
+        $ceParam = $_GET['canadian-exporters'] ?? null;
+        $onlyDefaultParams = !$hasSearch
+            && ($category === 'canadian-exporters' || $category === '')
+            && ($ceParam === null || (is_array($ceParam) && count($ceParam) === 1 && in_array('all', $ceParam, true)));
+        if ($onlyDefaultParams && !empty($_GET)) {
+            return Redirect::to(langBasedURL(null, route('user.search.advanceSearch')));
+        }
         if (isset($_GET['category']) && Session::has('validation_redirect') && Session::get('validation_redirect') == 0) {
             $validationRule = ['search' => 'required'];
             $request = new Request();
