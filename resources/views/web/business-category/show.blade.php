@@ -34,26 +34,29 @@
                             {{ $customer->company_name }}</h2>
                     </div>
                     <!--Tabs-->
+                    @php
+                        $abbrev = $abbreviation ?? request()->segment(1);
+                        $profileOverviewUrl = route('user.business-category.show', array_filter(['abbreviation' => $abbrev, 'slug' => $customer->slug]));
+                        $profileMediaUrl = route('user.business-category.show', array_filter(['abbreviation' => $abbrev, 'slug' => $customer->slug . '-media']));
+                        $profileContactUrl = route('user.business-category.show', array_filter(['abbreviation' => $abbrev, 'slug' => $customer->slug . '-contact']));
+                    @endphp
                     <div class="flex flex-wrap" id="tabs-id">
                         <div class="w-full">
                             <div class="flex list-none flex-wrap justify-center md:justify-start gap-2 mb-4 flex-row">
-                                <a aria-label="Candian Exporters"
-                                    class="button-exp-fill cursor-pointer business-profile-tab"
-                                    onclick="changeAtiveTab(event,'tab-overview')"
+                                <a aria-label="Canadian Exporters" href="{{ $profileOverviewUrl }}"
+                                    class="cursor-pointer business-profile-tab {{ ($tab ?? 'overview') === 'overview' ? 'button-exp-fill' : 'button-exp-no-fill' }}"
                                     id="tab-overview-btn">{{ isset($advertiserSetting) ? $advertiserSetting['overview_tab_text'] : 'Overview' }}</a>
-                                <a aria-label="Candian Exporters"
-                                    class="button-exp-no-fill cursor-pointer business-profile-tab"
-                                    onclick="changeAtiveTab(event,'tab-media')"
+                                <a aria-label="Canadian Exporters" href="{{ $profileMediaUrl }}"
+                                    class="cursor-pointer business-profile-tab {{ ($tab ?? 'overview') === 'media' ? 'button-exp-fill' : 'button-exp-no-fill' }}"
                                     id="tab-media-btn">{{ isset($advertiserSetting) ? $advertiserSetting['media_tab_text'] : 'Media' }}</a>
-                                <a aria-label="Candian Exporters"
-                                    class="button-exp-no-fill cursor-pointer business-profile-tab"
-                                    onclick="changeAtiveTab(event,'tab-contact')"
+                                <a aria-label="Canadian Exporters" href="{{ $profileContactUrl }}"
+                                    class="cursor-pointer business-profile-tab {{ ($tab ?? 'overview') === 'contact' ? 'button-exp-fill' : 'button-exp-no-fill' }}"
                                     id="tab-contact-btn">{{ isset($advertiserSetting) ? $advertiserSetting['contact_tab_text'] : 'Contact' }}</a>
                             </div>
                             <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow rounded">
                                 <div class="flex-auto">
                                     <div class="tab-content tab-space">
-                                        <div class="block p-4" id="tab-overview">
+                                        <div class="{{ ($tab ?? 'overview') === 'overview' ? 'block' : 'hidden' }} p-4" id="tab-overview">
                                             <div class="square">
                                                 <div class="sm:pl-4 pb-4 pt-2 md:float-right">
                                                     <div class="border rounded">
@@ -77,7 +80,7 @@
                                             </div>
 
                                         </div>
-                                        <div class="hidden p-4" id="tab-media">
+                                        <div class="{{ ($tab ?? 'overview') === 'media' ? 'block' : 'hidden' }} p-4" id="tab-media">
                                             <h3 class="can-exp-h2">
                                                 {{ $customer->customerMedia->title ?? '' }}
                                             </h3>
@@ -110,7 +113,7 @@
                                                 @endisset
                                             </div>
                                         </div>
-                                        <div class="hidden" id="tab-contact">
+                                        <div class="{{ ($tab ?? 'overview') === 'contact' ? 'block' : 'hidden' }}" id="tab-contact">
 
                                             <!--new tab-->
                                             <div class="relative isolate bg-white">
@@ -129,7 +132,7 @@
                                                             </p>
                                                         </div>
                                                         <advertisers-contact-form
-                                                            aria-label="Candian Exporters"dvertisers-contact-form
+                                                            aria-label="Canadian Exporters"
                                                             submit_url="{{ route('user.business-category.send-message') }}"
                                                             customer_id="{{ $customer->id }}"
                                                             advertiser_setting="{{ $advertiserSetting }}"

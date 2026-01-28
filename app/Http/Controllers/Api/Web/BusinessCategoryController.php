@@ -78,13 +78,23 @@ class BusinessCategoryController extends Controller
     {
         updateLangByAbber($abbreviation);
 
+        $tab = 'overview';
+        $baseSlug = $customerProfileSlug;
+        if (str_ends_with($customerProfileSlug, '-media')) {
+            $tab = 'media';
+            $baseSlug = substr($customerProfileSlug, 0, -6);
+        } elseif (str_ends_with($customerProfileSlug, '-contact')) {
+            $tab = 'contact';
+            $baseSlug = substr($customerProfileSlug, 0, -8); // '-contact' length is 8
+        }
+
         $customer = CustomerProfile::with([
             'customerMedia.customerLogo',
             'customerMedia.customerGalleryImages.media',
             'customer.customerSocialMedia',
             'customer' // Include the customer relationship
         ])
-            ->whereSlug($customerProfileSlug)
+            ->whereSlug($baseSlug)
             ->whereHas('customer', function ($q) {
                 $q->where('is_active', 1)
                     ->where('is_package_amount_paid', 1)
@@ -92,7 +102,7 @@ class BusinessCategoryController extends Controller
             })
             ->firstOrFail();
 
-        return view('web.business-category.show', compact('customer'));
+        return view('web.business-category.show', compact('customer', 'tab', 'abbreviation'));
     }
 
     public function sendMessage(Request $request)
