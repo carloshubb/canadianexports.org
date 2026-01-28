@@ -30,8 +30,8 @@ class SendInquiryMailJob implements ShouldQueue
     {
         $mail = new InquiryMail($this->data);
 
-        // PDFs are now sent as download links in the email template, not as attachments
-        // This prevents email size issues and provides better security
+        // PDFs are attached directly to the email (max 3 PDF attachments)
+        // Download links are also provided in the email template as a fallback
 
         Mail::to($this->toEmail)->cc($this->adminEmails)->send($mail);
     }

@@ -121,9 +121,17 @@ public function build()
             ->with('data', $data);
     }
 
-    // PDFs are now sent as secure download links in the email template, not as attachments
-    // This prevents email size issues and provides better security
-
+    // Attach PDFs if they exist (maximum 3 PDF attachments)
+    $pdfFields = ['pdf_1', 'pdf_2', 'pdf_3'];
+    foreach ($pdfFields as $pdfField) {
+        if (!empty($i2b->{$pdfField})) {
+            $pdfPath = public_path($i2b->{$pdfField});
+            if (file_exists($pdfPath)) {
+                $mail->attach($pdfPath);
+            }
+        }
+    }
+    //dd($mail);
     return $mail;
 }
 
