@@ -60,9 +60,9 @@ class RegistrationInvoiceToCustomerMail extends Mailable
         }
         
 
-        if (isset($pdf)) {
-            $email->attachData($pdf, 'invoice.pdf');
-        }
+        // if (isset($pdf)) {
+        //     $email->attachData($pdf, 'invoice.pdf');
+        // }
 
         return $email;
     }
