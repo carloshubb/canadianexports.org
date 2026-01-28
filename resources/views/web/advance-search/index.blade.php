@@ -104,13 +104,15 @@
                                         {{ isset($advSearchSetting['select_industry_text']) ? $advSearchSetting['select_industry_text'] : '' }}
                                     </option> --}}
                                         @php
-                                            $selectedCandianExportes = null;
-                                        @endphp
-                                        @if (isset($_GET['canadian-exporters']) && in_array('all', $_GET['canadian-exporters']))
-                                            @php
+                                            // Default ALL selected when no filter, or when ALL explicitly chosen
+                                            $selectedCandianExportes = '';
+                                            if (
+                                                !isset($_GET['canadian-exporters']) ||
+                                                (isset($_GET['canadian-exporters']) && in_array('all', $_GET['canadian-exporters']))
+                                            ) {
                                                 $selectedCandianExportes = 'selected';
-                                            @endphp
-                                        @endif
+                                            }
+                                        @endphp
                                         <option value="all" {{ $selectedCandianExportes }}>
                                             {{ isset($advSearchSetting['all_option_text']) ? $advSearchSetting['all_option_text'] : '' }}
                                         </option>
@@ -143,13 +145,15 @@
                                         id="inquaries-to-buy-select" name="inquaries-to-buy[]" multiple="multiple">
                                         {{-- <option value="">Select i2b</option> --}}
                                         @php
+                                            // Default ALL selected when no filter, or when ALL explicitly chosen
                                             $selectedI2b = '';
-                                        @endphp
-                                        @if (isset($_GET['inquaries-to-buy']) && in_array('all', $_GET['inquaries-to-buy']))
-                                            @php
+                                            if (
+                                                !isset($_GET['inquaries-to-buy']) ||
+                                                (isset($_GET['inquaries-to-buy']) && in_array('all', $_GET['inquaries-to-buy']))
+                                            ) {
                                                 $selectedI2b = 'selected';
-                                            @endphp
-                                        @endif
+                                            }
+                                        @endphp
                                         <option value="all" {{ $selectedI2b }}>
                                             {{ isset($advSearchSetting['all_option_text']) ? $advSearchSetting['all_option_text'] : '' }}
                                         </option>
@@ -175,13 +179,15 @@
                                         multiple="multiple">
                                         {{-- <option value="">Select event</option> --}}
                                         @php
+                                            // Default ALL selected when no filter, or when ALL explicitly chosen
                                             $selectedEvents = '';
-                                        @endphp
-                                        @if (isset($_GET['trade-shows-and-events']) && in_array('all', $_GET['trade-shows-and-events']))
-                                            @php
+                                            if (
+                                                !isset($_GET['trade-shows-and-events']) ||
+                                                (isset($_GET['trade-shows-and-events']) && in_array('all', $_GET['trade-shows-and-events']))
+                                            ) {
                                                 $selectedEvents = 'selected';
-                                            @endphp
-                                        @endif
+                                            }
+                                        @endphp
                                         <option value="all" {{ $selectedEvents }}>
                                             {{ isset($advSearchSetting['all_option_text']) ? $advSearchSetting['all_option_text'] : '' }}
                                         </option>

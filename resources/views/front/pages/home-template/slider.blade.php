@@ -102,7 +102,7 @@
 
             <div class="flex justify-center mt-4">
                 @php
-                $url = route('user.search.advanceSearch', ['canadian-exporters' => ['all']]);
+                $url = route('user.search.advanceSearch');
                 $url = langBasedURL(null, $url);
                 @endphp
                 <div class="bg-white rounded-md p-2 py-3.5 bg-opacity-40">
