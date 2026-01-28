@@ -59,24 +59,7 @@
             <ul class="navigation-menu font-FuturaMdCnBT text-base md:text-base lg:text-lg" id="nav_items">
                 @isset($menuItems)
                     @foreach ($menuItems as $menuItem)
-                        @php
-                            $isAboutUs = (strtolower(trim($menuItem['name'] ?? '')) === 'about us');
-                            $hasChildren = count($menuItem['menus'] ?? []) > 0;
-                            $aboutUsAsLink = $isAboutUs && $hasChildren;
-                            $aboutUsUrl = '#';
-                            if ($aboutUsAsLink) {
-                                $aboutUsChild = collect($menuItem['menus'] ?? [])->first(fn ($c) => strtolower(trim($c['name'] ?? '')) === 'about us');
-                                $aboutUsUrl = $aboutUsChild ? ($aboutUsChild['link'] ?? ($menuItem['link'] ?? '#')) : ($menuItem['link'] ?? '#');
-                                $aboutUsUrl = langBasedURL($lang, $aboutUsUrl);
-                            }
-                        @endphp
-                        @if ($aboutUsAsLink)
-                            {{-- "About us" as direct link (no dropdown) --}}
-                            <li>
-                                <a aria-label="Candian Exporters" href="{{ $aboutUsUrl }}"
-                                    class="sub-menu-item font-FuturaMdCnBT">{{ $menuItem['name'] }}</a>
-                            </li>
-                        @elseif ($hasChildren)
+                        @if (count($menuItem['menus']) > 0)
                             {{-- display on desktop --}}
                             <li class="has-submenu parent-menu-item dropdown-menu-exp flex items-center">
 
@@ -159,12 +142,9 @@
             </ul>
         </div>
 
-        {{-- Mobile backdrop behind sliding navigation --}}
-        <div id="nav-backdrop" onclick="toggleMenu()"></div>
-
         <!--Login button Start-->
         <div class="hidden items-center gap-2 md:flex lg:gap-0">
-            <ul class="buy-button m-0 mb-0 inline-flex list-none gap-2 p-0  font-FuturaMdCnBT">
+            <ul class="buy-button m-0 mb-0 inline-flex list-none gap-2 p-0 font-Futura">
                 @auth('customers')
                     <li class="mb-0 hidden md:inline-flex">
                         @php
@@ -178,7 +158,7 @@
                     <li class="mb-0 inline">
                         <div class="inline-flex align-middle">
                             <button aria-label="Canadian Exporters" type="button"
-                                class="menu hover:text-primaryRed flex items-center space-x-2 p-1 font-FuturaMdCnBT text-sm font-medium text-gray-800 transition duration-300 lg:p-2 lg:text-base"
+                                class="menu hover:text-primaryRed flex items-center space-x-2 p-1 font-Futura text-sm font-medium text-gray-800 transition duration-300 lg:p-2 lg:text-base"
                                 onclick="openDropdown(event,'dropdown-id2')">
                                 @php
                                     $name = auth()->guard('customers')->user()->name ?? null;
@@ -340,12 +320,12 @@
 
         <!--Login button Start-->
         <div class="flex items-center gap-2 md:hidden lg:gap-0">
-            <ul class="buy-button m-0 mb-0 inline-flex list-none gap-2 p-0 font-FuturaMdCnBT">
+            <ul class="buy-button m-0 mb-0 inline-flex list-none gap-2 p-0 font-Futura">
                 @auth('customers')
                     <li class="mb-0 inline">
                         <div class="inline-flex align-middle">
                             <button aria-label="Candian Exporters" id="drawer-button" type="button"
-                                class="menu hover:text-primaryRed flex items-center space-x-2 p-1 font-FuturaMdCnBT text-sm font-medium text-gray-800 transition duration-300 lg:p-2 lg:text-base">
+                                class="menu hover:text-primaryRed flex items-center space-x-2 p-1 font-Futura text-sm font-medium text-gray-800 transition duration-300 lg:p-2 lg:text-base">
                                 <span class="hidden md:block">{{ auth()->guard('customers')->user()->name }}</span>
                                 @php
                                     $user = auth()->guard('customers')->user()->loadMissing('profileImage');
