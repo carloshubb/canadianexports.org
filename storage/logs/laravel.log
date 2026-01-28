@@ -132,3 +132,7 @@
 [2026-01-28 05:58:11] local.INFO: CoffeeWallet created successfully {"coffee_wallet_id":34,"dr_amount":"200"} 
 [2026-01-28 05:58:16] local.INFO: Coffee used donor email sent {"email":"neonstackdev@gmail.com"} 
 [2026-01-28 05:58:16] local.INFO: ===== Coffee on Wall Form Submission Completed Successfully =====  
+[2026-01-28 06:54:54] local.INFO: Inquiry email data prepared {"data_keys":["inquiry_id","name","company_name","company_email","inquiry_detail","pdf_download_links"],"has_name":true} 
+[2026-01-28 06:57:58] local.INFO: Inquiry email data prepared {"data_keys":["inquiry_id","name","company_name","company_email","inquiry_detail","pdf_download_links"],"has_name":true} 
+[2026-01-28 07:00:35] local.INFO: Inquiry email data prepared {"data_keys":["inquiry_id","name","company_name","company_email","inquiry_detail","pdf_download_links"],"has_name":true} 
+[2026-01-28 07:01:07] local.INFO: Inquiry email data prepared {"data_keys":["inquiry_id","name","company_name","company_email","inquiry_detail","pdf_download_links"],"has_name":true} 
