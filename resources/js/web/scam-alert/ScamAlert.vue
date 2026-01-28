@@ -19,7 +19,7 @@
               id="name"
               v-model="form.name"
             />
-            <Error v-if="submitted" fieldName="name" :validationErros="validationErros" />
+            <Error v-if="submitted" fieldName="name" :validationErros="validationErros" arrowAlign="left" />
           </div>
 
 
@@ -40,7 +40,7 @@
               id="email"
               v-model="form.email"
             />
-            <Error v-if="submitted" fieldName="email" :validationErros="validationErros" />
+            <Error v-if="submitted" fieldName="email" :validationErros="validationErros" arrowAlign="right" />
           </div>
           <div class="relative w-full mb-3 col-span-2">
             <label
@@ -61,7 +61,7 @@
               v-model="form.message"
             >
             </textarea>
-            <Error v-if="submitted" fieldName="message" :validationErros="validationErros" />
+            <Error v-if="submitted" fieldName="message" :validationErros="validationErros" arrowAlign="center" />
           </div>
         </div>
       </div>
