@@ -55,12 +55,12 @@
                         <input type="hidden" name="trade-shows-and-events[]" value="all" />
                         <div class="bg-white rounded-md p-2 bg-opacity-40">
                             <div
-                                class="rounded-md flex flex-col sm:flex-col md:flex-row lg:flex-row justify-between items-start">
-                                <div class="w-full md:w-2/3 flex items-center text-lg sm:text-xl">
+                                class="rounded-md flex flex-col sm:flex-col md:flex-row lg:flex-row justify-between items-stretch h-11 sm:h-11 md:h-11 gap-0">
+                                <div class="w-full md:w-2/3 flex items-stretch text-lg sm:text-xl min-h-0">
                                     <input type="search" name="search" id="search-input"
-                                        class="w-full py-2 px-3 focus:outline-none focus:ring-none {{ isset(getDefaultLanguage(1)->direction) && getDefaultLanguage(1)->direction == 'ltr' ? 'rounded-l-md md:rounded-l-md' : 'rounded-r-md md:rounded-r-md' }}"
+                                        class="flex-1 min-w-0 h-full min-h-[2.75rem] sm:min-h-[2.75rem] md:min-h-0 md:h-full py-0 px-3 focus:outline-none focus:ring-none {{ isset(getDefaultLanguage(1)->direction) && getDefaultLanguage(1)->direction == 'ltr' ? 'rounded-l-md md:rounded-l-md' : 'rounded-r-md md:rounded-r-md' }}"
                                         placeholder="Search over 50,000+ Canadian suppliers..." />
-                                    <button class="h-full button-exp-fill md:hidden {{ isset(getDefaultLanguage(1)->direction) && getDefaultLanguage(1)->direction == 'ltr' ? 'rounded-r-md lg:rounded-r-md rounded-l-none rounded-none' : 'rounded-l-md lg:rounded-l-md rounded-r-none rounded-none' }}">
+                                    <button type="submit" class="h-full min-h-[2.75rem] md:min-h-0 flex-shrink-0 flex items-center justify-center !py-0 button-exp-fill md:hidden {{ isset(getDefaultLanguage(1)->direction) && getDefaultLanguage(1)->direction == 'ltr' ? 'rounded-r-md lg:rounded-r-md rounded-l-none rounded-none' : 'rounded-l-md lg:rounded-l-md rounded-r-none rounded-none' }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -72,9 +72,9 @@
                                 @php
                                 $advSearchSetting = getI2bModalSetting($lang, ['advance_search']);
                                 @endphp
-                                <div class="w-full md:w-[60%] lg:w-[45%] xl:w-[40%] hidden md:block">
+                                <div class="w-full md:w-[60%] lg:w-[45%] xl:w-[40%] hidden md:flex items-stretch min-h-0">
                                     <select id="category" name="category"
-                                        class="w-full py-2 px-3 pr-8 focus:outline-none focus:ring-none rounded-b-md md:rounded-none">
+                                        class="w-full h-full min-h-0 py-0 px-3 pr-8 focus:outline-none focus:ring-none rounded-b-md md:rounded-none">
                                         <option value="canadian-exporters">
                                             {{ isset($advSearchSetting['canadian_exporters_text']) ? $advSearchSetting['canadian_exporters_text'] : '' }}
                                         </option>
@@ -86,7 +86,7 @@
                                         </option>
                                     </select>
                                 </div>
-                                <button class="hidden md:block py-2.5 h-full button-exp-fill {{ isset(getDefaultLanguage(1)->direction) && getDefaultLanguage(1)->direction == 'ltr' ? 'rounded-l-none' : 'rounded-r-none' }}">
+                                <button type="submit" class="hidden md:flex h-full min-h-0 items-center justify-center !py-0 button-exp-fill {{ isset(getDefaultLanguage(1)->direction) && getDefaultLanguage(1)->direction == 'ltr' ? 'rounded-l-none' : 'rounded-r-none' }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"
