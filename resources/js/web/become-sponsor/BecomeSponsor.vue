@@ -121,27 +121,6 @@
         </div>
         <div class="p-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="relative w-full hidden">
-              <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="talk_to_us_name">
-                Your Name and Title
-                <span class="text-red-500">*</span>
-              </label>
-              <input type="text" id="talk_to_us_name" v-model="form.talk_to_us_name" class="can-exp-input"
-                placeholder="John Doe" @input="clearErrors('talk_to_us_name')" />
-              <Error v-if="submitted" fieldName="talk_to_us_name" :validationErros="validationErros" />
-            </div>
-
-            <div class="relative w-full hidden">
-              <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="talk_to_us_phone">
-                Numbers Only. With Area Code
-                <span class="text-red-500">*</span>
-              </label>
-              <input type="text" id="talk_to_us_phone" v-model="form.talk_to_us_phone" class="can-exp-input"
-                placeholder="+15551234567" @input="handlePhoneInput('talk_to_us_phone')"
-                @keypress="validatePhoneKeypress" />
-              <Error v-if="submitted" fieldName="talk_to_us_phone" :validationErros="validationErros" />
-            </div>
-
             <div class="relative w-full">
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="preferred_call_time">
                 Best Time to Call
@@ -519,9 +498,6 @@ export default {
         featured_image: null,
         cardholder_name: "",
         payment_method_id: null,
-        // Talk to Us fields
-        talk_to_us_name: "",
-        talk_to_us_phone: "",
         preferred_call_time: "morning",
         preferred_call_date: null,
       },
@@ -954,9 +930,7 @@ export default {
             formData.cardholder_name = this.form.cardholder_name;
           }
         } else {
-          // Talk to us option
-          formData.talk_to_us_name = this.form.talk_to_us_name;
-          formData.talk_to_us_phone = this.form.talk_to_us_phone;
+          // Talk to us option (name/phone come from Your Business Information: contact_name, contact_number)
           formData.preferred_call_time = this.form.preferred_call_time;
           formData.preferred_call_date = this.form.preferred_call_date;
         }
@@ -1045,8 +1019,6 @@ export default {
         featured_image: null,
         cardholder_name: "",
         payment_method_id: null,
-        talk_to_us_name: "",
-        talk_to_us_phone: "",
         preferred_call_time: "morning",
         preferred_call_date: null,
       };

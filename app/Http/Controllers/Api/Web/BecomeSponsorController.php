@@ -214,8 +214,6 @@ class BecomeSponsorController extends Controller
                     'featured_image' => 'nullable|string',
                     'preferred_call_time' => 'required|string',
                     'preferred_call_date' => 'nullable|date|after:today',
-                    'talk_to_us_name' => 'required|string',
-                    'talk_to_us_phone' => 'required|string',
                     'message' => 'nullable|string',
                 ]);
             }
@@ -652,8 +650,8 @@ class BecomeSponsorController extends Controller
                     'talk_to_us_first' => $talkToUsFirst,
                     'preferred_call_time' => $request->preferred_call_time ?? null,
                     'preferred_call_date' => $request->preferred_call_date ?? null,
-                    'talk_to_us_name' => $request->talk_to_us_name ?? null,
-                    'talk_to_us_phone' => $request->talk_to_us_phone ?? null,
+                    'talk_to_us_name' => $talkToUsFirst ? ($request->contact_name ?? null) : ($request->talk_to_us_name ?? null),
+                    'talk_to_us_phone' => $talkToUsFirst ? ($request->contact_number ?? null) : ($request->talk_to_us_phone ?? null),
                     'beneficiary_id' => $primaryBeneficiaryId,
                     'payment_status' => $paymentStatus,
                     'payment_method' => $request->payment_method ?? null,
