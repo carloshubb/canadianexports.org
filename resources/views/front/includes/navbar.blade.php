@@ -56,7 +56,7 @@
 
         <div id="navigation" class="duration-300 ease-in-out">
             <!-- Navigation Menu-->
-            <ul class="navigation-menu font-FuturaMdCnBT text-base md:text-base lg:text-lg" id="nav_items">
+            <ul class="navigation-menu" id="nav_items">
                 @isset($menuItems)
                     @foreach ($menuItems as $menuItem)
                         @php
@@ -76,7 +76,7 @@
                             {{-- About us: single link, no dropdown --}}
                             <li>
                                 <a aria-label="Candian Exporters" href="{{ $aboutUsUrl }}"
-                                    class="sub-menu-item font-FuturaMdCnBT">{{ $menuItem['name'] }}</a>
+                                    class="sub-menu-item font-Futura">{{ $menuItem['name'] }}</a>
                             </li>
                         @elseif ($hasChildren)
                             <li class="has-submenu parent-menu-item dropdown-menu-exp-responsive">
@@ -103,7 +103,7 @@
                                     $url = langBasedURL($lang, $menuItem['link']);
                                 @endphp
                                 <a aria-label="Candian Exporters" href="{{ $url }}"
-                                    class="sub-menu-item font-FuturaMdCnBT">{{ $menuItem['name'] }}</a>
+                                    class="sub-menu-item font-Futura">{{ $menuItem['name'] }}</a>
                             </li>
                         @endif
                     @endforeach
