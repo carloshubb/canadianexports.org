@@ -459,26 +459,26 @@
     var navbar = document.getElementById("topnav");
     var navHeight = navbar.offsetHeight;
     window.addEventListener("scroll", function() {
-        if (window.pageYOffset > 0) {
-            document.getElementById("nav_items").style.padding = "12px 0";
-            document.getElementById("logo").style.margin = "5px 0px 0px 0px";
-            document.getElementById("logocircle").style.width = "45px";
-            document.getElementById("logotext").style.width = "140px";
-            document.getElementById("logo_wrapper").style.display = "flex";
-            document.getElementById("logo_outer").style.height = "3.5rem";
-            document.getElementById("topnav").style.height = "3.5rem";
-            document.getElementById("navigation").style.margin = "-12px 0px 0px 0px";
+        // if (window.pageYOffset > 0) {
+        //     document.getElementById("nav_items").style.padding = "12px 0";
+        //     document.getElementById("logo").style.margin = "5px 0px 0px 0px";
+        //     document.getElementById("logocircle").style.width = "45px";
+        //     document.getElementById("logotext").style.width = "140px";
+        //     document.getElementById("logo_wrapper").style.display = "flex";
+        //     document.getElementById("logo_outer").style.height = "3.5rem";
+        //     document.getElementById("topnav").style.height = "auto";
+        //     document.getElementById("navigation").style.margin = "-12px 0px 0px 0px";
 
-        } else {
-            document.getElementById("nav_items").style.padding = "24px 0";
-            document.getElementById("logo").style.margin = "5px 0px 0px 0px";
-            document.getElementById("logocircle").style.width = "50px";
-            document.getElementById("logotext").style.width = "160px";
-            document.getElementById("logo_wrapper").style.display = "inline-block";
-            document.getElementById("logo_outer").style.height = "auto";
-            document.getElementById("topnav").style.height = "auto";
-            document.getElementById("navigation").style.margin = "0px 0px 0px 0px";
-        }
+        // } else {
+        //     document.getElementById("nav_items").style.padding = "24px 0";
+        //     document.getElementById("logo").style.margin = "5px 0px 0px 0px";
+        //     document.getElementById("logocircle").style.width = "50px";
+        //     document.getElementById("logotext").style.width = "160px";
+        //     document.getElementById("logo_wrapper").style.display = "inline-block";
+        //     document.getElementById("logo_outer").style.height = "auto";
+        //     document.getElementById("topnav").style.height = "auto";
+        //     document.getElementById("navigation").style.margin = "0px 0px 0px 0px";
+        // }
     });
     setTimeout(() => {
         new Swiper(".mySwiper", {
