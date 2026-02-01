@@ -110,7 +110,7 @@
                 @endisset
                 @guest('customers')
                     <li>
-                        <ul class="mt-4 flex list-none items-center justify-center gap-2 lg:hidden">
+                        <ul class="mt-4 flex flex-col list-none items-stretch justify-center gap-6 lg:hidden">
                             <li>
                                 @php
                                     $url = isset($general_setting['user_signup_page'])
