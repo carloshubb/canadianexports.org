@@ -68,7 +68,7 @@
             <Error v-if="submitted" fieldName="sponsorship_amount" :validationErros="validationErros" full_width="1" />
           </div>
 
-          <div class="relative w-full">
+          <div class="relative w-full" id="beneficiary_ids">
             <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg font-medium">
               Select Beneficiary <span class="text-red-500">*</span>
             </label>
@@ -82,7 +82,7 @@
                 </div>
               </div>
             </div>
-            <Error v-if="submitted" fieldName="beneficiary_id" :validationErros="validationErros" full_width="1" />
+            <Error v-if="submitted" fieldName="beneficiary_ids" :validationErros="validationErros" full_width="1" />
           </div>
         </div>
       </div>
@@ -401,6 +401,11 @@ export default {
         process: "media/process",
         revert: "media/revert",
         load: "media/load?load=",
+        headers: {
+          "X-CSRF-TOKEN": document.head.querySelector(
+            'meta[name="csrf-token"]'
+          ).content,
+        },
       },
     };
   },
@@ -545,7 +550,7 @@ export default {
 
     updateBeneficiary(beneficiary) {
       this.form.beneficiary_id = beneficiary.id;
-      this.clearErrors("beneficiary_id");
+      this.clearErrors("beneficiary_ids");
     },
 
     handleLogoProcessed(error, file) {
@@ -611,10 +616,18 @@ export default {
           this.form.payment_method_id = paymentMethod.id;
         }
 
-        // Submit the form
+        // Build payload: backend expects beneficiary_ids (array) and frequency
+        const payload = { ...this.form };
+        payload.beneficiary_ids = (this.form.beneficiary_id != null && this.form.beneficiary_id !== '')
+          ? [this.form.beneficiary_id]
+          : [];
+        if (!this.form.talk_to_us_first) {
+          payload.frequency = payload.frequency || 'one_time';
+        }
+
         const response = await axios.post(
           `${process.env.MIX_WEB_API_URL}become-sponsor/process-payment`,
-          this.form
+          payload
         );
 
         if (response.data.status === "Success") {

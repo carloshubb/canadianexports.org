@@ -12,14 +12,22 @@
                 <div class="bg-gray-50">
                     <div class="mx-auto max-w-7xl px-6 lg:px-8">
                         <div
+                            v-if="showDowngradeMessage"
+                            class="mx-auto mt-4 max-w-2xl rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800"
+                            role="alert">
+                            Membership downgrades cannot be processed automatically. Please contact us to adjust your plan.
+                        </div>
+                        <div
                             class="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-auto lg:max-w-3xl md:grid-cols-2 lg:grid-cols-2">
-                            <div v-if="premiumPackage" class="rounded-3xl p-6 xl:p-6 bg-white cursor-pointer overflow-hidden transition-all duration-200"
+                            <div v-if="premiumPackage" class="rounded-3xl p-6 xl:p-6 bg-white overflow-hidden transition-all duration-200"
                                 :class="[
                                     form.package_type == 'premium'
                                         ? 'border-[3px] border-red-600 opacity-100'
-                                        : 'border border-gray-300 opacity-55'
+                                        : 'border border-gray-300 opacity-55',
+                                    isDowngradeOption('premium') ? 'cursor-not-allowed' : 'cursor-pointer'
                                 ]"
-                                @click.prevent="updatePackageForm(premiumPackage)">
+                                :title="isDowngradeOption('premium') ? downgradeTooltipText : null"
+                                @click.prevent="onPackageSelect(premiumPackage)">
                                 <!-- Premium bar: red bg, white text, rounded top only; full color when selected (card opacity fades when not) -->
                                 <div class="w-full mb-6 rounded-t-xl rounded-b-none bg-red-600 py-2.5 flex items-center justify-center">
                                     <span class="text-white font-semibold text-lg">Premium</span>
@@ -62,13 +70,15 @@
                                 </ul>
                             </div>
 
-                            <div v-if="featuredPackage" class="rounded-3xl p-6 xl:p-6 bg-white cursor-pointer overflow-hidden transition-all duration-200"
+                            <div v-if="featuredPackage" class="rounded-3xl p-6 xl:p-6 bg-white overflow-hidden transition-all duration-200"
                                 :class="[
                                     form.package_type == 'featured'
                                         ? 'border-[3px] border-[#800000] opacity-100'
-                                        : 'border border-gray-100 opacity-55'
+                                        : 'border border-gray-100 opacity-55',
+                                    isDowngradeOption('featured') ? 'cursor-not-allowed' : 'cursor-pointer'
                                 ]"
-                                @click.prevent="updatePackageForm(featuredPackage)">
+                                :title="isDowngradeOption('featured') ? downgradeTooltipText : null"
+                                @click.prevent="onPackageSelect(featuredPackage)">
                                 <!-- Featured bar: maroon bg, warm gold text, rounded top only; full color when selected (card opacity fades when not). Unselected frame: very thin light grey -->
                                 <div class="w-full mb-6 rounded-t-xl rounded-b-none bg-[#800000] py-2.5 flex items-center justify-center">
                                     <span class="font-semibold text-lg text-[#C9A227]">Featured</span>
@@ -1128,6 +1138,13 @@ export default {
 
             return rawLabel.replace(/\(5\)/g, '<sup class="footnote-indicator">(5)</sup>');
         },
+        packageTierOrder() {
+            return { premium: 0, featured: 1 };
+        },
+        currentEventPlanTier() {
+            if (this.initialEventPackageType == null) return null;
+            return this.packageTierOrder[this.initialEventPackageType] ?? null;
+        },
     },
     props: [
         "event_detail",
@@ -1221,6 +1238,10 @@ export default {
                 start_date: "",
                 end_date: "",
             },
+            showDowngradeMessage: false,
+            downgradeTooltipText:
+                "Membership downgrades cannot be processed automatically. Please contact us to adjust your plan.",
+            initialEventPackageType: null,
         };
     },
     mounted() {
@@ -1748,6 +1769,23 @@ export default {
                 this.validationErros.clear("password_confirmation");
             }
         },
+        isDowngradeOption(packageType) {
+            if (this.currentEventPlanTier == null) return false;
+            const selectedTier = this.packageTierOrder[packageType] ?? -1;
+            return selectedTier < this.currentEventPlanTier;
+        },
+        onPackageSelect(pkg) {
+            if (!pkg?.package_type) return;
+            if (this.isDowngradeOption(pkg.package_type)) {
+                this.showDowngradeMessage = true;
+                setTimeout(() => {
+                    this.showDowngradeMessage = false;
+                }, 8000);
+                return;
+            }
+            this.showDowngradeMessage = false;
+            this.updatePackageForm(pkg);
+        },
         updatePackageForm(event_package) {
             if (!event_package) {
                 return;
@@ -1971,6 +2009,19 @@ export default {
                             this.form.name = event.customer.name;
                             this.form.business_name = event.customer.business_name;
                             this.form.email = event.customer.email;
+                        }
+
+                        // Event package: used for upgrade-only (no downgrade) when editing
+                        const eventPackageType = event.package_type || event.registration_package?.package_type;
+                        if (eventPackageType) {
+                            this.initialEventPackageType = eventPackageType;
+                            this.updateForm("package_type", eventPackageType);
+                        }
+                        if (event.package_id != null) {
+                            this.updateForm("package_id", event.package_id);
+                        }
+                        if (event.registration_package?.id != null) {
+                            this.updateForm("package_id", event.registration_package.id);
                         }
                     }
                 })

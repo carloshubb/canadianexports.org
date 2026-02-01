@@ -16,30 +16,31 @@ class MediaController extends Controller
 
     public function process(Request $request)
     {
-        if (isset($request->is_temp_media) && $request->is_temp_media) {
-            $destinationFolder = 'temp/' . uniqid();
+        // Always set destination folder (default to temp for FilePond/simple uploads)
+        $destinationFolder = (isset($request->is_temp_media) && $request->is_temp_media)
+            ? 'temp/' . uniqid()
+            : 'temp/' . uniqid();
+
+        // Accept file from 'media' (BecomeSponsor/custom) or 'logo'/'featured_image' (FilePond with name attribute)
+        $file = $request->file('media')
+            ?? $request->file('logo')
+            ?? $request->file('featured_image');
+
+        if (!$file) {
+            return response()->json(['error' => 'No file uploaded.'], 422);
         }
 
-        $media = $this->saveFiles($request->media, $destinationFolder);
-        
-        // Log for debugging on Hostinger
-        \Log::info('Media upload process', [
-            'destinationFolder' => $destinationFolder ?? 'not set',
-            'uploadPath' => $this->uploadPath ?? 'not set',
-            'media' => $media,
-            'document_root' => $_SERVER['DOCUMENT_ROOT'] ?? 'not set',
-            'public_path' => public_path(),
-            'web_public_path' => getWebPublicPath('media/' . ($destinationFolder ?? '')),
-        ]);
-        
-        foreach ($media as $file) {
+        $media = $this->saveFiles($file, $destinationFolder);
+
+        foreach ($media as $savedFile) {
             TemporaryMedia::create([
-                'path' => $file,
-                'type' => $request->type,
-                'extension' => pathinfo($file, PATHINFO_EXTENSION),
+                'path' => $savedFile,
+                'type' => $request->type ?? 'logo',
+                'extension' => pathinfo($savedFile, PATHINFO_EXTENSION),
             ]);
         }
 
+        // Return array format (JSON) - BecomeSponsorController expects json_decode(logo) to get path(s)
         return $media;
     }
 //     public function process(Request $request)
@@ -78,11 +79,21 @@ class MediaController extends Controller
 
     public function revert(Request $request)
     {
-        $media = $request->media;
-        $media = json_decode($media, 1);
-        $result = $this->removeFile($media);
+        // FilePond sends: POST with form field 'media', or DELETE with raw body
+        $media = $request->input('media') ?: $request->getContent();
+        if (empty(trim($media ?? ''))) {
+            return response()->json(['error' => 'No media to revert.'], 422);
+        }
+
+        // Support both JSON array ["path"] and plain path string
+        $paths = json_decode($media, true);
+        if (!is_array($paths)) {
+            $paths = [$media];
+        }
+
+        $result = $this->removeFile($paths);
         if ($result) {
-            foreach ($media as $file) {
+            foreach ($paths as $file) {
                 TemporaryMedia::wherePath($file)->delete();
             }
             return $result;

@@ -21,7 +21,7 @@ use Symfony\Component\HttpKernel\Event\FinishRequestEvent;
 Route::group(['prefix' => 'web'], function () {
     Route::group(['prefix' => 'media'], function () {
         Route::post('/process', [MediaController::class, 'process']);
-        Route::post('/revert', [MediaController::class, 'revert']);
+        Route::match(['post', 'delete'], '/revert', [MediaController::class, 'revert']);
         Route::get('/load', [MediaController::class, 'load']);
         Route::post('image_again_upload', [MediaController::class, 'uploadImage']);
     });

@@ -178,13 +178,24 @@
               :validationErros="validationErros"
             />
             <div
+              v-if="showDowngradeMessage"
+              class="mx-auto mt-4 max-w-2xl rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800"
+              role="alert"
+            >
+              Membership downgrades cannot be processed automatically. Please contact us to adjust your plan.
+            </div>
+            <div
               class="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none md:grid-cols-2 lg:grid-cols-3"
             >
               <div
-                class="rounded-3xl p-6 xl:p-6 border-2 border-gray-300 bg-white cursor-pointer transition-opacity duration-300"
+                class="rounded-3xl p-6 xl:p-6 border-2 border-gray-300 bg-white transition-opacity duration-300 relative"
+                :class="[
+                  package_type == 'free' ? 'ring-2 ring-gray-300 opacity-100' : 'opacity-50',
+                  isDowngradeOption('free') ? 'cursor-not-allowed' : 'cursor-pointer'
+                ]"
                 id="free-package"
-                :class="package_type == 'free' ? 'ring-2 ring-gray-300 opacity-100' : 'opacity-50'"
-                @click.prevent="updatePackageForm('package_type', freePackage)"
+                :title="isDowngradeOption('free') ? downgradeTooltipText : null"
+                @click.prevent="onPackageSelect(freePackage)"
               >
                 <div class="mb-4">
                   <div class="bg-gray-300 rounded-t-lg px-4 py-3 text-center">
@@ -262,14 +273,14 @@
               </div>
 
               <div
-                class="rounded-3xl p-6 xl:p-6 border-2 border-red-600 bg-white cursor-pointer transition-opacity duration-300"
-                :class="
-                  package_type == 'premium' ? 'ring-2 ring-red-600 opacity-100' : 'opacity-50'
-                "
+                class="rounded-3xl p-6 xl:p-6 border-2 border-red-600 bg-white transition-opacity duration-300 relative"
+                :class="[
+                  package_type == 'premium' ? 'ring-2 ring-red-600 opacity-100' : 'opacity-50',
+                  isDowngradeOption('premium') ? 'cursor-not-allowed' : 'cursor-pointer'
+                ]"
                 id="premium-package"
-                @click.prevent="
-                  updatePackageForm('package_type', premiumPackage)
-                "
+                :title="isDowngradeOption('premium') ? downgradeTooltipText : null"
+                @click.prevent="onPackageSelect(premiumPackage)"
               >
                 <div class="mb-4">
                   <div class="bg-red-600 rounded-t-lg px-4 py-3 text-center">
@@ -346,14 +357,14 @@
               </div>
 
               <div
-                class="rounded-3xl p-6 xl:p-6 border-2 border-[#800020] bg-white cursor-pointer transition-opacity duration-300"
+                class="rounded-3xl p-6 xl:p-6 border-2 border-[#800020] bg-white transition-opacity duration-300 relative"
                 id="featured-package"
-                :class="
-                  package_type == 'featured' ? 'ring-2 ring-[#800020] opacity-100' : 'opacity-50'
-                "
-                @click.prevent="
-                  updatePackageForm('package_type', featuredPackage)
-                "
+                :class="[
+                  package_type == 'featured' ? 'ring-2 ring-[#800020] opacity-100' : 'opacity-50',
+                  isDowngradeOption('featured') ? 'cursor-not-allowed' : 'cursor-pointer'
+                ]"
+                :title="isDowngradeOption('featured') ? downgradeTooltipText : null"
+                @click.prevent="onPackageSelect(featuredPackage)"
               >
                 <div class="mb-4">
                   <div class="bg-[#800020] rounded-t-lg px-4 py-3 text-center">
@@ -434,6 +445,7 @@
           </div>
         </div>
       </div>
+       <!--Auto-renew (Cancel anytime1)-->
       <div class="flex items-center mb-4">
         <input
           id="auto-renew"
@@ -508,6 +520,21 @@ export default {
       }
       return null;
     },
+    packageTierOrder() {
+      return { free: 0, premium: 1, featured: 2 };
+    },
+    currentUserPlanTier() {
+      if (this.profile !== "1") return null;
+      try {
+        const user = JSON.parse(this.user);
+        if (user?.type !== "customer" || !user?.registration_package?.package_type)
+          return null;
+        const type = user.registration_package.package_type;
+        return this.packageTierOrder[type] ?? null;
+      } catch {
+        return null;
+      }
+    },
   },
   data() {
     return {
@@ -517,6 +544,9 @@ export default {
         semi_annually: 20,
         annually: 40,
       },
+      showDowngradeMessage: false,
+      downgradeTooltipText:
+        "Membership downgrades cannot be processed automatically. Please contact us to adjust your plan.",
     };
   },
   methods: {
@@ -546,6 +576,23 @@ export default {
         field: [field],
         value: registrationPackage.id,
       });
+    },
+    isDowngradeOption(packageType) {
+      if (this.currentUserPlanTier == null) return false;
+      const selectedTier = this.packageTierOrder[packageType] ?? -1;
+      return selectedTier < this.currentUserPlanTier;
+    },
+    onPackageSelect(pkg) {
+      if (!pkg?.package_type) return;
+      if (this.isDowngradeOption(pkg.package_type)) {
+        this.showDowngradeMessage = true;
+        setTimeout(() => {
+          this.showDowngradeMessage = false;
+        }, 8000);
+        return;
+      }
+      this.showDowngradeMessage = false;
+      this.updatePackageForm("package_type", pkg);
     },
     updatePackageForm(field, value) {
       if (field == "payment_frequency") {

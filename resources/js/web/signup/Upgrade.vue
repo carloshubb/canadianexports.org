@@ -344,6 +344,7 @@
                                 </select>
                             </div>
                         </div>
+                       
                         <div class="flex items-center mb-4">
                             <input id="auto-renew" type="checkbox" value=""
                                 class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
