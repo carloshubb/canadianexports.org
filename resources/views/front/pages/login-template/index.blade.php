@@ -10,7 +10,7 @@
                 @if (session('status'))
                     <success-message type="{{ session('status') }}" message="{{ session('message') }}"></success-message>
                 @endif
-
+                <!--* Indicates required fields -->
                 <div class="mt-2 sm:mx-auto sm:w-full sm:max-w-md">
                     <div class="bg-white py-8 px-4 shadow rounded-lg sm:px-10">
                         <div class="">
@@ -18,7 +18,7 @@
                                 <span class="text-red-500">*</span>
                                 {{ $loginPageSettingDetail->required_fields_text }}</p>
                         </div>
-                        <form class="space-y-6" method="POST" action="{{ route('web.user.login') }}">
+                        <form class="space-y-6" method="POST" action="{{ route('web.user.login') }}" autocomplete="on">
                             @csrf
                             <input type="hidden" value="{{ $page->id }}" name="page_id" />
                             {{-- Session Status --}}
@@ -27,8 +27,8 @@
                                 <label for="email"
                                     class="block text-base md:text-base lg:text-lg font-Nunito leading-6 text-gray-900">{!! $loginPageSettingDetail->email_label !!} <span class="text-red-500">*</span></label>
                                 <div class="mt-2">
-                                    <input type="text" class="can-exp-input" id="email" name="email" placeholder=""
-                                        value="{{ old('email') }}" autofocus />
+                                    <input type="email" class="can-exp-input" id="email" name="email" placeholder=""
+                                        value="{{ old('email') }}" autocomplete="username" autofocus />
                                     <p class="mt-1 text-sm text-gray-500" id="email-description">{!! $loginPageSettingDetail->email_help !!}</p>
                                 </div>
                                 @error('email')
@@ -56,7 +56,7 @@
                             <div
                                 class="flex flex-col sm:flex-col md:flex-row lg:flex-row items-center justify-between gap-4">
                                 <div class="flex items-start">
-                                    <input id="remember-me" name="remember-me" type="checkbox"
+                                    <input id="remember-me" name="remember" type="checkbox" value="1"
                                         class="h-4 w-4 mt-0.5 rounded border-gray-300 text-primary focus:ring-primary">
                                     <label for="remember-me"
                                         class="ml-2 block text-sm md:text-sm lg:text-base text-gray-900">{!! $loginPageSettingDetail->remeber_me_label !!}</label>

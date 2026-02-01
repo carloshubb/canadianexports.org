@@ -1,5 +1,5 @@
 <template>
-    <div class="relative mt-2" v-if="validationErros.has(fieldName)">
+    <div class="relative mt-2" v-if="validationErros.has(fieldName)" :data-error-field="fieldName">
         <div role="tooltip" class="relative tooltiptext z-50 leading-none transition duration-150 ease-in-out shadow-lg py-2 px-3 bg-primary text-gray-600 rounded w-fit inline-block">
             <!-- Arrow pointing upward to the label -->
             <div class="absolute -top-2 z-50" :class="arrowPosition">

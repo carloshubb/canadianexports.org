@@ -107,9 +107,9 @@ class UserAccess
     if (Auth::guard('customers')->check()) {
         $customer = Auth::guard('customers')->user();
 
-        // Block signin/signup pages for logged in users
+        // Block signin/signup pages for logged in users; redirect to dashboard by landing type (Exporter > Event > Sponsor)
         if ($currentUrl == $user_signup_page || $currentUrl == $user_signin_page) {
-            return Redirect::to(langBasedURL($lang, route('user.profile-settings.index')));
+            return Redirect::to($customer->getDashboardUrl($lang));
         }
 
         // Handle event type users

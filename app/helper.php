@@ -579,6 +579,36 @@ if (!function_exists("getGeneralSettingByKey")) {
     }
 }
 
+/**
+ * Detect which user dashboard "view" the current page belongs to.
+ * Used for "Switch to X View" in navbar when user has multiple profiles.
+ * Returns: 'customer' (Exporter), 'event', 'sponsor', or null.
+ */
+if (!function_exists("getCurrentUserView")) {
+    function getCurrentUserView()
+    {
+        $route = request()->route();
+        if (!$route) {
+            return null;
+        }
+        $routeName = $route->getName();
+        if ($routeName && (str_starts_with($routeName, 'user.profile-settings') || $routeName === 'user.media-setting.index' || $routeName === 'user.buissness-settings.index' || $routeName === 'user.social-media-settings.index')) {
+            return 'customer';
+        }
+        if ($routeName && str_starts_with($routeName, 'user.sponsor-settings')) {
+            return 'sponsor';
+        }
+        $general_setting = getGeneralSettingByKey();
+        $eventListingSlug = $general_setting['user_event_listing_page'] ?? null;
+        $eventCreateSlug = $general_setting['user_event_create_page'] ?? null;
+        $currentSlug = $route->parameter('slug');
+        if ($routeName === 'front.index' && $currentSlug && ($currentSlug === $eventListingSlug || $currentSlug === $eventCreateSlug)) {
+            return 'event';
+        }
+        return null;
+    }
+}
+
 if (!function_exists("getSignleGeneralSettingByKey")) {
     function getSignleGeneralSettingByKey($keys = [])
     {
