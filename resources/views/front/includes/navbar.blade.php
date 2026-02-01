@@ -154,47 +154,68 @@
         <div class="hidden items-center gap-2 lg:flex lg:gap-0">
             <ul class="buy-button m-0 mb-0 inline-flex list-none gap-2 p-0 font-Futura">
                 @auth('customers')
-                    <li class="mb-0 hidden lg:inline-flex">
+                    <li class="mb-0 hidden lg:inline-flex lg:mr-2">
                         @php
                             $url = route('coffee_on_wall');
                             $url = langBasedURL($lang, $url);
-                            
                         @endphp
                         <a aria-label="Candian Exporters" href="{{ $url }}" class="button-exp-no-fill">Coffee on
                             the Wall</a>
                     </li>
                     <li class="mb-0 inline">
                         <div class="inline-flex align-middle">
+                            @php
+                                $customer = auth()->guard('customers')->user();
+                                $name = $customer->name ?? null;
+                                $nameParts = explode('-', $name);
+                                $firstName = $nameParts[0] ?? '';
+
+                                // Resolve avatar image URL: Exporter = logo → profile; Event = logo → contact photo → main image (most recent event)
+                                $avatarSrc = null;
+                                if ($customer->type == 'event') {
+                                    $recentEvent = \App\Models\Event::where('customer_id', $customer->id)->orderBy('id', 'desc')->with(['media', 'eventContacts'])->first();
+                                    if ($recentEvent) {
+                                        // 1) Event logo (media_id) 2) Contact person photo 3) Main event image (media_id)
+                                        if ($recentEvent->media && isset($recentEvent->media->medium_image) && file_exists($recentEvent->media->medium_image)) {
+                                            $avatarSrc = asset($recentEvent->media->medium_image);
+                                        } elseif ($recentEvent->eventContacts->isNotEmpty()) {
+                                            $contactWithPhoto = $recentEvent->eventContacts->first(fn ($c) => !empty($c->image_path) && file_exists($c->image_path));
+                                            if ($contactWithPhoto) {
+                                                $avatarSrc = (str_starts_with($contactWithPhoto->image_path, 'http') ? $contactWithPhoto->image_path : asset($contactWithPhoto->image_path));
+                                            }
+                                        }
+                                    }
+                                } elseif ($customer->type == 'sponsor') {
+                                    $sponsor = \App\Models\Sponsor::where('customer_id', $customer->id)->with('logoMedia')->first();
+                                    if ($sponsor?->logoMedia && isset($sponsor->logoMedia->medium_image) && file_exists($sponsor->logoMedia->medium_image)) {
+                                        $avatarSrc = asset($sponsor->logoMedia->medium_image);
+                                    }
+                                }
+                                if (!$avatarSrc) {
+                                    $customer->loadMissing(['customerMedia.customerLogo', 'profileImage']);
+                                    if ($customer->customerMedia?->customerLogo && isset($customer->customerMedia->customerLogo->medium_image) && file_exists($customer->customerMedia->customerLogo->medium_image)) {
+                                        $avatarSrc = asset($customer->customerMedia->customerLogo->medium_image);
+                                    }
+                                }
+                                if (!$avatarSrc && $customer->profileImage && isset($customer->profileImage->medium_image) && file_exists($customer->profileImage->medium_image)) {
+                                    $avatarSrc = asset($customer->profileImage->medium_image);
+                                }
+                                if (!$avatarSrc) {
+                                    $avatarSrc = 'https://ui-avatars.com/api/?name=' . urlencode($firstName ?: 'User') . '&color=7F9CF5&background=EBF4FF';
+                                }
+                            @endphp
                             <button aria-label="Canadian Exporters" type="button"
-                                class="menu hover:text-primaryRed flex items-center space-x-2 p-1 font-Futura text-sm font-medium text-gray-800 transition duration-300 lg:p-2 lg:text-base"
+                                class="menu hover:text-primaryRed flex items-center gap-2 p-1 font-Futura text-sm font-medium text-gray-800 transition duration-300 lg:p-2 lg:text-base"
                                 onclick="openDropdown(event,'dropdown-id2')">
-                                @php
-                                    $name = auth()->guard('customers')->user()->name ?? null;
-                                    $nameParts = explode('-', $name); // Split name by the hyphen
-                                    $firstName = $nameParts[0]; // Get the first part of the name (first name)
-                                @endphp
-                                {{-- Show 'Hi' followed by the first name --}}
-                                Hi {{ $firstName ?? '' }}
-
-
-                                @php
-                                    $user = auth()->guard('customers')->user()->loadMissing('profileImage');
-                                @endphp
-                                @if (isset($user->profileImage) && file_exists($user->profileImage->medium_image))
-                                    <div class="dropdown-toggle image-fit zoom-in ml-2 h-8 w-8 scale-110 overflow-hidden rounded-full shadow"
-                                        role="button" aria-expanded="false" data-tw-toggle="dropdown">
-                                        <img alt="user" src="{{ asset($user->profileImage->medium_image) }}" class="h-8 w-8 object-cover aspect-square rounded-full" />
-                                    </div>
-                                    {{-- @else
-                                <div class="dropdown-toggle image-fit zoom-in ml-2 h-8 w-8 scale-110 overflow-hidden rounded-full shadow flex items-center justify-center"
-                                    role="button" aria-expanded="false" data-tw-toggle="dropdown">
-                                    <img alt="user"
-                                        src="https://ui-avatars.com/api/?name={{ $firstName }}&amp;color=7F9CF5&amp;background=EBF4FF" />
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 text-gray-300">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-                                        </svg>
-                                </div> --}}
-                                @endif
+                                <div class="flex h-9 w-9 shrink-0 overflow-hidden rounded-full shadow ring-1 ring-gray-200">
+                                    <img alt="user" src="{{ $avatarSrc }}" class="h-9 w-9 object-cover" />
+                                </div>
+                                <span class="flex items-center gap-1">
+                                    <span>Hi {{ $firstName }}</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4 text-gray-500">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                    </svg>
+                                </span>
                             </button>
 
                             @php
