@@ -257,7 +257,7 @@ class EventSignupController extends Controller
                         $activeEmailUrl = Hash::make($customer->email);
                         $customer->update(['active_email_url' => $activeEmailUrl]);
                     }
-                    // Update event-related fields for existing customer
+                    // Update event-related fields and add event role for existing customer
                     $customer->update([
                         'registration_package_id' => $request->package_id,
                         'package_price' => $price,
@@ -266,6 +266,7 @@ class EventSignupController extends Controller
                         'is_package_amount_paid' => 0,
                         'events_allowed' => $eventsAllowed,
                         'events_remaining' => max(0, ($customer->events_remaining ?? 0)),
+                        'is_event' => true,
                     ]);
                 }
             }

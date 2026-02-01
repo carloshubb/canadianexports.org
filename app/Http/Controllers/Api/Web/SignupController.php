@@ -487,7 +487,7 @@ class SignupController extends Controller
         $credentials['is_account_closed'] = 0;
 
 
-        if (Auth::guard('customers')->attempt($credentials)) {
+        if (Auth::guard('customers')->attempt($credentials, $request->boolean('remember'))) {
 
             if (Auth::guard('customers')->user()->is_package_amount_paid == '0') {
                 if (Auth::guard('customers')->user()->verify_customer_email != '1') {
@@ -556,8 +556,8 @@ class SignupController extends Controller
                     return redirect(Session::get('url.intended'));
                 }
                 $request->session()->regenerate();
-                $redirect_url = route('user.profile-settings.index');
-                $redirect_url = langBasedURL(null, $redirect_url);
+                $customer = Auth::guard('customers')->user();
+                $redirect_url = $customer->getDashboardUrl($defaultLang);
                 return redirect($redirect_url);
             } else if (Auth::guard('customers')->user()->is_active != '1') {
                 if (Auth::guard('customers')->check()) {

@@ -353,6 +353,8 @@ class BecomeSponsorController extends Controller
                 if ($loggedInCustomer) {
                     // User is already logged in - use their account for additional sponsorship
                     $customer = $loggedInCustomer;
+                    $customer->is_sponsor = true;
+                    $customer->save();
                     Log::info('Logged-in customer creating additional sponsorship', ['customer_id' => $customer->id]);
                 } else {
                     // Not logged in - check if email exists
@@ -369,6 +371,7 @@ class BecomeSponsorController extends Controller
                                 'is_active' => 1,
                                 'password' => Hash::make($request->password),
                                 'type' => 'sponsor',
+                                'is_sponsor' => true,
                                 'verify_customer_email' => 1,
                                 'is_package_amount_paid' => 1,
                             ]);
@@ -385,7 +388,9 @@ class BecomeSponsorController extends Controller
                         }
                     } else {
                         // Email exists - allow sponsor to use it without logging in
-                        // Just associate the sponsorship with the existing customer
+                        // Just associate the sponsorship with the existing customer and add sponsor role
+                        $customer->is_sponsor = true;
+                        $customer->save();
                         Log::info('Using existing customer email for new sponsorship', ['customer_id' => $customer->id]);
                         $isNewCustomer = false;
                         // Do NOT send welcome email since customer already exists
