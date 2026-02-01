@@ -42,11 +42,7 @@
                     </div>
                 </div>
                 @endforeach
-            </div>
-
-            <!-- Initial view: Button and "How These Business Categories Came About" below collapsed view -->
-            <div id="initialViewControls" class="mt-6 space-y-4">
-                <div class="flex items-center font-Futura p-2 text-base md:text-base lg:text-lg text-primary border border-primary rounded-lg bg-primary/10"
+                <div id="howCategoriesBar" class="how-categories-bar hidden flex items-center font-Futura p-2 text-base md:text-base lg:text-lg text-primary border border-primary rounded-lg bg-primary/10"
                     role="alert">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                         class="flex-shrink-0 inline w-6 h-6 mr-3 text-primary">
@@ -64,7 +60,10 @@
                         </a>
                     </div>
                 </div>
-                
+            </div>
+
+            <!-- Initial view: Button only below collapsed view (blue bar appears only when expanded) -->
+            <div id="initialViewControls" class="mt-6 space-y-4">
                 <button id="toggleCategoriesBtn" 
                     class="w-full md:w-auto mx-auto flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white font-Futura text-base md:text-lg rounded-none hover:bg-primary/90 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg">
                     <span>View all {{ $totalCategories }} categories</span>
@@ -74,27 +73,8 @@
                 </button>
             </div>
 
-            <!-- Expanded view: "How These Business Categories Came About" and "View less" button below all categories -->
+            <!-- Expanded view: "View less" button below all categories -->
             <div id="expandedViewControls" class="mt-6 space-y-4 hidden">
-                <div class="flex items-center font-Futura p-2 text-base md:text-base lg:text-lg text-primary border border-primary rounded-lg bg-primary/10"
-                    role="alert">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                        class="flex-shrink-0 inline w-6 h-6 mr-3 text-primary">
-                        <path fill-rule="evenodd"
-                            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 9a.75.75 0 00-1.5 0v2.25H9a.75.75 0 000 1.5h2.25V15a.75.75 0 001.5 0v-2.25H15a.75.75 0 000-1.5h-2.25V9z"
-                            clip-rule="evenodd" />
-                    </svg>
-                    <div>
-                        @php
-                        $url = langBasedURL($lang, $homePageSettingDetail->section1_business_category_url);
-                        @endphp
-                        <a aria-label="Candian Exporters" href="{{ $url }}"
-                            class="md:ml-2 can-exp-a text-base md:text-base lg:text-lg tracking-normal hover:text-secondary hover:underline hover:decoration-solid duration-500 ease-in-out text-secondary">
-                            {!! $homePageSettingDetail->section1_business_category !!}
-                        </a>
-                    </div>
-                </div>
-                
                 <button id="toggleCategoriesBtnExpanded" 
                     class="w-full md:w-auto mx-auto flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white font-Futura text-base md:text-lg rounded-none hover:bg-primary/90 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg">
                     <span>View less</span>
@@ -142,6 +122,7 @@
                 const initialControls = document.getElementById('initialViewControls');
                 const expandedControls = document.getElementById('expandedViewControls');
                 const categoryItems = document.querySelectorAll('.category-item');
+                const howCategoriesBar = document.getElementById('howCategoriesBar');
                 let isExpanded = false;
 
                 function expandCategories() {
@@ -159,6 +140,11 @@
                             }, (index - 6) * 30); // Stagger animation
                         }
                     });
+
+                    // Show blue bar (original position: last grid item)
+                    if (howCategoriesBar) {
+                        howCategoriesBar.classList.remove('hidden');
+                    }
 
                     // Hide initial controls and show expanded controls
                     setTimeout(() => {
@@ -188,6 +174,11 @@
                             item.classList.remove('showing');
                         }
                     });
+
+                    // Hide blue bar when collapsed
+                    if (howCategoriesBar) {
+                        howCategoriesBar.classList.add('hidden');
+                    }
 
                     // Smooth scroll to top of categories section
                     const categoriesSection = document.querySelector('.business-categories-container');
