@@ -464,7 +464,7 @@
                     </div>
                     <div class="relative w-full mb-3">
                         <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="organizer_phone">Phone</label>
-                        <input @input="clearErrors('organizer_phone')" type="text" class="can-exp-input" placeholder="Phone" name="organizer_phone" id="organizer_phone" v-model="form.organizer_phone" />
+                        <input type="text" class="can-exp-input" placeholder="Phone" name="organizer_phone" id="organizer_phone" v-model="form.organizer_phone" maxlength="16" @input="handleOrganizerPhoneInput($event.target.value)" @keypress="validateOrganizerPhoneKeypress" />
                         <Error v-if="submitted" fieldName="organizer_phone" :validationErros="validationErros" full_width="1" />
                     </div>
                     <div class="relative w-full mb-3 md:col-span-2">
@@ -528,6 +528,7 @@
                     : 'hidden'
                     ">
                 <div class="relative z-0 w-full group">
+                    <!---Event Name-->
                     <label for="title" class="text-base md:text-base lg:text-lg">{{ JSON.parse(eventsetting).title_label
                         }}
                         <span class="text-red-500">*</span></label>
@@ -546,6 +547,7 @@
                         :validationErros="validationErros" />
                 </div>
                 <div class="relative z-0 w-full group">
+                    <!---Country-->
                     <label for="country" class="text-base md:text-base lg:text-lg">{{
                         JSON.parse(eventsetting).country_label }}
                         <span class="text-red-500">*</span></label>
@@ -568,6 +570,7 @@
                         :validationErros="validationErros" />
                 </div>
                 <div class="relative z-0 w-full group">
+                    <!---City-->
                     <label for="city" class="text-base md:text-base lg:text-lg">{{ JSON.parse(eventsetting).city_label
                         }}
                         <span class="text-red-500">*</span></label>
@@ -584,6 +587,7 @@
                         :validationErros="validationErros" />
                 </div>
                 <div class="relative z-0 w-full group">
+                    <!---Street Name-->
                     <label for="street_name" class="text-base md:text-base lg:text-lg">{{
                         JSON.parse(eventsetting).street_name_label }}</label>
                     <input type="text" name="street_name" id="street_name"
@@ -608,6 +612,7 @@
                         :validationErros="validationErros" />
                 </div>
                 <div class="relative z-0 w-full group">
+                    <!---Venue-->
                     <label for="venue" class="text-base md:text-base lg:text-lg">{{ JSON.parse(eventsetting).venue_label
                         }}
                     </label>
@@ -625,6 +630,7 @@
                         :validationErros="validationErros" />
                 </div>
                 <div class="relative z-0 w-full group">
+                    <!---Product Search-->
                     <label for="product_search" class="text-base md:text-base lg:text-lg">{{
                         JSON.parse(eventsetting).product_search_label
                     }}</label>
@@ -1616,57 +1622,39 @@ export default {
         //     }
         // },
         focusOnFirstErrorInput(errors) {
-            // Define the priority order of fields to check
-            const fieldPriority = [
-                'name', 'email', 'password', 'password_confirmation', 'package_id',
-                'title', 'country', 'city', 'start_date', 'end_date', 'event_website',
-                'contacts.0.name', 'contacts.0.email', 'contacts.0.phone',
-                'gallery_images'
-            ];
+            const errorKeys = new Set(Object.keys(errors));
 
-            // Check fields in priority order
-            for (const field of fieldPriority) {
-                if (errors[field]) {
-                    // Handle contact fields specially
-                    if (field.startsWith('contacts.')) {
-                        const contactIndex = field.match(/contacts\.(\d+)\./)[1];
-                        const contactField = field.split('.').pop();
-                        const input = document.querySelector(`[id="contact-${contactField}-[${contactIndex}]`);
-                        if (input) {
-                            input.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                            input.focus();
-                            return;
-                        }
-                    }
+            // Find the first error element in document order (scrolls to error tooltip)
+            const allErrorElements = Array.from(document.querySelectorAll('[data-error-field]'))
+                .filter((el) => errorKeys.has(el.getAttribute('data-error-field')));
+            const firstErrorEl = allErrorElements[0];
 
-                    // Handle language-specific fields
-                    if (field.includes('title_') || field.includes('country_') ||
-                        field.includes('city_') || field.includes('short_description_') ||
-                        field.includes('description_')) {
-                        const [fieldName, langId] = field.split('.');
-                        const input = document.querySelector(`[id="${fieldName}"]`);
-                        if (input) {
-                            input.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                            input.focus();
-                            return;
-                        }
-                    }
+            if (firstErrorEl) {
+                firstErrorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // Focus the associated input/textarea for better UX
+                const input = firstErrorEl.closest('.group')?.querySelector('input, textarea, select');
+                if (input) {
+                    input.focus();
+                }
+                return;
+            }
 
-                    // Handle regular fields
-                    const input = document.querySelector(`[id="${field}"]`);
+            // Fallback: find input by error key (for fields without Error wrapper in view)
+            const firstErrorKey = Object.keys(errors)[0];
+            if (!firstErrorKey) return;
+
+            if (firstErrorKey.startsWith('contacts.')) {
+                const m = firstErrorKey.match(/contacts\.(\d+)\.(\w+)/);
+                if (m) {
+                    const input = document.getElementById(`contact-${m[2]}-[${m[1]}]`);
                     if (input) {
                         input.scrollIntoView({ behavior: 'smooth', block: 'center' });
                         input.focus();
-                        return;
                     }
                 }
-            }
-
-            // If no prioritized field found, focus on the first error
-            const firstError = Object.keys(errors)[0];
-            if (firstError) {
-                const input = document.querySelector(`[name="${firstError}"]`) ||
-                    document.querySelector(`[id="${firstError}"]`);
+            } else {
+                const baseName = firstErrorKey.split('.')[0];
+                const input = document.getElementById(baseName) || document.querySelector(`[name="${firstErrorKey}"]`);
                 if (input) {
                     input.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     input.focus();
@@ -1990,6 +1978,38 @@ export default {
                     console.error("Error fetching event:", error);
                 });
         },
+        handleOrganizerPhoneInput(value) {
+            // Only allow digits and plus sign; plus only at start
+            let clean = (value || '').replace(/[^0-9+]/g, '');
+            const hasLeadingPlus = clean.startsWith('+');
+            const digits = clean.replace(/\+/g, '');
+            const digitsOnly = digits.length > 15 ? digits.substring(0, 15) : digits;
+            this.form.organizer_phone = (hasLeadingPlus ? '+' : '') + digitsOnly;
+            this.clearErrors('organizer_phone');
+        },
+
+        validateOrganizerPhoneKeypress(event) {
+            const char = event.key;
+            const input = event.target;
+            const value = input.value || '';
+
+            if (['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+                return;
+            }
+            // Allow + only at the start
+            if (char === '+') {
+                if (value.length > 0) event.preventDefault();
+                return;
+            }
+            // Allow only digits; block if already 15 digits
+            if (/^[0-9]$/.test(char)) {
+                const digitCount = value.replace(/[^0-9]/g, '').length;
+                if (digitCount >= 15) event.preventDefault();
+                return;
+            }
+            event.preventDefault();
+        },
+
         handleContactPhoneInput(index, value) {
             // Remove any characters that aren't + or numbers
             let cleanValue = value.replace(/[^0-9+]/g, '');

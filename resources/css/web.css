@@ -1123,7 +1123,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     padding-left: 20px;
     padding-right: 20px;
     --tw-text-opacity: 1;
-    color: #ffffff !important;
+    color: #333333 !important;
   }
   #topnav .navigation-menu > li > a::after{
     content: var(--tw-content);
@@ -1144,7 +1144,8 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   #topnav .navigation-menu > li > a:hover,
 #topnav .navigation-menu > li .submenu li a:hover, #topnav .navigation-menu > li.has-submenu.open > a{
     --tw-text-opacity: 1;
-    color: #ffffff !important;
+    color: #4a4a4a !important;
+    text-decoration: underline;
   }
   #topnav .menu-extras .menu-item{
     --tw-border-opacity: 1;
@@ -1197,7 +1198,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     height: 100vh;
     overflow-y: auto;
     overflow-x: hidden;
-    background-color: #00549a;
+    background-color: #cfcfcf;
     border-top-left-radius: 1rem;
     border-bottom-left-radius: 1rem;
     z-index: 9999;
