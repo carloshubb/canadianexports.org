@@ -19,7 +19,7 @@
                             .page_description
                         : ''
                     "></span>
-                <form enctype="multipart/form-data" class="mt-8">
+                <form enctype="multipart/form-data" class="mt-4">
                     <div class="space-y-8">
                         <div>
                             <div
@@ -122,23 +122,25 @@
                                     c5.883,0.84,10.02,6.206,9.503,12.024C310.715,146.699,307.871,166.61,303.087,186.457z"/>
                             </g>
                             </svg>
-                            <p class="can-exp-p" style="color: #187cbe; font-family: 'Futura BdCn BT'; font-size: 14pt;"> <span style="font-size: 18pt;"><strong><span style="color: #3498db; font-family: 'Futura BdCn BT';">Your Privacy is Our Priority</span></strong></span></p>
+                            <p class="can-exp-p text-primary font-FuturaMdCnBT  text-lg md:text-xl lg:text-2xl" > <span style="font-size: 18pt;"><strong><span >Your Privacy is Our Priority</span></strong></span></p>
                         </div>
                         <div class="mt-2 can-exp-p">
                             <ul>
-                            <li>We never never sell your personal information</li>
+                            <li>We never sell your personal information</li>
                             <li>You retain full ownship of the content you share on our site</li>
                             <li>We never send spam or unwanted emails</li>
                             </ul>
                         </div>
                     </div>
+                    <div class="rounded-md p-3 mt-6 shadow bg-white">
+                        <p><strong><span class="can-exp-p text-primary font-FuturaMdCnBT  text-lg md:text-xl lg:text-2xl">Details &amp; Disclaimers:</span></strong></p>
                     <div class="text-base md:text-base lg:text-lg mt-4" v-html="regPageSetting &&
                             regPageSetting.reg_page_setting_detail &&
                             regPageSetting.reg_page_setting_detail[0]
                             ? regPageSetting.reg_page_setting_detail[0]
                                 .footer_text
                             : ''
-                        "></div>
+                        "></div></div>
                 </form>
             </div>
         </div>

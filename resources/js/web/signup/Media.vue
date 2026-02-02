@@ -97,7 +97,7 @@
         </div> -->
         <div class="relative w-full mb-8">
   <label
-    class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg"
+    class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold"
     for="step_5_title_label"
   >
     {{
@@ -117,7 +117,7 @@
 
 <div class="relative w-full mb-8">
   <label
-    class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg"
+    class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold"
     for="step_5_description_label"
   >
     {{
@@ -140,7 +140,7 @@
 
         <div class="relative w-full mb-8">
           <label
-            class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg"
+            class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold"
             for="video"
           >
             {{
@@ -170,7 +170,7 @@
         </div>
         <div class="relative col-span-2 mb-3">
           <label
-            class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg"
+            class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold"
             for="image-logo"
           >
             {{
@@ -199,7 +199,7 @@
         </div>
         <div class="relative w-full mb-8" v-if="max_files > 0">
           <label
-            class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg"
+            class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold"
             for="gallery-images"
           >
             {{

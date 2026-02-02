@@ -22,28 +22,29 @@
           </h5>
 
           <div class="relative w-full mb-8">
-            <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg" for="name">
+            <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold" for="name">
               {{ regPageSetting?.reg_page_setting_detail?.[0]?.step_2_full_name_label || 'Full Name' }}
               <span class="text-red-500">*</span>
             </label>
             <input type="text" id="name" class="can-exp-input min-h-[60px] lg:min-h-full"
-              :placeholder="regPageSetting?.reg_page_setting_detail?.[0]?.step_2_full_name_placeholder || 'Full Name'"
+              :placeholder="regPageSetting?.reg_page_setting_detail?.[0]?.step_2_full_name_placeholder "
               :value="form && form.has('name') ? form.get('name') : ''"
               @input="updateForm('name', $event.target.value)" ref="name" />
             <Error fieldName="name" :validationErros="validationErros" />
           </div>
           <div class="relative w-full mb-8">
-            <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg" for="job_title">
+            <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold" for="job_title">
               {{ regPageSetting?.reg_page_setting_detail?.[0]?.step_2_job_title_label || 'Job Title' }}
             </label>
             <input type="text" id="job_title" class="can-exp-input min-h-[60px] lg:min-h-full"
-              :placeholder="regPageSetting?.reg_page_setting_detail?.[0]?.step_2_job_title_placeholder || 'Job Title'"
+              :placeholder="regPageSetting?.reg_page_setting_detail?.[0]?.step_2_job_title_placeholder 
+              "
               :value="form && form.has('job_title') ? form.get('job_title') : ''"
               @input="updateForm('job_title', $event.target.value)" />
             <Error fieldName="job_title" :validationErros="validationErros" />
           </div>
           <div class="relative w-full mb-8">
-            <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg" for="email">
+            <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold" for="email">
               {{ regPageSetting?.reg_page_setting_detail?.[0]?.step_2_email_label }}
               <span class="text-red-500">*</span>
             </label>
@@ -58,8 +59,9 @@
             <Error fieldName="email" :validationErros="validationErros" />
           </div>
           <div class="relative w-full mb-8" v-if="profile != '1'">
-            <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg" for="password">
+            <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold" for="password">
               {{ regPageSetting?.reg_page_setting_detail?.[0]?.step_2_password_label }}
+              <span class="ml-1 text-[0.85em] text-gray-600">(Min. 8 characters. Must contain at least one lowercase and one uppercase)</span>
               <span class="text-red-500">*</span>
             </label>
             <div class="relative">
@@ -80,7 +82,7 @@
             <Error fieldName="password" :validationErros="validationErros" />
           </div>
           <div class="relative w-full mb-8" v-if="profile != '1'">
-            <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg" for="confirm-password">
+            <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold" for="confirm-password">
               {{ regPageSetting?.reg_page_setting_detail?.[0]?.step_2_confirm_password_label }}
               <span class="text-red-500">*</span>
             </label>
@@ -108,7 +110,7 @@
           <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">
           Company Location & Contact</h5>
           <div class="relative w-full mb-8">
-            <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg" for="customer_profile_company_name">
+            <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold" for="customer_profile_company_name">
               {{ regPageSetting?.reg_page_setting_detail?.[0]?.step_4_name_label }}
               <span class="text-red-500">*</span>
             </label>
@@ -119,7 +121,7 @@
             <Error fieldName="customer_profile_company_name" :validationErros="validationErros" />
           </div>
           <div class="relative w-full mb-8">
-            <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg" for="customer_profile_website">
+            <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold" for="customer_profile_website">
               {{ regPageSetting?.reg_page_setting_detail?.[0]?.step_4_website_label }}
               <span class="text-red-500">*</span>
             </label>
@@ -130,7 +132,7 @@
             <Error fieldName="customer_profile_website" :validationErros="validationErros" />
           </div>
           <div class="relative w-full mb-8">
-            <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg" for="customer_profile_phone">
+            <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold" for="customer_profile_phone">
               {{ regPageSetting?.reg_page_setting_detail?.[0]?.step_4_phone_label }}
               <span class="text-red-500">*</span>
             </label>
@@ -142,7 +144,7 @@
             <Error fieldName="customer_profile_phone" :validationErros="validationErros" />
           </div>
           <div class="relative w-full mb-8">
-            <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg" for="customer_profile_address">
+            <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold" for="customer_profile_address">
               {{ regPageSetting?.reg_page_setting_detail?.[0]?.step_4_address_label }}
               <span class="text-red-500">*</span>
             </label>
@@ -152,7 +154,7 @@
               :value="form && form.has('customer_profile_address') ? form.get('customer_profile_address') : ''"></textarea>
             <Error fieldName="customer_profile_address" :validationErros="validationErros" />
           </div>
-          <div class="relative w-full mb-8">
+          <!-- <div class="relative w-full mb-8">
             <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg" for="customer_profile_company_email">
               {{ regPageSetting?.reg_page_setting_detail?.[0]?.step_4_email_label }}
               <span class="text-red-500">*</span>
@@ -163,7 +165,7 @@
               :value="form && form.has('customer_profile_company_email') ? form.get('customer_profile_company_email') : ''"
               @change="checkIsCompanyEmailValid($event.target.value)" />
             <Error fieldName="customer_profile_company_email" :validationErros="validationErros" />
-          </div>
+          </div> -->
         </div>
 
         <!-- Sub-section 3: Company Profile & Keywords -->
@@ -171,7 +173,7 @@
           <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">
             Company Profile & Keywords</h5>
           <div class="relative w-full mb-8">
-            <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg" for="customer_profile_short_description">
+            <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold" for="customer_profile_short_description">
               Short Summary
               <span class="ml-1 text-[0.85em] text-gray-600">(Max. 30 words)</span>
               <span class="text-red-500">*</span>
@@ -183,7 +185,7 @@
             <Error fieldName="customer_profile_short_description" :validationErros="validationErros" />
           </div>
           <div class="relative w-full mb-8">
-            <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg" for="customer_profile_description">
+            <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold" for="customer_profile_description">
               Full Description
               <span class="ml-1 text-[0.85em] text-gray-600">(Max. 300 words)</span>
               <span class="text-red-500">*</span>
@@ -195,7 +197,7 @@
             <Error fieldName="customer_profile_description" :validationErros="validationErros" />
           </div>
           <div class="relative w-full mb-8">
-            <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg" for="customer_profile_keywords">
+            <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold" for="customer_profile_keywords">
               {{ regPageSetting?.reg_page_setting_detail?.[0]?.step_4_keywords_label }}
               <span class="text-red-500"></span>
             </label>
@@ -206,7 +208,7 @@
             <Error fieldName="customer_profile_keywords" :validationErros="validationErros" />
           </div>
           <div class="relative w-full mb-8" v-if="package_type && package_type.toLowerCase() !== 'free'">
-            <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg" for="customer_profile_cta_btn">
+            <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold" for="customer_profile_cta_btn">
               CTA(Call-to-Action) Button
               <span class="ml-1 text-[0.85em] text-gray-600">(Max. 5 words)</span>
             </label>
@@ -217,7 +219,7 @@
             <Error fieldName="customer_profile_cta_btn" :validationErros="validationErros" />
           </div>
           <div class="relative w-full mb-8" v-if="package_type && package_type.toLowerCase() !== 'free'">
-            <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg" for="customer_profile_cta_link">
+            <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold" for="customer_profile_cta_link">
               {{ regPageSetting?.reg_page_setting_detail?.[0]?.step_4_cta_link_label }}
             </label>
             <input type="text" id="customer_profile_cta_link" class="can-exp-input"
