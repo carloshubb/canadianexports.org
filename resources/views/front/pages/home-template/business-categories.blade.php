@@ -11,7 +11,7 @@
         </div>
 
 
-        <h2 class="text-3xl text-center md:text-4xl  font-semibold text-[#006EB7] mb-6">Business Categories</h2>
+        <h2 class="text-3xl text-center md:text-4xl mt-6 font-semibold text-[#006EB7] mb-6">Business Categories</h2>
 
         @php
         $businessCategories = getAllBusinessCategories();
@@ -33,7 +33,7 @@
                         $url = isset($businessCategory->slug) ? route('user.business-category.index', ['abbreviation' => $lang->abbreviation, 'slug' => $businessCategory->slug]) : '#';
                         @endphp
                         <a aria-label="Candian Exporters" href="{{ $url }}"
-                            class="md:ml-2 text-yellow-800 font-Futura text-base md:text-base lg:text-lg tracking-normal hover:text-primary  duration-500 ease-in-out">
+                            class="md:ml-2 text-black font-Futura text-base md:text-base lg:text-lg tracking-normal hover:text-primary  duration-500 ease-in-out">
                             @php
                             $category_name = strtolower($businessCategory->category_name);
                             $category_name = ucwords($category_name);

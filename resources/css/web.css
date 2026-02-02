@@ -2341,7 +2341,7 @@ right: 28px;
         background-color: #2563eb!important;
     }
     .swiper {
-        padding: 12px 12px 0!important;
+        padding: 0 !important;
     }
     .filepond--root {
         box-sizing: border-box;
