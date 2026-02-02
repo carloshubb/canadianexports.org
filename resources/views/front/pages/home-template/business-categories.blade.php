@@ -11,7 +11,7 @@
         </div>
 
 
-        <h2 class="text-3xl text-center md:text-4xl font-bold text-gray-900 mb-6">Business Categories</h2>
+        <h2 class="text-3xl text-center md:text-4xl  font-semibold text-[#006EB7] mb-6">Business Categories</h2>
 
         @php
         $businessCategories = getAllBusinessCategories();
