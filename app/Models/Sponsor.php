@@ -57,7 +57,12 @@ class Sponsor extends Model
      */
     public function beneficiaries()
     {
-        return $this->belongsToMany(CoffeeWallBeneficiary::class, 'sponsor_beneficiary')->withTimestamps();
+        return $this->belongsToMany(
+            CoffeeWallBeneficiary::class,
+            'sponsor_beneficiary',
+            'sponsor_id',
+            'beneficiary_id'
+        )->withTimestamps();
     }
 
     /**

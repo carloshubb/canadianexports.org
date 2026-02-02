@@ -6,25 +6,8 @@
       <p class="mt-4 text-gray-600">Loading...</p>
     </div>
 
-    <!-- Show edit form if only 1 sponsorship -->
-    <div v-else-if="sponsorships.length === 1">
-      <div class="mb-4 flex items-center justify-between">
-        <div>
-          <h1 class="text-3xl font-bold text-primary mb-2">Sponsor Profile</h1>
-          <p class="text-gray-600">Edit your sponsorship information</p>
-        </div>
-        <a
-          :href="`/${becomeSponsorSlug}`"
-          class="button-exp-fill"
-        >
-          + Add Another Sponsorship
-        </a>
-      </div>
-      <sponsor-profile-edit :sponsorship-id="sponsorships[0].id"></sponsor-profile-edit>
-    </div>
-
-    <!-- Show list if multiple sponsorships -->
-    <div v-else-if="sponsorships.length > 1">
+    <!-- Show list when user has one or more sponsorships -->
+    <div v-else-if="sponsorships.length >= 1">
       <sponsorships-list 
         :initial-sponsorships="sponsorships"
         :become-sponsor-slug="becomeSponsorSlug" 
@@ -88,7 +71,8 @@ export default {
       try {
         const response = await axios.get(`${process.env.MIX_WEB_API_URL}sponsor/profile`);
         if (response.data.status === "Success") {
-          this.sponsorships = response.data.data;
+          const data = response.data.data;
+          this.sponsorships = Array.isArray(data) ? data : (data ? [data] : []);
         } else {
           helper.swalErrorMessageForWeb("Unable to load sponsorships");
         }
