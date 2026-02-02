@@ -9,6 +9,7 @@
                             .page_title
                         : ''
                     "></h1>
+                    <p style="text-align: center; line-height: 1;">Join Canada’s trusted export promotion platform and connect with global buyers. Choose the plan that fits your business stage.&nbsp;</p>
             </div>
             <div class="">
                 <span class="register-business" v-html="regPageSetting &&
