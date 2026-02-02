@@ -433,7 +433,7 @@
                     </div>
                     <div class="relative w-full mb-3">
                         <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="job_title">Job Title</label>
-                        <input @input="clearErrors('job_title')" type="text" class="can-exp-input" placeholder="Job Title" name="job_title" id="job_title" v-model="form.job_title" />
+                        <input @input="clearErrors('job_title')" type="text" class="can-exp-input" placeholder="Job Title" name="job_title" id="job_title" v-model="form.Get started by creating your first sponsorship." />
                         <Error v-if="submitted" fieldName="job_title" :validationErros="validationErros" full_width="1" />
                     </div>
                     <div class="relative w-full mb-3">
@@ -1968,6 +1968,9 @@ export default {
                             this.form.product_search = product_search;
                             this.form.short_description = short_description;
                             this.form.description = description;
+
+                            console.log("this.form", this.form);
+                            
                         }
 
                         // Populate contacts

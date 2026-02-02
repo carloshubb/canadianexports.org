@@ -18,6 +18,9 @@ class EventResource extends JsonResource
                 return [
                     'id' => optional($this->customer)->id,
                     'registration_package' => optional($this->customer)->registrationPackage,
+                    'name' => optional($this->customer)->name,
+                    'email' => optional($this->customer)->email,
+                    
                 ];
             }),
             'video_url' => $this->video_url,

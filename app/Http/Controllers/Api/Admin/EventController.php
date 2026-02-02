@@ -60,10 +60,10 @@ class EventController extends Controller
         $event = $event->loadMissing('registrationPackage');
 
         // Load the customer's registration package relationship
-        if ($event->customer) {
-            $event->customer->loadMissing('registrationPackage');
-        }
-
+        //dd($event->customer);
+        // if ($event->customer) {
+        //     $event->customer->loadMissing('registrationPackage');
+        // }     
         return $this->apiSuccessResponse(new EventResource($event), 'Data Get Successfully!');
     }
 
@@ -451,7 +451,7 @@ class EventController extends Controller
         if (isset($_GET['withMedia']) && $_GET['withMedia'] == '1') {
             $events = $events->with('media');
         }
-        return $events;
+          return $events;
     }
 
     protected function sortingAndLimit($events)
