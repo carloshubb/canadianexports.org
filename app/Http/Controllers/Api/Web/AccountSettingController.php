@@ -42,7 +42,8 @@ class AccountSettingController extends Controller
         updateLangByAbber($abbreviation);
         $user = auth()->guard('customers')->user();
         $customerProfile = CustomerProfile::where('customer_id', $user->id)->first();
-        return view('web.signup-bussiness-setting.index', compact('user', 'customerProfile'));
+        $page_name = 'profile-settings'; // New 3-step layout (same as Review & Confirm, all registration info)
+        return view('web.signup-bussiness-setting.index', compact('user', 'customerProfile', 'page_name'));
         // return view('web.signup-account-setting.index', compact('user'));
     }
 
