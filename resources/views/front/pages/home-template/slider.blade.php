@@ -1,10 +1,10 @@
-<div class="relative isolate lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10 min-h-[800px] flex items-center overflow-hidden">
+<div class="relative isolate lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10 min-h-[550px] flex items-center overflow-hidden mt-[120px]">
     <!-- Background Image Container - Fixed positioning -->
     <div class="absolute inset-0 w-full h-full">
         <img src="{{ asset($homePageSettingDetail->slider_image) }}" alt="slider image"
             class="absolute inset-0 w-full h-full object-cover">
         <!-- Dark overlay on top of image -->
-        <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+        <div class="absolute inset-0 bg-slider-over"></div>
     </div>
 
     <!-- Decorative SVG gradients -->
@@ -55,12 +55,12 @@
                         <input type="hidden" name="trade-shows-and-events[]" value="all" />
                         <div class="bg-white rounded-md p-2 bg-opacity-40">
                             <div
-                                class="rounded-md flex flex-col sm:flex-col md:flex-row lg:flex-row justify-between items-stretch h-11 sm:h-11 md:h-11 gap-0">
+                                class="rounded-md flex flex-col sm:flex-col md:flex-row lg:flex-row justify-between items-stretch h-[50px] gap-0">
                                 <div class="w-full md:w-2/3 flex items-stretch text-lg sm:text-xl min-h-0">
                                     <input type="search" name="search" id="search-input"
-                                        class="flex-1 min-w-0 h-full min-h-[2.75rem] sm:min-h-[2.75rem] md:min-h-0 md:h-full py-0 px-3 focus:outline-none focus:ring-none {{ isset(getDefaultLanguage(1)->direction) && getDefaultLanguage(1)->direction == 'ltr' ? 'rounded-l-md md:rounded-l-md' : 'rounded-r-md md:rounded-r-md' }}"
+                                        class="flex-1 min-w-0 h-full min-h-[50px] sm:min-h-[50px] md:min-h-0 md:h-full py-0 px-3 focus:outline-none focus:ring-none {{ isset(getDefaultLanguage(1)->direction) && getDefaultLanguage(1)->direction == 'ltr' ? 'rounded-l-[0.25rem] md:rounded-l-[0.25rem]' : 'rounded-r-[0.25rem] md:rounded-r-[0.25rem]' }}"
                                         placeholder="Search over 50,000+ Canadian suppliers..." />
-                                    <button type="submit" class="h-full min-h-[2.75rem] md:min-h-0 flex-shrink-0 flex items-center justify-center !py-0 button-exp-fill md:hidden {{ isset(getDefaultLanguage(1)->direction) && getDefaultLanguage(1)->direction == 'ltr' ? 'rounded-r-md lg:rounded-r-md rounded-l-none rounded-none' : 'rounded-l-md lg:rounded-l-md rounded-r-none rounded-none' }}">
+                                    <button type="submit" class="h-full min-h-[50px] md:min-h-0 flex-shrink-0 flex items-center justify-center !py-0 button-exp-fill md:hidden {{ isset(getDefaultLanguage(1)->direction) && getDefaultLanguage(1)->direction == 'ltr' ? 'rounded-r-[0.25rem] lg:rounded-r-[0.25rem] rounded-l-none rounded-none' : 'rounded-l-[0.25rem] lg:rounded-l-[0.25rem] rounded-r-none rounded-none' }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -100,13 +100,13 @@
                 </div>
             </div>
 
-            <div class="flex justify-center mt-4">
+            <div class="flex justify-center mt-8">
                 @php
                 $url = route('user.search.advanceSearch');
                 $url = langBasedURL(null, $url);
                 @endphp
-                <div class="bg-white rounded-md p-2 py-3.5 bg-opacity-40">
-                    <a aria-label="Candian Exporters" href="{{ $url }}" class="button-exp-fill text-lg sm:text-xl">
+                <div class="bg-white rounded-md p-2 bg-opacity-40">
+                    <a aria-label="Candian Exporters" href="{{ $url }}" class="button-exp-fill inline-flex items-center h-[50px] text-lg sm:text-xl">
                         {!! $homePageSettingDetail->slider_advance_search_text !!}
                     </a>
                 </div>
