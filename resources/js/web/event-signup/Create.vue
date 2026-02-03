@@ -477,7 +477,7 @@
                         <Error v-if="submitted" fieldName="organizer_website" :validationErros="validationErros" full_width="1" />
                     </div>
                     <div class="relative w-full mb-3">
-                        <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="organizer_phone">Phone</label>
+                        <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="organizer_phone">Phone<span class="text-red-500">*</span></label>
                         <input type="text" class="can-exp-input" name="organizer_phone" id="organizer_phone" v-model="form.organizer_phone" maxlength="16" @input="handleOrganizerPhoneInput($event.target.value)" @keypress="validateOrganizerPhoneKeypress" />
                         <Error v-if="submitted" fieldName="organizer_phone" :validationErros="validationErros" full_width="1" />
                     </div>
@@ -993,6 +993,40 @@
                     <Error v-if="submitted" fieldName="snapchat_url" :validationErros="validationErros" />
                 </div>
             </div>
+
+            <!-- Step 5 of 5: Photo Gallery (Premium 8 / Featured 20 images, max 10 MB each) -->
+            <div v-if="form.package_type === 'premium' || form.package_type === 'featured'" class="mt-6">
+                <div class="px-4 my-6 py-1.5 sm:px-6 text-center bg-gradient-to-r from-primary via-primary to-secondary rounded-md">
+                    <h4 class="text-center card-heading text-white">
+                        Photo Gallery
+                    </h4>
+                </div>
+                <div class="border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
+                    <label for="photo_gallery_images" class="text-base md:text-base lg:text-lg font-medium block mb-2" id="photo_gallery_images">
+                        {{ photoGallerySectionTitle }}
+                    </label>
+                    <div class="relative z-0 w-full mb-6 group">
+                        <FilePond
+                            name="photo_gallery_image"
+                            :ref="el => { if (el) photoGalleryPond = el }"
+                            class-name="my-pond"
+                            labelIdle='<span class="cursor-pointer">Drag & Drop your files or <span class="filepond--label-action"> Browse </span></span>'
+                            :max-files="form.package_type === 'featured' ? 20 : 8"
+                            :max-file-size="10 * 1024 * 1024"
+                            accepted-file-types="image/png, image/gif, image/jpeg, image/jpg"
+                            credits="false"
+                            allow-multiple="true"
+                            v-bind:files="photo_gallery_files"
+                            :server="photoGalleryServerConfig"
+                            @init="handlePhotoGalleryInit"
+                            @processfile="handlePhotoGalleryProcess"
+                            @removefile="handlePhotoGalleryRemoveFile"
+                            @addfile="clearErrors('photo_gallery_images')"
+                        />
+                    </div>
+                    <Error fieldName="photo_gallery_images" :validationErros="validationErros" />
+                </div>
+            </div>
         </div>
         </div>
         <div class="mt-8 flex">
@@ -1082,7 +1116,7 @@
                         </div>
                     </div>
         <!-- sdkfksflsdf;lsdal;fk -->
-        <div class="my-4" v-html="JSON.parse(eventsetting)
+        <div class="rounded-md p-3 my-4  shadow bg-white" v-html="JSON.parse(eventsetting)
             ? JSON.parse(eventsetting)['post_submit_button_text']
             : ''
             "></div>
@@ -1144,7 +1178,7 @@ export default {
             console.log("Raw Label:", this.regPageSetting);
 
             if (!rawLabel) {
-                return "CTA(Call-to-Action) Button Title(Max. 5 words)";
+                return "CTA (Call-to-Action) Button Title(Max. 5 words)";
             }
 
             return rawLabel.replace(/\(5\)/g, '<sup class="footnote-indicator">(5)</sup>');
@@ -1155,6 +1189,57 @@ export default {
         currentEventPlanTier() {
             if (this.initialEventPackageType == null) return null;
             return this.packageTierOrder[this.initialEventPackageType] ?? null;
+        },
+        photoGallerySectionTitle() {
+            if (this.form.package_type === 'featured') {
+                return 'Photo Gallery (Upload up to 20 images. Max 10 MB each. Supports PNG, GIF, or JPG)';
+            }
+            if (this.form.package_type === 'premium') {
+                return 'Photo Gallery (Upload up to 8 images. Max 10 MB each. Supports PNG, GIF, or JPG)';
+            }
+            return 'Photo Gallery';
+        },
+        photoGalleryServerConfig() {
+            const csrf = document.head.querySelector('meta[name="csrf-token"]')?.content;
+            return {
+                url: process.env.MIX_APP_URL,
+                process: (fieldName, file, metadata, load, error, progress, abort) => {
+                    const formData = new FormData();
+                    formData.append('photo_gallery_image', file, file.name);
+                    formData.append('is_temp_media', 1);
+                    formData.append('type', 'event_photo_gallery');
+                    const request = new XMLHttpRequest();
+                    request.open('POST', `${process.env.MIX_APP_URL}/media/process`);
+                    if (csrf) request.setRequestHeader('X-CSRF-TOKEN', csrf);
+                    request.upload.onprogress = (e) => progress(e.lengthComputable, e.loaded, e.total);
+                    request.onload = () => {
+                        if (request.status >= 200 && request.status < 300) {
+                            load(request.responseText);
+                        } else {
+                            const err = request.responseText || 'Upload failed';
+                            try {
+                                const j = JSON.parse(request.responseText);
+                                if (j.errors?.['photo_gallery_image']) error(j.errors['photo_gallery_image'][0]);
+                                else if (j.message) error(j.message);
+                                else error(err);
+                            } catch (_) { error(err); }
+                        }
+                    };
+                    request.send(formData);
+                    return { abort: () => { request.abort(); abort(); } };
+                },
+                revert: (uniqueFileId, load, error, progress, abort) => {
+                    const formData = new FormData();
+                    formData.append('media', uniqueFileId);
+                    const request = new XMLHttpRequest();
+                    request.open('POST', `${process.env.MIX_APP_URL}/media/revert`);
+                    if (csrf) request.setRequestHeader('X-CSRF-TOKEN', csrf);
+                    request.onload = () => load();
+                    request.send(formData);
+                    return { abort: () => { request.abort(); if (abort) abort(); } };
+                },
+                headers: csrf ? { 'X-CSRF-TOKEN': csrf } : {},
+            };
         },
     },
     props: [
@@ -1180,6 +1265,8 @@ export default {
     data() {
         return {
             gallery_files: [],
+            photo_gallery_files: [],
+            photoGalleryPond: null,
             contacts: [],
             activeTab: null,
             stripe: null,
@@ -1232,6 +1319,7 @@ export default {
                 instagram_url: null,
                 snapchat_url: null,
                 gallery_images: [],
+                photo_gallery_images: [],
                 contacts: [],
                 is_agree: false,
             },
@@ -1542,6 +1630,9 @@ export default {
             this.form["password_confirmation"] = "";
             this.form["package_type"] = null;
             this.form["payment_frequency"] = "annually";
+            this.form["photo_gallery_images"] = [];
+            this.photo_gallery_files = [];
+            this.gallery_files = [];
             this.validationErros = new ErrorHandling();
             localStorage.removeItem("event_signup_form");
         },
@@ -1691,6 +1782,11 @@ export default {
                         input.scrollIntoView({ behavior: 'smooth', block: 'center' });
                         input.focus();
                     }
+                }
+            } else if (firstErrorKey === 'photo_gallery_images') {
+                const el = document.getElementById('photo_gallery_images');
+                if (el) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
             } else {
                 const baseName = firstErrorKey.split('.')[0];
@@ -1928,6 +2024,31 @@ export default {
                 }
             }
         },
+        handlePhotoGalleryInit() {
+            // Server config is passed via :server="photoGalleryServerConfig"
+        },
+        handlePhotoGalleryProcess(error, file) {
+            const id = typeof file.serverId === 'string' ? JSON.parse(file.serverId)[0] : (file.serverId && file.serverId[0]);
+            if (!this.form.photo_gallery_images || this.form.photo_gallery_images.length === 0) {
+                this.form.photo_gallery_images = JSON.stringify([id]);
+            } else {
+                let arr = JSON.parse(this.form.photo_gallery_images);
+                arr.push(id);
+                this.form.photo_gallery_images = JSON.stringify(arr);
+            }
+        },
+        handlePhotoGalleryRemoveFile(error, file) {
+            let arr = [];
+            try {
+                arr = JSON.parse(this.form.photo_gallery_images || '[]');
+            } catch (_) {}
+            const serverId = file.getMetadata()?.serverId ?? (typeof file.serverId === 'string' ? JSON.parse(file.serverId)[0] : file.serverId?.[0]);
+            const index = arr.indexOf(serverId);
+            if (index > -1) {
+                arr.splice(index, 1);
+                this.form.photo_gallery_images = JSON.stringify(arr);
+            }
+        },
         fetchEvent(id) {
             axios
                 .get(
@@ -2003,27 +2124,34 @@ export default {
                             }));
                         }
 
-                        // Populate gallery images
+                        // Populate main gallery and photo gallery (by type)
                         if (event.event_media && event.event_media.length > 0) {
                             let galleryImages = [];
                             this.gallery_files = [];
+                            let photoGalleryImages = [];
+                            this.photo_gallery_files = [];
 
-                            event.event_media.forEach((media, index) => {
-                                if (media.media) {
+                            event.event_media.forEach((media) => {
+                                if (!media.media) return;
+                                const type = media.type || 'main';
+                                const fileOpt = {
+                                    source: media.media.id,
+                                    options: {
+                                        type: 'local',
+                                        metadata: { serverId: media.media.id }
+                                    }
+                                };
+                                if (type === 'gallery') {
+                                    photoGalleryImages.push(media.media.id);
+                                    this.photo_gallery_files.push(fileOpt);
+                                } else {
                                     galleryImages.push(media.media.id);
-                                    this.gallery_files.push({
-                                        source: media.media.id,
-                                        options: {
-                                            type: 'local',
-                                            metadata: {
-                                                serverId: media.media.id
-                                            }
-                                        }
-                                    });
+                                    this.gallery_files.push(fileOpt);
                                 }
                             });
 
                             this.form.gallery_images = JSON.stringify(galleryImages);
+                            this.form.photo_gallery_images = JSON.stringify(photoGalleryImages);
                         }
 
                         // If customer exists, populate user info

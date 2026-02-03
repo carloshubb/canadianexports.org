@@ -584,6 +584,7 @@ class HelperController extends Controller
     {
         $package = getRegistrationPackage($request->registration_package_id);
         $request['gallery_images'] = isset($request->gallery_images) && $request->gallery_images != null ? json_decode($request->gallery_images) : null;
+        $request['photo_gallery_images'] = isset($request->photo_gallery_images) && $request->photo_gallery_images != null ? json_decode($request->photo_gallery_images) : null;
         $validationRule = [
             'zipcode' => ['nullable'],
             'gallery_images' => ['required', 'array'],
@@ -608,10 +609,20 @@ class HelperController extends Controller
             // 'contacts.*.designation' => 'required|string|max:255',
             'contacts.*.image_path' => 'nullable|string|max:255',
         ];
+        // Photo gallery: Premium max 8, Featured max 20
+        $photoGalleryMax = 0;
+        if ($package && in_array($package->package_type ?? '', ['premium', 'featured'])) {
+            $photoGalleryMax = ($package->package_type ?? '') === 'featured' ? 20 : 8;
+        }
+        if ($photoGalleryMax > 0) {
+            $validationRule['photo_gallery_images'] = ['nullable', 'array', 'max:' . $photoGalleryMax];
+            $validationRule['photo_gallery_images.*'] = ['nullable'];
+        }
 
         $errorMessages = [];
         $niceNames = [];
         $defaultLang = getDefaultLanguage(1);
+        $niceNames['photo_gallery_images'] = 'Photo Gallery';
 
         // $events_remaining = Auth::guard('customers')->user()->events_remaining;
         // if (Auth::guard('customers')->user()->package_expiry_date < date('Y-m-d')) {
@@ -732,30 +743,66 @@ class HelperController extends Controller
             //         }
             //     }
             // }
-            $event = Event::whereId($id)->with('eventMedia')->first();
+            $event = Event::whereId($id)->with('eventMedia.media')->first();
             $mediaId = $event->media_id;
+            $oldMediaIds = [];
+            $galleryImages = [];
+            // Main gallery (type 'main' or null)
+            if (isset($event->eventMedia)) {
+                foreach ($event->eventMedia as $eventMedia) {
+                    $type = $eventMedia->type ?? 'main';
+                    if ($type !== 'gallery' && isset($eventMedia->media)) {
+                        if (isset($request->gallery_images) && in_array($eventMedia->media->path, $request->gallery_images)) {
+                            $oldMediaIds[] = $eventMedia->media->id;
+                        } elseif (!isset($request->gallery_images)) {
+                            $oldMediaIds[] = $eventMedia->media->id;
+                        }
+                    }
+                }
+            }
             if (isset($request->gallery_images)) {
                 $oldMediaPath = [];
-                $oldMediaIds = [];
                 if (isset($event->eventMedia)) {
-                    foreach ($event->eventMedia as $key => $eventMedia) {
-                        if (isset($eventMedia->media)) {
+                    foreach ($event->eventMedia as $eventMedia) {
+                        $type = $eventMedia->type ?? 'main';
+                        if ($type !== 'gallery' && isset($eventMedia->media)) {
                             $oldMediaPath[] = $eventMedia->media->path;
-                            if (in_array($eventMedia->media->path, $request->gallery_images)) {
-                                $oldMediaIds[] = $eventMedia->media->id;
-                            }
                         }
                     }
                 }
                 $newMedia = array_merge(array_diff($request->gallery_images, $oldMediaPath), array_diff($oldMediaPath, $request->gallery_images));
-                $galleryImages = [];
                 if ($newMedia) {
                     $galleryImages = $this->moveFile($newMedia, 'media/events', 'events');
                     if (isset($galleryImages[0]) && empty($oldMediaIds)) {
-                        $mediaId = isset($galleryImages, $galleryImages[0]) ? $galleryImages[0]->id : null;
-                    } else if (isset($oldMediaIds[0])) {
+                        $mediaId = isset($galleryImages[0]) ? $galleryImages[0]->id : null;
+                    } elseif (!empty($oldMediaIds)) {
                         $mediaId = $oldMediaIds[0];
                     }
+                }
+            }
+            // Photo gallery (type 'gallery')
+            $photoGalleryImages = [];
+            if (isset($event->eventMedia)) {
+                foreach ($event->eventMedia as $eventMedia) {
+                    if (($eventMedia->type ?? 'main') === 'gallery' && isset($eventMedia->media)) {
+                        if (!isset($request->photo_gallery_images) || in_array($eventMedia->media->path, $request->photo_gallery_images)) {
+                            $oldMediaIds[] = $eventMedia->media->id;
+                        }
+                    }
+                }
+            }
+            if (isset($request->photo_gallery_images) && is_array($request->photo_gallery_images)) {
+                $oldGalleryPath = [];
+                if (isset($event->eventMedia)) {
+                    foreach ($event->eventMedia as $eventMedia) {
+                        if (($eventMedia->type ?? 'main') === 'gallery' && isset($eventMedia->media)) {
+                            $oldGalleryPath[] = $eventMedia->media->path;
+                        }
+                    }
+                }
+                $newGalleryMedia = array_merge(array_diff($request->photo_gallery_images, $oldGalleryPath), array_diff($oldGalleryPath, $request->photo_gallery_images));
+                if (!empty($newGalleryMedia)) {
+                    $photoGalleryImages = $this->moveFile($newGalleryMedia, 'media/events', 'events');
                 }
             }
 
@@ -765,7 +812,7 @@ class HelperController extends Controller
                     $slug = $request['title']['title_' . $language->id] ?? null;
                 }
             }
-            EventMedia::whereNotIn('media_id', $oldMediaIds)->whereEventId($event->id)->delete();
+            EventMedia::whereEventId($event->id)->whereNotIn('media_id', $oldMediaIds)->delete();
             Event::whereId($id)->update([
                 'zipcode' => $request->zipcode,
                 'media_id' => $mediaId,
@@ -793,12 +840,21 @@ class HelperController extends Controller
             // }
 
             if ($event) {
-                if (isset($galleryImages)) {
-                    // EventMedia::whereEventId($event->id)->delete();
+                if (isset($galleryImages) && !empty($galleryImages)) {
                     foreach ($galleryImages as $key => $file) {
                         EventMedia::create([
                             'event_id' => $event->id,
                             'media_id' => $file->id,
+                            'type' => 'main',
+                        ]);
+                    }
+                }
+                if (!empty($photoGalleryImages)) {
+                    foreach ($photoGalleryImages as $key => $file) {
+                        EventMedia::create([
+                            'event_id' => $event->id,
+                            'media_id' => $file->id,
+                            'type' => 'gallery',
                         ]);
                     }
                 }
