@@ -28,9 +28,9 @@
             $greetingText = $regDetail->greeting_text ?? 'Welcome back';
             $profileDescription = $regDetail->step_2_acc_description ?? 'This is your profile page, you can update it from here. Contact us if you need any help';
         @endphp
-        <div class="bg-white py-6 px-4 sm:px-10 mb-6 rounded-lg pt-8 sm:pt-10">
-            <h4 class="font-FuturaMdCnBT text-xl text-gray-900">{{ $greetingText }} {{ $user->name }},</h4>
-            <p class="font-FuturaMdCnBT text-gray-700 mt-2" style="line-height: 1.6;">{!! $profileDescription !!}</p>
+        <div class="bg-white  px-4 sm:px-10  rounded-lg sm:pt-20 w-full max-w-full min-w-0 mt-20">
+            <h2 class="font-FuturaMdCnBT  text-gray-900 break-words">{{ $greetingText }} {{ $user->name }},</h2>
+            <p class="font-FuturaMdCnBT text-gray-700 mt-2 break-words whitespace-normal" style="line-height: 1.6; word-wrap: break-word;">{!! $profileDescription !!}</p>
         </div>
         @include('web.signup-bussiness-setting.registration-package', ['page_id' => $page_id])
         @include('web.signup-bussiness-setting.company-and-contact-info', ['page_id' => $page_id, 'user' => $user, 'hide_welcome' => true])
