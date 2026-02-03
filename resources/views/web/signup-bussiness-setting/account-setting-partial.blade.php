@@ -1,33 +1,42 @@
 <div class="">
+    @php
+        $page_id = getLatestRegPageId();
+        $user = auth()
+            ->guard('customers')
+            ->user()
+            ->loadMissing(['customerBusinessCategory', 'customerProfile']);
+        $customerBusinessCategories = isset($user->customerBusinessCategory) ? $user->customerBusinessCategory->pluck('business_category_id') : null;
+    @endphp
     @if (isset($page_name) && $page_name == 'review-confirmation')
+        {{-- Review & Confirm: new design - banner, then 1 of 3 Registration Package, 2 of 3 Company & Contact Information, 3 of 3 Business Categories, then step 4 and below --}}
         @include('web.signup-bussiness-setting.review-banner')
-        @include('web.signup-bussiness-setting.registration-package')
-        @include('web.signup-bussiness-setting.account-setting')
+        @include('web.signup-bussiness-setting.registration-package', ['page_id' => $page_id])
+        @include('web.signup-bussiness-setting.company-and-contact-info', ['page_id' => $page_id, 'user' => $user])
+        <div class="bg-white py-8 px-4 sm:px-10">
+            <h2 class="can-exp-h1 text-center"></h2>
+            <business-categories page_id="{{ $page_id }}" profile='1'
+                customer_business_categories="{{ $customerBusinessCategories }}"
+                user="{{ $user }}"></business-categories>
+        </div>
     @else
         @include('web.signup-bussiness-setting.account-setting')
-        @include('web.signup-bussiness-setting.registration-package')
+        @include('web.signup-bussiness-setting.registration-package', ['page_id' => $page_id])
+        <div class="bg-white py-8 px-4 sm:px-10">
+            <h2 class="can-exp-h1 text-center"></h2>
+            <business-categories page_id="{{ $page_id }}" profile='1'
+                customer_business_categories="{{ $customerBusinessCategories }}"
+                user="{{ $user }}"></business-categories>
+        </div>
     @endif
 
-    <div class="bg-white py-8 px-4 sm:px-10">
-        <h2 class="can-exp-h1 text-center"></h2>
-        @php
-            $page_id = getLatestRegPageId();
-            $user = auth()
-                ->guard('customers')
-                ->user()
-                ->loadMissing('customerBusinessCategory');
-            $customerBusinessCategories = isset($user->customerBusinessCategory) ? $user->customerBusinessCategory->pluck('business_category_id') : null;
-        @endphp
-        <business-categories page_id="{{ $page_id }}" profile='1'
-            customer_business_categories="{{ $customerBusinessCategories }}"
-            user="{{ $user }}"></business-categories>
-    </div>
-
+    {{-- Step 4 Business Profile: not shown on Review & Confirm --}}
+    @if (!isset($page_name) || $page_name != 'review-confirmation')
     <div class="bg-white py-8 px-4 sm:px-10">
         <h2 class="can-exp-h1 text-center"></h2>
         <customer-profile page_id="{{ $page_id }}" profile='1'
             user="{{ auth()->guard('customers')->user()->loadMissing('customerProfile') }}"></customer-profile>
     </div>
+    @endif
 
     <div class="">
         <div class="bg-white py-8 px-4 sm:px-10">

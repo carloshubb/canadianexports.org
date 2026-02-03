@@ -59,6 +59,7 @@ class EventSignupController extends Controller
             }
         }
         $request['gallery_images'] = isset($request->gallery_images) && $request->gallery_images != null ? json_decode($request->gallery_images) : null;
+        $request['photo_gallery_images'] = isset($request->photo_gallery_images) && $request->photo_gallery_images != null ? json_decode($request->photo_gallery_images) : null;
         
         // Check if user is already logged in or if email exists
         $loggedInCustomer = \Illuminate\Support\Facades\Auth::guard('customers')->user();
@@ -86,7 +87,7 @@ class EventSignupController extends Controller
             'instagram_url' => ['nullable', new ValidUrl()],
             'snapchat_url' => ['nullable', new ValidUrl()],
             'contacts.*.name' => 'required|string|max:255',
-            'contacts.*.email' => 'required|email|max:255',
+            'contacts.*.email' => 'nullable|email|max:255',
             'contacts.*.phone' => 'required|string|max:20',
             // 'contacts.*.designation' => 'required|string|max:255',
             'contacts.*.image_path' => 'nullable|string|max:255',
@@ -132,6 +133,7 @@ class EventSignupController extends Controller
             $niceNames['pintrest_url'] = isset($setting->eventCreateSettingDetail[0]->pintrest_url_error) ? $setting->eventCreateSettingDetail[0]->pintrest_url_error : '';
             $niceNames['instagram_url'] = isset($setting->eventCreateSettingDetail[0]->instagram_url_error) ? $setting->eventCreateSettingDetail[0]->instagram_url_error : '';
             $niceNames['snapchat_url'] = isset($setting->eventCreateSettingDetail[0]->snapchat_url_error) ? $setting->eventCreateSettingDetail[0]->snapchat_url_error : '';
+            $niceNames['photo_gallery_images'] = 'Photo Gallery';
         }
 
         $languages = getAllLanguages();
@@ -177,6 +179,16 @@ class EventSignupController extends Controller
             $price = $package->event_price;
             $eventsAllowed = $package->events_allowed;
             $package_validity = date('Y-m-d', strtotime('+1 months'));
+        }
+
+        // Photo gallery: Premium max 8, Featured max 20 (only for premium/featured packages)
+        $photoGalleryMax = 0;
+        if ($package && in_array($package->package_type, ['premium', 'featured'])) {
+            $photoGalleryMax = $package->package_type === 'featured' ? 20 : 8;
+        }
+        if ($photoGalleryMax > 0 && isset($request->photo_gallery_images) && is_array($request->photo_gallery_images)) {
+            $validationRule['photo_gallery_images'] = ['nullable', 'array', 'max:' . $photoGalleryMax];
+            $validationRule['photo_gallery_images.*'] = ['nullable'];
         }
 
         $general_messages = getStaticTranslationByKey((isset($defaultLang) ? $defaultLang : null), 'general_messages', ['message_29']);
@@ -275,6 +287,10 @@ class EventSignupController extends Controller
             if (isset($request->gallery_images) && !empty($request->gallery_images)) {
                 $galleryImages = $this->moveFile($request->gallery_images, 'media/events', 'events');
             }
+            $photoGalleryImages = null;
+            if (isset($request->photo_gallery_images) && !empty($request->photo_gallery_images) && is_array($request->photo_gallery_images)) {
+                $photoGalleryImages = $this->moveFile($request->photo_gallery_images, 'media/events', 'events');
+            }
             $contacts = $request->input('contacts', []);
             foreach ($languages as $language) {
                 if ($language->is_default == '1') {
@@ -317,6 +333,16 @@ class EventSignupController extends Controller
                         EventMedia::create([
                             'event_id' => $event->id,
                             'media_id' => $file->id,
+                            'type' => 'main',
+                        ]);
+                    }
+                }
+                if (isset($photoGalleryImages)) {
+                    foreach ($photoGalleryImages as $key => $file) {
+                        EventMedia::create([
+                            'event_id' => $event->id,
+                            'media_id' => $file->id,
+                            'type' => 'gallery',
                         ]);
                     }
                 }
@@ -465,6 +491,7 @@ class EventSignupController extends Controller
             }
         }
         $request['gallery_images'] = isset($request->gallery_images) && $request->gallery_images != null ? json_decode($request->gallery_images) : null;
+        $request['photo_gallery_images'] = isset($request->photo_gallery_images) && $request->photo_gallery_images != null ? json_decode($request->photo_gallery_images) : null;
         
         // Get authenticated user
         $loggedInUser = auth()->guard('customers')->user();
@@ -539,6 +566,7 @@ class EventSignupController extends Controller
             $niceNames['pintrest_url'] = isset($setting->eventCreateSettingDetail[0]->pintrest_url_error) ? $setting->eventCreateSettingDetail[0]->pintrest_url_error : '';
             $niceNames['instagram_url'] = isset($setting->eventCreateSettingDetail[0]->instagram_url_error) ? $setting->eventCreateSettingDetail[0]->instagram_url_error : '';
             $niceNames['snapchat_url'] = isset($setting->eventCreateSettingDetail[0]->snapchat_url_error) ? $setting->eventCreateSettingDetail[0]->snapchat_url_error : '';
+            $niceNames['photo_gallery_images'] = 'Photo Gallery';
         }
 
         // Add language-specific validation rules
@@ -582,6 +610,16 @@ class EventSignupController extends Controller
             $totalAmount = $package->event_price ?? 0;
             $eventsAllowed = $package->events_allowed;
             $package_validity = date('Y-m-d', strtotime('+1 months'));
+        }
+
+        // Photo gallery: Premium max 8, Featured max 20 (only for premium/featured packages)
+        $photoGalleryMax = 0;
+        if ($package && in_array($package->package_type ?? '', ['premium', 'featured'])) {
+            $photoGalleryMax = ($package->package_type ?? '') === 'featured' ? 20 : 8;
+        }
+        if ($photoGalleryMax > 0 && isset($request->photo_gallery_images) && is_array($request->photo_gallery_images)) {
+            $validationRule['photo_gallery_images'] = ['nullable', 'array', 'max:' . $photoGalleryMax];
+            $validationRule['photo_gallery_images.*'] = ['nullable'];
         }
         
         // For logged-in users, check if they're free users or already have a package
@@ -757,6 +795,10 @@ class EventSignupController extends Controller
             if (isset($request->gallery_images) && !empty($request->gallery_images)) {
                 $galleryImages = $this->moveFile($request->gallery_images, 'media/events', 'events');
             }
+            $photoGalleryImages = null;
+            if (isset($request->photo_gallery_images) && !empty($request->photo_gallery_images) && is_array($request->photo_gallery_images)) {
+                $photoGalleryImages = $this->moveFile($request->photo_gallery_images, 'media/events', 'events');
+            }
             
             $contacts = $request->input('contacts', []);
             $slug = null;
@@ -796,12 +838,23 @@ class EventSignupController extends Controller
             ]);
 
             if ($event) {
-                // Save event media
+                // Save event media (main images)
                 if (isset($galleryImages)) {
                     foreach ($galleryImages as $key => $file) {
                         EventMedia::create([
                             'event_id' => $event->id,
                             'media_id' => $file->id,
+                            'type' => 'main',
+                        ]);
+                    }
+                }
+                // Save photo gallery images
+                if (isset($photoGalleryImages)) {
+                    foreach ($photoGalleryImages as $key => $file) {
+                        EventMedia::create([
+                            'event_id' => $event->id,
+                            'media_id' => $file->id,
+                            'type' => 'gallery',
                         ]);
                     }
                 }

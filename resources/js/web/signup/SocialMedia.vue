@@ -324,7 +324,7 @@
               </div>
             </div>
             <div class="text-center mt-auto">
-              <button class="button-exp-fill mt-6" type="button" @click="recaptcha()">
+              <button class="button-exp-fill mt-6 font-bold" type="button" @click="recaptcha()">
                 {{ calTotalPrice() > 0 && payment_setting && JSON.parse(payment_setting) ?
                   JSON.parse(payment_setting)["confirm_and_pay_btn_text"] : (payment_setting &&
                     JSON.parse(payment_setting) ?

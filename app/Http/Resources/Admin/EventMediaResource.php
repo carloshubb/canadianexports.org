@@ -12,6 +12,7 @@ class EventMediaResource extends JsonResource
             'id' => $this->id,
             'event_id' => $this->event_id,
             'media_id' => $this->media_id,
+            'type' => $this->type ?? 'main',
             'media' => new MediaResource($this->whenLoaded('media')),
         ];
     }

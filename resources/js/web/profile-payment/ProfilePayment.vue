@@ -153,7 +153,7 @@
           </div>
           <div class="text-center mt-auto">
             <button
-              class="button-exp-fill mt-6"
+              class="button-exp-fill mt-6 font-bold"
               type="button"
               @click="recaptcha()"
             >
