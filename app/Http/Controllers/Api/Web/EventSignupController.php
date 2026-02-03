@@ -86,8 +86,8 @@ class EventSignupController extends Controller
             'instagram_url' => ['nullable', new ValidUrl()],
             'snapchat_url' => ['nullable', new ValidUrl()],
             'contacts.*.name' => 'required|string|max:255',
-            'contacts.*.email' => 'required|email|max:255',
-            'contacts.*.phone' => 'required|string|max:20',
+            'contacts.*.email' => 'nullable|email|max:255',
+            'contacts.*.phone' => 'nullable|string|max:20',
             // 'contacts.*.designation' => 'required|string|max:255',
             'contacts.*.image_path' => 'nullable|string|max:255',
         ];

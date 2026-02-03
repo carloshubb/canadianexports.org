@@ -428,31 +428,35 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="relative w-full mb-3">
                         <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="name">{{ JSON.parse(event_detail)["name_label"] }} <span class="text-red-500">*</span></label>
-                        <input @input="clearErrors('name')" type="text" class="can-exp-input" :placeholder="JSON.parse(event_detail)['name_label'] || 'Full Name'" name="name" id="name" v-model="form.name" />
+                        <input @input="clearErrors('name')" type="text" class="can-exp-input"  name="name" id="name" v-model="form.name" />
                         <Error v-if="submitted" fieldName="name" :validationErros="validationErros" full_width="1" />
-                    </div>
-                    <div class="relative w-full mb-3">
-                        <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="job_title">Job Title</label>
-                        <input @input="clearErrors('job_title')" type="text" class="can-exp-input" placeholder="Job Title" name="job_title" id="job_title" v-model="form.job_title" />
-                        <Error v-if="submitted" fieldName="job_title" :validationErros="validationErros" full_width="1" />
-                    </div>
+                    </div>                   
                     <div class="relative w-full mb-3">
                         <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="email">{{ JSON.parse(event_detail)["email_label"] }} <span class="text-red-500">*</span></label>
-                        <input @input="clearErrors('email')" type="email" class="can-exp-input" :placeholder="JSON.parse(event_detail)['email_label'] || 'Login Email'" name="email" id="email" v-model="form.email" @blur="checkEmailValidation($event.target.value)" />
+                        <input @input="clearErrors('email')" type="email" class="can-exp-input"  name="email" id="email" v-model="form.email" @blur="checkEmailValidation($event.target.value)" />
                         <Error v-if="submitted" fieldName="email" :validationErros="validationErros" full_width="1" />
                     </div>
                     <template v-if="!isEditMode && !isLoggedIn">
                         <div class="relative w-full mb-3">
-                            <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="password">{{ JSON.parse(event_detail)["password_label"] || 'Create Password' }} <span class="text-red-500">*</span></label>
+                            <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="password">{{ JSON.parse(event_detail)["password_label"] || 'Create Password' }} <span class="text-xs">(Min. 8 characters. Must contain at least one lowercase and one uppercase)</span> <span class="text-red-500">*</span></label>
                             <div class="relative">
-                                <input @input="clearErrors('password')" :type="display_password" class="can-exp-input" :placeholder="(JSON.parse(event_detail)['password_label'] || 'Create Password')" name="password" id="password" v-model="form.password" />
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 cursor-pointer text-sm" @click="display_password = display_password === 'password' ? 'text' : 'password'">{{ display_password === 'password' ? 'Show' : 'Hide' }}</span>
+                                <input @input="clearErrors('password')" :type="display_password" class="can-exp-input pr-10" name="password" id="password" v-model="form.password" />
+                                <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 cursor-pointer" @click="display_password = display_password === 'password' ? 'text' : 'password'" :title="display_password === 'password' ? 'Show password' : 'Hide password'">
+                                    <svg v-if="display_password === 'password'" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                    <svg v-else class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path></svg>
+                                </span>
                             </div>
                             <Error v-if="submitted" fieldName="password" :validationErros="validationErros" full_width="1" />
                         </div>
                         <div class="relative w-full mb-3">
                             <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="password_confirmation">{{ JSON.parse(event_detail)["confirm_password_label"] || 'Confirm Password' }} <span class="text-red-500">*</span></label>
-                            <input @input="clearErrors('password_confirmation')" :type="display_confirm_password" class="can-exp-input" :placeholder="(JSON.parse(event_detail)['confirm_password_label'] || 'Confirm Password')" name="password_confirmation" id="password_confirmation" @blur="checkPassword()" v-model="form.password_confirmation" />
+                            <div class="relative">
+                                <input @input="clearErrors('password_confirmation')" :type="display_confirm_password" class="can-exp-input pr-10" name="password_confirmation" id="password_confirmation" @blur="checkPassword()" v-model="form.password_confirmation" />
+                                <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 cursor-pointer" @click="display_confirm_password = display_confirm_password === 'password' ? 'text' : 'password'" :title="display_confirm_password === 'password' ? 'Show password' : 'Hide password'">
+                                    <svg v-if="display_confirm_password === 'password'" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                    <svg v-else class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path></svg>
+                                </span>
+                            </div>
                             <Error v-if="submitted" fieldName="password_confirmation" :validationErros="validationErros" full_width="1" />
                         </div>
                     </template>
@@ -464,22 +468,22 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="relative w-full mb-3">
                         <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="business-name">{{ JSON.parse(event_detail)["business_name_label"] || 'Organizer Name' }}</label>
-                        <input @input="clearErrors('business_name')" type="text" class="can-exp-input" :placeholder="(JSON.parse(event_detail)['business_name_label'] || 'Organizer Name')" name="business-name" id="business-name" v-model="form.business_name" />
+                        <input @input="clearErrors('business_name')" type="text" class="can-exp-input" name="business-name" id="business-name" v-model="form.business_name" />
                         <Error v-if="submitted" fieldName="business_name" :validationErros="validationErros" full_width="1" />
                     </div>
                     <div class="relative w-full mb-3">
                         <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="organizer_website">Organizer Website</label>
-                        <input @input="clearErrors('organizer_website')" type="url" class="can-exp-input" placeholder="Organizer Website" name="organizer_website" id="organizer_website" v-model="form.organizer_website" />
+                        <input @input="clearErrors('organizer_website')" type="url" class="can-exp-input" name="organizer_website" id="organizer_website" v-model="form.organizer_website" />
                         <Error v-if="submitted" fieldName="organizer_website" :validationErros="validationErros" full_width="1" />
                     </div>
                     <div class="relative w-full mb-3">
                         <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="organizer_phone">Phone</label>
-                        <input type="text" class="can-exp-input" placeholder="Phone" name="organizer_phone" id="organizer_phone" v-model="form.organizer_phone" maxlength="16" @input="handleOrganizerPhoneInput($event.target.value)" @keypress="validateOrganizerPhoneKeypress" />
+                        <input type="text" class="can-exp-input" name="organizer_phone" id="organizer_phone" v-model="form.organizer_phone" maxlength="16" @input="handleOrganizerPhoneInput($event.target.value)" @keypress="validateOrganizerPhoneKeypress" />
                         <Error v-if="submitted" fieldName="organizer_phone" :validationErros="validationErros" full_width="1" />
                     </div>
                     <div class="relative w-full mb-3 md:col-span-2">
                         <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="mailing_address">Mailing Address</label>
-                        <input @input="clearErrors('mailing_address')" type="text" class="can-exp-input" placeholder="Mailing Address" name="mailing_address" id="mailing_address" v-model="form.mailing_address" />
+                        <input @input="clearErrors('mailing_address')" type="text" class="can-exp-input" name="mailing_address" id="mailing_address" v-model="form.mailing_address" />
                         <Error v-if="submitted" fieldName="mailing_address" :validationErros="validationErros" full_width="1" />
                     </div>
                 </div>
@@ -492,23 +496,34 @@
                     <div class="grid md:grid-cols-2 md:gap-6 gap-4 mt-6 bg-white shadow rounded-lg p-6">
                         <div class="relative z-0 w-full group">
                             <label :for="`contact-name-[${index}]`" class="text-base md:text-base lg:text-lg">Full Name and Title <span class="text-red-500">*</span></label>
-                            <input type="text" name="contact-name" :id="`contact-name-[${index}]`" class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600" v-model="contact.name" placeholder="Full Name and Title" @input="updateContact(index, 'name', $event.target.value); clearErrors(`contacts.${index}.name`);" />
+                            <input type="text" name="contact-name" :id="`contact-name-[${index}]`" class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600" v-model="contact.name" @input="updateContact(index, 'name', $event.target.value); clearErrors(`contacts.${index}.name`);" />
                             <Error :fieldName="`contacts.${index}.name`" :validationErros="validationErros" />
                         </div>
                         <div class="relative z-0 w-full group">
-                            <label :for="`contact-phone-[${index}]`" class="text-base md:text-base lg:text-lg">Contact Phone <span class="text-gray-500 text-xs">(If different from the business phone)</span> <span class="text-red-500">*</span></label>
-                            <input type="text" name="contact-phone" :id="`contact-phone-[${index}]`" class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600" v-model="contact.phone" placeholder="Contact Phone (If different from the business phone)" maxlength="15" @input="handleContactPhoneInput(index, $event.target.value)" @keypress="validatePhoneKeypress" />
+                            <label :for="`contact-phone-[${index}]`" class="text-base md:text-base lg:text-lg">Contact Phone <span class="text-gray-500 text-xs">(If different from the business phone)</span></label>
+                            <input type="text" name="contact-phone" :id="`contact-phone-[${index}]`" class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600" v-model="contact.phone" maxlength="15" @input="handleContactPhoneInput(index, $event.target.value)" @keypress="validatePhoneKeypress" />
                             <Error :fieldName="`contacts.${index}.phone`" :validationErros="validationErros" />
                         </div>
                         <div class="relative z-0 w-full group">
-                            <label :for="`contact-email-[${index}]`" class="text-base md:text-base lg:text-lg">Email <span class="text-gray-500 text-xs">(If different from the login email)</span> <span class="text-red-500">*</span></label>
-                            <input type="text" name="contact-email" :id="`contact-email-[${index}]`" class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600" v-model="contact.email" placeholder="Email (If different from the login email)" @input="updateContact(index, 'email', $event.target.value); clearErrors(`contacts.${index}.email`);" />
+                            <label :for="`contact-email-[${index}]`" class="text-base md:text-base lg:text-lg">Email <span class="text-gray-500 text-xs">(If different from the login email)</span> </label>
+                            <input type="text" name="contact-email" :id="`contact-email-[${index}]`" class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600" v-model="contact.email" @input="updateContact(index, 'email', $event.target.value); clearErrors(`contacts.${index}.email`);" />
                             <Error :fieldName="`contacts.${index}.email`" :validationErros="validationErros" />
                         </div>
                         <div class="relative z-0 w-full group">
-                            <label :for="`contact-image-[${index}]`" class="text-base md:text-base lg:text-lg inline-flex items-center gap-1">
-                                Contact Person's Photo <span class="text-gray-500 text-xs">(Optional)</span>
-                                <span class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-gray-400 text-white text-xs font-bold cursor-help flex-shrink-0" title="Adding a photo helps other delegates and attendees recognize you at the event!">!</span>
+                            <label  class="text-base md:text-base lg:text-lg inline-flex items-center gap-1">
+                                Contact Person's Photo
+                                <span class="relative inline-flex flex-shrink-0">
+                                    <span
+                                        class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-gray-400 text-white text-xs font-bold cursor-pointer flex-shrink-0"
+                                        aria-label="Photo tip"
+                                        @click.stop="toggleContactPhotoTooltip(index)"
+                                    >!</span>
+                                    <div
+                                        v-if="contactPhotoTooltipIndex === index"
+                                        class="absolute left-0 top-full mt-1 z-50 min-w-[200px] max-w-[280px] px-3 py-2 text-sm text-gray-700 bg-white border border-gray-200 rounded-lg shadow-lg"
+                                        @click.stop
+                                    >Adding a photo helps other delegates and attendees recognize you at the event!</div>
+                                </span>
                             </label>
                             <input type="file" name="contact-image" :id="`contact-image-[${index}]`" class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600" @change="uploadImage($event, index)" @input="clearErrors(`contacts.${index}.image_path`)" />
                             <div v-if="contact.image_path" class="mt-2"><img :src="contact.image_path" class="h-40 w-40 object-cover rounded-lg cursor-pointer hover:opacity-80 transition-opacity" @click="showImagePopup(contact.image_path)" /></div>
@@ -887,11 +902,7 @@
                         @input="updateForm('cta_link', $event.target.value); clearErrors('cta_link');" />
                     <Error v-if="submitted" fieldName="cta_link" :validationErros="validationErros" />
                 </div>
-
-
-
             </div>
-
             <div
                 class="px-4 my-6 py-1.5 sm:px-6 text-center bg-gradient-to-r from-primary via-primary to-secondary rounded-md">
                 <h4 class="text-center card-heading text-white">
@@ -1242,6 +1253,7 @@ export default {
             downgradeTooltipText:
                 "Membership downgrades cannot be processed automatically. Please contact us to adjust your plan.",
             initialEventPackageType: null,
+            contactPhotoTooltipIndex: null,
         };
     },
     mounted() {
@@ -1261,6 +1273,7 @@ export default {
 
         // Fix datepicker popup z-index issue
         this.fixVueDatePickerZIndex();
+        document.addEventListener('click', this.closeContactPhotoTooltip);
     },
     watch: {
         form: {
@@ -1332,6 +1345,12 @@ export default {
         },
         showImagePopup(imageUrl) {
             this.popupImage = imageUrl;
+        },
+        toggleContactPhotoTooltip(index) {
+            this.contactPhotoTooltipIndex = this.contactPhotoTooltipIndex === index ? null : index;
+        },
+        closeContactPhotoTooltip() {
+            this.contactPhotoTooltipIndex = null;
         },
         checkDateLength(field, event) {
             let value = event.target.value;
@@ -2201,6 +2220,7 @@ export default {
             });
     },
     beforeUnmount() {
+        document.removeEventListener('click', this.closeContactPhotoTooltip);
         // Clean up the MutationObserver when component is destroyed
         if (this.datePickerObserver) {
             this.datePickerObserver.disconnect();

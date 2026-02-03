@@ -268,8 +268,8 @@ class HelperController extends Controller
             'snapchat_url' => ['nullable', new ValidUrl()],
             'is_agree' => ['required', 'accepted'],
             'contacts.*.name' => 'required|string|max:255',
-            'contacts.*.email' => 'required|email|max:255',
-            'contacts.*.phone' => 'required|string|max:20',
+            'contacts.*.email' => 'nullable|email|max:255',
+            'contacts.*.phone' => 'nullable|string|max:20',
             // 'contacts.*.designation' => 'required|string|max:255',
             'contacts.*.image_path' => 'nullable|string|max:255',
         ];
@@ -603,8 +603,8 @@ class HelperController extends Controller
             'snapchat_url' => ['nullable', new ValidUrl()],
             'is_agree' => ['required', 'accepted'],
             'contacts.*.name' => 'required|string|max:255',
-            'contacts.*.email' => 'required|email|max:255',
-            'contacts.*.phone' => 'required|string|max:20',
+            'contacts.*.email' => 'nullable|email|max:255',
+            'contacts.*.phone' => 'nullable|string|max:20',
             // 'contacts.*.designation' => 'required|string|max:255',
             'contacts.*.image_path' => 'nullable|string|max:255',
         ];
