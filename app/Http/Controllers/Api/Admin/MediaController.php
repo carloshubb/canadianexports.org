@@ -21,13 +21,26 @@ class MediaController extends Controller
             ? 'temp/' . uniqid()
             : 'temp/' . uniqid();
 
-        // Accept file from 'media' (BecomeSponsor/custom) or 'logo'/'featured_image' (FilePond with name attribute)
+        // Accept file from 'media' (BecomeSponsor/custom), 'logo'/'featured_image', or 'photo_gallery_image' (event Photo Gallery)
         $file = $request->file('media')
             ?? $request->file('logo')
-            ?? $request->file('featured_image');
+            ?? $request->file('featured_image')
+            ?? $request->file('photo_gallery_image');
 
         if (!$file) {
             return response()->json(['error' => 'No file uploaded.'], 422);
+        }
+
+        // Event Photo Gallery: max 10 MB each, PNG/GIF/JPG only
+        if ($request->input('type') === 'event_photo_gallery') {
+            $request->validate([
+                'photo_gallery_image' => ['required', 'file', 'mimes:png,gif,jpg,jpeg', 'max:10240'], // 10 MB
+            ], [
+                'photo_gallery_image.max' => 'Each image must not exceed 10 MB.',
+                'photo_gallery_image.mimes' => 'Only PNG, GIF, or JPG images are allowed.',
+            ]);
+            // Normalize to 'media' key for saveFiles (same as other uploads)
+            $file = $request->file('photo_gallery_image');
         }
 
         $media = $this->saveFiles($file, $destinationFolder);
