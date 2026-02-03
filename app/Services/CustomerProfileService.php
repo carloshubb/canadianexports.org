@@ -49,7 +49,7 @@ class CustomerProfileService
 
 
             'customer_profile_address' => ['required', 'string', new MaxLines(5)],
-            'customer_profile_company_email' => ['nullable', 'email', 'unique:App\Models\CustomerProfile,company_email,' . $customerProfileId],
+            'customer_profile_company_email' => ['nullable', 'email'], // Business Email optional - unique rule removed to avoid "already been taken" on review-confirmation
             'customer_profile_company_name' => ['required', 'string'],
             'customer_profile_description' => ['required', 'string', 'maxwords:3000'],
             'customer_profile_keywords' => ['required', 'string', new MaxKeywordsRule(), new MaxWordsPerKeywordRule()],
