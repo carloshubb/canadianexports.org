@@ -7,7 +7,7 @@ storage
 public/images
 public/media
 public/storage
-public/css
+# public/css
 public/js
 storage/logs
 
