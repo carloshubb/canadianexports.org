@@ -676,6 +676,10 @@ export default {
     }
   },
   mounted() {
+    // On review-confirmation (and other profile pages), ensure reg page setting is loaded so section titles and options display
+    if (this.page_id && !this.regPageSetting) {
+      this.$store.dispatch("signup/fetchRegPageSetting", { id: this.page_id });
+    }
     const url = window.location.href;
     const parsedUrl = new URL(url);
     const queryParams = new URLSearchParams(parsedUrl.search);
@@ -694,7 +698,7 @@ export default {
       }
     }, 2000);
   },
-  props: ["profile", "user", "payment_setting"],
+  props: ["profile", "user", "payment_setting", "page_id"],
 };
 </script>
 

@@ -49,7 +49,7 @@ class CustomerProfileService
 
 
             'customer_profile_address' => ['required', 'string', new MaxLines(5)],
-            'customer_profile_company_email' => ['required', 'email', 'unique:App\Models\CustomerProfile,company_email,' . $customerProfileId],
+            'customer_profile_company_email' => ['nullable', 'email', 'unique:App\Models\CustomerProfile,company_email,' . $customerProfileId],
             'customer_profile_company_name' => ['required', 'string'],
             'customer_profile_description' => ['required', 'string', 'maxwords:3000'],
             'customer_profile_keywords' => ['required', 'string', new MaxKeywordsRule(), new MaxWordsPerKeywordRule()],
@@ -170,10 +170,15 @@ class CustomerProfileService
 
     function updateCustomerProfile($request)
     {
+        $existingProfile = CustomerProfile::whereCustomerId(Auth::guard('customers')->user()->id)->first();
+        $companyEmail = $request->filled('customer_profile_company_email')
+            ? $request->customer_profile_company_email
+            : ($existingProfile ? $existingProfile->company_email : null);
+
         $fields = [
             'customer_id' => Auth::guard('customers')->user()->id,
             'company_name' => $request->customer_profile_company_name,
-            'company_email' => $request->customer_profile_company_email,
+            'company_email' => $companyEmail,
             'short_description' => $request->customer_profile_short_description,
             'description' => $request->customer_profile_description,
             'phone' => $request->customer_profile_phone,

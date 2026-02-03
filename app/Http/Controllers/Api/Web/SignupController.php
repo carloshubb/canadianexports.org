@@ -85,7 +85,7 @@ class SignupController extends Controller
             'business_categories_id' => ['required', 'array', 'max:3'],
             'business_categories_id.*' => ['required', 'exists:App\Models\BusinessCategory,id'],
             'customer_profile_company_name' => ['required', 'string'],
-            'customer_profile_company_email' => ['required', 'email'], // REMOVED unique validation
+            'customer_profile_company_email' => ['nullable', 'email'], // Business Email optional - field removed from UI
             'customer_profile_address' => ['required', 'string', new MaxLines(5)],
             'customer_profile_phone' => ['required', 'string'],
             'customer_profile_cta_btn' => ['nullable', 'string'],
@@ -275,7 +275,7 @@ class SignupController extends Controller
             $customerProfile = CustomerProfile::create([
                 'company_name' => $request->customer_profile_company_name,
                 'slug' => $this->generateUniqueSlug($request->customer_profile_company_name),
-                'company_email' => $request->customer_profile_company_email,
+                'company_email' => $request->customer_profile_company_email ?? $request->email,
                 'short_description' => $request->customer_profile_short_description,
                 'description' => $request->customer_profile_description,
                 'phone' => $request->customer_profile_phone,
@@ -339,7 +339,7 @@ class SignupController extends Controller
             $data['name'] = $request->name;
             $data['email'] = $request->email;
             $data['company_name'] = $request->customer_profile_company_name;
-            $data['company_email'] = $request->customer_profile_company_email;
+            $data['company_email'] = $request->customer_profile_company_email ?? $request->email;
             $data['business_categories_name'] = $businessCategoriesName;
             $data['package'] = $package;
             $data['package_type'] = $package;

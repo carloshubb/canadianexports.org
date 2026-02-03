@@ -6,6 +6,7 @@
             ->guard('customers')
             ->user()
             ->loadMissing('registrationPackage');
+        $reg_page_id = $page_id ?? getLatestRegPageId();
     @endphp
-    <registration-package profile='1' user="{{ $user }}" payment_setting="{{ $payment_setting }}"></registration-package>
+    <registration-package profile='1' user="{{ $user }}" payment_setting="{{ $payment_setting }}" :page_id="{{ json_encode($reg_page_id) }}"></registration-package>
 </div>

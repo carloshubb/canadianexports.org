@@ -552,7 +552,7 @@
                         </div>
                     </div>
                     <div class="text-center mt-auto">
-                        <button class="button-exp-fill mt-6" type="button" @click="recaptcha()">
+                        <button class="button-exp-fill mt-6 font-bold" type="button" @click="recaptcha()">
                             {{ form.order_amount > 0 ? (payment_setting && JSON.parse(payment_setting) ?
                                 JSON.parse(payment_setting)["confirm_and_pay_btn_text"] : "Confirm and Pay") :
                                 (payment_setting && JSON.parse(payment_setting) ?
@@ -570,7 +570,7 @@
 
             <div class="pt-5 border-t border-gray-200" v-if="form.order_amount == 0">
                 <div class="flex justify-center">
-                    <button aria-label="Candian Exporters" type="submit" class="button-exp-fill" id="send-message">
+                    <button aria-label="Candian Exporters" type="submit" class="button-exp-fill font-bold" id="send-message">
                         {{ payment_setting && JSON.parse(payment_setting) ?
                             JSON.parse(payment_setting)["confirm_and_pay_btn_text"] || "Confirm and Pay" : "Confirm and Pay"
                         }}

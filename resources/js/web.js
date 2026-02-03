@@ -5,6 +5,7 @@ import store from "./store/web/index.js";
 import signup from "./web/signup/Signup.vue";
 import SocialMedia from "./web/signup/SocialMedia";
 import UserProfile from "./web/signup/UserProfile";
+import CompanyAndContactInfo from "./web/signup/CompanyAndContactInfo.vue";
 import CustomerProfile from "./web/signup/CustomerProfile";
 import CustomerMedia from "./web/signup/Media";
 import BusinessCategories from "./web/signup/BusinessCategories";
@@ -60,6 +61,7 @@ createApp({})
     .component("LanguageModal", LanguageModal)
     .component("SocialMedia", SocialMedia)
     .component("UserProfile", UserProfile)
+    .component("CompanyAndContactInfo", CompanyAndContactInfo)
     .component("CustomerProfile", CustomerProfile)
     .component("CustomerMedia", CustomerMedia)
     .component("Message", Message)
