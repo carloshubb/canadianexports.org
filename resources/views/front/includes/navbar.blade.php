@@ -11,8 +11,8 @@ preg_match(
 substr($useragent, 0, 4),
 );
 @endphp
-<nav id="topnav" class="defaultscroll is-sticky z-10 bg-gray-100 shadow-lg">
-    <div class="container flex items-center justify-between">
+<nav id="topnav" class="defaultscroll is-sticky z-100 bg-gray-100 shadow-lg h-[120px] flex items-center">
+    <div class="container flex items-center justify-between h-full">
         <!-- Logo container-->
         @php
         $url = route('front.index');
@@ -20,15 +20,15 @@ substr($useragent, 0, 4),
         $generalSetting = getI2bModalSetting($lang, ['general']);
         @endphp
         <a aria-label="Candian Exporters" class="logo pl-0" href="{{ $url }}" id="logo_outer">
-            <span class="items-center" id="logo_wrapper">
-                <div class="mt-2 flex items-center gap-1" id="logo">
-                    <img src="{{ asset('/assets/images/logocircle.png') }}" class="max-w-[55px]" alt="Candian Exporters"
+            {{-- <span class="items-center" id="logo_wrapper">
+                <div class="flex items-center gap-1" id="logo">
+                    <img src="{{ asset('/assets/images/logocircle.png') }}" class="max-w-[76px]" alt="Candian Exporters"
                         id="logocircle" />
-                    <img src="{{ asset('/assets/images/logotext.png') }}" class="max-w-[165px]" alt="Candian Exporters"
+                    <img src="{{ asset('/assets/images/logotext.png') }}" class="max-w-[212px]" alt="Candian Exporters"
                         id="logotext" />
                 </div>
-            </span>
-            <img src="{{ asset('assets/images/logo.png') }}" class="hidden h-16" alt="Candian Exporters">
+            </span> --}}
+            <img src="{{ asset('assets/images/logo.png') }}" class="h-[76px]" alt="Candian Exporters">
         </a>
 
         <!-- End Logo container-->

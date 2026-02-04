@@ -17,6 +17,6 @@
     @endif
 @endisset
 
-<div class="container my-4">
+<div class="header-banner my-4">
     {!! $page_detail ?? null !!}
 </div>

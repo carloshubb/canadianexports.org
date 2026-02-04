@@ -5,14 +5,7 @@
         class="px-4 py-1.5 sm:px-6 text-center bg-gradient-to-r from-xblue via-primary to-blue-600 rounded-md"
         v-if="profile == '1'"
       >
-        <h4
-          class="text-white"
-          v-html="
-            JSON.parse(user)?.is_package_amount_paid
-              ? regPageSetting?.reg_page_setting_detail?.[0]?.step_1_acc_heading
-              : regPageSetting?.reg_page_setting_detail?.[0]?.step_1_heading
-          "
-        ></h4>
+        <h4 class="text-white" v-html="step1HeadingDisplay"></h4>
       </div>
       <div
         class="text-center mt-4 flex flex-col justify-center items-center"
@@ -488,6 +481,10 @@ export default {
     Error,
   },
   computed: {
+    step1HeadingDisplay() {
+      if (this.profile != "1") return "";
+      return "1 of 3 - Registration Package";
+    },
     ...mapState({
       regPageSetting: (state) => state.signup.regPageSetting,
       validationErros: (state) => state.signup.validationErros,

@@ -8,7 +8,7 @@
         $customerBusinessCategories = isset($user->customerBusinessCategory) ? $user->customerBusinessCategory->pluck('business_category_id') : null;
     @endphp
     @if (isset($page_name) && $page_name == 'review-confirmation')
-        {{-- Review & Confirm: new design - banner, then 1 of 3 Registration Package, 2 of 3 Company & Contact Information, 3 of 3 Business Categories, then step 4 and below --}}
+        {{-- Review & Confirm: new design - banner, then 1 of 3 Registration Package, 2 of 3 Company & Contact Information, 3 of 3 Business Categories, then Media & Social --}}
         @include('web.signup-bussiness-setting.review-banner')
         @include('web.signup-bussiness-setting.registration-package', ['page_id' => $page_id])
         @include('web.signup-bussiness-setting.company-and-contact-info', ['page_id' => $page_id, 'user' => $user])
@@ -18,7 +18,30 @@
                 customer_business_categories="{{ $customerBusinessCategories }}"
                 user="{{ $user }}"></business-categories>
         </div>
+    @elseif (isset($page_name) && $page_name == 'profile-settings')
+        {{-- Profile Settings: welcome at very top (same style as in Company & Contact section), then 3-step layout --}}
+        @php
+            $regPageSetting = getRegPageSetting();
+            $regDetail = $regPageSetting && $regPageSetting->regPageSettingDetail && $regPageSetting->regPageSettingDetail->isNotEmpty()
+                ? $regPageSetting->regPageSettingDetail->first()
+                : null;
+            $greetingText = $regDetail->greeting_text ?? 'Welcome back';
+            $profileDescription = $regDetail->step_2_acc_description ?? 'This is your profile page, you can update it from here. Contact us if you need any help';
+        @endphp
+        <div class="bg-white  px-4 sm:px-10  rounded-lg sm:pt-20 w-full max-w-full min-w-0 mt-20">
+            <h2 class="font-FuturaMdCnBT  text-gray-900 break-words">{{ $greetingText }} {{ $user->name }},</h2>
+            <p class="font-FuturaMdCnBT text-gray-700 mt-2 break-words whitespace-normal" style="line-height: 1.6; word-wrap: break-word;">{!! $profileDescription !!}</p>
+        </div>
+        @include('web.signup-bussiness-setting.registration-package', ['page_id' => $page_id])
+        @include('web.signup-bussiness-setting.company-and-contact-info', ['page_id' => $page_id, 'user' => $user, 'hide_welcome' => true])
+        <div class="bg-white py-8 px-4 sm:px-10">
+            <h2 class="can-exp-h1 text-center"></h2>
+            <business-categories page_id="{{ $page_id }}" profile='1'
+                customer_business_categories="{{ $customerBusinessCategories }}"
+                user="{{ $user }}"></business-categories>
+        </div>
     @else
+        {{-- Legacy layout (other pages) --}}
         @include('web.signup-bussiness-setting.account-setting')
         @include('web.signup-bussiness-setting.registration-package', ['page_id' => $page_id])
         <div class="bg-white py-8 px-4 sm:px-10">
@@ -29,8 +52,8 @@
         </div>
     @endif
 
-    {{-- Step 4 Business Profile: not shown on Review & Confirm --}}
-    @if (!isset($page_name) || $page_name != 'review-confirmation')
+    {{-- Step 4 Business Profile: not shown on Review & Confirm or Profile Settings (new 3-step layout) --}}
+    @if (!isset($page_name) || ($page_name != 'review-confirmation' && $page_name != 'profile-settings'))
     <div class="bg-white py-8 px-4 sm:px-10">
         <h2 class="can-exp-h1 text-center"></h2>
         <customer-profile page_id="{{ $page_id }}" profile='1'

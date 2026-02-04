@@ -5,5 +5,5 @@
         $lang = getDefaultLanguage(true);
         $user_for_company = isset($user) ? $user : auth()->guard('customers')->user()->loadMissing('customerProfile');
     @endphp
-    <company-and-contact-info profile="1" :user='@json($user_for_company)' :page_id="{{ json_encode($page_id ?? getLatestRegPageId()) }}" :lang='@json($lang)'></company-and-contact-info>
+    <company-and-contact-info profile="1" :user='@json($user_for_company)' :page_id="{{ json_encode($page_id ?? getLatestRegPageId()) }}" :lang='@json($lang)' :hide_welcome="{{ json_encode($hide_welcome ?? false) }}"></company-and-contact-info>
 </div>

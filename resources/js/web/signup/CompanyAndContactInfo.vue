@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mb-4">
-      <div class="my-4" v-if="profile && user">
+      <div class="my-4" v-if="profile && user && !hide_welcome">
         <template v-if="parsedUser?.is_package_amount_paid">
           <h4 class="font-FuturaMdCnBT">{{ regPageSetting?.reg_page_setting_detail?.[0]
             ?.greeting_text ?? 'Welcome back' }} {{ parsedUser?.name }},</h4>
@@ -240,7 +240,7 @@ import Error from "./../components/Error.vue";
 
 export default {
   components: { Error },
-  props: ["profile", "user", "page_id", "lang"],
+  props: ["profile", "user", "page_id", "lang", "hide_welcome"],
   data() {
     return {
       display_password: "password",

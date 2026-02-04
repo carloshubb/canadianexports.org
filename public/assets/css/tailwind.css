@@ -3630,7 +3630,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
   font-weight: 700 !important;
   text-transform: uppercase !important;
   line-height: 1.5rem !important;
-  letter-spacing: 1px !important;
+  /* letter-spacing: 1px !important; */
   --tw-text-opacity: 1 !important;
   color: rgb(22 28 45 / var(--tw-text-opacity)) !important;
 }

@@ -88,6 +88,7 @@
     {{-- <link rel="stylesheet" href="{{ asset('assets/css/icons.min.css') }}" /> --}}
     <link href="{{ asset('css/web.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/front.css') }}" rel="stylesheet">
     {{-- <link href="{{ asset('assets/libs/choices.js/public/assets/styles/choices.min.css') }}" rel="stylesheet"> --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
@@ -109,8 +110,8 @@
         <div class="flex-initial">
             @include('front.includes.navbar')
         </div>
-        <div class="relative flex-auto bg-gray-50">
-            {{-- End Navbar --}}
+        {{-- End Navbar --}}
+        <div class="relative flex-auto bg-[#eef3fa]">
             @yield('content')
         </div>
         @php
@@ -459,26 +460,26 @@
     var navbar = document.getElementById("topnav");
     var navHeight = navbar.offsetHeight;
     window.addEventListener("scroll", function() {
-        // if (window.pageYOffset > 0) {
-        //     document.getElementById("nav_items").style.padding = "12px 0";
-        //     document.getElementById("logo").style.margin = "5px 0px 0px 0px";
-        //     document.getElementById("logocircle").style.width = "45px";
-        //     document.getElementById("logotext").style.width = "140px";
-        //     document.getElementById("logo_wrapper").style.display = "flex";
-        //     document.getElementById("logo_outer").style.height = "3.5rem";
-        //     document.getElementById("topnav").style.height = "auto";
-        //     document.getElementById("navigation").style.margin = "-12px 0px 0px 0px";
+        if (window.pageYOffset > 0) {
+            document.getElementById("nav_items").style.padding = "12px 0";
+            document.getElementById("logo").style.margin = "5px 0px 0px 0px";
+            // document.getElementById("logocircle").style.width = "45px";
+            // document.getElementById("logotext").style.width = "140px";
+            document.getElementById("logo_wrapper").style.display = "flex";
+            document.getElementById("logo_outer").style.height = "3.5rem";
+            document.getElementById("topnav").style.height = "auto";
+            document.getElementById("navigation").style.margin = "-12px 0px 0px 0px";
 
-        // } else {
-        //     document.getElementById("nav_items").style.padding = "24px 0";
-        //     document.getElementById("logo").style.margin = "5px 0px 0px 0px";
-        //     document.getElementById("logocircle").style.width = "50px";
-        //     document.getElementById("logotext").style.width = "160px";
-        //     document.getElementById("logo_wrapper").style.display = "inline-block";
-        //     document.getElementById("logo_outer").style.height = "auto";
-        //     document.getElementById("topnav").style.height = "auto";
-        //     document.getElementById("navigation").style.margin = "0px 0px 0px 0px";
-        // }
+        } else {
+            document.getElementById("nav_items").style.padding = "24px 0";
+            document.getElementById("logo").style.margin = "5px 0px 0px 0px";
+            // document.getElementById("logocircle").style.width = "50px";
+            // document.getElementById("logotext").style.width = "160px";
+            document.getElementById("logo_wrapper").style.display = "inline-block";
+            document.getElementById("logo_outer").style.height = "auto";
+            document.getElementById("topnav").style.height = "auto";
+            document.getElementById("navigation").style.margin = "0px 0px 0px 0px";
+        }
     });
     setTimeout(() => {
         new Swiper(".mySwiper", {
@@ -614,7 +615,7 @@
                     spaceBetween: 30,
                 },
                 1024: {
-                    slidesPerView: 3,
+                    slidesPerView: 4,
                     spaceBetween: 40,
                 },
             }
@@ -709,11 +710,11 @@
                     spaceBetween: 20,
                 },
                 768: {
-                    slidesPerView: 2,
+                    slidesPerView: 3,
                     spaceBetween: 30,
                 },
                 1024: {
-                    slidesPerView: 3,
+                    slidesPerView: 4,
                     spaceBetween: 40,
                 },
             },
@@ -732,10 +733,10 @@
         var swiper = new Swiper('.featured-events-slider-container', {
             slidesPerView: 1,
             loop: true,
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-            },
+            // autoplay: {
+            //     delay: 3000,
+            //     disableOnInteraction: false,
+            // },
             spaceBetween: 10,
             navigation: {
                 nextEl: '.featured-events-button-next-exp',
@@ -773,6 +774,7 @@
 
     setTimeout(() => {
         var swiper = new Swiper('.i2b-slider-container', {
+            loop: true,
             slidesPerView: 1,
 
             spaceBetween: 10,
@@ -790,11 +792,11 @@
                     spaceBetween: 20,
                 },
                 768: {
-                    slidesPerView: 2,
+                    slidesPerView: 3,
                     spaceBetween: 30,
                 },
                 1024: {
-                    slidesPerView: 3,
+                    slidesPerView: 4,
                     spaceBetween: 40,
                 },
             },

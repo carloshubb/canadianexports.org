@@ -17,6 +17,6 @@
     @endif
 @endisset
 
-<div class="container my-4">
+<div class="i2c-banner">
     {!! $page_detail ?? null !!}
 </div>

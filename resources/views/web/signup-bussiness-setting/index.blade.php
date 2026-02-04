@@ -17,6 +17,6 @@
                         Session::get('message') != '')
                     <message type="{{ Session::get('type') }}" message="{{ Session::get('message') }}"></message>
                 @endif
-                @include('web.signup-bussiness-setting.account-setting-partial')
+                @include('web.signup-bussiness-setting.account-setting-partial', ['page_name' => $page_name ?? null])
             </div>
         @endsection

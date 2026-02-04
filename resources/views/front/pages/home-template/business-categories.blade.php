@@ -1,15 +1,14 @@
-<section class="relative lg:pb-14 md:pb-10 pt-14 pb-10">
+<section class="home-container relative lg:pb-14 md:pb-10 pt-14 pb-10 bg-white">
 
-    <div class="container">
 
-        <div class="relative bg-center p-8"
-            style="background-image: url('{{ asset("assets/images/bg_home_1.png") }}');">
+        <div class="relative bg-center p-8 bussiness-categories-section ">
             <p class="can-exp-p text-center text-gray-700 mb-4">
                 {!! $homePageSettingDetail->section1_description !!}
             </p>
 
         </div>
 
+        <div class="py-4"></div>
 
         <h2 class="text-3xl text-center md:text-4xl mt-6 font-semibold text-[#006EB7] mb-6">Business Categories</h2>
 
@@ -193,5 +192,4 @@
         </script>
 
 
-    </div>
 </section>
