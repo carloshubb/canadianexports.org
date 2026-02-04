@@ -1061,9 +1061,62 @@ export default {
                     this.form.package_type = user.registration_package?.package_type || null;
                     this.form.order_amount = user.registration_package?.event_price || 0;
                     this.initialEventPackageType = user.registration_package?.package_type ?? null;
-                    this.form.organizer_website = user.customer_profile.website;
-                    this.form.organizer_phone = user.customer_profile.phone;
-                    this.form.mailing_address = user.customer_profile.address;
+                    this.form.organizer_website = user.customer_profile?.website ?? '';
+                    this.form.organizer_phone = user.customer_profile?.phone ?? '';
+                    this.form.mailing_address = user.customer_profile?.address ?? '';
+                    this.form.title.title_1 = user.event_detail[0]?.title || '';
+                    this.form.title.title_13 = user.event_detail[1]?.title || '';
+                    this.form.country.country_1 = user.event_detail[0]?.country || '';
+                    this.form.country.country_13 = user.event_detail[1]?.country || '';
+                    this.form.city.city_1 = user.event_detail[0]?.city || '';
+                    this.form.city.city_13 = user.event_detail[1]?.city || '';
+                    this.form.street_name.street_name_1 = user.event_detail[0]?.street_name || '';
+                    this.form.street_name.street_name_13 = user.event_detail[1]?.street_name || '';
+                    this.form.venue.venue_1 = user.event_detail[0]?.venue || '';
+                    this.form.venue.venue_13 = user.event_detail[1]?.venue || '';
+                    this.form.product_search.product_search_1 = user.event_detail[0]?.product_search || '';
+                    this.form.product_search.product_search_13 = user.event_detail[1]?.product_search || '';
+                    this.form.short_description.short_description_1 = user.event_detail[0]?.short_description || '';
+                    this.form.short_description.short_description_13 = user.event_detail[1]?.short_description || '';
+                    this.form.description.description_1 = user.event_detail[0]?.description || '';
+                    this.form.description.description_13 = user.event_detail[1]?.description || '';
+                    this.form.start_date = user.event[0]?.start_date || '';
+                    this.form.end_date = user.event[0]?.end_date || '';
+                    this.form.event_website = user.event[0]?.event_website || '';
+                    this.form.exibitors_url = user.event[0]?.exibitors_url || '';
+                    this.form.visitors_url = user.event[0]?.visitors_url || '';
+                    this.form.press_url = user.event[0]?.press_url || '';
+                    this.form.video_url = user.event[0]?.video_url || '';
+
+                    // Populate main gallery and photo gallery from event_media (same logic as Create.vue)
+                    const eventMedia = user.event?.[0]?.event_media;
+                    if (eventMedia && Array.isArray(eventMedia) && eventMedia.length > 0) {
+                        let galleryImages = [];
+                        this.gallery_files = [];
+                        let photoGalleryImages = [];
+                        this.photo_gallery_files = [];
+                        eventMedia.forEach((media) => {
+                            if (!media.media) return;
+                            const type = media.type || 'main';
+                            const fileOpt = {
+                                source: media.media.id,
+                                options: {
+                                    type: 'local',
+                                    metadata: { serverId: media.media.id }
+                                }
+                            };
+                            if (type === 'gallery') {
+                                photoGalleryImages.push(media.media.id);
+                                this.photo_gallery_files.push(fileOpt);
+                            } else {
+                                galleryImages.push(media.media.id);
+                                this.gallery_files.push(fileOpt);
+                            }
+                        });
+                        this.form.gallery_images = JSON.stringify(galleryImages);
+                        this.form.photo_gallery_images = JSON.stringify(photoGalleryImages);
+                    }
+
                 }
             },
             immediate: true // Watcher ko turant run karne ke liye
@@ -1255,13 +1308,14 @@ export default {
             this.addReg();
         },
         async addReg() {
-            this.form.contacts = this.contacts;
+            this.form.contacts = Array.isArray(this.contacts) ? this.contacts : [];
             this.loading = 1;
 
             // Build payload: ensure page_id/create_page_id and gallery fields match backend expectations
             let payload = { ...this.form };
             payload.page_id = payload.page_id ?? this.page_id;
             payload.create_page_id = payload.create_page_id ?? this.create_page_id;
+            payload.contacts = Array.isArray(payload.contacts) ? payload.contacts : [];
             // Backend expects gallery_images and photo_gallery_images as JSON strings for json_decode
             if (typeof payload.gallery_images !== 'string') {
                 payload.gallery_images = payload.gallery_images != null ? JSON.stringify(payload.gallery_images) : null;
@@ -1314,6 +1368,7 @@ export default {
                     this.validationErros = new ErrorHandling();
                     if (error.response && error.response.status == 422) {
                         this.validationErros.record(error.response.data.errors);
+                        this.$nextTick(() => this.focusOnFirstErrorInput(error.response.data.errors));
                     } else if (
                         error.response &&
                         error.response.data &&
@@ -1324,6 +1379,40 @@ export default {
                         );
                     }
                 });
+        },
+        focusOnFirstErrorInput(errors) {
+            const errorKeys = new Set(Object.keys(errors));
+            const allErrorElements = Array.from(document.querySelectorAll('[data-error-field]'))
+                .filter((el) => errorKeys.has(el.getAttribute('data-error-field')));
+            const firstErrorEl = allErrorElements[0];
+            if (firstErrorEl) {
+                firstErrorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                const input = firstErrorEl.closest('.group')?.querySelector('input, textarea, select');
+                if (input) input.focus();
+                return;
+            }
+            const firstErrorKey = Object.keys(errors)[0];
+            if (!firstErrorKey) return;
+            if (firstErrorKey.startsWith('contacts.')) {
+                const m = firstErrorKey.match(/contacts\.(\d+)\.(\w+)/);
+                if (m) {
+                    const input = document.getElementById(`contact-${m[2]}-[${m[1]}]`);
+                    if (input) {
+                        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        input.focus();
+                    }
+                }
+            } else if (firstErrorKey === 'photo_gallery_images') {
+                const el = document.getElementById('photo_gallery_images');
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                const baseName = firstErrorKey.split('.')[0];
+                const input = document.getElementById(baseName) || document.querySelector(`[name="${firstErrorKey}"]`);
+                if (input) {
+                    input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    input.focus();
+                }
+            }
         },
         checkEmailValidation(email) {
             if (email == "") {

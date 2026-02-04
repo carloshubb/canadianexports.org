@@ -8,13 +8,17 @@
         $user = auth()
         ->guard('customers')
         ->user()
-        ->loadMissing('customerBusinessCategory');
+        ->loadMissing([
+            'customerBusinessCategory',
+            'customerProfile',
+            'event' => fn ($q) => $q->with(['eventMedia.media']),
+        ]);
         $page = getPageBySlug('event-signup', $lang);
         $eventSignupSetting = getEventSignupSetting($lang, $page);
         $eventSignupSettingDetail = isset($eventSignupSetting->eventSignupSettingDetail[0])
         ? $eventSignupSetting->eventSignupSettingDetail[0]
         : null;
-
+        $event = $user->event_detail;        
         $page1 = getPageBySlug('create-event', $lang);
         $eventCreateSetting = getEventCreateSetting($lang, $page1);
         $eventCreateSettingDetail = isset($eventCreateSetting->eventCreateSettingDetail[0])

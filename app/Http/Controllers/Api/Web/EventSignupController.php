@@ -514,6 +514,22 @@ class EventSignupController extends Controller
             $request->merge(['email' => $loggedInUser->email]);
         }
 
+        // Profile flow (logged-in): normalize empty strings to null so nullable rules pass
+        if ($loggedInUser) {
+            $urlFields = ['event_website', 'exibitors_url', 'visitors_url', 'press_url', 'video_url', 'facebook_url', 'twitter_url', 'linkedin_url', 'youtube_url', 'pintrest_url', 'instagram_url', 'snapchat_url'];
+            foreach ($urlFields as $field) {
+                if ($request->has($field) && $request->get($field) === '') {
+                    $request->merge([$field => null]);
+                }
+            }
+            if ($request->get('start_date') === '') {
+                $request->merge(['start_date' => null]);
+            }
+            if ($request->get('end_date') === '') {
+                $request->merge(['end_date' => null]);
+            }
+        }
+
         $validationRule = [
             'name' => ['required', 'string'],
             'business_name' => ['nullable', 'string'],
@@ -521,9 +537,9 @@ class EventSignupController extends Controller
             'package_id' => ['required', 'exists:registration_packages,id'],
             'zipcode' => ['nullable'],
             'gallery_images' => ['nullable', 'array'], // Optional: Review & Confirm page has no Main Event Image upload
-            'start_date' => ['required', 'date'], // Added start_date validation
-            'end_date' => ['required', 'date', 'after_or_equal:start_date'], // Added end_date validation
-            'event_website' => ['required', new ValidUrl()], // Added event_website validation
+            'start_date' => [$loggedInUser ? 'nullable' : 'required', 'date'],
+            'end_date' => [$loggedInUser ? 'nullable' : 'required', 'date', 'after_or_equal:start_date'],
+            'event_website' => [$loggedInUser ? 'nullable' : 'required', new ValidUrl()],
             'exibitors_url' => ['nullable', new ValidUrl()],
             'visitors_url' => ['nullable', new ValidUrl()],
             'press_url' => ['nullable', new ValidUrl()],
@@ -542,13 +558,15 @@ class EventSignupController extends Controller
             'contacts.*.image_path' => 'nullable|string|max:255',
         ];
         $niceNames = [];
+        $settingDetail = null;
         $defaultLang = getDefaultLanguage(1);
         if ($defaultLang) {
             App::setLocale($defaultLang->abbreviation);
             $eventSignupSetting = getEventSignupSetting($defaultLang, Page::whereId($request->page_id)->first());
-            $eventSignupSettingDetail = $eventSignupSetting->eventSignupSettingDetail;
+            $eventSignupSettingDetail = $eventSignupSetting?->eventSignupSettingDetail ?? [];
             $payment_setting = getI2bModalSetting($defaultLang, ['payment_setting']);
             $setting = getEventCreateSettingById($defaultLang, $request->create_page_id);
+            $settingDetail = $setting && isset($setting->eventCreateSettingDetail[0]) ? $setting->eventCreateSettingDetail[0] : null;
             $niceNames = [
                 'name' => isset($eventSignupSettingDetail[0]->name_error) ? $eventSignupSettingDetail[0]->name_error : '',
                 'business_name' => isset($eventSignupSettingDetail[0]->business_name_error) ? $eventSignupSettingDetail[0]->business_name_error : '',
@@ -558,27 +576,26 @@ class EventSignupController extends Controller
                 'package_id' => isset($eventSignupSettingDetail[0]->package_error) ? $eventSignupSettingDetail[0]->package_error : '',
                 'card_holder_name' => isset($payment_setting['cardholder_name_error']) ? $payment_setting['cardholder_name_error'] : '',
             ];
-            $niceNames['zipcode'] = isset($setting->eventCreateSettingDetail[0]->zipcode_error) ? $setting->eventCreateSettingDetail[0]->zipcode_error : '';
-            $niceNames['media_id'] = isset($setting->eventCreateSettingDetail[0]->logo_error) ? $setting->eventCreateSettingDetail[0]->logo_error : '';
-            $niceNames['start_date'] = isset($setting->eventCreateSettingDetail[0]->start_date_error) ? $setting->eventCreateSettingDetail[0]->start_date_error : '';
-            $niceNames['end_date'] = isset($setting->eventCreateSettingDetail[0]->end_date_error) ? $setting->eventCreateSettingDetail[0]->end_date_error : '';
-            $niceNames['event_website'] = isset($setting->eventCreateSettingDetail[0]->event_website_error) ? $setting->eventCreateSettingDetail[0]->event_website_error : '';
-            $niceNames['exibitors_url'] = isset($setting->eventCreateSettingDetail[0]->exibitors_url_error) ? $setting->eventCreateSettingDetail[0]->exibitors_url_error : '';
-            $niceNames['visitors_url'] = isset($setting->eventCreateSettingDetail[0]->visitors_url_error) ? $setting->eventCreateSettingDetail[0]->visitors_url_error : '';
-            $niceNames['press_url'] = isset($setting->eventCreateSettingDetail[0]->press_url_error) ? $setting->eventCreateSettingDetail[0]->press_url_error : '';
-            $niceNames['video_url'] = isset($setting->eventCreateSettingDetail[0]->video_url_error) ? $setting->eventCreateSettingDetail[0]->video_url_error : '';
-            $niceNames['contacts.*.name'] = isset($setting->eventCreateSettingDetail[0]->contact_name_error) ? $setting->eventCreateSettingDetail[0]->contact_name_error : '';
-            $niceNames['contacts.*.email'] = isset($setting->eventCreateSettingDetail[0]->contact_email_error) ? $setting->eventCreateSettingDetail[0]->contact_email_error : '';
-            $niceNames['contacts.*.phone'] = isset($setting->eventCreateSettingDetail[0]->contact_phone_error) ? $setting->eventCreateSettingDetail[0]->contact_phone_error : '';
-            // $niceNames['contacts.*.designation'] = isset($setting->eventCreateSettingDetail[0]->contact_designation_error) ? $setting->eventCreateSettingDetail[0]->contact_designation_error : '';
-            $niceNames['contacts.*.image_path'] = isset($setting->eventCreateSettingDetail[0]->profile_image_error) ? $setting->eventCreateSettingDetail[0]->profile_image_error : '';
-            $niceNames['facebook_url'] = isset($setting->eventCreateSettingDetail[0]->facebook_url_error) ? $setting->eventCreateSettingDetail[0]->facebook_url_error : '';
-            $niceNames['twitter_url'] = isset($setting->eventCreateSettingDetail[0]->twitter_url_error) ? $setting->eventCreateSettingDetail[0]->twitter_url_error : '';
-            $niceNames['linkedin_url'] = isset($setting->eventCreateSettingDetail[0]->linkedin_url_error) ? $setting->eventCreateSettingDetail[0]->linkedin_url_error : '';
-            $niceNames['youtube_url'] = isset($setting->eventCreateSettingDetail[0]->youtube_url_error) ? $setting->eventCreateSettingDetail[0]->youtube_url_error : '';
-            $niceNames['pintrest_url'] = isset($setting->eventCreateSettingDetail[0]->pintrest_url_error) ? $setting->eventCreateSettingDetail[0]->pintrest_url_error : '';
-            $niceNames['instagram_url'] = isset($setting->eventCreateSettingDetail[0]->instagram_url_error) ? $setting->eventCreateSettingDetail[0]->instagram_url_error : '';
-            $niceNames['snapchat_url'] = isset($setting->eventCreateSettingDetail[0]->snapchat_url_error) ? $setting->eventCreateSettingDetail[0]->snapchat_url_error : '';
+            $niceNames['zipcode'] = $settingDetail?->zipcode_error ?? '';
+            $niceNames['media_id'] = $settingDetail?->logo_error ?? '';
+            $niceNames['start_date'] = $settingDetail?->start_date_error ?? '';
+            $niceNames['end_date'] = $settingDetail?->end_date_error ?? '';
+            $niceNames['event_website'] = $settingDetail?->event_website_error ?? '';
+            $niceNames['exibitors_url'] = $settingDetail?->exibitors_url_error ?? '';
+            $niceNames['visitors_url'] = $settingDetail?->visitors_url_error ?? '';
+            $niceNames['press_url'] = $settingDetail?->press_url_error ?? '';
+            $niceNames['video_url'] = $settingDetail?->video_url_error ?? '';
+            $niceNames['contacts.*.name'] = $settingDetail?->contact_name_error ?? '';
+            $niceNames['contacts.*.email'] = $settingDetail?->contact_email_error ?? '';
+            $niceNames['contacts.*.phone'] = $settingDetail?->contact_phone_error ?? '';
+            $niceNames['contacts.*.image_path'] = $settingDetail?->profile_image_error ?? '';
+            $niceNames['facebook_url'] = $settingDetail?->facebook_url_error ?? '';
+            $niceNames['twitter_url'] = $settingDetail?->twitter_url_error ?? '';
+            $niceNames['linkedin_url'] = $settingDetail?->linkedin_url_error ?? '';
+            $niceNames['youtube_url'] = $settingDetail?->youtube_url_error ?? '';
+            $niceNames['pintrest_url'] = $settingDetail?->pintrest_url_error ?? '';
+            $niceNames['instagram_url'] = $settingDetail?->instagram_url_error ?? '';
+            $niceNames['snapchat_url'] = $settingDetail?->snapchat_url_error ?? '';
             $niceNames['photo_gallery_images'] = 'Photo Gallery';
         }
 
@@ -590,28 +607,28 @@ class EventSignupController extends Controller
                 $requiredVal = 'required';
             }
             $validationRule = array_merge($validationRule, ['title.title_' . $language->id => [$requiredVal, 'string', 'max:255']]);
-            $niceNames['title.title_' . $language->id] = isset($setting->eventCreateSettingDetail[0]->title_error) ? $setting->eventCreateSettingDetail[0]->title_error : '';
+            $niceNames['title.title_' . $language->id] = $settingDetail?->title_error ?? '';
 
             $validationRule = array_merge($validationRule, ['country.country_' . $language->id => [$requiredVal, 'string', 'max:255']]);
-            $niceNames['country.country_' . $language->id] = isset($setting->eventCreateSettingDetail[0]->country_error) ? $setting->eventCreateSettingDetail[0]->country_error : '';
+            $niceNames['country.country_' . $language->id] = $settingDetail?->country_error ?? '';
 
             $validationRule = array_merge($validationRule, ['city.city_' . $language->id => [$requiredVal, 'string', 'max:255']]);
-            $niceNames['city.city_' . $language->id] = isset($setting->eventCreateSettingDetail[0]->city_error) ? $setting->eventCreateSettingDetail[0]->city_error : '';
+            $niceNames['city.city_' . $language->id] = $settingDetail?->city_error ?? '';
 
             $validationRule = array_merge($validationRule, ['street_name.street_name_' . $language->id => ['nullable', 'string']]);
-            $niceNames['street_name.street_name_' . $language->id] = isset($setting->eventCreateSettingDetail[0]->street_name_error) ? $setting->eventCreateSettingDetail[0]->street_name_error : '';
+            $niceNames['street_name.street_name_' . $language->id] = $settingDetail?->street_name_error ?? '';
 
             $validationRule = array_merge($validationRule, ['venue.venue_' . $language->id => ['nullable', 'string', 'max:255']]);
-            $niceNames['venue.venue_' . $language->id] = isset($setting->eventCreateSettingDetail[0]->venue_error) ? $setting->eventCreateSettingDetail[0]->venue_error : '';
+            $niceNames['venue.venue_' . $language->id] = $settingDetail?->venue_error ?? '';
 
             $validationRule = array_merge($validationRule, ['product_search.product_search_' . $language->id => ['nullable', 'string']]);
-            $niceNames['product_search.product_search_' . $language->id] = isset($setting->eventCreateSettingDetail[0]->product_search_error) ? $setting->eventCreateSettingDetail[0]->product_search_error : '';
+            $niceNames['product_search.product_search_' . $language->id] = $settingDetail?->product_search_error ?? '';
 
             $validationRule = array_merge($validationRule, ['short_description.short_description_' . $language->id => [$requiredVal, 'string', 'maxwords:30']]);
-            $niceNames['short_description.short_description_' . $language->id] = isset($setting->eventCreateSettingDetail[0]->short_description_error) ? $setting->eventCreateSettingDetail[0]->short_description_error : '';
+            $niceNames['short_description.short_description_' . $language->id] = $settingDetail?->short_description_error ?? '';
 
             $validationRule = array_merge($validationRule, ['description.description_' . $language->id => [$requiredVal, 'string', 'maxwords:300']]);
-            $niceNames['description.description_' . $language->id] = isset($setting->eventCreateSettingDetail[0]->description_error) ? $setting->eventCreateSettingDetail[0]->description_error : '';
+            $niceNames['description.description_' . $language->id] = $settingDetail?->description_error ?? '';
         }
 
         $package = getRegistrationPackage($request->package_id);
