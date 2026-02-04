@@ -2,10 +2,14 @@
   <section class="mx-auto">
     <!--Form-->
     <form class="bg-white">
-      <div
-        class="flex justify-center gap-6 items-stretch xl:gap-12 px-4 py-8 sm:px-10"
-      >
-        <div v-if="calTotalPrice() > 0" class="w-full flex">
+      <div class="flex flex-col gap-8 px-4 py-8 sm:px-10">
+        <!-- Select Payment Method -->
+        <div class="bg-white rounded-lg overflow-hidden shadow-3xl">
+          <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
+            <h4 class="text-white">{{ payment_setting && JSON.parse(payment_setting) && JSON.parse(payment_setting)["select_payment_method"] ? JSON.parse(payment_setting)["select_payment_method"] : "Select Payment Method" }}</h4>
+          </div>
+          <div class="px-4 py-8 sm:px-10">
+        <div v-if="calTotalPrice() > 0" class="w-full">
           <div class="h-full w-full rounded-lg border bg-white p-4 md:p-6 shadow-md flex flex-col">
             <div>
               <!--Debit Card-->
@@ -127,7 +131,16 @@
             </div>
           </div>
         </div>
-        <div class="w-full mt-6 rounded-lg border bg-white p-4 md:p-6 shadow-md md:mt-0 flex flex-col h-full">
+          </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="bg-white rounded-lg overflow-hidden shadow-3xl">
+          <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
+            <h4 class="text-white">Order Summary</h4>
+          </div>
+          <div class="px-4 py-8 sm:px-10">
+        <div class="w-full rounded-lg border bg-white p-4 md:p-6 shadow-md flex flex-col h-full">
           <div class="mb-2 flex justify-between">
             <p class="text-gray-700">{{ JSON.parse(payment_setting)["package_text"]  }}</p>
             <p class="text-gray-700 capitalize">
@@ -159,6 +172,8 @@
             >
             {{ calTotalPrice() > 0 ? JSON.parse(payment_setting)["confirm_and_pay_btn_text"] : JSON.parse(payment_setting)["confirm_and_proceed_btn_text"] }}
             </button>
+          </div>
+        </div>
           </div>
         </div>
       </div>
