@@ -2483,3 +2483,22 @@ body > .dp__outer_menu_wrap,
 .grid ~ .dp__outer_menu_wrap {
   z-index: 99999 !important;
 }
+
+/* Success Message Styles */
+.checkmark {
+  width: 64px;
+  height: 64px;
+  line-height: 64px;
+  border-radius: 50%;
+  background-color: #28a745;
+  color: #ffffff;
+  font-size: 36px;
+  font-weight: bold;
+  margin: 0 auto 20px;
+}
+
+.success-title {
+  font-family:  theme('fontFamily.FuturaMdCnBT');
+  font-size: 28px;
+  margin-bottom: 24px;
+}

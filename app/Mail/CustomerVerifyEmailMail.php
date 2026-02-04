@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 class CustomerVerifyEmailMail extends Mailable
 {
     use Queueable, SerializesModels;
-    
+
     private $data = [];
     /**
      * Create a new message instance.
@@ -36,9 +36,11 @@ class CustomerVerifyEmailMail extends Mailable
     // }
     public function build()
     {
-        $defaultSubject = isset($this->data['signup_page']) && $this->data['signup_page'] === 'event'
-            ? 'Please verify your email to complete your event listing.'
-            : 'Please verify your email to complete your exporter profile listing';
+        if (($this->data['signup_page'] ?? null) === 'event') {
+            $defaultSubject = 'Please verify your email to complete your event listing.';
+        } else {
+            $defaultSubject = 'Please verify your email to complete your exporter profile listing';
+        }
 
         $service = app(EmailTemplateService::class);
         $rendered = $service->render('customer_verify_email', $this->data, $defaultSubject, null);

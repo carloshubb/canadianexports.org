@@ -50,7 +50,7 @@ class EventSignupController extends Controller
         if ($request->has('business_categories_id') && $request->business_categories_id) {
             $businessCategoriesId = json_decode($request->business_categories_id, true);
             if (is_array($businessCategoriesId)) {
-                $businessCategoriesId = array_values(array_unique(array_filter($businessCategoriesId, function($id) {
+                $businessCategoriesId = array_values(array_unique(array_filter($businessCategoriesId, function ($id) {
                     return !is_null($id) && $id !== '' && $id !== 0;
                 })));
                 $request['business_categories_id'] = $businessCategoriesId;
@@ -58,13 +58,13 @@ class EventSignupController extends Controller
                 $request['business_categories_id'] = [];
             }
         }
-        $request['gallery_images'] = isset($request->gallery_images) && $request->gallery_images != null ? json_decode($request->gallery_images) : null;
-        $request['photo_gallery_images'] = isset($request->photo_gallery_images) && $request->photo_gallery_images != null ? json_decode($request->photo_gallery_images) : null;
-        
+        $request['gallery_images'] = $this->normalizeGalleryRequest($request->gallery_images);
+        $request['photo_gallery_images'] = $this->normalizeGalleryRequest($request->photo_gallery_images);
+
         // Check if user is already logged in or if email exists
         $loggedInCustomer = \Illuminate\Support\Facades\Auth::guard('customers')->user();
         $existingCustomer = Customer::where('email', $request->email)->first();
-        
+
         $validationRule = [
             'name' => ['required', 'string'],
             'business_name' => ['nullable', 'string'],
@@ -92,7 +92,7 @@ class EventSignupController extends Controller
             // 'contacts.*.designation' => 'required|string|max:255',
             'contacts.*.image_path' => 'nullable|string|max:255',
         ];
-        
+
         // Password only required for NEW users (not logged in AND email doesn't exist)
         if (!$loggedInCustomer && !$existingCustomer) {
             $validationRule['password'] = ['required', 'confirmed', RulesPassword::min(8)->mixedCase()];
@@ -209,10 +209,10 @@ class EventSignupController extends Controller
             $customer = null;
             $sendWelcomeEmail = false;
             $isNewCustomer = false;
-            
+
             // Initialize activeEmailUrl variable
             $activeEmailUrl = null;
-            
+
             if ($loggedInCustomer) {
                 // User is already logged in - use their account for additional event
                 $customer = $loggedInCustomer;
@@ -226,7 +226,7 @@ class EventSignupController extends Controller
             } else {
                 // Not logged in - check if email exists
                 $customer = $existingCustomer;
-                
+
                 if (!$customer) {
                     // Create new customer account for first-time event creators
                     $activeEmailUrl = Hash::make($request->email);
@@ -250,11 +250,14 @@ class EventSignupController extends Controller
                     $sendWelcomeEmail = true;
                     $isNewCustomer = true;
                     Log::info('New event customer created', ['customer_id' => $customer->id]);
-                    
+
                     // Create profile for new customer
                     CustomerProfile::create([
                         'customer_id' => $customer->id,
                         'company_name' => $request->business_name,
+                        'phone' => $request->organizer_phone,
+                        'website' => $request->organizer_website,
+                        'address' => $request->mailing_address,
                         'slug' => $this->generateUniqueSlug($request->business_name),
                     ]);
                     CustomerSocialMedia::create(['customer_id' => $customer->id, 'facebook' => $request->facebook_url, 'twitter' => $request->twitter_url, 'linkedin' => $request->linkedin_url, 'youtube' => $request->youtube_url, 'pintrest' => $request->pintrest_url, 'instagram' => $request->instagram_url, 'snapchat' => $request->snapchat_url]);
@@ -280,6 +283,16 @@ class EventSignupController extends Controller
                         'events_remaining' => max(0, ($customer->events_remaining ?? 0)),
                         'is_event' => true,
                     ]);
+
+                    CustomerProfile::updateOrCreate(
+                        ['customer_id' => $customer->id],
+                        [
+                            'company_name' => $request->business_name,
+                            'phone' => $request->organizer_phone,
+                            'website' => $request->organizer_website,
+                            'address' => $request->mailing_address,
+                        ]
+                    );
                 }
             }
 
@@ -482,7 +495,7 @@ class EventSignupController extends Controller
         if ($request->has('business_categories_id') && $request->business_categories_id) {
             $businessCategoriesId = json_decode($request->business_categories_id, true);
             if (is_array($businessCategoriesId)) {
-                $businessCategoriesId = array_values(array_unique(array_filter($businessCategoriesId, function($id) {
+                $businessCategoriesId = array_values(array_unique(array_filter($businessCategoriesId, function ($id) {
                     return !is_null($id) && $id !== '' && $id !== 0;
                 })));
                 $request['business_categories_id'] = $businessCategoriesId;
@@ -490,17 +503,17 @@ class EventSignupController extends Controller
                 $request['business_categories_id'] = [];
             }
         }
-        $request['gallery_images'] = isset($request->gallery_images) && $request->gallery_images != null ? json_decode($request->gallery_images) : null;
-        $request['photo_gallery_images'] = isset($request->photo_gallery_images) && $request->photo_gallery_images != null ? json_decode($request->photo_gallery_images) : null;
-        
+        $request['gallery_images'] = $this->normalizeGalleryRequest($request->gallery_images);
+        $request['photo_gallery_images'] = $this->normalizeGalleryRequest($request->photo_gallery_images);
+
         // Get authenticated user
         $loggedInUser = auth()->guard('customers')->user();
-        
+
         // If user is logged in and email is not provided, use their email
         if ($loggedInUser && !$request->has('email')) {
             $request->merge(['email' => $loggedInUser->email]);
         }
-        
+
         $validationRule = [
             'name' => ['required', 'string'],
             'business_name' => ['nullable', 'string'],
@@ -621,14 +634,14 @@ class EventSignupController extends Controller
             $validationRule['photo_gallery_images'] = ['nullable', 'array', 'max:' . $photoGalleryMax];
             $validationRule['photo_gallery_images.*'] = ['nullable'];
         }
-        
+
         // For logged-in users, check if they're free users or already have a package
         // If so, they don't need to pay for event registration
         if ($loggedInUser) {
             // If user is a free exporter or already has events_remaining, they don't need to pay
             $isFreeUser = ($loggedInUser->package_price ?? 0) == 0;
             $hasExistingPackage = ($loggedInUser->registration_package_id ?? null) !== null;
-            
+
             if ($isFreeUser || $hasExistingPackage) {
                 $price = 0;
                 $totalAmount = 0;
@@ -640,7 +653,7 @@ class EventSignupController extends Controller
                 ]);
             }
         }
-        
+
         // Log package details for debugging
         Log::info('Event Signup Payment - Package Details', [
             'package_id' => $request->package_id,
@@ -650,13 +663,13 @@ class EventSignupController extends Controller
             'payment_method' => $request->payment_method ?? 'none',
             'is_logged_in' => $loggedInUser ? true : false
         ]);
-        
+
         // Only require payment if price > 0 AND payment_method is provided
         if ($price > 0 && $request->has('payment_method')) {
             $validationRule = array_merge($validationRule, [
                 'payment_method' => ['required', 'in:stripe,paypal'],
             ]);
-            
+
             if ($request->payment_method == 'stripe') {
                 $validationRule = array_merge($validationRule, [
                     'card_holder_name' => ['required'],
@@ -708,21 +721,21 @@ class EventSignupController extends Controller
         try {
             Log::info('===== Event Signup Payment Started =====');
             Log::info('Request Data:', $request->except(['password', 'password_confirmation', 'card_holder_name', 'payment_method_id']));
-            
+
             // Get the logged-in customer
             $customer = auth()->guard('customers')->user();
-            
+
             if (!$customer) {
                 Log::error('No authenticated customer found for event signup payment');
                 return $this->errorResponse('You must be logged in to register for an event.');
             }
-            
+
             // Initialize payment-related vars (used when price > 0; avoid undefined when free)
             $subscription_id = null;
             $stripe_item_id = null;
             $stripe_customer_id = null;
             $payment_method_id = null;
-            
+
             // Process payment if price > 0
             if ($price > 0) {
                 if ($request->payment_method == 'stripe') {
@@ -730,14 +743,14 @@ class EventSignupController extends Controller
                         'payment_method_id' => $request->payment_method_id ? 'present' : 'missing',
                         'price' => $price
                     ]);
-                    
+
                     $stripeService = new StripeService();
                     $stripeResponse = $stripeService->eventSignup($package, $request);
                     $subscription_id = $stripeResponse['subscription_id'];
                     $stripe_item_id = $stripeResponse['stripe_item_id'];
                     $stripe_customer_id = $stripeResponse['stripe_customer_id'];
                     $payment_method_id = $stripeResponse['payment_method_id'];
-                    
+
                     Log::info('Stripe payment processed successfully', [
                         'subscription_id' => $subscription_id,
                         'stripe_customer_id' => $stripe_customer_id
@@ -799,7 +812,7 @@ class EventSignupController extends Controller
             if (isset($request->photo_gallery_images) && !empty($request->photo_gallery_images) && is_array($request->photo_gallery_images)) {
                 $photoGalleryImages = $this->moveFile($request->photo_gallery_images, 'media/events', 'events');
             }
-            
+
             $contacts = $request->input('contacts', []);
             $slug = null;
             foreach ($languages as $language) {
@@ -807,7 +820,7 @@ class EventSignupController extends Controller
                     $slug = $request['title']['title_' . $language->id] ?? null;
                 }
             }
-            
+
             $event = Event::create([
                 'zipcode' => $request->zipcode,
                 'media_id' => isset($galleryImages, $galleryImages[0]) ? $galleryImages[0]->id : null,
@@ -858,7 +871,7 @@ class EventSignupController extends Controller
                         ]);
                     }
                 }
-                
+
                 // Save event details for all languages
                 foreach ($languages as $language) {
                     EventDetail::create([
@@ -874,7 +887,7 @@ class EventSignupController extends Controller
                         'description' => $request['description']['description_' . $language->id] ?? null,
                     ]);
                 }
-                
+
                 // Save event contacts
                 foreach ($contacts as $contactData) {
                     EventContact::create([
@@ -887,7 +900,7 @@ class EventSignupController extends Controller
                     ]);
                 }
             }
-            
+
             // Reload event with details
             $event = $event->load(['eventDetail' => function ($q) use ($defaultLang) {
                 $q->where('language_id', $defaultLang->id);
@@ -963,7 +976,7 @@ class EventSignupController extends Controller
 
                 Mail::to($request->email)->send(new RegistrationInvoiceToCustomerMail($data));
             }
-            
+
             Log::info('===== Event Signup Payment Completed Successfully =====');
         } catch (\Exception $e) {
             Log::error('===== Event Signup Payment Failed =====');
@@ -1130,5 +1143,20 @@ class EventSignupController extends Controller
         }
 
         return $slug;
+    }
+
+    /**
+     * Normalize gallery/photo_gallery input: accept JSON string or already-decoded array (from JSON body).
+     */
+    private function normalizeGalleryRequest($value): ?array
+    {
+        if ($value === null || $value === '') {
+            return null;
+        }
+        if (is_array($value)) {
+            return $value;
+        }
+        $decoded = is_string($value) ? json_decode($value, true) : null;
+        return is_array($decoded) ? $decoded : null;
     }
 }

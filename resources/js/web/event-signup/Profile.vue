@@ -1,67 +1,40 @@
 <template>
     <form class="lg:w-full" @submit.prevent="recaptcha()">
         <div class="my-4">
+            <!-- Step 1: Select Your Package -->
             <div
                 class="px-4 py-1.5 sm:px-6 text-center bg-gradient-to-r from-primary via-primary to-secondary rounded-md cursor-pointer my-6">
-                <h4 class="text-white">
-                    {{ JSON.parse(event_detail)["profile_section_heading"] }}
-                </h4>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="relative w-full mb-3">
-                    <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="name">{{
-                        JSON.parse(event_detail)["name_label"] }}
-                        <span class="text-red-500">*</span></label>
-                    <input @input="clearErrors('name')" type="text" class="can-exp-input" placeholder="" name="name"
-                        id="name" v-model="form.name" />
-                    <Error v-if="submitted" fieldName="name" :validationErros="validationErros" full_width="1" />
-                </div>
-                <div class="relative w-full mb-3">
-                    <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="business-name">{{
-                        JSON.parse(event_detail)["business_name_label"]
-                    }}</label>
-                    <input @input="clearErrors('business-name')" type="text" class="can-exp-input" placeholder=""
-                        name="business-name" id="business-name" v-model="form.business_name" />
-                    <Error v-if="submitted" fieldName="business_name" :validationErros="validationErros"
-                        full_width="1" />
-                </div>
-                <div class="relative w-full mb-3">
-                    <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="email">{{
-                        JSON.parse(event_detail)["email_label"] }}
-                        <span class="text-red-500">*</span></label>
-                    <input @input="clearErrors('email')" type="email" disabled class="can-exp-input" placeholder=""
-                        name="email" id="email" v-model="form.email"
-                        @blur="checkEmailValidation($event.target.value)" />
-                    <Error v-if="submitted" fieldName="email" :validationErros="validationErros" full_width="1" />
-                </div>
-            </div>
-            <div
-                class="px-4 py-1.5 sm:px-6 text-center bg-gradient-to-r from-primary via-primary to-secondary rounded-md cursor-pointer my-6">
-                <h4 class="text-white">
-                    {{ JSON.parse(event_detail)["package_section_heading"] }}
+                <h4 class="text-center card-heading text-white">
+                    {{ JSON.parse(event_detail)["package_section_heading"] ?? 'Select Your Package' }}
                 </h4>
             </div>
             <div class="w-full">
                 <div class="bg-gray-50">
                     <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                        <div v-if="showDowngradeMessage"
+                            class="mx-auto mt-4 max-w-2xl rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800"
+                            role="alert">
+                            Membership downgrades cannot be processed automatically. Please contact us to adjust your
+                            plan.
+                        </div>
                         <div
                             class="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-auto lg:max-w-3xl md:grid-cols-2 lg:grid-cols-2">
-                            <div class="rounded-3xl p-6 xl:p-6 border bg-white cursor-pointer" :class="form.package_type == 'premium'
-                                    ? 'ring-2 ring-[#006EB7]'
-                                    : ''
-                                " @click.prevent="
-                                    updatePackageForm(premiumPackage)
-                                    ">
-                                <div class="flex items-center lg:justify-between gap-x-4">
-                                    <h3 id="tier-startup" class="text-xl leading-8 text-blue-600">
-                                        {{
-                                            premiumPackage
-                                                ?.registration_package_detail?.[0]
-                                                ?.name
-                                        }}
-                                    </h3>
-                                    <p class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600"
-                                        v-if="premiumPackage?.is_default">
+                            <div v-if="premiumPackage"
+                                class="rounded-3xl p-6 xl:p-6 bg-white overflow-hidden transition-all duration-200"
+                                :class="[
+                                    effectivePackageType === 'premium'
+                                        ? 'border-[3px] border-red-600 opacity-100'
+                                        : 'border border-gray-300 opacity-55',
+                                    isDowngradeOption('premium') ? 'cursor-not-allowed' : 'cursor-pointer'
+                                ]" :title="isDowngradeOption('premium') ? downgradeTooltipText : null"
+                                @click.prevent="onPackageSelect(premiumPackage)">
+                                <div
+                                    class="w-full mb-6 rounded-t-xl rounded-b-none bg-red-600 py-2.5 flex items-center justify-center">
+                                    <span class="text-white font-semibold text-lg">Premium</span>
+                                </div>
+                                <div class="flex flex-col items-center justify-center text-center gap-y-2">
+                                    <p v-if="premiumPackage?.is_default"
+                                        class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600">
                                         Most popular
                                     </p>
                                 </div>
@@ -73,7 +46,7 @@
                                     }}
                                 </p>
                                 <p class="mt-6 flex items-baseline gap-x-1 justify-center">
-                                    <span class="text-4xl font-bold tracking-tight text-gray-900">
+                                    <span class="text-4xl font-bold tracking-tight text-gray-900 lg:mt-6">
                                         ${{ premiumPackage?.event_price }}
                                     </span>
                                 </p>
@@ -95,21 +68,21 @@
                                 </ul>
                             </div>
 
-                            <div class="rounded-3xl p-6 xl:p-6 border bg-white cursor-pointer" :class="form.package_type == 'featured'
-                                    ? 'ring-2 ring-[#006EB7]'
-                                    : ''
-                                " @click.prevent="
-                                    updatePackageForm(featuredPackage)
-                                    ">
-                                <div class="flex items-center lg:justify-between gap-x-4">
-                                    <h3 id="tier-startup" class="text-xl leading-8 text-blue-600">
-                                        {{
-                                            featuredPackage
-                                                ?.registration_package_detail?.[0]
-                                                ?.name
-                                        }}
-                                    </h3>
-                                    <p class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600"
+                            <div v-if="featuredPackage"
+                                class="rounded-3xl p-6 xl:p-6 bg-white overflow-hidden transition-all duration-200"
+                                :class="[
+                                    effectivePackageType === 'featured'
+                                        ? 'border-[3px] border-[#800000] opacity-100'
+                                        : 'border border-gray-100 opacity-55',
+                                    isDowngradeOption('featured') ? 'cursor-not-allowed' : 'cursor-pointer'
+                                ]" :title="isDowngradeOption('featured') ? downgradeTooltipText : null"
+                                @click.prevent="onPackageSelect(featuredPackage)">
+                                <div
+                                    class="w-full mb-6 rounded-t-xl rounded-b-none bg-[#800000] py-2.5 flex items-center justify-center">
+                                    <span class="font-semibold text-lg text-[#C9A227]">Featured</span>
+                                </div>
+                                <div class="flex flex-col items-center justify-center text-center gap-y-1">
+                                    <p class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600 mt-1"
                                         v-if="featuredPackage?.is_default">
                                         Most popular
                                     </p>
@@ -148,6 +121,157 @@
                 </div>
                 <Error v-if="submitted" fieldName="package_id" :validationErros="validationErros" full_width="1" />
             </div>
+            <!-- 2 of 4 - Organizer & Contact Information-->
+            <div
+                class="px-4 py-1.5 sm:px-6 text-center bg-gradient-to-r from-primary via-primary to-secondary rounded-md cursor-pointer my-6">
+                <h4 class="text-white">
+                    {{ JSON.parse(event_detail)["profile_section_heading"] }}
+                </h4>
+            </div>
+            <div class="mb-6">
+                <div class="relative w-full border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
+                    <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">Your Profile</h5>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="relative w-full mb-3">
+                            <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="name">{{
+                                JSON.parse(event_detail)["name_label"] }} <span class="text-red-500">*</span></label>
+                            <input @input="clearErrors('name')" type="text" class="can-exp-input" name="name" id="name"
+                                v-model="form.name" />
+                            <Error v-if="submitted" fieldName="name" :validationErros="validationErros"
+                                full_width="1" />
+                        </div>
+                        <div class="relative w-full mb-3">
+                            <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="email">{{
+                                JSON.parse(event_detail)["email_label"] }} <span class="text-red-500">*</span></label>
+                            <input @input="clearErrors('email')" type="email" class="can-exp-input" name="email"
+                                id="email" v-model="form.email" @blur="checkEmailValidation($event.target.value)" />
+                            <Error v-if="submitted" fieldName="email" :validationErros="validationErros"
+                                full_width="1" />
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <div class="border border-gray-200 mt-6 rounded-lg p-6 bg-white shadow-sm">
+                        <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">The Organizer
+                        </h5>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="relative w-full mb-3">
+                                <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
+                                    for="business-name">{{
+                                        JSON.parse(event_detail)["business_name_label"] || 'Organizer Name' }}</label>
+                                <input @input="clearErrors('business_name')" type="text" class="can-exp-input"
+                                    name="business-name" id="business-name" v-model="form.business_name" />
+                                <Error v-if="submitted" fieldName="business_name" :validationErros="validationErros"
+                                    full_width="1" />
+                            </div>
+                            <div class="relative w-full mb-3">
+                                <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
+                                    for="organizer_website">Organizer Website</label>
+                                <input @input="clearErrors('organizer_website')" type="url" class="can-exp-input"
+                                    name="organizer_website" id="organizer_website" v-model="form.organizer_website" />
+                                <Error v-if="submitted" fieldName="organizer_website" :validationErros="validationErros"
+                                    full_width="1" />
+                            </div>
+                            <div class="relative w-full mb-3">
+                                <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
+                                    for="organizer_phone">Phone<span class="text-red-500">*</span></label>
+                                <input type="text" class="can-exp-input" name="organizer_phone" id="organizer_phone"
+                                    v-model="form.organizer_phone" maxlength="16"
+                                    @input="handleOrganizerPhoneInput($event.target.value)"
+                                    @keypress="validateOrganizerPhoneKeypress" />
+                                <Error v-if="submitted" fieldName="organizer_phone" :validationErros="validationErros"
+                                    full_width="1" />
+                            </div>
+                            <div class="relative w-full mb-3 md:col-span-2">
+                                <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
+                                    for="mailing_address">Mailing
+                                    Address</label>
+                                <input @input="clearErrors('mailing_address')" type="text" class="can-exp-input"
+                                    name="mailing_address" id="mailing_address" v-model="form.mailing_address" />
+                                <Error v-if="submitted" fieldName="mailing_address" :validationErros="validationErros"
+                                    full_width="1" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <div class="border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
+                        <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">Contact Person
+                        </h5>
+                        <div v-for="(contact, index) in contacts" :key="index">
+                            <div class="grid md:grid-cols-2 md:gap-6 gap-4 mt-6 bg-white shadow rounded-lg p-6">
+                                <div class="relative z-0 w-full group">
+                                    <label :for="`contact-name-[${index}]`"
+                                        class="text-base md:text-base lg:text-lg">Full Name and
+                                        Title <span class="text-red-500">*</span></label>
+                                    <input type="text" name="contact-name" :id="`contact-name-[${index}]`"
+                                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                                        v-model="contact.name"
+                                        @input="updateContact(index, 'name', $event.target.value); clearErrors(`contacts.${index}.name`);" />
+                                    <Error :fieldName="`contacts.${index}.name`" :validationErros="validationErros" />
+                                </div>
+                                <div class="relative z-0 w-full group">
+                                    <label :for="`contact-phone-[${index}]`"
+                                        class="text-base md:text-base lg:text-lg">Contact Phone
+                                        <span class="text-gray-500 text-xs">(If different from the business
+                                            phone)</span></label>
+                                    <input type="text" name="contact-phone" :id="`contact-phone-[${index}]`"
+                                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                                        v-model="contact.phone" maxlength="15"
+                                        @input="handleContactPhoneInput(index, $event.target.value)"
+                                        @keypress="validatePhoneKeypress" />
+                                    <Error :fieldName="`contacts.${index}.phone`" :validationErros="validationErros" />
+                                </div>
+                                <div class="relative z-0 w-full group">
+                                    <label :for="`contact-email-[${index}]`"
+                                        class="text-base md:text-base lg:text-lg">Email <span
+                                            class="text-gray-500 text-xs">(If different from the login email)</span>
+                                    </label>
+                                    <input type="text" name="contact-email" :id="`contact-email-[${index}]`"
+                                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                                        v-model="contact.email"
+                                        @input="updateContact(index, 'email', $event.target.value); clearErrors(`contacts.${index}.email`);" />
+                                    <Error :fieldName="`contacts.${index}.email`" :validationErros="validationErros" />
+                                </div>
+                                <div class="relative z-0 w-full group">
+                                    <label class="text-base md:text-base lg:text-lg inline-flex items-center gap-1">
+                                        Contact Person's Photo
+                                        <span class="relative inline-flex flex-shrink-0">
+                                            <span
+                                                class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-gray-400 text-white text-xs font-bold cursor-pointer flex-shrink-0"
+                                                aria-label="Photo tip"
+                                                @click.stop="toggleContactPhotoTooltip(index)">!</span>
+                                            <div v-if="contactPhotoTooltipIndex === index"
+                                                class="absolute left-0 top-full mt-1 z-50 min-w-[200px] max-w-[280px] px-3 py-2 text-sm text-gray-700 bg-white border border-gray-200 rounded-lg shadow-lg"
+                                                @click.stop>Adding a photo helps other delegates and attendees recognize
+                                                you at the
+                                                event!</div>
+                                        </span>
+                                    </label>
+                                    <input type="file" name="contact-image" :id="`contact-image-[${index}]`"
+                                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                                        @change="uploadImage($event, index)"
+                                        @input="clearErrors(`contacts.${index}.image_path`)" />
+                                    <div v-if="contact.image_path" class="mt-2"><img :src="contact.image_path"
+                                            class="h-40 w-40 object-cover rounded-lg cursor-pointer hover:opacity-80 transition-opacity"
+                                            @click="showImagePopup(contact.image_path)" /></div>
+                                    <Error :fieldName="`contacts.${index}.image_path`"
+                                        :validationErros="validationErros" />
+                                </div>
+                                <div v-if="contacts.length > 1" class="relative z-0 w-full group">
+                                    <button type="button" class="button-exp-fill mt-7"
+                                        @click.prevent="deleteContact(index)">{{
+                                            JSON.parse(eventsetting).delete_btn_text }}</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right mt-2">
+                            <button type="button" class="button-exp-fill" @click.prevent="addContact">{{
+                                JSON.parse(eventsetting).add_new_contact_btn_text }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Step 3: Event Details -->
             <div
@@ -157,7 +281,7 @@
                 </h4>
             </div>
             <div class="grid my-5 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6"
-                v-for="language in JSON.parse(languages)" :key="language.id"
+                v-for="language in languagesList" :key="language.id"
                 :class="(activeTab == null && language.is_default) || activeTab == language.id ? 'block' : 'hidden'">
                 <div class="relative z-0 w-full group">
                     <label for="title" class="text-base md:text-base lg:text-lg">
@@ -235,6 +359,40 @@
                         :validationErros="validationErros" />
                 </div>
             </div>
+            <div class="mt-6">
+                <div class="relative z-0 w-full group grid md:grid-cols-2 md:gap-6 gap-4" v-for="language in languagesList"
+                    :key="'desc-' + language.id"
+                    :class="(activeTab == null && language.is_default) || activeTab == language.id ? 'block' : 'hidden'">
+                    <div>
+                        <label for="short_description" class="text-base md:text-base lg:text-lg">
+                            {{ JSON.parse(eventsetting).short_description_label }}
+                            <span class="text-red-500">*</span>
+                            <span class="ml-1 text-[0.85em] text-gray-600">(Max. 30 words)</span>
+                        </label>
+                        <textarea id="short_description" rows="4"
+                            class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                            :placeholder="JSON.parse(eventsetting).short_description_placeholder"
+                            @input="restrictToLength($event, 30, language, 'short_description'); clearErrors('short_description.short_description_' + language.id);"
+                            :value="form['short_description'] && form['short_description'][`short_description_${language.id}`] ? form['short_description'][`short_description_${language.id}`] : ''"></textarea>
+                        <Error v-if="submitted" :fieldName="`short_description.short_description_${language.id}`"
+                            :validationErros="validationErros" />
+                    </div>
+                    <div>
+                        <label for="description" class="text-base md:text-base lg:text-lg">
+                            {{ JSON.parse(eventsetting).description_label }}
+                            <span class="text-red-500">*</span>
+                            <span class="ml-1 text-[0.85em] text-gray-600">(Max. 300 words)</span>
+                        </label>
+                        <textarea id="description" rows="4"
+                            class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                            :placeholder="JSON.parse(eventsetting).description_placeholder"
+                            @input="restrictToLength($event, 300, language, 'description'); clearErrors('description.description_' + language.id);"
+                            :value="form['description'] && form['description'][`description_${language.id}`] ? form['description'][`description_${language.id}`] : ''"></textarea>
+                        <Error v-if="submitted" :fieldName="`description.description_${language.id}`"
+                            :validationErros="validationErros" />
+                    </div>
+                </div>
+            </div>
             <div class="grid md:grid-cols-2 md:gap-6 gap-4 mt-6">
                 <div class="relative z-0 w-full group">
                     <label for="start_date" class="text-base md:text-base lg:text-lg">
@@ -298,6 +456,49 @@
                         @input="updateForm('press_url', $event.target.value); clearErrors('press_url');" />
                     <Error v-if="submitted" fieldName="press_url" :validationErros="validationErros" />
                 </div>
+
+                <div class="relative z-0 w-full group flex flex-col">
+                    <label for="video_url" class="text-base md:text-base lg:text-lg">{{
+                        JSON.parse(eventsetting).video_url_label }}</label>
+                    <textarea rows="2" name="video_url" id="video_url"
+                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600 resize-y"
+                        :title="JSON.parse(eventsetting).video_url_placeholder" :placeholder="JSON.parse(eventsetting).video_url_placeholder
+                            " :value="form.video_url" @input="
+                                    updateForm('video_url', $event.target.value);
+                                clearErrors('video_url');
+                                "></textarea>
+                    <Error v-if="submitted" fieldName="video_url" :validationErros="validationErros" />
+                </div>
+
+                <!-- event media -->
+                <div class="w-full">
+                    <label for="" class="text-base md:text-base lg:text-lg  truncate">Main Event Image <span
+                            class="ml-1 text-[0.95em] text-gray-600">(PNG, GIF, JPG, or JPEG format · 30 MB
+                            max)</span><span class="text-red-500">*</span></label>
+                    <div class="relative z-0 w-full mb-6 group">
+                        <template v-if="
+                            current_user &&
+                            JSON.parse(current_user)?.registration_package?.package_type == 'featured'
+                        ">
+                            <FilePond
+                                labelIdle='<span class="cursor-pointer">Drag & Drop your files or <span class="filepond--label-action"> Browse </span></span>'
+                                class="cursor-pointer" name="gallery_image" ref="gallery_image" class-name="my-pond"
+                                credits="false" accepted-file-types="image/*" allow-multiple="true"
+                                @init="handleGalleryImagesInit" @processfile="handleGalleryImagesProcess"
+                                @removefile="handleGalleryImagesRemoveFile" v-bind:files="gallery_files"
+                                @addfile="clearErrors('gallery_images')" />
+                        </template>
+                        <template v-else>
+                            <FilePond
+                                labelIdle='<span class="cursor-pointer">Drag & Drop your files or <span class="filepond--label-action"> Browse </span></span>'
+                                class="cursor-pointer" name="gallery_image" ref="gallery_image" class-name="my-pond"
+                                credits="false" accepted-file-types="image/*" @init="handleGalleryImagesInit"
+                                @processfile="handleGalleryImagesProcess" @removefile="handleGalleryImagesRemoveFile"
+                                v-bind:files="gallery_files" @addfile="clearErrors('gallery_images')" />
+                        </template>
+                    </div>
+                    <Error fieldName="gallery_images" :validationErros="validationErros" />
+                </div>
             </div>
 
             <!-- CTA fields for Premium/Featured packages only - Moved to bottom of Step 3 -->
@@ -305,7 +506,8 @@
                 v-if="form.package_type && form.package_type !== 'free'">
                 <div class="relative z-0 w-full group">
                     <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
-                        for="cta_btn">CTA(Call-to-Action) Button
+                        for="cta_btn">CTA(Call-to-Action)
+                        Button
                         <span class="ml-1 text-[0.85em] text-gray-600">(Max. 5 words)</span>
                     </label>
                     <input type="text"
@@ -324,106 +526,126 @@
                 </div>
             </div>
 
-            <!-- Step 4: Event Description -->
+            <!-- Social Media (Optional) -->
             <div
                 class="px-4 my-6 py-1.5 sm:px-6 text-center bg-gradient-to-r from-primary via-primary to-secondary rounded-md">
-                <h4 class="text-white">
-                    {{ JSON.parse(event_detail)["contact_section_heading"] ?? 'Step 4 of 5 - Contact information' }}
+                <h4 class="text-center card-heading text-white">
+                    {{ JSON.parse(event_detail)["media_section_heading"] ?? 'Social Media (Optional)' }}
                 </h4>
             </div>
-            <div class="grid my-5 grid-cols-1 sm:grid-cols-1 gap-6" v-for="language in JSON.parse(languages)"
-                :key="'desc-' + language.id"
-                :class="(activeTab == null && language.is_default) || activeTab == language.id ? 'block' : 'hidden'">
+            <div class="grid md:grid-cols-2 md:gap-6 gap-4">
                 <div class="relative z-0 w-full group">
-                    <label for="short_description" class="text-base md:text-base lg:text-lg">
-                        {{ JSON.parse(eventsetting).short_description_label }}
-                        <span class="text-red-500">*</span>
-                        <span class="ml-1 text-[0.85em] text-gray-600">(Max. 30 words)</span>
-                    </label>
-                    <textarea id="short_description" rows="4"
+                    <label for="facebook_url" class="text-base md:text-base lg:text-lg">{{
+                        JSON.parse(eventsetting).facebook_url_label
+                    }}</label>
+                    <input type="text" name="facebook_url" id="facebook_url"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
-                        :placeholder="JSON.parse(eventsetting).short_description_placeholder"
-                        @input="restrictToLength($event, 30, language, 'short_description'); clearErrors('short_description.short_description_' + language.id);"
-                        :value="form['short_description'] && form['short_description'][`short_description_${language.id}`] ? form['short_description'][`short_description_${language.id}`] : ''"></textarea>
-                    <Error v-if="submitted" :fieldName="`short_description.short_description_${language.id}`"
-                        :validationErros="validationErros" />
+                        placeholder=" " :value="form.facebook_url" @input="
+                            updateForm('facebook_url', $event.target.value);
+                            clearErrors('facebook_url');
+                            " />
+                    <Error v-if="submitted" fieldName="facebook_url" :validationErros="validationErros" />
                 </div>
-                <div class="relative z-0 w-full mb-6 group">
-                    <label for="description" class="text-base md:text-base lg:text-lg">
-                        {{ JSON.parse(eventsetting).description_label }}
-                        <span class="text-red-500">*</span>
-                        <span class="ml-1 text-[0.85em] text-gray-600">(Max. 300 words)</span>
-                    </label>
-                    <textarea id="description" rows="6"
+                <div class="relative z-0 w-full group">
+                    <label for="twitter_url" class="text-base md:text-base lg:text-lg">{{
+                        JSON.parse(eventsetting).twitter_url_label }}</label>
+                    <input type="text" name="twitter_url" id="twitter_url"
                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
-                        :placeholder="JSON.parse(eventsetting).description_placeholder"
-                        @input="restrictToLength($event, 300, language, 'description'); clearErrors('description.description_' + language.id);"
-                        :value="form['description'] && form['description'][`description_${language.id}`] ? form['description'][`description_${language.id}`] : ''"></textarea>
-                    <Error v-if="submitted" :fieldName="`description.description_${language.id}`"
-                        :validationErros="validationErros" />
+                        placeholder=" " :value="form.twitter_url" @input="
+                            updateForm('twitter_url', $event.target.value);
+                            clearErrors('twitter_url');
+                            " />
+                    <Error v-if="submitted" fieldName="twitter_url" :validationErros="validationErros" />
+                </div>
+                <div class="relative z-0 w-full group">
+                    <label for="linkedin_url" class="text-base md:text-base lg:text-lg">{{
+                        JSON.parse(eventsetting).linkedin_url_label
+                    }}</label>
+                    <input type="text" name="linkedin_url" id="linkedin_url"
+                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                        placeholder=" " :value="form.linkedin_url" @input="
+                            updateForm('linkedin_url', $event.target.value);
+                            clearErrors('linkedin_url');
+                            " />
+                    <Error v-if="submitted" fieldName="linkedin_url" :validationErros="validationErros" />
+                </div>
+                <div class="relative z-0 w-full group">
+                    <label for="youtube_url" class="text-base md:text-base lg:text-lg">{{
+                        JSON.parse(eventsetting).youtube_url_label }}</label>
+                    <input type="text" name="youtube_url" id="youtube_url"
+                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                        placeholder=" " :value="form.youtube_url" @input="
+                            updateForm('youtube_url', $event.target.value);
+                            clearErrors('youtube_url');
+                            " />
+                    <Error v-if="submitted" fieldName="youtube_url" :validationErros="validationErros" />
+                </div>
+                <div class="relative z-0 w-full group">
+                    <label for="pintrest_url" class="text-base md:text-base lg:text-lg">{{
+                        JSON.parse(eventsetting).pintrest_url_label
+                    }}</label>
+                    <input type="text" name="pintrest_url" id="pintrest_url"
+                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                        placeholder=" " :value="form.pintrest_url" @input="
+                            updateForm('pintrest_url', $event.target.value);
+                            clearErrors('pintrest_url');
+                            " />
+                    <Error v-if="submitted" fieldName="pintrest_url" :validationErros="validationErros" />
+                </div>
+                <div class="relative z-0 w-full group">
+                    <label for="instagram_url" class="text-base md:text-base lg:text-lg">{{
+                        JSON.parse(eventsetting).instagram_url_label
+                    }}</label>
+                    <input type="text" name="instagram_url" id="instagram_url"
+                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                        placeholder=" " :value="form.instagram_url" @input="
+                            updateForm('instagram_url', $event.target.value);
+                            clearErrors('instagram_url');
+                            " />
+                    <Error v-if="submitted" fieldName="instagram_url" :validationErros="validationErros" />
+                </div>
+                <div class="relative z-0 w-full group">
+                    <label for="snapchat_url" class="text-base md:text-base lg:text-lg">{{
+                        JSON.parse(eventsetting).snapchat_url_label
+                    }}</label>
+                    <input type="text" name="snapchat_url" id="snapchat_url"
+                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
+                        placeholder=" " :value="form.snapchat_url" @input="
+                            updateForm('snapchat_url', $event.target.value);
+                            clearErrors('snapchat_url');
+                            " />
+                    <Error v-if="submitted" fieldName="snapchat_url" :validationErros="validationErros" />
                 </div>
             </div>
 
-            <!-- Step 5: Event Media -->
-            <div
-                class="px-4 my-6 py-1.5 sm:px-6 text-center bg-gradient-to-r from-primary via-primary to-secondary rounded-md">
-                <h4 class="text-white">
-                    {{ JSON.parse(event_detail)["media_section_heading"] ?? 'Step 5 of 5 - Social media (Optional)' }}
-                </h4>
-            </div>
-            <div class="grid md:grid-cols-2 md:gap-6 gap-4 my-5">
-                <div class="relative z-0 w-full group">
-                    <label for="video_url" class="text-base md:text-base lg:text-lg">
-                        {{ JSON.parse(eventsetting).video_url_label }}
+            <!-- Photo Gallery (Premium / Featured) -->
+            <div v-if="showPhotoGallery" class="mt-6">
+                <div
+                    class="px-4 my-6 py-1.5 sm:px-6 text-center bg-gradient-to-r from-primary via-primary to-secondary rounded-md">
+                    <h4 class="text-center card-heading text-white">
+                        Photo Gallery
+                    </h4>
+                </div>
+                <div class="border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
+                    <label for="photo_gallery_images"
+                        class="text-base md:text-base lg:text-lg font-medium block mb-2" id="photo_gallery_images">
+                        {{ photoGallerySectionTitle }}
                     </label>
-                    <textarea rows="2" name="video_url" id="video_url"
-                        class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
-                        :placeholder="JSON.parse(eventsetting).video_url_placeholder" :value="form.video_url"
-                        @input="updateForm('video_url', $event.target.value); clearErrors('video_url');"></textarea>
-                    <Error v-if="submitted" fieldName="video_url" :validationErros="validationErros" />
+                    <div class="relative z-0 w-full mb-6 group">
+                        <FilePond name="photo_gallery_image" :ref="el => { if (el) photoGalleryPond = el }"
+                            class-name="my-pond"
+                            labelIdle='<span class="cursor-pointer">Drag & Drop your files or <span class="filepond--label-action"> Browse </span></span>'
+                            :max-files="effectivePackageType === 'featured' ? 20 : 8" :max-file-size="10 * 1024 * 1024"
+                            accepted-file-types="image/png, image/gif, image/jpeg, image/jpg" credits="false"
+                            allow-multiple="true" v-bind:files="photo_gallery_files"
+                            :server="photoGalleryServerConfig" @init="handlePhotoGalleryInit"
+                            @processfile="handlePhotoGalleryProcess" @removefile="handlePhotoGalleryRemoveFile"
+                            @addfile="clearErrors('photo_gallery_images')" />
+                    </div>
+                    <Error fieldName="photo_gallery_images" :validationErros="validationErros" />
                 </div>
-            </div>
+            </div>        
 
-            <div v-for="(contact, index) in contacts" :key="index" class="mb-6">
-                <div class="grid md:grid-cols-3 md:gap-6 gap-4 mt-6 bg-white shadow rounded-lg p-6">
-                    <div class="relative z-0 w-full group">
-                        <label :for="`contact-name-${index}`" class="text-base md:text-base lg:text-lg">
-                            {{ JSON.parse(eventsetting).contact_name_label }}
-                            <span class="text-red-500">*</span>
-                        </label>
-                        <input type="text" name="contact-name" :id="`contact-name-${index}`"
-                            class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
-                            v-model="contact.name" placeholder=""
-                            @input="updateContact(index, 'name', $event.target.value); clearErrors(`contacts.${index}.name`);" />
-                        <Error v-if="submitted" :fieldName="`contacts.${index}.name`"
-                            :validationErros="validationErros" />
-                    </div>
-                    <div class="relative z-0 w-full group">
-                        <label :for="`contact-email-${index}`" class="text-base md:text-base lg:text-lg">
-                            {{ JSON.parse(eventsetting).contact_email_label }}
-                            <span class="text-red-500">*</span>
-                        </label>
-                        <input type="text" name="contact-email" :id="`contact-email-${index}`"
-                            class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
-                            v-model="contact.email" placeholder=""
-                            @input="updateContact(index, 'email', $event.target.value); clearErrors(`contacts.${index}.email`);" />
-                        <Error v-if="submitted" :fieldName="`contacts.${index}.email`"
-                            :validationErros="validationErros" />
-                    </div>
-                    <div class="relative z-0 w-full group">
-                        <label :for="`contact-phone-${index}`" class="text-base md:text-base lg:text-lg">
-                            {{ JSON.parse(eventsetting).contact_phone_label }}
-                            <span class="text-red-500">*</span>
-                        </label>
-                        <input type="text" name="contact-phone" :id="`contact-phone-${index}`"
-                            class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
-                            v-model="contact.phone" placeholder=""
-                            @input="updateContact(index, 'phone', $event.target.value); clearErrors(`contacts.${index}.phone`);" />
-                        <Error v-if="submitted" :fieldName="`contacts.${index}.phone`"
-                            :validationErros="validationErros" />
-                    </div>
-                </div>
-            </div>
 
             <!-- Payment Method Section -->
             <div class="px-4 my-6 py-1.5 sm:px-6 text-center bg-gradient-to-r from-primary via-primary to-secondary rounded-md"
@@ -497,21 +719,21 @@
                                                     }}</label>
                                                     <i class="text-gray-400 fa fa-user"></i>
                                                     <input type="text" class="can-exp-input" :placeholder="payment_setting &&
-                                                            JSON.parse(payment_setting) &&
-                                                            JSON.parse(payment_setting)[
-                                                            'cardholder_name_placeholder'
-                                                            ]
-                                                            ? JSON.parse(payment_setting)[
-                                                            'cardholder_name_placeholder'
-                                                            ]
-                                                            : ''
+                                                        JSON.parse(payment_setting) &&
+                                                        JSON.parse(payment_setting)[
+                                                        'cardholder_name_placeholder'
+                                                        ]
+                                                        ? JSON.parse(payment_setting)[
+                                                        'cardholder_name_placeholder'
+                                                        ]
+                                                        : ''
                                                         " @input="
                                                             updateForm(
                                                                 'card_holder_name',
                                                                 $event.target.value
                                                             );
-                                                            clearErrors('card_holder_name');
-                                                            " id="card_holder_name" />
+                                                        clearErrors('card_holder_name');
+                                                        " id="card_holder_name" />
                                                     <Error fieldName="card_holder_name"
                                                         :validationErros="validationErros" full_width="1" />
                                                 </div>
@@ -556,7 +778,7 @@
                             {{ form.order_amount > 0 ? (payment_setting && JSON.parse(payment_setting) ?
                                 JSON.parse(payment_setting)["confirm_and_pay_btn_text"] : "Confirm and Pay") :
                                 (payment_setting && JSON.parse(payment_setting) ?
-                            JSON.parse(payment_setting)["confirm_and_proceed_btn_text"] : "Confirm and Pay") }}
+                                    JSON.parse(payment_setting)["confirm_and_proceed_btn_text"] : "Confirm and Pay") }}
                         </button>
                     </div>
                 </div>
@@ -570,7 +792,8 @@
 
             <div class="pt-5 border-t border-gray-200" v-if="form.order_amount == 0">
                 <div class="flex justify-center">
-                    <button aria-label="Candian Exporters" type="submit" class="button-exp-fill font-bold" id="send-message">
+                    <button aria-label="Candian Exporters" type="submit" class="button-exp-fill font-bold"
+                        id="send-message">
                         {{ payment_setting && JSON.parse(payment_setting) ?
                             JSON.parse(payment_setting)["confirm_and_pay_btn_text"] || "Confirm and Pay" : "Confirm and Pay"
                         }}
@@ -611,6 +834,20 @@ import ErrorHandling from "../../ErrorHandling";
 import { mapState } from "vuex";
 export default {
     computed: {
+        /** Safe list of languages (handles prop as array from :languages='@json()' or JSON string) */
+        languagesList() {
+            if (!this.languages) return [];
+            if (Array.isArray(this.languages)) return this.languages;
+            if (typeof this.languages === 'string') {
+                try {
+                    const p = JSON.parse(this.languages);
+                    return Array.isArray(p) ? p : [];
+                } catch (e) {
+                    return [];
+                }
+            }
+            return [];
+        },
         years() {
             const currentYear = new Date().getFullYear();
             return Array.from(
@@ -623,6 +860,73 @@ export default {
                 return null;
             }
             return this.packages.find(pkg => pkg.id == this.form.package_id) || null;
+        },
+        packageTierOrder() {
+            return { premium: 0, featured: 1 };
+        },
+        currentEventPlanTier() {
+            const key = (this.initialEventPackageType ?? '').toString().trim().toLowerCase();
+            if (key !== 'premium' && key !== 'featured') return null;
+            return this.packageTierOrder[key] ?? null;
+        },
+        /** Normalized package type (lowercase string) for reliable comparison with API data */
+        effectivePackageType() {
+            const t = (this.form.package_type ?? '').toString().trim().toLowerCase();
+            return t === 'premium' || t === 'featured' ? t : '';
+        },
+        showPhotoGallery() {
+            return this.effectivePackageType === 'premium' || this.effectivePackageType === 'featured';
+        },
+        photoGallerySectionTitle() {
+            if (this.effectivePackageType === 'featured') {
+                return 'Photo Gallery (Upload up to 20 images. Max 10 MB each. Supports PNG, GIF, or JPG)';
+            }
+            if (this.effectivePackageType === 'premium') {
+                return 'Photo Gallery (Upload up to 8 images. Max 10 MB each. Supports PNG, GIF, or JPG)';
+            }
+            return 'Photo Gallery';
+        },
+        photoGalleryServerConfig() {
+            const csrf = document.head.querySelector('meta[name="csrf-token"]')?.content;
+            return {
+                url: process.env.MIX_APP_URL,
+                process: (fieldName, file, metadata, load, error, progress, abort) => {
+                    const formData = new FormData();
+                    formData.append('photo_gallery_image', file, file.name);
+                    formData.append('is_temp_media', 1);
+                    formData.append('type', 'event_photo_gallery');
+                    const request = new XMLHttpRequest();
+                    request.open('POST', `${process.env.MIX_APP_URL}/media/process`);
+                    if (csrf) request.setRequestHeader('X-CSRF-TOKEN', csrf);
+                    request.upload.onprogress = (e) => progress(e.lengthComputable, e.loaded, e.total);
+                    request.onload = () => {
+                        if (request.status >= 200 && request.status < 300) {
+                            load(request.responseText);
+                        } else {
+                            const err = request.responseText || 'Upload failed';
+                            try {
+                                const j = JSON.parse(request.responseText);
+                                if (j.errors?.['photo_gallery_image']) error(j.errors['photo_gallery_image'][0]);
+                                else if (j.message) error(j.message);
+                                else error(err);
+                            } catch (_) { error(err); }
+                        }
+                    };
+                    request.send(formData);
+                    return { abort: () => { request.abort(); abort(); } };
+                },
+                revert: (uniqueFileId, load, error, progress, abort) => {
+                    const formData = new FormData();
+                    formData.append('media', uniqueFileId);
+                    const request = new XMLHttpRequest();
+                    request.open('POST', `${process.env.MIX_APP_URL}/media/revert`);
+                    if (csrf) request.setRequestHeader('X-CSRF-TOKEN', csrf);
+                    request.onload = () => load();
+                    request.send(formData);
+                    return { abort: () => { request.abort(); if (abort) abort(); } };
+                },
+                headers: csrf ? { 'X-CSRF-TOKEN': csrf } : {},
+            };
         },
     },
     props: [
@@ -646,6 +950,8 @@ export default {
         return {
             current_user: null,
             gallery_files: [],
+            photo_gallery_files: [],
+            photoGalleryPond: null,
             contacts: [],
             activeTab: null,
             stripe: null,
@@ -689,6 +995,7 @@ export default {
                 instagram_url: null,
                 snapchat_url: null,
                 gallery_images: [],
+                photo_gallery_images: [],
                 contacts: [],
             },
             freePackage: [],
@@ -700,19 +1007,28 @@ export default {
             loading: false,
             showTooltip: false,
             submitted: false,
+            showDowngradeMessage: false,
+            downgradeTooltipText:
+                "Membership downgrades cannot be processed automatically. Please contact us to adjust your plan.",
+            initialEventPackageType: null,
         };
     },
     mounted() {
-        // Load form data from localStorage
+        // Load form data from localStorage; preserve page_id/create_page_id from props
         const savedForm = localStorage.getItem("event_signup_form");
+        console.log("Saved Form Data:", JSON.parse(savedForm));        
         if (savedForm) {
-            this.form = JSON.parse(savedForm);
+            const parsed = JSON.parse(savedForm);
+            this.form = { ...this.form, ...parsed };
+            this.form.page_id = this.form.page_id ?? this.page_id;
+            this.form.create_page_id = this.form.create_page_id ?? this.create_page_id;
         }
     },
     watch: {
         form: {
             handler(newForm) {
                 // Save form data to localStorage on change
+                console.log("Form changed:",JSON.stringify(newForm));                
                 localStorage.setItem(
                     "event_signup_form",
                     JSON.stringify(newForm)
@@ -729,7 +1045,7 @@ export default {
                     obj["title_" + res.id] = "";
                 });
 
-                this.state.form.title = obj;
+                this.form.title = obj;
             },
             immediate: true // Run the handler immediately if `languages` is already available
         },
@@ -742,8 +1058,12 @@ export default {
                     this.form.business_name = user.business_name || '';
                     this.form.email = user.email || '';
                     this.form.package_id = user.registration_package_id || '';
-                    this.form.package_type = user.registration_package.package_type || 0;
-                    this.form.order_amount = user.registration_package.event_price || 0;
+                    this.form.package_type = user.registration_package?.package_type || null;
+                    this.form.order_amount = user.registration_package?.event_price || 0;
+                    this.initialEventPackageType = user.registration_package?.package_type ?? null;
+                    this.form.organizer_website = user.customer_profile.website;
+                    this.form.organizer_phone = user.customer_profile.phone;
+                    this.form.mailing_address = user.customer_profile.address;
                 }
             },
             immediate: true // Watcher ko turant run karne ke liye
@@ -902,6 +1222,9 @@ export default {
             this.form["email"] = "";
             this.form["package_type"] = null;
             this.form["payment_frequency"] = "annually";
+            this.form["photo_gallery_images"] = [];
+            this.photo_gallery_files = [];
+            this.gallery_files = [];
             this.validationErros = new ErrorHandling();
             localStorage.removeItem("event_signup_form");
         },
@@ -935,8 +1258,19 @@ export default {
             this.form.contacts = this.contacts;
             this.loading = 1;
 
+            // Build payload: ensure page_id/create_page_id and gallery fields match backend expectations
+            let payload = { ...this.form };
+            payload.page_id = payload.page_id ?? this.page_id;
+            payload.create_page_id = payload.create_page_id ?? this.create_page_id;
+            // Backend expects gallery_images and photo_gallery_images as JSON strings for json_decode
+            if (typeof payload.gallery_images !== 'string') {
+                payload.gallery_images = payload.gallery_images != null ? JSON.stringify(payload.gallery_images) : null;
+            }
+            if (typeof payload.photo_gallery_images !== 'string') {
+                payload.photo_gallery_images = payload.photo_gallery_images != null ? JSON.stringify(payload.photo_gallery_images) : null;
+            }
+
             // When using Stripe, create PaymentMethod on frontend and send id only
-            let payload = this.form;
             if (this.form.payment_method === 'stripe' && this.cardElement && this.stripe && this.form.order_amount > 0) {
                 try {
                     const { error, paymentMethod } = await this.stripe.createPaymentMethod({
@@ -951,7 +1285,7 @@ export default {
                         this.loading = 0;
                         return;
                     }
-                    payload = { ...this.form, payment_method_id: paymentMethod.id };
+                    payload = { ...payload, payment_method_id: paymentMethod.id };
                 } catch (err) {
                     console.error('Payment error:', err);
                     this.loading = 0;
@@ -1045,10 +1379,28 @@ export default {
             }
             return true;
         },
+        isDowngradeOption(packageType) {
+            if (this.currentEventPlanTier == null) return false;
+            const selectedTier = this.packageTierOrder[packageType] ?? -1;
+            return selectedTier < this.currentEventPlanTier;
+        },
+        onPackageSelect(pkg) {
+            if (!pkg?.package_type) return;
+            if (this.isDowngradeOption(pkg.package_type)) {
+                this.showDowngradeMessage = true;
+                setTimeout(() => {
+                    this.showDowngradeMessage = false;
+                }, 8000);
+                return;
+            }
+            this.showDowngradeMessage = false;
+            this.updatePackageForm(pkg);
+        },
         updatePackageForm(event_package) {
             this.form.package_id = event_package.id;
             this.form.package_type = event_package.package_type;
             this.form.order_amount = event_package.event_price;
+            this.validationErros.clear("package_id");
         },
         handleGalleryImagesInit() {
             setOptions({
@@ -1164,6 +1516,31 @@ export default {
                 }
             }
         },
+        handlePhotoGalleryInit() {
+            // Server config is passed via :server="photoGalleryServerConfig"
+        },
+        handlePhotoGalleryProcess(error, file) {
+            const id = typeof file.serverId === 'string' ? JSON.parse(file.serverId)[0] : (file.serverId && file.serverId[0]);
+            if (!this.form.photo_gallery_images || this.form.photo_gallery_images.length === 0) {
+                this.form.photo_gallery_images = JSON.stringify([id]);
+            } else {
+                let arr = JSON.parse(this.form.photo_gallery_images);
+                arr.push(id);
+                this.form.photo_gallery_images = JSON.stringify(arr);
+            }
+        },
+        handlePhotoGalleryRemoveFile(error, file) {
+            let arr = [];
+            try {
+                arr = JSON.parse(this.form.photo_gallery_images || '[]');
+            } catch (_) { }
+            const serverId = file.getMetadata()?.serverId ?? (typeof file.serverId === 'string' ? JSON.parse(file.serverId)[0] : file.serverId?.[0]);
+            const index = arr.indexOf(serverId);
+            if (index > -1) {
+                arr.splice(index, 1);
+                this.form.photo_gallery_images = JSON.stringify(arr);
+            }
+        },
         formatFeatureName(name) {
             if (!name) {
                 return "";
@@ -1189,7 +1566,7 @@ export default {
     },
     created() {
         this.gallery_files = [];
-
+        this.photo_gallery_files = [];
         this.contacts = [];
         const savedContacts =
             JSON.parse(localStorage.getItem("eventContacts")) || [];
@@ -1241,17 +1618,20 @@ export default {
                     this.premiumPackage = res.data.data.find(
                         (p) => p.package_type == "premium"
                     );
-                    this.packages.map((registrationPackage) => {
-                        if (registrationPackage.is_default == "1") {
-                            this.form.package_id = registrationPackage.id;
-                            this.form.order_amount =
-                                registrationPackage.event_price;
-                            this.form.package_type =
-                                registrationPackage.package_type;
-
-                            return true;
-                        }
-                    });
+                    // Only apply default package if user has no package yet (e.g. not set from current_user)
+                    const hasPackageAlready = this.form.package_id || (this.form.package_type != null && this.form.package_type !== '');
+                    if (!hasPackageAlready) {
+                        this.packages.map((registrationPackage) => {
+                            if (registrationPackage.is_default == "1") {
+                                this.form.package_id = registrationPackage.id;
+                                this.form.order_amount =
+                                    registrationPackage.event_price;
+                                this.form.package_type =
+                                    registrationPackage.package_type;
+                                return true;
+                            }
+                        });
+                    }
                 }
             });
     },

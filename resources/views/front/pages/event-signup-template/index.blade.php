@@ -37,7 +37,7 @@
                         <div class="order-2 md:order-1">
                             <create-event-signup event_detail="{{ $eventSignupSettingDetail }}"
                                 eventsetting="{{ $eventCreateSettingDetail }}"
-                                languages="{{ $languages }}"
+                                :languages='@json($languages)'
                                 submit_url="{{ $submit_url }}"
                                 email_validation_url="{{ route('web.event-signup.signup-email-validation') }}"
                                 page_id="{{ $page->id }}" create_page_id="{{ $page1->id }}" lang="{{ $lang }}"
