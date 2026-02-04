@@ -683,3 +683,108 @@ Detailed Event Description *","description_13":null},"start_date":"2026-02-03","
 [2026-02-04 12:43:51] local.INFO: moveFile: Found file at alternative path (public): D:\work\_2025\canadianexports.org\public\media\events\1770188379_ChatGPT_Image_Jan_28,_2026,_03_32_21_AM.png  
 [2026-02-04 12:43:52] local.INFO: moveFile: Processing temp file {"original":"media/events/1770188380_final2.gif","normalized":"media/events/1770188380_final2.gif"} 
 [2026-02-04 12:43:52] local.INFO: moveFile: Found file at alternative path (public): D:\work\_2025\canadianexports.org\public\media\events\1770188380_final2.gif  
+[2026-02-04 13:26:14] local.INFO: moveFile: Processing temp file {"original":253363,"normalized":"253363"} 
+[2026-02-04 13:26:14] local.ERROR: moveFile: File not found at any path. Tried: D:\work\_2025\canadianexports.org\storage\app\public\253363, D:\work\_2025\canadianexports.org\public\253363, D:\work\_2025\canadianexports.org\public\storage\253363  
+[2026-02-04 13:26:14] local.ERROR: moveFile: Source file does not exist or is not a file: D:\work\_2025\canadianexports.org\storage\app\public\253363  
+[2026-02-04 13:26:14] local.INFO: moveFile: Processing temp file {"original":"media/events/1770188369_man.png","normalized":"media/events/1770188369_man.png"} 
+[2026-02-04 13:26:14] local.INFO: moveFile: Found file at alternative path (public): D:\work\_2025\canadianexports.org\public\media\events\1770188369_man.png  
+[2026-02-04 13:26:14] local.INFO: moveFile: Processing temp file {"original":253364,"normalized":"253364"} 
+[2026-02-04 13:26:14] local.ERROR: moveFile: File not found at any path. Tried: D:\work\_2025\canadianexports.org\storage\app\public\253364, D:\work\_2025\canadianexports.org\public\253364, D:\work\_2025\canadianexports.org\public\storage\253364  
+[2026-02-04 13:26:14] local.ERROR: moveFile: Source file does not exist or is not a file: D:\work\_2025\canadianexports.org\storage\app\public\253364  
+[2026-02-04 13:26:14] local.INFO: moveFile: Processing temp file {"original":253365,"normalized":"253365"} 
+[2026-02-04 13:26:14] local.ERROR: moveFile: File not found at any path. Tried: D:\work\_2025\canadianexports.org\storage\app\public\253365, D:\work\_2025\canadianexports.org\public\253365, D:\work\_2025\canadianexports.org\public\storage\253365  
+[2026-02-04 13:26:14] local.ERROR: moveFile: Source file does not exist or is not a file: D:\work\_2025\canadianexports.org\storage\app\public\253365  
+[2026-02-04 13:26:14] local.INFO: moveFile: Processing temp file {"original":"media/events/1770188379_ChatGPT_Image_Jan_28,_2026,_03_32_21_AM.png","normalized":"media/events/1770188379_ChatGPT_Image_Jan_28,_2026,_03_32_21_AM.png"} 
+[2026-02-04 13:26:14] local.INFO: moveFile: Found file at alternative path (public): D:\work\_2025\canadianexports.org\public\media\events\1770188379_ChatGPT_Image_Jan_28,_2026,_03_32_21_AM.png  
+[2026-02-04 13:26:15] local.INFO: moveFile: Processing temp file {"original":"media/events/1770188380_final2.gif","normalized":"media/events/1770188380_final2.gif"} 
+[2026-02-04 13:26:15] local.INFO: moveFile: Found file at alternative path (public): D:\work\_2025\canadianexports.org\public\media\events\1770188380_final2.gif  
+[2026-02-04 13:42:27] local.INFO: moveFile: Processing temp file {"original":253367,"normalized":"253367"} 
+[2026-02-04 13:42:27] local.ERROR: moveFile: File not found at any path. Tried: D:\work\_2025\canadianexports.org\storage\app\public\253367, D:\work\_2025\canadianexports.org\public\253367, D:\work\_2025\canadianexports.org\public\storage\253367  
+[2026-02-04 13:42:27] local.ERROR: moveFile: Source file does not exist or is not a file: D:\work\_2025\canadianexports.org\storage\app\public\253367  
+[2026-02-04 13:42:27] local.INFO: moveFile: Processing temp file {"original":"media/events/1770188369_man.png","normalized":"media/events/1770188369_man.png"} 
+[2026-02-04 13:42:27] local.INFO: moveFile: Found file at alternative path (public): D:\work\_2025\canadianexports.org\public\media\events\1770188369_man.png  
+[2026-02-04 13:42:27] local.INFO: moveFile: Processing temp file {"original":253368,"normalized":"253368"} 
+[2026-02-04 13:42:27] local.ERROR: moveFile: File not found at any path. Tried: D:\work\_2025\canadianexports.org\storage\app\public\253368, D:\work\_2025\canadianexports.org\public\253368, D:\work\_2025\canadianexports.org\public\storage\253368  
+[2026-02-04 13:42:27] local.ERROR: moveFile: Source file does not exist or is not a file: D:\work\_2025\canadianexports.org\storage\app\public\253368  
+[2026-02-04 13:42:27] local.INFO: moveFile: Processing temp file {"original":253369,"normalized":"253369"} 
+[2026-02-04 13:42:27] local.ERROR: moveFile: File not found at any path. Tried: D:\work\_2025\canadianexports.org\storage\app\public\253369, D:\work\_2025\canadianexports.org\public\253369, D:\work\_2025\canadianexports.org\public\storage\253369  
+[2026-02-04 13:42:27] local.ERROR: moveFile: Source file does not exist or is not a file: D:\work\_2025\canadianexports.org\storage\app\public\253369  
+[2026-02-04 13:42:27] local.INFO: moveFile: Processing temp file {"original":"media/events/1770188379_ChatGPT_Image_Jan_28,_2026,_03_32_21_AM.png","normalized":"media/events/1770188379_ChatGPT_Image_Jan_28,_2026,_03_32_21_AM.png"} 
+[2026-02-04 13:42:27] local.INFO: moveFile: Found file at alternative path (public): D:\work\_2025\canadianexports.org\public\media\events\1770188379_ChatGPT_Image_Jan_28,_2026,_03_32_21_AM.png  
+[2026-02-04 13:42:28] local.INFO: moveFile: Processing temp file {"original":"media/events/1770188380_final2.gif","normalized":"media/events/1770188380_final2.gif"} 
+[2026-02-04 13:42:28] local.INFO: moveFile: Found file at alternative path (public): D:\work\_2025\canadianexports.org\public\media\events\1770188380_final2.gif  
+[2026-02-04 13:43:46] local.INFO: moveFile: Processing temp file {"original":253370,"normalized":"253370"} 
+[2026-02-04 13:43:46] local.ERROR: moveFile: File not found at any path. Tried: D:\work\_2025\canadianexports.org\storage\app\public\253370, D:\work\_2025\canadianexports.org\public\253370, D:\work\_2025\canadianexports.org\public\storage\253370  
+[2026-02-04 13:43:46] local.ERROR: moveFile: Source file does not exist or is not a file: D:\work\_2025\canadianexports.org\storage\app\public\253370  
+[2026-02-04 13:43:46] local.INFO: moveFile: Processing temp file {"original":"media/events/1770188369_man.png","normalized":"media/events/1770188369_man.png"} 
+[2026-02-04 13:43:46] local.INFO: moveFile: Found file at alternative path (public): D:\work\_2025\canadianexports.org\public\media\events\1770188369_man.png  
+[2026-02-04 13:43:46] local.INFO: moveFile: Processing temp file {"original":253371,"normalized":"253371"} 
+[2026-02-04 13:43:46] local.ERROR: moveFile: File not found at any path. Tried: D:\work\_2025\canadianexports.org\storage\app\public\253371, D:\work\_2025\canadianexports.org\public\253371, D:\work\_2025\canadianexports.org\public\storage\253371  
+[2026-02-04 13:43:46] local.ERROR: moveFile: Source file does not exist or is not a file: D:\work\_2025\canadianexports.org\storage\app\public\253371  
+[2026-02-04 13:43:46] local.INFO: moveFile: Processing temp file {"original":253372,"normalized":"253372"} 
+[2026-02-04 13:43:46] local.ERROR: moveFile: File not found at any path. Tried: D:\work\_2025\canadianexports.org\storage\app\public\253372, D:\work\_2025\canadianexports.org\public\253372, D:\work\_2025\canadianexports.org\public\storage\253372  
+[2026-02-04 13:43:46] local.ERROR: moveFile: Source file does not exist or is not a file: D:\work\_2025\canadianexports.org\storage\app\public\253372  
+[2026-02-04 13:43:46] local.INFO: moveFile: Processing temp file {"original":"media/events/1770188379_ChatGPT_Image_Jan_28,_2026,_03_32_21_AM.png","normalized":"media/events/1770188379_ChatGPT_Image_Jan_28,_2026,_03_32_21_AM.png"} 
+[2026-02-04 13:43:46] local.INFO: moveFile: Found file at alternative path (public): D:\work\_2025\canadianexports.org\public\media\events\1770188379_ChatGPT_Image_Jan_28,_2026,_03_32_21_AM.png  
+[2026-02-04 13:43:46] local.INFO: moveFile: Processing temp file {"original":"media/events/1770188380_final2.gif","normalized":"media/events/1770188380_final2.gif"} 
+[2026-02-04 13:43:46] local.INFO: moveFile: Found file at alternative path (public): D:\work\_2025\canadianexports.org\public\media\events\1770188380_final2.gif  
+[2026-02-04 13:47:08] local.INFO: moveFile: Processing temp file {"original":253373,"normalized":"253373"} 
+[2026-02-04 13:47:08] local.ERROR: moveFile: File not found at any path. Tried: D:\work\_2025\canadianexports.org\storage\app\public\253373, D:\work\_2025\canadianexports.org\public\253373, D:\work\_2025\canadianexports.org\public\storage\253373  
+[2026-02-04 13:47:08] local.ERROR: moveFile: Source file does not exist or is not a file: D:\work\_2025\canadianexports.org\storage\app\public\253373  
+[2026-02-04 13:47:08] local.INFO: moveFile: Processing temp file {"original":"media/events/1770188369_man.png","normalized":"media/events/1770188369_man.png"} 
+[2026-02-04 13:47:08] local.INFO: moveFile: Found file at alternative path (public): D:\work\_2025\canadianexports.org\public\media\events\1770188369_man.png  
+[2026-02-04 13:47:08] local.INFO: moveFile: Processing temp file {"original":253374,"normalized":"253374"} 
+[2026-02-04 13:47:08] local.ERROR: moveFile: File not found at any path. Tried: D:\work\_2025\canadianexports.org\storage\app\public\253374, D:\work\_2025\canadianexports.org\public\253374, D:\work\_2025\canadianexports.org\public\storage\253374  
+[2026-02-04 13:47:08] local.ERROR: moveFile: Source file does not exist or is not a file: D:\work\_2025\canadianexports.org\storage\app\public\253374  
+[2026-02-04 13:47:08] local.INFO: moveFile: Processing temp file {"original":253375,"normalized":"253375"} 
+[2026-02-04 13:47:08] local.ERROR: moveFile: File not found at any path. Tried: D:\work\_2025\canadianexports.org\storage\app\public\253375, D:\work\_2025\canadianexports.org\public\253375, D:\work\_2025\canadianexports.org\public\storage\253375  
+[2026-02-04 13:47:08] local.ERROR: moveFile: Source file does not exist or is not a file: D:\work\_2025\canadianexports.org\storage\app\public\253375  
+[2026-02-04 13:47:08] local.INFO: moveFile: Processing temp file {"original":"media/events/1770188379_ChatGPT_Image_Jan_28,_2026,_03_32_21_AM.png","normalized":"media/events/1770188379_ChatGPT_Image_Jan_28,_2026,_03_32_21_AM.png"} 
+[2026-02-04 13:47:08] local.INFO: moveFile: Found file at alternative path (public): D:\work\_2025\canadianexports.org\public\media\events\1770188379_ChatGPT_Image_Jan_28,_2026,_03_32_21_AM.png  
+[2026-02-04 13:47:09] local.INFO: moveFile: Processing temp file {"original":"media/events/1770188380_final2.gif","normalized":"media/events/1770188380_final2.gif"} 
+[2026-02-04 13:47:09] local.INFO: moveFile: Found file at alternative path (public): D:\work\_2025\canadianexports.org\public\media\events\1770188380_final2.gif  
+[2026-02-04 14:06:06] local.INFO: moveFile: Processing temp file {"original":253376,"normalized":"253376"} 
+[2026-02-04 14:06:06] local.ERROR: moveFile: File not found at any path. Tried: D:\work\_2025\canadianexports.org\storage\app\public\253376, D:\work\_2025\canadianexports.org\public\253376, D:\work\_2025\canadianexports.org\public\storage\253376  
+[2026-02-04 14:06:06] local.ERROR: moveFile: Source file does not exist or is not a file: D:\work\_2025\canadianexports.org\storage\app\public\253376  
+[2026-02-04 14:06:06] local.INFO: moveFile: Processing temp file {"original":"media/events/1770188369_man.png","normalized":"media/events/1770188369_man.png"} 
+[2026-02-04 14:06:06] local.INFO: moveFile: Found file at alternative path (public): D:\work\_2025\canadianexports.org\public\media\events\1770188369_man.png  
+[2026-02-04 14:06:06] local.INFO: moveFile: Processing temp file {"original":253377,"normalized":"253377"} 
+[2026-02-04 14:06:06] local.ERROR: moveFile: File not found at any path. Tried: D:\work\_2025\canadianexports.org\storage\app\public\253377, D:\work\_2025\canadianexports.org\public\253377, D:\work\_2025\canadianexports.org\public\storage\253377  
+[2026-02-04 14:06:06] local.ERROR: moveFile: Source file does not exist or is not a file: D:\work\_2025\canadianexports.org\storage\app\public\253377  
+[2026-02-04 14:06:06] local.INFO: moveFile: Processing temp file {"original":253378,"normalized":"253378"} 
+[2026-02-04 14:06:06] local.ERROR: moveFile: File not found at any path. Tried: D:\work\_2025\canadianexports.org\storage\app\public\253378, D:\work\_2025\canadianexports.org\public\253378, D:\work\_2025\canadianexports.org\public\storage\253378  
+[2026-02-04 14:06:06] local.ERROR: moveFile: Source file does not exist or is not a file: D:\work\_2025\canadianexports.org\storage\app\public\253378  
+[2026-02-04 14:06:06] local.INFO: moveFile: Processing temp file {"original":"media/events/1770188379_ChatGPT_Image_Jan_28,_2026,_03_32_21_AM.png","normalized":"media/events/1770188379_ChatGPT_Image_Jan_28,_2026,_03_32_21_AM.png"} 
+[2026-02-04 14:06:06] local.INFO: moveFile: Found file at alternative path (public): D:\work\_2025\canadianexports.org\public\media\events\1770188379_ChatGPT_Image_Jan_28,_2026,_03_32_21_AM.png  
+[2026-02-04 14:06:06] local.INFO: moveFile: Processing temp file {"original":"media/events/1770188380_final2.gif","normalized":"media/events/1770188380_final2.gif"} 
+[2026-02-04 14:06:06] local.INFO: moveFile: Found file at alternative path (public): D:\work\_2025\canadianexports.org\public\media\events\1770188380_final2.gif  
+[2026-02-04 14:06:57] local.INFO: moveFile: Processing temp file {"original":253379,"normalized":"253379"} 
+[2026-02-04 14:06:57] local.ERROR: moveFile: File not found at any path. Tried: D:\work\_2025\canadianexports.org\storage\app\public\253379, D:\work\_2025\canadianexports.org\public\253379, D:\work\_2025\canadianexports.org\public\storage\253379  
+[2026-02-04 14:06:57] local.ERROR: moveFile: Source file does not exist or is not a file: D:\work\_2025\canadianexports.org\storage\app\public\253379  
+[2026-02-04 14:06:57] local.INFO: moveFile: Processing temp file {"original":"media/events/1770188369_man.png","normalized":"media/events/1770188369_man.png"} 
+[2026-02-04 14:06:57] local.INFO: moveFile: Found file at alternative path (public): D:\work\_2025\canadianexports.org\public\media\events\1770188369_man.png  
+[2026-02-04 14:06:57] local.INFO: moveFile: Processing temp file {"original":253380,"normalized":"253380"} 
+[2026-02-04 14:06:57] local.ERROR: moveFile: File not found at any path. Tried: D:\work\_2025\canadianexports.org\storage\app\public\253380, D:\work\_2025\canadianexports.org\public\253380, D:\work\_2025\canadianexports.org\public\storage\253380  
+[2026-02-04 14:06:57] local.ERROR: moveFile: Source file does not exist or is not a file: D:\work\_2025\canadianexports.org\storage\app\public\253380  
+[2026-02-04 14:06:57] local.INFO: moveFile: Processing temp file {"original":253381,"normalized":"253381"} 
+[2026-02-04 14:06:57] local.ERROR: moveFile: File not found at any path. Tried: D:\work\_2025\canadianexports.org\storage\app\public\253381, D:\work\_2025\canadianexports.org\public\253381, D:\work\_2025\canadianexports.org\public\storage\253381  
+[2026-02-04 14:06:57] local.ERROR: moveFile: Source file does not exist or is not a file: D:\work\_2025\canadianexports.org\storage\app\public\253381  
+[2026-02-04 14:06:57] local.INFO: moveFile: Processing temp file {"original":"media/events/1770188379_ChatGPT_Image_Jan_28,_2026,_03_32_21_AM.png","normalized":"media/events/1770188379_ChatGPT_Image_Jan_28,_2026,_03_32_21_AM.png"} 
+[2026-02-04 14:06:57] local.INFO: moveFile: Found file at alternative path (public): D:\work\_2025\canadianexports.org\public\media\events\1770188379_ChatGPT_Image_Jan_28,_2026,_03_32_21_AM.png  
+[2026-02-04 14:06:58] local.INFO: moveFile: Processing temp file {"original":"media/events/1770188380_final2.gif","normalized":"media/events/1770188380_final2.gif"} 
+[2026-02-04 14:06:58] local.INFO: moveFile: Found file at alternative path (public): D:\work\_2025\canadianexports.org\public\media\events\1770188380_final2.gif  
+[2026-02-04 15:04:38] local.INFO: moveFile: Processing temp file {"original":253382,"normalized":"253382"} 
+[2026-02-04 15:04:38] local.ERROR: moveFile: File not found at any path. Tried: D:\work\_2025\canadianexports.org\storage\app\public\253382, D:\work\_2025\canadianexports.org\public\253382, D:\work\_2025\canadianexports.org\public\storage\253382  
+[2026-02-04 15:04:38] local.ERROR: moveFile: Source file does not exist or is not a file: D:\work\_2025\canadianexports.org\storage\app\public\253382  
+[2026-02-04 15:04:38] local.INFO: moveFile: Processing temp file {"original":"media/events/1770188369_man.png","normalized":"media/events/1770188369_man.png"} 
+[2026-02-04 15:04:38] local.INFO: moveFile: Found file at alternative path (public): D:\work\_2025\canadianexports.org\public\media\events\1770188369_man.png  
+[2026-02-04 15:04:38] local.INFO: moveFile: Processing temp file {"original":253383,"normalized":"253383"} 
+[2026-02-04 15:04:38] local.ERROR: moveFile: File not found at any path. Tried: D:\work\_2025\canadianexports.org\storage\app\public\253383, D:\work\_2025\canadianexports.org\public\253383, D:\work\_2025\canadianexports.org\public\storage\253383  
+[2026-02-04 15:04:38] local.ERROR: moveFile: Source file does not exist or is not a file: D:\work\_2025\canadianexports.org\storage\app\public\253383  
+[2026-02-04 15:04:38] local.INFO: moveFile: Processing temp file {"original":253384,"normalized":"253384"} 
+[2026-02-04 15:04:38] local.ERROR: moveFile: File not found at any path. Tried: D:\work\_2025\canadianexports.org\storage\app\public\253384, D:\work\_2025\canadianexports.org\public\253384, D:\work\_2025\canadianexports.org\public\storage\253384  
+[2026-02-04 15:04:38] local.ERROR: moveFile: Source file does not exist or is not a file: D:\work\_2025\canadianexports.org\storage\app\public\253384  
+[2026-02-04 15:04:38] local.INFO: moveFile: Processing temp file {"original":"media/events/1770188379_ChatGPT_Image_Jan_28,_2026,_03_32_21_AM.png","normalized":"media/events/1770188379_ChatGPT_Image_Jan_28,_2026,_03_32_21_AM.png"} 
+[2026-02-04 15:04:38] local.INFO: moveFile: Found file at alternative path (public): D:\work\_2025\canadianexports.org\public\media\events\1770188379_ChatGPT_Image_Jan_28,_2026,_03_32_21_AM.png  
+[2026-02-04 15:04:39] local.INFO: moveFile: Processing temp file {"original":"media/events/1770188380_final2.gif","normalized":"media/events/1770188380_final2.gif"} 
+[2026-02-04 15:04:39] local.INFO: moveFile: Found file at alternative path (public): D:\work\_2025\canadianexports.org\public\media\events\1770188380_final2.gif  

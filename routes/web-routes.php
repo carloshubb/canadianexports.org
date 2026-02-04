@@ -34,6 +34,7 @@ use App\Http\Controllers\Api\Web\{
 use App\Http\Controllers\Web\ArticlePageController;
 use App\Models\Customer;
 use App\Models\Language;
+use App\Models\Event;
 use App\Services\PaypalService;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
@@ -80,14 +81,23 @@ Route::group(['middleware' => ['share.variable', 'user.status']], function () {
     Route::get('/{abbreviation?}/category/{slug}', [BusinessCategoryController::class, 'index'])->name('user.business-category.index')->whereIn('abbreviation', Language::pluck('abbreviation')->toArray());
     Route::get('/{abbreviation?}/sponsor-detail/{slug}', [SponsorController::class, 'show'])->name('user.sponsor-detail.show')->whereIn('abbreviation', Language::pluck('abbreviation')->toArray());
     Route::get('/{abbreviation?}/profile/{slug?}', [BusinessCategoryController::class, 'show'])->name('user.business-category.show')->whereIn('abbreviation', Language::pluck('abbreviation')->toArray());
-    Route::get('/{abbreviation?}/event/{id}', [EventController::class, 'show'])->name('user.event.show')->whereIn('abbreviation', Language::pluck('abbreviation')->toArray());
+    Route::get('/{abbreviation?}/event/{id}', function ($abbreviation = null, $id) {
+        $event = Event::findOrFail($id);
+        return redirect()->route('user.event.show', [
+            'abbreviation' => $abbreviation,
+            'id' => $id,
+            'slug' => $event->slug
+        ]);
+    })->whereIn('abbreviation', Language::pluck('abbreviation')->toArray());
+
+    Route::get('/{abbreviation?}/event/{id}/{slug?}', [EventController::class, 'show'])->name('user.event.show')->whereIn('abbreviation', Language::pluck('abbreviation')->toArray());
     Route::get('/{abbreviation?}/exporting-fair/{id}', [ExportingFairController::class, 'show'])->name('user.exporting-fair.show')->whereIn('abbreviation', Language::pluck('abbreviation')->toArray());
     Route::post('/profile/send-message', [BusinessCategoryController::class, 'sendMessage'])->name('user.business-category.send-message');
     Route::post('/become-sponsor/send-message', [BecomeSponsorController::class, 'sendMessage'])->name('user.become-sponsor.send-message');
     Route::post('/become-sponsor/process-payment', [BecomeSponsorController::class, 'processSponsorPayment'])->name('user.become-sponsor.process-payment');
     Route::get('/search/business-directory', [HomeController::class, 'businessDirectorySearch'])->name('business_directory_search');
     Route::post('/become-sponsor/update-profile', [BecomeSponsorController::class, 'updateProfile'])->name('user.become-sponsor.update-profile');
-    
+
     // Sponsor Profile Management (requires authentication)
     Route::middleware(['auth:customers'])->group(function () {
         Route::get('/sponsor/profile', [BecomeSponsorController::class, 'getSponsorProfile'])->name('sponsor.profile');
@@ -121,7 +131,7 @@ Route::group(['middleware' => ['share.variable', 'user.status']], function () {
     Route::get('/{abbreviation?}/articles', [ArticlePageController::class, 'index'])->name('web.articles.index')->whereIn('abbreviation', Language::pluck('abbreviation')->toArray());
     Route::get('/{abbreviation?}/articles/{slug}', [ArticlePageController::class, 'show'])->name('web.articles.show')->whereIn('abbreviation', Language::pluck('abbreviation')->toArray());
     Route::get('/{abbreviation?}/articles/section/{subsection}', [ArticlePageController::class, 'subsection'])->name('web.articles.subsection')->whereIn('abbreviation', Language::pluck('abbreviation')->toArray());
-    
+
 
     Route::group(['prefix' => 'user', 'middleware' => ['auth.user']], function () {
         Route::post('/login', [SignupController::class, 'login'])->name('web.user.login');
@@ -143,9 +153,9 @@ Route::group(['middleware' => ['share.variable', 'user.status']], function () {
 
     Route::get('/get-profile-packages', [HelperController::class, 'getProfilePackages']);
     Route::get('/set-language/{language}', [HelperController::class, 'setLanguage'])->name('web.set-lang');
-    Route::get('/{language}/become-sponser',[BannerController::class,'becomeSponsor'])->name('web.become-sponsor');
+    Route::get('/{language}/become-sponser', [BannerController::class, 'becomeSponsor'])->name('web.become-sponsor');
 
-    Route::get('sponsers',[BannerController::class,'getBannerListingSetting']);
+    Route::get('sponsers', [BannerController::class, 'getBannerListingSetting']);
 
     Route::name('web.')->group(function () {
         Route::apiResource('events', AdminEventController::class);
@@ -163,7 +173,7 @@ Route::group(['middleware' => ['share.variable', 'user.status']], function () {
     Route::post('/process-i2b-package-payment', [PaymentController::class, 'processI2bPackagePayment']);
     Route::post('/save-inquiry', [InquiryController::class, 'savePremiumInquiry']);
     Route::post('/save-package-inquiry', [InquiryController::class, 'savePackageInquiry']);
-    
+
     // Secure I2B PDF download route (requires signed URL for security)
     Route::get('/i2b/{inquiryId}/download/{pdfNumber}', [\App\Http\Controllers\Api\Web\I2bDownloadController::class, 'download'])
         ->middleware(['signed'])
@@ -200,13 +210,13 @@ Route::group(['middleware' => ['share.variable', 'user.status']], function () {
     Route::get('/clear-cache', function () {
         Cache::flush();
     });
-   
-Route::get('/test-email', function () {
-    Mail::raw(config('mail.from.address'), function ($message) {
-        $message->to('jsmirnov041@gmail.com')
-                ->subject('Local SMTP Test');
-    });
 
-    return 'Email sent';
-});
+    Route::get('/test-email', function () {
+        Mail::raw(config('mail.from.address'), function ($message) {
+            $message->to('jsmirnov041@gmail.com')
+                ->subject('Local SMTP Test');
+        });
+
+        return 'Email sent';
+    });
 });
