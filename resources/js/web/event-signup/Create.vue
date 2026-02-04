@@ -1132,7 +1132,7 @@
         </div>
         <!-- <ListErrors :validationErrors="validationErros" /> -->
 
-        <div class="mb-4">
+        <div class="mb-4" v-if="!isEditMode && !isLoggedIn">
             <div class="flex items-start pb-4">
                 <input id="agree" type="checkbox" :checked="!!form.is_agree"
                     class="h-4 w-4 mt-1 rounded border-gray-500 text-primary focus:ring-primary" @input="
@@ -1149,11 +1149,17 @@
         </div>
 
         <div class="flex justify-center">
-            <button aria-label="Candian Exporters" type="submit" :disabled="!form.is_agree" :class="[
+            <button v-if="!isEditMode && !isLoggedIn" aria-label="Candian Exporters" type="submit" :disabled="!form.is_agree" :class="[
                 'inline-flex items-center button-exp-fill mt-4 transition-opacity duration-200',
                 { 'opacity-40 cursor-not-allowed': !form.is_agree }
             ]">
                 {{ JSON.parse(event_detail)["button_text"] }}
+            </button>
+            <button v-else aria-label="Candian Exporters" type="submit"  :class="[
+                'inline-flex items-center button-exp-fill mt-4 transition-opacity duration-200',
+               
+            ]">
+                Update
             </button>
         </div>
 

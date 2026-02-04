@@ -638,7 +638,7 @@ if (!function_exists("getEventSignupSetting")) {
     {
         $eventSignupSetting = EventSignupSetting::wherePageId($page->id)->with(['eventSignupSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
-        }])->first();       
+        }])->first();           
         return $eventSignupSetting;
     }
 }

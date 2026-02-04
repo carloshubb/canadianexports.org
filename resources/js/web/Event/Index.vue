@@ -42,7 +42,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="space-y-8">
                 <div class="space-y-2">
                     <div class="bg-white shadow-lg hover:shadow-xl rounded-md overflow-x-auto">
@@ -51,13 +50,13 @@
                             <thead class="text-white">
                                 <tr class="hidden md:table-row">
                                     <th
-                                        class="sticky top-0 z-0  bg-primary backdrop-blur backdrop-filter py-3.5 pl-3 pr-3 text-left font-FuturaMdCnBT text-white lg:text-xl md:text-lg text-lg font-normal">
+                                        class="sticky top-0 z-0  bg-primary backdrop-blur backdrop-filter py-3.5 pl-3 pr-3 text-center font-FuturaMdCnBT text-white lg:text-xl md:text-lg text-lg font-normal">
                                         {{ event_setting && event_setting.event_listing_setting_detail &&
                                             event_setting.event_listing_setting_detail[0] ?
                                             event_setting.event_listing_setting_detail[0].title_text : '' }}
                                     </th>
                                     <th
-                                        class="sticky top-0 z-0  bg-primary backdrop-blur backdrop-filter py-3.5 pl-3 pr-3 text-left font-FuturaMdCnBT text-white lg:text-xl md:text-lg text-lg font-normal text-center">
+                                        class="sticky top-0 z-0  bg-primary backdrop-blur backdrop-filter py-3.5 pl-3 pr-3  font-FuturaMdCnBT text-white lg:text-xl md:text-lg text-lg font-normal text-center">
                                         {{ event_setting && event_setting.event_listing_setting_detail &&
                                             event_setting.event_listing_setting_detail[0] ?
                                             event_setting.event_listing_setting_detail[0].action_text : '' }}
@@ -76,7 +75,7 @@
                                                     class="w-10 h-10 rounded-full" :src="`/${event.media.path}`"
                                                     alt="event" />
                                             </div>
-                                            <a class="whitespace-nowrap" :href="event.show_page">{{ event.event_detail
+                                            <a class="whitespace-nowrap" :href="event.show_page" target="_blank">{{ event.event_detail
                                                 &&
                                                 event.event_detail[0] ? event.event_detail[0].title : '' }}</a>
                                         </div>
@@ -136,12 +135,6 @@
                             </div>
                         </div>
                     </div> -->
-
-
-
-
-
-
                 </div>
             </div>
         </div>

@@ -15,7 +15,7 @@
     <div class="h-full bg-gray-50 lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10">
         <div class="lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10 container">
             <div class="">
-
+                <!-- event/{id}/{slug?} -->
                 <section class="mb-4">
                     <div class=" bg-white rounded shadow pt-6">
                         <div class="px-4 md:px-12 desktop:px-80">
@@ -36,6 +36,20 @@
                             <div class="order-2 md:order-2 lg:order-1 mt-[5px]">
                                 <table class="border-spacing-y-3 border-separate border-none">
                                     <tbody>
+                                        @if(isset($event->start_date) && $event->start_date)
+                                        <tr class="mb-3 border-none">
+                                            <td
+                                                class="text-primary mr-4 text-base md:text-base lg:text-lg border-none break-all align-top whitespace-nowrap">
+                                                CTA URL
+                                            </td>
+                                            <td
+                                                class="text-base md:text-base lg:text-lg border-none break-words align-top pl-3">
+                                                <a class="text-black underline" href="{{ isset($event->cta_link) ? $event->cta_link : '#' }}" target="_blank">
+                                                    {{ isset($event->cta_btn) ? $event->cta_btn : '' }}
+                                               </td>
+                                        </tr>
+                                        @endif
+                                        @if(isset($event->start_date) && $event->start_date)
                                         <tr class="mb-3 border-none">
                                             <td
                                                 class="text-primary mr-4 text-base md:text-base lg:text-lg border-none break-all align-top whitespace-nowrap">
@@ -46,6 +60,8 @@
                                                 {{ date('F d, Y', strtotime($event->start_date)) }} -
                                                 {{ date('F d, Y', strtotime($event->end_date)) }}</td>
                                         </tr>
+                                        @endif
+                                        @if(isset($event->eventDetail[0]->venue) && $event->eventDetail[0]->venue)
                                         <tr class="mb-3 border-none">
                                             <td
                                                 class="text-primary mr-4 text-base md:text-base lg:text-lg border-none break-all align-top whitespace-nowrap">
@@ -58,6 +74,8 @@
                                                 @endisset
                                             </td>
                                         </tr>
+                                        @endif
+                                        @if(isset($event->eventDetail[0]->country) && $event->eventDetail[0]->country)
                                         <tr class="mb-3 border-none">
                                             <td
                                                 class="text-primary mr-4 text-base md:text-base lg:text-lg border-none break-all align-top whitespace-nowrap">
@@ -75,46 +93,39 @@
 
                                             </td>
                                         </tr>
-                                        <tr class="mb-3 border-none">
-                                            <td
-                                                class="text-primary mr-4 text-base md:text-base lg:text-lg border-none break-all align-top whitespace-nowrap">
-                                                {{ isset($event_detail_setting['product_search_text']) ? $event_detail_setting['product_search_text'] : '' }}
-                                            </td>
-                                            <td
-                                                class="text-base md:text-base lg:text-lg border-none break-words align-top pl-3">
-                                                @isset($event->eventDetail[0])
-                                                    {!! $event->eventDetail[0]->product_search !!}
-                                                @endisset
-                                            </td>
-                                        </tr>
+                                        @endif
 
                                         <tr class="mb-3 border-none">
-
-
                                         </tr>
 
 
                                     </tbody>
                                 </table>
                                 <div class="text-base md:text-base lg:text-lg border-none break-all align-top flex flex-col sm:flex-col md:flex-row lg:flex-row gap-4 items-center">
+                                    @if(isset($event->exibitors_url) && $event->exibitors_url)
                                     <button class="button-exp-fill whitespace-nowrap">
                                         <a class="text-white fix-url" onclick="fixUrls()" aria-label="Candian Exporters"
                                             href="{{ $event->exibitors_url }}" target="_blank">
                                             {{ isset($event_detail_setting['for_exibitor_url_text']) ? $event_detail_setting['for_exibitor_url_text'] : '' }}
                                         </a>
                                     </button>
+                                    @endif
+                                    @if(isset($event->visitors_url) && $event->visitors_url)
                                     <button class="button-exp-fill whitespace-nowrap">
                                         <a class="text-white fix-url" onclick="fixUrls()" aria-label="Candian Exporters"
                                             href="{{ $event->visitors_url }}" target="_blank">
                                             {{ isset($event_detail_setting['for_visitor_url_text']) ? $event_detail_setting['for_visitor_url_text'] : '' }}
                                         </a>
                                     </button>
+                                    @endif
+                                    @if(isset($event->press_url) && $event->press_url)
                                     <button class="button-exp-fill whitespace-nowrap">
                                         <a class="text-white fix-url" onclick="fixUrls()" aria-label="Candian Exporters" href="{{ $event->press_url }}"
                                             target="_blank">
                                             {{ isset($event_detail_setting['for_press_url_text']) ? $event_detail_setting['for_press_url_text'] : '' }}
                                         </a>
                                     </button>
+                                    @endif
                                 </div>
 
                                 <div class="flex flex-col sm:flex-row md:flex-row lg:flex-row items-center gap-4 mt-4 w-full">
@@ -155,7 +166,6 @@
                                         @endisset
                                     </div>
                                     <div class="flex items-center gap-4 my-2">
-
                                         @isset($event->pintrest_url)
                                             <a aria-label="Candian Exporters" target="_blank"
                                                 href="{{ $event->pintrest_url }}"
@@ -185,17 +195,9 @@
                                         @endisset
                                     </div>
                                 </div>
-
-
-
-
-
-
                             </div>
-
                             <div class="order-1 md:order-1 lg:order-2">
                                 <div class="">
-
                                     @isset($event->eventMedia)
                                         <div class="swiper mySwiper1 event-slider">
                                             <div class="swiper-wrapper">
@@ -246,19 +248,13 @@
                                             </div>
                                         </div>
                                     @endif
-
-
-
                                 </div>
-
                             </div>
-
                         </div>
-
                         <div class="px-4 md:px-12 desktop:px-80 mt-4">
                             <div class="square">
                                 <div class="text-primary can-exp-h2 mt-2">
-                                    {{ isset($event_detail_setting['description_text']) ? $event_detail_setting['description_text'] : '' }}
+                                    Event Overview
                                 </div>
                                 <div class="sm:pl-4 pb-2 pt-2 mb-4 md:float-right">
                                     <div class="border rounded-lg overflow-hidden">
@@ -291,9 +287,10 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="clear-both mt-4">
+                        <div class="clear-both mt-8">
                             @php
                                 $contacts = isset($event->eventContacts) ? $event->eventContacts : [];
+                                //dd($event);
                             @endphp
                             @if (count($contacts) > 0)
                                 <div class="px-4 md:px-12 desktop:px-80">
@@ -318,13 +315,14 @@
                                                         @php
                                                             $image_path = $contact->image_path;
                                                         @endphp
+                                                         <img class="h-14 w-14 rounded-full shadow bg-gray-50"
+                                                        src="{{ $contact->image_path }}" alt="profile image" />
                                                     @else
                                                         @php
                                                             $image_path = 'https://ui-avatars.com/api/?name={{ $contact->name }}&color=7F9CF5&background=EBF4FF';
                                                         @endphp
                                                     @endif
-                                                    <img class="h-14 w-14 rounded-full shadow bg-gray-50"
-                                                        src="{{ $contact->image_path }}" alt="profile image" />
+                                                   
                                                 </div>
                                                 <div>
                                                     <div class="-mt-px flex divide-x divide-gray-200">

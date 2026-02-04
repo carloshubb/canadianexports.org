@@ -89,6 +89,8 @@ class EventController extends Controller
             'pintrest_url' => ['nullable', new ValidUrl()],
             'instagram_url' => ['nullable', new ValidUrl()],
             'snapchat_url' => ['nullable', new ValidUrl()],
+            'cta_btn' => ['nullable', 'string', 'max:255'],
+            'cta_link' => ['nullable', 'string', 'max:2048'],
             'contacts.*.name' => 'required|string|max:255',
             'contacts.*.email' => 'required|email|max:255',
             'contacts.*.phone' => 'required|string|max:20',
@@ -180,6 +182,8 @@ class EventController extends Controller
             'pintrest_url' => $request->pintrest_url,
             'instagram_url' => $request->instagram_url,
             'snapchat_url' => $request->snapchat_url,
+            'cta_btn' => $request->cta_btn,
+            'cta_link' => $request->cta_link,
             'customer_id' => $customerId,
         ]);
 
@@ -246,6 +250,8 @@ class EventController extends Controller
             'pintrest_url' => ['nullable', new ValidUrl()],
             'instagram_url' => ['nullable', new ValidUrl()],
             'snapchat_url' => ['nullable', new ValidUrl()],
+            'cta_btn' => ['nullable', 'string', 'max:255'],
+            'cta_link' => ['nullable', 'string', 'max:2048'],
             'contacts.*.name' => 'required|string|max:255',
             'contacts.*.email' => 'required|email|max:255',
             'contacts.*.phone' => 'required|string|max:20',
@@ -344,7 +350,7 @@ class EventController extends Controller
             'slug' => $this->generateUniqueSlug($slug),
             'start_date' => $request->start_date,
             // 'end_date' => $request->end_date,
-            'end_date' => ['required', 'date', 'after_or_equal:start_date'],
+            'end_date' => $request->end_date,
             'event_website' => $request->event_website,
             'exibitors_url' => $request->exibitors_url,
             'visitors_url' => $request->visitors_url,
@@ -357,6 +363,8 @@ class EventController extends Controller
             'pintrest_url' => $request->pintrest_url,
             'instagram_url' => $request->instagram_url,
             'snapchat_url' => $request->snapchat_url,
+            'cta_btn' => $request->cta_btn,
+            'cta_link' => $request->cta_link,
         ];
 
         // Only update customer_id if it is provided in the request

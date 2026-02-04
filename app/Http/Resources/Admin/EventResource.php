@@ -38,6 +38,8 @@ class EventResource extends JsonResource
             'pintrest_url' => $this->pintrest_url,
             'instagram_url' => $this->instagram_url,
             'snapchat_url' => $this->snapchat_url,
+            'cta_btn' => $this->cta_btn,
+            'cta_link' => $this->cta_link,
             'payment_method' => $this->payment_method,
             'payment_method_id' => $this->payment_method_id,
             'show_page' => $this->show_page,

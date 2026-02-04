@@ -2455,6 +2455,21 @@ right: 28px;
   font-weight: 500;
   font-family: FuturaMdCnBT, cursive !important;
 }
+
+/* Gradient border for SweetAlert and membership notice modal (matches BecomeSponsor success modal) */
+.swal2-popup.gradient-border-modal,
+.membership-notice-modal-content.gradient-border-modal,
+#membership-notice-event-posting-modal .membership-notice-modal-content.gradient-border-modal {
+  border: 3px solid transparent !important;
+  border-radius: 0.75rem !important;
+  background:
+    linear-gradient(white, white) padding-box,
+    linear-gradient(120deg, #0077ff, #00ffff, #ff00ff, #ff8800) border-box !important;
+  background-color: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 .shadow-3xl {
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
@@ -2501,4 +2516,15 @@ body > .dp__outer_menu_wrap,
   font-family:  theme('fontFamily.FuturaMdCnBT');
   font-size: 28px;
   margin-bottom: 24px;
+}
+
+.swal2-popup.gradient-border-modal,
+.membership-notice-modal-content.gradient-border-modal {
+    border: 3px solid transparent !important;
+    border-radius: 0.75rem !important;
+    background:
+        linear-gradient(white, white) padding-box,
+        linear-gradient(120deg, #0077ff, #00ffff, #ff00ff, #ff8800) border-box !important;
+    outline: none !important;
+    box-shadow: none !important; /* Remove default shadow if needed */
 }

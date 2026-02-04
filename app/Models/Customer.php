@@ -23,7 +23,7 @@ class Customer extends Authenticatable
         'is_sponsor' => 'boolean',
     ];
 
-    protected $appends = ['sponsor'];
+    protected $appends = ['sponsor', 'event', 'event_detail'];
 
 
     public function registrationPackage()
@@ -80,6 +80,24 @@ class Customer extends Authenticatable
         return $this->sponsor()->get();
     }
 
+    public function event()
+    {
+        return $this->hasMany(Event::class);
+    }
+    public function getEventAttribute()
+    {
+        return $this->event()->get();
+    }
+
+    public function eventDetail()
+    {
+        return $this->hasManyThrough(EventDetail::class, Event::class, 'customer_id', 'event_id', 'id', 'id');
+    }
+    public function getEventDetailAttribute()
+    {
+        return $this->eventDetail()->get();
+    }
+    
     /**
      * Landing type by priority: Exporter (customer) > Event > Sponsor.
      * Used for login redirect and dashboard routing.
