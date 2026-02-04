@@ -111,12 +111,13 @@
         (JSON.parse(user)['registration_package_id'] !=
           selectedRegistrationPackage.id ||
           JSON.parse(user)['payment_frequency'] != payment_frequency) && JSON.parse(user)['is_package_amount_paid'] == '1'
-      " >
-        <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
+      " class="flex flex-col gap-6">
+        <!-- Select Payment Method -->
+        <div class="bg-white rounded-lg overflow-hidden shadow-3xl">
           <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-          <h4 class="text-white">Select Payment Method</h4>
-        </div>
-        <div class="flex justify-center gap-6 items-stretch xl:gap-12 px-4 py-8 sm:px-10">
+            <h4 class="text-white">Select Payment Method</h4>
+          </div>
+          <div class="px-4 py-8 sm:px-10">
           <div v-if="calTotalPrice() > 0" class="w-full flex">
             <div class="h-full w-full ">
               <div>
@@ -286,15 +287,17 @@
                 </div>
               </div>
             </div>
-          </div>        
+          </div>
+          </div>
         </div>
-        </div>
-        <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
+
+        <!-- Order Summary -->
+        <div class="bg-white rounded-lg overflow-hidden shadow-3xl">
           <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-          <h4 class="text-white">Order Summary</h4>
-        </div>
-         <div class="flex justify-center gap-6 items-stretch xl:gap-12 px-4 py-8 sm:px-10">          
-          <div class="w-full mt-6 rounded-lg border bg-white p-4 md:p-6 shadow-md md:mt-0 flex flex-col h-full">
+            <h4 class="text-white">Order Summary</h4>
+          </div>
+          <div class="px-4 py-8 sm:px-10">
+          <div class="w-full rounded-lg border bg-white p-4 md:p-6 shadow-md flex flex-col h-full">
             <div class="mb-2 flex justify-between">
               <p class="text-gray-700">{{ payment_setting && JSON.parse(payment_setting) ?
                 JSON.parse(payment_setting)["package_text"] : "" }}</p>
@@ -332,11 +335,8 @@
               </button>
             </div>
           </div>
-
+          </div>
         </div>
-        </div>
-
-        
       </div>
 
 
