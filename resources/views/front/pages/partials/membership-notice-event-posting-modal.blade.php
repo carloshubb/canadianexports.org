@@ -5,7 +5,7 @@
     aria-modal="true"
     aria-labelledby="membership-notice-modal-title"
     onclick="if (event.target === this) window.closeMembershipNoticeEventPostingModal();">
-    <div class="membership-notice-modal-content bg-white rounded-lg p-6 max-w-lg w-full mx-4 shadow-xl" onclick="event.stopPropagation();">
+    <div class="membership-notice-modal-content gradient-border-modal rounded-lg p-6 max-w-lg w-full mx-4" onclick="event.stopPropagation();">
         <h2 id="membership-notice-modal-title" class="font-FuturaMdCnBT text-primary text-xl md:text-2xl mb-4 text-center">
             Membership Notice: Event Posting
         </h2>
@@ -20,15 +20,17 @@
                 (Note: <strong>Featured Events</strong> remain a paid upgrade for all membership tiers.)
             </p>
         </div>
-        <div class="flex flex-wrap gap-3 justify-end mt-6">
-            <button type="button"
-                onclick="window.closeMembershipNoticeEventPostingModal();"
-                class="button-exp-no-fill px-4 py-2">
-                Close
-            </button>
-            <a href="{{ $eventSignupUrl ?? '#' }}" class="button-exp-fill px-4 py-2 inline-flex items-center justify-center">
-                Proceed to Create Event
-            </a>
+        <div class="mt-6  rounded-lg p-4">
+            <div class="flex flex-wrap gap-3 justify-center">
+                <button type="button"
+                    onclick="window.closeMembershipNoticeEventPostingModal();"
+                    class="button-exp-no-fill px-4 py-2">
+                    Close
+                </button>
+                <a href="{{ $eventSignupUrl ?? '#' }}" class="button-exp-fill px-4 py-2 inline-flex items-center justify-center">
+                    Proceed to Create Event
+                </a>
+            </div>
         </div>
     </div>
 </div>
