@@ -297,7 +297,7 @@
                 form.has('payment_frequency') &&
                 form.get('payment_frequency') == 'semi_annually'
                 ">
-                Semi annually
+                Semi Annually
               </option>
               <option value="annually" :selected="form &&
                 form.has('payment_frequency') &&

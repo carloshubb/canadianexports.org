@@ -738,8 +738,8 @@
                                                         :validationErros="validationErros" full_width="1" />
                                                 </div>
                                                 <div class="input_text mt-2 relative">
-                                                    <label class="">Card details</label>
-                                                    <div ref="stripeCard" class="can-exp-input"></div>
+                                                    <label class="">Card Details</label>
+                                                    <Div ref="stripeCard" class="can-exp-input"></div>
                                                     <Error fieldName="payment_method_id"
                                                         :validationErros="validationErros" full_width="1" />
                                                 </div>
