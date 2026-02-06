@@ -148,7 +148,7 @@
                             <option value="quarterly" :selected="form.payment_frequency == 'quarterly'">Quarterly
                             </option>
                             <option value="semi_annually" :selected="form.payment_frequency == 'semi_annually'">Semi
-                                annually</option>
+                                Annually</option>
                             <option value="annually" :selected="form.payment_frequency == 'annually'">Annually</option>
                         </select>
 

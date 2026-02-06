@@ -350,7 +350,7 @@
                                                         ? JSON.parse(payment_setting)[
                                                         "card_number_label"
                                                         ]
-                                                        : "Card details"
+                                                        : "Card Details"
                                                 }}</label>
                                                 <div ref="stripeCard" class="can-exp-input"></div>
                                                 <Error fieldName="payment_method_id" :validationErros="validationErros"

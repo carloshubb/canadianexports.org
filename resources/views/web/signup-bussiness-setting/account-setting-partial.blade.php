@@ -30,7 +30,7 @@
         @endphp
         <div class="bg-white  px-4 sm:px-10  rounded-lg sm:pt-20 w-full max-w-full min-w-0 mt-20">
             <h2 class="font-FuturaMdCnBT  text-gray-900 break-words">{{ $greetingText }} {{ $user->name }},</h2>
-            <p class="font-FuturaMdCnBT text-gray-700 mt-2 break-words whitespace-normal" style="line-height: 1.6; word-wrap: break-word;">{!! $profileDescription !!}</p>
+            <p class="font-FuturaMdCnBT text-gray-700  break-words whitespace-normal" style="line-height: 1.6; word-wrap: break-word;">{!! $profileDescription !!}</p>
         </div>
         @include('web.signup-bussiness-setting.registration-package', ['page_id' => $page_id])
         @include('web.signup-bussiness-setting.company-and-contact-info', ['page_id' => $page_id, 'user' => $user, 'hide_welcome' => true])

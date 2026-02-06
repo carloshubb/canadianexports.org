@@ -217,7 +217,7 @@ const helpers = {
         swal.fire({
             position: "center",
             showConfirmButton: true,
-            confirmButtonText: 'Close',
+            confirmButtonText: 'OK',
             showCloseButton: false,
             background: "#ffffffff",
             buttonsStyling: false,
@@ -234,7 +234,7 @@ const helpers = {
         swal.fire({
             position: "center",
             showConfirmButton: true,
-            confirmButtonText: 'Close',
+            confirmButtonText: 'OK',
             showCloseButton: false,
             background: "#ffffffff",
             buttonsStyling: false,
@@ -251,7 +251,7 @@ const helpers = {
         swal.fire({
             position: "center",
             showConfirmButton: true,
-            confirmButtonText: 'Close',
+            confirmButtonText: 'OK',
             showCloseButton: false,
             background: "#fff",
             buttonsStyling: false,

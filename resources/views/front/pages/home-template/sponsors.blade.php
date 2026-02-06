@@ -63,7 +63,7 @@ $banners = getBanners('sponsor', 8);
                     @endforeach
                 </div>
             </div>
-            <div class="sponsor-button-next-exp absolute top-1/2 z-50" style="left: -72px;transform: translateY(-50%);">
+            <div class="sponsor-button-next-exp absolute top-1/2 z-50" style="right: -72px;transform: translateY(-50%);">
                 <div
                     class="w-8 h-8 md:w-12 md:h-12 bg-secondary text-white rounded-full flex justify-center items-center bg-opacity-40">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -73,7 +73,7 @@ $banners = getBanners('sponsor', 8);
                     </svg>
                 </div>
             </div>
-            <div class="sponsor-button-prev-exp  absolute top-1/2  z-50" style="right: -72px;transform: translateY(-50%);">
+            <div class="sponsor-button-prev-exp  absolute top-1/2  z-50" style="left: -72px;transform: translateY(-50%);">
                 <div
                     class="w-8 h-8 md:w-12 md:h-12 bg-secondary text-white rounded-full flex justify-center items-center bg-opacity-40">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

@@ -115,8 +115,8 @@
                           />
                         </div>
                         <div class="input_text mt-2 relative">
-                          <label class="">Card details</label>
-                          <div ref="stripeCard" class="can-exp-input"></div>
+                          <label class="">Card Details</label>
+                          <Div ref="stripeCard" class="can-exp-input"></div>
                           <Error
                             fieldName="payment_method_id"
                             :validationErros="validationErros"
@@ -398,14 +398,14 @@ export default {
         .then((response) => {
           if (response.data.status == "Success") {
             if (response?.data?.data?.type == "paypal") {
-              // this.showCountdownModal(response?.data?.data?.redirect_url);
+              this.showCountdownModal(response?.data?.data?.redirect_url);
               window.location.href = response?.data?.data?.redirect_url;
             } else {
-              // helper.swalSuccessMessageForWeb(response.data.message);
+              //helper.swalSuccessMessageForWeb(response.data.message);
               window.location.href = this.url;
             }
           } else {
-            helper.swalErrorMessageForWeb(response.data.message);
+            //helper.swalErrorMessageForWeb(response.data.message);
           }
           this.loading = false;
         })
