@@ -19,20 +19,9 @@
                 @endif
                 <div class="">
                     <div class="bg-white py-8 px-4 sm:px-10">
-                        {{-- Back button --}}
-                        <div class="mb-4">
-                            @php
-                                $langAbbr = app()->getLocale() ?? 'en';
-                                $backUrl = "/{$langAbbr}/user/sponsor-settings";
-                            @endphp
-                            <a href="{{ $backUrl }}" class="text-primary hover:text-primary/80 flex items-center gap-2">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                                </svg>
-                                Back to Sponsorships List
-                            </a>
-                        </div>
-                        
+                        <h1 class="font-FuturaMdCnBT text-2xl md:text-3xl text-gray-900 mb-4">Your Sponsor Profile</h1>
+                        <p class="text-gray-600 mb-6" style="margin-top: 60px;" >Welcome to your command center. Everything you share here helps Canadian exporters and international buyers find you. You can update your company details, media, and contact information at any time to keep your profile fresh and engaging.</p>
+
                         {{-- Edit specific sponsorship --}}
                         <sponsor-profile-edit :sponsorship-id="{{ $id }}"></sponsor-profile-edit>
                     </div>

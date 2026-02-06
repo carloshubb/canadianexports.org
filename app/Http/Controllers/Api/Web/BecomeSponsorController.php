@@ -184,9 +184,12 @@ class BecomeSponsorController extends Controller
                 'beneficiary_ids.*' => 'exists:coffee_wall_beneficiaries,id',
             ];
 
-            // Password only required for NEW users (not logged in AND email doesn't exist)
-            if (!$loggedInCustomer && !$existingCustomer) {
+            // Password only required for NEW users when NOT "Talk to Us First"
+            if (!$talkToUsFirst && !$loggedInCustomer && !$existingCustomer) {
                 $rules['password'] = 'required|string|min:8|confirmed';
+            }
+            if ($talkToUsFirst) {
+                $rules['password'] = 'nullable|string|min:8|confirmed';
             }
 
             // If "Enter Your Amount" option is selected
@@ -634,7 +637,7 @@ class BecomeSponsorController extends Controller
                     'company_name' => $request->company_name,
                     'email' => $request->email,
                     'payment_status' => $paymentStatus,
-                    'customer_id' => $customer->id ?? null
+                    'customer_id' => $customer ? $customer->id : null
                 ]);
 
                 $sponsor = Sponsor::create([
@@ -667,7 +670,7 @@ class BecomeSponsorController extends Controller
                     'paid_at' => $paymentStatus === 'paid' ? now() : null,
                     'status' => $status,
                     'is_visible' => $isVisible,
-                    'customer_id' => $customer->id ?? null,
+                    'customer_id' => $customer ? $customer->id : null,
                 ]);
 
                 Log::info('Sponsor created successfully', ['sponsor_id' => $sponsor->id]);

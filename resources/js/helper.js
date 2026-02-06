@@ -100,7 +100,7 @@ const helpers = {
                 htmlContainer: "swalSuccessClass",
             },
             didOpen: (toast) => {
-                
+
                 toast.addEventListener("mouseenter", swal.stopTimer);
                 toast.addEventListener("mouseleave", swal.resumeTimer);
             },
@@ -161,22 +161,58 @@ const helpers = {
         );
     },
     swalSuccessMessageForWeb(message) {
-    return swal.fire({
-        position: "center",
-        showConfirmButton: true,
-        confirmButtonText: 'OK',
-        showCloseButton: false,
-        background: "#ffffffff",
-        buttonsStyling: false,
-        customClass: {
-            popup: "gradient-border-modal", // Add custom class for the popup container
-            title: "swalSuccessClass",
-            htmlContainer: "swalSuccessClass",
-            confirmButton: 'button-exp-fill focus:outline-none',
-        },
-        html: `<p class="text-center">${message}</p>`,
-    });
-},
+        return swal.fire({
+            position: "center",
+            showConfirmButton: true,
+            confirmButtonText: 'Close',
+            showCloseButton: false,
+            background: "#ffffffff",
+            buttonsStyling: false,
+            customClass: {
+                popup: "gradient-border-modal", // Add custom class for the popup container
+                title: "swalSuccessClass",
+                htmlContainer: "swalSuccessClass",
+                confirmButton: 'button-exp-fill focus:outline-none',
+            },
+            html: `<p class="text-center">${message}</p>`,
+        });
+
+
+    },
+    swalSponsorSuccessForWeb(profileUrl) {
+        return swal.fire({
+            position: "center",
+            showConfirmButton: true,
+            confirmButtonText: 'Close',
+            showDenyButton: !!profileUrl,
+            denyButtonText: 'View My Live Profile',
+            showCloseButton: true,
+            background: "#ffffffff",
+            buttonsStyling: false,
+            customClass: {
+                popup: "gradient-border-modal",
+                title: "swalSuccessClass",
+                htmlContainer: "swalSuccessClass",
+                actions: "swal-sponsor-success-actions",
+                confirmButton: 'button-exp-fill focus:outline-none',
+                denyButton: 'button-exp-fill focus:outline-none',
+            },
+            html: `
+                <div class="text-center">
+                    <div class="checkmark">✓</div>
+                    <h2 class="success-title">Welcome to Canadian Exports!</h2>
+                    <p class="success-subtitle">You are now an Official Sponsor</p>
+                    <p>Thank you for your <strong>generous support</strong>. Your <strong>partnership</strong> is already making a difference for small businesses and entrepreneurs across the nation.</p>
+                    <p>Your profile is now <strong>LIVE</strong>. You can visit the <strong>Homepage</strong> to see your brand in its new featured position. A payment receipt has been sent to your email.</p>
+                </div>
+            `,
+        }).then((result) => {
+            if (result.isDenied && profileUrl) {
+                window.location.href = profileUrl;
+            }
+            return result;
+        });
+    },
     swalPreSuccessMessageForWeb(message) {
         swal.fire({
             position: "center",
@@ -220,7 +256,7 @@ const helpers = {
             background: "#fff",
             buttonsStyling: false,
             customClass: {
-                 popup: "gradient-border-modal", // Add custom class for the popup container
+                popup: "gradient-border-modal", // Add custom class for the popup container
                 title: "swalSuccessClass",
                 htmlContainer: "swalSuccessClass",
                 confirmButton: 'button-exp-fill focus:outline-none',

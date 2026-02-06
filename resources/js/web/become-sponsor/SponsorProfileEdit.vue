@@ -1,6 +1,21 @@
 <template>
   <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
 
+    <!-- Profile status + View public profile (one line, badge/button style) -->
+    <div v-if="sponsor" class="flex flex-wrap items-center gap-3 mb-6">
+      <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 bg-gray-50/80 text-sm text-gray-700 font-FuturaMdCnBT">
+        Your Profile Status:
+        <span class="inline-flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full shrink-0" :class="sponsor.status === 'active' ? 'bg-green-500' : 'bg-gray-400'"></span>
+          {{ sponsor.status === 'active' ? 'Live' : (sponsor.status === 'pending' ? 'Pending' : 'Draft') }}
+        </span>
+      </span>
+      <a :href="publicProfileUrl" target="_blank" rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/40 bg-primary/5 text-primary text-sm font-FuturaMdCnBT hover:bg-primary/10 hover:border-primary/60 transition-colors">
+        View Public Profile
+      </a>
+    </div>
+
     <!-- Sponsorship Status Card -->
     <div v-if="sponsor"
       class="bg-gradient-to-r from-blue-50 to-primary/10 border border-primary/30 rounded-lg p-6 mb-6">
@@ -212,21 +227,20 @@
         </div>
       </div>
 
-      <!-- Change Password -->
+      <!-- Your Password -->
       <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
         <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-          <h4 class="text-white">Change Password</h4>
+          <h4 class="text-white">Your Password</h4>
         </div>
         <div class="p-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="md:col-span-2">
               <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="current_password">
                 Current Password
-                <span class="text-xs text-gray-500 ml-2">(Leave blank to keep current password)</span>
               </label>
               <div class="relative">
                 <input :type="showCurrentPassword ? 'text' : 'password'" id="current_password"
-                  v-model="form.current_password" class="can-exp-input" placeholder="Enter your current password"
+                  v-model="form.current_password" class="can-exp-input" 
                   @input="clearErrors('current_password')" />
                 <button type="button" class="absolute right-3 top-3 text-gray-500 hover:text-gray-700"
                   @click="showCurrentPassword = !showCurrentPassword">
@@ -252,7 +266,7 @@
               </label>
               <div class="relative">
                 <input :type="showNewPassword ? 'text' : 'password'" id="new_password" v-model="form.new_password"
-                  class="can-exp-input" placeholder="Enter new password" @input="clearErrors('new_password')" />
+                  class="can-exp-input"  @input="clearErrors('new_password')" />
                 <button type="button" class="absolute right-3 top-3 text-gray-500 hover:text-gray-700"
                   @click="showNewPassword = !showNewPassword">
                   <svg v-if="!showNewPassword" class="w-5 h-5" viewBox="0 0 51 34" fill="none"
@@ -277,7 +291,7 @@
               </label>
               <div class="relative">
                 <input :type="showNewPasswordConfirm ? 'text' : 'password'" id="new_password_confirmation"
-                  v-model="form.new_password_confirmation" class="can-exp-input" placeholder="Confirm new password"
+                  v-model="form.new_password_confirmation" class="can-exp-input" 
                   @input="clearErrors('new_password_confirmation')" @blur="checkNewPasswordMatch" />
                 <button type="button" class="absolute right-3 top-3 text-gray-500 hover:text-gray-700"
                   @click="showNewPasswordConfirm = !showNewPasswordConfirm">
@@ -299,21 +313,22 @@
           </div>
           <div class="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
             <p class="text-sm text-blue-800">
-              <strong>Note:</strong> Only fill these fields if you want to change your password. Leave them blank to
-              keep your current password.
+              <strong>Note: </strong>Leave these fields blank to keep your current password. Only enter a new password if you wish to update it.
             </p>
           </div>
         </div>
       </div>
 
       <!-- Form Actions -->
-      <div class="flex flex-col sm:flex-row gap-3 justify-end">
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
         <button type="button" @click="resetForm"
-          class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition"
+          class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-opacity duration-200"
+          :class="{ 'opacity-50': !formDirty }"
           :disabled="loading">
           Reset Changes
         </button>
-        <button type="submit" class="button-exp-fill" :disabled="loading">
+        <button type="submit" class="button-exp-fill transition-opacity duration-200" :class="{ 'opacity-50': !formDirty }"
+          :disabled="loading">
           <span v-if="loading" class="flex items-center justify-center">
             <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
               viewBox="0 0 24 24">
@@ -404,6 +419,8 @@ export default {
       logo_files: [],
       featured_image_files: [],
       loading: false,
+      formDirty: false,
+      _skipDirtyCheck: false,
       validationErros: new ErrorHandling(),
       submitted: false,
       showCurrentPassword: false,
@@ -413,6 +430,24 @@ export default {
   },
   mounted() {
     this.fetchSponsorProfile();
+  },
+  computed: {
+    publicProfileUrl() {
+      if (!this.sponsor || !this.sponsor.slug) return "#";
+      const path = window.location.pathname || "";
+      const langMatch = path.match(/^\/([a-z]{2})(?:\/|$)/);
+      const langAbbr = langMatch ? langMatch[1] : "en";
+      const base = process.env.MIX_APP_URL || "";
+      return `${base}/${langAbbr}/sponsor-detail/${this.sponsor.slug}`;
+    },
+  },
+  watch: {
+    form: {
+      deep: true,
+      handler() {
+        if (!this._skipDirtyCheck) this.formDirty = true;
+      },
+    },
   },
   methods: {
     async fetchSponsorProfile() {
@@ -459,6 +494,7 @@ export default {
 
     populateForm() {
       if (this.sponsor) {
+        this._skipDirtyCheck = true;
         this.form.company_name = this.sponsor.business_name || "";
         this.form.contact_name = this.sponsor.contact_name || "";
         this.form.email = this.sponsor.email || "";
@@ -467,6 +503,10 @@ export default {
         this.form.summary = this.sponsor.summary || "";
         this.form.detail_description = this.sponsor.detail_description || "";
         this.form.message = this.sponsor.message || "";
+        this.$nextTick(() => {
+          this._skipDirtyCheck = false;
+          this.formDirty = false;
+        });
       }
     },
 

@@ -273,7 +273,7 @@ substr($useragent, 0, 4),
                             </a>
                             <a aria-label="Candian Exporters" href="{{ $accountUrl }}"
                                 class="menu block w-full whitespace-nowrap bg-transparent px-4 py-2 font-FuturaMdCnBT text-base text-slate-700 md:text-base lg:text-lg">
-                                <i class="fa fa-user-circle"></i> Account Settings
+                                <i class="fa fa-user-circle"></i> Profile Settings
                             </a>
                             @elseif ($customer && $customer->type == 'customer')
                             {{-- Regular customer menu --}}

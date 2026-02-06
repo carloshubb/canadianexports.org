@@ -15,8 +15,7 @@
               class="flex items-center border w-full overflow-hidden bg-white rounded-md md:rounded-lg shadow-sm">
               <template v-for="(label, key, index) in frequencies" :key="key">
                 <div class="w-full" v-if="index < Object.keys(frequencies).length - 1">
-                  <label
-                    class="w-full block cursor-pointer px-5 py-5 text-base md:text-lg text-center border rounded-none"
+                  <label class="w-full block cursor-pointer px-5 py-5 text-base md:text-lg text-center  rounded-none"
                     :class="[
                       selectedFrequency === key
                         ? 'border-2 border-green-500 text-green-500'
@@ -58,17 +57,18 @@
                 </path>
               </svg>
 
-              <input type="text" id="custom_amount1" v-model="custom_amount1" @keypress="inputAmount(custom_amount1)"
+              <input type="number" id="custom_amount1" v-model="custom_amount1" @keypress="inputAmount(custom_amount1)"
                 class="block mt-1 border-2 p-2.5 w-full rounded border-gray-200 focus:outline-none focus:border focus:border-blue-600 pl-10 h-12"
                 :placeholder="'Enter your own amount'" />
             </div>
             <br></br><br></br>
-            <div class="flex-1 mt-3">
+            <div class="talk-to-us-frame flex-1 mt-3 rounded-lg p-[3px] transition-all duration-300"
+              :class="show_contact_preference ? 'talk-to-us-frame-selected' : 'talk-to-us-frame-pulse'">
               <label
-                class="w-full h-full flex flex-col cursor-pointer px-5 py-6 rounded-md text-base md:text-lg font-medium text-center border-2 transition-all"
+                class="w-full h-full flex flex-col cursor-pointer px-5 py-6 rounded-md text-base md:text-lg font-medium text-center border-2 transition-all bg-white"
                 :class="show_contact_preference
                   ? 'border-2 border-green-500 text-green-500'
-                  : 'border-gray-200'
+                  : 'border-gray-200 hover:border-primary/40'
                   ">
                 <input type="radio" name="sponsorship_option" :value="true" class="sr-only"
                   v-model="form.talk_to_us_first" @click="onOptionChange(true)" />
@@ -115,46 +115,48 @@
       </div> -->
 
       <!-- TALK TO US FIELDS (Only for "Talk to Us First" option) -->
-      <div v-if="show_contact_preference" class="bg-white rounded-lg shadow-3xl my-6">
-        <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-          <h4 class="text-white">Contact Preferences</h4>
-        </div>
-        <div class="p-6">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="relative w-full">
-              <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="preferred_call_time">
-                Best Time to Call
-                <!-- <span class="text-red-500">*</span> -->
-              </label>
-              <select id="preferred_call_time" v-model="form.preferred_call_time"
-                class="can-exp-input w-full block border border-gray-300 rounded"
-                @change="clearErrors('preferred_call_time')">
-                <option value="morning">Morning (9 AM - 12 PM)</option>
-                <option value="afternoon">Afternoon (12 PM - 5 PM)</option>
-                <option value="evening">Evening (5 PM - 8 PM)</option>
-              </select>
-              <Error v-if="submitted" fieldName="preferred_call_time" :validationErros="validationErros" />
-            </div>
+      <Transition name="slide-down">
+        <div v-if="show_contact_preference" class="bg-white rounded-lg shadow-3xl my-6">
+          <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
+            <h4 class="text-white">Contact Preferences</h4>
+          </div>
+          <div class="p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="relative w-full">
+                <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="preferred_call_time">
+                  Best Time to Call
+                  <!-- <span class="text-red-500">*</span> -->
+                </label>
+                <select id="preferred_call_time" v-model="form.preferred_call_time"
+                  class="can-exp-input w-full block border border-gray-300 rounded"
+                  @change="clearErrors('preferred_call_time')">
+                  <option value="morning">Morning (9 AM - 12 PM)</option>
+                  <option value="afternoon">Afternoon (12 PM - 5 PM)</option>
+                  <option value="evening">Evening (5 PM - 8 PM)</option>
+                </select>
+                <Error v-if="submitted" fieldName="preferred_call_time" :validationErros="validationErros" />
+              </div>
 
-            <div class="relative w-full">
-              <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="preferred_call_date">
-                Preferred Date (Optional)
-              </label>
-              <VueDatePicker id="preferred_call_date" v-model="form.preferred_call_date" placeholder="YYYY-MM-DD"
-                model-type="yyyy-MM-dd" :formats="{ input: 'yyyy-MM-dd' }" :time-config="{ enableTimePicker: false }"
-                auto-apply @update:model-value="
-                  clearErrors('preferred_call_date');">
-              </VueDatePicker>
-              <Error v-if="submitted" fieldName="preferred_call_date" :validationErros="validationErros" />
+              <div class="relative w-full">
+                <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="preferred_call_date">
+                  Preferred Date (Optional)
+                </label>
+                <VueDatePicker id="preferred_call_date" v-model="form.preferred_call_date" placeholder="YYYY-MM-DD"
+                  model-type="yyyy-MM-dd" :formats="{ input: 'yyyy-MM-dd' }" :time-config="{ enableTimePicker: false }"
+                  auto-apply @update:model-value="
+                    clearErrors('preferred_call_date');">
+                </VueDatePicker>
+                <Error v-if="submitted" fieldName="preferred_call_date" :validationErros="validationErros" />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </Transition>
 
       <!-- COMPANY INFORMATION -->
       <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
         <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-          <h4 class="text-white">Your Business Information</h4>
+          <h4 class="text-white">Account Details</h4>
         </div>
         <div class="p-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -170,7 +172,7 @@
 
             <div class="relative w-full">
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="contact_name">
-                Your Name and Title
+                Primary Contact Name & Title
                 <span class="text-red-500">*</span>
               </label>
               <textarea id="contact_name" v-model="form.contact_name" class="can-exp-input scrollbar-textarea"
@@ -181,18 +183,18 @@
 
             <div class="relative w-full">
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="email">
-                Your Email
+                Email Address
                 <span class="text-red-500">*</span>
               </label>
               <input type="email" id="email" v-model="form.email" class="can-exp-input"
-                placeholder="You will use this email to log in to your account" @input="clearErrors('email')" />
+                placeholder="Used for both login and contact." @input="clearErrors('email')" />
 
               <Error v-if="submitted" fieldName="email" :validationErros="validationErros" />
             </div>
 
             <div class="relative w-full">
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="contact_number">
-                Your Phone Number
+                Phone Number
                 <span class="text-red-500">*</span>
               </label>
               <input type="text" id="contact_number" v-model="form.contact_number" class="can-exp-input"
@@ -204,8 +206,9 @@
             <div class="relative w-full" v-if="!isLoggedIn">
               <br>
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="password">
-                Select Password (Min. 8 characters. Must contain at least one lowercase and one uppercase)
-                <span class="text-red-500">*</span>
+                Password (Min. 8 characters. Must contain at least one lowercase and one uppercase)
+                <span v-if="!show_contact_preference" class="text-red-500">*</span>
+                <span v-else class="text-gray-500">(Optional)</span>
               </label>
               <div class="relative">
                 <input :type="showPassword ? 'text' : 'password'" id="password" v-model="form.password"
@@ -232,7 +235,8 @@
               <Br></Br>
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="password_confirmation"><br></br>
                 Confirm Password
-                <span class="text-red-500">*</span>
+                <span v-if="!show_contact_preference" class="text-red-500">*</span>
+                <span v-else class="text-gray-500">(Optional)</span>
               </label>
               <div class="relative">
                 <input :type="showPasswordConfirm ? 'text' : 'password'" id="password_confirmation"
@@ -259,7 +263,8 @@
             <div class="relative w-full md:col-span-2">
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="url">
                 Your Website
-                {{ !form.talk_to_us_first ? "" : "(Optional)" }}
+                <span v-if="!show_contact_preference"></span>
+                <span v-else class="text-gray-500">(Optional)</span>
               </label>
               <input type="url" id="url" v-model="form.url" class="can-exp-input" @input="clearErrors('url')" />
               <Error v-if="submitted" fieldName="url" :validationErros="validationErros" />
@@ -268,32 +273,41 @@
         </div>
       </div>
 
-      <!-- COMPANY DESCRIPTION & IMAGES -->
-      <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
+      <!-- COMPANY DESCRIPTION & IMAGES (hidden when "Talk to Us First" is selected) -->
+      <Transition name="slide-down">
+      <div v-if="!show_contact_preference" class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
         <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-          <h4 class="text-white">Business Description & Media</h4>
+          <h4 class="text-white">Brand Story & Media</h4>
         </div>
         <div class="p-6">
           <div class="grid grid-cols-1 gap-4">
             <div class="relative w-full">
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="summary">
                 Brief Introduction
-               <span v-if="!form.talk_to_us_first" class="text-red-500">*</span>
+                <span v-if="!form.talk_to_us_first" class="text-red-500">*</span>
               </label>
-              <textarea id="summary" v-model="form.summary" rows="3" class="can-exp-input resize-none"
-                placeholder="Describe the nature of your business in no more than 30 words. You can write your business slogan, company mission, or highlight your competitive advantage. This information will appear next to your company name on the search result page and will help you to attract visitors to your profile page. Make sure to describe your business in an engaging, informative way so that when the importer reads it, they will be more inclined to click on your profile page. to check out your business profile. For example, if the importer is looking for product x, from Canada, they will carry out a search on the Canadian Exports website and may come up with 20+ search results. Each one of these results will have their own short business description and the importer will click on the one that appeals to them the most. That's why your description about what you offer needs to be as eye-catching as possible to stand out from the rest of your competitors."
-                @input="clearErrors('summary')"></textarea>
+              <div class="relative">
+                <textarea id="summary" v-model="form.summary" rows="3" class="can-exp-input resize-none"
+                  @input="clearErrors('summary')"></textarea>
+
+                <div v-if="!form.summary" class="absolute top-2 left-3 text-gray-400 pointer-events-none">
+                  In 30 words or less, share your company’s mission or a message of support. This text will appear on the Homepage to highlight your status as an Official Partner of
+                  <strong>Canadian Exports</strong> and
+                  <strong>Canadian export community.</strong>
+                </div>
+              </div>
+
               <Error v-if="submitted" fieldName="summary" :validationErros="validationErros" />
             </div>
 
             <div class="relative w-full">
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="detail_description">
-                Detailed Description             
+                Detailed Description
                 <span v-if="!form.talk_to_us_first" class="text-red-500">*</span>
               </label>
               <textarea id="detail_description" v-model="form.detail_description" rows="4"
                 class="can-exp-input resize-none"
-                placeholder="This is the text that will appear on your actual business profile page. Once the importer has selected YOUR company and clicked on YOUR name in the search results page, they will be taken to your business profile page. Use this space to outline what your business does and why potential customers should choose YOU. Your description should be no more than 300 words and include details about your products and services. This is your opportunity to reach potential clients, introduce them to your products, and attract further business"
+                placeholder="Use this space (up to 300 words) to share your company’s story and your commitment to supporting Canadian growth. You can outline your services or explain why you’ve chosen to champion small businesses, startups, and diverse entrepreneurs through this sponsorship."
                 @input="clearErrors('detail_description')"></textarea>
               <Error v-if="submitted" fieldName="detail_description" :validationErros="validationErros" />
             </div>
@@ -303,7 +317,7 @@
                 Additional Message
               </label>
               <textarea id="message" v-model="form.message" rows="3" class="can-exp-input resize-none"
-                placeholder="Is there any additional information you'd like to share with us, or specific support you'd like to receive before we get in touch?"
+                placeholder="Please use this space to share any specific goals, questions, or details you’d like us to review before we get in touch. We want to ensure our partnership is perfectly tailored to your needs."
                 @input="clearErrors('message')"></textarea>
               <Error v-if="submitted" fieldName="message" :validationErros="validationErros" />
             </div>
@@ -311,8 +325,7 @@
             <!-- Featured Image Upload (appears on Home page) -->
             <div class="relative w-full">
               <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="featured_image">
-                Featured Image (<span class="text-[0.85em]">Appears on the Home page · PNG, GIF,
-                JPG, JPEG ·  10 MB max)</span>
+                Featured Image (<span class="text-[0.85em]">This is your main "hero" photo. It will be the large image on your homepage card and the banner at the top of your profile page. JPG, JPEG, or PNG, max 10MB)</span>
 
                 <span class="text-red-500">*</span>
               </label>
@@ -326,8 +339,8 @@
 
             <!-- Profile Image Upload -->
             <div class="relative w-full">
-              <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="logo">Profile Image
-                <span class="text-[0.85em]"> (Allowed file types: PNG, GIF, JPG, JPEG.Max.10MB.)</span> 
+              <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="logo">Logo
+                <span class="text-[0.85em]"> (Your primary brand mark. This will appear in search results, on the "Our Sponsors" page, and on your profile sidebar. JPG,  JPEG, or PNG, max 5MB)</span>
                 <span class="text-red-500">*</span>
               </label>
               <FilePond @input="clearErrors('logo')" ref="filePondLogo" name="logo"
@@ -339,6 +352,7 @@
           </div>
         </div>
       </div>
+      </Transition>
 
       <!-- PAYMENT METHOD (Only for "Enter Your Amount" option) -->
       <div v-if="!form.talk_to_us_first && form.sponsorship_amount > 0"
@@ -353,7 +367,7 @@
                 class="h-4 w-4 border-gray-300 accent-primary" @click="setPaymentMethod('stripe')"
                 :checked="form.payment_method == 'stripe'" />
               <label for="stripe" class="ml-2 block text-gray-900 font-medium">
-                Pay with Credit Card
+                Debit or Credit Card
               </label>
             </div>
             <div class="flex items-center">
@@ -388,7 +402,7 @@
                 <!-- Cardholder Name -->
                 <div class="input_text relative mb-4">
                   <label class="block text-sm font-medium text-gray-700 mb-1">Cardholder Name</label>
-                  <input v-model="form.cardholder_name" type="text" placeholder="John Doe" class="can-exp-input"
+                  <input v-model="form.cardholder_name" type="text"  class="can-exp-input"
                     @input="clearErrors('cardholder_name')" />
                   <Error v-if="submitted" fieldName="cardholder_name" :validationErros="validationErros" />
                 </div>
@@ -407,11 +421,42 @@
         </div>
       </div>
 
+      <!-- Agreement checkboxes -->
+      <div class="mt-6 space-y-2">
+        <div class="flex items-start pb-4">
+          <input
+            id="agree_terms_and_privacy"
+            v-model="form.agree_terms_and_privacy"
+            type="checkbox"
+            class="h-4 w-4 mt-1 rounded border-gray-300 text-primary focus:ring-primary"
+          />
+          <label for="agree_terms_and_privacy" class="ml-2 text-gray-900 text-base md:text-base lg:text-lg">
+            I agree to the
+            <a href="/en/terms-and-conditions" target="_blank" rel="noopener noreferrer" class="text-primary underline hover:no-underline">Terms &amp; Conditions</a>
+            and
+            <a href="/en/privacy-policy" target="_blank" rel="noopener noreferrer" class="text-primary underline hover:no-underline">Privacy Policy</a>
+            of Canadian Exports.
+          </label>
+        </div>
+        <div class="flex items-start pb-4">
+          <input
+            id="agree_donation_non_refundable"
+            v-model="form.agree_donation_non_refundable"
+            type="checkbox"
+            class="h-4 w-4 mt-1 rounded border-gray-300 text-primary focus:ring-primary"
+          />
+          <label for="agree_donation_non_refundable" class="ml-2 text-gray-900 text-base md:text-base lg:text-lg">
+            I understand that this payment is a donation to support the Canadian Exports platform and is non-refundable.
+          </label>
+        </div>
+      </div>
+
       <!-- SUBMIT BUTTON -->
       <ListErrors :validationErrors="validationErros" />
       <div class="mt-8 flex justify-center items-center">
         <button aria-label="Submit Sponsorship" class="button-exp-fill text-lg px-8 py-3" type="submit"
-          :disabled="loading">
+          :class="{ 'opacity-50 cursor-not-allowed pointer-events-none': !isSubmitEnabled || loading }"
+          :disabled="!isSubmitEnabled || loading">
           <span v-if="loading" class="flex items-center">
             <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
               viewBox="0 0 24 24">
@@ -423,7 +468,7 @@
             Processing...
           </span>
           <span v-else>
-            Submit
+            {{ form.talk_to_us_first ? 'Submit' : 'Become a Sponsor' }}
           </span>
         </button>
       </div>
@@ -500,6 +545,8 @@ export default {
         payment_method_id: null,
         preferred_call_time: "morning",
         preferred_call_date: null,
+        agree_terms_and_privacy: false,
+        agree_donation_non_refundable: false,
       },
       beneficiaries: [],
       sponsorAmounts: [],
@@ -529,7 +576,10 @@ export default {
   computed: {
     isLoggedIn() {
       return this.logged_in_user && JSON.parse(this.logged_in_user);
-    }
+    },
+    isSubmitEnabled() {
+      return this.form.agree_terms_and_privacy === true && this.form.agree_donation_non_refundable === true;
+    },
   },
   async mounted() {
     // Pre-fill email for logged-in users
@@ -642,7 +692,8 @@ export default {
       });
     },
     onOptionChange(talkToUsFirst) {
-      this.form.talk_to_us_first = talkToUsFirst;
+      //this.form.talk_to_us_first = talkToUsFirst;
+      this.form.talk_to_us_first = !this.form.talk_to_us_first;
       this.validationErros = new ErrorHandling();
       console.log("show_contact_preference before toggle:", this.show_contact_preference);
       this.show_contact_preference = !this.show_contact_preference;
@@ -741,6 +792,7 @@ export default {
       this.selectedFrequency = amount.frequency;
       this.form.sponsorship_amount = amount.amount;
       this.form.frequency = amount.frequency;
+      this.custom_amount1 = null;
       this.clearErrors("sponsorship_amount");
     },
     inputAmount(custom_amount1) {
@@ -951,13 +1003,22 @@ export default {
           // Success - close loading
           this.loading = false;
 
+          const wasPayment = !this.form.talk_to_us_first;
+          const sponsor = response.data.data && response.data.data.sponsor;
+
           // Clear form
           this.clearForm();
-
-          // Show success message and redirect to home page when user clicks OK
-          helper.swalSuccessMessageForWeb(response.data.message).then(() => {
-            window.location.href = '/';
-          });
+          console.log("Response data:", wasPayment , sponsor , sponsor.slug);
+          
+          // After payment: show custom sponsor success popup with "View My Live Profile"; after "Talk to us First": show simple success then redirect
+          if (wasPayment && sponsor && sponsor.slug) {
+            const profileUrl = `/en/sponsor-detail/${sponsor.slug}`;
+            helper.swalSponsorSuccessForWeb(profileUrl);
+          } else {
+            helper.swalSuccessMessageForWeb(response.data.message).then(() => {
+              window.location.href = '/';
+            });
+          }
         } else {
           // Error response - close loading
           this.loading = false;
@@ -1318,6 +1379,38 @@ export default {
 </script>
 
 <style scoped>
+/* Talk to Us First – gradient frame and pulse (matches theme primary #0496ff, secondary #3B8FF2) */
+.talk-to-us-frame {
+  background: linear-gradient(135deg, #0496ff 0%, #0496ff 50%, #3B8FF2 100%);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.talk-to-us-frame-pulse {
+  animation: talk-to-us-glow 6.5s ease-in-out infinite;
+}
+
+.talk-to-us-frame-pulse:hover {
+  animation-duration: 3.5s;
+  box-shadow: 0 4px 20px rgba(4, 150, 255, 0.35);
+}
+
+.talk-to-us-frame-selected {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  box-shadow: 0 4px 16px rgba(34, 197, 94, 0.35);
+}
+
+@keyframes talk-to-us-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  }
+
+  50% {
+    box-shadow: 0 4px 20px rgba(4, 150, 255, 0.28);
+  }
+}
+
 /* Loading overlay styles */
 #form_preloader {
   position: fixed;
@@ -1355,11 +1448,11 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  animation: sk-bounce 2s infinite ease-in-out;
+  animation: sk-bounce 4s infinite ease-in-out;
 }
 
 .form-double-bounce2 {
-  animation-delay: -1s;
+  animation-delay: -2s;
 }
 
 @keyframes sk-bounce {
@@ -1372,6 +1465,24 @@ export default {
   50% {
     transform: scale(1);
   }
+}
+
+/* Slide-down transition for Contact Preferences and section visibility */
+.slide-down-enter-active,
+.slide-down-leave-active {
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.slide-down-enter-from,
+.slide-down-leave-to {
+  opacity: 0;
+  transform: translateY(-16px);
+}
+
+.slide-down-enter-to,
+.slide-down-leave-from {
+  opacity: 1;
+  transform: translateY(0);
 }
 </style>
 <style>
