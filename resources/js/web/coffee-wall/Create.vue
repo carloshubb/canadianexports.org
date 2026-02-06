@@ -904,13 +904,14 @@ export default {
 
                             // Show success popup in three sections: title, text, Thank you button
                             Swal.fire({
-                                title: "Your Coffee Is on Someone Today ☕💛",
-                                text: `This Coffee comes from ${donorName}, who chose to support Canadian small businesses like yours.`,
+                                title: "Your coffee is now waiting for a business that needs it.",
+                                text: `Your kindness helps open doors for Canadian exporters who are working hard to grow. Thank you.`,
                                 icon: 'success',
-                                confirmButtonText: 'Thank you',
+                                confirmButtonText: 'Close',
                                 allowOutsideClick: false,
                                 allowEscapeKey: false,
                                 customClass: {
+                                    popup: "gradient-border-modal",
                                     confirmButton: 'button-exp-fill',
                                 },
                             }).then(() => {

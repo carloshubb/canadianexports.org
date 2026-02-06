@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Web;
 
 use App\Http\Controllers\Controller;
+use App\Mail\CoffeeWallAdminNotificationMail;
 use App\Mail\CoffeeWallDonationConfirmationMail;
 use App\Mail\CoffeeUsedDonorMail;
 use App\Models\BusinessDirectory;
@@ -576,6 +577,26 @@ class HomeController extends Controller
                         'error' => $e->getMessage(),
                     ]);
                 }   
+            }
+
+            // Send admin notification: Coffee on the Wall added
+            try {
+                $general_setting = getGeneralSettingByKey();
+                if (!empty($general_setting['admin_email'])) {
+                    $adminEmailsArr = array_filter(array_map('trim', explode(',', $general_setting['admin_email'])));
+                    if (!empty($adminEmailsArr)) {
+                        if (count($adminEmailsArr) > 1) {
+                            $to_email = $adminEmailsArr[0];
+                            unset($adminEmailsArr[0]);
+                            Mail::to($to_email)->cc(array_values($adminEmailsArr))->send(new CoffeeWallAdminNotificationMail($coffee_wallet));
+                        } else {
+                            Mail::to($adminEmailsArr[0])->send(new CoffeeWallAdminNotificationMail($coffee_wallet));
+                        }
+                        Log::info('Coffee on Wall admin notification email sent');
+                    }
+                }
+            } catch (\Exception $e) {
+                Log::error('Failed to send Coffee on Wall admin notification email', ['error' => $e->getMessage()]);
             }
 
             Log::info('===== Coffee on Wall Form Submission Completed Successfully =====');
