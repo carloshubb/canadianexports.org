@@ -82,6 +82,7 @@ Route::group(['prefix' => 'web', 'middleware' => ['auth.user']], function () {
     Route::post('/sponsor/update-profile', [BecomeSponsorController::class, 'updateSponsorProfile']);
     Route::post('/sponsor/upgrade-preview', [BecomeSponsorController::class, 'upgradePreview']);
     Route::post('/sponsor/upgrade-plan', [BecomeSponsorController::class, 'upgradePlan']);
+    Route::post('/sponsor/downgrade-request', [BecomeSponsorController::class, 'downgradeRequest']);
 
     // Member Webinar routes (require authentication)
     Route::prefix('member/webinars')->group(function () {

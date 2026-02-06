@@ -384,10 +384,18 @@
             <div v-if="upgradePreview" class="p-4 bg-gray-50 rounded-md space-y-2 text-sm">
               <p><span class="text-gray-600">Unused credit from current plan:</span> <strong>${{ upgradePreview.unused_credit.toFixed(2) }}</strong></p>
               <p><span class="text-gray-600">New plan price:</span> <strong>${{ upgradePreview.new_plan_price.toFixed(2) }}</strong></p>
-              <p class="pt-2 border-t border-gray-200"><span class="text-gray-600">Amount due today:</span> <strong class="text-primary">${{ upgradePreview.amount_due_today.toFixed(2) }}</strong></p>
+              <p v-if="!upgradePreview.is_downgrade" class="pt-2 border-t border-gray-200"><span class="text-gray-600">Amount due today:</span> <strong class="text-primary">${{ upgradePreview.amount_due_today.toFixed(2) }}</strong></p>
             </div>
 
-            <template v-if="upgradePreview">
+            <!-- Downgrade: tooltip and submit request (no payment) -->
+            <div v-if="upgradePreview && upgradePreview.is_downgrade" class="p-4 bg-amber-50 border border-amber-200 rounded-md">
+              <p class="text-sm text-amber-800" title="Your downgrade will take effect at the end of your current billing period. If you need an immediate downgrade, please contact support.">
+                Your downgrade will take effect at the end of your current billing period. If you need an immediate downgrade, please contact support.
+              </p>
+            </div>
+
+            <!-- Upgrade: card and confirm pay -->
+            <template v-if="upgradePreview && !upgradePreview.is_downgrade">
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Cardholder name</label>
                 <input v-model="upgradeForm.cardholder_name" type="text" class="can-exp-input w-full" placeholder="John Doe" />
@@ -403,7 +411,11 @@
           <div class="flex gap-3 mt-6">
             <button type="button" @click="closeUpgradeModal"
               class="flex-1 px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">Cancel</button>
-            <button v-if="upgradePreview" type="button" @click="confirmUpgrade" :disabled="upgradeSubmitting || !upgradeForm.cardholder_name"
+            <button v-if="upgradePreview && upgradePreview.is_downgrade" type="button" @click="submitDowngradeRequest" :disabled="upgradeSubmitting"
+              class="flex-1 px-4 py-2 rounded-md bg-primary text-white font-medium hover:opacity-90 disabled:opacity-50">
+              {{ upgradeSubmitting ? 'Submitting...' : 'Submit downgrade request' }}
+            </button>
+            <button v-else-if="upgradePreview" type="button" @click="confirmUpgrade" :disabled="upgradeSubmitting || !upgradeForm.cardholder_name"
               class="flex-1 px-4 py-2 rounded-md bg-primary text-white font-medium hover:opacity-90 disabled:opacity-50">
               {{ upgradeSubmitting ? 'Processing...' : (upgradePreview.amount_due_today > 0 ? 'Confirm and pay' : 'Confirm upgrade') }}
             </button>
@@ -959,6 +971,33 @@ export default {
         }
       } catch (err) {
         const msg = err.response?.data?.message || err.message || "Upgrade failed.";
+        helper.swalErrorMessageForWeb(msg);
+      } finally {
+        this.upgradeSubmitting = false;
+      }
+    },
+
+    async submitDowngradeRequest() {
+      if (!this.upgradePreview || !this.upgradePreview.is_downgrade || !this.sponsor) return;
+      this.upgradeSubmitting = true;
+      try {
+        const { data } = await axios.post(
+          `${process.env.MIX_WEB_API_URL}sponsor/downgrade-request`,
+          {
+            sponsor_id: this.sponsor.id,
+            new_amount: this.upgradeForm.new_amount,
+            new_frequency: this.upgradeForm.new_frequency,
+            current_period_end: this.upgradePreview.current_period_end || null,
+          }
+        );
+        if (data.status === "Success") {
+          helper.swalSuccessMessageForWeb(data.message || "Downgrade request submitted. It will take effect at the end of your billing period.");
+          this.closeUpgradeModal();
+        } else {
+          helper.swalErrorMessageForWeb(data.message || "Request failed.");
+        }
+      } catch (err) {
+        const msg = err.response?.data?.message || err.message || "Request failed.";
         helper.swalErrorMessageForWeb(msg);
       } finally {
         this.upgradeSubmitting = false;

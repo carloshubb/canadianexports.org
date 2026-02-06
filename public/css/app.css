@@ -3268,6 +3268,10 @@ label{
 .border-primary\/40 {
   border-color: rgb(4 150 255 / 0.4);
 }
+.border-amber-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(253 230 138 / var(--tw-border-opacity, 1));
+}
 .border-b-transparent {
   border-bottom-color: transparent;
 }

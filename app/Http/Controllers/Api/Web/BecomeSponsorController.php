@@ -13,6 +13,8 @@ use App\Models\Banner;
 use App\Models\CoffeeWallBeneficiary;
 use App\Models\Customer;
 use App\Models\Sponsor;
+use App\Models\SponsorDowngradeRequest;
+use App\Mail\SponsorDowngradeRequestMail;
 use App\Rules\ValidUrl;
 use App\Services\EmailSettingService;
 use App\Services\PaypalService;
@@ -1123,6 +1125,7 @@ class BecomeSponsorController extends Controller
 
             $newPlanPrice = (float) $validated['new_amount'];
             $amountDue = max(0, round($newPlanPrice - $unusedCredit, 2));
+            $isDowngrade = $newPlanPrice < $oldAmountPerPeriod;
 
             return $this->successResponse([
                 'unused_credit' => $unusedCredit,
@@ -1131,6 +1134,7 @@ class BecomeSponsorController extends Controller
                 'current_period_end' => date('Y-m-d', $periodEnd),
                 'old_plan_amount' => $oldAmountPerPeriod,
                 'old_frequency' => $sponsor->frequency,
+                'is_downgrade' => $isDowngrade,
             ], 'Preview loaded.');
         } catch (\Illuminate\Validation\ValidationException $e) {
             throw $e;
@@ -1288,6 +1292,86 @@ class BecomeSponsorController extends Controller
             return $this->errorResponse($e->getMessage());
         } catch (\Exception $e) {
             Log::error('Sponsor upgrade error', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+            return $this->errorResponse($e->getMessage());
+        }
+    }
+
+    /**
+     * Store a downgrade request (do not apply immediately). Admin is notified by email.
+     */
+    public function downgradeRequest(Request $request)
+    {
+        try {
+            $customer = \Illuminate\Support\Facades\Auth::guard('customers')->user();
+            if (!$customer) {
+                return $this->errorResponse('Unauthorized', 401);
+            }
+
+            $validated = $request->validate([
+                'sponsor_id' => 'required|exists:sponsors,id',
+                'new_amount' => 'required|numeric|min:1',
+                'new_frequency' => 'required|in:monthly,quarterly,annually',
+                'current_period_end' => 'nullable|date',
+            ]);
+
+            $sponsor = Sponsor::where('id', $validated['sponsor_id'])
+                ->where('customer_id', $customer->id)
+                ->firstOrFail();
+
+            if (empty($sponsor->stripe_subscription_id) || in_array($sponsor->frequency ?? '', ['one_time'], true)) {
+                return $this->errorResponse('This sponsorship does not have an active recurring plan.');
+            }
+
+            $newAmount = (float) $validated['new_amount'];
+            $currentAmount = (float) $sponsor->sponsorship_amount;
+            if ($newAmount >= $currentAmount) {
+                return $this->errorResponse('This endpoint is for downgrade requests only. Use upgrade to increase your plan.');
+            }
+
+            $periodEnd = null;
+            if (!empty($validated['current_period_end'])) {
+                $periodEnd = $validated['current_period_end'];
+            } else {
+                try {
+                    \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+                    $subscription = \Stripe\Subscription::retrieve($sponsor->stripe_subscription_id);
+                    if (isset($subscription->current_period_end)) {
+                        $periodEnd = date('Y-m-d', $subscription->current_period_end);
+                    }
+                } catch (\Exception $e) {
+                    Log::warning('Could not fetch Stripe period end for downgrade request', ['sponsor_id' => $sponsor->id]);
+                }
+            }
+
+            $downgradeRequest = SponsorDowngradeRequest::create([
+                'sponsor_id' => $sponsor->id,
+                'current_amount' => $currentAmount,
+                'current_frequency' => $sponsor->frequency ?? 'monthly',
+                'requested_amount' => $newAmount,
+                'requested_frequency' => $validated['new_frequency'],
+                'current_period_end' => $periodEnd,
+                'requested_at' => now(),
+            ]);
+
+            $general_setting = getGeneralSettingByKey();
+            if (isset($general_setting['admin_email'])) {
+                $adminEmailsArr = array_filter(array_map('trim', explode(',', $general_setting['admin_email'])));
+                if (!empty($adminEmailsArr)) {
+                    Mail::to($adminEmailsArr)->send(new SponsorDowngradeRequestMail($sponsor, $downgradeRequest));
+                    Log::info('Sponsor downgrade request email sent to admin', ['sponsor_id' => $sponsor->id]);
+                }
+            }
+
+            return $this->successResponse([
+                'downgrade_request_id' => $downgradeRequest->id,
+            ], 'Your downgrade request has been recorded. It will take effect at the end of your current billing period. If you need an immediate downgrade, please contact support.');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            throw $e;
+        } catch (\Exception $e) {
+            Log::error('Sponsor downgrade request error', [
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
             ]);

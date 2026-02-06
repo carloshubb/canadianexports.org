@@ -3265,6 +3265,10 @@ ul li {
   --tw-border-opacity: 1 !important;
   border-color: rgb(250 204 21 / var(--tw-border-opacity, 1)) !important;
 }
+.border-amber-200 {
+  --tw-border-opacity: 1 !important;
+  border-color: rgb(253 230 138 / var(--tw-border-opacity, 1)) !important;
+}
 .border-b-transparent {
   border-bottom-color: transparent !important;
 }
