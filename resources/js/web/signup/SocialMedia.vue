@@ -165,7 +165,7 @@
                       v-if="calTotalPrice() > 0 && payment_method == 'stripe'">
                       <div class="flex justify-center items-center">
                         <div class="h-auto bg-white p-3 rounded-lg w-full">
-                          <div class="input_text relative">
+                          <div class="input_text relative profile-card-field">
                             <label class="">{{
                               payment_setting &&
                                 JSON.parse(payment_setting) &&
@@ -176,7 +176,7 @@
                                 : ""
                             }}</label>
                             <i class="text-gray-400 fa fa-user"></i>
-                            <input type="text" class="can-exp-input" :placeholder="payment_setting &&
+                            <input type="text" class="can-exp-input profile-card-input" :placeholder="payment_setting &&
                               JSON.parse(payment_setting) &&
                               JSON.parse(payment_setting)[
                               'cardholder_name_placeholder'
@@ -193,9 +193,9 @@
                               " id="card_holder_name" />
                             <Error fieldName="card_holder_name" :validationErros="validationErros" full_width="1" />
                           </div>
-                          <div class="input_text mt-2 relative">
+                          <div class="input_text mt-2 relative profile-card-field">
                             <label class="">Card Details</label>
-                            <div ref="stripeCard" class="can-exp-input"></div>
+                            <div ref="stripeCard" class="can-exp-input profile-card-input profile-card-stripe-wrap"></div>
                             <Error fieldName="payment_method_id" :validationErros="validationErros" full_width="1" />
                           </div>
                           <div v-if="false" class="input_text mt-2 relative" style="display: none">
@@ -327,11 +327,11 @@
               </div>
             </div>
             <div class="text-center mt-auto">
-              <button class="button-exp-fill mt-6 font-bold" type="button" @click="recaptcha()">
-                {{ calTotalPrice() > 0 && payment_setting && JSON.parse(payment_setting) ?
-                  JSON.parse(payment_setting)["confirm_and_pay_btn_text"] : (payment_setting &&
-                    JSON.parse(payment_setting) ?
-                    JSON.parse(payment_setting)["confirm_and_proceed_btn_text"] : "") }}
+              <button class="button-exp-fill mt-6 font-bold" type="button" @click="recaptcha()"
+                :disabled="calTotalPrice() > 0 && !upgradePaymentFieldsFilled"
+                :class="{ 'opacity-50 cursor-not-allowed': calTotalPrice() > 0 && !upgradePaymentFieldsFilled }">
+                {{ calTotalPrice() > 0 ? "Upgrade & Pay Now" : (payment_setting && JSON.parse(payment_setting) ?
+                  JSON.parse(payment_setting)["confirm_and_proceed_btn_text"] : "Update") }}
               </button>
             </div>
           </div>
@@ -343,11 +343,13 @@
       <template v-else>
         <!-- <ListErrors :validationErrors="validationErros" /> -->
         <div class="mt-10 flex justify-center" v-if="profile == '1' && hide_process_btn == 'no'">
-          <button aria-label="Candian Exporters" type="button" @click="updateProfileSetting()" class="button-exp-fill">
+          <button aria-label="Candian Exporters" type="button" @click="updateProfileSetting()" class="button-exp-fill"
+            :disabled="!profileFormHasChanges"
+            :class="{ 'opacity-50 cursor-not-allowed': !profileFormHasChanges }">
             {{
               general_setting && general_setting["process_button_text"]
                 ? general_setting["process_button_text"]
-                : ""
+                : "Update"
             }}
           </button>
         </div>
@@ -451,6 +453,15 @@ export default {
         JSON.parse(this.user)["is_package_amount_paid"] == "1"
       );
     },
+    profileFormHasChanges() {
+      if (!this.initialFormSnapshot || !this.form || typeof this.form.entries !== "function") return false;
+      return JSON.stringify(Array.from(this.form.entries())) !== this.initialFormSnapshot;
+    },
+    upgradePaymentFieldsFilled() {
+      const nameVal = this.form?.get ? this.form.get("card_holder_name") : "";
+      const nameFilled = (typeof nameVal === "string" ? nameVal : "").trim() !== "";
+      return nameFilled && this.stripeCardComplete;
+    },
   },
   data() {
     return {
@@ -464,10 +475,20 @@ export default {
       stripe: null,
       elements: null,
       cardElement: null,
+      stripeCardComplete: false,
+      initialFormSnapshot: null,
     };
+  },
+  mounted() {
+    this.$nextTick(() => {
+      if (this.form && typeof this.form.entries === "function") {
+        this.initialFormSnapshot = JSON.stringify(Array.from(this.form.entries()));
+      }
+    });
   },
   watch: {
     payment_method(newMethod) {
+      this.stripeCardComplete = false;
       if (newMethod === "stripe") {
         this.$nextTick(() => {
           setTimeout(() => this.mountStripeElement(), 100);
@@ -710,21 +731,34 @@ export default {
     mountStripeElement() {
       const mountPoint = this.$refs.stripeCard;
       if (!mountPoint || !this.stripe) return;
+      this.stripeCardComplete = false;
       if (this.cardElement) {
         try {
           this.cardElement.unmount();
         } catch (e) { }
         try {
           this.cardElement.mount(mountPoint);
+          this.setupStripeCardChangeListener();
         } catch (e) {
           if (this.elements) {
             this.cardElement = this.elements.create("card");
             this.cardElement.mount(mountPoint);
+            this.setupStripeCardChangeListener();
           }
         }
       } else if (this.elements) {
         this.cardElement = this.elements.create("card");
         this.cardElement.mount(mountPoint);
+        this.setupStripeCardChangeListener();
+      }
+    },
+    setupStripeCardChangeListener() {
+      if (this.cardElement) {
+        this.cardElement.off("change");
+        this.cardElement.on("change", (e) => {
+          this.stripeCardComplete = !!e.complete;
+          this.$store.commit("signup/removeValidationErros", { field: ["payment_method_id"] });
+        });
       }
     },
     restrictToNumbers(event, allowedLength) {
@@ -865,3 +899,18 @@ export default {
   props: ["profile", "user", "page_id", "hide_process_btn", "payment_setting", "url"],
 };
 </script>
+
+<style scoped>
+/* Cardholder name and Card details: identical dimensions */
+.profile-card-field .profile-card-input,
+.profile-card-stripe-wrap {
+  min-height: 2.5rem;
+  padding: 0.375rem 0.75rem;
+  box-sizing: border-box;
+}
+.profile-card-stripe-wrap {
+  display: block;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+}
+</style>
