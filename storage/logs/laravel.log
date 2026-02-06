@@ -1632,3 +1632,49 @@ Make sure to put the “X” sign on top right of this popup, and make sure it w
 [2026-02-06 05:34:30] local.INFO: Sponsor profile found {"sponsor_id":48} 
 [2026-02-06 05:34:51] local.INFO: Fetching specific sponsor profile {"customer_id":50177,"sponsor_id":"48"} 
 [2026-02-06 05:34:51] local.INFO: Sponsor profile found {"sponsor_id":48} 
+[2026-02-06 06:16:38] local.INFO: Fetching specific sponsor profile {"customer_id":50177,"sponsor_id":"48"} 
+[2026-02-06 06:16:38] local.INFO: Sponsor profile found {"sponsor_id":48} 
+[2026-02-06 06:41:34] local.INFO: getWebPublicPath: Temp media path {"input_path":"media/temp/69858d1e58513","document_root":"D:\\work\\_2025\\canadianexports.org\\public","laravel_public":"D:\\work\\_2025\\canadianexports.org\\public","web_root":"D:\\work\\_2025\\canadianexports.org\\public","base_path":"D:\\work\\_2025\\canadianexports.org\\public","full_path":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\69858d1e58513","laravel_in_webroot":true} 
+[2026-02-06 06:41:34] local.INFO: getWebPublicPath: Temp media path {"input_path":"media/temp/69858d1e58513","document_root":"D:\\work\\_2025\\canadianexports.org\\public","laravel_public":"D:\\work\\_2025\\canadianexports.org\\public","web_root":"D:\\work\\_2025\\canadianexports.org\\public","base_path":"D:\\work\\_2025\\canadianexports.org\\public","full_path":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\69858d1e58513","laravel_in_webroot":true} 
+[2026-02-06 06:41:34] local.INFO: getWebPublicPath: Temp media path {"input_path":"media/temp/test","document_root":"D:\\work\\_2025\\canadianexports.org\\public","laravel_public":"D:\\work\\_2025\\canadianexports.org\\public","web_root":"D:\\work\\_2025\\canadianexports.org\\public","base_path":"D:\\work\\_2025\\canadianexports.org\\public","full_path":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\test","laravel_in_webroot":true} 
+[2026-02-06 06:41:34] local.INFO: putFile: Saving temp file {"folderName":"temp/69858d1e58513","isTempMedia":true,"path":"media/temp/69858d1e58513/","pathForWeb":"media/temp/69858d1e58513","fullDirPath":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\69858d1e58513","fileName":"1770360094_user.png","document_root":"D:\\work\\_2025\\canadianexports.org\\public","public_path":"D:\\work\\_2025\\canadianexports.org\\public","web_public_path_test":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\test"} 
+[2026-02-06 06:41:34] local.INFO: putFile: File moved successfully {"fullFilePath":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\69858d1e58513\\1770360094_user.png","exists":true,"readable":true} 
+[2026-02-06 06:42:06] local.INFO: getWebPublicPath: Temp media path {"input_path":"media/temp/69858d3e0762f","document_root":"D:\\work\\_2025\\canadianexports.org\\public","laravel_public":"D:\\work\\_2025\\canadianexports.org\\public","web_root":"D:\\work\\_2025\\canadianexports.org\\public","base_path":"D:\\work\\_2025\\canadianexports.org\\public","full_path":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\69858d3e0762f","laravel_in_webroot":true} 
+[2026-02-06 06:42:06] local.INFO: getWebPublicPath: Temp media path {"input_path":"media/temp/69858d3e0762f","document_root":"D:\\work\\_2025\\canadianexports.org\\public","laravel_public":"D:\\work\\_2025\\canadianexports.org\\public","web_root":"D:\\work\\_2025\\canadianexports.org\\public","base_path":"D:\\work\\_2025\\canadianexports.org\\public","full_path":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\69858d3e0762f","laravel_in_webroot":true} 
+[2026-02-06 06:42:06] local.INFO: getWebPublicPath: Temp media path {"input_path":"media/temp/test","document_root":"D:\\work\\_2025\\canadianexports.org\\public","laravel_public":"D:\\work\\_2025\\canadianexports.org\\public","web_root":"D:\\work\\_2025\\canadianexports.org\\public","base_path":"D:\\work\\_2025\\canadianexports.org\\public","full_path":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\test","laravel_in_webroot":true} 
+[2026-02-06 06:42:06] local.INFO: putFile: Saving temp file {"folderName":"temp/69858d3e0762f","isTempMedia":true,"path":"media/temp/69858d3e0762f/","pathForWeb":"media/temp/69858d3e0762f","fullDirPath":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\69858d3e0762f","fileName":"1770360126_man.png","document_root":"D:\\work\\_2025\\canadianexports.org\\public","public_path":"D:\\work\\_2025\\canadianexports.org\\public","web_public_path_test":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\test"} 
+[2026-02-06 06:42:06] local.INFO: putFile: File moved successfully {"fullFilePath":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\69858d3e0762f\\1770360126_man.png","exists":true,"readable":true} 
+[2026-02-06 06:42:08] local.INFO: moveFile: Processing temp file {"original":"media/temp/69858d3e0762f/1770360126_man.png","normalized":"media/temp/69858d3e0762f/1770360126_man.png"} 
+[2026-02-06 06:42:08] local.INFO: moveFile: Found file at alternative path (public): D:\work\_2025\canadianexports.org\public\media\temp\69858d3e0762f\1770360126_man.png  
+[2026-02-06 06:43:59] local.INFO: Fetching sponsor profiles {"customer_id":50177} 
+[2026-02-06 06:43:59] local.INFO: Sponsor profiles found {"customer_id":50177,"count":1} 
+[2026-02-06 06:46:00] local.INFO: Fetching sponsor profiles {"customer_id":50177} 
+[2026-02-06 06:46:00] local.INFO: Sponsor profiles found {"customer_id":50177,"count":1} 
+[2026-02-06 06:46:41] local.INFO: Fetching sponsor profiles {"customer_id":50177} 
+[2026-02-06 06:46:41] local.INFO: Sponsor profiles found {"customer_id":50177,"count":1} 
+[2026-02-06 06:46:55] local.INFO: Fetching sponsor profiles {"customer_id":50177} 
+[2026-02-06 06:46:55] local.INFO: Sponsor profiles found {"customer_id":50177,"count":1} 
+[2026-02-06 06:47:51] local.INFO: Fetching sponsor profiles {"customer_id":50177} 
+[2026-02-06 06:47:51] local.INFO: Sponsor profiles found {"customer_id":50177,"count":1} 
+[2026-02-06 06:48:44] local.INFO: Fetching sponsor profiles {"customer_id":50177} 
+[2026-02-06 06:48:44] local.INFO: Sponsor profiles found {"customer_id":50177,"count":1} 
+[2026-02-06 06:50:21] local.INFO: Fetching specific sponsor profile {"customer_id":50177,"sponsor_id":"48"} 
+[2026-02-06 06:50:21] local.INFO: Sponsor profile found {"sponsor_id":48} 
+[2026-02-06 06:51:08] local.INFO: Fetching sponsor profiles {"customer_id":50177} 
+[2026-02-06 06:51:08] local.INFO: Sponsor profiles found {"customer_id":50177,"count":1} 
+[2026-02-06 06:56:21] local.INFO: Fetching sponsor profiles {"customer_id":50177} 
+[2026-02-06 06:56:21] local.INFO: Sponsor profiles found {"customer_id":50177,"count":1} 
+[2026-02-06 07:25:39] local.INFO: Fetching sponsor profiles {"customer_id":50177} 
+[2026-02-06 07:25:39] local.INFO: Sponsor profiles found {"customer_id":50177,"count":1} 
+[2026-02-06 07:26:06] local.INFO: Fetching specific sponsor profile {"customer_id":50177,"sponsor_id":"48"} 
+[2026-02-06 07:26:06] local.INFO: Sponsor profile found {"sponsor_id":48} 
+[2026-02-06 07:26:43] local.INFO: Fetching specific sponsor profile {"customer_id":50177,"sponsor_id":"48"} 
+[2026-02-06 07:26:43] local.INFO: Sponsor profile found {"sponsor_id":48} 
+[2026-02-06 07:27:03] local.INFO: Fetching sponsor profiles {"customer_id":50177} 
+[2026-02-06 07:27:03] local.INFO: Sponsor profiles found {"customer_id":50177,"count":1} 
+[2026-02-06 07:27:08] local.INFO: Fetching sponsor profiles {"customer_id":50177} 
+[2026-02-06 07:27:08] local.INFO: Sponsor profiles found {"customer_id":50177,"count":1} 
+[2026-02-06 07:28:24] local.INFO: Fetching specific sponsor profile {"customer_id":50177,"sponsor_id":"48"} 
+[2026-02-06 07:28:24] local.INFO: Sponsor profile found {"sponsor_id":48} 
+[2026-02-06 07:47:52] local.INFO: Fetching sponsor profiles {"customer_id":50177} 
+[2026-02-06 07:47:52] local.INFO: Sponsor profiles found {"customer_id":50177,"count":1} 

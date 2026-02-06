@@ -26,6 +26,7 @@ class SponsorResource extends JsonResource
             'detail_description' => $this->detail_description,
             'message' => $this->message,
             'sponsorship_amount' => $this->sponsorship_amount,
+            'frequency' => $this->frequency ?? 'one_time',
             'status' => $this->status,
             'is_visible' => $this->is_visible,
             'payment_status' => $this->payment_status,

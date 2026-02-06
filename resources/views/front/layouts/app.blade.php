@@ -16,6 +16,7 @@
     $currentRouteName = Route::currentRouteName();
     $currentUrl = request()->url();
     $currentSlug = Str::afterLast($currentUrl, '/');
+    $general_setting = getGeneralSettingByKey();
 @endphp
 <html lang="{{ isset($lang->abbreviation) ? $lang->abbreviation : 'en' }}" class="light scroll-smooth"
     dir="{{ isset($lang->direction) ? $lang->direction : 'ltr' }}">

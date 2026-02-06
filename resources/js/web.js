@@ -48,6 +48,7 @@ import ContactForRateForm from "./web/contact-for-rate/ContactForRateForm.vue";
 import CreateProfilePayment from "./web/profile-payment/ProfilePayment";
 import WebinarsIndex from "./web/Webinars/Index.vue";
 import MyWebinars from "./web/Webinars/MyWebinars.vue";
+import SubmitContent from "./web/submit-content/SubmitContent.vue";
 
 import LanguageModal from "./web/modals/LanguageModal.vue";
 import Message from "./web/components/Message.vue";
@@ -105,5 +106,6 @@ createApp({})
     .component("Rates", Rates)
     .component("WebinarsIndex", WebinarsIndex)
     .component("MyWebinars", MyWebinars)
+    .component("SubmitContent", SubmitContent)
     .use(store)
     .mount("#canexp-app");

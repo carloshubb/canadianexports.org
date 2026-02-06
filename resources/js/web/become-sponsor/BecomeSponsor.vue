@@ -468,7 +468,7 @@
             Processing...
           </span>
           <span v-else>
-            {{ form.talk_to_us_first ? 'Submit' : 'Become a Sponsor' }}
+            {{ isReactivationMode ? 'Reactivate Sponsorship' : (form.talk_to_us_first ? 'Submit' : 'Become a Sponsor') }}
           </span>
         </button>
       </div>
@@ -514,7 +514,12 @@ const FilePond = vueFilePond(
 
 export default {
   name: "BecomeSponsor",
-  props: ["become_sponsor", "page_id", "logged_in_user"],
+  props: {
+    become_sponsor: { type: [Object, Boolean], default: null },
+    page_id: { type: [Number, String], default: null },
+    logged_in_user: { type: [String, Object], default: null },
+    reactivationSponsorship: { type: Object, default: null },
+  },
   components: {
     Error,
     ListErrors,
@@ -580,17 +585,23 @@ export default {
     isSubmitEnabled() {
       return this.form.agree_terms_and_privacy === true && this.form.agree_donation_non_refundable === true;
     },
+    isReactivationMode() {
+      return this.reactivationSponsorship && this.reactivationSponsorship.id;
+    },
   },
   async mounted() {
-    // Pre-fill email for logged-in users
-    if (this.isLoggedIn) {
+    // Pre-fill email for logged-in users (unless in reactivation mode)
+    if (this.isLoggedIn && !this.isReactivationMode) {
       const user = JSON.parse(this.logged_in_user);
       this.form.email = user.email || '';
       this.form.contact_name = '';
     }
 
     this.fetchBeneficiaries();
-    this.fetchSponsorAmounts();
+    await this.fetchSponsorAmounts();
+    if (this.isReactivationMode && this.reactivationSponsorship) {
+      this.applyReactivationPreFill(this.reactivationSponsorship);
+    }
 
     // Initialize Stripe Elements (same pattern as Coffee Wall)
     try {
@@ -658,7 +669,13 @@ export default {
           });
         }
       }
-    }
+    },
+    reactivationSponsorship: {
+      handler(val) {
+        if (val && val.id) this.applyReactivationPreFill(val);
+      },
+      immediate: false,
+    },
   },
   methods: {
     fixVueDatePickerZIndex() {
@@ -794,6 +811,43 @@ export default {
       this.form.frequency = amount.frequency;
       this.custom_amount1 = null;
       this.clearErrors("sponsorship_amount");
+    },
+
+    applyReactivationPreFill(s) {
+      if (!s) return;
+      this.form.talk_to_us_first = s.payment_status === 'not_required';
+      this.show_contact_preference = this.form.talk_to_us_first;
+      this.form.company_name = s.business_name || '';
+      this.form.contact_name = s.contact_name || '';
+      this.form.email = s.email || '';
+      this.form.contact_number = s.contact_number || '';
+      this.form.url = s.url || '';
+      this.form.summary = s.summary || '';
+      this.form.detail_description = s.detail_description || '';
+      this.form.message = s.message || '';
+      this.form.payment_method = (s.payment_method === 'paypal' ? 'paypal' : 'stripe');
+      this.form.cardholder_name = s.contact_name || '';
+      const freq = s.frequency || 'one_time';
+      this.selectedFrequency = freq;
+      this.form.frequency = freq;
+      const amount = s.sponsorship_amount != null ? parseFloat(s.sponsorship_amount) : null;
+      if (amount != null && amount > 0) {
+        const amounts = this.getAmountsByFrequency(freq);
+        const preset = amounts.find(a => Number(a.amount) === Number(amount));
+        if (preset) {
+          this.form.sponsorship_amount = preset.amount;
+          this.form.frequency = preset.frequency;
+          this.custom_amount1 = null;
+        } else {
+          this.form.sponsorship_amount = amount;
+          this.custom_amount1 = amount;
+        }
+      }
+      this.$nextTick(() => {
+        if (!this.form.talk_to_us_first && this.form.sponsorship_amount > 0 && this.form.payment_method === 'stripe') {
+          setTimeout(() => this.mountStripeElement(), 100);
+        }
+      });
     },
     inputAmount(custom_amount1) {
 
@@ -971,6 +1025,9 @@ export default {
           featured_image: this.uploaded_files.featured_image,
           beneficiary_ids: this.form.beneficiary_ids,
         };
+        if (this.isReactivationMode && this.reactivationSponsorship) {
+          formData.reactivation_sponsor_id = this.reactivationSponsorship.id;
+        }
 
         if (!this.form.talk_to_us_first) {
           // Payment option
@@ -1009,6 +1066,10 @@ export default {
           // Clear form
           this.clearForm();
           console.log("Response data:", wasPayment , sponsor , sponsor.slug);
+
+          if (this.isReactivationMode) {
+            this.$emit('reactivation-success');
+          }
           
           // After payment: show custom sponsor success popup with "View My Live Profile"; after "Talk to us First": show simple success then redirect
           if (wasPayment && sponsor && sponsor.slug) {

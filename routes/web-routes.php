@@ -197,6 +197,28 @@ Route::group(['middleware' => ['share.variable', 'user.status']], function () {
     Route::post('/unsubscribe-holiday', [HelperController::class, 'unsubscribeHoliday'])->name('front.unsubscribe-holiday');
     Route::get('/customer-reactive-email/{email}/{id}', [SignupController::class, 'customerReactiveEmail'])->name('front.customer-reactive-email');
     Route::post('/update-customer-reactive-email', [SignupController::class, 'updateCustomerReactiveEmail'])->name('front.update-customer-reactive-email');
+    // Submit Content (sponsors only)
+    Route::get('/{abbreviation}/submit-content', function ($abbreviation) {
+        updateLangByAbber($abbreviation);
+        if (!auth('customers')->check()) {
+            return redirect()->route('front.index', ['abbreviation' => $abbreviation]);
+        }
+        $customer = auth('customers')->user();
+        if ($customer->type !== 'sponsor') {
+            return redirect()->route('front.index', ['abbreviation' => $abbreviation]);
+        }
+        $lang = getDefaultLanguage(true);
+        $general_setting = getGeneralSettingByKey();
+        $eventSignupPage = $general_setting['user_event_signup_page'] ?? null;
+        $eventCreateUrl = $eventSignupPage ? langBasedURL($lang, route('front.index', $eventSignupPage)) : '#';
+        $myWebinarsUrl = langBasedURL($lang, route('member.webinars', ['abbreviation' => $abbreviation]));
+        return view('front.pages.submit-content', [
+            'lang' => $lang,
+            'eventCreateUrl' => $eventCreateUrl,
+            'myWebinarsUrl' => $myWebinarsUrl,
+        ]);
+    })->name('submit-content')->whereIn('abbreviation', Language::pluck('abbreviation')->toArray())->middleware('auth.user');
+
     // Member Webinars Dashboard
     Route::get('/{abbreviation}/my-webinars', function ($abbreviation) {
         if (!auth('customers')->check()) {
