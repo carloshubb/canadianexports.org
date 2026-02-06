@@ -35,7 +35,7 @@
               'bg-yellow-100 text-yellow-800': sponsor.payment_status === 'pending',
               'bg-blue-100 text-blue-800': sponsor.payment_status === 'not_required',
             }">
-              {{ sponsor.payment_status === 'paid' ? '💳 Paid' : sponsor.payment_status === 'pending' ? 'Payment              Pending' : 'Contact Request' }}
+              {{ sponsor.payment_status === 'paid' ? '💳 Paid' : sponsor.payment_status === 'pending' ? 'Payment Pending' : 'Contact Request' }}
             </span>
           </div>
         </div>

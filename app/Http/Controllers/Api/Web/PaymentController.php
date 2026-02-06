@@ -1095,12 +1095,14 @@ class PaymentController extends Controller
             if (isset($captureResult['status']) && $captureResult['status'] === 'COMPLETED') {
                 // Payment successful - update sponsor
                 $captureId = $captureResult['id'] ?? $token;
+                $paypalEmail = $captureResult['payer']['email_address'] ?? null;
                 $sponsor->update([
                     'payment_status' => 'paid',
                     'status' => 'active', // Auto-approve
                     'is_visible' => true,
                     'transaction_id' => $captureId,
                     'paypal_subscription_id' => $token,
+                    'paypal_email' => $paypalEmail,
                     'paid_at' => now(),
                 ]);
 
