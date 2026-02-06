@@ -1165,40 +1165,15 @@ export default {
                 this.stripeCardComplete = false;
                 // Remount Stripe Elements when switching back to Stripe
                 if (newMethod === 'stripe') {
-                    this.$nextTick(() => {
-                        // Small delay to ensure DOM is ready
-                        setTimeout(() => {
-                            const mountPoint = this.$refs.stripeCard;
-                            if (mountPoint && this.cardElement && this.stripe) {
-                                try {
-                                    // Try to unmount first if already mounted
-                                    this.cardElement.unmount();
-                                } catch (e) {
-                                    // Element not mounted, that's okay
-                                }
-
-                                try {
-                                    // Mount to the DOM
-                                    this.cardElement.mount(mountPoint);
-                                    this.setupStripeCardChangeListener();
-                                    console.log('Stripe Element remounted successfully');
-                                } catch (e) {
-                                    console.error('Error mounting Stripe Element:', e);
-                                    // If mounting fails, recreate the element
-                                    this.cardElement = this.elements.create('card');
-                                    this.cardElement.mount(mountPoint);
-                                    this.setupStripeCardChangeListener();
-                                }
-                            } else if (mountPoint && this.stripe && !this.cardElement) {
-                                // Card element doesn't exist, create and mount it
-                                this.elements = this.stripe.elements();
-                                this.cardElement = this.elements.create('card');
-                                this.cardElement.mount(mountPoint);
-                                this.setupStripeCardChangeListener();
-                                console.log('Stripe Element created and mounted');
-                            }
-                        }, 100);
-                    });
+                    this.mountStripeCardWhenReady();
+                }
+            }
+        },
+        /** When order_amount becomes > 0 (e.g. user upgrades from FREE to PREMIUM), payment section appears and we must mount Stripe card then */
+        'form.order_amount': {
+            handler(newAmount) {
+                if (newAmount > 0 && this.form.payment_method === 'stripe') {
+                    this.mountStripeCardWhenReady();
                 }
             }
         }
@@ -1300,6 +1275,37 @@ export default {
             if (this.submitted) {
                 this.validationErros.clear(fieldName);
             }
+        },
+        /** Mount or remount Stripe card element when the payment section is in the DOM (e.g. after selecting Premium). */
+        mountStripeCardWhenReady() {
+            this.$nextTick(() => {
+                setTimeout(() => {
+                    const mountPoint = this.$refs.stripeCard;
+                    if (!mountPoint || !this.stripe) return;
+                    if (this.cardElement) {
+                        try {
+                            this.cardElement.unmount();
+                        } catch (e) {
+                            // Element not mounted, that's okay
+                        }
+                        try {
+                            this.cardElement.mount(mountPoint);
+                            this.setupStripeCardChangeListener();
+                        } catch (e) {
+                            console.error('Error mounting Stripe Element:', e);
+                            this.elements = this.elements || this.stripe.elements();
+                            this.cardElement = this.elements.create('card');
+                            this.cardElement.mount(mountPoint);
+                            this.setupStripeCardChangeListener();
+                        }
+                    } else {
+                        this.elements = this.elements || this.stripe.elements();
+                        this.cardElement = this.elements.create('card');
+                        this.cardElement.mount(mountPoint);
+                        this.setupStripeCardChangeListener();
+                    }
+                }, 100);
+            });
         },
         setupStripeCardChangeListener() {
             if (this.cardElement) {
@@ -1709,28 +1715,17 @@ export default {
         this.activeTab = JSON.parse(this.lang)["id"];
         this.form.payment_frequency = "annually";
 
-        // Initialize Stripe Elements (same pattern as Coffee on Wall)
+        // Initialize Stripe Elements; mount when payment section is visible (e.g. after upgrading to Premium)
         (async () => {
             try {
                 this.stripe = await loadStripe(process.env.MIX_STRIPE_PUBLIC_KEY);
                 if (this.stripe) {
                     this.elements = this.stripe.elements();
                     this.cardElement = this.elements.create('card');
-                    this.$nextTick(() => {
-                        const mountPoint = this.$refs.stripeCard;
-                        if (mountPoint && this.cardElement) {
-                            try {
-                                this.cardElement.mount(mountPoint);
-                                this.setupStripeCardChangeListener();
-                            } catch (e) {
-                                // If already mounted or fails, recreate and mount
-                                console.error('Error mounting Stripe:', e);
-                            }
-                        }
-                    });
+                    this.mountStripeCardWhenReady();
                 }
             } catch (e) {
-                console.error('Error loading Stripe:', e); //
+                console.error('Error loading Stripe:', e);
             }
         })();
         axios
