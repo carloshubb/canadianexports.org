@@ -3,13 +3,13 @@
     <!--Form-->
     <form class="bg-white">
       <div class="flex flex-col gap-8 px-4 py-8 sm:px-10">
-        <!-- Select Payment Method -->
-        <div class="bg-white rounded-lg overflow-hidden shadow-3xl">
+        <!-- Select Payment Method: only show when there is an amount to pay (FREE exporters skip this) -->
+        <div v-if="calTotalPrice() > 0" class="bg-white rounded-lg overflow-hidden shadow-3xl">
           <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
             <h4 class="text-white">{{ payment_setting && JSON.parse(payment_setting) && JSON.parse(payment_setting)["select_payment_method"] ? JSON.parse(payment_setting)["select_payment_method"] : "Select Payment Method" }}</h4>
           </div>
           <div class="px-4 py-8 sm:px-10">
-        <div v-if="calTotalPrice() > 0" class="w-full">
+        <div class="w-full">
           <div class="h-full w-full rounded-lg border bg-white p-4 md:p-6 shadow-md flex flex-col">
             <div>
               <!--Debit Card-->
@@ -251,41 +251,47 @@ export default {
     payment_method(newMethod) {
       // Remount Stripe Elements when switching back to Stripe
       if (newMethod === 'stripe') {
-        this.$nextTick(() => {
-          // Small delay to ensure DOM is ready
-          setTimeout(() => {
-            const mountPoint = this.$refs.stripeCard;
-            if (mountPoint && this.cardElement && this.stripe) {
-              try {
-                // Try to unmount first if already mounted
-                this.cardElement.unmount();
-              } catch (e) {
-                // Element not mounted, that's okay
-              }
-              
-              try {
-                // Mount to the DOM
-                this.cardElement.mount(mountPoint);
-                console.log('Stripe Element remounted successfully');
-              } catch (e) {
-                console.error('Error mounting Stripe Element:', e);
-                // If mounting fails, recreate the element
-                this.cardElement = this.elements.create('card');
-                this.cardElement.mount(mountPoint);
-              }
-            } else if (mountPoint && this.stripe && !this.cardElement) {
-              // Card element doesn't exist, create and mount it
-              this.elements = this.stripe.elements();
-              this.cardElement = this.elements.create('card');
-              this.cardElement.mount(mountPoint);
-              console.log('Stripe Element created and mounted');
-            }
-          }, 100);
-        });
+        this.$nextTick(() => this.tryMountStripeCard(100));
+      }
+    },
+    // When package or frequency changes and total becomes > 0, card block appears – ensure Stripe mounts
+    selectedRegistrationPackage: {
+      handler() {
+        if (this.calTotalPrice() > 0 && this.payment_method === 'stripe') {
+          this.$nextTick(() => this.tryMountStripeCard(150));
+        }
+      },
+      deep: true
+    },
+    payment_frequency() {
+      if (this.calTotalPrice() > 0 && this.payment_method === 'stripe') {
+        this.$nextTick(() => this.tryMountStripeCard(150));
       }
     }
   },
   methods: {
+    /** Mount Stripe card element when the card block is in the DOM (e.g. after switching to paid package). */
+    tryMountStripeCard(delayMs = 100) {
+      setTimeout(() => {
+        const mountPoint = this.$refs.stripeCard;
+        if (!mountPoint || !this.stripe) return;
+        if (this.cardElement) {
+          try {
+            this.cardElement.unmount();
+          } catch (e) { /* already unmounted */ }
+          try {
+            this.cardElement.mount(mountPoint);
+          } catch (e) {
+            this.cardElement = this.elements.create('card');
+            this.cardElement.mount(mountPoint);
+          }
+        } else {
+          this.elements = this.stripe.elements();
+          this.cardElement = this.elements.create('card');
+          this.cardElement.mount(mountPoint);
+        }
+      }, delayMs);
+    },
     updateForm(field, value) {
       this.$store.commit("signup/setForm", {
         field: [field],
@@ -481,6 +487,7 @@ export default {
       return price;
     },
     calTotalPrice() {
+      if (!this.selectedRegistrationPackage) return "0.00";
       let price = 0;
       if (this.payment_frequency == "monthly") {
         price = this.selectedRegistrationPackage.monthly_price;
@@ -491,7 +498,7 @@ export default {
       } else if (this.payment_frequency == "annually") {
         price = this.selectedRegistrationPackage.annually_price * 12;
       }
-      return price.toFixed(2);
+      return Number(price).toFixed(2);
     },
     alreadySelectedMonth(value){
       let expiry_month = null;
@@ -508,22 +515,10 @@ export default {
       return expiry_year == value ? 'selected' : false
     }
   },
-  async mounted() {
-    // Try to mount Stripe Element after component is fully mounted
-    if (this.payment_method === 'stripe' && this.stripe && this.cardElement) {
-      await this.$nextTick();
-      setTimeout(() => {
-        const mountPoint = this.$refs.stripeCard;
-        if (mountPoint && this.cardElement) {
-          try {
-            this.cardElement.mount(mountPoint);
-            console.log('Stripe Element mounted on component mount');
-          } catch (e) {
-            // Already mounted or error, that's okay
-            console.log('Stripe Element mount attempt:', e.message);
-          }
-        }
-      }, 200);
+  mounted() {
+    // When there is an amount to pay, ensure Stripe card is mounted once DOM is ready
+    if (Number(this.calTotalPrice()) > 0 && this.payment_method === 'stripe') {
+      this.$nextTick(() => this.tryMountStripeCard(200));
     }
   },
   created() {
