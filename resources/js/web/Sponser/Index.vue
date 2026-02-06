@@ -9,8 +9,7 @@
                     <p class="text-gray-600">
                         <template v-if="sponsers && sponsers.length == 0">
                             <span v-if="isLoggedInSponsor">
-                                You haven't created any sponsorships yet. Click "Add Another Sponsorship" to get
-                                started!
+                                You haven't started any sponsorships yet. Your support directly helps us promote and empower a diverse range of Canadian entrepreneurs—from First Nations and Women-owned businesses to Green startups and Rural enterprises. Click "Become a Sponsor" to help us champion these businesses on the global stage.
                             </span>
                             <span v-else>
                                 {{
@@ -27,7 +26,7 @@
                         </template>
                         <template v-else-if="sponsers && sponsers.length > 0">
                             <span v-if="isLoggedInSponsor">
-                                Manage and track all your sponsorship contributions
+                                Thank you for your valued support. Your contributions allow us to provide a global platform for fresh startups, First Nations, Women-owned, and Minority-owned businesses, among others. Below are your active sponsorships that help us bring these diverse Canadian voices to the world.
                             </span>
                             <span v-else>
                                 {{
@@ -48,21 +47,13 @@
                     <div class="flex items-center justify-between gap-2">
                         <a aria-label="Candian Exporters" :href="`/${sponsor_become}/become-a-sponsor`"
                             class="button-exp-fill" v-if="isLoggedInSponsor">
-                            {{
-                                sponser_setting &&
-                                    sponser_setting.sponser_listing_setting_detail &&
-                                    sponser_setting
-                                        .sponser_listing_setting_detail[0]
-                                    ? sponser_setting
-                                        .sponser_listing_setting_detail[0]
-                                        .add_sponser_btn_text
-                                    : "Add Another Sponsorship"
-                            }}
+                            {{ sponsers && sponsers.length > 0 ? "Add Another Sponsorship" : "Become a Sponsor" }}
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="space-y-8">
+            <!-- When no sponsorships: hide table and pagination (blue header bar + "Showing..." bar) for a clean empty state -->
+            <div v-if="sponsers && sponsers.length > 0" class="space-y-8">
                 <div class="space-y-2">
                     <div class="bg-white shadow-lg hover:shadow-xl rounded-md overflow-x-auto">
                         <table
@@ -206,15 +197,6 @@
 
 
                     </div>
-                </div>
-                <!-- Become a Sponsor -->
-                <div v-if="sponsers.length === 0"  class="flex text-center justify-center mt-4">
-                    <!--Become a Sponsor -->
-                    <a :href="`/${sponsor_become}/become-a-sponsor`"
-                        class="button-exp-fill mt-6">
-                        Become a Sponsor
-                    </a>                  
-                 
                 </div>
             </div>
         </div>
