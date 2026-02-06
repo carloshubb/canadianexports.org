@@ -6,7 +6,7 @@
                 }}</h1>
             <p class="">
                 The <span class="font-bold">“The Coffee on the Wall”</span> initiative was inspired by this
-                <a href="../../../en/Beautiful-story" target="_blank" rel="noopener"
+                <a href="../../../en/coffee-on-the-wall-story" target="_blank" rel="noopener"
                     class="text-primary underline font-bold underline-none">
                     beautiful story.
                 </a>
@@ -14,8 +14,9 @@
             </p>
             <p class="">
                 It's a wonderful example of how a simple act of kindness can change the way someone sees the world.</p>
-            <p>Through this community-driven initiative, sponsors can support small businesses by covering a Coffee when
-                it’s needed most.</p>
+                <br>
+            <p>Through this community-driven initiative, you can support small Canadian businesses by covering a coffee when they need it most.</p>
+            <p>How it works: Your contribution helps exporters who cannot afford our services by covering the cost of Exporter Profiles, Trade Shows, and other CaExp services.</p>
 
             <div class="text-right mt-4 py-2 text-red-500 text-lg">
                 <span class="text-red-500">*</span> {{
@@ -628,47 +629,64 @@ export default {
         };
     },
     mounted() {
-        // Load form data from localStorage
-        const savedForm = localStorage.getItem("event_signup_form");
-        if (savedForm) {
+        const STORAGE_KEY = 'coffee_wall_create_form';
+
+        const isReferrerSameSite = () => {
             try {
-                const parsedForm = JSON.parse(savedForm);
-                if (parsedForm && typeof parsedForm === 'object') {
-                    let beneficiaryIds = [];
-
-                    if (Array.isArray(parsedForm.beneficiary_ids)) {
-                        beneficiaryIds = parsedForm.beneficiary_ids.map(Number).filter(Boolean);
-                    } else if (parsedForm.beneficiary_ids) {
-                        beneficiaryIds = [Number(parsedForm.beneficiary_ids)];
-                    } else if (parsedForm.beneficiary_id) {
-                        beneficiaryIds = [Number(parsedForm.beneficiary_id)];
-                    }
-
-                    delete parsedForm.beneficiary_id;
-
-                    this.form = {
-                        ...this.form,
-                        ...parsedForm,
-                        beneficiary_ids: beneficiaryIds,
-                    };
-
-                    if (this.form.beneficiary_ids.length === 0 && this.allBeneficiaryId) {
-                        this.form.beneficiary_ids = [this.allBeneficiaryId];
-                    }
-
-                    this.ensureBeneficiarySelection();
-                }
-            } catch (error) {
-                console.error('Error parsing saved Coffee Wall form data:', error);
+                if (!document.referrer) return false;
+                const ref = new URL(document.referrer);
+                return ref.origin === window.location.origin;
+            } catch {
+                return false;
             }
+        };
+
+        if (isReferrerSameSite()) {
+            // User came from another page on our website — restore saved state
+            const savedForm = sessionStorage.getItem(STORAGE_KEY);
+            if (savedForm) {
+                try {
+                    const parsedForm = JSON.parse(savedForm);
+                    if (parsedForm && typeof parsedForm === 'object') {
+                        let beneficiaryIds = [];
+
+                        if (Array.isArray(parsedForm.beneficiary_ids)) {
+                            beneficiaryIds = parsedForm.beneficiary_ids.map(Number).filter(Boolean);
+                        } else if (parsedForm.beneficiary_ids) {
+                            beneficiaryIds = [Number(parsedForm.beneficiary_ids)];
+                        } else if (parsedForm.beneficiary_id) {
+                            beneficiaryIds = [Number(parsedForm.beneficiary_id)];
+                        }
+
+                        delete parsedForm.beneficiary_id;
+
+                        this.form = {
+                            ...this.form,
+                            ...parsedForm,
+                            beneficiary_ids: beneficiaryIds,
+                        };
+
+                        if (this.form.beneficiary_ids.length === 0 && this.allBeneficiaryId) {
+                            this.form.beneficiary_ids = [this.allBeneficiaryId];
+                        }
+
+                        this.ensureBeneficiarySelection();
+                    }
+                } catch (error) {
+                    console.error('Error parsing saved Coffee Wall form data:', error);
+                }
+            }
+        } else {
+            // User came from outside our website (or new tab) — clear any saved state and use defaults
+            sessionStorage.removeItem(STORAGE_KEY);
         }
     },
     watch: {
         form: {
             handler(newForm) {
-                // Save form data to localStorage on change
-                localStorage.setItem(
-                    "event_signup_form",
+                // Persist form only for same-tab navigation (sessionStorage); cleared when coming from external site
+                sessionStorage.setItem(
+                    'coffee_wall_create_form',
                     JSON.stringify(newForm)
                 );
             },
@@ -789,7 +807,7 @@ export default {
             this.form["beneficiary_ids"] = this.allBeneficiaryId ? [this.allBeneficiaryId] : [];
 
             this.validationErros = new ErrorHandling();
-            localStorage.removeItem("event_signup_form");
+            sessionStorage.removeItem('coffee_wall_create_form');
 
             // Clear Stripe card element
             if (this.cardElement) {
