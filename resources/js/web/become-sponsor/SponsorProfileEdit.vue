@@ -63,6 +63,15 @@
           </div>
         </div>
       </div>
+
+      <!-- Upgrade plan (only for recurring Stripe subscriptions) -->
+      <div v-if="canUpgradePlan" class="mt-4 pt-4 border-t border-primary/20">
+        <p class="text-sm text-gray-600 mb-2">Upgrade your plan mid-cycle: we’ll apply unused time from your current plan as credit toward the new one.</p>
+        <button type="button" @click="openUpgradeModal"
+          class="px-4 py-2 rounded-md bg-primary text-white text-sm font-medium hover:opacity-90 transition-opacity">
+          Upgrade plan
+        </button>
+      </div>
     </div>
 
     <!-- Edit Form -->
@@ -346,6 +355,63 @@
       </div>
     </form>
 
+    <!-- Upgrade plan modal -->
+    <div v-if="upgradeModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" @click.self="closeUpgradeModal">
+      <div class="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+        <div class="p-6">
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">Upgrade your sponsorship plan</h3>
+          <p class="text-sm text-gray-600 mb-4">Your unused time on the current plan will be applied as credit. You pay: New plan price − credit.</p>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">New amount per period ($)</label>
+              <input v-model.number="upgradeForm.new_amount" type="number" min="1" step="0.01" class="can-exp-input w-full"
+                placeholder="e.g. 500" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">New billing frequency</label>
+              <select v-model="upgradeForm.new_frequency" class="can-exp-input w-full">
+                <option value="monthly">Monthly</option>
+                <option value="quarterly">Quarterly</option>
+                <option value="annually">Annually</option>
+              </select>
+            </div>
+            <button type="button" @click="loadUpgradePreview" :disabled="upgradePreviewLoading || !upgradeForm.new_amount"
+              class="w-full px-4 py-2 rounded-md border border-primary text-primary text-sm font-medium hover:bg-primary hover:text-white transition-colors">
+              {{ upgradePreviewLoading ? 'Loading...' : 'See upgrade cost' }}
+            </button>
+
+            <div v-if="upgradePreview" class="p-4 bg-gray-50 rounded-md space-y-2 text-sm">
+              <p><span class="text-gray-600">Unused credit from current plan:</span> <strong>${{ upgradePreview.unused_credit.toFixed(2) }}</strong></p>
+              <p><span class="text-gray-600">New plan price:</span> <strong>${{ upgradePreview.new_plan_price.toFixed(2) }}</strong></p>
+              <p class="pt-2 border-t border-gray-200"><span class="text-gray-600">Amount due today:</span> <strong class="text-primary">${{ upgradePreview.amount_due_today.toFixed(2) }}</strong></p>
+            </div>
+
+            <template v-if="upgradePreview">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Cardholder name</label>
+                <input v-model="upgradeForm.cardholder_name" type="text" class="can-exp-input w-full" placeholder="John Doe" />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Card details</label>
+                <div ref="upgradeStripeCard" class="can-exp-input min-h-[40px]"></div>
+                <p v-if="upgradePreview.amount_due_today === 0" class="text-xs text-gray-500 mt-1">Your credit covers this upgrade; card will be used for future renewals.</p>
+              </div>
+            </template>
+          </div>
+
+          <div class="flex gap-3 mt-6">
+            <button type="button" @click="closeUpgradeModal"
+              class="flex-1 px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">Cancel</button>
+            <button v-if="upgradePreview" type="button" @click="confirmUpgrade" :disabled="upgradeSubmitting || !upgradeForm.cardholder_name"
+              class="flex-1 px-4 py-2 rounded-md bg-primary text-white font-medium hover:opacity-90 disabled:opacity-50">
+              {{ upgradeSubmitting ? 'Processing...' : (upgradePreview.amount_due_today > 0 ? 'Confirm and pay' : 'Confirm upgrade') }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Loading Overlay -->
     <div v-if="loading" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div class="bg-white rounded-lg p-6">
@@ -369,6 +435,7 @@ import Error from "../components/Error.vue";
 import axios from "axios";
 import ErrorHandling from "../../ErrorHandling";
 import helper from "../../helper";
+import { loadStripe } from "@stripe/stripe-js";
 
 // Import FilePond
 import vueFilePond, { setOptions } from "vue-filepond";
@@ -426,6 +493,20 @@ export default {
       showCurrentPassword: false,
       showNewPassword: false,
       showNewPasswordConfirm: false,
+      // Upgrade plan modal
+      upgradeModalOpen: false,
+      upgradePreview: null,
+      upgradeForm: {
+        new_amount: null,
+        new_frequency: "monthly",
+        cardholder_name: "",
+        payment_method_id: null,
+      },
+      upgradePreviewLoading: false,
+      upgradeSubmitting: false,
+      stripe: null,
+      stripeElements: null,
+      stripeCardElement: null,
     };
   },
   mounted() {
@@ -439,6 +520,12 @@ export default {
       const langAbbr = langMatch ? langMatch[1] : "en";
       const base = process.env.MIX_APP_URL || "";
       return `${base}/${langAbbr}/sponsor-detail/${this.sponsor.slug}`;
+    },
+    canUpgradePlan() {
+      if (!this.sponsor) return false;
+      const freq = this.sponsor.frequency;
+      const hasRecurring = freq === "monthly" || freq === "quarterly" || freq === "annually";
+      return !!(this.sponsor.stripe_subscription_id && hasRecurring && this.sponsor.payment_status === "paid");
     },
   },
   watch: {
@@ -737,6 +824,144 @@ export default {
       // Allow + or numbers (0-9)
       if (char !== '+' && !/^[0-9]$/.test(char)) {
         event.preventDefault();
+      }
+    },
+
+    async openUpgradeModal() {
+      this.upgradeModalOpen = true;
+      this.upgradePreview = null;
+      this.upgradeForm.new_amount = this.sponsor.sponsorship_amount ? parseFloat(this.sponsor.sponsorship_amount) : null;
+      this.upgradeForm.new_frequency = this.sponsor.frequency || "monthly";
+      this.upgradeForm.cardholder_name = this.sponsor.contact_name || "";
+      this.upgradeForm.payment_method_id = null;
+      if (!this.stripe && process.env.MIX_STRIPE_PUBLIC_KEY) {
+        this.stripe = await loadStripe(process.env.MIX_STRIPE_PUBLIC_KEY);
+        if (this.stripe) {
+          this.stripeElements = this.stripe.elements();
+          this.stripeCardElement = this.stripeElements.create("card");
+        }
+      }
+      this.$nextTick(() => this.mountUpgradeStripeElement());
+    },
+
+    closeUpgradeModal() {
+      this.upgradeModalOpen = false;
+      this.upgradePreview = null;
+      if (this.stripeCardElement) {
+        try {
+          this.stripeCardElement.unmount();
+        } catch (e) {}
+      }
+    },
+
+    mountUpgradeStripeElement() {
+      const mountPoint = this.$refs.upgradeStripeCard;
+      if (!mountPoint || !this.stripeCardElement) return;
+      try {
+        this.stripeCardElement.unmount();
+      } catch (e) {}
+      try {
+        this.stripeCardElement.mount(mountPoint);
+      } catch (e) {
+        console.error("Stripe card mount error:", e);
+      }
+    },
+
+    async loadUpgradePreview() {
+      if (!this.upgradeForm.new_amount || !this.sponsor) return;
+      this.upgradePreviewLoading = true;
+      try {
+        const { data } = await axios.post(
+          `${process.env.MIX_WEB_API_URL}sponsor/upgrade-preview`,
+          {
+            sponsor_id: this.sponsor.id,
+            new_amount: this.upgradeForm.new_amount,
+            new_frequency: this.upgradeForm.new_frequency,
+          }
+        );
+        if (data.status === "Success" && data.data) {
+          this.upgradePreview = data.data;
+          this.$nextTick(() => this.mountUpgradeStripeElement());
+        } else {
+          helper.swalErrorMessageForWeb(data.message || "Could not load upgrade preview.");
+        }
+      } catch (err) {
+        const msg = err.response?.data?.message || err.message || "Could not load upgrade preview.";
+        helper.swalErrorMessageForWeb(msg);
+      } finally {
+        this.upgradePreviewLoading = false;
+      }
+    },
+
+    async confirmUpgrade() {
+      if (!this.upgradePreview || !this.sponsor) return;
+      this.upgradeSubmitting = true;
+      try {
+        let paymentMethodId = this.upgradeForm.payment_method_id;
+        if (this.upgradePreview.amount_due_today > 0) {
+          if (!this.upgradeForm.cardholder_name) {
+            helper.swalErrorMessageForWeb("Please enter cardholder name.");
+            this.upgradeSubmitting = false;
+            return;
+          }
+          if (!this.stripe || !this.stripeCardElement) {
+            helper.swalErrorMessageForWeb("Card element is not ready. Please try again.");
+            this.upgradeSubmitting = false;
+            return;
+          }
+          const { error, paymentMethod } = await this.stripe.createPaymentMethod({
+            type: "card",
+            card: this.stripeCardElement,
+            billing_details: { name: this.upgradeForm.cardholder_name },
+          });
+          if (error) {
+            helper.swalErrorMessageForWeb(error.message || "Card validation failed.");
+            this.upgradeSubmitting = false;
+            return;
+          }
+          paymentMethodId = paymentMethod.id;
+        } else {
+          // Amount due is 0 (credit covers full new plan). We still need a payment method for future renewals - use existing default or require card.
+          if (!this.stripe || !this.stripeCardElement) {
+            helper.swalErrorMessageForWeb("Please enter card details for future renewals.");
+            this.upgradeSubmitting = false;
+            return;
+          }
+          const { error, paymentMethod } = await this.stripe.createPaymentMethod({
+            type: "card",
+            card: this.stripeCardElement,
+            billing_details: { name: this.upgradeForm.cardholder_name || this.sponsor.contact_name },
+          });
+          if (error) {
+            helper.swalErrorMessageForWeb(error.message || "Card validation failed.");
+            this.upgradeSubmitting = false;
+            return;
+          }
+          paymentMethodId = paymentMethod.id;
+        }
+
+        const { data } = await axios.post(
+          `${process.env.MIX_WEB_API_URL}sponsor/upgrade-plan`,
+          {
+            sponsor_id: this.sponsor.id,
+            new_amount: this.upgradeForm.new_amount,
+            new_frequency: this.upgradeForm.new_frequency,
+            payment_method_id: paymentMethodId,
+            cardholder_name: this.upgradeForm.cardholder_name || this.sponsor.contact_name,
+          }
+        );
+        if (data.status === "Success") {
+          helper.swalSuccessMessageForWeb(data.message || "Plan upgraded successfully.");
+          this.closeUpgradeModal();
+          await this.fetchSponsorProfile();
+        } else {
+          helper.swalErrorMessageForWeb(data.message || "Upgrade failed.");
+        }
+      } catch (err) {
+        const msg = err.response?.data?.message || err.message || "Upgrade failed.";
+        helper.swalErrorMessageForWeb(msg);
+      } finally {
+        this.upgradeSubmitting = false;
       }
     },
   },

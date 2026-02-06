@@ -1078,4 +1078,220 @@ class BecomeSponsorController extends Controller
 
         return $slug;
     }
+
+    /**
+     * Preview mid-cycle upgrade: unused credit, new plan price, amount due today.
+     * Start the new plan immediately; charge = New Plan Price − Unused Old Plan Credit.
+     */
+    public function upgradePreview(Request $request)
+    {
+        try {
+            $customer = \Illuminate\Support\Facades\Auth::guard('customers')->user();
+            if (!$customer) {
+                return $this->errorResponse('Unauthorized', 401);
+            }
+
+            $validated = $request->validate([
+                'sponsor_id' => 'required|exists:sponsors,id',
+                'new_amount' => 'required|numeric|min:1',
+                'new_frequency' => 'required|in:monthly,quarterly,annually',
+            ]);
+
+            $sponsor = Sponsor::where('id', $validated['sponsor_id'])
+                ->where('customer_id', $customer->id)
+                ->firstOrFail();
+
+            if (empty($sponsor->stripe_subscription_id) || in_array($sponsor->frequency ?? '', ['one_time'], true)) {
+                return $this->errorResponse('This sponsorship does not have an active recurring plan. Upgrades apply only to monthly, quarterly, or annual subscriptions.');
+            }
+
+            \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+            $subscription = \Stripe\Subscription::retrieve($sponsor->stripe_subscription_id);
+
+            if ($subscription->status === 'canceled' || $subscription->status === 'incomplete_expired') {
+                return $this->errorResponse('Current subscription is no longer active.');
+            }
+
+            $periodStart = $subscription->current_period_start;
+            $periodEnd = $subscription->current_period_end;
+            $now = time();
+            $periodLength = max(1, $periodEnd - $periodStart);
+            $remaining = max(0, $periodEnd - $now);
+            $unusedFraction = min(1.0, $remaining / $periodLength);
+            $oldAmountPerPeriod = (float) $sponsor->sponsorship_amount;
+            $unusedCredit = round($unusedFraction * $oldAmountPerPeriod, 2);
+
+            $newPlanPrice = (float) $validated['new_amount'];
+            $amountDue = max(0, round($newPlanPrice - $unusedCredit, 2));
+
+            return $this->successResponse([
+                'unused_credit' => $unusedCredit,
+                'new_plan_price' => $newPlanPrice,
+                'amount_due_today' => $amountDue,
+                'current_period_end' => date('Y-m-d', $periodEnd),
+                'old_plan_amount' => $oldAmountPerPeriod,
+                'old_frequency' => $sponsor->frequency,
+            ], 'Preview loaded.');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            throw $e;
+        } catch (\Exception $e) {
+            Log::error('Sponsor upgrade preview error', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+            return $this->errorResponse($e->getMessage());
+        }
+    }
+
+    /**
+     * Process mid-cycle upgrade: cancel old subscription, apply unused credit, start new plan, charge amount due.
+     */
+    public function upgradePlan(Request $request)
+    {
+        try {
+            $customer = \Illuminate\Support\Facades\Auth::guard('customers')->user();
+            if (!$customer) {
+                return $this->errorResponse('Unauthorized', 401);
+            }
+
+            $validated = $request->validate([
+                'sponsor_id' => 'required|exists:sponsors,id',
+                'new_amount' => 'required|numeric|min:1',
+                'new_frequency' => 'required|in:monthly,quarterly,annually',
+                'payment_method_id' => 'required|string',
+                'cardholder_name' => 'required|string|max:255',
+            ]);
+
+            $sponsor = Sponsor::where('id', $validated['sponsor_id'])
+                ->where('customer_id', $customer->id)
+                ->with(['beneficiaries'])
+                ->firstOrFail();
+
+            if (empty($sponsor->stripe_subscription_id) || in_array($sponsor->frequency ?? '', ['one_time'], true)) {
+                return $this->errorResponse('This sponsorship does not have an active recurring plan. Upgrades apply only to monthly, quarterly, or annual subscriptions.');
+            }
+
+            \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+
+            $subscription = \Stripe\Subscription::retrieve($sponsor->stripe_subscription_id);
+            if ($subscription->status === 'canceled' || $subscription->status === 'incomplete_expired') {
+                return $this->errorResponse('Current subscription is no longer active.');
+            }
+
+            $stripeCustomerId = $subscription->customer;
+            $periodStart = $subscription->current_period_start;
+            $periodEnd = $subscription->current_period_end;
+            $now = time();
+            $periodLength = max(1, $periodEnd - $periodStart);
+            $remaining = max(0, $periodEnd - $now);
+            $unusedFraction = min(1.0, $remaining / $periodLength);
+            $oldAmountPerPeriod = (float) $sponsor->sponsorship_amount;
+            $unusedCredit = round($unusedFraction * $oldAmountPerPeriod, 2);
+
+            // Cancel old subscription immediately (no Stripe proration; we apply our own credit)
+            $subscription->cancel();
+
+            // Apply unused value as credit (negative invoice item so next invoice gets the discount)
+            if ($unusedCredit > 0) {
+                \Stripe\InvoiceItem::create([
+                    'customer' => $stripeCustomerId,
+                    'amount' => - (int) round($unusedCredit * 100),
+                    'currency' => 'usd',
+                    'description' => 'Credit for unused time on previous sponsorship plan (mid-cycle upgrade)',
+                ]);
+            }
+
+            // Attach/update payment method
+            $paymentMethod = \Stripe\PaymentMethod::retrieve($validated['payment_method_id']);
+            try {
+                $paymentMethod->attach(['customer' => $stripeCustomerId]);
+            } catch (\Stripe\Exception\InvalidRequestException $e) {
+                if (strpos($e->getMessage(), 'already been attached') === false) {
+                    throw $e;
+                }
+            }
+            \Stripe\Customer::update($stripeCustomerId, [
+                'invoice_settings' => ['default_payment_method' => $validated['payment_method_id']],
+            ]);
+
+            $intervalMap = [
+                'monthly' => ['interval' => 'month', 'interval_count' => 1],
+                'quarterly' => ['interval' => 'month', 'interval_count' => 3],
+                'annually' => ['interval' => 'year', 'interval_count' => 1],
+            ];
+            $interval = $intervalMap[$validated['new_frequency']];
+            $newAmount = (float) $validated['new_amount'];
+
+            $product = \Stripe\Product::create([
+                'name' => 'Sponsorship (Upgraded) - ' . $sponsor->business_name,
+                'description' => 'Sponsorship payment',
+            ]);
+            $price = \Stripe\Price::create([
+                'product' => $product->id,
+                'unit_amount' => (int) round($newAmount * 100),
+                'currency' => 'usd',
+                'recurring' => $interval,
+            ]);
+
+            $newSubscription = \Stripe\Subscription::create([
+                'customer' => $stripeCustomerId,
+                'items' => [['price' => $price->id]],
+                'expand' => ['latest_invoice.payment_intent'],
+                'metadata' => [
+                    'company_name' => $sponsor->business_name,
+                    'contact_name' => $sponsor->contact_name,
+                    'email' => $sponsor->email,
+                    'beneficiary_ids' => $sponsor->beneficiaries->pluck('id')->implode(','),
+                    'frequency' => $validated['new_frequency'],
+                    'sponsor_id' => (string) $sponsor->id,
+                ],
+            ]);
+
+            $invoice = $newSubscription->latest_invoice;
+            $invoicePaid = $invoice->status === 'paid' || (isset($invoice->amount_due) && $invoice->amount_due == 0);
+            $paymentIntent = null;
+            if ($invoice->payment_intent) {
+                $paymentIntent = is_string($invoice->payment_intent)
+                    ? \Stripe\PaymentIntent::retrieve($invoice->payment_intent, ['expand' => ['payment_method']])
+                    : $invoice->payment_intent;
+            }
+
+            // Success: invoice paid (either by card or $0 when credit covered full amount)
+            if ($invoicePaid || ($paymentIntent && $paymentIntent->status === 'succeeded')) {
+                $sponsor->update([
+                    'sponsorship_amount' => $newAmount,
+                    'frequency' => $validated['new_frequency'],
+                    'stripe_subscription_id' => $newSubscription->id,
+                    'transaction_id' => $paymentIntent ? $paymentIntent->id : $invoice->id,
+                    'stripe_payment_intent_id' => $paymentIntent ? $paymentIntent->id : null,
+                    'paid_at' => now(),
+                    'payment_status' => 'paid',
+                    'status' => 'active',
+                    'is_visible' => true,
+                ]);
+                $sponsor->load(['logoMedia', 'featuredMedia', 'beneficiaries', 'beneficiary']);
+                return $this->successResponse(
+                    new \App\Http\Resources\Web\SponsorResource($sponsor),
+                    'Your plan has been upgraded. The new plan is active now.'
+                );
+            }
+
+            if ($paymentIntent && ($paymentIntent->status === 'requires_action' || $paymentIntent->status === 'requires_payment_method')) {
+                return $this->errorResponse('Payment requires additional authentication. Please try again or use a different card.');
+            }
+
+            return $this->errorResponse('Payment could not be completed. Please try again or contact support.');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            throw $e;
+        } catch (\Stripe\Exception\CardException $e) {
+            Log::error('Stripe card error on sponsor upgrade', ['error' => $e->getMessage()]);
+            return $this->errorResponse($e->getMessage());
+        } catch (\Exception $e) {
+            Log::error('Sponsor upgrade error', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+            return $this->errorResponse($e->getMessage());
+        }
+    }
 }

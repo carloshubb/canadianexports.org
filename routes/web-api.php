@@ -80,6 +80,8 @@ Route::group(['prefix' => 'web', 'middleware' => ['auth.user']], function () {
     Route::get('/sponsor/profile', [BecomeSponsorController::class, 'getSponsorProfile']); // Get all sponsorships
     Route::get('/sponsor/profile/{id}', [BecomeSponsorController::class, 'getSponsorById']); // Get specific sponsorship
     Route::post('/sponsor/update-profile', [BecomeSponsorController::class, 'updateSponsorProfile']);
+    Route::post('/sponsor/upgrade-preview', [BecomeSponsorController::class, 'upgradePreview']);
+    Route::post('/sponsor/upgrade-plan', [BecomeSponsorController::class, 'upgradePlan']);
 
     // Member Webinar routes (require authentication)
     Route::prefix('member/webinars')->group(function () {
