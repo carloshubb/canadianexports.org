@@ -76,7 +76,7 @@ substr($useragent, 0, 4),
                 {{-- About us: single link, no dropdown --}}
                 <li>
                     <a aria-label="Candian Exporters" href="{{ $aboutUsUrl }}"
-                        class="sub-menu-item font-Futura">{{ $menuItem['name'] }}</a>
+                        class="font-Futura">{{ $menuItem['name'] }}</a>
                 </li>
                 @elseif ($hasChildren)
                 <li class="has-submenu parent-menu-item dropdown-menu-exp-responsive">
@@ -103,7 +103,7 @@ substr($useragent, 0, 4),
                     $url = langBasedURL($lang, $menuItem['link']);
                     @endphp
                     <a aria-label="Candian Exporters" href="{{ $url }}"
-                        class="sub-menu-item font-Futura">{{ $menuItem['name'] }}</a>
+                        class="font-Futura">{{ $menuItem['name'] }}</a>
                 </li>
                 @endif
                 @endforeach
