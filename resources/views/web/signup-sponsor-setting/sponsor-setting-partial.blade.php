@@ -1,4 +1,13 @@
 <div class="">
+    @php
+        $sponsorUser = auth()->guard('customers')->user();
+        $sponsorGreeting = 'Welcome back';
+        $sponsorDescription = 'Welcome to your <strong>Sponsor Dashboard</strong>. We are honored to have your support. You can update your recognition details here, or contact your dedicated account manager for any <strong>priority assistance</strong>. Thank you for being a <strong>cornerstone of Canadian Exports.</strong>';
+    @endphp
+    <div class="bg-white  px-4 sm:px-10  rounded-lg sm:pt-20 w-full max-w-full min-w-0 mt-20">
+        <h2 class="font-FuturaMdCnBT  text-gray-900 break-words">{{ $sponsorGreeting }} {{ $sponsorUser->name ?? '' }},</h2>
+        <p class="font-FuturaMdCnBT text-gray-700  break-words whitespace-normal" style="line-height: 1.6; word-wrap: break-word;">{!! $sponsorDescription !!}</p>
+    </div>
     <div class="bg-white mt-10 py-8 px-4 sm:px-10">
         @php
             $langAbbr = app()->getLocale() ?? 'en';

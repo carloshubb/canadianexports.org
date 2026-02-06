@@ -1,5 +1,10 @@
 <template>
     <form class="lg:w-full" @submit.prevent="recaptcha()">
+        <!-- Event dashboard welcome (Premium / Featured) -->
+        <div v-if="eventDashboardDescription" class="bg-white px-4 sm:px-10 rounded-lg sm:pt-20 w-full max-w-full min-w-0 mt-20 mb-6">
+            <h2 class="font-FuturaMdCnBT text-gray-900 break-words">Welcome back {{ eventDashboardFirstName }},</h2>
+            <p class="font-FuturaMdCnBT text-gray-900 break-words whitespace-normal" style="line-height: 1.6; word-wrap: break-word;" v-html="eventDashboardDescription"></p>
+        </div>
         <div class="my-4">
             <!-- Step 1: Select Your Package -->
             <div
@@ -873,6 +878,22 @@ export default {
         effectivePackageType() {
             const t = (this.form.package_type ?? '').toString().trim().toLowerCase();
             return t === 'premium' || t === 'featured' ? t : '';
+        },
+        /** First name for event dashboard welcome line */
+        eventDashboardFirstName() {
+            const name = (this.current_user && typeof this.current_user === 'string')
+                ? (() => { try { return JSON.parse(this.current_user)?.name ?? ''; } catch (_) { return ''; } })()
+                : (this.current_user?.name ?? '');
+            return (typeof name === 'string' && name.trim()) ? name.trim().split(/\s+/)[0] : '';
+        },
+        /** Event dashboard description (Premium vs Featured); HTML with bold. Shown when package is set. */
+        eventDashboardDescription() {
+            if (!this.effectivePackageType) return '';
+            const texts = {
+                premium: 'This is your <strong>Premium Event</strong> page; update your event details here or <strong>reach more attendees</strong> with a Featured upgrade. Need help? <strong>Contact us.</strong>',
+                featured: 'Welcome to your <strong>Featured Event</strong> page. Your event is receiving our highest level of visibility. Update your details here, or reach out to our <strong>specialized team</strong> to ensure your event looks perfect.'
+            };
+            return texts[this.effectivePackageType] || '';
         },
         showPhotoGallery() {
             return this.effectivePackageType === 'premium' || this.effectivePackageType === 'featured';
