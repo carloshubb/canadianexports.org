@@ -313,6 +313,21 @@ class BecomeSponsorController extends Controller
 
             $primaryBeneficiaryId = $beneficiaryIds->first();
 
+            // Reactivation: load existing sponsor (must belong to logged-in customer)
+            $reactivationSponsorId = $request->input('reactivation_sponsor_id');
+            $existingSponsor = null;
+            if ($reactivationSponsorId) {
+                $existingSponsor = Sponsor::find((int) $reactivationSponsorId);
+                if (!$existingSponsor) {
+                    return $this->errorResponse('Sponsorship not found.');
+                }
+                $loggedInCustomer = $loggedInCustomer ?? \Illuminate\Support\Facades\Auth::guard('customers')->user();
+                if (!$loggedInCustomer || (int) $existingSponsor->customer_id !== (int) $loggedInCustomer->id) {
+                    return $this->errorResponse('You can only reactivate your own sponsorship.');
+                }
+                Log::info('Reactivation flow', ['sponsor_id' => $existingSponsor->id]);
+            }
+
             // Handle file uploads
             $logoMediaId = null;
             $featuredMediaId = null;
@@ -345,15 +360,18 @@ class BecomeSponsorController extends Controller
                 }
             }
 
-            // Generate unique slug
-            $slug = $this->generateUniqueSlug($request->company_name);
+            // Generate unique slug (skip for reactivation - keep existing)
+            $slug = $existingSponsor ? $existingSponsor->slug : $this->generateUniqueSlug($request->company_name);
 
             // Create or find customer account
             $customer = null;
             $sendWelcomeEmail = false;
             $isNewCustomer = false;
 
-            if (!$talkToUsFirst) {
+            if ($existingSponsor) {
+                $customer = $existingSponsor->customer;
+                Log::info('Reactivation: using existing sponsor customer', ['customer_id' => $customer->id]);
+            } elseif (!$talkToUsFirst) {
                 // Use logged-in customer or check by email
                 if ($loggedInCustomer) {
                     // User is already logged in - use their account for additional sponsorship
@@ -409,6 +427,8 @@ class BecomeSponsorController extends Controller
             $stripePaymentIntentId = null;
             $stripeSubscriptionId = null;
             $paypalSubscriptionId = null;
+            $cardBrand = null;
+            $cardLast4 = null;
             $paymentStatus = $talkToUsFirst ? 'not_required' : 'pending';
             $sponsorshipType = $talkToUsFirst ? 'talk_to_us' : 'paid';
             $status = $talkToUsFirst ? 'pending' : 'pending'; // Will be changed to active after payment
@@ -477,6 +497,10 @@ class BecomeSponsorController extends Controller
                             $paymentStatus = 'paid';
                             $status = 'active'; // Auto-approve
                             $isVisible = true; // Make visible immediately
+                            if (!empty($paymentMethod->card)) {
+                                $cardBrand = $paymentMethod->card->brand ?? null;
+                                $cardLast4 = $paymentMethod->card->last4 ?? null;
+                            }
 
                             Log::info('Stripe one-time payment succeeded', ['payment_intent_id' => $transactionId]);
                         } elseif ($paymentIntent->status === 'requires_action' || $paymentIntent->status === 'requires_payment_method') {
@@ -567,6 +591,11 @@ class BecomeSponsorController extends Controller
                             $paymentStatus = 'paid';
                             $status = 'active'; // Auto-approve
                             $isVisible = true; // Make visible immediately
+                            $pm = $paymentIntent->payment_method;
+                            if (is_object($pm) && !empty($pm->card)) {
+                                $cardBrand = $pm->card->brand ?? null;
+                                $cardLast4 = $pm->card->last4 ?? null;
+                            }
 
                             Log::info('Stripe subscription payment succeeded', [
                                 'subscription_id' => $subscription->id,
@@ -633,51 +662,64 @@ class BecomeSponsorController extends Controller
                 $status = 'pending';
             }
 
-            // Create sponsor record
+            // Create or update sponsor record (update for reactivation)
+            $sponsorData = [
+                'business_name' => $request->company_name,
+                'slug' => $slug,
+                'contact_name' => $request->contact_name,
+                'email' => $request->email,
+                'contact_number' => $request->contact_number,
+                'url' => $request->url,
+                'logo_media_id' => $logoMediaId ?? ($existingSponsor ? $existingSponsor->logo_media_id : null),
+                'featured_media_id' => $featuredMediaId ?? ($existingSponsor ? $existingSponsor->featured_media_id : null),
+                'summary' => $request->summary,
+                'detail_description' => $request->detail_description,
+                'message' => $request->message,
+                'sponsorship_type' => $sponsorshipType,
+                'sponsorship_amount' => $request->sponsorship_amount ?? null,
+                'frequency' => $request->frequency ?? 'one_time',
+                'talk_to_us_first' => $talkToUsFirst,
+                'preferred_call_time' => $request->preferred_call_time ?? null,
+                'preferred_call_date' => $request->preferred_call_date ?? null,
+                'talk_to_us_name' => $talkToUsFirst ? ($request->contact_name ?? null) : ($request->talk_to_us_name ?? null),
+                'talk_to_us_phone' => $talkToUsFirst ? ($request->contact_number ?? null) : ($request->talk_to_us_phone ?? null),
+                'beneficiary_id' => $primaryBeneficiaryId,
+                'payment_status' => $paymentStatus,
+                'payment_method' => $request->payment_method ?? null,
+                'transaction_id' => $transactionId,
+                'stripe_payment_intent_id' => $stripePaymentIntentId,
+                'stripe_subscription_id' => $stripeSubscriptionId,
+                'paypal_subscription_id' => $paypalSubscriptionId,
+                'card_brand' => $cardBrand,
+                'card_last4' => $cardLast4,
+                'paid_at' => $paymentStatus === 'paid' ? now() : null,
+                'status' => $status,
+                'is_visible' => $isVisible,
+                'customer_id' => $customer ? $customer->id : null,
+            ];
+
             try {
-                Log::info('Creating sponsor record', [
-                    'company_name' => $request->company_name,
-                    'email' => $request->email,
-                    'payment_status' => $paymentStatus,
-                    'customer_id' => $customer ? $customer->id : null
-                ]);
-
-                $sponsor = Sponsor::create([
-                    'business_name' => $request->company_name,
-                    'slug' => $slug,
-                    'contact_name' => $request->contact_name,
-                    'email' => $request->email,
-                    'contact_number' => $request->contact_number,
-                    'url' => $request->url,
-                    'logo_media_id' => $logoMediaId,
-                    'featured_media_id' => $featuredMediaId,
-                    'summary' => $request->summary,
-                    'detail_description' => $request->detail_description,
-                    'message' => $request->message,
-                    'sponsorship_type' => $sponsorshipType,
-                    'sponsorship_amount' => $request->sponsorship_amount ?? null,
-                    'frequency' => $request->frequency ?? 'one_time',
-                    'talk_to_us_first' => $talkToUsFirst,
-                    'preferred_call_time' => $request->preferred_call_time ?? null,
-                    'preferred_call_date' => $request->preferred_call_date ?? null,
-                    'talk_to_us_name' => $talkToUsFirst ? ($request->contact_name ?? null) : ($request->talk_to_us_name ?? null),
-                    'talk_to_us_phone' => $talkToUsFirst ? ($request->contact_number ?? null) : ($request->talk_to_us_phone ?? null),
-                    'beneficiary_id' => $primaryBeneficiaryId,
-                    'payment_status' => $paymentStatus,
-                    'payment_method' => $request->payment_method ?? null,
-                    'transaction_id' => $transactionId,
-                    'stripe_payment_intent_id' => $stripePaymentIntentId,
-                    'stripe_subscription_id' => $stripeSubscriptionId,
-                    'paypal_subscription_id' => $paypalSubscriptionId,
-                    'paid_at' => $paymentStatus === 'paid' ? now() : null,
-                    'status' => $status,
-                    'is_visible' => $isVisible,
-                    'customer_id' => $customer ? $customer->id : null,
-                ]);
-
-                Log::info('Sponsor created successfully', ['sponsor_id' => $sponsor->id]);
+                if ($existingSponsor) {
+                    Log::info('Updating sponsor record (reactivation)', [
+                        'sponsor_id' => $existingSponsor->id,
+                        'status' => $status,
+                        'payment_status' => $paymentStatus,
+                    ]);
+                    $existingSponsor->update($sponsorData);
+                    $sponsor = $existingSponsor->fresh();
+                    Log::info('Sponsor reactivated successfully', ['sponsor_id' => $sponsor->id]);
+                } else {
+                    Log::info('Creating sponsor record', [
+                        'company_name' => $request->company_name,
+                        'email' => $request->email,
+                        'payment_status' => $paymentStatus,
+                        'customer_id' => $customer ? $customer->id : null
+                    ]);
+                    $sponsor = Sponsor::create($sponsorData);
+                    Log::info('Sponsor created successfully', ['sponsor_id' => $sponsor->id]);
+                }
             } catch (\Exception $e) {
-                Log::error('Failed to create sponsor record', [
+                Log::error('Failed to save sponsor record', [
                     'error' => $e->getMessage(),
                     'trace' => $e->getTraceAsString()
                 ]);

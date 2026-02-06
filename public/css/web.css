@@ -7353,6 +7353,10 @@ body > .dp__outer_menu_wrap,
   opacity: 0.5 !important;
 }
 
+.disabled\:opacity-60:disabled {
+  opacity: 0.6 !important;
+}
+
 .group:hover .group-hover\:visible {
   visibility: visible !important;
 }

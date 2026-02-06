@@ -32,6 +32,9 @@ class SponsorResource extends JsonResource
             'is_visible' => $this->is_visible,
             'payment_status' => $this->payment_status,
             'payment_method' => $this->payment_method,
+            'paypal_email' => $this->paypal_email,
+            'card_brand' => $this->card_brand,
+            'card_last4' => $this->card_last4,
             'paid_at' => $this->paid_at?->format('Y-m-d H:i:s'),
             
             // Relationships
