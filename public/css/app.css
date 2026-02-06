@@ -2182,6 +2182,9 @@ label{
 .h-screen {
   height: 100vh;
 }
+.h-2 {
+  height: 0.5rem;
+}
 .max-h-48 {
   max-height: 12rem;
 }
@@ -2356,6 +2359,9 @@ label{
 }
 .w-screen {
   width: 100vw;
+}
+.w-2 {
+  width: 0.5rem;
 }
 .min-w-0 {
   min-width: 0px;
@@ -3256,6 +3262,9 @@ label{
   --tw-border-opacity: 1;
   border-color: rgb(250 204 21 / var(--tw-border-opacity, 1));
 }
+.border-primary\/40 {
+  border-color: rgb(4 150 255 / 0.4);
+}
 .border-b-transparent {
   border-bottom-color: transparent;
 }
@@ -3498,6 +3507,9 @@ label{
 .bg-yellow-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(254 252 232 / var(--tw-bg-opacity, 1));
+}
+.bg-gray-50\/80 {
+  background-color: rgb(249 250 251 / 0.8);
 }
 .bg-opacity-10 {
   --tw-bg-opacity: 0.1;
@@ -3771,6 +3783,9 @@ label{
 }
 .p-8 {
   padding: 2rem;
+}
+.p-\[3px\] {
+  padding: 3px;
 }
 .\!py-0 {
   padding-top: 0px !important;
@@ -4908,6 +4923,9 @@ body {
 .hover\:border-primary\/30:hover {
   border-color: rgb(4 150 255 / 0.3);
 }
+.hover\:border-primary\/40:hover {
+  border-color: rgb(4 150 255 / 0.4);
+}
 .hover\:border-red-400:hover {
   --tw-border-opacity: 1;
   border-color: rgb(248 113 113 / var(--tw-border-opacity, 1));
@@ -4919,6 +4937,9 @@ body {
 .hover\:border-yellow-600:hover {
   --tw-border-opacity: 1;
   border-color: rgb(202 138 4 / var(--tw-border-opacity, 1));
+}
+.hover\:border-primary\/60:hover {
+  border-color: rgb(4 150 255 / 0.6);
 }
 .hover\:border-opacity-100:hover {
   --tw-border-opacity: 1;
@@ -4993,6 +5014,9 @@ body {
 .hover\:bg-white:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+.hover\:bg-primary\/10:hover {
+  background-color: rgb(4 150 255 / 0.1);
 }
 .hover\:bg-opacity-100:hover {
   --tw-bg-opacity: 1;
@@ -5092,6 +5116,9 @@ body {
 }
 .hover\:underline:hover {
   text-decoration-line: underline;
+}
+.hover\:no-underline:hover {
+  text-decoration-line: none;
 }
 .hover\:decoration-solid:hover {
   text-decoration-style: solid;
@@ -5662,6 +5689,10 @@ body {
 
   .sm\:justify-start {
     justify-content: flex-start;
+  }
+
+  .sm\:justify-end {
+    justify-content: flex-end;
   }
 
   .sm\:justify-center {
@@ -6454,6 +6485,11 @@ body {
   .md\:text-xl {
     font-size: 1.25rem;
     line-height: 1.75rem;
+  }
+
+  .md\:text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
   }
 
   .md\:leading-normal {

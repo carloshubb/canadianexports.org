@@ -85,6 +85,13 @@
                 <div>{{ $sponsor->talk_to_us_phone ?? $sponsor->contact_number }}</div>
             </div>
             
+            @if($sponsor->url)
+            <div class="detail-row">
+                <span class="label">Website:</span>
+                <div>{{ $sponsor->url }}</div>
+            </div>
+            @endif
+            
             <div class="detail-row">
                 <span class="label">Preferred Call Time:</span>
                 <div>{{ ucfirst($sponsor->preferred_call_time ?? 'Not specified') }}</div>
@@ -93,13 +100,27 @@
             @if($sponsor->preferred_call_date)
             <div class="detail-row">
                 <span class="label">Preferred Call Date:</span>
-                <div>{{ $sponsor->preferred_call_date->format('F j, Y') }}</div>
+                <div>{{ $sponsor->preferred_call_date instanceof \DateTimeInterface ? $sponsor->preferred_call_date->format('F j, Y') : \Carbon\Carbon::parse($sponsor->preferred_call_date)->format('F j, Y') }}</div>
+            </div>
+            @endif
+            
+            @if($sponsor->summary)
+            <div class="detail-row">
+                <span class="label">Brief Introduction:</span>
+                <div>{{ $sponsor->summary }}</div>
+            </div>
+            @endif
+            
+            @if($sponsor->detail_description)
+            <div class="detail-row">
+                <span class="label">Detailed Description:</span>
+                <div>{{ $sponsor->detail_description }}</div>
             </div>
             @endif
             
             @if($sponsor->message)
             <div class="detail-row">
-                <span class="label">Message:</span>
+                <span class="label">Additional Message:</span>
                 <div>{{ $sponsor->message }}</div>
             </div>
             @endif

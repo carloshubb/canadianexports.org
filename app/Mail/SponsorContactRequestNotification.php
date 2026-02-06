@@ -34,7 +34,7 @@ class SponsorContactRequestNotification extends Mailable
      */
     public function build()
     {
-        $subject = 'Sponsor Contact Request - ' . $this->sponsor->business_name;
+        $subject = 'Sponsor wants a callback - Canadian Exports';
         $service = app(EmailTemplateService::class);
         $payload = ['sponsor' => $this->sponsor, 'data' => $this->data];
         $rendered = $service->render('sponsor_contact_request_notification', $payload, $subject, null);

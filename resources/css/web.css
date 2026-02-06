@@ -2518,6 +2518,18 @@ body > .dp__outer_menu_wrap,
   margin-bottom: 24px;
 }
 
+.success-subtitle {
+  font-family: theme('fontFamily.FuturaMdCnBT');
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.swal-sponsor-success-actions {
+  display: flex;
+  gap: 1rem;
+}
+
 .swal2-popup.gradient-border-modal,
 .membership-notice-modal-content.gradient-border-modal {
     border: 3px solid transparent !important;
