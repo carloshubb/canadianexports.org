@@ -2231,6 +2231,9 @@ label{
 .min-h-screen {
   min-height: 100vh;
 }
+.min-h-\[40px\] {
+  min-height: 40px;
+}
 .w-0 {
   width: 0px;
 }
@@ -3271,6 +3274,10 @@ label{
 }
 .border-primary\/40 {
   border-color: rgb(4 150 255 / 0.4);
+}
+.border-amber-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(253 230 138 / var(--tw-border-opacity, 1));
 }
 .border-b-transparent {
   border-bottom-color: transparent;
@@ -4936,9 +4943,6 @@ body {
 .hover\:border-primary\/30:hover {
   border-color: rgb(4 150 255 / 0.3);
 }
-.hover\:border-primary\/40:hover {
-  border-color: rgb(4 150 255 / 0.4);
-}
 .hover\:border-red-400:hover {
   --tw-border-opacity: 1;
   border-color: rgb(248 113 113 / var(--tw-border-opacity, 1));
@@ -4950,6 +4954,9 @@ body {
 .hover\:border-yellow-600:hover {
   --tw-border-opacity: 1;
   border-color: rgb(202 138 4 / var(--tw-border-opacity, 1));
+}
+.hover\:border-primary\/40:hover {
+  border-color: rgb(4 150 255 / 0.4);
 }
 .hover\:border-primary\/60:hover {
   border-color: rgb(4 150 255 / 0.6);
@@ -5702,10 +5709,6 @@ body {
 
   .sm\:justify-start {
     justify-content: flex-start;
-  }
-
-  .sm\:justify-end {
-    justify-content: flex-end;
   }
 
   .sm\:justify-center {

@@ -1,5 +1,10 @@
 <template>
     <form class="lg:w-full" @submit.prevent="recaptcha()">
+        <!-- Event dashboard welcome (Premium / Featured) -->
+        <div v-if="eventDashboardDescription" class="bg-white px-4 sm:px-10 rounded-lg sm:pt-20 w-full max-w-full min-w-0 mt-20 mb-6">
+            <h2 class="font-FuturaMdCnBT text-gray-900 break-words">Welcome back {{ eventDashboardFirstName }},</h2>
+            <p class="font-FuturaMdCnBT text-gray-900 break-words whitespace-normal" style="line-height: 1.6; word-wrap: break-word;" v-html="eventDashboardDescription"></p>
+        </div>
         <div class="my-4">
             <!-- Step 1: Select Your Package -->
             <div
@@ -707,7 +712,7 @@
                                         v-if="form.order_amount > 0 && form.payment_method == 'stripe'">
                                         <div class="flex justify-center items-center">
                                             <div class="h-auto bg-white p-3 rounded-lg w-full">
-                                                <div class="input_text relative">
+                                                <div class="input_text relative profile-card-field">
                                                     <label class="">{{
                                                         payment_setting &&
                                                             JSON.parse(payment_setting) &&
@@ -718,7 +723,7 @@
                                                             : ""
                                                     }}</label>
                                                     <i class="text-gray-400 fa fa-user"></i>
-                                                    <input type="text" class="can-exp-input" :placeholder="payment_setting &&
+                                                    <input type="text" class="can-exp-input profile-card-input" :placeholder="payment_setting &&
                                                         JSON.parse(payment_setting) &&
                                                         JSON.parse(payment_setting)[
                                                         'cardholder_name_placeholder'
@@ -737,9 +742,9 @@
                                                     <Error fieldName="card_holder_name"
                                                         :validationErros="validationErros" full_width="1" />
                                                 </div>
-                                                <div class="input_text mt-2 relative">
+                                                <div class="input_text mt-2 relative profile-card-field">
                                                     <label class="">Card Details</label>
-                                                    <Div ref="stripeCard" class="can-exp-input"></div>
+                                                    <div ref="stripeCard" class="can-exp-input profile-card-input profile-card-stripe-wrap"></div>
                                                     <Error fieldName="payment_method_id"
                                                         :validationErros="validationErros" full_width="1" />
                                                 </div>
@@ -774,11 +779,12 @@
                         </div>
                     </div>
                     <div class="text-center mt-auto">
-                        <button class="button-exp-fill mt-6 font-bold" type="button" @click="recaptcha()">
-                            {{ form.order_amount > 0 ? (payment_setting && JSON.parse(payment_setting) ?
-                                JSON.parse(payment_setting)["confirm_and_pay_btn_text"] : "Confirm and Pay") :
+                        <button class="button-exp-fill mt-6 font-bold" type="button" @click="recaptcha()"
+                            :disabled="form.order_amount > 0 && !upgradePaymentFieldsFilled"
+                            :class="{ 'opacity-50 cursor-not-allowed': form.order_amount > 0 && !upgradePaymentFieldsFilled }">
+                            {{ form.order_amount > 0 ? "Upgrade & Pay Now" :
                                 (payment_setting && JSON.parse(payment_setting) ?
-                                    JSON.parse(payment_setting)["confirm_and_proceed_btn_text"] : "Confirm and Pay") }}
+                                    JSON.parse(payment_setting)["confirm_and_proceed_btn_text"] : "Update") }}
                         </button>
                     </div>
                 </div>
@@ -793,9 +799,11 @@
             <div class="pt-5 border-t border-gray-200" v-if="form.order_amount == 0">
                 <div class="flex justify-center">
                     <button aria-label="Candian Exporters" type="submit" class="button-exp-fill font-bold"
-                        id="send-message">
+                        id="send-message"
+                        :disabled="!profileFormHasChanges"
+                        :class="{ 'opacity-50 cursor-not-allowed': !profileFormHasChanges }">
                         {{ payment_setting && JSON.parse(payment_setting) ?
-                            JSON.parse(payment_setting)["confirm_and_pay_btn_text"] || "Confirm and Pay" : "Confirm and Pay"
+                            JSON.parse(payment_setting)["confirm_and_proceed_btn_text"] || "Update" : "Update"
                         }}
                     </button>
                 </div>
@@ -874,8 +882,34 @@ export default {
             const t = (this.form.package_type ?? '').toString().trim().toLowerCase();
             return t === 'premium' || t === 'featured' ? t : '';
         },
+        /** First name for event dashboard welcome line */
+        eventDashboardFirstName() {
+            const name = (this.current_user && typeof this.current_user === 'string')
+                ? (() => { try { return JSON.parse(this.current_user)?.name ?? ''; } catch (_) { return ''; } })()
+                : (this.current_user?.name ?? '');
+            return (typeof name === 'string' && name.trim()) ? name.trim().split(/\s+/)[0] : '';
+        },
+        /** Event dashboard description (Premium vs Featured); HTML with bold. Shown when package is set. */
+        eventDashboardDescription() {
+            if (!this.effectivePackageType) return '';
+            const texts = {
+                premium: 'This is your <strong>Premium Event</strong> page; update your event details here or <strong>reach more attendees</strong> with a Featured upgrade. Need help? <strong>Contact us.</strong>',
+                featured: 'Welcome to your <strong>Featured Event</strong> page. Your event is receiving our highest level of visibility. Update your details here, or reach out to our <strong>specialized team</strong> to ensure your event looks perfect.'
+            };
+            return texts[this.effectivePackageType] || '';
+        },
         showPhotoGallery() {
             return this.effectivePackageType === 'premium' || this.effectivePackageType === 'featured';
+        },
+        /** True when the user has changed any profile/event details from the initial load (for Update button) */
+        profileFormHasChanges() {
+            if (!this.initialFormSnapshot) return false;
+            return JSON.stringify(this.form) !== JSON.stringify(this.initialFormSnapshot);
+        },
+        /** True when Cardholder name and Stripe card details are both filled (for Upgrade & Pay Now button) */
+        upgradePaymentFieldsFilled() {
+            const nameFilled = (this.form.card_holder_name || '').trim() !== '';
+            return nameFilled && this.stripeCardComplete;
         },
         photoGallerySectionTitle() {
             if (this.effectivePackageType === 'featured') {
@@ -1011,6 +1045,8 @@ export default {
             downgradeTooltipText:
                 "Membership downgrades cannot be processed automatically. Please contact us to adjust your plan.",
             initialEventPackageType: null,
+            initialFormSnapshot: null,
+            stripeCardComplete: false,
         };
     },
     mounted() {
@@ -1023,6 +1059,9 @@ export default {
             this.form.page_id = this.form.page_id ?? this.page_id;
             this.form.create_page_id = this.form.create_page_id ?? this.create_page_id;
         }
+        this.$nextTick(() => {
+            this.initialFormSnapshot = JSON.parse(JSON.stringify(this.form));
+        });
     },
     watch: {
         form: {
@@ -1123,6 +1162,7 @@ export default {
         },
         'form.payment_method': {
             handler(newMethod) {
+                this.stripeCardComplete = false;
                 // Remount Stripe Elements when switching back to Stripe
                 if (newMethod === 'stripe') {
                     this.$nextTick(() => {
@@ -1263,8 +1303,10 @@ export default {
         },
         setupStripeCardChangeListener() {
             if (this.cardElement) {
+                this.stripeCardComplete = false;
                 this.cardElement.off('change');
-                this.cardElement.on('change', () => {
+                this.cardElement.on('change', (e) => {
+                    this.stripeCardComplete = !!e.complete;
                     this.validationErros.clear('payment_method_id');
                 });
             }
@@ -1757,5 +1799,18 @@ export default {
     font-size: 0.75em;
     vertical-align: super;
     line-height: 1;
+}
+
+/* Cardholder name and Card details: identical dimensions */
+.profile-card-field .profile-card-input,
+.profile-card-stripe-wrap {
+    min-height: 2.5rem;
+    padding: 0.375rem 0.75rem;
+    box-sizing: border-box;
+}
+.profile-card-stripe-wrap {
+    display: block;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
 }
 </style>

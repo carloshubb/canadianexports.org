@@ -282,22 +282,52 @@ class StripeService
     public function upgradeUserAccount($request, $user, $package)
     {
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
-        $customerPaymentMethod = CustomerPaymentMethod::whereCustomerId(Auth::guard('customers')->user()->id)->where('card_no', $request->card_no)->first();
+        $customerId = Auth::guard('customers')->user()->id;
 
-        if ($customerPaymentMethod) {
-            // $customerPaymentMethod = CustomerPaymentMethod::whereId($request->customer_payment_method_id)->first();
-            $paymentMethodId = $customerPaymentMethod->payment_method_id;
-        } else {
-            $paymentMethods = $stripe->paymentMethods->create([
-                'type' => 'card',
-                'card' => [
-                    'number' => $request->card_no,
-                    'exp_month' => $request->expiry_month,
-                    'exp_year' => $request->expiry_year,
-                    'cvc' => $request->cvc,
-                ],
-            ]);
-            $paymentMethodId = $paymentMethods->id;
+        $paymentMethodId = null;
+
+        // Profile Settings flow: frontend uses Stripe Elements and sends Stripe's payment_method_id (e.g. pm_xxx)
+        $stripePaymentMethodId = $request->payment_method_id ?? null;
+        if (!empty($stripePaymentMethodId) && is_string($stripePaymentMethodId) && str_starts_with($stripePaymentMethodId, 'pm_')) {
+            $paymentMethodId = $stripePaymentMethodId;
+        }
+
+        if ($paymentMethodId === null) {
+            // Upgrade modal flow: saved card (customer_payment_method_id) or raw card (card_no)
+            $isNewCard = $request->customer_payment_method_id === 'add_new_card' || $request->customer_payment_method_id === null;
+            $customerPaymentMethod = null;
+
+            if (!$isNewCard && !empty($request->customer_payment_method_id)) {
+                $customerPaymentMethod = CustomerPaymentMethod::where('id', $request->customer_payment_method_id)
+                    ->where('customer_id', $customerId)
+                    ->first();
+                if (!$customerPaymentMethod) {
+                    return ['status' => 'error', 'message' => 'Selected payment method is invalid.'];
+                }
+            } elseif ($isNewCard && !empty(trim((string) ($request->card_no ?? '')))) {
+                $customerPaymentMethod = CustomerPaymentMethod::where('customer_id', $customerId)
+                    ->where('card_no', $request->card_no)
+                    ->first();
+            }
+
+            if ($customerPaymentMethod) {
+                $paymentMethodId = $customerPaymentMethod->payment_method_id;
+            } else {
+                $cardNo = trim((string) ($request->card_no ?? ''));
+                if ($cardNo === '') {
+                    return ['status' => 'error', 'message' => 'Card number is required. Please enter your card details or select a saved card.'];
+                }
+                $paymentMethods = $stripe->paymentMethods->create([
+                    'type' => 'card',
+                    'card' => [
+                        'number' => $request->card_no,
+                        'exp_month' => $request->expiry_month,
+                        'exp_year' => $request->expiry_year,
+                        'cvc' => $request->cvc,
+                    ],
+                ]);
+                $paymentMethodId = $paymentMethods->id;
+            }
         }
 
         if ($user->stripe_customer_id != '' && $user->stripe_customer_id != null) {

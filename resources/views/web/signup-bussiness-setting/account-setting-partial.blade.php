@@ -19,14 +19,20 @@
                 user="{{ $user }}"></business-categories>
         </div>
     @elseif (isset($page_name) && $page_name == 'profile-settings')
-        {{-- Profile Settings: welcome at very top (same style as in Company & Contact section), then 3-step layout --}}
+        {{-- Profile Settings: welcome at very top (same style as in Company & Contact section), then 3-step layout. Description varies by exporter package (Free / Premium / Featured). --}}
         @php
             $regPageSetting = getRegPageSetting();
             $regDetail = $regPageSetting && $regPageSetting->regPageSettingDetail && $regPageSetting->regPageSettingDetail->isNotEmpty()
                 ? $regPageSetting->regPageSettingDetail->first()
                 : null;
             $greetingText = $regDetail->greeting_text ?? 'Welcome back';
-            $profileDescription = $regDetail->step_2_acc_description ?? 'This is your profile page, you can update it from here. Contact us if you need any help';
+            $packageType = optional($user->registrationPackage)->package_type ?? 'free';
+            $profileDescriptions = [
+                'free' => 'This is your profile page; you can update your details here or <strong>upgrade your membership</strong> to unlock more features and enhance your visibility. Need help? <strong>Contact us.</strong>',
+                'premium' => 'This is your profile page; update your details here or <strong>enhance your visibility</strong> with a Featured plan. Need help? <strong>Contact us.</strong>',
+                'featured' => 'Welcome to your <strong>Featured</strong> profile page. You can update your details here or contact us for <strong>priority support.</strong>',
+            ];
+            $profileDescription = $profileDescriptions[$packageType] ?? $profileDescriptions['free'];
         @endphp
         <div class="bg-white  px-4 sm:px-10  rounded-lg sm:pt-20 w-full max-w-full min-w-0 mt-20">
             <h2 class="font-FuturaMdCnBT  text-gray-900 break-words">{{ $greetingText }} {{ $user->name }},</h2>

@@ -2228,6 +2228,9 @@ ul li {
 .min-h-screen {
   min-height: 100vh !important;
 }
+.min-h-\[40px\] {
+  min-height: 40px !important;
+}
 .w-0 {
   width: 0px !important;
 }
@@ -3268,6 +3271,10 @@ ul li {
 }
 .border-primary\/40 {
   border-color: rgb(0 110 183 / 0.4) !important;
+}
+.border-amber-200 {
+  --tw-border-opacity: 1 !important;
+  border-color: rgb(253 230 138 / var(--tw-border-opacity, 1)) !important;
 }
 .border-b-transparent {
   border-bottom-color: transparent !important;

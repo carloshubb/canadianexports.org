@@ -81,6 +81,9 @@ Route::group(['prefix' => 'web', 'middleware' => ['auth.user']], function () {
     Route::get('/sponsor/profile', [BecomeSponsorController::class, 'getSponsorProfile']); // Get all sponsorships
     Route::get('/sponsor/profile/{id}', [BecomeSponsorController::class, 'getSponsorById']); // Get specific sponsorship
     Route::post('/sponsor/update-profile', [BecomeSponsorController::class, 'updateSponsorProfile']);
+    Route::post('/sponsor/upgrade-preview', [BecomeSponsorController::class, 'upgradePreview']);
+    Route::post('/sponsor/upgrade-plan', [BecomeSponsorController::class, 'upgradePlan']);
+    Route::post('/sponsor/downgrade-request', [BecomeSponsorController::class, 'downgradeRequest']);
 
     // Sponsor content submission (article, video)
     Route::get('/sponsor/article-sections', [ContentSubmissionController::class, 'getArticleSections']);
