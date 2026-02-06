@@ -86,6 +86,7 @@ import AdminWebinarsCreate from '../admin/Webinars/Create.vue'
 import AdminWebinarsRegistrations from '../admin/Webinars/Registrations.vue'
 import AdminWebinarsQuestions from '../admin/Webinars/Questions.vue'
 import AdminWebinarsMessages from '../admin/Webinars/Messages.vue'
+import SponsorVideosIndex from '../admin/SponsorVideos/Index.vue'
 const routes = [
     {
         path: '/admin/dashboard',
@@ -141,6 +142,22 @@ const routes = [
         component: CreateArticleSection,
         meta: {
             breadcrumbs: [{ 'name': 'Dashboard', 'routeName': 'admin.dashboard', 'isCurrentRoute': 0 }, { 'name': 'Article sections', 'routeName': 'admin.article-sections.index', 'isCurrentRoute': 0 }, { 'name': 'Edit', 'routeName': 'admin.article-sections.edit', 'isCurrentRoute': 1 }],
+        },
+    },
+    {
+        path: '/admin/sponsor-videos',
+        name: 'admin.sponsor-videos.index',
+        component: SponsorVideosIndex,
+        meta: {
+            breadcrumbs: [{ 'name': 'Dashboard', 'routeName': 'admin.dashboard', 'isCurrentRoute': 0 }, { 'name': 'Sponsor Videos', 'routeName': 'admin.sponsor-videos.index', 'isCurrentRoute': 1 }],
+        },
+    },
+    {
+        path: '/admin/sponsor-videos/:id',
+        name: 'admin.sponsor-videos.show',
+        component: SponsorVideosIndex,
+        meta: {
+            breadcrumbs: [{ 'name': 'Dashboard', 'routeName': 'admin.dashboard', 'isCurrentRoute': 0 }, { 'name': 'Sponsor Videos', 'routeName': 'admin.sponsor-videos.index', 'isCurrentRoute': 0 }, { 'name': 'View', 'routeName': 'admin.sponsor-videos.show', 'isCurrentRoute': 1 }],
         },
     },
     {

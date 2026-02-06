@@ -2,8 +2,9 @@
   <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
     <div class="mb-6 flex items-center justify-between">
       <div>
-        <h1 class="text-3xl font-bold text-primary mb-2">My Sponsorships</h1>
-        <p class="text-gray-600">Manage all your sponsorship contributions</p>
+        <h1 class="text-3xl font-bold text-primary mb-2">Manage Sponsorship</h1>
+        <p class="text-gray-600">Review your active sponsorship details and payment history.</p>
+        <p class="text-gray-600">Thank you for your continued support of the Canadian export community.</p>
       </div>
       <a
         :href="`/${becomeSponsorSlug}`"
@@ -41,66 +42,93 @@
       <div
         v-for="sponsorship in sponsorships"
         :key="sponsorship.id"
-        class="border rounded-lg p-6 hover:shadow-md transition-shadow"
+        class="border rounded-lg overflow-hidden hover:shadow-md transition-shadow"
       >
-        <div class="flex items-start justify-between">
-          <div class="flex-1">
-            <div class="flex items-center gap-3 mb-2">
-              <h3 class="text-xl font-semibold text-gray-900">
-                {{ sponsorship.business_name }}
-              </h3>
-              <span
-                class="px-3 py-1 rounded-full text-xs font-medium"
-                :class="{
-                  'bg-green-100 text-green-800': sponsorship.status === 'active',
-                  'bg-yellow-100 text-yellow-800': sponsorship.status === 'pending',
-                  'bg-gray-100 text-gray-800': sponsorship.status === 'inactive',
-                }"
-              >
-                {{ sponsorship.status === 'active' ? 'Active' : sponsorship.status === 'pending' ? 'Pending' : 'Inactive' }}
-              </span>
-              <span
-                v-if="sponsorship.payment_status"
-                class="px-3 py-1 rounded-full text-xs font-medium"
-                :class="{
-                  'bg-green-100 text-green-800': sponsorship.payment_status === 'paid',
-                  'bg-yellow-100 text-yellow-800': sponsorship.payment_status === 'pending',
-                  'bg-blue-100 text-blue-800': sponsorship.payment_status === 'not_required',
-                }"
-              >
-                {{ getPaymentStatusText(sponsorship.payment_status) }}
-              </span>
+        <div class="p-6">
+          <div class="flex items-start justify-between">
+            <div class="flex-1">
+              <div class="flex items-center gap-3 mb-2 flex-wrap">
+                <h3 class="text-xl font-semibold text-gray-900">
+                  {{ sponsorship.business_name }}
+                </h3>
+                <span
+                  class="px-3 py-1 rounded-full text-xs font-medium"
+                  :class="{
+                    'bg-green-100 text-green-800': sponsorship.status === 'active',
+                    'bg-yellow-100 text-yellow-800': sponsorship.status === 'pending',
+                    'bg-gray-100 text-gray-600': sponsorship.status === 'inactive',
+                  }"
+                >
+                  {{ sponsorship.status === 'active' ? 'Active' : sponsorship.status === 'pending' ? 'Pending' : 'Inactive' }}
+                </span>
+                <template v-if="sponsorship.status === 'inactive'">
+                  <button
+                    type="button"
+                    @click="toggleReactivation(sponsorship.id)"
+                    class="px-4 py-1.5 text-sm font-medium rounded border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors"
+                  >
+                    {{ expandedReactivationId === sponsorship.id ? 'Collapse' : 'Reactivate Sponsorship' }}
+                  </button>
+                </template>
+                <span
+                  v-if="sponsorship.payment_status"
+                  class="px-3 py-1 rounded-full text-xs font-medium"
+                  :class="{
+                    'bg-green-100 text-green-800': sponsorship.payment_status === 'paid',
+                    'bg-yellow-100 text-yellow-800': sponsorship.payment_status === 'pending',
+                    'bg-blue-100 text-blue-800': sponsorship.payment_status === 'not_required',
+                  }"
+                >
+                  {{ getPaymentStatusText(sponsorship.payment_status) }}
+                </span>
+              </div>
+
+              <p class="text-gray-600 mb-3 line-clamp-2">
+                {{ sponsorship.summary }}
+              </p>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                <div>
+                  <span class="text-gray-500">Amount:</span>
+                  <span class="ml-2 font-medium">${{ formatAmount(sponsorship.sponsorship_amount) }}</span>
+                </div>
+                <div v-if="sponsorship.beneficiary">
+                  <span class="text-gray-500">Beneficiary:</span>
+                  <span class="ml-2 font-medium">{{ sponsorship.beneficiary.name }}</span>
+                </div>
+                <div>
+                  <span class="text-gray-500">Created:</span>
+                  <span class="ml-2 font-medium">{{ formatDate(sponsorship.created_at) }}</span>
+                </div>
+              </div>
             </div>
 
-            <p class="text-gray-600 mb-3 line-clamp-2">
-              {{ sponsorship.summary }}
-            </p>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-              <div>
-                <span class="text-gray-500">Amount:</span>
-                <span class="ml-2 font-medium">${{ formatAmount(sponsorship.sponsorship_amount) }}</span>
-              </div>
-              <div v-if="sponsorship.beneficiary">
-                <span class="text-gray-500">Beneficiary:</span>
-                <span class="ml-2 font-medium">{{ sponsorship.beneficiary.name }}</span>
-              </div>
-              <div>
-                <span class="text-gray-500">Created:</span>
-                <span class="ml-2 font-medium">{{ formatDate(sponsorship.created_at) }}</span>
-              </div>
+            <div class="ml-4 flex flex-col gap-2">
+              <a
+                :href="`/${sponsorSettingsSlug}/${sponsorship.id}`"
+                class="px-4 py-2 bg-primary text-white rounded hover:bg-opacity-90 text-center"
+              >
+                Edit
+              </a>
             </div>
-          </div>
-
-          <div class="ml-4 flex flex-col gap-2">
-            <a
-              :href="`/${sponsorSettingsSlug}/${sponsorship.id}`"
-              class="px-4 py-2 bg-primary text-white rounded hover:bg-opacity-90 text-center"
-            >
-              Edit
-            </a>
           </div>
         </div>
+
+        <!-- Reactivation form: slide-down / slide-up -->
+        <Transition name="reactivation-slide">
+          <div v-show="expandedReactivationId === sponsorship.id" class="reactivation-panel border-t border-gray-200 bg-gray-50/50">
+            <div class="p-6 pt-4">
+              <create-become-sponsor
+                v-if="expandedReactivationId === sponsorship.id"
+                :become_sponsor="{}"
+                :page_id="null"
+                :logged_in_user="loggedInUser"
+                :reactivation-sponsorship="sponsorship"
+                @reactivation-success="onReactivationSuccess"
+              />
+            </div>
+          </div>
+        </Transition>
       </div>
     </div>
 
@@ -122,9 +150,13 @@
 <script>
 import axios from "axios";
 import helper from "../../helper";
+import BecomeSponsor from "./BecomeSponsor.vue";
 
 export default {
   name: "SponsorshipsList",
+  components: {
+    CreateBecomeSponsor: BecomeSponsor,
+  },
   props: {
     becomeSponsorSlug: {
       type: String,
@@ -137,12 +169,17 @@ export default {
     initialSponsorships: {
       type: Array,
       default: null
+    },
+    loggedInUser: {
+      type: [String, Object],
+      default: null
     }
   },
   data() {
     return {
       sponsorships: [],
       loading: false,
+      expandedReactivationId: null,
     };
   },
   mounted() {
@@ -201,6 +238,15 @@ export default {
       return statusMap[status] || status;
     },
 
+    toggleReactivation(sponsorshipId) {
+      this.expandedReactivationId = this.expandedReactivationId === sponsorshipId ? null : sponsorshipId;
+    },
+
+    onReactivationSuccess() {
+      this.expandedReactivationId = null;
+      this.fetchSponsorships();
+    },
+
     getLanguage() {
       // Get current language from URL or default to 'en'
       const path = window.location.pathname;
@@ -217,6 +263,28 @@ export default {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* Reactivation panel: slide down / slide up */
+.reactivation-panel {
+  overflow: hidden;
+}
+
+.reactivation-slide-enter-active,
+.reactivation-slide-leave-active {
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+}
+
+.reactivation-slide-enter-from,
+.reactivation-slide-leave-to {
+  max-height: 0;
+  opacity: 0;
+}
+
+.reactivation-slide-enter-to,
+.reactivation-slide-leave-from {
+  max-height: 3000px;
+  opacity: 1;
 }
 </style>
 

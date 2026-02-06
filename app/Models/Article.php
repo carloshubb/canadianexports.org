@@ -13,6 +13,8 @@ class Article extends Model
     protected $fillable = [
         'section_id',
         'author_id',
+        'customer_id',
+        'submitted_by_sponsor',
         'title',
         'slug',
         'summary',
@@ -30,6 +32,7 @@ class Article extends Model
     protected $casts = [
         'keywords' => 'array',
         'published_at' => 'datetime',
+        'submitted_by_sponsor' => 'boolean',
     ];
 
     public function section(): BelongsTo
@@ -40,6 +43,11 @@ class Article extends Model
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'author_id');
+    }
+
+    public function customer(): BelongsTo
+    {
+        return $this->belongsTo(Customer::class);
     }
 }
 

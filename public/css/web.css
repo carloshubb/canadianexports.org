@@ -1818,6 +1818,10 @@ ul li {
   margin-top: auto !important;
   margin-bottom: auto !important;
 }
+.my-8 {
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
+}
 .-mb-px {
   margin-bottom: -1px !important;
 }
@@ -1974,6 +1978,9 @@ ul li {
 .mt-auto {
   margin-top: auto !important;
 }
+.mb-12 {
+  margin-bottom: 3rem !important;
+}
 .line-clamp-1 {
   overflow: hidden !important;
   display: -webkit-box !important;
@@ -2067,9 +2074,6 @@ ul li {
 }
 .h-16 {
   height: 4rem !important;
-}
-.h-2 {
-  height: 0.5rem !important;
 }
 .h-20 {
   height: 5rem !important;
@@ -2182,6 +2186,9 @@ ul li {
 .h-screen {
   height: 100vh !important;
 }
+.h-2 {
+  height: 0.5rem !important;
+}
 .max-h-48 {
   max-height: 12rem !important;
 }
@@ -2253,9 +2260,6 @@ ul li {
 }
 .w-16 {
   width: 4rem !important;
-}
-.w-2 {
-  width: 0.5rem !important;
 }
 .w-2\/3 {
   width: 66.666667% !important;
@@ -2362,6 +2366,9 @@ ul li {
 }
 .w-screen {
   width: 100vw !important;
+}
+.w-2 {
+  width: 0.5rem !important;
 }
 .min-w-0 {
   min-width: 0px !important;
@@ -3213,9 +3220,6 @@ ul li {
 .border-primary\/30 {
   border-color: rgb(0 110 183 / 0.3) !important;
 }
-.border-primary\/40 {
-  border-color: rgb(0 110 183 / 0.4) !important;
-}
 .border-purple-200 {
   --tw-border-opacity: 1 !important;
   border-color: rgb(233 213 255 / var(--tw-border-opacity, 1)) !important;
@@ -3264,6 +3268,9 @@ ul li {
 .border-yellow-400 {
   --tw-border-opacity: 1 !important;
   border-color: rgb(250 204 21 / var(--tw-border-opacity, 1)) !important;
+}
+.border-primary\/40 {
+  border-color: rgb(0 110 183 / 0.4) !important;
 }
 .border-amber-200 {
   --tw-border-opacity: 1 !important;
@@ -3368,9 +3375,6 @@ ul li {
 .bg-gray-50 {
   --tw-bg-opacity: 1 !important;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1)) !important;
-}
-.bg-gray-50\/80 {
-  background-color: rgb(249 250 251 / 0.8) !important;
 }
 .bg-gray-500 {
   --tw-bg-opacity: 1 !important;
@@ -3514,6 +3518,15 @@ ul li {
 .bg-yellow-50 {
   --tw-bg-opacity: 1 !important;
   background-color: rgb(254 252 232 / var(--tw-bg-opacity, 1)) !important;
+}
+.bg-gray-50\/80 {
+  background-color: rgb(249 250 251 / 0.8) !important;
+}
+.bg-black\/50 {
+  background-color: rgb(0 0 0 / 0.5) !important;
+}
+.bg-gray-50\/50 {
+  background-color: rgb(249 250 251 / 0.5) !important;
 }
 .bg-opacity-10 {
   --tw-bg-opacity: 0.1 !important;
@@ -6849,10 +6862,6 @@ body > .dp__outer_menu_wrap,
   border-color: rgb(0 110 183 / 0.4) !important;
 }
 
-.hover\:border-primary\/60:hover {
-  border-color: rgb(0 110 183 / 0.6) !important;
-}
-
 .hover\:border-red-400:hover {
   --tw-border-opacity: 1 !important;
   border-color: rgb(248 113 113 / var(--tw-border-opacity, 1)) !important;
@@ -6866,6 +6875,10 @@ body > .dp__outer_menu_wrap,
 .hover\:border-yellow-600:hover {
   --tw-border-opacity: 1 !important;
   border-color: rgb(202 138 4 / var(--tw-border-opacity, 1)) !important;
+}
+
+.hover\:border-primary\/60:hover {
+  border-color: rgb(0 110 183 / 0.6) !important;
 }
 
 .hover\:border-opacity-100:hover {
@@ -6932,10 +6945,6 @@ body > .dp__outer_menu_wrap,
   background-color: rgb(0 110 183 / var(--tw-bg-opacity, 1)) !important;
 }
 
-.hover\:bg-primary\/10:hover {
-  background-color: rgb(0 110 183 / 0.1) !important;
-}
-
 .hover\:bg-primary\/90:hover {
   background-color: rgb(0 110 183 / 0.9) !important;
 }
@@ -6963,6 +6972,10 @@ body > .dp__outer_menu_wrap,
 .hover\:bg-white:hover {
   --tw-bg-opacity: 1 !important;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1)) !important;
+}
+
+.hover\:bg-primary\/10:hover {
+  background-color: rgb(0 110 183 / 0.1) !important;
 }
 
 .hover\:bg-opacity-100:hover {
@@ -7738,6 +7751,10 @@ body > .dp__outer_menu_wrap,
     justify-content: flex-start !important;
   }
 
+  .sm\:justify-end {
+    justify-content: flex-end !important;
+  }
+
   .sm\:justify-center {
     justify-content: center !important;
   }
@@ -8496,11 +8513,6 @@ body > .dp__outer_menu_wrap,
     line-height: 2rem !important;
   }
 
-  .md\:text-3xl {
-    font-size: 1.875rem !important;
-    line-height: 2.25rem !important;
-  }
-
   .md\:text-4xl {
     font-size: 2.25rem !important;
     line-height: 2.5rem !important;
@@ -8534,6 +8546,11 @@ body > .dp__outer_menu_wrap,
   .md\:text-xl {
     font-size: 1.25rem !important;
     line-height: 1.75rem !important;
+  }
+
+  .md\:text-3xl {
+    font-size: 1.875rem !important;
+    line-height: 2.25rem !important;
   }
 
   .md\:leading-normal {

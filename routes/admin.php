@@ -72,7 +72,8 @@ use App\Http\Controllers\Api\Admin\{
     UserController,
     WidgetController,
     ArticlesController,
-    ArticleSectionsController
+    ArticleSectionsController,
+    SponsorVideoController
 };
 use App\Http\Resources\Admin\UserResource;
 use Illuminate\Http\Request;
@@ -196,4 +197,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum']], function (
     // Articles
     Route::apiResource('article-sections', ArticleSectionsController::class);
     Route::apiResource('articles', ArticlesController::class);
+
+    // Sponsor Videos (submitted by sponsors)
+    Route::get('sponsor-videos', [SponsorVideoController::class, 'index']);
+    Route::get('sponsor-videos/{sponsorVideo}', [SponsorVideoController::class, 'show']);
+    Route::patch('sponsor-videos/{sponsorVideo}', [SponsorVideoController::class, 'update']);
 });

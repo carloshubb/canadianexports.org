@@ -12,6 +12,7 @@
         :initial-sponsorships="sponsorships"
         :become-sponsor-slug="becomeSponsorSlug" 
         :sponsor-settings-slug="sponsorSettingsSlug"
+        :logged-in-user="loggedInUser"
       ></sponsorships-list>
     </div>
 
@@ -54,6 +55,10 @@ export default {
     sponsorSettingsSlug: {
       type: String,
       default: 'user/sponsor-settings'
+    },
+    loggedInUser: {
+      type: [String, Object],
+      default: null
     }
   },
   data() {

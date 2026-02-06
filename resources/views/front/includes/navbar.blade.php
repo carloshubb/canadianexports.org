@@ -262,11 +262,16 @@ substr($useragent, 0, 4),
                             {{-- Sponsor-specific menu --}}
                             @php
                             $sponsorUrl = langBasedURL($lang, route('user.sponsor-settings.index'));
+                            $submitContentUrl = langBasedURL($lang, route('submit-content', ['abbreviation' => $lang->abbreviation ?? 'en']));
                             // For sponsors, send Account Settings to edit the first sponsorship if available
                             $firstSponsorId = \App\Models\Sponsor::where('customer_id', $customer->id)->orderBy('id')->value('id');
                             $accountRoute = $firstSponsorId ? route('user.sponsor-settings.edit', ['id' => $firstSponsorId]) : route('user.sponsor-settings.index');
                             $accountUrl = langBasedURL($lang, $accountRoute);
                             @endphp
+                            <a aria-label="Submit Content" href="{{ $submitContentUrl }}"
+                                class="menu block w-full whitespace-nowrap bg-transparent px-4 py-2 font-FuturaMdCnBT text-base text-slate-700 md:text-base lg:text-lg">
+                                <i class="fa fa-upload"></i> Submit Content
+                            </a>
                             <a aria-label="Candian Exporters" href="{{ $sponsorUrl }}"
                                 class="menu block w-full whitespace-nowrap bg-transparent px-4 py-2 font-FuturaMdCnBT text-base text-slate-700 md:text-base lg:text-lg">
                                 <i class="fa fa-handshake-o"></i> Manage Sponsorships
@@ -453,10 +458,15 @@ substr($useragent, 0, 4),
                             @endif
                             @endif
                             @if ($customer->type == 'sponsor')
-                            {{-- Sponsor-specific mobile menu - only Edit Sponsor Profile --}}
+                            {{-- Sponsor-specific mobile menu --}}
                             @php
+                            $submitContentUrl = langBasedURL($lang, route('submit-content', ['abbreviation' => $lang->abbreviation ?? 'en']));
                             $url = langBasedURL($lang, route('user.sponsor-settings.index'));
                             @endphp
+                            <a aria-label="Submit Content" href="{{ $submitContentUrl }}"
+                                class="menu block w-full whitespace-nowrap border-b bg-transparent px-4 py-2 font-FuturaMdCnBT text-base text-white md:text-base lg:text-lg">
+                                <i class="fa fa-upload"></i> Submit Content
+                            </a>
                             <a aria-label="Candian Exporters" href="{{ $url }}"
                                 class="menu block w-full whitespace-nowrap border-b bg-transparent px-4 py-2 font-FuturaMdCnBT text-base text-white md:text-base lg:text-lg">
                                 <i class="fa fa-edit"></i> Edit Sponsor Profile

@@ -1821,6 +1821,10 @@ label{
   margin-top: auto;
   margin-bottom: auto;
 }
+.my-8 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
 .-mb-px {
   margin-bottom: -1px;
 }
@@ -1976,6 +1980,9 @@ label{
 }
 .mt-auto {
   margin-top: auto;
+}
+.mb-12 {
+  margin-bottom: 3rem;
 }
 .line-clamp-1 {
   overflow: hidden;
@@ -3517,6 +3524,12 @@ label{
 }
 .bg-gray-50\/80 {
   background-color: rgb(249 250 251 / 0.8);
+}
+.bg-black\/50 {
+  background-color: rgb(0 0 0 / 0.5);
+}
+.bg-gray-50\/50 {
+  background-color: rgb(249 250 251 / 0.5);
 }
 .bg-opacity-10 {
   --tw-bg-opacity: 0.1;

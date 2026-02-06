@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\Admin\BannerController;
 use App\Http\Controllers\Api\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Api\Admin\MediaController;
 use App\Http\Controllers\Api\Web\{
+    ContentSubmissionController,
     SignupController,
     HelperController,
     AccountSettingController,
@@ -83,6 +84,11 @@ Route::group(['prefix' => 'web', 'middleware' => ['auth.user']], function () {
     Route::post('/sponsor/upgrade-preview', [BecomeSponsorController::class, 'upgradePreview']);
     Route::post('/sponsor/upgrade-plan', [BecomeSponsorController::class, 'upgradePlan']);
     Route::post('/sponsor/downgrade-request', [BecomeSponsorController::class, 'downgradeRequest']);
+
+    // Sponsor content submission (article, video)
+    Route::get('/sponsor/article-sections', [ContentSubmissionController::class, 'getArticleSections']);
+    Route::post('/sponsor/submit-article', [ContentSubmissionController::class, 'submitArticle']);
+    Route::post('/sponsor/submit-video', [ContentSubmissionController::class, 'submitVideo']);
 
     // Member Webinar routes (require authentication)
     Route::prefix('member/webinars')->group(function () {
