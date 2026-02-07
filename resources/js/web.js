@@ -54,6 +54,7 @@ import LanguageModal from "./web/modals/LanguageModal.vue";
 import Message from "./web/components/Message.vue";
 import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
+import { translate } from "./Utils/i18n";
 
 createApp({})
     .use(VueSweetalert2)
@@ -109,3 +110,16 @@ createApp({})
     .component("SubmitContent", SubmitContent)
     .use(store)
     .mount("#canexp-app");
+
+// Apply translations to Blade-rendered elements with data-i18n (fallback for server-side __() not translating)
+document.querySelectorAll("[data-i18n]").forEach((el) => {
+  const key = el.getAttribute("data-i18n");
+  if (key) {
+    let translated = translate(key);
+    const count = el.getAttribute("data-i18n-count");
+    if (count !== null && translated.includes(":count")) {
+      translated = translated.replace(/:count/g, count);
+    }
+    if (translated !== key || count !== null) el.textContent = translated;
+  }
+});

@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 @php
     $lang = getDefaultLanguage(true);
-    $locale = strtolower(substr($lang->abbreviation ?? 'en', 0, 2));
-    if (!in_array($locale, ['en', 'es'])) {
+    $abbr = strtolower(trim($lang->abbreviation ?? 'en'));
+    // Map to Laravel JSON locale: only en and es are supported
+    if (in_array($abbr, ['es', 'esp', 'spa', 'sp']) || $abbr === 'spanish' || str_starts_with($abbr, 'es') || str_starts_with($abbr, 'sp')) {
+        $locale = 'es';
+    } elseif (in_array($abbr, ['en', 'eng']) || $abbr === 'english' || str_starts_with($abbr, 'en')) {
         $locale = 'en';
+    } else {
+        $locale = in_array(strtolower(substr($abbr, 0, 2)), ['es', 'sp']) ? 'es' : 'en';
     }
     App::setLocale($locale);
     $cookie_setting = getI2bModalSetting($lang, ['cookies_modal']);

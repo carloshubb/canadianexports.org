@@ -1,17 +1,11 @@
 <section class="home-container relative lg:pb-14 md:pb-10 pt-14 pb-10 bg-white">
-
-
         <div class="relative bg-center p-8 bussiness-categories-section ">
             <p class="can-exp-p text-center text-gray-700 mb-4">
                 {!! $homePageSettingDetail->section1_description !!}
             </p>
-
         </div>
-
         <div class="py-4"></div>
-
-        <h2 class="text-3xl text-center md:text-4xl mt-6 font-semibold text-[#006EB7] mb-6">{{ __('Business Categories') }}</h2>
-
+        <h2 class="text-3xl text-center md:text-4xl mt-6 font-semibold text-[#006EB7] mb-6" data-i18n="Business Categories">{{ __('Business Categories') }}</h2>
         @php
         $businessCategories = getAllBusinessCategories();
         $totalCategories = count($businessCategories);
@@ -65,7 +59,7 @@
             <div id="initialViewControls" class="mt-6 space-y-4">
                 <button id="toggleCategoriesBtn" 
                     class="w-full md:w-auto mx-auto flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white font-Futura text-base md:text-lg rounded-none hover:bg-primary/90 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg">
-                    <span>View all {{ $totalCategories }} categories</span>
+                    <span data-i18n="View all :count categories" data-i18n-count="{{ $totalCategories }}">{{ __('View all :count categories', ['count' => $totalCategories]) }}</span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                     </svg>
@@ -76,7 +70,7 @@
             <div id="expandedViewControls" class="mt-6 space-y-4 hidden">
                 <button id="toggleCategoriesBtnExpanded" 
                     class="w-full md:w-auto mx-auto flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white font-Futura text-base md:text-lg rounded-none hover:bg-primary/90 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg">
-                    <span>{{ __('View less') }}</span>
+                    <span data-i18n="View less">{{ __('View less') }}</span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 transform rotate-180">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                     </svg>
