@@ -3,7 +3,7 @@
         Profile | Canadian Export
         </x-slot>
         <section class="bg-white px-4 py-6 md:p-12 desktop:px-80">
-            <h2 class="text-center can-exp-h1">Business Profile</h2>
+            <h2 class="text-center can-exp-h1">{{ __('Business Profile') }}</h2>
             <!--Form-->
             <form>
                 <div class="my-4">

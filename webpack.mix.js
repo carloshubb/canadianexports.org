@@ -1,4 +1,5 @@
 const mix = require("laravel-mix");
+const path = require("path");
 const tailwindcss = require('tailwindcss');
 /*
  |--------------------------------------------------------------------------
@@ -21,4 +22,11 @@ mix.js("resources/js/app.js", "public/js")
         require("postcss-import"),
         require("tailwindcss"),
         require("autoprefixer"),
-    ]);
+    ])
+    .webpackConfig({
+        resolve: {
+            alias: {
+                "@": path.resolve("resources/js"),
+            },
+        },
+    });

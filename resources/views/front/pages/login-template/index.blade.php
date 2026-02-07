@@ -67,13 +67,13 @@
                                 @endphp
 
                                 <div class="text-sm">
-                                    <a aria-label="Candian Exporters" href="{{ $url }}"
+                                    <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}"
                                         class="text-sm md:text-sm lg:text-base text-primary hover:text-indigo-500">{!! $loginPageSettingDetail->forgot_password_text !!}</a>
                                 </div>
                             </div>
 
                             <div class="text-center">
-                                <button aria-label="Candian Exporters" type="submit" class="button-exp-fill">{!! $loginPageSettingDetail->signin_btn_text !!}</button>
+                                <button aria-label="{{ __('Canadian Exporters') }}" type="submit" class="button-exp-fill">{!! $loginPageSettingDetail->signin_btn_text !!}</button>
                             </div>
                             <div class="flex justify-center">
                                 {!! $loginPageSettingDetail->signup_btn_text !!}

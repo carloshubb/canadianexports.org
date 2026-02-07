@@ -17,7 +17,7 @@
                                         $menuItems = json_decode($footerSetting->widget1Menu->menuDetail[0]->menu_items, 1);
                                         $widget1Heading = strip_tags($footerSettingDetail->widget1 ?? '');
                                         if (stripos($widget1Heading, 'To the Canadian Exporter') !== false && isset($general_setting['close_account_page'])) {
-                                            $menuItems[] = ['name' => 'How to Close Our Account', 'link' => $general_setting['close_account_page']];
+                                            $menuItems[] = ['name' => __('How to Close Our Account'), 'link' => $general_setting['close_account_page']];
                                             usort($menuItems, fn ($a, $b) => strcasecmp($a['name'] ?? '', $b['name'] ?? ''));
                                         }
                                     @endphp
@@ -25,7 +25,7 @@
                                         @php
                                             $url = langBasedURL($lang, $menuItem['link']);
                                         @endphp
-                                        <li class="text-white mt-4"><a aria-label="Candian Exporters" href="{{ $url }}">{{ $menuItem['name'] }}</a></li>
+                                        <li class="text-white mt-4"><a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}">{{ $menuItem['name'] }}</a></li>
                                     @endforeach
                                 </ul>
                             @endisset
@@ -39,7 +39,7 @@
                                         $menuItems = json_decode($footerSetting->widget2Menu->menuDetail[0]->menu_items, 1);
                                         $widget2Heading = strip_tags($footerSettingDetail->widget2 ?? '');
                                         if (stripos($widget2Heading, 'To the Canadian Exporter') !== false && isset($general_setting['close_account_page'])) {
-                                            $menuItems[] = ['name' => 'How to Close Our Account', 'link' => $general_setting['close_account_page']];
+                                            $menuItems[] = ['name' => __('How to Close Our Account'), 'link' => $general_setting['close_account_page']];
                                             usort($menuItems, fn ($a, $b) => strcasecmp($a['name'] ?? '', $b['name'] ?? ''));
                                         }
                                     @endphp
@@ -47,7 +47,7 @@
                                         @php
                                             $url = langBasedURL($lang, $menuItem['link']);
                                         @endphp
-                                        <li class="text-white mt-4"><a aria-label="Candian Exporters" href="{{ $url }}">{{ $menuItem['name'] }}</a></li>
+                                        <li class="text-white mt-4"><a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}">{{ $menuItem['name'] }}</a></li>
                                     @endforeach
                                 </ul>
                             @endisset
@@ -61,7 +61,7 @@
                                         $menuItems = json_decode($footerSetting->widget3Menu->menuDetail[0]->menu_items, 1);
                                         $widget3Heading = strip_tags($footerSettingDetail->widget3 ?? '');
                                         if (stripos($widget3Heading, 'To the Canadian Exporter') !== false && isset($general_setting['close_account_page'])) {
-                                            $menuItems[] = ['name' => 'How to Close Our Account', 'link' => $general_setting['close_account_page']];
+                                            $menuItems[] = ['name' => __('How to Close Our Account'), 'link' => $general_setting['close_account_page']];
                                             usort($menuItems, fn ($a, $b) => strcasecmp($a['name'] ?? '', $b['name'] ?? ''));
                                         }
                                     @endphp
@@ -69,7 +69,7 @@
                                         @php
                                             $url = langBasedURL($lang, $menuItem['link']);
                                         @endphp
-                                        <li class="text-white mt-4"><a aria-label="Candian Exporters" href="{{ $url }}">{{ $menuItem['name'] }}</a></li>
+                                        <li class="text-white mt-4"><a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}">{{ $menuItem['name'] }}</a></li>
                                     @endforeach
                                 </ul>
                             @endisset
@@ -87,34 +87,34 @@
                 $socialImageStyle = 'display:block;width:20px;height:20px;margin:0;';
             @endphp
             <div class="flex items-center gap-4 justify-center mb-3 mt-4" style="text-align:center;">
-                <a aria-label="Candian Exporters" target="_blank" href="{{ $footerSetting->fb_link }}"
+                <a aria-label="{{ __('Canadian Exporters') }}" target="_blank" href="{{ $footerSetting->fb_link }}"
                     class="flex justify-center items-center bg-gray-50 border-2 border-gray-300 hover:border-primary rounded-full h-10 w-10 fix-url" onclick="fixUrls()"
                     style="{{ $socialLinkStyle }}">
-                    <img class="h-5" src="{{ asset('/assets/icons/facebook canexp.png') }}" alt="facebook icon" width="20" height="20"
+                    <img class="h-5" src="{{ asset('/assets/icons/facebook canexp.png') }}" alt="{{ __('facebook icon') }}" width="20" height="20"
                         style="{{ $socialImageStyle }}" />
                 </a>
-                <a aria-label="Candian Exporters" target="_blank" href="{{ $footerSetting->twitter_link }}"
+                <a aria-label="{{ __('Canadian Exporters') }}" target="_blank" href="{{ $footerSetting->twitter_link }}"
                     class="flex justify-center items-center bg-gray-50 border-2 border-gray-300 hover:border-primary rounded-full h-10 w-10 fix-url" onclick="fixUrls()"
                     style="{{ $socialLinkStyle }}">
-                    <img class="h-4" src="{{ asset('/assets/icons/twitter canexp.png') }}" alt="twitter icon" width="20" height="20"
+                    <img class="h-4" src="{{ asset('/assets/icons/twitter canexp.png') }}" alt="{{ __('twitter icon') }}" width="20" height="20"
                         style="{{ $socialImageStyle }}" />
                 </a>
-                <a aria-label="Candian Exporters" target="_blank" href="{{ $footerSetting->google_link }}"
+                <a aria-label="{{ __('Canadian Exporters') }}" target="_blank" href="{{ $footerSetting->google_link }}"
                     class="flex justify-center items-center bg-gray-50 border-2 border-gray-300 hover:border-primary rounded-full h-10 w-10 fix-url" onclick="fixUrls()"
                     style="{{ $socialLinkStyle }}">
-                    <img class="h-5" src="{{ asset('/assets/icons/google canexp.png') }}" alt="google icon" width="20" height="20"
+                    <img class="h-5" src="{{ asset('/assets/icons/google canexp.png') }}" alt="{{ __('google icon') }}" width="20" height="20"
                         style="{{ $socialImageStyle }}" />
                 </a>
-                <a aria-label="Candian Exporters" target="_blank" href="{{ $footerSetting->youtube_link }}"
+                <a aria-label="{{ __('Canadian Exporters') }}" target="_blank" href="{{ $footerSetting->youtube_link }}"
                     class="flex justify-center items-center bg-gray-50 border-2 border-gray-300 hover:border-primary rounded-full h-10 w-10 fix-url" onclick="fixUrls()"
                     style="{{ $socialLinkStyle }}">
-                    <img class="h-4" src="{{ asset('/assets/icons/youtube canexp.png') }}" alt="youtube icon" width="20" height="20"
+                    <img class="h-4" src="{{ asset('/assets/icons/youtube canexp.png') }}" alt="{{ __('youtube icon') }}" width="20" height="20"
                         style="{{ $socialImageStyle }}" />
                 </a>
-                <a aria-label="Candian Exporters" target="_blank" href="{{ $footerSetting->linkedin_link }}"
+                <a aria-label="{{ __('Canadian Exporters') }}" target="_blank" href="{{ $footerSetting->linkedin_link }}"
                     class="flex justify-center items-center bg-gray-50 border-2 border-gray-300 hover:border-primary rounded-full h-10 w-10 fix-url" onclick="fixUrls()"
                     style="{{ $socialLinkStyle }}">
-                    <img class="h-4" src="{{ asset('/assets/icons/linkedin canexp.png') }}" alt="linkedin icon" width="20" height="20"
+                    <img class="h-4" src="{{ asset('/assets/icons/linkedin canexp.png') }}" alt="{{ __('linkedin icon') }}" width="20" height="20"
                         style="{{ $socialImageStyle }}" />
                 </a>
             </div>

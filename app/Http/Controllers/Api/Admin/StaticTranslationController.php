@@ -129,22 +129,27 @@ class StaticTranslationController extends Controller
     public function exportXls()
     {
         $fileName = 'languages_' . now()->format('Ymd_His') . '.xls';
-        $filePath = "exports/$fileName";  // storage/app/exports/
+        $filePath = "exports/$fileName";
 
-        // Ensure folder exists
-        if (!Storage::exists('public/exports')) {
-            Storage::makeDirectory('public/exports');
+        // Ensure folder exists (on PUBLIC disk)
+        if (!Storage::disk('public')->exists('exports')) {
+            Storage::disk('public')->makeDirectory('exports');
         }
 
-        // Export to XLS format
-        Excel::store(new StaticTranslationExport(), $filePath, 'public', \Maatwebsite\Excel\Excel::XLS);
+        // Store XLS on public disk
+        Excel::store(
+            new StaticTranslationExport(),
+            $filePath,
+            'public',
+            \Maatwebsite\Excel\Excel::XLS
+        );
 
-        // Return download URL
         return response()->json([
-            'status'    => 'Success',
-            'file_url'  => url("storage/$filePath"), // public/storage/exports
+            'status'   => 'Success',
+            'file_url' => url("storage/$filePath"),
         ]);
     }
+
 
     public function importXls(Request $request)
     {
@@ -158,7 +163,7 @@ class StaticTranslationController extends Controller
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            
+
             // Import using Laravel Excel
             Excel::import(new StaticTranslationImport, $file);
 

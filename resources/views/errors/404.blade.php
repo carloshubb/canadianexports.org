@@ -45,13 +45,13 @@
             <!-- Buttons -->
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a 
-                    aria-label="Canadian Exporters"
+                    aria-label="{{ __('Canadian Exporters') }}"
                     href="{{$homePageUrl}}"
                     class="button-exp-fill px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-300 w-full sm:w-auto">
                     Go Home
                 </a>
                 <a 
-                    aria-label="Canadian Exporters"
+                    aria-label="{{ __('Canadian Exporters') }}"
                     href="{{$contactUsUrl}}"
                     class="button-exp-fill px-8 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors duration-300 w-full sm:w-auto">
                     Contact us

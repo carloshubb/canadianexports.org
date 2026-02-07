@@ -79,12 +79,12 @@
                         <div class="mb-8">
                             <div class="bg-white rounded-lg shadow-md p-6">
                                 <div class="flex items-center justify-between mb-4">
-                                    <h2 class="text-2xl font-bold text-primary">My Webinars</h2>
+                                    <h2 class="text-2xl font-bold text-primary">{{ __('My Webinars') }}</h2>
                                     <a href="{{ route('member.webinars', ['abbreviation' => $langAbbreviation]) }}" class="button-exp-fill">
                                         Manage My Webinars →
                                     </a>
                                 </div>
-                                <p class="text-gray-600">Create and manage your own webinars. Share your expertise with the community!</p>
+                                <p class="text-gray-600">{{ __('Create and manage your own webinars. Share your expertise with the community!') }}</p>
                             </div>
                         </div>
                     @endauth
@@ -99,8 +99,8 @@
                     {{-- Recorded/On-Demand Webinars Section --}}
                     @if($recordedWebinars->count() > 0)
                         <div class="mt-12">
-                            <h2 class="can-exp-h2 text-primary mb-6">On-Demand Webinars</h2>
-                            <p class="text-gray-600 mb-6">Watch these webinars anytime at your convenience.</p>
+                            <h2 class="can-exp-h2 text-primary mb-6">{{ __('On-Demand Webinars') }}</h2>
+                            <p class="text-gray-600 mb-6">{{ __('Watch these webinars anytime at your convenience.') }}</p>
                             <div class="grid gap-6 md:grid-cols-2">
                                 @foreach($recordedWebinars as $webinar)
                                     <div class="border border-gray-200 rounded-lg overflow-hidden bg-white shadow-sm">
@@ -135,13 +135,13 @@
                                                         <svg class="w-16 h-16 mb-2" fill="currentColor" viewBox="0 0 20 20">
                                                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/>
                                                         </svg>
-                                                        <span>Watch Recording</span>
+                                                        <span>{{ __('Watch Recording') }}</span>
                                                     </a>
                                                 </div>
                                             @endif
                                         @else
                                             <div class="aspect-video bg-gray-200 flex items-center justify-center">
-                                                <span class="text-gray-500">No recording available</span>
+                                                <span class="text-gray-500">{{ __('No recording available') }}</span>
                                             </div>
                                         @endif
                                         
@@ -174,7 +174,7 @@
                     @endphp
                     @if($pastWithRecordings->count() > 0)
                         <div class="mt-12">
-                            <h2 class="can-exp-h2 text-primary mb-6">Past Webinar Recordings</h2>
+                            <h2 class="can-exp-h2 text-primary mb-6">{{ __('Past Webinar Recordings') }}</h2>
                             <div class="grid gap-6 md:grid-cols-2">
                                 @foreach($pastWithRecordings as $webinar)
                                     <div class="border border-gray-200 rounded-lg overflow-hidden bg-white shadow-sm">
@@ -208,7 +208,7 @@
                                                         <svg class="w-16 h-16 mb-2" fill="currentColor" viewBox="0 0 20 20">
                                                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/>
                                                         </svg>
-                                                        <span>Watch Recording</span>
+                                                        <span>{{ __('Watch Recording') }}</span>
                                                     </a>
                                                 </div>
                                             @endif
@@ -223,7 +223,7 @@
                                                 <p class="text-sm text-gray-600 mb-2">With {{ $webinar->presenter_name }}</p>
                                             @endif
                                             <p class="text-sm text-gray-700 mb-2">
-                                                <span class="font-semibold">Originally aired:</span> 
+                                                <span class="font-semibold">{{ __('Originally aired:') }}</span> 
                                                 {{ \Carbon\Carbon::parse($webinar->scheduled_at)->format('M d, Y') }}
                                             </p>
                                             @if($webinar->description)

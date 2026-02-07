@@ -104,7 +104,7 @@
                                 <div class="text-base md:text-base lg:text-lg border-none break-all align-top flex flex-col sm:flex-col md:flex-row lg:flex-row gap-4 items-center">
                                     @if(isset($event->exibitors_url) && $event->exibitors_url)
                                     <button class="button-exp-fill whitespace-nowrap">
-                                        <a class="text-white fix-url" onclick="fixUrls()" aria-label="Candian Exporters"
+                                        <a class="text-white fix-url" onclick="fixUrls()" aria-label="{{ __('Canadian Exporters') }}"
                                             href="{{ $event->exibitors_url }}" target="_blank">
                                             {{ isset($event_detail_setting['for_exibitor_url_text']) ? $event_detail_setting['for_exibitor_url_text'] : '' }}
                                         </a>
@@ -112,7 +112,7 @@
                                     @endif
                                     @if(isset($event->visitors_url) && $event->visitors_url)
                                     <button class="button-exp-fill whitespace-nowrap">
-                                        <a class="text-white fix-url" onclick="fixUrls()" aria-label="Candian Exporters"
+                                        <a class="text-white fix-url" onclick="fixUrls()" aria-label="{{ __('Canadian Exporters') }}"
                                             href="{{ $event->visitors_url }}" target="_blank">
                                             {{ isset($event_detail_setting['for_visitor_url_text']) ? $event_detail_setting['for_visitor_url_text'] : '' }}
                                         </a>
@@ -120,7 +120,7 @@
                                     @endif
                                     @if(isset($event->press_url) && $event->press_url)
                                     <button class="button-exp-fill whitespace-nowrap">
-                                        <a class="text-white fix-url" onclick="fixUrls()" aria-label="Candian Exporters" href="{{ $event->press_url }}"
+                                        <a class="text-white fix-url" onclick="fixUrls()" aria-label="{{ __('Canadian Exporters') }}" href="{{ $event->press_url }}"
                                             target="_blank">
                                             {{ isset($event_detail_setting['for_press_url_text']) ? $event_detail_setting['for_press_url_text'] : '' }}
                                         </a>
@@ -131,7 +131,7 @@
                                 <div class="flex flex-col sm:flex-row md:flex-row lg:flex-row items-center gap-4 mt-4 w-full">
                                     <div class="flex items-center gap-4 my-2">
                                         @isset($event->facebook_url)
-                                            <a aria-label="Candian Exporters" target="_blank"
+                                            <a aria-label="{{ __('Canadian Exporters') }}" target="_blank"
                                                 href="{{ $event->facebook_url }}"
                                                 class="flex justify-center items-center bg-gray-50 border-2 border-gray-300 hover:border-primary rounded-full h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10 fix-url" onclick="fixUrls()">
                                                 <img class="h-4 md:h-5"
@@ -140,7 +140,7 @@
                                             </a>
                                         @endisset
                                         @isset($event->twitter_url)
-                                            <a aria-label="Candian Exporters" target="_blank"
+                                            <a aria-label="{{ __('Canadian Exporters') }}" target="_blank"
                                                 href="{{ $event->twitter_url }}"
                                                 class="flex justify-center items-center bg-gray-50 border-2 border-gray-300 hover:border-primary rounded-full h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10 fix-url" onclick="fixUrls()">
                                                 <img class="h-3 md:h-4" src="{{ asset('/assets/icons/twitter canexp.png') }}"
@@ -148,7 +148,7 @@
                                             </a>
                                         @endisset
                                         @isset($event->linkedin_url)
-                                            <a aria-label="Candian Exporters" target="_blank"
+                                            <a aria-label="{{ __('Canadian Exporters') }}" target="_blank"
                                                 href="{{ $event->linkedin_url }}"
                                                 class="flex justify-center items-center bg-gray-50 border-2 border-gray-300 hover:border-primary rounded-full h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10 fix-url" onclick="fixUrls()">
                                                 <img class="h-3 md:h-5"
@@ -157,7 +157,7 @@
                                             </a>
                                         @endisset
                                         @isset($event->youtube_url)
-                                            <a aria-label="Candian Exporters" target="_blank"
+                                            <a aria-label="{{ __('Canadian Exporters') }}" target="_blank"
                                                 href="{{ $event->youtube_url }}"
                                                 class="flex justify-center items-center bg-gray-50 border-2 border-gray-300 hover:border-primary rounded-full h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10 fix-url" onclick="fixUrls()">
                                                 <img class="h-3 md:h-4" src="{{ asset('/assets/icons/youtube canexp.png') }}"
@@ -167,7 +167,7 @@
                                     </div>
                                     <div class="flex items-center gap-4 my-2">
                                         @isset($event->pintrest_url)
-                                            <a aria-label="Candian Exporters" target="_blank"
+                                            <a aria-label="{{ __('Canadian Exporters') }}" target="_blank"
                                                 href="{{ $event->pintrest_url }}"
                                                 class="flex justify-center items-center bg-gray-50 border-2 border-gray-300 hover:border-primary rounded-full h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10 fix-url" onclick="fixUrls()">
                                                 <img class="h-4 md:h-5"
@@ -176,7 +176,7 @@
                                             </a>
                                         @endisset
                                         @isset($event->instagram_url)
-                                            <a aria-label="Candian Exporters" target="_blank"
+                                            <a aria-label="{{ __('Canadian Exporters') }}" target="_blank"
                                                 href="{{ $event->instagram_url }}"
                                                 class="flex justify-center items-center bg-gray-50 border-2 border-gray-300 hover:border-primary rounded-full h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10 fix-url" onclick="fixUrls()">
                                                 <img class="h-4 md:h-5"
@@ -185,7 +185,7 @@
                                             </a>
                                         @endisset
                                         @isset($event->snapchat_url)
-                                            <a aria-label="Candian Exporters" target="_blank"
+                                            <a aria-label="{{ __('Canadian Exporters') }}" target="_blank"
                                                 href="{{ $event->snapchat_url }}"
                                                 class="flex justify-center items-center bg-gray-50 border-2 border-gray-300 hover:border-primary rounded-full h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10 fix-url" onclick="fixUrls()">
                                                 <img class="h-4 md:h-6"
@@ -377,7 +377,7 @@
                                 class="px-4 md:px-12 desktop:px-80 flex flex-col sm:flex-col md:flex-row lg:flex-row justify-between items-center mt-3 bg-gray-50 py-2 rounded gap-6">
 
                                 <div class="w-full flex justify-center">
-                                    <a aria-label="Candian Exporters" href="{{ $event->event_website }}" target="_blank"
+                                    <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $event->event_website }}" target="_blank"
                                         class="button-exp-fill fix-url" onclick="fixUrls()">{{ isset($event_detail_setting['book_a_stand_text']) ? $event_detail_setting['book_a_stand_text'] : '' }}</a>
                                 </div>
                             </div>

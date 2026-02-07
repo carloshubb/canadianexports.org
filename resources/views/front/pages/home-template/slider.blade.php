@@ -1,7 +1,7 @@
 <div class="relative isolate lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10 min-h-[550px] flex items-center overflow-hidden mt-[120px]">
     <!-- Background Image Container - Fixed positioning -->
     <div class="absolute inset-0 w-full h-full">
-        <img src="{{ asset($homePageSettingDetail->slider_image) }}" alt="slider image"
+        <img src="{{ asset($homePageSettingDetail->slider_image) }}" alt="{{ __('slider image') }}"
             class="absolute inset-0 w-full h-full object-cover">
         <!-- Dark overlay on top of image -->
         <div class="absolute inset-0 bg-slider-over"></div>
@@ -106,7 +106,7 @@
                 $url = langBasedURL(null, $url);
                 @endphp
                 <div class="bg-white rounded-md p-2 bg-opacity-40">
-                    <a aria-label="Candian Exporters" href="{{ $url }}" class="button-exp-fill inline-flex items-center h-[50px] text-lg sm:text-xl">
+                    <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}" class="button-exp-fill inline-flex items-center h-[50px] text-lg sm:text-xl">
                         {!! $homePageSettingDetail->slider_advance_search_text !!}
                     </a>
                 </div>

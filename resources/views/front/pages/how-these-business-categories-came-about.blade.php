@@ -12,7 +12,7 @@
 
         <div class="container md:mt-16 mt-4 pt-4">
             <div class="relative grid grid-cols-1 pb-8">
-                <h3 class="mb-4 md:leading-normal text-3xl font-FuturaMedium leading-normal font-bold text-center">How these business categories (industry sectors) came about</h3>
+                <h3 class="mb-4 md:leading-normal text-3xl font-FuturaMedium leading-normal font-bold text-center">{{ __('How these business categories (industry sectors) came about') }}</h3>
 
                 <p class="text-gray-800 max-w-7xl leading-6">
                     Industries on Canadian Exports website are classified according to the north american industry classification system (naics) canada of 2007 and 2012, which has superseded the 1980 standard industrial classification (sic).

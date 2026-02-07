@@ -11,10 +11,10 @@
         <div class="lg:pb-14 md:pt-10 md:pb-10 pt-8 pb-8">
             <div class="flex min-h-full flex-col justify-center py-4 md:py-12 px-4 sm:px-6 lg:px-8">
                 <div class="sm:mx-auto sm:w-full sm:max-w-md">
-                    <h2 class="mt-6 text-center can-exp-h1">Sign in to your account</h2>
+                    <h2 class="mt-6 text-center can-exp-h1">{{ __('Sign in to your account') }}</h2>
                     <p class="mt-2 text-center text-sm text-gray-600">
                         Or
-                        <a aria-label="Candian Exporters" href="{{ route('front.index', 'signup') }}"
+                        <a aria-label="{{ __('Canadian Exporters') }}" href="{{ route('front.index', 'signup') }}"
                             class="font-medium text-primary hover:text-indigo-500">Register your Business profile</a>
                     </p>
                 </div>
@@ -56,13 +56,13 @@
                                     $url = langBasedURL($lang, $url);
                                 @endphp
                                 <div class="text-sm">
-                                    <a aria-label="Candian Exporters" href="{{ $url }}"
+                                    <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}"
                                         class="font-medium text-primary hover:text-indigo-500">Forgot your password?</a>
                                 </div>
                             </div>
 
                             <div>
-                                <button aria-label="Candian Exporters" type="submit"
+                                <button aria-label="{{ __('Canadian Exporters') }}" type="submit"
                                     class="flex font-Futura btn bg-primary/5 hover:bg-primary border-primary/10 hover:border-primary text-primary hover:text-white rounded-full shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">Sign
                                     in</button>
                             </div>

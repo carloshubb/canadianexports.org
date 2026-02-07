@@ -13,7 +13,7 @@
                     'page_detail' => $page_detail,
                     ])
                     @else
-                         <h1 style="text-align: center;">Sponsor Portal</h1>
+                         <h1 style="text-align: center;">{{ __('Sponsor Portal') }}</h1>
                     @endif
 
                 </div>

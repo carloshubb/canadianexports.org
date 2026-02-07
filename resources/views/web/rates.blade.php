@@ -1,7 +1,7 @@
 @extends('front.layouts.app')
 @section('content')
 <div>
-    <h1 class="text-center can-exp-h1">Choose your plan</h1>
+    <h1 class="text-center can-exp-h1">{{ __('Choose your plan') }}</h1>
 </div>
 
 <div class="sm:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-12">
@@ -10,11 +10,11 @@
         <div
             class="w-full h-full flex flex-col bg-white shadow rounded relative z-20">
             <div class="py-4 flex-initial">
-                <h2 class="can-exp-h2 text-primary text-center">Standard</h2>
+                <h2 class="can-exp-h2 text-primary text-center">{{ __('Standard') }}</h2>
             </div>
             <div class="bg-primary text-center bg-opacity-5 py-2 border-y">
                 <h2 class="mb-0 card-heading text-primary">$139</h2>
-                <p class="text-center">per month</p>
+                <p class="text-center">{{ __('per month') }}</p>
             </div>
             <div class="p-4 space-y-1 flex-auto">
                 <div class="flex items-center gap-x-4">
@@ -112,11 +112,11 @@
         <div
             class="w-full h-full flex flex-col bg-white shadow rounded relative z-20">
             <div class="py-4 flex-initial">
-                <h2 class="can-exp-h2 text-primary text-center">Business</h2>
+                <h2 class="can-exp-h2 text-primary text-center">{{ __('Business') }}</h2>
             </div>
             <div class="bg-primary text-center bg-opacity-5 py-2 border-y">
                 <h2 class="mb-0 card-heading text-primary">$139</h2>
-                <p class="text-center">per month</p>
+                <p class="text-center">{{ __('per month') }}</p>
             </div>
             <div class="p-4 space-y-1 flex-auto">
                 <div class="flex items-center gap-x-4">
@@ -255,11 +255,11 @@
         <div
             class="w-full h-full flex flex-col bg-white shadow rounded relative z-20">
             <div class="py-4 flex-initial">
-                <h2 class="can-exp-h2 text-primary text-center">Premium</h2>
+                <h2 class="can-exp-h2 text-primary text-center">{{ __('Premium') }}</h2>
             </div>
             <div class="bg-primary text-center bg-opacity-5 py-2 border-y">
                 <h2 class="mb-0 card-heading text-primary">$139</h2>
-                <p class="text-center">per month</p>
+                <p class="text-center">{{ __('per month') }}</p>
             </div>
             <div class="p-4 space-y-1 flex-auto">
                 <div class="flex items-center gap-x-4">

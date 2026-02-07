@@ -11,7 +11,7 @@
                     $url = langBasedURL($lang, $url);
                     $hasPaid = isset($user) && $user->is_package_amount_paid;
                 @endphp
-                <a id="section2-button" aria-label="Canadian Exporters" href="{{ $url }}" class="button-exp-no-fill rounded-none">
+                <a id="section2-button" aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}" class="button-exp-no-fill rounded-none">
                     {!! $homePageSettingDetail->section2_button_text !!}
                 </a>
             </div>
@@ -76,7 +76,7 @@
                         <div class="flex-1 flex flex-col gap-3 p-4">
                             @if ($inquiry->business_category_name)
                                 <div class="flex items-center">
-                                    <span class="text-gray-600 text-sm w-[45%] text-left">Business Category</span>
+                                    <span class="text-gray-600 text-sm w-[45%] text-left">{{ __('Business Category') }}</span>
                                     <span class="text-gray-600 text-sm flex-1 text-center">:</span>
                                     <span class="text-[#000000] text-sm font-semibold w-[55%] text-left pl-2 truncate">{{ $inquiry->business_category_name }}</span>
                                 </div>
@@ -84,7 +84,7 @@
                             
                             @if ($inquiryDetail && $inquiryDetail->country_name)
                                 <div class="flex items-center">
-                                    <span class="text-gray-600 text-sm w-[45%] text-left">Country</span>
+                                    <span class="text-gray-600 text-sm w-[45%] text-left">{{ __('Country') }}</span>
                                     <span class="text-gray-600 text-sm flex-1 text-center">:</span>
                                     <span class="text-[#000000] text-sm font-semibold w-[55%] text-left pl-2 truncate">{{ $inquiryDetail->country_name }}</span>
                                 </div>
@@ -92,7 +92,7 @@
                             
                             @if ($inquiry->deadline_date)
                                 <div class="flex items-center">
-                                    <span class="text-gray-600 text-sm w-[45%] text-left">Deadline</span>
+                                    <span class="text-gray-600 text-sm w-[45%] text-left">{{ __('Deadline') }}</span>
                                     <span class="text-gray-600 text-sm flex-1 text-center">:</span>
                                     <span class="text-[#000000] text-sm font-semibold w-[55%] text-left pl-2 truncate">{{ $inquiry->deadline_date }}</span>
                                 </div>
@@ -100,7 +100,7 @@
                             
                             @if ($inquiry->estimated_value)
                                 <div class="flex items-center">
-                                    <span class="text-gray-600 text-sm w-[45%] text-left">Estimated Value</span>
+                                    <span class="text-gray-600 text-sm w-[45%] text-left">{{ __('Estimated Value') }}</span>
                                     <span class="text-gray-600 text-sm flex-1 text-center">:</span>
                                     <span class="text-[#000000] text-sm font-semibold w-[55%] text-left pl-2 truncate">${{ number_format($inquiry->estimated_value, 0) }}</span>
                                 </div>
@@ -113,9 +113,9 @@
                             $inquiryUrl = $homePageSettingDetail->section2_button_url ?? '#';
                             $inquiryUrl = langBasedURL($lang, $inquiryUrl);
                             @endphp
-                            <a aria-label="Canadian Exporters" href="{{ $inquiryUrl }}"
+                            <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $inquiryUrl }}"
                                 class="text-primary text-sm hover:underline font-medium">
-                                More Details
+                                {{ __('More Details') }}
                             </a>
                         </div>
                     </div>

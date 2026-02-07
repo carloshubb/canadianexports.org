@@ -227,7 +227,7 @@
                             </div>
                         </div>
                         <div class="flex justify-center mt-1">
-                            <button aria-label="Candian Exporters" type="submit"
+                            <button aria-label="{{ __('Canadian Exporters') }}" type="submit"
                                 class="button-exp-fill">{{ isset($advSearchSetting['search_type_btn_text']) ? $advSearchSetting['search_type_btn_text'] : '' }}</button>
                         </div>
                     </form>
@@ -395,7 +395,7 @@
             let attribute = this.getAttribute("data-id");
             let type = this.getAttribute("data-type");
             Swal.fire({
-                html: `<p class="text-center">Are you sure you want to remove this listing from your search results?</p>`,
+                html: '<p class="text-center">' + @json(__('Are you sure you want to remove this listing from your search results?')) + '</p>',
                 showDenyButton: true,
                 showCancelButton: false,
                 confirmButtonText: "Yes",

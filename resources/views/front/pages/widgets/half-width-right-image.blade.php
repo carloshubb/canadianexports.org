@@ -5,7 +5,7 @@
             <div class="flex items-center gap-x-4">
                 <div class="w-1/2">{!! $widget->widgetDetail[0]->text_detail !!}</div>
                 <div class="w-1/2"><img src="{{ isset($widget->media) ? asset($widget->media->path) : '' }}"
-                        class="object-fit h-60 rounded shadow-md border" alt="Canadian Exports" /></div>
+                        class="object-fit h-60 rounded shadow-md border" alt="{{ __('Canadian Exports') }}" /></div>
 
             </div>
         @endisset

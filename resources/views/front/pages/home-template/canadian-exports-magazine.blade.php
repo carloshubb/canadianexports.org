@@ -13,7 +13,7 @@
                     $url = isset($general_setting['see_all_magazine_page']) ? route('front.index', $general_setting['see_all_magazine_page']) : '#';
                     $url = langBasedURL($lang, $url);
                 @endphp
-                <a aria-label="Canadian Exporters" href="{{ $url }}" class="button-exp-no-fill rounded-none" >{!! $homePageSettingDetail->section6_see_all_button !!}</a>
+                <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}" class="button-exp-no-fill rounded-none" >{!! $homePageSettingDetail->section6_see_all_button !!}</a>
             </div>
         </div>
         <div class="mt-2 relative">
@@ -22,12 +22,12 @@
                     @for ($i = 0; $i < count($issues); $i++)
                     <div class="swiper-slide border border-[#c9dbe9] shadow-md shadow-blue-500/20">
                         <div class="flex items-center gap-4 justify-center">
-                            <a aria-label="Canadian Exporters" target="_blank" class="w-full h-[412px] bg-white flex justify-center items-center" href="{{ isset($issues[$i]->pdf) ? $issues[$i]->pdf : '#' }}">
-                                <img src="{{ isset($issues[$i]->media) && file_exists(($issues[$i]->media->medium_image)) ? asset($issues[$i]->media->medium_image) : asset('assets/images/logocircle.png') }}" class="object-cover" alt="Canadian Exports magazine" />
+                            <a aria-label="{{ __('Canadian Exporters') }}" target="_blank" class="w-full h-[412px] bg-white flex justify-center items-center" href="{{ isset($issues[$i]->pdf) ? $issues[$i]->pdf : '#' }}">
+                                <img src="{{ isset($issues[$i]->media) && file_exists(($issues[$i]->media->medium_image)) ? asset($issues[$i]->media->medium_image) : asset('assets/images/logocircle.png') }}" class="object-cover" alt="{{ __('Canadian Exports magazine') }}" />
                             </a>
                         </div>
                         <div class="p-6">
-                            <p>{{ $issues[$i]->issueDetail[0]->title }}</p>
+                           <p>{{ $issues[$i]?->issueDetail[0]->title ?? '' }}</p>
                         </div>
                     </div>
                     @endfor

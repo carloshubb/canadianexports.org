@@ -5,7 +5,7 @@
                 <div class="flex space-x-4">
                     <div>
                         <!-- Website Logo -->
-                        <a aria-label="Candian Exporters" href="{{ route('front.index') }}" class="flex items-center">
+                        <a aria-label="{{ __('Canadian Exporters') }}" href="{{ route('front.index') }}" class="flex items-center">
                             <img src="{{ asset('assets/image/logo-dark.png') }}" alt="Logo" class="w-32 lg:w-48">
                         </a>
                     </div>
@@ -18,22 +18,22 @@
                             $aboutUsSlug = \App\Models\Page::where('template', 'about_us_template')->value('slug');
                             $aboutUsUrl = $aboutUsSlug ? route('front.index', $aboutUsSlug) : '#';
                         @endphp
-                        <a aria-label="Candian Exporters" href="{{ $aboutUsUrl }}"
+                        <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $aboutUsUrl }}"
                             class="menu font-FuturaBdCnBT text-sm lg:text-base text-gray-800 hover:text-primaryRed font-medium transition duration-300 p-1 lg:p-2">
                             About us
                         </a>
-                        <a aria-label="Candian Exporters" href="#"
+                        <a aria-label="{{ __('Canadian Exporters') }}" href="#"
                             class="menu font-FuturaBdCnBT text-sm lg:text-base text-gray-800  hover:text-primaryRed font-medium transition duration-300 p-1 lg:p-2">
                             Career</a>
-                        <a aria-label="Candian Exporters" href="#"
+                        <a aria-label="{{ __('Canadian Exporters') }}" href="#"
                             class="menu font-FuturaBdCnBT text-sm lg:text-base text-gray-800  hover:text-primaryRed font-medium transition duration-300 p-1 lg:p-2">
                             Production
                         </a>
-                        <a aria-label="Candian Exporters" href="#"
+                        <a aria-label="{{ __('Canadian Exporters') }}" href="#"
                             class="menu font-FuturaBdCnBT text-sm lg:text-base text-gray-800  hover:text-primaryRed font-medium transition duration-300 p-1 lg:p-2">
                             Annoucement
                         </a>
-                        <a aria-label="Candian Exporters" href="#"
+                        <a aria-label="{{ __('Canadian Exporters') }}" href="#"
                             class="menu font-FuturaBdCnBT text-sm lg:text-base text-gray-800  hover:text-primaryRed font-medium transition duration-300 p-1 lg:p-2">
                             Contact
                         </a>
@@ -44,7 +44,7 @@
                         <div class="flex flex-wrap">
                             <div class="w-full px-4">
                                 <div class="relative inline-flex align-middle w-full">
-                                    <button aria-label="Candian Exporters" type="button"
+                                    <button aria-label="{{ __('Canadian Exporters') }}" type="button"
                                         class="menu font-FuturaBdCnBT text-sm lg:text-base text-gray-800  hover:text-primaryRed font-medium transition duration-300 p-1 lg:p-2"
                                         onclick="openDropdown(event,'dropdown-id2')">
                                         Welcome {{ auth()->guard('customers')->user()->name }} <i class="fa fa-user"></i>
@@ -53,7 +53,7 @@
                                         style="min-width:12rem" id="dropdown-id2">
                                         @if(auth()->guard('customers')->user()->type === 'sponsor')
                                             {{-- Sponsor-specific menu --}}
-                                            <a aria-label="Candian Exporters" href="{{ route('user.sponsor-settings.index') }}"
+                                            <a aria-label="{{ __('Canadian Exporters') }}" href="{{ route('user.sponsor-settings.index') }}"
                                                 class="menu font-FuturaBdCnBT text-sm lg:text-base py-2 px-4 block w-full whitespace-nowrap bg-transparent text-slate-700">
                                                 <i class="fa fa-edit"></i> Edit Sponsor Profile
                                             </a>
@@ -61,25 +61,25 @@
                                                 $firstSponsorId = \App\Models\Sponsor::where('customer_id', auth()->guard('customers')->id())->orderBy('id')->value('id');
                                                 $accountUrl = $firstSponsorId ? route('user.sponsor-settings.edit', ['id' => $firstSponsorId]) : route('user.sponsor-settings.index');
                                             @endphp
-                                            <a aria-label="Candian Exporters" href="{{ $accountUrl }}"
+                                            <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $accountUrl }}"
                                                 class="menu font-FuturaBdCnBT text-sm lg:text-base py-2 px-4 block w-full whitespace-nowrap bg-transparent text-slate-700">
                                                 Account Settings
                                             </a>
                                         @else
                                             {{-- Regular user menu --}}
-                                            <a aria-label="Candian Exporters" href="{{ route('user.profile-settings.index') }}"
+                                            <a aria-label="{{ __('Canadian Exporters') }}" href="{{ route('user.profile-settings.index') }}"
                                                 class="menu font-FuturaBdCnBT text-sm lg:text-base py-2 px-4 block w-full whitespace-nowrap bg-transparent text-slate-700">
                                                 Account Settings
                                             </a>
-                                            <a aria-label="Candian Exporters" href="{{ route('user.buissness-settings.index') }}"
+                                            <a aria-label="{{ __('Canadian Exporters') }}" href="{{ route('user.buissness-settings.index') }}"
                                                 class="menu font-FuturaBdCnBT text-sm lg:text-base py-2 px-4 block w-full whitespace-nowrap bg-transparent text-slate-700">
                                                 Business profile setting
                                             </a>
-                                            <a aria-label="Candian Exporters" href="#"
+                                            <a aria-label="{{ __('Canadian Exporters') }}" href="#"
                                                 class="menu font-FuturaBdCnBT text-sm lg:text-base py-2 px-4 block w-full whitespace-nowrap bg-transparent text-slate-700">
                                                 Media Setting
                                             </a>
-                                            <a aria-label="Candian Exporters" href="{{ route('user.social-media-settings.index') }}"
+                                            <a aria-label="{{ __('Canadian Exporters') }}" href="{{ route('user.social-media-settings.index') }}"
                                                 class="menu font-FuturaBdCnBT text-sm lg:text-base py-2 px-4 block w-full whitespace-nowrap bg-transparent text-slate-700">
                                                 Social Media Setting
                                             </a>
@@ -88,7 +88,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a aria-label="Candian Exporters" class="font-FuturaBdCnBT text-primaryRed border border-primaryRed hover:bg-primaryRed hover:text-white lg:px-4 lg:py-1.5 rounded outline-none focus:outline-none ease-linear transition-all duration-150 px-2"
+                        <a aria-label="{{ __('Canadian Exporters') }}" class="font-FuturaBdCnBT text-primaryRed border border-primaryRed hover:bg-primaryRed hover:text-white lg:px-4 lg:py-1.5 rounded outline-none focus:outline-none ease-linear transition-all duration-150 px-2"
                             href="#"
                             onclick="event.preventDefault(); document.getElementById('user-logout-form').submit();">
                             Logout
@@ -103,11 +103,11 @@
                             $url = isset($general_setting['user_signin_page']) ? route('front.index', $general_setting['user_signin_page']) : '#';
                             $url = langBasedURL($lang, $url);
                         @endphp
-                        <a aria-label="Candian Exporters" class="font-FuturaBdCnBT text-primaryRed border border-primaryRed hover:bg-primaryRed hover:text-white lg:px-4 lg:py-1.5 rounded outline-none focus:outline-none ease-linear transition-all duration-150 px-2"
+                        <a aria-label="{{ __('Canadian Exporters') }}" class="font-FuturaBdCnBT text-primaryRed border border-primaryRed hover:bg-primaryRed hover:text-white lg:px-4 lg:py-1.5 rounded outline-none focus:outline-none ease-linear transition-all duration-150 px-2"
                             href="{{ $url }}">
                             Log In
                         </a>
-                        <a aria-label="Candian Exporters" class="font-FuturaBdCnBT text-primaryRed border border-primaryRed hover:bg-primaryRed hover:text-white lg:px-4 lg:py-1.5 rounded outline-none focus:outline-none ease-linear transition-all duration-150 px-2"
+                        <a aria-label="{{ __('Canadian Exporters') }}" class="font-FuturaBdCnBT text-primaryRed border border-primaryRed hover:bg-primaryRed hover:text-white lg:px-4 lg:py-1.5 rounded outline-none focus:outline-none ease-linear transition-all duration-150 px-2"
                             href="@isset($general_setting['user_signup_page']) {{ url($general_setting['user_signup_page']) }} @endisset">
                             Register
                         </a>
@@ -116,7 +116,7 @@
                 </div>
                 <!-- Mobile menu button -->
                 <div class="md:hidden flex items-center">
-                    <button aria-label="Candian Exporters" class="outline-none mobile-menu-button">
+                    <button aria-label="{{ __('Canadian Exporters') }}" class="outline-none mobile-menu-button">
                         <svg class=" w-6 h-6 text-gray-500 hover:text-primaryRed " x-show="!showMenu" fill="none"
                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -129,31 +129,31 @@
         <!-- mobile menu -->
         <div class="hidden mobile-menu bg-gray-50 h-screen text-gray-800 relative z-20">
             <ul class="">
-                <li class="active"><a aria-label="Candian Exporters" href="{{ route('front.index') }}"
+                <li class="active"><a aria-label="{{ __('Canadian Exporters') }}" href="{{ route('front.index') }}"
                         class="block text-sm p-4 text-white bg-primaryRed font-semibold">Home</a></li>
-                <li><a aria-label="Candian Exporters" href="#"
+                <li><a aria-label="{{ __('Canadian Exporters') }}" href="#"
                         class="block text-sm p-4 hover:bg-primaryRed transition duration-300 p-1 lg:p-2">About Us</a>
                 </li>
-                <li><a aria-label="Candian Exporters" href="#"
+                <li><a aria-label="{{ __('Canadian Exporters') }}" href="#"
                         class="block text-sm p-4 hover:bg-primaryRed transition duration-300 p-1 lg:p-2">Career</a>
                 </li>
-                <li><a aria-label="Candian Exporters" href="#"
+                <li><a aria-label="{{ __('Canadian Exporters') }}" href="#"
                         class="block text-sm p-4 hover:bg-primaryRed transition duration-300 p-1 lg:p-2">Production</a>
                 </li>
-                <li><a aria-label="Candian Exporters" href="#"
+                <li><a aria-label="{{ __('Canadian Exporters') }}" href="#"
                         class="block text-sm p-4 hover:bg-primaryRed transition duration-300 p-1 lg:p-2">Annoucement</a>
                 </li>
-                <li><a aria-label="Candian Exporters" href="#"
+                <li><a aria-label="{{ __('Canadian Exporters') }}" href="#"
                         class="block text-sm p-4 hover:bg-primaryRed transition duration-300 p-1 lg:p-2">Contact</a>
                 </li>
             </ul>
             <div class="space-y-2 p-4">
-                <button aria-label="Candian Exporters"
+                <button aria-label="{{ __('Canadian Exporters') }}"
                     class="text-primaryRed w-full md:w-auto border border-primaryRed hover:bg-primaryRed hover:text-white  px-4 py-1.5 rounded outline-none focus:outline-none ease-linear transition-all duration-150"
                     type="button">
                     Log In
                 </button>
-                <a aria-label="Candian Exporters" class="text-primaryRed w-full md:w-auto border border-primaryRed hover:bg-primaryRed hover:text-white  px-4 py-1.5 rounded outline-none focus:outline-none ease-linear transition-all duration-150"
+                <a aria-label="{{ __('Canadian Exporters') }}" class="text-primaryRed w-full md:w-auto border border-primaryRed hover:bg-primaryRed hover:text-white  px-4 py-1.5 rounded outline-none focus:outline-none ease-linear transition-all duration-150"
                     href="@isset($general_setting['user_signup_page']) {{ url($general_setting['user_signup_page']) }} @endisset">
                     Register
                 </a>

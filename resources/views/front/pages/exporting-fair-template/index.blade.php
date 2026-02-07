@@ -18,7 +18,7 @@
                                             class="h-60 rounded shadow">
                                             <img class="h-60 rounded object-cover w-full"
                                                 src="{{ isset($exportingFair->media, $exportingFair->media->medium_image) && file_exists($exportingFair->media->medium_image) ? asset($exportingFair->media->medium_image) : asset('assets/images/logocanexp.png') }}"
-                                                alt="Candian Exporters" />
+                                                alt="{{ __('Canadian Exporters') }}" />
                                         </a>
                                         @php
                                             $url = route('user.exporting-fair.show', ['abbreviation' => $lang->abbreviation, 'id' => $exportingFair->id]);
