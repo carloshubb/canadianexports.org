@@ -102,13 +102,8 @@ substr($useragent, 0, 4),
                     @php
                     $url = langBasedURL($lang, $menuItem['link']);
                     @endphp
-<<<<<<< HEAD
                     <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}"
                         class="sub-menu-item font-Futura">{{ $menuItem['name'] }}</a>
-=======
-                    <a aria-label="Candian Exporters" href="{{ $url }}"
-                        class="font-Futura">{{ $menuItem['name'] }}</a>
->>>>>>> c09d91fb79eefa8e63b1ee8ea566ad99cef40f0b
                 </li>
                 @endif
                 @endforeach
