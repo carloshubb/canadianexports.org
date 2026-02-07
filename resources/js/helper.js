@@ -1,4 +1,5 @@
 import swal from "sweetalert2";
+import { translate } from "@/Utils/i18n";
 
 if (!document.getElementById('swal-custom-styles')) {
     const style = document.createElement('style');
@@ -92,7 +93,7 @@ const helpers = {
             timer: 3000,
             icon: "success",
             background: "rgb(220 252 231)",
-            title: "Success",
+            title: translate("Success"),
             timerProgressBar: true,
             customClass: {
                 popup: "gradient-border-modal",
@@ -116,7 +117,7 @@ const helpers = {
             timer: 3000,
             icon: "error",
             background: "rgb(254 202 202)",
-            title: "Error",
+            title: translate("Error"),
             timerProgressBar: true,
             customClass: {
                 popup: "gradient-border-modal",
@@ -164,7 +165,7 @@ const helpers = {
         return swal.fire({
             position: "center",
             showConfirmButton: true,
-            confirmButtonText: 'Close',
+            confirmButtonText: translate("Close"),
             showCloseButton: false,
             background: "#ffffffff",
             buttonsStyling: false,
@@ -183,9 +184,9 @@ const helpers = {
         return swal.fire({
             position: "center",
             showConfirmButton: true,
-            confirmButtonText: 'Close',
+            confirmButtonText: translate("Close"),
             showDenyButton: !!profileUrl,
-            denyButtonText: 'View My Live Profile',
+            denyButtonText: translate("View My Live Profile"),
             showCloseButton: true,
             background: "#ffffffff",
             buttonsStyling: false,
@@ -200,10 +201,10 @@ const helpers = {
             html: `
                 <div class="text-center">
                     <div class="checkmark">✓</div>
-                    <h2 class="success-title">Welcome to Canadian Exports!</h2>
-                    <p class="success-subtitle">You are now an Official Sponsor</p>
-                    <p>Thank you for your <strong>generous support</strong>. Your <strong>partnership</strong> is already making a difference for small businesses and entrepreneurs across the nation.</p>
-                    <p>Your profile is now <strong>LIVE</strong>. You can visit the <strong>Homepage</strong> to see your brand in its new featured position. A payment receipt has been sent to your email.</p>
+                    <h2 class="success-title">${translate("Welcome to Canadian Exports!")}</h2>
+                    <p class="success-subtitle">${translate("You are now an Official Sponsor")}</p>
+                    <p>${translate("Thank you for your <strong>generous support</strong>. Your <strong>partnership</strong> is already making a difference for small businesses and entrepreneurs across the nation.")}</p>
+                    <p>${translate("Your profile is now <strong>LIVE</strong>. You can visit the <strong>Homepage</strong> to see your brand in its new featured position. A payment receipt has been sent to your email.")}</p>
                 </div>
             `,
         }).then((result) => {
@@ -217,7 +218,7 @@ const helpers = {
         swal.fire({
             position: "center",
             showConfirmButton: true,
-            confirmButtonText: 'OK',
+            confirmButtonText: translate("OK"),
             showCloseButton: false,
             background: "#ffffffff",
             buttonsStyling: false,
@@ -234,7 +235,7 @@ const helpers = {
         swal.fire({
             position: "center",
             showConfirmButton: true,
-            confirmButtonText: 'OK',
+            confirmButtonText: translate("OK"),
             showCloseButton: false,
             background: "#ffffffff",
             buttonsStyling: false,
@@ -251,7 +252,7 @@ const helpers = {
         swal.fire({
             position: "center",
             showConfirmButton: true,
-            confirmButtonText: 'OK',
+            confirmButtonText: translate("OK"),
             showCloseButton: false,
             background: "#fff",
             buttonsStyling: false,

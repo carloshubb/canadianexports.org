@@ -145,7 +145,7 @@
                                     </section>
                                 </div>
                             @empty
-                                <p>No result found</p>
+                                <p>{{ __('No result found') }}</p>
                             @endforelse
                         </div>
 

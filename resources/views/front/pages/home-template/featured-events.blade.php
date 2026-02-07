@@ -25,11 +25,11 @@ $events = getAllEvents(30, $lang, 'package_type');
                     $message_66 = $general_messages['message_66'] ?? 'Sponsor accounts cannot create events.';
                     @endphp
                     @if (Auth::guard('customers')->check() && Auth::guard('customers')->user()->type === 'sponsor')
-                    <a aria-label="Canadian Exporters" href="{!! $url !!}" class="button-exp-fill flex justify-center items-center h-[40px] rounded-none">
+                    <a aria-label="{{ __('Canadian Exporters') }}" href="{!! $url !!}" class="button-exp-fill flex justify-center items-center h-[40px] rounded-none">
                         {!! $homePageSettingDetail->section5_see_all_button_text !!}
                     </a>
                     @else
-                    <a aria-label="Canadian Exporters" href="{!! $url !!}" class="button-exp-fill flex justify-center items-center h-[40px] rounded-none">
+                    <a aria-label="{{ __('Canadian Exporters') }}" href="{!! $url !!}" class="button-exp-fill flex justify-center items-center h-[40px] rounded-none">
                         {!! $homePageSettingDetail->section5_see_all_button_text !!}
                     </a>
                     @endif
@@ -51,7 +51,7 @@ $events = getAllEvents(30, $lang, 'package_type');
                 @if ($user->type !== 'event')
                 {{-- Free exporter: show membership notice modal first --}}
                 <div class="flex justify-center">
-                    <a aria-label="Canadian Exporters" href="javascript:void(0)" onclick="openMembershipNoticeEventPostingModal(); return false;" class="button-exp-no-fill flex justify-center items-center h-[40px] rounded-none">
+                    <a aria-label="{{ __('Canadian Exporters') }}" href="javascript:void(0)" onclick="openMembershipNoticeEventPostingModal(); return false;" class="button-exp-no-fill flex justify-center items-center h-[40px] rounded-none">
                         {!! $homePageSettingDetail->section5_add_event_text !!}
                     </a>
                 </div>
@@ -70,13 +70,13 @@ $events = getAllEvents(30, $lang, 'package_type');
                 @if ($events_remaining == null || $events_remaining <= 0)
                     {{-- Free exporter (no event credits): show membership notice modal first --}}
                     <div class="flex justify-center">
-                    <a aria-label="Canadian Exporters" href="javascript:void(0)" onclick="openMembershipNoticeEventPostingModal(); return false;" class="button-exp-no-fill flex justify-center items-center h-[40px] rounded-none">
+                    <a aria-label="{{ __('Canadian Exporters') }}" href="javascript:void(0)" onclick="openMembershipNoticeEventPostingModal(); return false;" class="button-exp-no-fill flex justify-center items-center h-[40px] rounded-none">
                         {!! $homePageSettingDetail->section5_add_event_text !!}
                     </a>
             </div>
             @else
             <div class="flex justify-center">
-                <a aria-label="Canadian Exporters"
+                <a aria-label="{{ __('Canadian Exporters') }}"
                     href="{{ $hasPaid ? $addEventUrl : $reviewConfirmationUrl }}"
                     class="button-exp-no-fill flex justify-center items-center h-[40px] rounded-none">
                     {!! $homePageSettingDetail->section5_add_event_text !!}
@@ -86,7 +86,7 @@ $events = getAllEvents(30, $lang, 'package_type');
             @endif
             @else
             <div class="flex justify-center">
-                <a aria-label="Canadian Exporters" href="{!! $eventSignupUrl !!}" class="button-exp-no-fill flex justify-center items-center h-[40px] rounded-none">
+                <a aria-label="{{ __('Canadian Exporters') }}" href="{!! $eventSignupUrl !!}" class="button-exp-no-fill flex justify-center items-center h-[40px] rounded-none">
                     {!! $homePageSettingDetail->section5_add_event_text !!}
                 </a>
             </div>
@@ -119,11 +119,11 @@ $events = getAllEvents(30, $lang, 'package_type');
                             @if (isset($event->media) && file_exists($event->media->medium_image))
                                 <img src="{{ asset($event->media->medium_image) }}" 
                                     class="object-cover w-full h-full" 
-                                    alt="{{ $eventDetail->title ?? 'Event' }}" />
+                                    alt="{{ $eventDetail->title ?? __('Event') }}" />
                             @else
                                 <img src="{{ asset('assets/images/logocircle.png') }}" 
                                     class="object-cover w-full h-full bg-gray-50" 
-                                    alt="Event" />
+                                    alt="{{ __('Event') }}" />
                             @endif
                         </div>
 
@@ -192,9 +192,9 @@ $events = getAllEvents(30, $lang, 'package_type');
                             
                             {{-- More Event Details link --}}
                             <div class="text-left">
-                                <a aria-label="Canadian Exporters" href="{{ $url }}"
+                                <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}"
                                     class="text-primary text-sm hover:underline font-medium">
-                                    More Event Details
+                                    {{ __('More Event Details') }}
                                 </a>
                             </div>
                         </div>
@@ -235,7 +235,7 @@ $events = getAllEvents(30, $lang, 'package_type');
             <div class="flex justify-center">
                 <button onclick="document.getElementById('sponsorRestrictionModal').classList.add('hidden')"
                     class="px-4 py-2 bg-primary text-white rounded">
-                    close
+                    {{ __('close') }}
                 </button>
             </div>
         </div>
@@ -258,7 +258,7 @@ $events = getAllEvents(30, $lang, 'package_type');
 
             // Set the appropriate message based on the action
             messageElement.textContent = restrictionMessages[action] ||
-                'This action is restricted for sponsor accounts.';
+                @json(__('This action is restricted for sponsor accounts.'));
 
             // Show the modal
             modal.classList.remove('hidden');

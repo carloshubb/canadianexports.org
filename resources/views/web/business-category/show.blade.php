@@ -28,7 +28,7 @@
                             }
                         @endphp
                         @if ($logoImage)
-                            <img src="{{ asset($logoImage) }}" class="w-32" alt="Candian Exporters">
+                            <img src="{{ asset($logoImage) }}" class="w-32" alt="{{ __('Canadian Exporters') }}">
                         @endif
                         <h2 class="can-exp-h1 text-center mb-0">
                             {{ $customer->company_name }}</h2>
@@ -37,15 +37,15 @@
                     <div class="flex flex-wrap" id="tabs-id">
                         <div class="w-full">
                             <div class="flex list-none flex-wrap justify-center md:justify-start gap-2 mb-4 flex-row">
-                                <a aria-label="Candian Exporters"
+                                <a aria-label="{{ __('Canadian Exporters') }}"
                                     class="button-exp-fill cursor-pointer business-profile-tab"
                                     onclick="changeAtiveTab(event,'tab-overview')"
                                     id="tab-overview-btn">{{ isset($advertiserSetting) ? $advertiserSetting['overview_tab_text'] : 'Overview' }}</a>
-                                <a aria-label="Candian Exporters"
+                                <a aria-label="{{ __('Canadian Exporters') }}"
                                     class="button-exp-no-fill cursor-pointer business-profile-tab"
                                     onclick="changeAtiveTab(event,'tab-media')"
                                     id="tab-media-btn">{{ isset($advertiserSetting) ? $advertiserSetting['media_tab_text'] : 'Media' }}</a>
-                                <a aria-label="Candian Exporters"
+                                <a aria-label="{{ __('Canadian Exporters') }}"
                                     class="button-exp-no-fill cursor-pointer business-profile-tab"
                                     onclick="changeAtiveTab(event,'tab-contact')"
                                     id="tab-contact-btn">{{ isset($advertiserSetting) ? $advertiserSetting['contact_tab_text'] : 'Contact' }}</a>
@@ -61,7 +61,7 @@
                                                             <div id="iframe-placeholder"></div>
                                                         </div>
                                                         <div class="my-5 flex justify-center">
-                                                            <a aria-label="Candian Exporters"
+                                                            <a aria-label="{{ __('Canadian Exporters') }}"
                                                                 href="{{ $customer->website }}"
                                                                 class="button-exp-fill fix-url" onclick="fixUrls()"
                                                                 target="_blank">
@@ -129,7 +129,7 @@
                                                             </p>
                                                         </div>
                                                         <advertisers-contact-form
-                                                            aria-label="Candian Exporters"dvertisers-contact-form
+                                                            aria-label="{{ __('Canadian Exporters') }}"
                                                             submit_url="{{ route('user.business-category.send-message') }}"
                                                             customer_id="{{ $customer->id }}"
                                                             advertiser_setting="{{ $advertiserSetting }}"
@@ -170,7 +170,7 @@
                                                                         </svg>
                                                                     </dt>
                                                                     <dd>
-                                                                        <a aria-label="Canadian Exporters"
+                                                                        <a aria-label="{{ __('Canadian Exporters') }}"
                                                                             class="text-gray-800 break-all">
                                                                             <pre class="font-Nunito">{{ $customer->customer->name }}</pre>
                                                                         </a>
@@ -187,7 +187,7 @@
                                                                                 d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" />
                                                                         </svg>
                                                                     </dt>
-                                                                    <dd> <a aria-label="Candian Exporters"
+                                                                    <dd> <a aria-label="{{ __('Canadian Exporters') }}"
                                                                             class="text-gray-800 break-all">
                                                                             <pre class="font-Nunito">{{ $customer->address }}</pre>
                                                                         </a>
@@ -204,7 +204,7 @@
                                                                                 d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
                                                                         </svg>
                                                                     </dt>
-                                                                    <dd><a aria-label="Candian Exporters"
+                                                                    <dd><a aria-label="{{ __('Canadian Exporters') }}"
                                                                             href="tel:{{ $customer->phone }}"
                                                                             class="text-gray-800 break-all">{{ $customer->phone }}</a>
                                                                     </dd>
@@ -220,7 +220,7 @@
                                                                                 d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
                                                                         </svg>
                                                                     </dt>
-                                                                    <dd><a aria-label="Candian Exporters"
+                                                                    <dd><a aria-label="{{ __('Canadian Exporters') }}"
                                                                             href="mailto:{{ $customer->company_email }}"
                                                                             class="text-gray-800 break-all">{{ $customer->company_email }}</a>
                                                                     </dd>
@@ -237,7 +237,7 @@
                                                                                 d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
                                                                         </svg>
                                                                     </dt>
-                                                                    <dd><a aria-label="Candian Exporters"
+                                                                    <dd><a aria-label="{{ __('Canadian Exporters') }}"
                                                                             href="{{ $customer->website }}"
                                                                             target="_blank"
                                                                             class="text-gray-800 break-all fix-url"
@@ -272,7 +272,7 @@
                                                                         class="flex flex-col sm:flex-row md:flex-row lg:flex-row items-center gap-4 my-2">
                                                                         <div class="flex items-center gap-4 my-2">
                                                                             @if (isset($customer->customer->customerSocialMedia->facebook))
-                                                                                <a aria-label="Candian Exporters"
+                                                                                <a aria-label="{{ __('Canadian Exporters') }}"
                                                                                     target="_blank"
                                                                                     href="{{ $customer->customer->customerSocialMedia->facebook }}"
                                                                                     class="flex justify-center items-center bg-gray-50 border-2 border-gray-300 hover:border-primary rounded-full h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10 fix-url"
@@ -283,7 +283,7 @@
                                                                                 </a>
                                                                             @endif
                                                                             @if (isset($customer->customer->customerSocialMedia->twitter))
-                                                                                <a aria-label="Candian Exporters"
+                                                                                <a aria-label="{{ __('Canadian Exporters') }}"
                                                                                     target="_blank"
                                                                                     href="{{ $customer->customer->customerSocialMedia->twitter }}"
                                                                                     class="flex justify-center items-center bg-gray-50 border-2 border-gray-300 hover:border-primary rounded-full h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10 fix-url"
@@ -294,7 +294,7 @@
                                                                                 </a>
                                                                             @endif
                                                                             @if (isset($customer->customer->customerSocialMedia->linked_in))
-                                                                                <a aria-label="Candian Exporters"
+                                                                                <a aria-label="{{ __('Canadian Exporters') }}"
                                                                                     target="_blank"
                                                                                     href="{{ $customer->customer->customerSocialMedia->linked_in }}"
                                                                                     class="flex justify-center items-center bg-gray-50 border-2 border-gray-300 hover:border-primary rounded-full h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10 fix-url"
@@ -305,7 +305,7 @@
                                                                                 </a>
                                                                             @endif
                                                                             @if (isset($customer->customer->customerSocialMedia->youtube))
-                                                                                <a aria-label="Candian Exporters"
+                                                                                <a aria-label="{{ __('Canadian Exporters') }}"
                                                                                     target="_blank"
                                                                                     href="{{ $customer->customer->customerSocialMedia->youtube }}"
                                                                                     class="flex justify-center items-center bg-gray-50 border-2 border-gray-300 hover:border-primary rounded-full h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10 fix-url"
@@ -316,7 +316,7 @@
                                                                                 </a>
                                                                             @endif
                                                                             @if (isset($customer->customer->customerSocialMedia->social_media5))
-                                                                                <a aria-label="Candian Exporters"
+                                                                                <a aria-label="{{ __('Canadian Exporters') }}"
                                                                                     target="_blank"
                                                                                     href="{{ $customer->customer->customerSocialMedia->social_media5 }}"
                                                                                     class="flex justify-center items-center bg-gray-50 border-2 border-gray-300 hover:border-primary rounded-full h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10 fix-url"

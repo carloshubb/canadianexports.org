@@ -19,8 +19,8 @@
                 @endif
                 <div class="">
                     <div class="bg-white py-8 px-4 sm:px-10">
-                        <h1 class="font-FuturaMdCnBT text-2xl md:text-3xl text-gray-900 mb-4">Your Sponsor Profile</h1>
-                        <p class="text-gray-600 mb-6" style="margin-top: 60px;" >Welcome to your command center. Everything you share here helps Canadian exporters and international buyers find you. You can update your company details, media, and contact information at any time to keep your profile fresh and engaging.</p>
+                        <h1 class="font-FuturaMdCnBT text-2xl md:text-3xl text-gray-900 mb-4">{{ __('Your Sponsor Profile') }}</h1>
+                        <p class="text-gray-600 mb-6" style="margin-top: 60px;" >{{ __('Welcome to your command center. Everything you share here helps Canadian exporters and international buyers find you. You can update your company details, media, and contact information at any time to keep your profile fresh and engaging.') }}</p>
 
                         {{-- Edit specific sponsorship --}}
                         <sponsor-profile-edit :sponsorship-id="{{ $id }}"></sponsor-profile-edit>

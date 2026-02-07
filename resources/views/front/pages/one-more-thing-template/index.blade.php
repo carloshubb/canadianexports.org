@@ -28,11 +28,11 @@
                                                     @if (isset($oneMoreThing->media, $oneMoreThing->media) && file_exists($oneMoreThing->media->medium_image))
                                                         <img src="{{ asset($oneMoreThing->media->medium_image) }}"
                                                             class="h-full w-full object-cover rounded-full"
-                                                            alt="Candian Exporters" />
+                                                            alt="{{ __('Canadian Exporters') }}" />
                                                     @else
                                                         <img src="{{ asset('/assets/images/logocircle.png') }}"
                                                             class="h-full w-full object-contain rounded-full"
-                                                            alt="Candian Exporters" />
+                                                            alt="{{ __('Canadian Exporters') }}" />
                                                     @endif
                                                 </div>
                                                 <div class="md:px-4 md:py-3 flex-1">

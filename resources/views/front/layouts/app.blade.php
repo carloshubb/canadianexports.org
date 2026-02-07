@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 @php
     $lang = getDefaultLanguage(true);
+    $locale = strtolower(substr($lang->abbreviation ?? 'en', 0, 2));
+    if (!in_array($locale, ['en', 'es'])) {
+        $locale = 'en';
+    }
+    App::setLocale($locale);
     $cookie_setting = getI2bModalSetting($lang, ['cookies_modal']);
     $generalSetting = getI2bModalSetting($lang, ['general']);
     $useragent = $_SERVER['HTTP_USER_AGENT'];
@@ -165,12 +170,12 @@
                         : '';
                     $learn_more_btn_link = langBasedURL($lang, $learn_more_btn_link);
                 @endphp
-                <a aria-label="Candian Exporters" href="{{ $learn_more_btn_link }}"
+                <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $learn_more_btn_link }}"
                     class="can-exp-a whitespace-nowrap hover:underline font-FuturaMdCnBT">{{ isset($cookie_setting['learn_more_btn_text']) ? $cookie_setting['learn_more_btn_text'] : '' }}</a>
             </div>
             <div class="flex flex-shrink-0 items-center gap-4">
                 {{-- <button aria-label="Candian Exporters" class="text-indigo-600 focus:outline-none hover:underline">Learn more</button> --}}
-                <button aria-label="Candian Exporters" class="button-exp-fill" onclick="acceptCookies()">
+                <button aria-label="{{ __('Canadian Exporters') }}" class="button-exp-fill" onclick="acceptCookies()">
                     {{ isset($cookie_setting['allow_cookies_button_text']) ? $cookie_setting['allow_cookies_button_text'] : '' }}
                 </button>
             </div>
@@ -268,7 +273,7 @@
                         d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                 </svg>
                 <span
-                    class="mt-0.5 text-sm">Coffee on the Wall</span>
+                    class="mt-0.5 text-sm">{{ __('Coffee on the Wall') }}</span>
             </a>
             @guest('customers')
                 <a href="{{ $signin_url }}" class="mx-auto grow-2 text-center text-gray-700">
@@ -350,7 +355,7 @@
                             <svg aria-hidden="true" class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                             </svg>
-                            <span class="sr-only">Close modal</span>
+                            <span class="sr-only">{{ __('Close modal') }}</span>
                         </button>
                     </div>
                 </div>
@@ -364,7 +369,7 @@
                                     : '#';
                                 $url = langBasedURL($lang, $url);
                             @endphp
-                            <a aria-label="Candian Exporters" href="{{ $url }}"
+                            <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}"
                                 class="button-exp-fill">{{ !empty($generalSetting['signup_modal_exporter_button']) ? $generalSetting['signup_modal_exporter_button'] : 'Register an Exporter Profile' }}</a>
                             </a>
                         </div>
@@ -382,7 +387,7 @@
                                     : '#';
                                 $url = langBasedURL($lang, $eventSignupRoute);
                             @endphp
-                            <a aria-label="Candian Exporters" href="{{ $url }}"
+                            <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}"
                                 class="button-exp-no-fill">{{ !empty($generalSetting['signup_modal_event_button']) ? $generalSetting['signup_modal_event_button'] : 'Create an Event' }}</a>
                             </a>
                         </div>
@@ -401,7 +406,7 @@
         @endif --}}
     {{-- Footer End --}}
     {{-- Back to top  --}}
-    <a aria-label="Candian Exporters" href="#" onclick="topFunction()" id="back-to-top"
+    <a aria-label="{{ __('Canadian Exporters') }}" href="#" onclick="topFunction()" id="back-to-top"
         class="back-to-top fixed bottom-20 md:bottom-3 right-5 z-10 flex hidden  h-9 w-9 items-center justify-center rounded-full bg-secondary bg-opacity-40 text-center text-lg leading-9 text-white">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="h-5 w-5">
@@ -423,6 +428,7 @@
     {{-- <script src="{{ asset('assets/js/plugins.init.js') }}"></script> --}}
     {{-- <script src="{{ asset('assets/libs/wow.js/wow.min.js') }}"></script> --}}
     <script src="{{ asset('assets/js/app.js') }}" defer></script>
+    <script>window.__LOCALE__ = "{{ $locale }}";</script>
     <script src="{{ asset('/js/web.js') }}" defer></script>
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>

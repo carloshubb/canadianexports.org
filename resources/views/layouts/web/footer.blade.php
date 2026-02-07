@@ -2,11 +2,11 @@
     <div class=" px-4 py-6 md:p-12 desktop:px-80">
         <div class="flex flex-col lg:flex-row">
             <div class="lg:w-[30%]">
-                <img src="{{asset('assets/image/logo-white.png')}}" alt="Candian Exporters">
-                <p class="text-white mt-6 w-3/4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <img src="{{asset('assets/image/logo-white.png')}}" alt="{{ __('Canadian Exporters') }}">
+                <p class="text-white mt-6 w-3/4">{{ __('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.') }}</p>
                 <ul class="flex justify-center md:justify-start items-center space-x-4 md:mt-6 md:mb-12 lg:mb-0 lg:mt-14">
                     <li class="bg-white border border-white text-primaryRed hover:border-primaryRed hover:text-white hover:bg-primaryRed rounded-full flex w-10 h-10 items-center justify-center">
-                        <a aria-label="Candian Exporters" href="/" rel="noreferrer" target="_blank">
+                        <a aria-label="{{ __('Canadian Exporters') }}" href="/" rel="noreferrer" target="_blank">
                             <span class="sr-only">Facebook</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="10.252" height="21.999" fill="currentColor" viewBox="0 0 10.252 21.999">
                                 <g transform="translate(-125.619)">
@@ -17,7 +17,7 @@
                     </li>
 
                     <li class="bg-white border border-white text-primaryRed hover:border-primaryRed hover:text-white hover:bg-primaryRed rounded-full flex w-10 h-10 items-center justify-center">
-                        <a aria-label="Candian Exporters" href="/" rel="noreferrer" target="_blank">
+                        <a aria-label="{{ __('Canadian Exporters') }}" href="/" rel="noreferrer" target="_blank">
                             <span class="sr-only">Twitter</span>
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
@@ -26,7 +26,7 @@
                     </li>
 
                     <li class="bg-white border border-white text-primaryRed hover:border-primaryRed hover:text-white hover:bg-primaryRed rounded-full flex w-10 h-10 items-center justify-center">
-                        <a aria-label="Candian Exporters" href="/" rel="noreferrer" target="_blank">
+                        <a aria-label="{{ __('Canadian Exporters') }}" href="/" rel="noreferrer" target="_blank">
                             <span class="sr-only">
                                 linkedIn
                             </span>
@@ -39,7 +39,7 @@
                     </li>
 
                     <li class="bg-white border border-white text-primaryRed hover:border-primaryRed hover:text-white hover:bg-primaryRed rounded-full flex w-10 h-10 items-center justify-center">
-                        <a aria-label="Candian Exporters" href="/" rel="noreferrer" target="_blank">
+                        <a aria-label="{{ __('Canadian Exporters') }}" href="/" rel="noreferrer" target="_blank">
                             <span class="sr-only">
                                 call
                             </span>
@@ -58,7 +58,7 @@
                         <nav aria-label="Footer Navigation - Company" class="mt-4">
                             <ul class="space-y-2 font-medium">
                                 <li>
-                                    <a aria-label="Candian Exporters" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
+                                    <a aria-label="{{ __('Canadian Exporters') }}" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                         </svg>
@@ -67,7 +67,7 @@
                                 </li>
 
                                 <li>
-                                    <a aria-label="Candian Exporters" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
+                                    <a aria-label="{{ __('Canadian Exporters') }}" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                         </svg>
@@ -76,7 +76,7 @@
                                 </li>
 
                                 <li>
-                                    <a aria-label="Candian Exporters" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
+                                    <a aria-label="{{ __('Canadian Exporters') }}" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                         </svg>
@@ -85,7 +85,7 @@
                                 </li>
 
                                 <li>
-                                    <a aria-label="Candian Exporters" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
+                                    <a aria-label="{{ __('Canadian Exporters') }}" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                         </svg>
@@ -94,7 +94,7 @@
                                 </li>
 
                                 <li>
-                                    <a aria-label="Candian Exporters" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
+                                    <a aria-label="{{ __('Canadian Exporters') }}" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                         </svg>
@@ -103,7 +103,7 @@
                                 </li>
 
                                 <li>
-                                    <a aria-label="Candian Exporters" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
+                                    <a aria-label="{{ __('Canadian Exporters') }}" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                         </svg>
@@ -112,7 +112,7 @@
                                 </li>
 
                                 <li>
-                                    <a aria-label="Candian Exporters" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
+                                    <a aria-label="{{ __('Canadian Exporters') }}" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                         </svg>
@@ -121,7 +121,7 @@
                                 </li>
 
                                 <li>
-                                    <a aria-label="Candian Exporters" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
+                                    <a aria-label="{{ __('Canadian Exporters') }}" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                         </svg>
@@ -131,7 +131,7 @@
 
 
                                 <li>
-                                    <a aria-label="Candian Exporters" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
+                                    <a aria-label="{{ __('Canadian Exporters') }}" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                         </svg>
@@ -140,7 +140,7 @@
                                 </li>
 
                                 <li>
-                                    <a aria-label="Candian Exporters" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
+                                    <a aria-label="{{ __('Canadian Exporters') }}" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                         </svg>
@@ -149,7 +149,7 @@
                                 </li>
 
                                 <li>
-                                    <a aria-label="Candian Exporters" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
+                                    <a aria-label="{{ __('Canadian Exporters') }}" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                         </svg>
@@ -161,11 +161,11 @@
                     </div>
                     <!--To the Canadian Exporter (alphabetical order)-->
                     <div>
-                        <h6 class="font-FuturaBdCnBT text-white text-2xl">To the Canadian Exporter</h6>
+                        <h6 class="font-FuturaBdCnBT text-white text-2xl">{{ __('To the Canadian Exporter') }}</h6>
                         <nav aria-label="Footer Navigation - Company" class="mt-4">
                             <ul class="space-y-2 font-medium">
                                 <li>
-                                    <a aria-label="Candian Exporters" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
+                                    <a aria-label="{{ __('Canadian Exporters') }}" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                         </svg>
@@ -173,7 +173,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a aria-label="Candian Exporters" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
+                                    <a aria-label="{{ __('Canadian Exporters') }}" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                         </svg>
@@ -181,15 +181,15 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a aria-label="Candian Exporters" href="{{ isset($general_setting['close_account_page']) ? url($general_setting['close_account_page']) : '#' }}" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
+                                    <a aria-label="{{ __('Canadian Exporters') }}" href="{{ isset($general_setting['close_account_page']) ? url($general_setting['close_account_page']) : '#' }}" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                         </svg>
-                                        How to Close Our Account
+                                        {{ __('How to Close Our Account') }}
                                     </a>
                                 </li>
                                 <li>
-                                    <a aria-label="Candian Exporters" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
+                                    <a aria-label="{{ __('Canadian Exporters') }}" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                         </svg>
@@ -197,7 +197,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a aria-label="Candian Exporters" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
+                                    <a aria-label="{{ __('Canadian Exporters') }}" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                         </svg>
@@ -205,7 +205,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a aria-label="Candian Exporters" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
+                                    <a aria-label="{{ __('Canadian Exporters') }}" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                         </svg>
@@ -213,7 +213,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a aria-label="Candian Exporters" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
+                                    <a aria-label="{{ __('Canadian Exporters') }}" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                         </svg>
@@ -221,7 +221,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a aria-label="Candian Exporters" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
+                                    <a aria-label="{{ __('Canadian Exporters') }}" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                         </svg>
@@ -233,11 +233,11 @@
                     </div>
                     <!--Other links-->
                     <div>
-                        <h6 class="font-FuturaBdCnBT text-white text-2xl">Other links</h6>
+                        <h6 class="font-FuturaBdCnBT text-white text-2xl">{{ __('Other links') }}</h6>
                         <nav aria-label="Footer Navigation - Company" class="mt-4">
                             <ul class="space-y-2 font-medium">
                                 <li>
-                                    <a aria-label="Candian Exporters" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
+                                    <a aria-label="{{ __('Canadian Exporters') }}" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                         </svg>
@@ -246,7 +246,7 @@
                                 </li>
 
                                 <li>
-                                    <a aria-label="Candian Exporters" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
+                                    <a aria-label="{{ __('Canadian Exporters') }}" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                         </svg>
@@ -255,7 +255,7 @@
                                 </li>
 
                                 <li>
-                                    <a aria-label="Candian Exporters" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
+                                    <a aria-label="{{ __('Canadian Exporters') }}" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                         </svg>
@@ -264,7 +264,7 @@
                                 </li>
 
                                 <li>
-                                    <a aria-label="Candian Exporters" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
+                                    <a aria-label="{{ __('Canadian Exporters') }}" href="#" class="footer-menu font-FuturaBdCnBT text-sm lg:text-base hover:text-primaryRed font-medium duration-300 text-gray-100 transition hover:text-gray-400 flex items-center space-x-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                         </svg>

@@ -26,10 +26,10 @@
                                         href="{{ isset($magazine->pdf) ? $magazine->pdf : '#' }}">
                                         @if(isset($magazine->media) && file_exists(($magazine->media->medium_image)))
                                         <img src="{{ asset($magazine->media->medium_image) }}"
-                                            class="object-cover h-full" alt="Canadian Exports magazine" />
+                                            class="object-cover h-full" alt="{{ __('Canadian Exports magazine') }}" />
                                             @else
                                             <img src="{{ asset('assets/images/logocircle.png')}}"
-                                                class="object-contain h-full" alt="Canadian Exports magazine" />
+                                                class="object-contain h-full" alt="{{ __('Canadian Exports magazine') }}" />
                                         @endif
                                     </a>
 

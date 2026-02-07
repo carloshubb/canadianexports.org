@@ -13,11 +13,11 @@
                     <div class="swiper-slide h-full">
                         <div class="w-full flex flex-col featured-exporter-swiper-slide">
                             <div class="flex-1 relative">
-                                <a aria-label="Candian Exporters" href="{{ route('user.business-category.show', ['abbreviation' => $lang->abbreviation, 'slug' => $customerProfile['slug']]) }}" target="_blank" class="rounded flex justify-center items-center fix-url" onclick="fixUrls()">
+                                <a aria-label="{{ __('Canadian Exporters') }}" href="{{ route('user.business-category.show', ['abbreviation' => $lang->abbreviation, 'slug' => $customerProfile['slug']]) }}" target="_blank" class="rounded flex justify-center items-center fix-url" onclick="fixUrls()">
                                     @if (isset($customerProfile['customer_media']['customer_logo']['medium_image']) && $customerProfile['customer_media']['customer_logo']['medium_image'])
-                                        <img src="{{ asset($customerProfile['customer_media']['customer_logo']['medium_image']) }}" class="object-cover aspect-square rounded-full" alt="sponsor banner" />
+                                        <img src="{{ asset($customerProfile['customer_media']['customer_logo']['medium_image']) }}" class="object-cover aspect-square rounded-full" alt="{{ __('sponsor banner') }}" />
                                     @else
-                                        <img src="{{ asset('assets/images/logocircle.png') }}" class="object-cover aspect-square rounded-full" alt="sponsor banner" />
+                                        <img src="{{ asset('assets/images/logocircle.png') }}" class="object-cover aspect-square rounded-full" alt="{{ __('sponsor banner') }}" />
                                     @endif
                                 </a>
 
@@ -61,7 +61,7 @@
                 $url = $homePageSettingDetail->contact_for_rates_btn_url;
                 $url = langBasedURL($lang, $url);
             @endphp
-            <a aria-label="Candian Exporters" href="{!! $url !!}" class="button-exp-fill flex justify-center items-center w-72 h-[56px] rounded-none">
+            <a aria-label="{{ __('Canadian Exporters') }}" href="{!! $url !!}" class="button-exp-fill flex justify-center items-center w-72 h-[56px] rounded-none">
                 {!! $homePageSettingDetail->contact_for_rates_btn_text !!}
             </a>
         </div>

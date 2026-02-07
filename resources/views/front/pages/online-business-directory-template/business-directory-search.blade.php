@@ -98,7 +98,7 @@
             @endforeach
             @else
             <div class="text-center text-gray-500 text-lg mt-10">
-                <p>Sorry, your search yielded no results.</p>
+                <p>{{ __('Sorry, your search yielded no results.') }}</p>
                 {{-- <p>Please double-check your spelling and try different variations of your keywords or key phrases.</p> --}}
             </div>
         @endif

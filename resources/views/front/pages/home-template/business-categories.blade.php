@@ -10,7 +10,7 @@
 
         <div class="py-4"></div>
 
-        <h2 class="text-3xl text-center md:text-4xl mt-6 font-semibold text-[#006EB7] mb-6">Business Categories</h2>
+        <h2 class="text-3xl text-center md:text-4xl mt-6 font-semibold text-[#006EB7] mb-6">{{ __('Business Categories') }}</h2>
 
         @php
         $businessCategories = getAllBusinessCategories();
@@ -25,13 +25,13 @@
                     <img
                         src="{{ asset('assets/icons/' . $businessCategory->category_icon) }}"
                         class="flex-shrink-0 inline w-8 h-8 mr-3"
-                        alt="Business Category Icon" />
+                        alt="{{ __('Business Category Icon') }}" />
 
                     <div>
                         @php
                         $url = isset($businessCategory->slug) ? route('user.business-category.index', ['abbreviation' => $lang->abbreviation, 'slug' => $businessCategory->slug]) : '#';
                         @endphp
-                        <a aria-label="Candian Exporters" href="{{ $url }}"
+                        <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}"
                             class="md:ml-2 text-black font-Futura text-base md:text-base lg:text-lg tracking-normal hover:text-primary  duration-500 ease-in-out">
                             @php
                             $category_name = strtolower($businessCategory->category_name);
@@ -53,7 +53,7 @@
                         @php
                         $url = langBasedURL($lang, $homePageSettingDetail->section1_business_category_url);
                         @endphp
-                        <a aria-label="Candian Exporters" href="{{ $url }}"
+                        <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}"
                             class="md:ml-2 can-exp-a text-base md:text-base lg:text-lg tracking-normal hover:text-secondary hover:underline hover:decoration-solid duration-500 ease-in-out text-secondary">
                             {!! $homePageSettingDetail->section1_business_category !!}
                         </a>
@@ -76,7 +76,7 @@
             <div id="expandedViewControls" class="mt-6 space-y-4 hidden">
                 <button id="toggleCategoriesBtnExpanded" 
                     class="w-full md:w-auto mx-auto flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white font-Futura text-base md:text-lg rounded-none hover:bg-primary/90 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg">
-                    <span>View less</span>
+                    <span>{{ __('View less') }}</span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 transform rotate-180">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                     </svg>

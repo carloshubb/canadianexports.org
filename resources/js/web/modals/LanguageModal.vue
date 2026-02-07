@@ -58,11 +58,11 @@
               {{
                 general_setting && general_setting["language_modal_heading"]
                   ? general_setting["language_modal_heading"]
-                  : ""
+                  : __("language_modal_heading")
               }}
             </h3>
             <button
-              aria-label="Candian Exporters"
+              :aria-label="__('Canadian Exporters')"
               type="button"
               class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 inline-flex items-center"
               data-modal-hide="defaultModal"
@@ -71,9 +71,9 @@
               <img
                 class="h-6"
                 src="/assets/icons/19-X-inside-circle-2.png"
-                alt="Candian Exporters"
+                :alt="__('Canadian Exporters')"
               />
-              <span class="sr-only">Close modal</span>
+              <span class="sr-only">{{ __("Close modal") }}</span>
             </button>
           </div>
           <!-- Modal body -->
@@ -85,7 +85,7 @@
                 class="text-center"
               >
                 <a
-                  aria-label="Candian Exporters"
+                  :aria-label="__('Canadian Exporters')"
                   :href="`/set-language/${language?.id}?url=${current_url}&url_params=${url_params}`"
                   class="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-gray-100 transition-colors"
                 >
@@ -112,8 +112,14 @@
 </template>
 
 <script>
+import { useTranslation } from "@/Utils/i18n";
+
 export default {
   props: ["languages", "current_url", "url_params"],
+  setup() {
+    const { __ } = useTranslation();
+    return { __ };
+  },
   data() {
     return {
       showModal: false,

@@ -22,7 +22,7 @@
                             @foreach ($sponsors as $sponsor)
                                 <div class="bg-white w-full rounded border flex flex-col h-full">
                                     <div class="p-4 flex-1">
-                                        <a aria-label="Candian Exporters" href="{{ $sponsor->url }}" target="_blank"
+                                        <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $sponsor->url }}" target="_blank"
                                             class="rounded flex justify-center items-center aspect-video bg-gray-50 fix-url"
                                             onclick="fixUrls()">
                                             @php
@@ -36,11 +36,11 @@
                                             @endphp
                                             @if ($imageSource && file_exists($imageSource))
                                                 <img src="{{ asset($imageSource) }}"
-                                                    class="object-cover aspect-video w-full rounded" alt="sponsor banner" />
+                                                    class="object-cover aspect-video w-full rounded" alt="{{ __('sponsor banner') }}" />
                                             @else
                                                 <img src="{{ asset('assets/images/logocircle.png') }}"
                                                     class="object-contain aspect-video w-full rounded"
-                                                    alt="sponsor banner" />
+                                                    alt="{{ __('sponsor banner') }}" />
                                             @endif
                                         </a>
 
@@ -50,7 +50,7 @@
                                     </div>
 
                                     <div class="bg-primary bg-opacity-10 w-full px-4 py-2 rounded-b flex-end text-center">
-                                        <a aria-label="Candian Exporters"
+                                        <a aria-label="{{ __('Canadian Exporters') }}"
                                             href="{{ route('user.sponsor-detail.show', ['abbreviation' => $lang->abbreviation, 'slug' => $sponsor->slug ?? $sponsor->id]) }}"
                                             class=" fix-url" onclick="fixUrls()">More about {!! $sponsor->business_name !!}</a>
                                     </div>

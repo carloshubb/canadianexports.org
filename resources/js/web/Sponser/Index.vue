@@ -4,7 +4,7 @@
             <div class="sm:flex sm:items-center py-4">
                 <div class="sm:flex-auto">
                     <h1 class="text-2xl font-bold text-primary mb-2" v-if="isLoggedInSponsor">
-                        My Sponsorships
+                        {{ __("My Sponsorships") }}
                     </h1>
                     <p class="text-gray-600">
                         <template v-if="sponsers && sponsers.length == 0">
@@ -20,7 +20,7 @@
                                         ? sponser_setting
                                             .sponser_listing_setting_detail[0]
                                             .no_sponser_found_text
-                                        : "No sponsorships found."
+                                        : __("No sponsorships found.")
                                 }}
                             </span>
                         </template>
@@ -45,9 +45,9 @@
                 </div>
                 <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
                     <div class="flex items-center justify-between gap-2">
-                        <a aria-label="Candian Exporters" :href="`/${sponsor_become}/become-a-sponsor`"
+                        <a :aria-label="__('Canadian Exporters')" :href="`/${sponsor_become}/become-a-sponsor`"
                             class="button-exp-fill" v-if="isLoggedInSponsor">
-                            {{ sponsers && sponsers.length > 0 ? "Add Another Sponsorship" : "Become a Sponsor" }}
+                            {{ sponsers && sponsers.length > 0 ? __("Add Another Sponsorship") : __("Become a Sponsor") }}
                         </a>
                     </div>
                 </div>
@@ -205,7 +205,13 @@
 <script>
 import _ from "lodash";
 import { mapState } from "vuex";
+import { useTranslation } from '@/Utils/i18n';
+
 export default {
+    setup() {
+        const { __ } = useTranslation();
+        return { __ };
+    },
     computed: {
         ...mapState({
             form: (state) => state.events.form,
