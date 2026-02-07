@@ -15,6 +15,11 @@ class CoffeeWallet extends Model
         return $this->belongsTo(Customer::class, 'customer_id');
     }
 
+    public function package()
+    {
+        return $this->belongsTo(CoffeeWallPackage::class, 'package_id');
+    }
+
     // Removed beneficiary() relationship - column beneficiary_id doesn't exist in coffee_wallets table
     // Use beneficiaries() relationship instead (many-to-many via pivot table)
 

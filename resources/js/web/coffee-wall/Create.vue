@@ -172,90 +172,71 @@
                         full_width="1" />
                 </div>
             </div>
-            <div class="bg-white rounded-lg overflow-visible shadow-3xl my-6  h-[400px]">
+            <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
                 <div
                     class="px-4 py-1.5 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-                    <h4 class="text-white">
-                        {{ JSON.parse(coffee_wall_setting)["contact_info_head_text"] ?? 'Your conact information' }}
-                    </h4>
+                    <h4 class="text-white">Optional Donor Details</h4>
                 </div>
-                <div class="flex items-center space-x-1 relative w-full px-4 pt-4 gap-1">
-                    <input @input="clearErrors('anonymous')" type="checkbox" class="" placeholder="" name="anonymous"
-                        id="anonymous" v-model="form.anonymous" />
-                    <label class="block text-gray-900 text-base md:text-base lg:text-lg ml-2 fong-semibold font-bold"
-                        for="anonymous">{{
-                            JSON.parse(coffee_wall_setting)["anonymous_label"] ?? 'Make donation anonymous' }}
-                    </label>
-                    <Error v-if="submitted" fieldName="anonymous" :validationErros="validationErros" full_width="1" />
-                </div>
-                <div v-if="!form.anonymous" class="p-4">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                        <div class="relative w-full">
-                            <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="name">{{
-                                JSON.parse(coffee_wall_setting)["name_label"] ?? 'Your name' }}
-                                <span class="text-red-500">*</span>
-                            </label>
-                            <input @input="clearErrors('name')" type="text" class="can-exp-input" placeholder=""
-                                name="name" id="name" v-model="form.name" />
-                            <Error v-if="submitted" fieldName="name" :validationErros="validationErros"
-                                full_width="1" />
-                        </div>
-                        <div class="relative w-full">
-                            <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
-                                for="business-name">{{
-                                    JSON.parse(coffee_wall_setting)["email_label"] ?? 'Your email'
-                                }}
-                                <span class="text-red-500">*</span></label>
-                            <input @input="clearErrors('business-name')" type="text" class="can-exp-input"
-                                placeholder="" name="business-name" id="business-name" v-model="form.email" />
-                            <Error v-if="submitted" fieldName="email" :validationErros="validationErros"
-                                full_width="1" />
-                        </div>
-                    </div>
-                    <div class="relative w-full">
-                        <br>
-                        <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="phone">{{
-                            JSON.parse(coffee_wall_setting)["phone_label"] ?? "Your Phone Number (Optional - We won't  call or text unless you ask us to)" }}
+                <div class="p-4 space-y-4">
+                    <!-- Checkbox 1: Display my name with this donation -->
+                    <div class="flex items-start gap-2">
+                        <input @input="clearErrors('name')" type="checkbox" name="display_my_name"
+                            id="display_my_name" v-model="form.display_my_name" class="mt-1 shrink-0" />
+                        <label for="display_my_name"
+                            class="text-gray-900 text-base md:text-base lg:text-lg font-bold cursor-pointer">
+                            Display my name with this donation
                         </label>
-                        <input :value="form.phone"
-                            @input="(e) => { clearErrors('phone'); restrictPhoneToLength(e, 15); }"
-                            type="tel" class="can-exp-input" placeholder=""
-                            name="phone" id="phone" />
-                        <Error v-if="submitted" fieldName="phone" :validationErros="validationErros" full_width="1" />
                     </div>
-                    <br />
-                    <div class="flex items-start gap-2 relative w-full pt-4">
-                        <input @input="clearErrors('notify_when_used')" type="checkbox" name="notify_when_used"
-                            id="notify_when_used" v-model="form.notify_when_used" class="mt-1" />
+                    <transition name="slide">
+                        <div v-if="form.display_my_name" class="overflow-hidden">
+                            <div class="relative w-full pl-6 pb-2">
+                                <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="name">{{
+                                    JSON.parse(coffee_wall_setting)["name_label"] ?? 'Your Name' }}
+                                    <span class="text-red-500">*</span>
+                                </label>
+                                <input @input="clearErrors('name')" type="text" class="can-exp-input w-full" placeholder=""
+                                    name="name" id="name" v-model="form.name" />
+                                <Error v-if="submitted" fieldName="name" :validationErros="validationErros"
+                                    full_width="1" />
+                            </div>
+                        </div>
+                    </transition>
 
+                    <!-- Checkbox 2: Notify me when my Coffee is used -->
+                    <div class="flex items-start gap-2">
+                        <input @input="clearErrors('email')" type="checkbox" name="notify_when_used"
+                            id="notify_when_used" v-model="form.notify_when_used" class="mt-1 shrink-0" />
                         <label for="notify_when_used"
-                            class="text-gray-900 text-base md:text-base lg:text-lg font-bold inline-flex items-center gap-1">
-                            Let Me Know When My Coffee Helps a Business
-                            
-                            <!-- Info Icon with Tooltip -->
+                            class="text-gray-900 text-base md:text-base lg:text-lg font-bold cursor-pointer inline-flex items-center gap-1">
+                            Notify me when my Coffee is used
                             <span class="relative inline-flex items-center group">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500 cursor-help" 
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500 cursor-help"
                                     viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" 
-                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" 
+                                    <path fill-rule="evenodd"
+                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
                                         clip-rule="evenodd" />
                                 </svg>
-                                
-                                <!-- Tooltip -->
-                                  <span class="invisible group-hover:visible absolute left-7 -top-8 w-64 p-3 bg-[rgb(0,110,183)] text-white text-sm rounded-lg shadow-lg z-50">
-                                        You'll receive basic information about the business. Some details are shared only if the business chooses to make them public.
-                                        <!-- Arrow pointing to middle of icon (triangle pointing left) -->
-                                        <span class="absolute -left-2 top-1/2 -translate-y-1/2 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-r-8 border-r-[rgb(0,110,183)]"></span>
-                                    </span>
+                                <span class="invisible group-hover:visible absolute left-7 -top-8 w-64 p-3 bg-[rgb(0,110,183)] text-white text-sm rounded-lg shadow-lg z-50">
+                                    You'll receive basic information about the business. Some details are shared only if the business chooses to make them public.
+                                    <span class="absolute -left-2 top-1/2 -translate-y-1/2 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-r-8 border-r-[rgb(0,110,183)]"></span>
                                 </span>
-                            
+                            </span>
                         </label>
-                        <Error v-if="submitted" fieldName="notify_when_used" :validationErros="validationErros"
-                            full_width="1" />
                     </div>
-
-
-
+                    <transition name="slide">
+                        <div v-if="form.notify_when_used" class="overflow-hidden">
+                            <div class="relative w-full pl-6 pb-2">
+                                <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="donor-email">{{
+                                    JSON.parse(coffee_wall_setting)["email_label"] ?? 'Your Email' }}
+                                    <span class="text-red-500">*</span>
+                                </label>
+                                <input @input="clearErrors('email')" type="email" class="can-exp-input w-full"
+                                    placeholder="" name="donor-email" id="donor-email" v-model="form.email" />
+                                <Error v-if="submitted" fieldName="email" :validationErros="validationErros"
+                                    full_width="1" />
+                            </div>
+                        </div>
+                    </transition>
                 </div>
             </div>
             <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
@@ -263,7 +244,7 @@
                     class="px-4 py-1.5 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
                     <h4 class="text-white">
                         {{ payment_setting && JSON.parse(payment_setting) ?
-                            (JSON.parse(payment_setting)["select_payment_method"] ?? 'Select Payment Method *') : 'Select Payment Method *' }}
+                            (JSON.parse(payment_setting)["select_payment_method"] ?? 'Payment Method') : 'Payment Method' }}
                     </h4>
                 </div>
                 <div class="p-4">
@@ -593,6 +574,7 @@ export default {
                 frequency: 'monthly',
                 payment_method: "stripe",
                 anonymous: false,
+                display_my_name: false,
                 notify_when_used: false,
                 agree_terms: "",
                 non_refundable_agreement: false,
@@ -803,6 +785,7 @@ export default {
             this.form["name"] = "";
             this.form["email"] = "";
             this.form["phone"] = "";
+            this.form["display_my_name"] = false;
             this.form["card_holder_name"] = null;
             this.form["beneficiary_ids"] = this.allBeneficiaryId ? [this.allBeneficiaryId] : [];
 
@@ -845,6 +828,20 @@ export default {
         },
         async processPayment() {
             this.loading = true;
+
+            // Optional donor details: validate required fields when checkboxes are checked
+            this.validationErros.clear('name');
+            this.validationErros.clear('email');
+            if (this.form.display_my_name && !(this.form.name || '').trim()) {
+                this.validationErros.record({ name: ['Your name is required when displaying your name with this donation.'] });
+                this.loading = false;
+                return;
+            }
+            if (this.form.notify_when_used && !(this.form.email || '').trim()) {
+                this.validationErros.record({ email: ['Your email is required when you want to be notified.'] });
+                this.loading = false;
+                return;
+            }
 
             // When using Stripe, create PaymentMethod on frontend and send id only
             if (this.form.payment_method === 'stripe' && this.form.order_amount > 0 && this.cardElement && this.stripe) {
@@ -904,13 +901,14 @@ export default {
 
                             // Show success popup in three sections: title, text, Thank you button
                             Swal.fire({
-                                title: "Your Coffee Is on Someone Today ☕💛",
-                                text: `This Coffee comes from ${donorName}, who chose to support Canadian small businesses like yours.`,
+                                title: "Your coffee is now waiting for a business that needs it.",
+                                text: `Your kindness helps open doors for Canadian exporters who are working hard to grow. Thank you.`,
                                 icon: 'success',
-                                confirmButtonText: 'Thank you',
+                                confirmButtonText: 'Close',
                                 allowOutsideClick: false,
                                 allowEscapeKey: false,
                                 customClass: {
+                                    popup: "gradient-border-modal",
                                     confirmButton: 'button-exp-fill',
                                 },
                             }).then(() => {
