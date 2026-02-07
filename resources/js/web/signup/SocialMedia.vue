@@ -21,7 +21,7 @@
       </div>
       <div class="my-4" v-if="displaySocialMediaSection">
         <div class="relative w-full mb-8">
-          <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold" for="facebook">
+          <label class="block mb-1 text-base md:text-base lg:text-lg font-bold" for="facebook">
             {{
               regPageSetting?.reg_page_setting_detail?.[0]
                 ?.step_6_facebook_label
@@ -38,7 +38,7 @@
           <Error fieldName="customer_social_media_facebook" :validationErros="validationErros" />
         </div>
         <div class="relative w-full mb-8">
-          <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold" for="twitter">
+          <label class="block mb-1 text-base md:text-base lg:text-lg font-bold" for="twitter">
             {{
               regPageSetting?.reg_page_setting_detail?.[0]?.step_6_twitter_label
             }}
@@ -54,7 +54,7 @@
           <Error fieldName="customer_social_media_twitter" :validationErros="validationErros" />
         </div>
         <div class="relative w-full mb-8">
-          <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold" for="youtube">
+          <label class="block mb-1 text-base md:text-base lg:text-lg font-bold" for="youtube">
             {{
               regPageSetting?.reg_page_setting_detail?.[0]?.step_6_youtube_label
             }}
@@ -70,7 +70,7 @@
           <Error fieldName="customer_social_media_youtube" :validationErros="validationErros" />
         </div>
         <div class="relative w-full mb-8">
-          <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold" for="linkedin">
+          <label class="block mb-1 text-base md:text-base lg:text-lg font-bold" for="linkedin">
             {{
               regPageSetting?.reg_page_setting_detail?.[0]
                 ?.step_6_linkedin_label
@@ -87,7 +87,7 @@
           <Error fieldName="customer_social_media_linked_in" :validationErros="validationErros" />
         </div>
         <div class="relative w-full mb-8">
-          <label class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold" for="linkedin">
+          <label class="block mb-1 text-base md:text-base lg:text-lg font-bold" for="linkedin">
             {{
               regPageSetting?.reg_page_setting_detail?.[0]
                 ?.step_6_social_media5_label

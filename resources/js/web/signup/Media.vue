@@ -97,12 +97,12 @@
         </div> -->
         <div class="relative w-full mb-8">
   <label
-    class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold"
+    class="block  mb-1 text-base md:text-base lg:text-lg font-bold"
     for="step_5_title_label"
   >
     {{
       regPageSetting?.reg_page_setting_detail?.[0]?.step_5_title_label
-    }}<span class="ml-1 text-[0.9em] text-gray-600">(Max. 10 words)</span> 
+    }}<span class="ml-1 text-[0.85em] font-normal">(Max. 10 words)</span> 
   </label>
   <textarea
     rows="1"
@@ -117,14 +117,14 @@
 
 <div class="relative w-full mb-8">
   <label
-    class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold"
+    class="block  mb-1 text-base md:text-base lg:text-lg font-bold"
     for="step_5_description_label"
   >
     {{
       regPageSetting?.reg_page_setting_detail?.[0]
         ?.step_5_description_label
     }}
-    <span class="ml-1 text-[0.9em] text-gray-600">(Max. 50 words)</span> 
+    <span class="ml-1 text-[0.85em] font-normal">(Max. 50 words)</span> 
   </label>
   <textarea
     rows="3"
@@ -140,7 +140,7 @@
 
         <div class="relative w-full mb-8">
           <label
-            class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold"
+            class="block mb-1 text-base md:text-base lg:text-lg font-bold"
             for="video"
           >
             {{
@@ -170,13 +170,13 @@
         </div>
         <div class="relative col-span-2 mb-3">
           <label
-            class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold"
+            class="block  mb-1 text-base md:text-base lg:text-lg font-bold"
             for="image-logo"
           >
             {{
               regPageSetting?.reg_page_setting_detail?.[0]?.step_5_logo_label
             }}
-             <span class="ml-1 text-[0.9em] text-gray-600">(PNG, GIF, JPG, or JPEG format, max 10 MB.)</span>
+             <span class="ml-1 text-[0.85em] font-normal">(PNG, GIF, JPG, or JPEG format, max 10 MB.)</span>
           </label>
           <FilePond
             class="cursor-pointer"
@@ -199,13 +199,13 @@
         </div>
         <div class="relative w-full mb-8" v-if="max_files > 0">
           <label
-            class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg font-bold"
+            class="block  mb-1 text-base md:text-base lg:text-lg font-bold"
             for="gallery-images"
           >
             {{
               regPageSetting?.reg_page_setting_detail?.[0]
                 ?.step_5_gallery_image_label
-            }}<span class="ml-1 text-[0.9em] text-gray-600">(Up to {{ max_files }} allowed, 5 MB max each, in PNG, GIF, JPG, or JPEG format.)</span>
+            }}<span class="ml-1 text-[0.85em] font-normal">(Up to {{ max_files }} allowed, 5 MB max each, in PNG, GIF, JPG, or JPEG format.)</span>
 
             </label>
           <FilePond
