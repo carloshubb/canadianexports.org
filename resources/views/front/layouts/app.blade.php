@@ -139,7 +139,7 @@
             @include('front.includes.navbar')
         </div>
         {{-- End Navbar --}}
-        <div class="relative flex-auto bg-[#eef3fa]">
+        <div class="relative flex-auto bg-[#eef3fa] mt-20">
             @yield('content')
         </div>
         @php

@@ -616,7 +616,7 @@
               Processing...
             </span>
             <span v-else>
-              {{ isReactivationMode ? 'Reactivate Sponsorship' : (form.talk_to_us_first ? 'Submit' : 'Become a Sponsor')
+              {{ isReactivationMode ? (reactivationSponsorship && reactivationSponsorship.status !== 'inactive' ? 'Upgrade' : 'Reactivate Sponsorship') : (form.talk_to_us_first ? 'Submit' : 'Become a Sponsor')
               }}
             </span>
           </button>
