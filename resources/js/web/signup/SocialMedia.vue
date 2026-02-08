@@ -458,6 +458,10 @@ export default {
       return JSON.stringify(Array.from(this.form.entries())) !== this.initialFormSnapshot;
     },
     upgradePaymentFieldsFilled() {
+      // PayPal does not require card details; allow button to be enabled when PayPal is selected
+      if (this.payment_method === "paypal") {
+        return true;
+      }
       const nameVal = this.form?.get ? this.form.get("card_holder_name") : "";
       const nameFilled = (typeof nameVal === "string" ? nameVal : "").trim() !== "";
       return nameFilled && this.stripeCardComplete;
