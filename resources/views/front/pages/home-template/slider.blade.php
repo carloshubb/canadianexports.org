@@ -1,4 +1,4 @@
-<div class="relative isolate lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10 min-h-[550px] flex items-center overflow-hidden mt-[120px]">
+<div class="relative isolate lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10 min-h-[550px] flex items-center overflow-hidden">
     <!-- Background Image Container - Fixed positioning -->
     <div class="absolute inset-0 w-full h-full">
         <img src="{{ asset($homePageSettingDetail->slider_image) }}" alt="{{ __('slider image') }}"
