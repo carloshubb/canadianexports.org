@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * Sponsor model.
+ *
+ * Payment display fields (from Stripe etc.): card_brand, card_last4
+ */
 class Sponsor extends Model
 {
     use HasFactory, SoftDeletes;

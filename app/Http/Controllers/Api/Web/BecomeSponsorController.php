@@ -566,7 +566,7 @@ class BecomeSponsorController extends Controller
                             'items' => [
                                 ['price' => $price->id],
                             ],
-                            'expand' => ['latest_invoice.payment_intent'],
+                            'expand' => ['latest_invoice.payment_intent.payment_method'],
                             'metadata' => [
                                 'company_name' => $request->company_name,
                                 'contact_name' => $request->contact_name,
@@ -592,6 +592,9 @@ class BecomeSponsorController extends Controller
                             $status = 'active'; // Auto-approve
                             $isVisible = true; // Make visible immediately
                             $pm = $paymentIntent->payment_method;
+                            if (is_string($pm)) {
+                                $pm = \Stripe\PaymentMethod::retrieve($pm);
+                            }
                             if (is_object($pm) && !empty($pm->card)) {
                                 $cardBrand = $pm->card->brand ?? null;
                                 $cardLast4 = $pm->card->last4 ?? null;
@@ -690,6 +693,7 @@ class BecomeSponsorController extends Controller
                 'stripe_payment_intent_id' => $stripePaymentIntentId,
                 'stripe_subscription_id' => $stripeSubscriptionId,
                 'paypal_subscription_id' => $paypalSubscriptionId,
+                'paypal_email' => $request->paypal_email ?? null,
                 'card_brand' => $cardBrand,
                 'card_last4' => $cardLast4,
                 'paid_at' => $paymentStatus === 'paid' ? now() : null,

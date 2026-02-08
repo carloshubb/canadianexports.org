@@ -161,9 +161,8 @@ export default {
     methods: {
         handleAddEventClick() {
             const user = this.parsedUser;
-            const langAbbr = this.$root.lang?.abbreviation || 'en';
-
-            if (user && !user.is_package_amount_paid) {
+            const langAbbr = this.$root.lang?.abbreviation || 'en';           
+            if (user.is_sponsor && !user.is_package_amount_paid) {
                 // Redirect unpaid users to review confirmation
                 window.location.href = `${process.env.MIX_APP_URL}/${langAbbr}/user/review-confirmation`;
             } else {
