@@ -270,6 +270,16 @@ export default {
     }
   },
   methods: {
+    /** Clear validation errors when user interacts with card field. */
+    clearCardValidationOnChange() {
+      if (this.cardElement) {
+        this.cardElement.on('change', () => {
+          this.$store.commit("signup/removeValidationErros", {
+            field: ["payment_method_id"],
+          });
+        });
+      }
+    },
     /** Mount Stripe card element when the card block is in the DOM (e.g. after switching to paid package). */
     tryMountStripeCard(delayMs = 100) {
       setTimeout(() => {
@@ -283,11 +293,13 @@ export default {
             this.cardElement.mount(mountPoint);
           } catch (e) {
             this.cardElement = this.elements.create('card');
+            this.clearCardValidationOnChange();
             this.cardElement.mount(mountPoint);
           }
         } else {
           this.elements = this.stripe.elements();
           this.cardElement = this.elements.create('card');
+          this.clearCardValidationOnChange();
           this.cardElement.mount(mountPoint);
         }
       }, delayMs);
@@ -331,27 +343,46 @@ export default {
         field: "payment_method",
         value: this.payment_method,
       });
-      this.loading = true;
+
       const proceed = async () => {
-        // When using Stripe, create PaymentMethod on frontend and send id only
-        let payload = this.form;
+        const validationErrors = {};
+        let paymentMethod = null;
+
+        // Validate all fields when paying with debit/credit card (no API call until all pass)
         if (this.payment_method === 'stripe' && this.calTotalPrice() > 0 && this.cardElement && this.stripe) {
-          const { error, paymentMethod } = await this.stripe.createPaymentMethod({
+          // Validate Cardholder Name
+          const cardHolderName = this.form?.get ? this.form.get('card_holder_name') : undefined;
+          const trimmed = (cardHolderName || '').trim();
+          if (!trimmed) {
+            validationErrors.card_holder_name = ["This field is required"];
+          }
+
+          // Validate Card Details via Stripe (single call)
+          const { error, paymentMethod: pm } = await this.stripe.createPaymentMethod({
             type: 'card',
             card: this.cardElement,
             billing_details: {
-              name: this.form?.get ? this.form.get('card_holder_name') : undefined,
+              name: trimmed || undefined,
             }
           });
           if (error) {
-            this.$store.commit(
-              "signup/setValidationErros",
-              { payment_method_id: [error.message] }
-            );
-            this.loading = false;
-            return;
+            validationErrors.payment_method_id = [error.message];
+          } else {
+            paymentMethod = pm;
           }
-          // ensure payload is a plain object
+        }
+
+        if (Object.keys(validationErrors).length > 0) {
+          this.$store.commit("signup/setValidationErros", validationErrors);
+          this.loading = false;
+          return;
+        }
+
+        this.loading = true;
+
+        // Build payload and call API
+        let payload = this.form;
+        if (this.payment_method === 'stripe' && this.calTotalPrice() > 0 && paymentMethod) {
           const data = {};
           if (payload && payload.forEach) {
             payload.forEach((v, k) => (data[k] = v));
@@ -498,6 +529,7 @@ export default {
         if (this.stripe) {
           this.elements = this.stripe.elements();
           this.cardElement = this.elements.create('card');
+          this.clearCardValidationOnChange();
           this.$nextTick(() => {
             const mountPoint = this.$refs.stripeCard;
             if (mountPoint && this.cardElement) {
@@ -506,6 +538,7 @@ export default {
               } catch (e) {
                 // If already mounted or fails, recreate and mount
                 this.cardElement = this.elements.create('card');
+                this.clearCardValidationOnChange();
                 this.cardElement.mount(mountPoint);
               }
             }
