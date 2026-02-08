@@ -407,7 +407,7 @@
                             </button>
                         </div>
                     </div> -->
-          <div class="bg-white py-6 px-10 rounded shadow-lg text-center">
+          <div class="bg-white py-6 px-10 rounded shadow-lg text-center gradient-border-modal rounded-lg p-6">
             <p class="text-center can-edu-p ">Your amount will not be funded if you use paypal payment</p>
             <button type="button" class="button-exp-fill mt-4" data-modal-hide="defaultModal" @click="toggleModal">
               Close
@@ -700,11 +700,9 @@ export default {
       }
       return price.toFixed(2);
     },
-    async setPaymentMethod(value) {
+    async     setPaymentMethod(value) {
       this.payment_method = value;
-      if (value == "paypal") {
-        this.toggleModal();
-      }
+      // Do not show modal when selecting PayPal; user goes to PayPal when they click "Upgrade & Pay Now"
     },
     async recaptcha() {
       this.loading = true;
@@ -787,6 +785,7 @@ export default {
         background: "#fff",
         buttonsStyling: false,
         customClass: {
+          popup: "gradient-border-modal",
           confirmButton: "button-exp-fill",
         },
         didOpen: () => {
