@@ -32,13 +32,13 @@
             
             <!-- Text Content -->
             <div class="mb-8 font-FuturaMdCnBT">
-                <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">
-                    Oops! Page does not exist.
+                <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
+                    Ho-ho-hold on! This page doesn't exist.
                 </h1>
-                <p class="text-gray-300 text-lg md:text-xl">
-                    The page you are looking for has been moved, removed,
+                <p class="text-gray-300 text-lg md:text-2xl">
+                    The page you’re looking for may have been moved, removed,
                     <br class="hidden md:block">
-                    renamed, or may simply has never existed
+                    renamed — or maybe it never existed in the first place.
                 </p>
             </div>
             
@@ -48,7 +48,7 @@
                     aria-label="{{ __('Canadian Exporters') }}"
                     href="{{$homePageUrl}}"
                     class="button-exp-fill px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-300 w-full sm:w-auto">
-                    Go Home
+                    Back to Homepage
                 </a>
                 <a 
                     aria-label="{{ __('Canadian Exporters') }}"

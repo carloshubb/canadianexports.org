@@ -260,7 +260,7 @@ if (!function_exists("getAllBusinessCategories")) {
         $businessCategories = BusinessCategory::addSelect(['category_name' => BusinessCategoryDetail::whereColumn('business_category_id', 'business_categories.id')->where('business_category_detail.language_id', $defaultLang->id)->select('name')])
             ->addSelect(['category_slug' => BusinessCategoryDetail::whereColumn('business_category_id', 'business_categories.id')->where('business_category_detail.language_id', $defaultLang->id)->select('slug')])
             ->addSelect(['category_icon' => BusinessCategoryDetail::whereColumn('business_category_id', 'business_categories.id')->where('business_category_detail.language_id', $defaultLang->id)->select('icon')])
-            ->orderBy('category_name', 'asc')->get();
+            ->orderBy('category_name', 'asc')->get();        
         return $businessCategories;
     }
 }
@@ -368,6 +368,28 @@ if (!function_exists("getFooterSetting")) {
             }]);
 
         $footerSetting = $footerSetting->first();
+
+        // If no footer detail for current language (e.g. Spanish), fall back to default language so footer is always visible
+        if ($footerSetting && $footerSetting->footerSettingDetail->isEmpty()) {
+            $fallbackLang = Language::whereIsDefault(1)->first() ?: Language::first();
+            if ($fallbackLang && $fallbackLang->id !== $defaultLang->id) {
+                $footerSetting = FooterSetting::whereIsActive('1')->where('id', $footerSetting->id)
+                    ->with(['widget1Menu.menuDetail' => function ($q) use ($fallbackLang) {
+                        $q->where('language_id', $fallbackLang->id);
+                    }])
+                    ->with(['widget2Menu.menuDetail' => function ($q) use ($fallbackLang) {
+                        $q->where('language_id', $fallbackLang->id);
+                    }])
+                    ->with(['widget3Menu.menuDetail' => function ($q) use ($fallbackLang) {
+                        $q->where('language_id', $fallbackLang->id);
+                    }])
+                    ->with(['footerSettingDetail' => function ($q) use ($fallbackLang) {
+                        $q->where('language_id', $fallbackLang->id);
+                    }])
+                    ->first();
+            }
+        }
+
         return $footerSetting;
     }
 }
