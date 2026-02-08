@@ -279,14 +279,15 @@ export default {
       this.loading = true;
       try {
         const params = this.filter !== "all" ? { status: this.filter } : {};
-        const { data } = await axios.get(`${process.env.MIX_API_URL}web/member/webinars`, { params });
+        const { data } = await axios.get(`${process.env.MIX_WEB_API_URL}member/webinars`, { params });
         if (data.success) {
           this.webinars = data.data.data || data.data || [];
         }
       } catch (error) {
         console.error("Failed to load webinars:", error);
+        const message = error.response?.data?.message || error.message || "Failed to load webinars";
         if (this.$swal) {
-          this.$swal("Error", "Failed to load webinars", "error");
+          this.$swal("Error", message, "error");
         }
       } finally {
         this.loading = false;
@@ -338,8 +339,8 @@ export default {
       this.saving = true;
       try {
         const url = this.editingWebinar
-          ? `${process.env.MIX_API_URL}web/member/webinars/${this.editingWebinar.id}`
-          : `${process.env.MIX_API_URL}web/member/webinars`;
+          ? `${process.env.MIX_WEB_API_URL}member/webinars/${this.editingWebinar.id}`
+          : `${process.env.MIX_WEB_API_URL}member/webinars`;
         const method = this.editingWebinar ? "put" : "post";
 
         const { data } = await axios[method](url, this.form);
@@ -364,7 +365,7 @@ export default {
       if (!confirm("Are you sure you want to delete this webinar?")) return;
 
       try {
-        const { data } = await axios.delete(`${process.env.MIX_API_URL}web/member/webinars/${id}`);
+        const { data } = await axios.delete(`${process.env.MIX_WEB_API_URL}member/webinars/${id}`);
         if (data.success) {
           if (this.$swal) {
             this.$swal("Success", "Webinar deleted successfully", "success");
@@ -381,7 +382,7 @@ export default {
       this.showRegistrations = true;
       this.loadingRegistrations = true;
       try {
-        const { data } = await axios.get(`${process.env.MIX_API_URL}web/member/webinars/${webinarId}/registrations`);
+        const { data } = await axios.get(`${process.env.MIX_WEB_API_URL}member/webinars/${webinarId}/registrations`);
         if (data.success) {
           this.registrations = data.data.data || data.data || [];
         }
@@ -395,7 +396,7 @@ export default {
       this.showQuestions = true;
       this.loadingQuestions = true;
       try {
-        const { data } = await axios.get(`${process.env.MIX_API_URL}web/member/webinars/${webinarId}/questions`);
+        const { data } = await axios.get(`${process.env.MIX_WEB_API_URL}member/webinars/${webinarId}/questions`);
         if (data.success) {
           this.questions = data.data.data || data.data || [];
         }
