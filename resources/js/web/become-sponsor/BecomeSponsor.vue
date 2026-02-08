@@ -123,7 +123,7 @@
           <div class="p-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div class="relative w-full">
-                <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="preferred_call_time">
+                <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="preferred_call_time">
                   Best Time to Call
                   <!-- <span class="text-red-500">*</span> -->
                 </label>
@@ -138,7 +138,7 @@
               </div>
 
               <div class="relative w-full">
-                <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="preferred_call_date">
+                <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="preferred_call_date">
                   Preferred Date (Optional)
                 </label>
                 <VueDatePicker id="preferred_call_date" v-model="form.preferred_call_date" placeholder="YYYY-MM-DD"
@@ -161,7 +161,7 @@
         <div class="p-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="relative w-full">
-              <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="company_name">
+              <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="company_name">
                 Business Name
                 <span class="text-red-500">*</span>
               </label>
@@ -171,7 +171,7 @@
             </div>
 
             <div class="relative w-full">
-              <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="contact_name">
+              <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="contact_name">
                 Primary Contact Name & Title
                 <span class="text-red-500">*</span>
               </label>
@@ -182,7 +182,7 @@
             </div>
 
             <div class="relative w-full">
-              <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="email">
+              <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="email">
                 Email Address
                 <span class="text-red-500">*</span>
               </label>
@@ -193,7 +193,7 @@
             </div>
 
             <div class="relative w-full">
-              <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="contact_number">
+              <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="contact_number">
                 Phone Number
                 <span class="text-red-500">*</span>
               </label>
@@ -205,8 +205,8 @@
 
             <div class="relative w-full" v-if="!isLoggedIn">
               <br>
-              <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="password">
-                Password (Min. 8 characters. Must contain at least one lowercase and one uppercase)
+              <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="password">
+                Password <span class="font-normal text-sm">(Min. 8 characters. Must contain at least one lowercase and one uppercase)</span>
                 <span v-if="!show_contact_preference" class="text-red-500">*</span>
                 <span v-else class="text-gray-500">(Optional)</span>
               </label>
@@ -233,7 +233,7 @@
 
             <div class="relative w-full" v-if="!isLoggedIn">
               <Br></Br>
-              <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="password_confirmation"><br></br>
+              <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="password_confirmation"><br></br>
                 Confirm Password
                 <span v-if="!show_contact_preference" class="text-red-500">*</span>
                 <span v-else class="text-gray-500">(Optional)</span>
@@ -261,7 +261,7 @@
             </div>
 
             <div class="relative w-full md:col-span-2">
-              <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="url">
+              <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="url">
                 Your Website
                 <span v-if="!show_contact_preference"></span>
                 <span v-else class="text-gray-500">(Optional)</span>
@@ -282,7 +282,7 @@
         <div class="p-6">
           <div class="grid grid-cols-1 gap-4">
             <div class="relative w-full">
-              <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="summary">
+              <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="summary">
                 Brief Introduction
                 <span v-if="!form.talk_to_us_first" class="text-red-500">*</span>
               </label>
@@ -301,7 +301,7 @@
             </div>
 
             <div class="relative w-full">
-              <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="detail_description">
+              <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="detail_description">
                 Detailed Description
                 <span v-if="!form.talk_to_us_first" class="text-red-500">*</span>
               </label>
@@ -313,7 +313,7 @@
             </div>
 
             <div class="relative w-full">
-              <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="message">
+              <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="message">
                 Additional Message
               </label>
               <textarea id="message" v-model="form.message" rows="3" class="can-exp-input resize-none"
@@ -324,8 +324,8 @@
 
             <!-- Featured Image Upload (appears on Home page) -->
             <div class="relative w-full">
-              <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="featured_image">
-                Featured Image (<span class="text-[0.85em]">This is your main "hero" photo. It will be the large image on your homepage card and the banner at the top of your profile page. JPG, JPEG, or PNG, max 10MB)</span>
+              <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="featured_image">
+                Featured Image (<span class="text-[0.75em] font-normal">This is your main "hero" photo. It will be the large image on your homepage card and the banner at the top of your profile page. JPG, JPEG, or PNG, max 10MB)</span>
 
                 <span class="text-red-500">*</span>
               </label>
@@ -339,8 +339,8 @@
 
             <!-- Profile Image Upload -->
             <div class="relative w-full">
-              <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="logo">Logo
-                <span class="text-[0.85em]"> (Your primary brand mark. This will appear in search results, on the "Our Sponsors" page, and on your profile sidebar. JPG,  JPEG, or PNG, max 5MB)</span>
+              <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="logo">Logo
+                <span class="text-[0.85em] font-normal"> (Your primary brand mark. This will appear in search results, on the "Our Sponsors" page, and on your profile sidebar. JPG,  JPEG, or PNG, max 5MB)</span>
                 <span class="text-red-500">*</span>
               </label>
               <FilePond @input="clearErrors('logo')" ref="filePondLogo" name="logo"
@@ -401,7 +401,7 @@
               <div class="h-auto bg-white w-full">
                 <!-- Cardholder Name -->
                 <div class="input_text relative mb-4">
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Cardholder Name</label>
+                  <label class="block text-sm  text-gray-700 mb-1 font-bold">Cardholder Name</label>
                   <input v-model="form.cardholder_name" type="text"  class="can-exp-input"
                     @input="clearErrors('cardholder_name')" />
                   <Error v-if="submitted" fieldName="cardholder_name" :validationErros="validationErros" />
@@ -409,7 +409,7 @@
 
                 <!-- Card Element -->
                 <div class="input_text relative mb-4">
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Card Details</label>
+                  <label class="block text-sm  text-gray-700 mb-1 font-bold">Card Details</label>
                   <div id="card-element" class="p-3 border border-gray-300 rounded"></div>
                   <div id="card-errors" class="text-red-500 text-sm mt-1"></div>
                 </div>
@@ -430,7 +430,7 @@
             type="checkbox"
             class="h-4 w-4 mt-1 rounded border-gray-300 text-primary focus:ring-primary"
           />
-          <label for="agree_terms_and_privacy" class="ml-2 text-gray-900 text-base md:text-base lg:text-lg">
+          <label for="agree_terms_and_privacy" class="ml-2 text-gray-900 text-base md:text-base  lg:text-lg">
             I agree to the
             <a href="/en/terms-and-conditions" target="_blank" rel="noopener noreferrer" class="text-primary underline hover:no-underline">Terms &amp; Conditions</a>
             and
@@ -445,7 +445,7 @@
             type="checkbox"
             class="h-4 w-4 mt-1 rounded border-gray-300 text-primary focus:ring-primary"
           />
-          <label for="agree_donation_non_refundable" class="ml-2 text-gray-900 text-base md:text-base lg:text-lg">
+          <label for="agree_donation_non_refundable" class="ml-2 text-gray-900 text-base md:text-base  lg:text-lg">
             I understand that this payment is a donation to support the Canadian Exports platform and is non-refundable.
           </label>
         </div>
