@@ -117,6 +117,7 @@ export default {
         icon: "warning",
         buttonsStyling: false,
         customClass: {
+          popup: "gradient-border-modal",
           title: "swalSuccessClass",
           htmlContainer: "swalSuccessClass",
           confirmButton: 'button-exp-fill mr-2 hover:bg-blue-500 focus:outline-none',

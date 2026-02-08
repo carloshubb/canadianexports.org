@@ -595,6 +595,7 @@ class PaymentController extends Controller
                 $message_38 = isset($general_messages['message_38']) ? $general_messages['message_38'] : '';
 
                 Session::flash('status', 'success');
+                Session::flash('type', 'success');
                 Session::flash('message', $message_38);
                 $url = langBasedURL($defaultLang, route('front.index', $defaultLang->abbreviation));
                 // Auth::guard('customers')->logout();
@@ -862,6 +863,7 @@ class PaymentController extends Controller
             $message_15 = isset($general_messages['message_15']) ? $general_messages['message_15'] : '';
 
             Session::flash('status', 'success');
+            Session::flash('type', 'success');
             Session::flash('message', $message_15);
             $url = langBasedURL($defaultLang, route('user.profile-settings.index'));
             return Redirect::to($url);
@@ -987,6 +989,7 @@ class PaymentController extends Controller
                 $message_39 = isset($general_messages['message_39']) ? $general_messages['message_39'] : '';
 
                 Session::flash('status', 'success');
+                Session::flash('type', 'success');
                 Session::flash('message', $message_39);
 
                 $general_setting = getSignleGeneralSettingByKey(['user_event_listing_page']);
@@ -1128,6 +1131,7 @@ class PaymentController extends Controller
                 Log::info('Sponsor payment completed successfully', ['sponsor_id' => $sponsor->id]);
 
                 Session::flash('status', 'success');
+                Session::flash('type', 'success');
                 Session::flash('message', 'Thank you for your sponsorship! Your profile is now live.');
             } else {
                 Log::error('PayPal capture failed', ['result' => $captureResult]);

@@ -326,42 +326,6 @@ export default {
     async addUpdateForm() {
       this.processPayment();
     },
-    showCountdownModal(redirect_url) {
-      let timerInterval;
-      Swal.fire({
-        title: "",
-        html: `You will now be redirected to the PayPal website in <b></b> seconds to complete your payment. Once finished, you will be sent back here`,
-        timer: 5000,
-        timerProgressBar: true,
-        allowOutsideClick: false,
-        showCancelButton: false,
-        cancelButtonText: "Cancel",
-        showConfirmButton: true,
-        confirmButtonText:'Cancel redirect',
-        showCloseButton: false,
-        background: "#fff",
-        buttonsStyling: false,
-        customClass: {
-              confirmButton: 'button-exp-fill',
-          },
-        didOpen: () => {
-          // Swal.showLoading();
-          const timer = Swal.getPopup().querySelector("b");
-          timerInterval = setInterval(() => {
-            timer.textContent = Math.round(Swal.getTimerLeft() / 1000);
-          }, 1000);
-        },
-        willClose: () => {
-          clearInterval(timerInterval);
-          Swal.close();
-        },
-      }).then((result) => {
-        /* Read more about handling dismissals below */
-        if (result.dismiss === Swal.DismissReason.timer) {
-          window.location.href = redirect_url;
-        }
-      });
-    },
     processPayment() {
       this.$store.commit("signup/setForm", {
         field: "payment_method",
@@ -404,7 +368,7 @@ export default {
         .then((response) => {
           if (response.data.status == "Success") {
             if (response?.data?.data?.type == "paypal") {
-              this.showCountdownModal(response?.data?.data?.redirect_url);
+              // Redirect directly to PayPal; no countdown popup
               window.location.href = response?.data?.data?.redirect_url;
             } else {
               //helper.swalSuccessMessageForWeb(response.data.message);
