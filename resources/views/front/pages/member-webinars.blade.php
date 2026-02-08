@@ -2,7 +2,8 @@
 
 @section('content')
 <div class="h-full bg-gray-50">
-    <div class="lg:pt-14 lg:pb-14 md:pt-10 md:pb-10 pt-10 pb-10">
+    {{-- pt-[7.5rem] clears the fixed navbar #topnav (h-[120px]) --}}
+    <div class="pt-[7.5rem] lg:pb-14 md:pb-10 pb-10">
         <div class="container mx-auto px-4">
             <div class="mb-6">
                 <h1 class="text-3xl font-bold text-primary mb-2">{{ __('My Webinars') }}</h1>

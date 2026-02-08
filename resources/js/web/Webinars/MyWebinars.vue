@@ -69,9 +69,9 @@
       </div>
     </div>
 
-    <!-- Create/Edit Modal -->
-    <div v-if="showCreateModal || editingWebinar" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+    <!-- Create/Edit Modal (pt-[7.5rem] keeps modal below fixed navbar #topnav ~120px) -->
+    <div v-if="showCreateModal || editingWebinar" class="fixed inset-0 bg-black bg-opacity-50 z-[110] overflow-y-auto pt-[7.5rem] pb-8 px-4">
+      <div class="bg-white rounded-lg max-w-4xl w-full max-h-[calc(100vh-8rem)] overflow-y-auto mx-auto shadow-xl">
         <div class="p-6">
           <div class="flex justify-between items-center mb-4">
             <h3 class="text-xl font-bold">{{ editingWebinar ? 'Edit' : 'Create' }} Webinar</h3>
@@ -183,8 +183,8 @@
     </div>
 
     <!-- Registrations Modal -->
-    <div v-if="showRegistrations" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div class="bg-white rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+    <div v-if="showRegistrations" class="fixed inset-0 bg-black bg-opacity-50 z-[110] overflow-y-auto pt-[7.5rem] pb-8 px-4">
+      <div class="bg-white rounded-lg max-w-3xl w-full max-h-[calc(100vh-8rem)] overflow-y-auto mx-auto shadow-xl">
         <div class="p-6">
           <div class="flex justify-between items-center mb-4">
             <h3 class="text-xl font-bold">Registrations</h3>
@@ -205,8 +205,8 @@
     </div>
 
     <!-- Questions Modal -->
-    <div v-if="showQuestions" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div class="bg-white rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+    <div v-if="showQuestions" class="fixed inset-0 bg-black bg-opacity-50 z-[110] overflow-y-auto pt-[7.5rem] pb-8 px-4">
+      <div class="bg-white rounded-lg max-w-3xl w-full max-h-[calc(100vh-8rem)] overflow-y-auto mx-auto shadow-xl">
         <div class="p-6">
           <div class="flex justify-between items-center mb-4">
             <h3 class="text-xl font-bold">Q&A</h3>
