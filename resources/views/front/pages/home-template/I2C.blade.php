@@ -115,7 +115,7 @@
                             @endphp
                             <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $inquiryUrl }}"
                                 class="text-primary text-sm hover:underline font-medium">
-                                {{ __('More Details') }}
+                                <span data-i18n="More Details">{{ __('More Details') }}</span>
                             </a>
                         </div>
                     </div>

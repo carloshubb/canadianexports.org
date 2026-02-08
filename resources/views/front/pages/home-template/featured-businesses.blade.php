@@ -29,7 +29,7 @@
                                         ? $customerProfile['short_description']
                                         : \Illuminate\Support\Str::limit(strip_tags($customerProfile['description']), 100) !!}</p>
                                     <a class="text-sm" href="{{ route('user.business-category.show', ['abbreviation' => $lang->abbreviation, 'slug' => $customerProfile['slug']]) }}">
-                                        Learn more</a>
+                                        <span data-i18n="Learn more">{{ __('Learn more') }}</span></a>
                                 </div>
                             </div>
 

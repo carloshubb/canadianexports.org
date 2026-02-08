@@ -56,7 +56,7 @@ $banners = getBanners('sponsor', 8);
                             <div class="mt-4 text-left">
                                 <a aria-label="{{ __('Canadian Exporters') }}"
                                     href="{{ route('user.sponsor-detail.show', ['abbreviation' => $lang->abbreviation, 'slug' => $banner->slug ?? $banner->id]) }}"
-                                    class="fix-url text-primary text-sm hover:underline font-medium" onclick="fixUrls()">{{ __('More about') }} {!! $banner->business_name !!}</a>
+                                    class="fix-url text-primary text-sm hover:underline font-medium" onclick="fixUrls()"><span data-i18n="More about">{{ __('More about') }}</span> {!! $banner->business_name !!}</a>
                             </div>
                         </div>
                     </div>

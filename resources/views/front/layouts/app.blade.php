@@ -103,6 +103,23 @@
     {{-- <link href="{{ asset('assets/libs/choices.js/public/assets/styles/choices.min.css') }}" rel="stylesheet"> --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    {{-- Navbar morph transition (PowerPoint-style) --}}
+    <style>
+        #topnav,
+        #logo_outer,
+        #nav_logo,
+        #nav_items,
+        #navigation {
+            transition: height 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                padding 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                margin 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        #nav_items { transition-property: padding; }
+        #navigation { transition-property: margin; }
+        #topnav { transition-property: height; }
+        #logo_outer { transition-property: height; }
+        #nav_logo { transition-property: height; }
+    </style>
 </head>
 
 <body class="text-black">
@@ -472,24 +489,31 @@
     var navbar = document.getElementById("topnav");
     var navHeight = navbar.offsetHeight;
     window.addEventListener("scroll", function() {
+        var topnav = document.getElementById("topnav");
         if (window.pageYOffset > 0) {
             document.getElementById("nav_items").style.padding = "12px 0";
             //document.getElementById("logo").style.margin = "5px 0px 0px 0px";
-            // document.getElementById("logocircle").style.width = "45px";
+           // document.getElementById("logocircle").style.width = "45px";
             // document.getElementById("logotext").style.width = "140px";
             //document.getElementById("logo_wrapper").style.display = "flex";
             document.getElementById("logo_outer").style.height = "3.5rem";
-            document.getElementById("topnav").style.height = "auto";
+            var navLogo = document.getElementById("nav_logo");
+            if (navLogo) { navLogo.style.height = "50px"; }
+            topnav.style.height = "72px";
+            topnav.classList.remove("h-[120px]");
             document.getElementById("navigation").style.margin = "-12px 0px 0px 0px";
 
         } else {
             document.getElementById("nav_items").style.padding = "24px 0";
             //document.getElementById("logo").style.margin = "5px 0px 0px 0px";
-            // document.getElementById("logocircle").style.width = "50px";
+            //document.getElementById("logocircle").style.width = "50px";
             // document.getElementById("logotext").style.width = "160px";
             //document.getElementById("logo_wrapper").style.display = "inline-block";
             document.getElementById("logo_outer").style.height = "auto";
-            document.getElementById("topnav").style.height = "auto";
+            var navLogo = document.getElementById("nav_logo");
+            if (navLogo) { navLogo.style.height = ""; }
+            topnav.style.height = "120px";
+            topnav.classList.add("h-[120px]");
             document.getElementById("navigation").style.margin = "0px 0px 0px 0px";
         }
     });

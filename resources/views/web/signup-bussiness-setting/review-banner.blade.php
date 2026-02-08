@@ -6,8 +6,9 @@
                     {{ isset($payment_setting) ? $payment_setting['review_confirm_heading'] : '' }}
                 </p>
                 <p>
-                    {{ isset($payment_setting) ? $payment_setting['review_confirm_detail'] : '' }}
+                    {!! $payment_setting['review_confirm_detail'] ?? '' !!}
                 </p>
+
             </div>
         </div>
     </div>

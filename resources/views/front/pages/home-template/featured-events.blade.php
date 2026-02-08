@@ -194,7 +194,7 @@ $events = getAllEvents(30, $lang, 'package_type');
                             <div class="text-left">
                                 <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}"
                                     class="text-primary text-sm hover:underline font-medium">
-                                    {{ __('More Event Details') }}
+                                    <span data-i18n="More Event Details">{{ __('More Event Details') }}</span>
                                 </a>
                             </div>
                         </div>
