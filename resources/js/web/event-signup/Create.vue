@@ -430,7 +430,7 @@
                     <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">Your Profile</h5>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="relative w-full mb-3">
-                            <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="name">{{
+                            <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg font-bold" for="name">{{
                                 JSON.parse(event_detail)["name_label"] }} <span class="text-red-500">*</span></label>
                             <input @input="clearErrors('name')" type="text" class="can-exp-input" name="name" id="name"
                                 v-model="form.name" />
@@ -438,7 +438,7 @@
                                 full_width="1" />
                         </div>
                         <div class="relative w-full mb-3">
-                            <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="email">{{
+                            <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg font-bold" for="email">{{
                                 JSON.parse(event_detail)["email_label"] }} <span class="text-red-500">*</span></label>
                             <input @input="clearErrors('email')" type="email" class="can-exp-input" name="email"
                                 id="email" v-model="form.email" @blur="checkEmailValidation($event.target.value)" />
@@ -447,9 +447,9 @@
                         </div>
                         <template v-if="!isEditMode && !isLoggedIn">
                             <div class="relative w-full mb-3">
-                                <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
+                                <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg font-bold"
                                     for="password">{{ JSON.parse(event_detail)["password_label"] || 'Create Password' }}
-                                    <span class="text-xs">(Min. 8 characters. Must contain at least one lowercase and
+                                    <span class="text-xs  font-normal">(Min. 8 characters. Must contain at least one lowercase and
                                         one uppercase)</span> <span class="text-red-500">*</span></label>
                                 <div class="relative">
                                     <input @input="clearErrors('password')" :type="display_password"
@@ -480,7 +480,7 @@
                                     full_width="1" />
                             </div>
                             <div class="relative w-full mb-3">
-                                <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
+                                <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg font-bold"
                                     for="password_confirmation">{{ JSON.parse(event_detail)["confirm_password_label"] ||
                                     'Confirm Password' }} <span class="text-red-500">*</span></label>
                                 <div class="relative">
@@ -521,7 +521,7 @@
                         </h5>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="relative w-full mb-3">
-                                <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
+                                <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg font-bold"
                                     for="business-name">{{
                                         JSON.parse(event_detail)["business_name_label"] || 'Organizer Name' }}</label>
                                 <input @input="clearErrors('business_name')" type="text" class="can-exp-input"
@@ -530,7 +530,7 @@
                                     full_width="1" />
                             </div>
                             <div class="relative w-full mb-3">
-                                <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
+                                <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg font-bold"
                                     for="organizer_website">Organizer Website</label>
                                 <input @input="clearErrors('organizer_website')" type="url" class="can-exp-input"
                                     name="organizer_website" id="organizer_website" v-model="form.organizer_website" />
@@ -538,7 +538,7 @@
                                     full_width="1" />
                             </div>
                             <div class="relative w-full mb-3">
-                                <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
+                                <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg font-bold"
                                     for="organizer_phone">Phone<span class="text-red-500">*</span></label>
                                 <input type="text" class="can-exp-input" name="organizer_phone" id="organizer_phone"
                                     v-model="form.organizer_phone" maxlength="16"
@@ -548,7 +548,7 @@
                                     full_width="1" />
                             </div>
                             <div class="relative w-full mb-3 md:col-span-2">
-                                <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
+                                <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg font-bold"
                                     for="mailing_address">Mailing
                                     Address</label>
                                 <input @input="clearErrors('mailing_address')" type="text" class="can-exp-input"
@@ -567,7 +567,7 @@
                             <div class="grid md:grid-cols-2 md:gap-6 gap-4 mt-6 bg-white shadow rounded-lg p-6">
                                 <div class="relative z-0 w-full group">
                                     <label :for="`contact-name-[${index}]`"
-                                        class="text-base md:text-base lg:text-lg">Full Name and
+                                        class="text-base md:text-base lg:text-lg font-bold">Full Name and
                                         Title <span class="text-red-500">*</span></label>
                                     <input type="text" name="contact-name" :id="`contact-name-[${index}]`"
                                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
@@ -577,8 +577,8 @@
                                 </div>
                                 <div class="relative z-0 w-full group">
                                     <label :for="`contact-phone-[${index}]`"
-                                        class="text-base md:text-base lg:text-lg">Contact Phone
-                                        <span class="text-gray-500 text-xs">(If different from the business
+                                        class="text-base md:text-base lg:text-lg font-bold">Contact Phone
+                                        <span class="text-gray-500 text-xs  font-normal">(If different from the business
                                             phone)</span></label>
                                     <input type="text" name="contact-phone" :id="`contact-phone-[${index}]`"
                                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
@@ -589,8 +589,8 @@
                                 </div>
                                 <div class="relative z-0 w-full group">
                                     <label :for="`contact-email-[${index}]`"
-                                        class="text-base md:text-base lg:text-lg">Email <span
-                                            class="text-gray-500 text-xs">(If different from the login email)</span>
+                                        class="text-base md:text-base lg:text-lg font-bold">Email <span
+                                            class="text-gray-500 text-xs  font-normal">(If different from the login email)</span>
                                     </label>
                                     <input type="text" name="contact-email" :id="`contact-email-[${index}]`"
                                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
@@ -599,9 +599,9 @@
                                     <Error :fieldName="`contacts.${index}.email`" :validationErros="validationErros" />
                                 </div>
                                 <div class="relative z-0 w-full group">
-                                    <label class="text-base md:text-base lg:text-lg inline-flex items-center gap-1">
+                                    <label class="text-base md:text-base lg:text-lg inline-flex items-center gap-1 font-bold">
                                         Contact Person's Photo
-                                        <span class="relative inline-flex flex-shrink-0">
+                                        <span class="relative inline-flex flex-shrink-0 font-normal">
                                             <span
                                                 class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-gray-400 text-white text-xs font-bold cursor-pointer flex-shrink-0"
                                                 aria-label="Photo tip"
@@ -651,7 +651,7 @@
                         ">
                     <div class="relative z-0 w-full group">
                         <!---Event Name-->
-                        <label for="title" class="text-base md:text-base lg:text-lg">{{
+                        <label for="title" class="text-base md:text-base lg:text-lg font-bold">{{
                             JSON.parse(eventsetting).title_label
                             }}
                             <span class="text-red-500">*</span></label>
@@ -671,7 +671,7 @@
                     </div>
                     <div class="relative z-0 w-full group">
                         <!---Country-->
-                        <label for="country" class="text-base md:text-base lg:text-lg">{{
+                        <label for="country" class="text-base md:text-base lg:text-lg font-bold">{{
                             JSON.parse(eventsetting).country_label }}
                             <span class="text-red-500">*</span></label>
                         <input type="text" name="country" id="country"
@@ -694,7 +694,7 @@
                     </div>
                     <div class="relative z-0 w-full group">
                         <!---City-->
-                        <label for="city" class="text-base md:text-base lg:text-lg">{{
+                        <label for="city" class="text-base md:text-base lg:text-lg font-bold">{{
                             JSON.parse(eventsetting).city_label
                             }}
                             <span class="text-red-500">*</span></label>
@@ -712,7 +712,7 @@
                     </div>
                     <div class="relative z-0 w-full group">
                         <!---Street Name-->
-                        <label for="street_name" class="text-base md:text-base lg:text-lg">{{
+                        <label for="street_name" class="text-base md:text-base lg:text-lg font-bold">{{
                             JSON.parse(eventsetting).street_name_label }}</label>
                         <input type="text" name="street_name" id="street_name"
                             class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
@@ -737,7 +737,7 @@
                     </div>
                     <div class="relative z-0 w-full group">
                         <!---Venue-->
-                        <label for="venue" class="text-base md:text-base lg:text-lg">{{
+                        <label for="venue" class="text-base md:text-base lg:text-lg font-bold">{{
                             JSON.parse(eventsetting).venue_label
                             }}
                         </label>
@@ -756,7 +756,7 @@
                     </div>
                     <div class="relative z-0 w-full group">
                         <!---Product Search-->
-                        <label for="product_search" class="text-base md:text-base lg:text-lg">{{
+                        <label for="product_search" class="text-base md:text-base lg:text-lg font-bold">{{
                             JSON.parse(eventsetting).product_search_label
                             }}</label>
                         <input type="text" name="product_search" id="product_search"
@@ -848,7 +848,7 @@
                 </div>
                 <div class="grid md:grid-cols-2 md:gap-6 gap-4">
                     <div class="relative w-full group" style="z-index: auto;">
-                        <label for="start_date" class="text-base md:text-base lg:text-lg">{{
+                        <label for="start_date" class="text-base md:text-base lg:text-lg font-bold">{{
                             JSON.parse(eventsetting).start_date_label }}
                             <span class="text-red-500">*</span></label>
                         <VueDatePicker name="start_date" v-model="form.start_date" placeholder="YYYY-MM-DD"
@@ -864,7 +864,7 @@
                         <Error v-if="submitted" fieldName="start_date" :validationErros="validationErros" />
                     </div>
                     <div class="relative w-full group" style="z-index: auto;">
-                        <label for="end_date" class="text-base md:text-base lg:text-lg">{{
+                        <label for="end_date" class="text-base md:text-base lg:text-lg font-bold">{{
                             JSON.parse(eventsetting).end_date_label }}
                             <span class="text-red-500">*</span></label>
                         <VueDatePicker name="end_date" v-model="form.end_date" placeholder="YYYY-MM-DD"
@@ -881,7 +881,7 @@
                         <Error v-if="submitted" fieldName="end_date" :validationErros="validationErros" />
                     </div>
                     <div class="relative z-0 w-full group">
-                        <label for="event_website" class="text-base md:text-base lg:text-lg">{{
+                        <label for="event_website" class="text-base md:text-base lg:text-lg font-bold ">{{
                             JSON.parse(eventsetting).event_website_label }}
                             <span class="text-red-500">*</span></label>
                         <input type="text" name="event_website" id="event_website"
@@ -895,7 +895,7 @@
                     </div>
                     <div></div>
                     <div class="relative z-0 w-full group flex flex-col">
-                        <label for="exibitors_url" class="text-base md:text-base lg:text-lg">{{
+                        <label for="exibitors_url" class="text-base md:text-base lg:text-lg font-bold">{{
                             JSON.parse(eventsetting).exibitors_url_label
                             }}</label>
                         <textarea rows="2" name="exibitors_url" id="exibitors_url"
@@ -909,7 +909,7 @@
                         <Error v-if="submitted" fieldName="exibitors_url" :validationErros="validationErros" />
                     </div>
                     <div class="relative z-0 w-full group flex flex-col">
-                        <label for="visitors_url" class="text-base md:text-base lg:text-lg">{{
+                        <label for="visitors_url" class="text-base md:text-base lg:text-lg font-bold">{{
                             JSON.parse(eventsetting).visitors_label }}</label>
                         <textarea rows="2" name="visitors_url" id="visitors_url"
                             class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600 resize-y"
@@ -923,7 +923,7 @@
                         <Error this.submitted="true;" fieldName="visitors_url" :validationErros="validationErros" />
                     </div>
                     <div class="relative z-0 w-full group flex flex-col">
-                        <label for="press_url" class="text-base md:text-base lg:text-lg">{{
+                        <label for="press_url" class="text-base md:text-base lg:text-lg font-bold">{{
                             JSON.parse(eventsetting).press_url_label }}</label>
                         <textarea rows="2" name="press_url" id="press_url"
                             class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600 resize-y"
@@ -936,7 +936,7 @@
                     </div>
                     <div class="relative z-0 w-full group"></div>
                     <div class="relative z-0 w-full group flex flex-col">
-                        <label for="video_url" class="text-base md:text-base lg:text-lg">{{
+                        <label for="video_url" class="text-base md:text-base lg:text-lg font-bold">{{
                             JSON.parse(eventsetting).video_url_label }}</label>
                         <textarea rows="2" name="video_url" id="video_url"
                             class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600 resize-y"
@@ -950,7 +950,7 @@
 
                     <!-- event media -->
                     <div class="w-full">
-                        <label for="" class="text-base md:text-base lg:text-lg  truncate">Main Event Image <span
+                        <label for="" class="text-base md:text-base lg:text-lg  font-bold  truncate">Main Event Image <span
                                 class="ml-1 text-[0.95em] text-gray-600">(PNG, GIF, JPG, or JPEG format · 30 MB
                                 max)</span><span class="text-red-500">*</span></label>
                         <div class="relative z-0 w-full mb-6 group">
@@ -982,7 +982,7 @@
 
                     <!-- CTA Button Field - Only show for Premium and Featured packages -->
                     <div class="relative z-0 w-full group">
-                        <label for="cta_btn" class="text-base md:text-base lg:text-lg "
+                        <label for="cta_btn" class="text-base md:text-base lg:text-lg font-bold "
                             v-html="ctaBtnLabelFormatted"></label>
                         <input type="text" name="cta_btn" id="cta_btn"
                             class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
@@ -994,7 +994,7 @@
 
                     <!-- CTA Link Field - Only show for Premium and Featured packages -->
                     <div class="relative z-0 w-full group">
-                        <label for="cta_link" class="text-base md:text-base lg:text-lg ">
+                        <label for="cta_link" class="text-base md:text-base lg:text-lg font-bold ">
                             CTA URL
                         </label>
                         <input type="text" name="cta_link" id="cta_link"
@@ -1013,7 +1013,7 @@
                 </div>
                 <div class="grid md:grid-cols-2 md:gap-6 gap-4">
                     <div class="relative z-0 w-full group">
-                        <label for="facebook_url" class="text-base md:text-base lg:text-lg">{{
+                        <label for="facebook_url" class="text-base md:text-base lg:text-lg font-bold">{{
                             JSON.parse(eventsetting).facebook_url_label
                             }}</label>
                         <input type="text" name="facebook_url" id="facebook_url"
@@ -1025,7 +1025,7 @@
                         <Error v-if="submitted" fieldName="facebook_url" :validationErros="validationErros" />
                     </div>
                     <div class="relative z-0 w-full group">
-                        <label for="twitter_url" class="text-base md:text-base lg:text-lg">{{
+                        <label for="twitter_url" class="text-base md:text-base lg:text-lg font-bold">{{
                             JSON.parse(eventsetting).twitter_url_label }}</label>
                         <input type="text" name="twitter_url" id="twitter_url"
                             class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
@@ -1036,7 +1036,7 @@
                         <Error v-if="submitted" fieldName="twitter_url" :validationErros="validationErros" />
                     </div>
                     <div class="relative z-0 w-full group">
-                        <label for="linkedin_url" class="text-base md:text-base lg:text-lg">{{
+                        <label for="linkedin_url" class="text-base md:text-base lg:text-lg font-bold">{{
                             JSON.parse(eventsetting).linkedin_url_label
                             }}</label>
                         <input type="text" name="linkedin_url" id="linkedin_url"
@@ -1048,7 +1048,7 @@
                         <Error v-if="submitted" fieldName="linkedin_url" :validationErros="validationErros" />
                     </div>
                     <div class="relative z-0 w-full group">
-                        <label for="youtube_url" class="text-base md:text-base lg:text-lg">{{
+                        <label for="youtube_url" class="text-base md:text-base lg:text-lg font-bold">{{
                             JSON.parse(eventsetting).youtube_url_label }}</label>
                         <input type="text" name="youtube_url" id="youtube_url"
                             class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
@@ -1059,7 +1059,7 @@
                         <Error v-if="submitted" fieldName="youtube_url" :validationErros="validationErros" />
                     </div>
                     <div class="relative z-0 w-full group">
-                        <label for="pintrest_url" class="text-base md:text-base lg:text-lg">{{
+                        <label for="pintrest_url" class="text-base md:text-base lg:text-lg font-bold">{{
                             JSON.parse(eventsetting).pintrest_url_label
                             }}</label>
                         <input type="text" name="pintrest_url" id="pintrest_url"
@@ -1071,7 +1071,7 @@
                         <Error v-if="submitted" fieldName="pintrest_url" :validationErros="validationErros" />
                     </div>
                     <div class="relative z-0 w-full group">
-                        <label for="instagram_url" class="text-base md:text-base lg:text-lg">{{
+                        <label for="instagram_url" class="text-base md:text-base lg:text-lg font-bold">{{
                             JSON.parse(eventsetting).instagram_url_label
                             }}</label>
                         <input type="text" name="instagram_url" id="instagram_url"
@@ -1083,7 +1083,7 @@
                         <Error v-if="submitted" fieldName="instagram_url" :validationErros="validationErros" />
                     </div>
                     <div class="relative z-0 w-full group">
-                        <label for="snapchat_url" class="text-base md:text-base lg:text-lg">{{
+                        <label for="snapchat_url" class="text-base md:text-base lg:text-lg font-bold">{{
                             JSON.parse(eventsetting).snapchat_url_label
                             }}</label>
                         <input type="text" name="snapchat_url" id="snapchat_url"
