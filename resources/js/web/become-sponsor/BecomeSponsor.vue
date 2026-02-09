@@ -229,7 +229,7 @@
             </div>
 
             <div class="relative w-full" v-if="!isLoggedIn">
-              <Br></Br>
+              
               <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="password_confirmation"><br></br>
                 {{ __("Confirm Password") }}
                 <span v-if="!show_contact_preference" class="text-red-500">*</span>
