@@ -5,7 +5,7 @@
             <div
                 class="px-4 py-1.5 sm:px-6 text-center bg-gradient-to-r from-primary via-primary to-secondary rounded-md cursor-pointer my-6">
                 <h4 class="text-center card-heading text-white">
-                    {{ JSON.parse(event_detail)["package_section_heading"] ?? __("1 of 4 - Select Your Package") }}
+                    {{ JSON.parse(event_detail)["package_section_heading"] ?? '1 of 4 - Select Your Package' }}
                 </h4>
             </div>
             <div class="w-full">
@@ -14,7 +14,8 @@
                         <div v-if="showDowngradeMessage"
                             class="mx-auto mt-4 max-w-2xl rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800"
                             role="alert">
-                            {{ __("Membership downgrades cannot be processed automatically. Please contact us to adjust your plan.") }}
+                            Membership downgrades cannot be processed automatically. Please contact us to adjust your
+                            plan.
                         </div>
                         <div
                             class="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-auto lg:max-w-3xl md:grid-cols-2 lg:grid-cols-2">
@@ -30,13 +31,13 @@
                                 <!-- Premium bar: red bg, white text, rounded top only; full color when selected (card opacity fades when not) -->
                                 <div
                                     class="w-full mb-6 rounded-t-xl rounded-b-none bg-red-600 py-2.5 flex items-center justify-center">
-                                    <span class="text-white font-semibold text-lg">{{ __("Premium") }}</span>
+                                    <span class="text-white font-semibold text-lg">Premium</span>
                                 </div>
                                 <div class="flex flex-col items-center justify-center text-center gap-y-2">
 
                                     <p v-if="premiumPackage?.is_default"
                                         class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600">
-                                        {{ __("Most popular") }}
+                                        Most popular
                                     </p>
 
                                 </div>
@@ -82,12 +83,12 @@
                                 <!-- Featured bar: maroon bg, warm gold text, rounded top only; full color when selected (card opacity fades when not). Unselected frame: very thin light grey -->
                                 <div
                                     class="w-full mb-6 rounded-t-xl rounded-b-none bg-[#800000] py-2.5 flex items-center justify-center">
-                                    <span class="font-semibold text-lg text-[#C9A227]">{{ __("Featured") }}</span>
+                                    <span class="font-semibold text-lg text-[#C9A227]">Featured</span>
                                 </div>
                                 <div class="flex flex-col items-center justify-center text-center gap-y-1">
                                     <p class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600 mt-1"
                                         v-if="featuredPackage?.is_default">
-                                        {{ __("Most popular") }}
+                                        Most popular
                                     </p>
                                 </div>
                                 <p class="mt-4 text-sm leading-6 text-gray-600">
@@ -448,7 +449,7 @@
                             <div class="relative w-full mb-3">
                                 <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg font-bold"
                                     for="password">{{ JSON.parse(event_detail)["password_label"] || 'Create Password' }}
-                                    <span class="text-xs  font-normal">(Min. 8 characters. Must contain at least one lowercase and
+                                    <span class="text-[0.74em]  font-normal">(Min. 8 characters. Must contain at least one lowercase and
                                         one uppercase)</span> <span class="text-red-500">*</span></label>
                                 <div class="relative">
                                     <input @input="clearErrors('password')" :type="display_password"
@@ -575,7 +576,7 @@
                                 <div class="relative z-0 w-full group">
                                     <label :for="`contact-phone-[${index}]`"
                                         class="text-base md:text-base lg:text-lg font-bold">{{__("Contact Phone")}}
-                                        <span class="text-gray-500 text-xs  font-normal">{{__("(If different from the business phone)")}}</span></label>
+                                        <span class="text-[0.75em]     font-normal">{{__("(If different from the business phone)")}}</span></label>
                                     <input type="text" name="contact-phone" :id="`contact-phone-[${index}]`"
                                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                                         v-model="contact.phone" maxlength="15"
@@ -586,7 +587,7 @@
                                 <div class="relative z-0 w-full group">
                                     <label :for="`contact-email-[${index}]`"
                                         class="text-base md:text-base lg:text-lg font-bold">{{__("Email")}} <span
-                                            class="text-gray-500 text-xs  font-normal">{{__("(If different from the login email)")}}</span>
+                                            class="text-[0.75em]   font-normal">{{__("(If different from the login email)")}}</span>
                                     </label>
                                     <input type="text" name="contact-email" :id="`contact-email-[${index}]`"
                                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
@@ -778,7 +779,7 @@
                             :validationErros="validationErros" />
                     </div>
                     <div class="relative z-0 w-full group">
-                        <label for="short_description" class="text-base md:text-base lg:text-lg">
+                        <label for="short_description" class="text-base md:text-base lg:text-lg font-bold">
                             {{ JSON.parse(eventsetting).short_description_label }}
                             <span class="text-red-500">*</span>
                         </label>
@@ -812,7 +813,7 @@
 
                     <!-- Description (Max 300 Words) -->
                     <div class="relative z-0 w-full mb-6 group">
-                        <label for="description" class="text-base md:text-base lg:text-lg">
+                        <label for="description" class="text-base md:text-base lg:text-lg font-bold">
                             {{ JSON.parse(eventsetting).description_label }}
                             <span class="text-red-500">*</span>
                         </label>
@@ -945,7 +946,7 @@
                     <!-- event media -->
                     <div class="w-full">
                         <label for="" class="text-base md:text-base lg:text-lg  font-bold  truncate">{{__("Main Event Image")}} <span
-                                class="ml-1 text-[0.95em] text-gray-600">(PNG, GIF, JPG, or JPEG format · 30 MB
+                                class="text-[0.8em] font-normal">(PNG, GIF, JPG, or JPEG format · 30 MB
                                 max)</span><span class="text-red-500">*</span></label>
                         <div class="relative z-0 w-full mb-6 group">
                             <template v-if="
@@ -953,7 +954,7 @@
                                 JSON.parse(current_user)?.registration_package?.package_type == 'featured'
                             ">
                                 <FilePond
-                                    :label-idle="labelIdleGallery"
+                                    labelIdle='<span class="cursor-pointer">Drag & Drop your files or <span class="filepond--label-action"> Browse </span></span>'
                                     class="cursor-pointer" name="gallery_image" ref="gallery_image" class-name="my-pond"
                                     credits="false" accepted-file-types="image/*" allow-multiple="true"
                                     @init="handleGalleryImagesInit" @processfile="handleGalleryImagesProcess"
@@ -962,7 +963,7 @@
                             </template>
                             <template v-else>
                                 <FilePond
-                                    :label-idle="labelIdleGallery"
+                                    labelIdle='<span class="cursor-pointer">Drag & Drop your files or <span class="filepond--label-action"> Browse </span></span>'
                                     class="cursor-pointer" name="gallery_image" ref="gallery_image" class-name="my-pond"
                                     credits="false" accepted-file-types="image/*" @init="handleGalleryImagesInit"
                                     @processfile="handleGalleryImagesProcess"
@@ -1101,12 +1102,14 @@
                     <div class="border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
                         <label for="photo_gallery_images"
                             class="text-base md:text-base lg:text-lg font-medium block mb-2" id="photo_gallery_images">
-                            {{ photoGallerySectionTitle }}
+                            Photo Gallery
+                            <span class="text-[0.8em] font-normal">{{ photoGallerySectionTitle }}</span>
                         </label>
+                        
                         <div class="relative z-0 w-full mb-6 group">
                             <FilePond name="photo_gallery_image" :ref="el => { if (el) photoGalleryPond = el }"
                                 class-name="my-pond"
-                                :label-idle="labelIdleGallery"
+                                labelIdle='<span class="cursor-pointer">Drag & Drop your files or <span class="filepond--label-action"> Browse </span></span>'
                                 :max-files="effectivePackageType === 'featured' ? 20 : 8" :max-file-size="10 * 1024 * 1024"
                                 accepted-file-types="image/png, image/gif, image/jpeg, image/jpg" credits="false"
                                 allow-multiple="true" v-bind:files="photo_gallery_files"
@@ -1200,19 +1203,21 @@
                                     c5.883,0.84,10.02,6.206,9.503,12.024C310.715,146.699,307.871,166.61,303.087,186.457z" />
                     </g>
                 </svg>
-                <p style="color: #3498db; font-family: 'Futura BdCn BT';"><span style="font-size: 18pt;">{{ __("Protecting your privacy is fundamental to our mission and business:") }}</span></p>
+                <p style="color: #3498db; font-family: 'Futura BdCn BT';"><span style="font-size: 18pt;">Protecting your
+                        privacy
+                        is fundamental to our mission and business:</span></p>
 
             </div>
             <div class="mt-2 can-exp-p">
                 <ul>
                     <li>
-                        <p>{{ __("We never sell your data or information") }}</p>
+                        <p>We never sell your data or information</p>
                     </li>
                     <li>
-                        <p>{{ __("We do not own the content that you upload on our website") }}</p>
+                        <p>We do not own the content that you upload on our website</p>
                     </li>
                     <li>
-                        <p>{{ __("We never send you junk e-mail") }}</p>
+                        <p>We never send you junk e-mail</p>
                     </li>
                 </ul>
             </div>
@@ -1238,8 +1243,6 @@
 
 <script>
 import { load } from "recaptcha-v3";
-import helper from "../../helper";
-import { useTranslation } from "@/Utils/i18n";
 // Import filepond
 import vueFilePond, { setOptions } from "vue-filepond";
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.esm.js";
@@ -1258,14 +1261,9 @@ import { mapState } from "vuex";
 import { VueDatePicker } from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 export default {
-    setup() {
-        const { __ } = useTranslation();
-        return { __ };
-    },
+
+
     computed: {
-        labelIdleGallery() {
-            return "<span class='cursor-pointer'>" + this.__("Drag & Drop your files or") + " <span class='filepond--label-action'>" + this.__("Browse") + "</span></span>";
-        },
         ...mapState({
             form: (state) => state.signup.form,
             regPageSetting: (state) => state.signup.regPageSetting,
@@ -1301,7 +1299,7 @@ export default {
             console.log("Raw Label:", this.regPageSetting);
 
             if (!rawLabel) {
-                return this.__("CTA (Call-to-Action) Button Title(Max. 5 words)");
+                return "CTA (Call-to-Action) Button Title(Max. 5 words)";
             }
 
             return rawLabel.replace(/\(5\)/g, '<sup class="footnote-indicator">(5)</sup>');
@@ -1322,17 +1320,14 @@ export default {
         showPhotoGallery() {
             return this.effectivePackageType === 'premium' || this.effectivePackageType === 'featured';
         },
-        downgradeTooltipText() {
-            return this.__("Membership downgrades cannot be processed automatically. Please contact us to adjust your plan.");
-        },
         photoGallerySectionTitle() {
             if (this.effectivePackageType === 'featured') {
-                return this.__('Photo Gallery (Upload up to 20 images. Max 10 MB each. Supports PNG, GIF, or JPG)');
+                return '(Upload up to 20 images. Max 10 MB each. Supports PNG, GIF, or JPG)';
             }
             if (this.effectivePackageType === 'premium') {
-                return this.__('Photo Gallery (Upload up to 8 images. Max 10 MB each. Supports PNG, GIF, or JPG)');
+                return '(Upload up to 8 images. Max 10 MB each. Supports PNG, GIF, or JPG)';
             }
-            return this.__('Photo Gallery');
+            return '';
         },
         photoGalleryServerConfig() {
             const csrf = document.head.querySelector('meta[name="csrf-token"]')?.content;
@@ -1473,6 +1468,8 @@ export default {
                 end_date: "",
             },
             showDowngradeMessage: false,
+            downgradeTooltipText:
+                "Membership downgrades cannot be processed automatically. Please contact us to adjust your plan.",
             initialEventPackageType: null,
             contactPhotoTooltipIndex: null,
         };
@@ -1644,7 +1641,7 @@ export default {
             }
 
             if (!isValid) {
-                const message = this.__("Please select a valid date");
+                const message = "Please select a valid date";
                 if (
                     typeof helper !== "undefined" &&
                     helper &&
@@ -1854,7 +1851,7 @@ export default {
                             window.location.href = res.data.data.redirect_url;
                         }
                     } else {
-                        helper.swalErrorMessageForWeb(res.data.message || this.__("An error occurred. Please try again."));
+                        helper.swalErrorMessageForWeb(res.data.message);
                     }
                 })
                 .catch((error) => {
@@ -1871,7 +1868,7 @@ export default {
                         error.response.data.status == "Error"
                     ) {
                         helper.swalErrorMessageForWeb(
-                            error.response.data.message || this.__("An error occurred. Please try again.")
+                            error.response.data.message
                         );
                     }
                 });
