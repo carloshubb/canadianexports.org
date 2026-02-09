@@ -1,7 +1,9 @@
 <template>
     <div>
-        <a aria-label="Candian Exporters" class="cursor-pointer" @click="toggleModal()" v-if="display_type && display_type == 'text'">
-            {{ modal_setting && modal_setting . i2b_upgrade_text ? modal_setting . i2b_upgrade_text : (modalSetting && modalSetting['i2b_upgrade_text'] ? modalSetting['i2b_upgrade_text'] : '') }}
+        <a aria-label="Candian Exporters" class="cursor-pointer" @click="toggleModal()"
+            v-if="display_type && display_type == 'text'">
+            {{ modal_setting && modal_setting.i2b_upgrade_text ? modal_setting.i2b_upgrade_text : (modalSetting &&
+                modalSetting['i2b_upgrade_text'] ? modalSetting['i2b_upgrade_text'] : '') }}
         </a>
         <button aria-label="Candian Exporters" type="button" class="button-exp-no-fill" @click="toggleModal()" v-else>
             {{ general_setting && general_setting['upgrade_package_button_text']
@@ -19,66 +21,69 @@
                     <!-- Modal header -->
                     <div class="flex items-center justify-between py-3 px-3 border-b rounded-t">
                         <h3 class="card-heading text-primary text-gray-900">
-                            {{ modal_setting && modal_setting . upgrade_modal_title ? modal_setting . upgrade_modal_title : (modalSetting && modalSetting['upgrade_modal_title'] ? modalSetting['upgrade_modal_title'] : '') }}
+                            {{ modal_setting && modal_setting.upgrade_modal_title ? modal_setting.
+                                upgrade_modal_title : (modalSetting && modalSetting['upgrade_modal_title'] ?
+                            modalSetting['upgrade_modal_title'] : '') }}
                         </h3>
                         <button aria-label="Candian Exporters" type="button"
                             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-base md:text-base lg:text-lg p-1.5 inline-flex items-center"
                             data-modal-hide="defaultModal" @click="toggleModal">
                             <img class="h-6" src="/assets/icons/19-X-inside-circle-2.png" alt="Candian Exporters" />
-                            <span class="sr-only">Close modal</span>
+                            <span class="sr-only">{{ __("Close modal") }}</span>
                         </button>
                     </div>
                     <!-- Modal body -->
                     <div class="p-6 space-y-6">
                         <p>
-                            {{ modal_setting && modal_setting . upgrade_modal_heading ? modal_setting . upgrade_modal_heading : (modalSetting && modalSetting['upgrade_modal_heading'] ? modalSetting['upgrade_modal_heading'] : '') }}
+                            {{ modal_setting && modal_setting.upgrade_modal_heading ? modal_setting.
+                                upgrade_modal_heading : (modalSetting && modalSetting['upgrade_modal_heading'] ?
+                            modalSetting['upgrade_modal_heading'] : '') }}
                         </p>
                         <div class="grid my-5 md:grid-cols-3 md:gap-6 gap-4">
                             <div class="bg-gray-50 rounded-lg h-full border border-gray-100">
                                 <h4 class="mb-2 pt-3 px-4">
-                                    {{ regPageSetting && regPageSetting . reg_page_setting_detail && regPageSetting . reg_page_setting_detail[0]
-                                        ? regPageSetting . reg_page_setting_detail[0] . step1_free_pkg_text
-                                        : '' }}
+                                    {{ regPageSetting && regPageSetting.reg_page_setting_detail && regPageSetting.
+                                        reg_page_setting_detail[0]
+                                        ? regPageSetting.reg_page_setting_detail[0].step1_free_pkg_text
+                                    : '' }}
                                 </h4>
                                 <div class="bg-white h-1.5 w-full">
                                     <div class="bg-primary w-2/5 h-1.5"></div>
                                 </div>
                                 <ul class="max-w-md space-y-2 px-4 py-6 text-gray-500 list-inside dark:text-gray-400">
-                                    <li class="flex items-start cursor-pointer" v-if="registrationPackages"
-                                        v-for="registrationPackage in registrationPackages.filter(
-                                            (res) => res.package_type == 'free'
-                                        )"
-                                        :key="registrationPackage.id"
-                                        @click="
+                                    <li class="flex items-start cursor-pointer" v-if="registrationPackages" v-for="registrationPackage in registrationPackages.filter(
+                                        (res) => res.package_type == 'free'
+                                    )" :key="registrationPackage.id" @click="
                                             updateRegPackageId(
                                                 registrationPackage
                                             )
-                                        ">
+                                            ">
                                         <div class="flex items-start gap-2">
                                             <input :id="`package-${registrationPackage.id}`" name="profile_package"
                                                 type="radio"
                                                 class="mt-1 h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                                :value="registrationPackage.id"
-                                                @click="
+                                                :value="registrationPackage.id" @click="
                                                     updateRegPackageId(
                                                         registrationPackage
                                                     )
-                                                "
-                                                :checked="form.registration_package_id ==
+                                                    " :checked="form.registration_package_id ==
                                                     registrationPackage.id" />
 
                                             <label class="block" :for="`package-${registrationPackage.id}`">
-                                                {{ registrationPackage . registration_package_detail && registrationPackage . registration_package_detail[0]
-                                                    ? registrationPackage . registration_package_detail[0] . amount_pre_text
-                                                    : '' }}
+                                                {{ registrationPackage.registration_package_detail &&
+                                                    registrationPackage.registration_package_detail[0]
+                                                    ? registrationPackage.registration_package_detail[0].amount_pre_text
+                                                : '' }}
 
-                                                ${{ registrationPackage . discount_price > 0
-                                                    ? registrationPackage . discount_price
-                                                    : registrationPackage . price }}
+                                                ${{ registrationPackage.discount_price > 0
+                                                    ? registrationPackage.discount_price
+                                                    : registrationPackage.price }}
 
-                                                {{ registrationPackage . registration_package_detail && registrationPackage . registration_package_detail[0]
-                                                    ? registrationPackage . registration_package_detail[0] . amount_post_text
-                                                    : '' }}
+                                                {{ registrationPackage.registration_package_detail &&
+                                                    registrationPackage.registration_package_detail[0]
+                                                    ? registrationPackage.registration_package_detail[0].
+                                                amount_post_text
+                                                : '' }}
                                             </label>
                                         </div>
                                     </li>
@@ -86,45 +91,45 @@
                             </div>
                             <div class="bg-gray-50 rounded-lg h-full border border-gray-100">
                                 <h4 class="mb-2 px-4 pt-3">
-                                    {{ regPageSetting && regPageSetting . reg_page_setting_detail && regPageSetting . reg_page_setting_detail[0]
-                                        ? regPageSetting . reg_page_setting_detail[0] . step1_feature_pkg_text
-                                        : '' }}
+                                    {{ regPageSetting && regPageSetting.reg_page_setting_detail && regPageSetting.
+                                        reg_page_setting_detail[0]
+                                        ? regPageSetting.reg_page_setting_detail[0].step1_feature_pkg_text
+                                    : '' }}
                                 </h4>
                                 <div class="bg-white h-1.5 w-full">
                                     <div class="bg-primary w-3/5 h-1.5"></div>
                                 </div>
                                 <ul class="max-w-md space-y-1 px-4 py-6 text-gray-500 list-inside dark:text-gray-400">
-                                    <li class="flex items-start cursor-pointer" v-if="registrationPackages"
-                                        v-for="registrationPackage in registrationPackages.filter(
-                                            (res) =>
-                                                res.package_type == 'featured'
-                                        )"
-                                        :key="registrationPackage.id">
+                                    <li class="flex items-start cursor-pointer" v-if="registrationPackages" v-for="registrationPackage in registrationPackages.filter(
+                                        (res) =>
+                                            res.package_type == 'featured'
+                                    )" :key="registrationPackage.id">
                                         <div class="flex items-start gap-2">
                                             <input :id="`package-${registrationPackage.id}`" name="profile_package"
                                                 type="radio"
                                                 class="mt-1 h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                                :value="registrationPackage.id"
-                                                @click="
+                                                :value="registrationPackage.id" @click="
                                                     updateRegPackageId(
                                                         registrationPackage
                                                     )
-                                                "
-                                                :checked="form.registration_package_id ==
+                                                    " :checked="form.registration_package_id ==
                                                     registrationPackage.id" />
 
                                             <label class="block" :for="`package-${registrationPackage.id}`">
-                                                {{ registrationPackage . registration_package_detail && registrationPackage . registration_package_detail[0]
-                                                    ? registrationPackage . registration_package_detail[0] . amount_pre_text
-                                                    : '' }}
+                                                {{ registrationPackage.registration_package_detail &&
+                                                    registrationPackage.registration_package_detail[0]
+                                                    ? registrationPackage.registration_package_detail[0].amount_pre_text
+                                                : '' }}
 
-                                                ${{ registrationPackage . discount_price > 0
-                                                    ? registrationPackage . discount_price
-                                                    : registrationPackage . price }}
+                                                ${{ registrationPackage.discount_price > 0
+                                                    ? registrationPackage.discount_price
+                                                    : registrationPackage.price }}
 
-                                                {{ registrationPackage . registration_package_detail && registrationPackage . registration_package_detail[0]
-                                                    ? registrationPackage . registration_package_detail[0] . amount_post_text
-                                                    : '' }}
+                                                {{ registrationPackage.registration_package_detail &&
+                                                    registrationPackage.registration_package_detail[0]
+                                                    ? registrationPackage.registration_package_detail[0].
+                                                amount_post_text
+                                                : '' }}
                                             </label>
                                         </div>
                                     </li>
@@ -132,45 +137,45 @@
                             </div>
                             <div class="bg-gray-50 rounded-lg h-full border border-gray-100">
                                 <h4 class="mb-2 px-4 pt-3">
-                                    {{ regPageSetting && regPageSetting . reg_page_setting_detail && regPageSetting . reg_page_setting_detail[0]
-                                        ? regPageSetting . reg_page_setting_detail[0] . step1_premium_pkg_text
-                                        : '' }}
+                                    {{ regPageSetting && regPageSetting.reg_page_setting_detail && regPageSetting.
+                                        reg_page_setting_detail[0]
+                                        ? regPageSetting.reg_page_setting_detail[0].step1_premium_pkg_text
+                                    : '' }}
                                 </h4>
                                 <div class="bg-white h-1.5 w-full">
                                     <div class="bg-primary w-full h-1.5"></div>
                                 </div>
                                 <ul class="max-w-md space-y-2 px-4 py-6 text-gray-500 list-inside dark:text-gray-400">
-                                    <li class="flex items-start cursor-pointer" v-if="registrationPackages"
-                                        v-for="registrationPackage in registrationPackages.filter(
-                                            (res) =>
-                                                res.package_type == 'premium'
-                                        )"
-                                        :key="registrationPackage.id">
+                                    <li class="flex items-start cursor-pointer" v-if="registrationPackages" v-for="registrationPackage in registrationPackages.filter(
+                                        (res) =>
+                                            res.package_type == 'premium'
+                                    )" :key="registrationPackage.id">
                                         <div class="flex items-start gap-2">
                                             <input :id="`package-${registrationPackage.id}`" name="profile_package"
                                                 type="radio"
                                                 class="mt-1 h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                                :value="registrationPackage.id"
-                                                @click="
+                                                :value="registrationPackage.id" @click="
                                                     updateRegPackageId(
                                                         registrationPackage
                                                     )
-                                                "
-                                                :checked="form.registration_package_id ==
+                                                    " :checked="form.registration_package_id ==
                                                     registrationPackage.id" />
 
                                             <label class="block" :for="`package-${registrationPackage.id}`">
-                                                {{ registrationPackage . registration_package_detail && registrationPackage . registration_package_detail[0]
-                                                    ? registrationPackage . registration_package_detail[0] . amount_pre_text
-                                                    : '' }}
+                                                {{ registrationPackage.registration_package_detail &&
+                                                    registrationPackage.registration_package_detail[0]
+                                                    ? registrationPackage.registration_package_detail[0].amount_pre_text
+                                                : '' }}
 
-                                                ${{ registrationPackage . discount_price > 0
-                                                    ? registrationPackage . discount_price
-                                                    : registrationPackage . price }}
+                                                ${{ registrationPackage.discount_price > 0
+                                                    ? registrationPackage.discount_price
+                                                    : registrationPackage.price }}
 
-                                                {{ registrationPackage . registration_package_detail && registrationPackage . registration_package_detail[0]
-                                                    ? registrationPackage . registration_package_detail[0] . amount_post_text
-                                                    : '' }}
+                                                {{ registrationPackage.registration_package_detail &&
+                                                    registrationPackage.registration_package_detail[0]
+                                                    ? registrationPackage.registration_package_detail[0].
+                                                amount_post_text
+                                                : '' }}
                                             </label>
                                         </div>
                                     </li>
@@ -185,7 +190,8 @@
                                         @click="setPaymentMethod('stripe')"
                                         :checked="form.payment_method == 'stripe'" />
                                     <label for="stripe" class="ml-2 block font-medium text-gray-900">
-                                        {{payment_setting && JSON.parse(payment_setting) ? JSON.parse(payment_setting)['pay_with_credit_card_text'] : ''}}
+                                        {{ payment_setting && JSON.parse(payment_setting) ?
+                                            JSON.parse(payment_setting)['pay_with_credit_card_text'] : ''}}
                                     </label>
                                 </div>
                                 <div class="flex items-center">
@@ -212,113 +218,105 @@
                                         </svg>
                                     </label>
                                 </div>
-                                <div id="card-element" class="border border-primary rounded p-2 mt-2 mb-2"
-                                    v-if="
-                                        form.customer_payment_method_id ==
-                                            'add_new_card' &&
-                                        form.payment_method == 'stripe'
-                                    ">
+                                <div id="card-element" class="border border-primary rounded p-2 mt-2 mb-2" v-if="
+                                    form.customer_payment_method_id ==
+                                    'add_new_card' &&
+                                    form.payment_method == 'stripe'
+                                ">
                                     <div class="flex justify-center items-center">
                                         <div class="h-auto bg-white p-3 rounded-lg w-full">
                                             <div class="input_text mt-6 relative">
-                                                <label
-                                                    class="">{{ payment_setting && payment_setting['cardholder_name_label'] ? payment_setting['cardholder_name_label'] : '' }}</label>
+                                                <label class="">{{ payment_setting &&
+                                                    payment_setting['cardholder_name_label'] ?
+                                                    payment_setting['cardholder_name_label'] : '' }}</label>
                                                 <i class="text-gray-400 fa fa-user"></i>
-                                                <input type="text" class="can-exp-input"
-                                                    :placeholder="payment_setting &&
-                                                        payment_setting[
-                                                            'cardholder_name_placeholder'
-                                                        ] ?
-                                                        payment_setting[
-                                                            'cardholder_name_placeholder'
-                                                        ] :
-                                                        ''"
-                                                    v-model="
-                                                        form.card_holder_name
-                                                    " />
-                                                <Error fieldName="card_holder_name"
-                                                    :validationErros="validationErros"
+                                                <input type="text" class="can-exp-input" :placeholder="payment_setting &&
+                                                    payment_setting[
+                                                    'cardholder_name_placeholder'
+                                                    ] ?
+                                                    payment_setting[
+                                                    'cardholder_name_placeholder'
+                                                    ] :
+                                                    ''" v-model="form.card_holder_name
+                                                            " />
+                                                <Error fieldName="card_holder_name" :validationErros="validationErros"
                                                     full_width="1" />
                                             </div>
                                             <div class="input_text mt-8 relative">
-                                                <label
-                                                    class="">{{ payment_setting && payment_setting['card_number_label'] ? payment_setting['card_number_label'] : '' }}</label>
+                                                <label class="">{{ payment_setting &&
+                                                    payment_setting['card_number_label'] ?
+                                                    payment_setting['card_number_label'] : '' }}</label>
                                                 <i class="text-gray-400 fa fa-credit-card"></i>
-                                                <input type="text" class="can-exp-input"
-                                                    :placeholder="payment_setting &&
-                                                        payment_setting[
-                                                            'card_number_placeholder'
-                                                        ] ?
-                                                        payment_setting[
-                                                            'card_number_placeholder'
-                                                        ] :
-                                                        ''"
-                                                    v-model="form.card_no"
-                                                    @keypress="
-                                                        restrictToNumbers(
-                                                            $event,
-                                                            16
-                                                        )
-                                                    " />
-                                                <Error fieldName="card_no"
-                                                    :validationErros="validationErros"
+                                                <input type="text" class="can-exp-input" :placeholder="payment_setting &&
+                                                    payment_setting[
+                                                    'card_number_placeholder'
+                                                    ] ?
+                                                    payment_setting[
+                                                    'card_number_placeholder'
+                                                    ] :
+                                                    ''" v-model="form.card_no" @keypress="
+                                                            restrictToNumbers(
+                                                                $event,
+                                                                16
+                                                            )
+                                                            " />
+                                                <Error fieldName="card_no" :validationErros="validationErros"
                                                     full_width="1" />
                                             </div>
                                             <div class="input_text mt-2 relative">
-                                                <label
-                                                    class="">{{ payment_setting && payment_setting['expiry_month_label'] ? payment_setting['expiry_month_label'] : '' }}</label>
-                                                    
-                                                    <select class="rounded-md px-3 pr-8 py-1 w-full" v-model="form.expiry_month">
-                                                <option value="01">01</option>
-                                                <option value="02">02</option>
-                                                <option value="03">03</option>
-                                                <option value="04">04</option>
-                                                <option value="05">05</option>
-                                                <option value="06">06</option>
-                                                <option value="07">07</option>
-                                                <option value="08">08</option>
-                                                <option value="09">09</option>
-                                                <option value="10">10</option>
-                                                <option value="11">11</option>
-                                                <option value="12">12</option>
-                                        </select>
-                                                <Error fieldName="expiry_month"
-                                                    :validationErros="validationErros"
+                                                <label class="">{{ payment_setting &&
+                                                    payment_setting['expiry_month_label'] ?
+                                                    payment_setting['expiry_month_label'] : '' }}</label>
+
+                                                <select class="rounded-md px-3 pr-8 py-1 w-full"
+                                                    v-model="form.expiry_month">
+                                                    <option value="01">01</option>
+                                                    <option value="02">02</option>
+                                                    <option value="03">03</option>
+                                                    <option value="04">04</option>
+                                                    <option value="05">05</option>
+                                                    <option value="06">06</option>
+                                                    <option value="07">07</option>
+                                                    <option value="08">08</option>
+                                                    <option value="09">09</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
+                                                </select>
+                                                <Error fieldName="expiry_month" :validationErros="validationErros"
                                                     full_width="1" />
                                             </div>
                                             <div class="input_text mt-2 relative">
-                                                <label
-                                                    class="">{{ payment_setting && payment_setting['expiry_year_label'] ? payment_setting['expiry_year_label'] : '' }}</label>
-                                                    
-                                                    <select class="rounded-md px-3 pr-8 py-1 w-full" v-model="form.expiry_year">
-                                                <option v-for="year in years" :key="year" :value="year">{{ year }}</option>
-                                        </select>
-                                                <Error fieldName="expiry_year"
-                                                    :validationErros="validationErros"
+                                                <label class="">{{ payment_setting &&
+                                                    payment_setting['expiry_year_label'] ?
+                                                    payment_setting['expiry_year_label'] : '' }}</label>
+
+                                                <select class="rounded-md px-3 pr-8 py-1 w-full"
+                                                    v-model="form.expiry_year">
+                                                    <option v-for="year in years" :key="year" :value="year">{{ year }}
+                                                    </option>
+                                                </select>
+                                                <Error fieldName="expiry_year" :validationErros="validationErros"
                                                     full_width="1" />
                                             </div>
                                             <div class="input_text mt-2 relative">
-                                                <label
-                                                    class="">{{ payment_setting && payment_setting['cvv_label'] ? payment_setting['cvv_label'] : '' }}</label>
+                                                <label class="">{{ payment_setting && payment_setting['cvv_label'] ?
+                                                    payment_setting['cvv_label'] : '' }}</label>
                                                 <i class="text-gray-400 fa fa-credit-card"></i>
-                                                <input type="text" class="can-exp-input"
-                                                    :placeholder="payment_setting &&
-                                                        payment_setting[
-                                                            'cvv_placeholder'
-                                                        ] ?
-                                                        payment_setting[
-                                                            'cvv_placeholder'
-                                                        ] :
-                                                        ''"
-                                                    v-model="form.cvc"
-                                                    @keypress="
-                                                        restrictToNumbers(
-                                                            $event,
-                                                            4
-                                                        )
-                                                    " />
-                                                <Error fieldName="cvc"
-                                                    :validationErros="validationErros"
+                                                <input type="text" class="can-exp-input" :placeholder="payment_setting &&
+                                                    payment_setting[
+                                                    'cvv_placeholder'
+                                                    ] ?
+                                                    payment_setting[
+                                                    'cvv_placeholder'
+                                                    ] :
+                                                    ''" v-model="form.cvc" @keypress="
+                                                            restrictToNumbers(
+                                                                $event,
+                                                                4
+                                                            )
+                                                            " />
+                                                <Error fieldName="cvc" :validationErros="validationErros"
                                                     full_width="1" />
                                             </div>
                                         </div>
@@ -331,36 +329,37 @@
                             <div class="flex items-center gap-2">
                                 <label for="cards"
                                     class="block mb-2 text-base md:text-base lg:text-lg font-medium text-gray-900 dark:text-white">Cards</label>
-                                <select id="cards" class="can-exp-input"
-                                    v-model="form.customer_payment_method_id">
+                                <select id="cards" class="can-exp-input" v-model="form.customer_payment_method_id">
                                     <option :value="customerPaymentMethod.id"
                                         v-for="customerPaymentMethod in customerPaymentMethods"
                                         :key="customerPaymentMethod.id">
-                                        {{ customerPaymentMethod . card_no }}
+                                        {{ customerPaymentMethod.card_no }}
                                     </option>
                                     <option value="add_new_card">
-                                        Add new card
+                                        {{ __("Add new card") }}
                                     </option>
                                 </select>
                             </div>
                         </div>
-                       
+
                         <div class="flex items-center mb-4">
                             <input id="auto-renew" type="checkbox" value=""
                                 class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
                                 v-model="form.is_auto_renew" />
                             <label for="auto-renew" class="ml-2 text-gray-900 text-base md:text-base lg:text-lg">
-                                {{ regPageSetting && regPageSetting . reg_page_setting_detail && regPageSetting . reg_page_setting_detail[0]
-                                    ? regPageSetting . reg_page_setting_detail[0] . step_1_auto_renew_label
-                                    : '' }}
+                                {{ regPageSetting && regPageSetting.reg_page_setting_detail && regPageSetting.
+                                    reg_page_setting_detail[0]
+                                    ? regPageSetting.reg_page_setting_detail[0].step_1_auto_renew_label
+                                : '' }}
                             </label>
                         </div>
                         <div class="mt-2">
                             <button aria-label="Candian Exporters" href="#" @click.prevent="upgradePackage()"
-                                class="button-exp-fill hover:text-white"
-                                :disabled="form.registration_package_id ==
+                                class="button-exp-fill hover:text-white" :disabled="form.registration_package_id ==
                                     selectedPackageId">
-                                {{ modal_setting ? modal_setting['upgrade_modal_submit_button_text'] : (modalSetting && modalSetting['upgrade_modal_submit_button_text'] ? modalSetting['upgrade_modal_submit_button_text'] : '') }}
+                                {{ modal_setting ? modal_setting['upgrade_modal_submit_button_text'] : (modalSetting &&
+                                    modalSetting['upgrade_modal_submit_button_text'] ?
+                                modalSetting['upgrade_modal_submit_button_text'] : '') }}
                             </button>
                         </div>
                     </div>
@@ -384,7 +383,12 @@
 import Error from "./../components/Error.vue";
 import ErrorHandling from "../../ErrorHandling";
 import { mapState } from "vuex";
+import { useTranslation, currentLocale } from "@/Utils/i18n";
 export default {
+    setup() {
+        const { __, locale } = useTranslation();
+        return { __, locale };
+    },
     computed: {
         ...mapState({
             regPageSetting: (state) => state.signup.regPageSetting,
@@ -545,25 +549,25 @@ export default {
     props: ["user", "display_type", "modal_setting"],
     created() {
         this.$store
+            .dispatch("signup/fetchStaticSetting", {
+                url: `${process.env.MIX_WEB_API_URL}get-static-setting?getGeneralSetting=1`,
+            })
+            .then((res) => {
+                if (res.data.status == "Success") {
+                    this.general_setting = res.data.data;
+
+                    this.$store
                         .dispatch("signup/fetchStaticSetting", {
-                            url: `${process.env.MIX_WEB_API_URL}get-static-setting?getGeneralSetting=1`,
+                            url: `${process.env.MIX_WEB_API_URL}get-static-setting?GetUpgradeModalSetting=1`,
                         })
                         .then((res) => {
                             if (res.data.status == "Success") {
-                                this.general_setting = res.data.data;
-
-                                this.$store
-                                    .dispatch("signup/fetchStaticSetting", {
-                                        url: `${process.env.MIX_WEB_API_URL}get-static-setting?GetUpgradeModalSetting=1`,
-                                    })
-                                    .then((res) => {
-                                        if (res.data.status == "Success") {
-                                            this.modalSetting =
-                                                res.data.data;
-                                        }
-                                    });
+                                this.modalSetting =
+                                    res.data.data;
                             }
                         });
+                }
+            });
     },
 };
 </script>

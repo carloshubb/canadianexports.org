@@ -115,7 +115,7 @@
         <!-- Select Payment Method -->
         <div class="bg-white rounded-lg overflow-hidden shadow-3xl">
           <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-            <h4 class="text-white">Select Payment Method</h4>
+            <h4 class="text-white">{{ __("Select Payment Method") }}</h4>
           </div>
           <div class="px-4 py-8 sm:px-10">
           <div v-if="calTotalPrice() > 0" class="w-full flex">
@@ -194,7 +194,7 @@
                             <Error fieldName="card_holder_name" :validationErros="validationErros" full_width="1" />
                           </div>
                           <div class="input_text mt-2 relative profile-card-field">
-                            <label class="">Card Details</label>
+                            <label class="">{{ __("Card Details") }}</label>
                             <div ref="stripeCard" class="can-exp-input profile-card-input profile-card-stripe-wrap"></div>
                             <Error fieldName="payment_method_id" :validationErros="validationErros" full_width="1" />
                           </div>
@@ -408,9 +408,9 @@
                         </div>
                     </div> -->
           <div class="bg-white py-6 px-10 rounded shadow-lg text-center gradient-border-modal rounded-lg p-6">
-            <p class="text-center can-edu-p ">Your amount will not be funded if you use paypal payment</p>
+            <p class="text-center can-edu-p ">{{ __("Your amount will not be funded if you use paypal payment") }}</p>
             <button type="button" class="button-exp-fill mt-4" data-modal-hide="defaultModal" @click="toggleModal">
-              Close
+              {{ __("Close") }}
             </button>
           </div>
         </div>
@@ -424,9 +424,14 @@ import { load } from "recaptcha-v3";
 import { mapState } from "vuex";
 import Error from "./../components/Error.vue";
 import { loadStripe } from "@stripe/stripe-js";
+import { useTranslation } from "@/Utils/i18n";
 // import ListErrors from "./../components/ListErrors.vue";
 
 export default {
+  setup() {
+    const { __ } = useTranslation();
+    return { __ };
+  },
   components: {
     Error,
     // ListErrors,

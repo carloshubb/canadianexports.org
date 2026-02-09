@@ -91,6 +91,7 @@
             $becomeSponsorSettingDetail = isset($becomeSponsorSetting->becomeSponsorSettingDetail[0])
                 ? $becomeSponsorSetting->becomeSponsorSettingDetail[0]
                 : null;
+           
         @endphp
         @include('front.pages.become-sponsor-template.index', ['page' => $page, 'lang' => $lang])
         @elseif(isset($page) && $page->template == 'sponsor_listing')

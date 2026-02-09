@@ -51,7 +51,7 @@
                             src="/assets/icons/19-X-inside-circle-2.png"
                             alt="Candian Exporters"
                         />
-                        <span class="sr-only">Close modal</span>
+                        <span class="sr-only">{{ __("Close modal") }}</span>
                     </button>
                 </div>
                 <!-- Modal body -->
@@ -197,8 +197,15 @@ import { load } from "recaptcha-v3";
 import axios from "axios";
 import ErrorHandling from "../../ErrorHandling";
 import Error from "./../components/Error.vue";
+import helper from "../../helper";
+import { useTranslation } from "@/Utils/i18n";
+
 export default {
     props: ["event_id", "submit_url", "event_detail_setting"],
+    setup() {
+        const { __ } = useTranslation();
+        return { __ };
+    },
     components: {
         Error,
     },

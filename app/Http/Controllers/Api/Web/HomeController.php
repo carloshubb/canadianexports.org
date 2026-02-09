@@ -57,7 +57,7 @@ class HomeController extends Controller
         if (!$page) {
             abort(404);
         }
-        //dd($page);
+        
         return view('front.index', compact('slug', 'page', 'lang'));
     }
 

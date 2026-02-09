@@ -5,7 +5,7 @@
             <div
                 class="px-4 py-1.5 sm:px-6 text-center bg-gradient-to-r from-primary via-primary to-secondary rounded-md cursor-pointer my-6">
                 <h4 class="text-center card-heading text-white">
-                    {{ JSON.parse(event_detail)["package_section_heading"] ?? '1 of 4 - Select Your Package' }}
+                    {{ JSON.parse(event_detail)["package_section_heading"] ?? __("1 of 4 - Select Your Package") }}
                 </h4>
             </div>
             <div class="w-full">
@@ -14,8 +14,7 @@
                         <div v-if="showDowngradeMessage"
                             class="mx-auto mt-4 max-w-2xl rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800"
                             role="alert">
-                            Membership downgrades cannot be processed automatically. Please contact us to adjust your
-                            plan.
+                            {{ __("Membership downgrades cannot be processed automatically. Please contact us to adjust your plan.") }}
                         </div>
                         <div
                             class="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-auto lg:max-w-3xl md:grid-cols-2 lg:grid-cols-2">
@@ -31,13 +30,13 @@
                                 <!-- Premium bar: red bg, white text, rounded top only; full color when selected (card opacity fades when not) -->
                                 <div
                                     class="w-full mb-6 rounded-t-xl rounded-b-none bg-red-600 py-2.5 flex items-center justify-center">
-                                    <span class="text-white font-semibold text-lg">Premium</span>
+                                    <span class="text-white font-semibold text-lg">{{ __("Premium") }}</span>
                                 </div>
                                 <div class="flex flex-col items-center justify-center text-center gap-y-2">
 
                                     <p v-if="premiumPackage?.is_default"
                                         class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600">
-                                        Most popular
+                                        {{ __("Most popular") }}
                                     </p>
 
                                 </div>
@@ -83,12 +82,12 @@
                                 <!-- Featured bar: maroon bg, warm gold text, rounded top only; full color when selected (card opacity fades when not). Unselected frame: very thin light grey -->
                                 <div
                                     class="w-full mb-6 rounded-t-xl rounded-b-none bg-[#800000] py-2.5 flex items-center justify-center">
-                                    <span class="font-semibold text-lg text-[#C9A227]">Featured</span>
+                                    <span class="font-semibold text-lg text-[#C9A227]">{{ __("Featured") }}</span>
                                 </div>
                                 <div class="flex flex-col items-center justify-center text-center gap-y-1">
                                     <p class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600 mt-1"
                                         v-if="featuredPackage?.is_default">
-                                        Most popular
+                                        {{ __("Most popular") }}
                                     </p>
                                 </div>
                                 <p class="mt-4 text-sm leading-6 text-gray-600">
@@ -959,7 +958,7 @@
                                 JSON.parse(current_user)?.registration_package?.package_type == 'featured'
                             ">
                                 <FilePond
-                                    labelIdle='<span class="cursor-pointer">Drag & Drop your files or <span class="filepond--label-action"> Browse </span></span>'
+                                    :label-idle="labelIdleGallery"
                                     class="cursor-pointer" name="gallery_image" ref="gallery_image" class-name="my-pond"
                                     credits="false" accepted-file-types="image/*" allow-multiple="true"
                                     @init="handleGalleryImagesInit" @processfile="handleGalleryImagesProcess"
@@ -968,7 +967,7 @@
                             </template>
                             <template v-else>
                                 <FilePond
-                                    labelIdle='<span class="cursor-pointer">Drag & Drop your files or <span class="filepond--label-action"> Browse </span></span>'
+                                    :label-idle="labelIdleGallery"
                                     class="cursor-pointer" name="gallery_image" ref="gallery_image" class-name="my-pond"
                                     credits="false" accepted-file-types="image/*" @init="handleGalleryImagesInit"
                                     @processfile="handleGalleryImagesProcess"
@@ -1114,7 +1113,7 @@
                         <div class="relative z-0 w-full mb-6 group">
                             <FilePond name="photo_gallery_image" :ref="el => { if (el) photoGalleryPond = el }"
                                 class-name="my-pond"
-                                labelIdle='<span class="cursor-pointer">Drag & Drop your files or <span class="filepond--label-action"> Browse </span></span>'
+                                :label-idle="labelIdleGallery"
                                 :max-files="effectivePackageType === 'featured' ? 20 : 8" :max-file-size="10 * 1024 * 1024"
                                 accepted-file-types="image/png, image/gif, image/jpeg, image/jpg" credits="false"
                                 allow-multiple="true" v-bind:files="photo_gallery_files"
@@ -1208,21 +1207,19 @@
                                     c5.883,0.84,10.02,6.206,9.503,12.024C310.715,146.699,307.871,166.61,303.087,186.457z" />
                     </g>
                 </svg>
-                <p style="color: #3498db; font-family: 'Futura BdCn BT';"><span style="font-size: 18pt;">Protecting your
-                        privacy
-                        is fundamental to our mission and business:</span></p>
+                <p style="color: #3498db; font-family: 'Futura BdCn BT';"><span style="font-size: 18pt;">{{ __("Protecting your privacy is fundamental to our mission and business:") }}</span></p>
 
             </div>
             <div class="mt-2 can-exp-p">
                 <ul>
                     <li>
-                        <p>We never sell your data or information</p>
+                        <p>{{ __("We never sell your data or information") }}</p>
                     </li>
                     <li>
-                        <p>We do not own the content that you upload on our website</p>
+                        <p>{{ __("We do not own the content that you upload on our website") }}</p>
                     </li>
                     <li>
-                        <p>We never send you junk e-mail</p>
+                        <p>{{ __("We never send you junk e-mail") }}</p>
                     </li>
                 </ul>
             </div>
@@ -1248,6 +1245,8 @@
 
 <script>
 import { load } from "recaptcha-v3";
+import helper from "../../helper";
+import { useTranslation } from "@/Utils/i18n";
 // Import filepond
 import vueFilePond, { setOptions } from "vue-filepond";
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.esm.js";
@@ -1266,9 +1265,14 @@ import { mapState } from "vuex";
 import { VueDatePicker } from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 export default {
-
-
+    setup() {
+        const { __ } = useTranslation();
+        return { __ };
+    },
     computed: {
+        labelIdleGallery() {
+            return "<span class='cursor-pointer'>" + this.__("Drag & Drop your files or") + " <span class='filepond--label-action'>" + this.__("Browse") + "</span></span>";
+        },
         ...mapState({
             form: (state) => state.signup.form,
             regPageSetting: (state) => state.signup.regPageSetting,
@@ -1304,7 +1308,7 @@ export default {
             console.log("Raw Label:", this.regPageSetting);
 
             if (!rawLabel) {
-                return "CTA (Call-to-Action) Button Title(Max. 5 words)";
+                return this.__("CTA (Call-to-Action) Button Title(Max. 5 words)");
             }
 
             return rawLabel.replace(/\(5\)/g, '<sup class="footnote-indicator">(5)</sup>');
@@ -1325,14 +1329,17 @@ export default {
         showPhotoGallery() {
             return this.effectivePackageType === 'premium' || this.effectivePackageType === 'featured';
         },
+        downgradeTooltipText() {
+            return this.__("Membership downgrades cannot be processed automatically. Please contact us to adjust your plan.");
+        },
         photoGallerySectionTitle() {
             if (this.effectivePackageType === 'featured') {
-                return '(Upload up to 20 images. Max 10 MB each. Supports PNG, GIF, or JPG)';
+                return 'Photo Gallery (Upload up to 20 images. Max 10 MB each. Supports PNG, GIF, or JPG)';
             }
             if (this.effectivePackageType === 'premium') {
-                return '(Upload up to 8 images. Max 10 MB each. Supports PNG, GIF, or JPG)';
+                return 'Photo Gallery (Upload up to 8 images. Max 10 MB each. Supports PNG, GIF, or JPG)';
             }
-            return '';
+            return 'Photo Gallery';
         },
         photoGalleryServerConfig() {
             const csrf = document.head.querySelector('meta[name="csrf-token"]')?.content;
@@ -1473,8 +1480,6 @@ export default {
                 end_date: "",
             },
             showDowngradeMessage: false,
-            downgradeTooltipText:
-                "Membership downgrades cannot be processed automatically. Please contact us to adjust your plan.",
             initialEventPackageType: null,
             contactPhotoTooltipIndex: null,
         };
@@ -1646,7 +1651,7 @@ export default {
             }
 
             if (!isValid) {
-                const message = "Please select a valid date";
+                const message = this.__("Please select a valid date");
                 if (
                     typeof helper !== "undefined" &&
                     helper &&
@@ -1856,7 +1861,7 @@ export default {
                             window.location.href = res.data.data.redirect_url;
                         }
                     } else {
-                        helper.swalErrorMessageForWeb(res.data.message);
+                        helper.swalErrorMessageForWeb(res.data.message || this.__("An error occurred. Please try again."));
                     }
                 })
                 .catch((error) => {
@@ -1873,7 +1878,7 @@ export default {
                         error.response.data.status == "Error"
                     ) {
                         helper.swalErrorMessageForWeb(
-                            error.response.data.message
+                            error.response.data.message || this.__("An error occurred. Please try again.")
                         );
                     }
                 });
