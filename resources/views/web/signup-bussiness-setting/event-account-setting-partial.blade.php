@@ -24,7 +24,7 @@
         $eventCreateSettingDetail = isset($eventCreateSetting->eventCreateSettingDetail[0])
         ? $eventCreateSetting->eventCreateSettingDetail[0]
         : null;        
-        $languages = getAllLanguages();
+        $languages = getAllLanguages();        
         @endphp
         <profile-event-signup event_detail="{{ $eventSignupSettingDetail }}"
             eventsetting="{{ $eventCreateSettingDetail }}"

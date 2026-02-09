@@ -203,7 +203,7 @@
             $eventCreateSetting = getEventCreateSetting($lang, $page1);
             $eventCreateSettingDetail = isset($eventCreateSetting->eventCreateSettingDetail[0])
                 ? $eventCreateSetting->eventCreateSettingDetail[0]
-                : null;
+                : null;           
         @endphp
         @include('front.pages.event-signup-template.index', ['page' => $page, 'page1' => $page1, 'lang' => $lang])
     @elseif(isset($page) && $page->template == 'event_create_template')

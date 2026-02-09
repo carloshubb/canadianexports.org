@@ -7,7 +7,7 @@
                         // Define variables first
                         $event_id = isset($_GET['id']) ? $_GET['id'] : null;
                         $event_slug = isset($_GET['slug']) ? $_GET['slug'] : null;
-                        $languages = getAllLanguages();
+                        $languages = getAllLanguages();                       
                         $payment_setting = getI2bModalSetting($lang, ['payment_setting']);
                         $user = auth()->guard('customers')->user();
                         $submit_url = $user
@@ -17,7 +17,7 @@
                     @isset($page->pageDetail[0])
                         <div class="">
                             @php
-                                $page_detail = $page->pageDetail[0]->page_detail;                                
+                                $page_detail = $page->pageDetail[0]->page_detail;                                                           
                                 // If editing an event, change the title
                                 if ($event_id) {
                                     $page_detail = '<h1 style="text-align: center; line-height: 1;">Update Your Event Details</h1>
