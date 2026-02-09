@@ -4,26 +4,26 @@
       <div class="my-4" v-if="profile && user && !hide_welcome">
         <template v-if="parsedUser?.is_package_amount_paid">
           <h4 class="font-FuturaMdCnBT">{{ regPageSetting?.reg_page_setting_detail?.[0]
-            ?.greeting_text ?? 'Welcome back' }} {{ parsedUser?.name }},</h4>
+            ?.greeting_text ?? __("Welcome back") }} {{ parsedUser?.name }},</h4>
           <p class="font-FuturaMdCnBT" v-html="regPageSetting?.reg_page_setting_detail?.[0]
               ?.step_2_acc_description
             "></p>
         </template>
       </div>
       <div class="px-4 py-1.5 sm:px-6 text-center bg-gradient-to-r from-xblue via-primary to-blue-600 rounded-md">
-        <h4 class="text-white">2 of 3 - Company & Contact Information</h4>
+        <h4 class="text-white">{{ __("2 of 3 - Company & Contact Information") }}</h4>
       </div>
 
       <div class="my-4 space-y-8">
         <!-- Sub-section 1: Contact Person -->
         <div class="border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
           <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">
-            Contact Person
+            {{ __("Contact Person") }}
           </h5>
 
           <div class="relative w-full mb-8">
             <label class="block  mb-1 text-base md:text-base lg:text-lg font-bold" for="name">
-              {{ regPageSetting?.reg_page_setting_detail?.[0]?.step_2_full_name_label || 'Full Name' }}
+              {{ regPageSetting?.reg_page_setting_detail?.[0]?.step_2_full_name_label || __("Full Name") }}
               <span class="text-red-500">*</span>
             </label>
             <input type="text" id="name" class="can-exp-input min-h-[60px] lg:min-h-full"
@@ -34,7 +34,7 @@
           </div>
           <div class="relative w-full mb-8">
             <label class="block mb-1 text-base md:text-base lg:text-lg font-bold" for="job_title">
-              {{ regPageSetting?.reg_page_setting_detail?.[0]?.step_2_job_title_label || 'Job Title' }}
+              {{ regPageSetting?.reg_page_setting_detail?.[0]?.step_2_job_title_label || __("Job Title") }}
             </label>
             <input type="text" id="job_title" class="can-exp-input min-h-[60px] lg:min-h-full"
               :placeholder="regPageSetting?.reg_page_setting_detail?.[0]?.step_2_job_title_placeholder 
@@ -61,7 +61,7 @@
           <div class="relative w-full mb-8" v-if="profile != '1'">
             <label class="block mb-1 text-base md:text-base lg:text-lg font-bold" for="password">
               {{ regPageSetting?.reg_page_setting_detail?.[0]?.step_2_password_label }}
-              <span class="ml-1 text-[0.85em] font-normal">(Min. 8 characters. Must contain at least one lowercase and one uppercase)</span>
+              <span class="ml-1 text-[0.85em] font-normal">{{ __("(Min. 8 characters. Must contain at least one lowercase and one uppercase)") }}</span>
               <span class="text-red-500">*</span>
             </label>
             <div class="relative">
@@ -108,7 +108,7 @@
         <!-- Sub-section 2: Company Location & Contact -->
         <div class="border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
           <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">
-          Company Location & Contact</h5>
+          {{ __("Company Location & Contact") }}</h5>
           <div class="relative w-full mb-8">
             <label class="block mb-1 text-base md:text-base lg:text-lg font-bold" for="customer_profile_company_name">
               {{ regPageSetting?.reg_page_setting_detail?.[0]?.step_4_name_label }}
@@ -171,11 +171,11 @@
         <!-- Sub-section 3: Company Profile & Keywords -->
         <div class="border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
           <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">
-            Company Profile & Keywords</h5>
+            {{ __("Company Profile & Keywords") }}</h5>
           <div class="relative w-full mb-8">
             <label class="block mb-1 text-base md:text-base lg:text-lg font-bold" for="customer_profile_short_description">
-              Short Summary
-              <span class="ml-1 text-[0.85em] font-normal">(Max. 30 words)</span>
+              {{ __("Short Summary") }}
+              <span class="ml-1 text-[0.85em] font-normal">{{ __("(Max. 30 words)") }}</span>
               <span class="text-red-500">*</span>
             </label>
             <textarea rows="3" id="customer_profile_short_description" class="can-exp-input"
@@ -186,8 +186,8 @@
           </div>
           <div class="relative w-full mb-8">
             <label class="block mb-1 text-base md:text-base lg:text-lg font-bold" for="customer_profile_description">
-              Full Description
-              <span class="ml-1 text-[0.85em] font-normal">(Max. 300 words)</span>
+              {{ __("Full Description") }}
+              <span class="ml-1 text-[0.85em] font-normal">{{ __("(Max. 300 words)") }}</span>
               <span class="text-red-500">*</span>
             </label>
             <textarea rows="6" id="customer_profile_description" class="can-exp-input"
@@ -209,11 +209,11 @@
           </div>
           <div class="relative w-full mb-8" v-if="package_type && package_type.toLowerCase() !== 'free'">
             <label class="block  mb-1 text-base md:text-base lg:text-lg font-bold" for="customer_profile_cta_btn">
-              CTA(Call-to-Action) Button
-              <span class="ml-1 text-[0.85em] font-normal">(Max. 5 words)</span>
+              {{ __("CTA(Call-to-Action) Button") }}
+              <span class="ml-1 text-[0.85em] font-normal">{{ __("(Max. 5 words)") }}</span>
             </label>
             <input type="text" id="customer_profile_cta_btn" class="can-exp-input"
-              placeholder="The button text that guides the user's next action; e.g., Learn More."
+              :placeholder="__('The button text that guides the user\'s next action; e.g., Learn More.')"
               @input="onFieldInput($event, 'customer_profile_cta_btn')"
               :value="form && form.has('customer_profile_cta_btn') ? form.get('customer_profile_cta_btn') : ''" />
             <Error fieldName="customer_profile_cta_btn" :validationErros="validationErros" />
@@ -237,8 +237,13 @@
 <script>
 import { mapState } from "vuex";
 import Error from "./../components/Error.vue";
+import { useTranslation } from "@/Utils/i18n";
 
 export default {
+  setup() {
+    const { __ } = useTranslation();
+    return { __ };
+  },
   components: { Error },
   props: ["profile", "user", "page_id", "lang", "hide_welcome"],
   data() {
@@ -393,7 +398,7 @@ export default {
         this.updateForm(fieldName, truncatedValue);
         this.$store.commit("signup/recordValidationError", {
           field: fieldName,
-          error: `Mailing Address must not contain more than ${maxLines} lines.`,
+          error: this.__("Mailing Address must not contain more than") + " " + maxLines + " " + this.__("lines."),
         });
         return;
       }

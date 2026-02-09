@@ -6,7 +6,7 @@
               <fieldset
                 class="grid sm:grid-cols-4 grid-cols-2 gap-2 text-center"
               >
-                <legend class="sr-only">Payment frequency</legend>
+                <legend class="sr-only">{{ __("Payment frequency") }}</legend>
                 <div>
                 <label
                   class="cursor-pointer rounded px-3 py-2 w-28 block"
@@ -23,7 +23,7 @@
                     class="sr-only"
                     @click="updatePackageForm('payment_frequency', 'monthly')"
                   />
-                  <span>Monthly</span>
+                  <span>{{ __("Monthly") }}</span>
                 </label>
             </div>
             <div>
@@ -42,9 +42,9 @@
                     class="sr-only"
                     @click="updatePackageForm('payment_frequency', 'quarterly')"
                   />
-                  <span>Quarterly</span>
+                  <span>{{ __("Quarterly") }}</span>
                 </label>
-                <p class="text-center text-xs mt-2">(Save {{ discountPercentages.quarterly || 10 }}%)</p>
+                <p class="text-center text-xs mt-2">{{ __("Save") }} {{ discountPercentages.quarterly || 10 }}%</p>
             </div>
             <div>
                 <label
@@ -64,9 +64,9 @@
                       updatePackageForm('payment_frequency', 'semi_annually')
                     "
                   />
-                  <span>Semi-annual</span>
+                  <span>{{ __("Semi-annual") }}</span>
                 </label>
-                <p class="text-center text-xs mt-2">(Save {{ discountPercentages.semi_annually || 20 }}%)</p>
+                <p class="text-center text-xs mt-2">{{ __("Save") }} {{ discountPercentages.semi_annually || 20 }}%</p>
             </div>
             <div>
                 <label
@@ -84,9 +84,9 @@
                     class="sr-only"
                     @click="updatePackageForm('payment_frequency', 'annually')"
                   />
-                  <span>Annual</span>
+                  <span>{{ __("Annual") }}</span>
                 </label>
-                <p class="text-center text-xs mt-2">(Save {{ discountPercentages.annually || 40 }}%)</p>
+                <p class="text-center text-xs mt-2">{{ __("Save") }} {{ discountPercentages.annually || 40 }}%</p>
             </div>
               </fieldset>
             </div>
@@ -109,7 +109,7 @@
                     class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600 whitespace-nowrap"
                     v-if="freePackage?.is_default"
                   >
-                    Most popular
+                    {{ __("Most popular") }}
                   </p>
                 </div>
                 <p class="mt-4 text-sm leading-6 text-gray-700">
@@ -135,7 +135,7 @@
                   </span>
 
                   <span class="text-sm font-semibold leading-6 text-gray-600"
-                    >/month</span
+                    >{{ __("/month") }}</span
                   >
                 </p>
                 <ul
@@ -183,7 +183,7 @@
                     class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600 whitespace-nowrap"
                     v-if="premiumPackage?.is_default"
                   >
-                    Most popular
+                    {{ __("Most popular") }}
                   </p>
                 </div>
                 <p class="mt-4 text-sm leading-6 text-gray-700">
@@ -209,7 +209,7 @@
                   </span>
 
                   <span class="text-sm font-semibold leading-6 text-gray-600"
-                    >/month</span
+                    >{{ __("/month") }}</span
                   >
                 </p>
                 <ul
@@ -261,7 +261,7 @@
                     class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600 whitespace-nowrap"
                     v-if="featuredPackage?.is_default"
                   >
-                    Most popular
+                    {{ __("Most popular") }}
                   </p>
                 </div>
                 <p class="mt-4 text-sm leading-6 text-gray-700">
@@ -287,7 +287,7 @@
                   </span>
 
                   <span class="text-sm font-semibold leading-6 text-gray-600"
-                    >/month</span
+                    >{{ __("/month") }}</span
                   >
                 </p>
                 <ul
@@ -433,8 +433,14 @@ import { load } from "recaptcha-v3";
 import Error from "../components/Error.vue";
 import axios from "axios";
 import ErrorHandling from "../../ErrorHandling";
+import { useTranslation } from "@/Utils/i18n";
+import helper from "../../helper";
 
 export default {
+  setup() {
+    const { __ } = useTranslation();
+    return { __ };
+  },
   props: {
     user: {
       type: Object,

@@ -2893,3 +2893,7 @@ Make sure to put the “X” sign on top right of this popup, and make sure it w
 #78 D:\\work\\_2025\\canadianexports.org\\server.php(21): require_once('D:\\\\work\\\\_2025\\\\c...')
 #79 {main}
 "} 
+[2026-02-08 20:01:15] local.INFO: Fetching sponsor profiles {"customer_id":50187} 
+[2026-02-08 20:01:15] local.INFO: Sponsor profiles found {"customer_id":50187,"count":2} 
+[2026-02-08 20:07:52] local.INFO: Fetching sponsor profiles {"customer_id":50187} 
+[2026-02-08 20:07:52] local.INFO: Sponsor profiles found {"customer_id":50187,"count":2} 

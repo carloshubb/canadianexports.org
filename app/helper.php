@@ -476,7 +476,7 @@ if (!function_exists("getBecomeSponsorSetting")) {
     {
         $becomeSponsorSetting = BecomeSponsorSetting::wherePageId($page->id)->with(['becomeSponsorSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
-        }])->first();
+        }])->first();        
         return $becomeSponsorSetting;
     }
 }

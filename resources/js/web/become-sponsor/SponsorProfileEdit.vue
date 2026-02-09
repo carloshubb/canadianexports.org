@@ -4,15 +4,15 @@
     <!-- Profile status + View public profile (one line, badge/button style) -->
     <div v-if="sponsor" class="flex flex-wrap items-center gap-3 mb-6">
       <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 bg-gray-50/80 text-sm text-gray-700 font-FuturaMdCnBT">
-        Your Profile Status:
+        {{ __("Your Profile Status") }}:
         <span class="inline-flex items-center gap-1.5">
           <span class="w-2 h-2 rounded-full shrink-0" :class="sponsor.status === 'active' ? 'bg-green-500' : 'bg-gray-400'"></span>
-          {{ sponsor.status === 'active' ? 'Live' : (sponsor.status === 'pending' ? 'Pending' : 'Draft') }}
+          {{ sponsor.status === 'active' ? __("Live") : (sponsor.status === 'pending' ? __("Pending") : __("Draft")) }}
         </span>
       </span>
       <a :href="publicProfileUrl" target="_blank" rel="noopener noreferrer"
         class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/40 bg-primary/5 text-primary text-sm font-FuturaMdCnBT hover:bg-primary/10 hover:border-primary/60 transition-colors">
-        View Public Profile
+        {{ __("View Public Profile") }}
       </a>
     </div>
 
@@ -21,29 +21,29 @@
       class="bg-gradient-to-r from-blue-50 to-primary/10 border border-primary/30 rounded-lg p-6 mb-6">
       <div class="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h3 class="text-lg font-semibold text-gray-800">Sponsorship Status</h3>
+          <h3 class="text-lg font-semibold text-gray-800">{{ __("Sponsorship Status") }}</h3>
           <div class="flex items-center gap-3 mt-2">
             <span class="px-3 py-1 rounded-full text-sm font-medium" :class="{
               'bg-green-100 text-green-800': sponsor.status === 'active',
               'bg-yellow-100 text-yellow-800': sponsor.status === 'pending',
               'bg-gray-100 text-gray-800': sponsor.status === 'inactive',
             }">
-              {{ sponsor.status === 'active' ? '✓ Active' : sponsor.status === 'pending' ? '⏳ Pending' : 'Inactive' }}
+              {{ sponsor.status === 'active' ? '✓ ' + __("Active") : sponsor.status === 'pending' ? '⏳ ' + __("Pending") : __("Inactive") }}
             </span>
             <span v-if="sponsor.payment_status" class="px-3 py-1 rounded-full text-sm font-medium" :class="{
               'bg-green-100 text-green-800': sponsor.payment_status === 'paid',
               'bg-yellow-100 text-yellow-800': sponsor.payment_status === 'pending',
               'bg-blue-100 text-blue-800': sponsor.payment_status === 'not_required',
             }">
-              {{ sponsor.payment_status === 'paid' ? '💳 Paid' : sponsor.payment_status === 'pending' ? 'Payment Pending' : 'Contact Request' }}
+              {{ sponsor.payment_status === 'paid' ? '💳 ' + __("Paid") : sponsor.payment_status === 'pending' ? __("Payment Pending") : __("Contact Request") }}
             </span>
           </div>
         </div>
         <div v-if="sponsor.sponsorship_amount" class="text-right">
-          <p class="text-sm text-gray-600">Sponsorship Amount</p>
+          <p class="text-sm text-gray-600">{{ __("Sponsorship Amount") }}</p>
           <p class="text-2xl font-bold text-primary">${{ parseFloat(sponsor.sponsorship_amount).toFixed(2) }}</p>
           <p v-if="sponsor.paid_at" class="text-xs text-gray-500 mt-1">
-            Paid on {{ formatDate(sponsor.paid_at) }}
+            {{ __("Paid on") }} {{ formatDate(sponsor.paid_at) }}
           </p>
         </div>
       </div>
@@ -52,13 +52,13 @@
       <div v-if="sponsor.payment_status === 'paid'" class="mt-4 pt-4 border-t border-primary/20">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
           <div>
-            <span class="text-gray-600">Payment Method:</span>
+            <span class="text-gray-600">{{ __("Payment Method") }}:</span>
             <span class="ml-2 font-medium capitalize">
               {{ getPaymentMethodDisplay(sponsor.payment_method) }}
             </span>
           </div>
           <div v-if="sponsor.beneficiary">
-            <span class="text-gray-600">Beneficiary:</span>
+            <span class="text-gray-600">{{ __("Beneficiary") }}:</span>
             <span class="ml-2 font-medium">{{ sponsor.beneficiary.name }}</span>
           </div>
         </div>
@@ -66,10 +66,10 @@
 
       <!-- Upgrade plan (only for recurring Stripe subscriptions) -->
       <div v-if="canUpgradePlan" class="mt-4 pt-4 border-t border-primary/20">
-        <p class="text-sm text-gray-600 mb-2">Upgrade your plan mid-cycle: we’ll apply unused time from your current plan as credit toward the new one.</p>
+        <p class="text-sm text-gray-600 mb-2">{{ __("Upgrade your plan mid-cycle: we'll apply unused time from your current plan as credit toward the new one.") }}</p>
         <button type="button" @click="openUpgradeModal"
           class="px-4 py-2 rounded-md bg-primary text-white text-sm font-medium hover:opacity-90 transition-opacity">
-          Upgrade plan
+          {{ __("Upgrade plan") }}
         </button>
       </div>
     </div>
@@ -79,40 +79,40 @@
       <!-- Company Information -->
       <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
         <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-          <h4 class="text-white">Company Information</h4>
+          <h4 class="text-white">{{ __("Company Information") }}</h4>
         </div>
         <div class="p-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2" for="company_name">
-                Company Name <span class="text-red-500">*</span>
+                {{ __("Company Name") }} <span class="text-red-500">*</span>
               </label>
               <input type="text" id="company_name" v-model="form.company_name" class="can-exp-input"
-                placeholder="Your Company Inc." @input="clearErrors('company_name')" />
+                :placeholder="__('Your Company Inc.')" @input="clearErrors('company_name')" />
               <Error v-if="submitted" fieldName="company_name" :validationErros="validationErros" />
             </div>
 
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2" for="contact_name">
-                Contact Person <span class="text-red-500">*</span>
+                {{ __("Contact Person") }} <span class="text-red-500">*</span>
               </label>
               <input type="text" id="contact_name" v-model="form.contact_name" class="can-exp-input"
-                placeholder="John Doe" @input="clearErrors('contact_name')" />
+                :placeholder="__('John Doe')" @input="clearErrors('contact_name')" />
               <Error v-if="submitted" fieldName="contact_name" :validationErros="validationErros" />
             </div>
 
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2" for="email">
-                Email Address <span class="text-red-500">*</span>
+                {{ __("Email Address") }} <span class="text-red-500">*</span>
               </label>
-              <input type="email" id="email" v-model="form.email" class="can-exp-input" placeholder="john@company.com"
+              <input type="email" id="email" v-model="form.email" class="can-exp-input" :placeholder="__('john@company.com')"
                 @input="clearErrors('email')" />
               <Error v-if="submitted" fieldName="email" :validationErros="validationErros" />
             </div>
 
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2" for="contact_number">
-                Contact Number <span class="text-red-500">*</span>
+                {{ __("Contact Number") }} <span class="text-red-500">*</span>
               </label>
               <input type="text" id="contact_number" v-model="form.contact_number" class="can-exp-input"
                 placeholder="15551234567" maxlength="15" @input="handlePhoneInput('contact_number')"
@@ -122,10 +122,10 @@
 
             <div class="md:col-span-2">
               <label class="block text-sm font-medium text-gray-700 mb-2" for="url">
-                Company Website
+                {{ __("Company Website") }}
               </label>
               <input type="url" id="url" v-model="form.url" class="can-exp-input"
-                placeholder="https://www.yourcompany.com" @input="clearErrors('url')" />
+                :placeholder="__('https://www.yourcompany.com')" @input="clearErrors('url')" />
               <Error v-if="submitted" fieldName="url" :validationErros="validationErros" />
             </div>
           </div>
@@ -135,36 +135,36 @@
       <!-- Company Description -->
       <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
         <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-          <h4 class="text-white">Company Description</h4>
+          <h4 class="text-white">{{ __("Company Description") }}</h4>
         </div>
         <div class="p-6">
           <div class="space-y-4">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2" for="summary">
-                Brief Description <span class="text-red-500">*</span>
+                {{ __("Brief Description") }} <span class="text-red-500">*</span>
               </label>
               <textarea id="summary" v-model="form.summary" rows="3" class="can-exp-input resize-none"
-                placeholder="A brief overview of your company..." @input="clearErrors('summary')"></textarea>
+                :placeholder="__('A brief overview of your company...')" @input="clearErrors('summary')"></textarea>
               <Error v-if="submitted" fieldName="summary" :validationErros="validationErros" />
             </div>
 
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2" for="detail_description">
-                Detailed Description <span class="text-red-500">*</span>
+                {{ __("Detailed Description") }} <span class="text-red-500">*</span>
               </label>
               <textarea id="detail_description" v-model="form.detail_description" rows="5"
                 class="can-exp-input resize-none"
-                placeholder="Tell us more about your company, products, and services..."
+                :placeholder="__('Tell us more about your company, products, and services...')"
                 @input="clearErrors('detail_description')"></textarea>
               <Error v-if="submitted" fieldName="detail_description" :validationErros="validationErros" />
             </div>
 
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2" for="message">
-                Additional Message
+                {{ __("Additional Message") }}
               </label>
               <textarea id="message" v-model="form.message" rows="3" class="can-exp-input resize-none"
-                placeholder="Any additional information..." @input="clearErrors('message')"></textarea>
+                :placeholder="__('Any additional information...')" @input="clearErrors('message')"></textarea>
               <Error v-if="submitted" fieldName="message" :validationErros="validationErros" />
             </div>
           </div>
@@ -174,20 +174,20 @@
       <!-- Company Media -->
       <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
         <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-          <h4 class="text-white">Company Media</h4>
+          <h4 class="text-white">{{ __("Company Media") }}</h4>
         </div>
         <div class="p-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Logo -->
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">
-                Company Logo
-                <span class="text-xs text-gray-500">(Max 10MB, PNG/JPG/JPEG/GIF)</span>
+                {{ __("Company Logo") }}
+                <span class="text-xs text-gray-500">({{ __("Max 10MB, PNG/JPG/JPEG/GIF") }})</span>
               </label>
 
               <!-- Current Logo Preview -->
               <div v-if="sponsor && sponsor.logo_media && !form.logo" class="mb-3">
-                <p class="text-xs text-gray-500 mb-2">Current Logo:</p>
+                <p class="text-xs text-gray-500 mb-2">{{ __("Current Logo") }}:</p>
                 <div class="relative inline-block">
                   <img :src="`/${sponsor.logo_media.path}`" alt="Current Logo"
                     class="w-32 h-32 object-contain border rounded" />
@@ -199,7 +199,7 @@
               </div>
 
               <FilePond ref="filePondLogo" name="logo"
-                label-idle="<span class='cursor-pointer'>Drag & Drop your logo or Browse</span>"
+                :label-idle="labelIdleLogo"
                 accepted-file-types="image/*" max-file-size="10MB" @init="handleLogoInit"
                 @processfile="handleLogoProcess" @removefile="handleLogoRemove" :files="logo_files" />
               <Error v-if="submitted" fieldName="logo" :validationErros="validationErros" />
@@ -208,13 +208,13 @@
             <!-- Featured Image -->
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">
-                Featured Image
-                <span class="text-xs text-gray-500">(Max 10MB, PNG/JPG/JPEG/GIF)</span>
+                {{ __("Featured Image") }}
+                <span class="text-xs text-gray-500">({{ __("Max 10MB, PNG/JPG/JPEG/GIF") }})</span>
               </label>
 
               <!-- Current Featured Image Preview -->
               <div v-if="sponsor && sponsor.featured_media && !form.featured_image" class="mb-3">
-                <p class="text-xs text-gray-500 mb-2">Current Featured Image:</p>
+                <p class="text-xs text-gray-500 mb-2">{{ __("Current Featured Image") }}:</p>
                 <div class="relative inline-block">
                   <img :src="`/${sponsor.featured_media.path}`" alt="Current Featured Image"
                     class="w-32 h-32 object-cover border rounded" />
@@ -226,7 +226,7 @@
               </div>
 
               <FilePond ref="filePondFeatured" name="featured_image"
-                label-idle="<span class='cursor-pointer'>Drag & Drop your featured image or Browse</span>"
+                :label-idle="labelIdleFeatured"
                 accepted-file-types="image/*" max-file-size="10MB" @init="handleFeaturedImageInit"
                 @processfile="handleFeaturedImageProcess" @removefile="handleFeaturedImageRemove"
                 :files="featured_image_files" />
@@ -239,13 +239,13 @@
       <!-- Your Password -->
       <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
         <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-          <h4 class="text-white">Your Password</h4>
+          <h4 class="text-white">{{ __("Your Password") }}</h4>
         </div>
         <div class="p-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="md:col-span-2">
               <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="current_password">
-                Current Password
+                {{ __("Current Password") }}
               </label>
               <div class="relative">
                 <input :type="showCurrentPassword ? 'text' : 'password'" id="current_password"
@@ -296,7 +296,7 @@
 
             <div>
               <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="new_password_confirmation">
-                Confirm New Password
+                {{ __("Confirm New Password") }}
               </label>
               <div class="relative">
                 <input :type="showNewPasswordConfirm ? 'text' : 'password'" id="new_password_confirmation"
@@ -322,7 +322,7 @@
           </div>
           <div class="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
             <p class="text-sm text-blue-800">
-              <strong>Note: </strong>Leave these fields blank to keep your current password. Only enter a new password if you wish to update it.
+              <strong>{{ __("Note") }}: </strong>{{ __("Leave these fields blank to keep your current password. Only enter a new password if you wish to update it.") }}
             </p>
           </div>
         </div>
@@ -334,7 +334,7 @@
           class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-opacity duration-200"
           :class="{ 'opacity-50': !formDirty }"
           :disabled="loading">
-          Reset Changes
+          {{ __("Reset Changes") }}
         </button>
         <button type="submit" class="button-exp-fill transition-opacity duration-200" :class="{ 'opacity-50': !formDirty }"
           :disabled="loading">
@@ -346,10 +346,10 @@
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
               </path>
             </svg>
-            Updating...
+            {{ __("Updating...") }}
           </span>
           <span v-else>
-            Update Profile
+            {{ __("Update Profile") }}
           </span>
         </button>
       </div>
@@ -359,32 +359,32 @@
     <div v-if="upgradeModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" @click.self="closeUpgradeModal">
       <div class="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
         <div class="p-6">
-          <h3 class="text-lg font-semibold text-gray-800 mb-4">Upgrade your sponsorship plan</h3>
-          <p class="text-sm text-gray-600 mb-4">Your unused time on the current plan will be applied as credit. You pay: New plan price − credit.</p>
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">{{ __("Upgrade your sponsorship plan") }}</h3>
+          <p class="text-sm text-gray-600 mb-4">{{ __("Your unused time on the current plan will be applied as credit. You pay: New plan price − credit.") }}</p>
 
           <div class="space-y-4">
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">New amount per period ($)</label>
+              <label class="block text-sm font-medium text-gray-700 mb-1">{{ __("New amount per period ($)") }}</label>
               <input v-model.number="upgradeForm.new_amount" type="number" min="1" step="0.01" class="can-exp-input w-full"
-                placeholder="e.g. 500" />
+                :placeholder="__('e.g. 500')" />
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">New billing frequency</label>
+              <label class="block text-sm font-medium text-gray-700 mb-1">{{ __("New billing frequency") }}</label>
               <select v-model="upgradeForm.new_frequency" class="can-exp-input w-full">
-                <option value="monthly">Monthly</option>
-                <option value="quarterly">Quarterly</option>
-                <option value="annually">Annually</option>
+                <option value="monthly">{{ __("Monthly") }}</option>
+                <option value="quarterly">{{ __("Quarterly") }}</option>
+                <option value="annually">{{ __("Annually") }}</option>
               </select>
             </div>
             <button type="button" @click="loadUpgradePreview" :disabled="upgradePreviewLoading || !upgradeForm.new_amount"
               class="w-full px-4 py-2 rounded-md border border-primary text-primary text-sm font-medium hover:bg-primary hover:text-white transition-colors">
-              {{ upgradePreviewLoading ? 'Loading...' : 'See upgrade cost' }}
+              {{ upgradePreviewLoading ? __("Loading...") : __("See upgrade cost") }}
             </button>
 
             <div v-if="upgradePreview" class="p-4 bg-gray-50 rounded-md space-y-2 text-sm">
-              <p><span class="text-gray-600">Unused credit from current plan:</span> <strong>${{ upgradePreview.unused_credit.toFixed(2) }}</strong></p>
-              <p><span class="text-gray-600">New plan price:</span> <strong>${{ upgradePreview.new_plan_price.toFixed(2) }}</strong></p>
-              <p v-if="!upgradePreview.is_downgrade" class="pt-2 border-t border-gray-200"><span class="text-gray-600">Amount due today:</span> <strong class="text-primary">${{ upgradePreview.amount_due_today.toFixed(2) }}</strong></p>
+              <p><span class="text-gray-600">{{ __("Unused credit from current plan") }}:</span> <strong>${{ upgradePreview.unused_credit.toFixed(2) }}</strong></p>
+              <p><span class="text-gray-600">{{ __("New plan price") }}:</span> <strong>${{ upgradePreview.new_plan_price.toFixed(2) }}</strong></p>
+              <p v-if="!upgradePreview.is_downgrade" class="pt-2 border-t border-gray-200"><span class="text-gray-600">{{ __("Amount due today") }}:</span> <strong class="text-primary">${{ upgradePreview.amount_due_today.toFixed(2) }}</strong></p>
             </div>
 
             <!-- Downgrade: tooltip and submit request (no payment) -->
@@ -397,23 +397,23 @@
             <!-- Upgrade: card and confirm pay -->
             <template v-if="upgradePreview && !upgradePreview.is_downgrade">
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Cardholder name</label>
-                <input v-model="upgradeForm.cardholder_name" type="text" class="can-exp-input w-full" placeholder="John Doe" />
+                <label class="block text-sm font-medium text-gray-700 mb-1">{{ __("Cardholder Name") }}</label>
+                <input v-model="upgradeForm.cardholder_name" type="text" class="can-exp-input w-full" :placeholder="__('John Doe')" />
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Card details</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">{{ __("Card Details") }}</label>
                 <div ref="upgradeStripeCard" class="can-exp-input min-h-[40px]"></div>
-                <p v-if="upgradePreview.amount_due_today === 0" class="text-xs text-gray-500 mt-1">Your credit covers this upgrade; card will be used for future renewals.</p>
+                <p v-if="upgradePreview.amount_due_today === 0" class="text-xs text-gray-500 mt-1">{{ __("Your credit covers this upgrade; card will be used for future renewals.") }}</p>
               </div>
             </template>
           </div>
 
           <div class="flex gap-3 mt-6">
             <button type="button" @click="closeUpgradeModal"
-              class="flex-1 px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">Cancel</button>
+              class="flex-1 px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">{{ __("Cancel") }}</button>
             <button v-if="upgradePreview && upgradePreview.is_downgrade" type="button" @click="submitDowngradeRequest" :disabled="upgradeSubmitting"
               class="flex-1 px-4 py-2 rounded-md bg-primary text-white font-medium hover:opacity-90 disabled:opacity-50">
-              {{ upgradeSubmitting ? 'Submitting...' : 'Submit downgrade request' }}
+              {{ upgradeSubmitting ? __("Submitting...") : __("Submit downgrade request") }}
             </button>
             <button v-else-if="upgradePreview" type="button" @click="confirmUpgrade" :disabled="upgradeSubmitting || !upgradeForm.cardholder_name"
               class="flex-1 px-4 py-2 rounded-md bg-primary text-white font-medium hover:opacity-90 disabled:opacity-50">
@@ -435,7 +435,7 @@
               d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
             </path>
           </svg>
-          <span class="text-lg font-medium">Processing...</span>
+          <span class="text-lg font-medium">{{ __("Processing...") }}</span>
         </div>
       </div>
     </div>
@@ -447,6 +447,7 @@ import Error from "../components/Error.vue";
 import axios from "axios";
 import ErrorHandling from "../../ErrorHandling";
 import helper from "../../helper";
+import { useTranslation } from "@/Utils/i18n";
 import { loadStripe } from "@stripe/stripe-js";
 
 // Import FilePond
@@ -465,6 +466,10 @@ const FilePond = vueFilePond(
 
 export default {
   name: "SponsorProfileEdit",
+  setup() {
+    const { __ } = useTranslation();
+    return { __ };
+  },
   props: {
     sponsorshipId: {
       type: [String, Number],
@@ -525,6 +530,12 @@ export default {
     this.fetchSponsorProfile();
   },
   computed: {
+    labelIdleLogo() {
+      return "<span class='cursor-pointer'>" + this.__("Drag & Drop your logo or Browse") + "</span>";
+    },
+    labelIdleFeatured() {
+      return "<span class='cursor-pointer'>" + this.__("Drag & Drop your featured image or Browse") + "</span>";
+    },
     publicProfileUrl() {
       if (!this.sponsor || !this.sponsor.slug) return "#";
       const path = window.location.pathname || "";
@@ -574,17 +585,17 @@ export default {
           if (this.sponsor) {
             this.populateForm();
           } else {
-            helper.swalErrorMessageForWeb("No sponsor profile found.");
+            helper.swalErrorMessageForWeb(this.__("No sponsor profile found."));
           }
         } else {
-          helper.swalErrorMessageForWeb("Unable to load sponsor profile");
+          helper.swalErrorMessageForWeb(this.__("Unable to load sponsor profile"));
         }
       } catch (error) {
         console.error("Error fetching sponsor profile:", error);
         if (error.response && error.response.status === 404) {
-          helper.swalErrorMessageForWeb("No sponsor profile found. Please contact support.");
+          helper.swalErrorMessageForWeb(this.__("No sponsor profile found. Please contact support."));
         } else {
-          helper.swalErrorMessageForWeb("Error loading profile. Please try again.");
+          helper.swalErrorMessageForWeb(this.__("Error loading profile. Please try again."));
         }
       } finally {
         this.loading = false;
@@ -644,14 +655,14 @@ export default {
         );
 
         if (response.data.status === "Success") {
-          helper.swalSuccessMessageForWeb(response.data.message || "Profile updated successfully!");
+          helper.swalSuccessMessageForWeb(response.data.message || this.__("Profile updated successfully!"));
           await this.fetchSponsorProfile(); // Refresh the data
           this.form.logo = null;
           this.form.featured_image = null;
           this.form.remove_logo = false;
           this.form.remove_featured_image = false;
         } else {
-          helper.swalErrorMessageForWeb(response.data.message || "Failed to update profile");
+          helper.swalErrorMessageForWeb(response.data.message || this.__("Failed to update profile"));
         }
       } catch (error) {
         if (error.response) {
@@ -660,7 +671,7 @@ export default {
           } else if (error.response.data?.status === "Error") {
             helper.swalErrorMessageForWeb(error.response.data.message);
           } else {
-            helper.swalErrorMessageForWeb("An error occurred. Please try again.");
+            helper.swalErrorMessageForWeb(this.__("An error occurred. Please try again."));
           }
         } else {
           helper.swalErrorMessageForWeb("Network error. Please check your connection.");
@@ -769,7 +780,7 @@ export default {
       if (this.form.new_password && this.form.new_password_confirmation) {
         if (this.form.new_password !== this.form.new_password_confirmation) {
           this.validationErros.record({
-            new_password_confirmation: ["Passwords do not match"]
+            new_password_confirmation: [this.__("Passwords do not match")]
           });
         } else {
           this.validationErros.clear("new_password_confirmation");
@@ -779,18 +790,18 @@ export default {
 
     getPaymentMethodDisplay(paymentMethod) {
       if (!paymentMethod) {
-        return 'Credit Card'; // Default to Credit Card for backward compatibility
+        return this.__('Credit Card'); // Default to Credit Card for backward compatibility
       }
 
       // Handle different payment method formats
       const method = paymentMethod.toLowerCase();
 
       if (method === 'stripe' || method.includes('stripe')) {
-        return 'Credit Card (Stripe)';
+        return this.__('Credit Card (Stripe)');
       } else if (method === 'paypal' || method.includes('paypal')) {
-        return 'PayPal';
+        return this.__('PayPal');
       } else if (method === 'card' || method === 'credit_card') {
-        return 'Credit Card';
+        return this.__('Credit Card');
       }
 
       // Capitalize first letter for any other method
@@ -895,10 +906,10 @@ export default {
           this.upgradePreview = data.data;
           this.$nextTick(() => this.mountUpgradeStripeElement());
         } else {
-          helper.swalErrorMessageForWeb(data.message || "Could not load upgrade preview.");
+          helper.swalErrorMessageForWeb(data.message || this.__("Could not load upgrade preview."));
         }
       } catch (err) {
-        const msg = err.response?.data?.message || err.message || "Could not load upgrade preview.";
+        const msg = err.response?.data?.message || err.message || this.__("Could not load upgrade preview.");
         helper.swalErrorMessageForWeb(msg);
       } finally {
         this.upgradePreviewLoading = false;
@@ -912,12 +923,12 @@ export default {
         let paymentMethodId = this.upgradeForm.payment_method_id;
         if (this.upgradePreview.amount_due_today > 0) {
           if (!this.upgradeForm.cardholder_name) {
-            helper.swalErrorMessageForWeb("Please enter cardholder name.");
+            helper.swalErrorMessageForWeb(this.__("Please enter cardholder name."));
             this.upgradeSubmitting = false;
             return;
           }
           if (!this.stripe || !this.stripeCardElement) {
-            helper.swalErrorMessageForWeb("Card element is not ready. Please try again.");
+            helper.swalErrorMessageForWeb(this.__("Card element is not ready. Please try again."));
             this.upgradeSubmitting = false;
             return;
           }
@@ -927,7 +938,7 @@ export default {
             billing_details: { name: this.upgradeForm.cardholder_name },
           });
           if (error) {
-            helper.swalErrorMessageForWeb(error.message || "Card validation failed.");
+            helper.swalErrorMessageForWeb(error.message || this.__("Card validation failed."));
             this.upgradeSubmitting = false;
             return;
           }
@@ -935,7 +946,7 @@ export default {
         } else {
           // Amount due is 0 (credit covers full new plan). We still need a payment method for future renewals - use existing default or require card.
           if (!this.stripe || !this.stripeCardElement) {
-            helper.swalErrorMessageForWeb("Please enter card details for future renewals.");
+            helper.swalErrorMessageForWeb(this.__("Please enter card details for future renewals."));
             this.upgradeSubmitting = false;
             return;
           }
@@ -945,7 +956,7 @@ export default {
             billing_details: { name: this.upgradeForm.cardholder_name || this.sponsor.contact_name },
           });
           if (error) {
-            helper.swalErrorMessageForWeb(error.message || "Card validation failed.");
+            helper.swalErrorMessageForWeb(error.message || this.__("Card validation failed."));
             this.upgradeSubmitting = false;
             return;
           }
@@ -967,7 +978,7 @@ export default {
           this.closeUpgradeModal();
           await this.fetchSponsorProfile();
         } else {
-          helper.swalErrorMessageForWeb(data.message || "Upgrade failed.");
+          helper.swalErrorMessageForWeb(data.message || this.__("Upgrade failed."));
         }
       } catch (err) {
         const msg = err.response?.data?.message || err.message || "Upgrade failed.";
@@ -991,13 +1002,13 @@ export default {
           }
         );
         if (data.status === "Success") {
-          helper.swalSuccessMessageForWeb(data.message || "Downgrade request submitted. It will take effect at the end of your billing period.");
+          helper.swalSuccessMessageForWeb(data.message || this.__("Downgrade request submitted. It will take effect at the end of your billing period."));
           this.closeUpgradeModal();
         } else {
           helper.swalErrorMessageForWeb(data.message || "Request failed.");
         }
       } catch (err) {
-        const msg = err.response?.data?.message || err.message || "Request failed.";
+        const msg = err.response?.data?.message || err.message || this.__("Request failed.");
         helper.swalErrorMessageForWeb(msg);
       } finally {
         this.upgradeSubmitting = false;

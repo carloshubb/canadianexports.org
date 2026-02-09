@@ -38,7 +38,7 @@
               <fieldset
                 class="grid sm:grid-cols-4 grid-cols-2 gap-2 text-center"
               >
-                <legend class="sr-only">Payment frequency</legend>
+                <legend class="sr-only">{{ __("Payment frequency") }}</legend>
 
                 <div>
                   <label
@@ -61,7 +61,7 @@
                           JSON.parse(payment_setting)[
                                     "monthly_label"
                                 ]
-                              ?? "Monthly"
+                              ?? __("Monthly")
                       }}
                     </span>
                   </label>
@@ -89,14 +89,14 @@
                           JSON.parse(payment_setting)[
                                     "quaterly_label"
                                 ]
-                              ?? "Quarterly"
+                              ?? __("Quarterly")
                       }}</span>
                   </label>
                   <p class="text-center text-xs mt-2">({{
                           JSON.parse(payment_setting)[
                                     "save_label"
                                 ]
-                              ?? "Save"
+                              ?? __("Save")
                       }} {{ discountPercentages.quarterly || 10 }}%)</p>
                 </div>
                 <div>
@@ -121,14 +121,14 @@
                           JSON.parse(payment_setting)[
                                     "semi_annual_label"
                                 ]
-                              ?? "Semi-annual"
+                              ?? __("Semi-annual")
                       }}</span>
                   </label>
                   <p class="text-center text-xs mt-2">({{
                           JSON.parse(payment_setting)[
                                     "save_label"
                                 ]
-                              ?? "Save"
+                              ?? __("Save")
                       }} {{ discountPercentages.semi_annually || 20 }}%)</p>
                 </div>
                 <div>
@@ -154,14 +154,14 @@
                           JSON.parse(payment_setting)[
                                     "annual_label"
                                 ]
-                              ?? "Annual"
+                              ?? __("Annual")
                       }}</span>
                   </label>
                   <p class="text-center text-xs mt-2">({{
                           JSON.parse(payment_setting)[
                                     "save_label"
                                 ]
-                              ?? "Save"
+                              ?? __("Save")
                       }} {{ discountPercentages.annually || 40 }}%)</p>
                 </div>
               </fieldset>
@@ -175,7 +175,7 @@
               class="mx-auto mt-4 max-w-2xl rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800"
               role="alert"
             >
-              Membership downgrades cannot be processed automatically. Please contact us to adjust your plan.
+              {{ __("Membership downgrades cannot be processed automatically. Please contact us to adjust your plan.") }}
             </div>
             <div
               class="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none md:grid-cols-2 lg:grid-cols-3"
@@ -203,7 +203,7 @@
                     class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600 text-center mt-2"
                     v-if="freePackage?.is_default"
                   >
-                    Most popular
+                    {{ __("Most popular") }}
                   </p>
                 </div>
                 <p class="mt-4 text-sm leading-6 text-gray-700">
@@ -234,7 +234,7 @@
                           JSON.parse(payment_setting)[
                                     "month_label"
                                 ]
-                              ?? "/month"
+                              ?? __("/month")
                       }}</span
                   >
                 </p>
@@ -288,7 +288,7 @@
                     class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600 text-center mt-2"
                     v-if="premiumPackage?.is_default"
                   >
-                    Most popular
+                    {{ __("Most popular") }}
                   </p>
                 </div>
                 <p class="mt-4 text-sm leading-6 text-gray-700">
@@ -318,7 +318,7 @@
                           JSON.parse(payment_setting)[
                                     "month_label"
                                 ]
-                              ?? "/month"
+                              ?? __("/month")
                       }}</span
                   >
                 </p>
@@ -374,7 +374,7 @@
                     class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600 text-center mt-2"
                     v-if="featuredPackage?.is_default"
                   >
-                    Most popular
+                    {{ __("Most popular") }}
                   </p>
                 </div>
                 <p class="mt-4 text-sm leading-6 text-gray-700">
@@ -404,7 +404,7 @@
                           JSON.parse(payment_setting)[
                                     "month_label"
                                 ]
-                              ?? "/month"
+                              ?? __("/month")
                       }}</span
                   >
                 </p>
@@ -475,15 +475,23 @@
 import axios from "axios";
 import { mapState } from "vuex";
 import Error from "./../components/Error.vue";
+import { useTranslation } from "@/Utils/i18n";
 
 export default {
+  setup() {
+    const { __ } = useTranslation();
+    return { __ };
+  },
   components: {
     Error,
   },
   computed: {
     step1HeadingDisplay() {
       if (this.profile != "1") return "";
-      return "1 of 3 - Registration Package";
+      return this.__("1 of 3 - Registration Package");
+    },
+    downgradeTooltipText() {
+      return this.__("Membership downgrades cannot be processed automatically. Please contact us to adjust your plan.");
     },
     ...mapState({
       regPageSetting: (state) => state.signup.regPageSetting,
@@ -542,8 +550,6 @@ export default {
         annually: 40,
       },
       showDowngradeMessage: false,
-      downgradeTooltipText:
-        "Membership downgrades cannot be processed automatically. Please contact us to adjust your plan.",
     };
   },
   methods: {

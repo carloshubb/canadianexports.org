@@ -9,7 +9,7 @@
                 :checked="form.coffee_consent"
             >
             <label for="coffee_consent" class="ml-2 text-gray-900 text-base md:text-base lg:text-lg">
-                I agree to allow Canadian Exports to inform the Kindness Partner who contributed to my Coffee. Only my business name, category, province, and the service received will be shared.
+                {{ __("I agree to allow Canadian Exports to inform the Kindness Partner who contributed to my Coffee. Only my business name, category, province, and the service received will be shared.") }}
             </label>
         </div>
         <Error fieldName="coffee_consent" :validationErros="validationErros" />
@@ -19,8 +19,13 @@
 <script>
 import { mapState } from "vuex";
 import Error from './../components/Error.vue';
+import { useTranslation } from "@/Utils/i18n";
 
 export default {
+    setup() {
+        const { __ } = useTranslation();
+        return { __ };
+    },
     components: {
         Error
     },
