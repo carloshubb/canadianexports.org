@@ -82,7 +82,7 @@
             $closeAccountSetting = getCloseAccountSetting($lang, $page);
             $closeAccountSettingDetail = isset($closeAccountSetting->closeAccountSettingDetail[0])
                 ? $closeAccountSetting->closeAccountSettingDetail[0]
-                : null;
+                : null;           
         @endphp
         @include('front.pages.close-account-template.index', ['page' => $page, 'lang' => $lang])
     @elseif(isset($page) && $page->template == 'become_sponsor_template')

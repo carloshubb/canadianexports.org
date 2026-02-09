@@ -426,7 +426,7 @@
             </div>
             <div class="mb-6">
                 <div class="border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
-                    <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">Your Profile</h5>
+                    <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">{{__("Your Profile")}}</h5>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="relative w-full mb-3">
                             <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg font-bold" for="name">{{
@@ -516,7 +516,7 @@
                 </div>
                 <div class="mb-6">
                     <div class="border border-gray-200 mt-6 rounded-lg p-6 bg-white shadow-sm">
-                        <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">The Organizer
+                        <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">{{__("The Organizer")}}
                         </h5>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="relative w-full mb-3">
@@ -530,7 +530,7 @@
                             </div>
                             <div class="relative w-full mb-3">
                                 <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg font-bold"
-                                    for="organizer_website">Organizer Website</label>
+                                    for="organizer_website">{{__("Organizer Website")}}</label>
                                 <input @input="clearErrors('organizer_website')" type="url" class="can-exp-input"
                                     name="organizer_website" id="organizer_website" v-model="form.organizer_website" />
                                 <Error v-if="submitted" fieldName="organizer_website" :validationErros="validationErros"
@@ -548,8 +548,7 @@
                             </div>
                             <div class="relative w-full mb-3 md:col-span-2">
                                 <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg font-bold"
-                                    for="mailing_address">Mailing
-                                    Address</label>
+                                    for="mailing_address">{{__("Mailing Address")}}</label>
                                 <input @input="clearErrors('mailing_address')" type="text" class="can-exp-input"
                                     name="mailing_address" id="mailing_address" v-model="form.mailing_address" />
                                 <Error v-if="submitted" fieldName="mailing_address" :validationErros="validationErros"
@@ -560,14 +559,13 @@
                 </div>
                 <div class="mb-6">
                     <div class="border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
-                        <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">Contact Person
+                        <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">{{__("Contact Person")}}
                         </h5>
                         <div v-for="(contact, index) in contacts" :key="index">
                             <div class="grid md:grid-cols-2 md:gap-6 gap-4 mt-6 bg-white shadow rounded-lg p-6">
                                 <div class="relative z-0 w-full group">
                                     <label :for="`contact-name-[${index}]`"
-                                        class="text-base md:text-base lg:text-lg font-bold">Full Name and
-                                        Title <span class="text-red-500">*</span></label>
+                                        class="text-base md:text-base lg:text-lg font-bold">{{ __("Full Name and Title") }}<span class="text-red-500">*</span></label>
                                     <input type="text" name="contact-name" :id="`contact-name-[${index}]`"
                                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                                         v-model="contact.name"
@@ -576,9 +574,8 @@
                                 </div>
                                 <div class="relative z-0 w-full group">
                                     <label :for="`contact-phone-[${index}]`"
-                                        class="text-base md:text-base lg:text-lg font-bold">Contact Phone
-                                        <span class="text-gray-500 text-xs  font-normal">(If different from the business
-                                            phone)</span></label>
+                                        class="text-base md:text-base lg:text-lg font-bold">{{__("Contact Phone")}}
+                                        <span class="text-gray-500 text-xs  font-normal">{{__("(If different from the business phone)")}}</span></label>
                                     <input type="text" name="contact-phone" :id="`contact-phone-[${index}]`"
                                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                                         v-model="contact.phone" maxlength="15"
@@ -588,8 +585,8 @@
                                 </div>
                                 <div class="relative z-0 w-full group">
                                     <label :for="`contact-email-[${index}]`"
-                                        class="text-base md:text-base lg:text-lg font-bold">Email <span
-                                            class="text-gray-500 text-xs  font-normal">(If different from the login email)</span>
+                                        class="text-base md:text-base lg:text-lg font-bold">{{__("Email")}} <span
+                                            class="text-gray-500 text-xs  font-normal">{{__("(If different from the login email)")}}</span>
                                     </label>
                                     <input type="text" name="contact-email" :id="`contact-email-[${index}]`"
                                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
@@ -607,9 +604,7 @@
                                                 @click.stop="toggleContactPhotoTooltip(index)">!</span>
                                             <div v-if="contactPhotoTooltipIndex === index"
                                                 class="absolute left-0 top-full mt-1 z-50 min-w-[200px] max-w-[280px] px-3 py-2 text-sm text-gray-700 bg-white border border-gray-200 rounded-lg shadow-lg"
-                                                @click.stop>Adding a photo helps other delegates and attendees recognize
-                                                you at the
-                                                event!</div>
+                                                @click.stop>{{__("Adding a photo helps other delegates and attendees recognize you at the event!")}}</div>
                                         </span>
                                     </label>
                                     <input type="file" name="contact-image" :id="`contact-image-[${index}]`"
@@ -949,7 +944,7 @@
 
                     <!-- event media -->
                     <div class="w-full">
-                        <label for="" class="text-base md:text-base lg:text-lg  font-bold  truncate">Main Event Image <span
+                        <label for="" class="text-base md:text-base lg:text-lg  font-bold  truncate">{{__("Main Event Image")}} <span
                                 class="ml-1 text-[0.95em] text-gray-600">(PNG, GIF, JPG, or JPEG format · 30 MB
                                 max)</span><span class="text-red-500">*</span></label>
                         <div class="relative z-0 w-full mb-6 group">
@@ -994,7 +989,7 @@
                     <!-- CTA Link Field - Only show for Premium and Featured packages -->
                     <div class="relative z-0 w-full group">
                         <label for="cta_link" class="text-base md:text-base lg:text-lg font-bold ">
-                            CTA URL
+                            {{__("CTA URL")}}
                         </label>
                         <input type="text" name="cta_link" id="cta_link"
                             class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
@@ -1100,7 +1095,7 @@
                     <div
                         class="px-4 my-6 py-1.5 sm:px-6 text-center bg-gradient-to-r from-primary via-primary to-secondary rounded-md">
                         <h4 class="text-center card-heading text-white">
-                            Photo Gallery
+                            {{__("Photo Gallery")}}
                         </h4>
                     </div>
                     <div class="border border-gray-200 rounded-lg p-6 bg-white shadow-sm">

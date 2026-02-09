@@ -52,7 +52,7 @@
                                     <div class="bg-primary bg-opacity-10 w-full px-4 py-2 rounded-b flex-end text-center">
                                         <a aria-label="{{ __('Canadian Exporters') }}"
                                             href="{{ route('user.sponsor-detail.show', ['abbreviation' => $lang->abbreviation, 'slug' => $sponsor->slug ?? $sponsor->id]) }}"
-                                            class=" fix-url" onclick="fixUrls()">More about {!! $sponsor->business_name !!}</a>
+                                            class=" fix-url" onclick="fixUrls()" > <span data-i18n="More about" {{ __('More about') }} ></span> {{ $sponsor->business_name }}</a>
                                     </div>
                                 </div>
                             @endforeach
