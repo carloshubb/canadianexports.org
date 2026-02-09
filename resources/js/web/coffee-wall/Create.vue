@@ -1,17 +1,17 @@
 <template>
     <form class="lg:w-full" @submit.prevent="recaptcha()">
-
         <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6 p-8">
             <h1 class="text-primary mb-2">{{ JSON.parse(coffee_wall_setting)["coffee_wall_heading"] ?? 'Coffee on Wall'
                 }}</h1>
             <p class="">
-                The <span class="font-bold">“The Coffee on the Wall”</span> initiative was inspired by this
-                <a href="../../../en/coffee-on-the-wall-story" target="_blank" rel="noopener"
-                    class="text-primary underline font-bold underline-none">
-                    beautiful story.
-                </a>
-
-            </p>
+  {{ __("The") }}
+  <span class="font-bold">“{{ __("The Coffee on the Wall") }}”</span>
+  {{ __("initiative was inspired by this") }}
+  <a :href="`/${locale}/coffee-on-the-wall-story`" target="_blank" rel="noopener"
+     class="text-primary underline font-bold underline-none">
+    {{ __("beautiful story.") }}
+  </a>
+</p>
             <p class="">
                 {{ __("It's a wonderful example of how a simple act of kindness can change the way someone sees the world.") }}</p>
                 <br>
