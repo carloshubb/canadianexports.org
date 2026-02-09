@@ -1,8 +1,11 @@
 <div class="">
     @php
         $sponsorUser = auth()->guard('customers')->user();
-        $sponsorGreeting = 'Welcome back';
-        $sponsorDescription = 'Welcome to your <strong>Sponsor Dashboard</strong>. We are honored to have your support. You can update your recognition details here, or contact your dedicated account manager for any <strong>priority assistance</strong>. Thank you for being a <strong>cornerstone of Canadian Exports.</strong>';
+        $abbr = strtolower(trim(($lang ?? null)?->abbreviation ?? app()->getLocale() ?? 'en'));
+        $locale = (in_array($abbr, ['es', 'esp', 'spa', 'sp']) || str_starts_with($abbr, 'es') || str_starts_with($abbr, 'sp')) ? 'es' : 'en';
+        App::setLocale($locale);
+        $sponsorGreeting = __('Welcome back');
+        $sponsorDescription = __('Welcome to your <strong>Sponsor Dashboard</strong>. We are honored to have your support. You can update your recognition details here, or contact your dedicated account manager for any <strong>priority assistance</strong>. Thank you for being a <strong>cornerstone of Canadian Exports.</strong>');
     @endphp
     <div class="bg-white  px-4 sm:px-10  rounded-lg sm:pt-20 w-full max-w-full min-w-0 mt-20">
         <h2 class="font-FuturaMdCnBT  text-gray-900 break-words">{{ $sponsorGreeting }} {{ $sponsorUser->name ?? '' }},</h2>
