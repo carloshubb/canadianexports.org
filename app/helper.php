@@ -49,6 +49,7 @@ use App\Models\OneMoreThing;
 use App\Models\OneMoreThingSetting;
 use App\Models\OnlineBusinessDirectorySetting;
 use App\Models\Page;
+use App\Models\PageDetail;
 use App\Models\RatesSetting;
 use App\Models\RegistrationPackage;
 use App\Models\RegistrationPackageDetail;
@@ -141,7 +142,27 @@ if (!function_exists("getDefaultCustomerRegistrationPackage")) {
 if (!function_exists("getPackageDetail")) {
     function getPackageDetail($package_id, $defaultLang)
     {
-        return RegistrationPackageDetail::where('registration_package_id', $package_id)->where('language_id', $defaultLang->id)->first();
+        $detail = RegistrationPackageDetail::where('registration_package_id', $package_id)->where('language_id', $defaultLang->id)->first();
+        $systemDefaultLang = Language::whereIsDefault(1)->first() ?? Language::first();
+        $fallback = $systemDefaultLang && $systemDefaultLang->id != $defaultLang->id
+            ? RegistrationPackageDetail::where('registration_package_id', $package_id)->where('language_id', $systemDefaultLang->id)->first()
+            : null;
+        if (!$detail && $fallback) {
+            $detail = $fallback->replicate();
+            $detail->language_id = $defaultLang->id;
+            $detail->id = null;
+        }
+        if ($detail && $fallback) {
+            foreach (array_keys($fallback->getAttributes()) as $key) {
+                if (!in_array($key, ['id', 'language_id'], true)) {
+                    $val = $detail->getAttribute($key);
+                    if ($val === null || $val === '') {
+                        $detail->setAttribute($key, $fallback->getAttribute($key));
+                    }
+                }
+            }
+        }
+        return $detail;
     }
 }
 
@@ -213,18 +234,26 @@ if (!function_exists("getFeaturedProfile")) {
 if (!function_exists("getEventPackages")) {
     function getEventPackages($defaultLang)
     {
-        return RegistrationPackage::whereType('event')->with(['registrationPackageDetail' => function ($q) use ($defaultLang) {
+        $packages = RegistrationPackage::whereType('event')->with(['registrationPackageDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->get();
+        foreach ($packages as $package) {
+            applyDetailFallbackToModel($package, 'registrationPackageDetail', $defaultLang);
+        }
+        return $packages;
     }
 }
 
 if (!function_exists("getRatesPackages")) {
     function getRatesPackages($defaultLang)
     {
-        return RegistrationPackage::where('package_type', '!=', 'pay_to_go')->with(['registrationPackageDetail' => function ($q) use ($defaultLang) {
+        $packages = RegistrationPackage::where('package_type', '!=', 'pay_to_go')->with(['registrationPackageDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->get();
+        foreach ($packages as $package) {
+            applyDetailFallbackToModel($package, 'registrationPackageDetail', $defaultLang);
+        }
+        return $packages;
     }
 }
 
@@ -272,7 +301,57 @@ if (!function_exists("getRegPageSetting")) {
         $regPageSetting = RegPageSetting::with(['regPageSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->latest()->first();
+        if ($regPageSetting) {
+            applyDetailFallbackToModel($regPageSetting, 'regPageSettingDetail', $defaultLang);
+        }
         return $regPageSetting;
+    }
+}
+
+/**
+ * Apply default-language fallback to a model's *Detail relation.
+ * If no detail row for defaultLang, use system default's data with language_id = defaultLang.
+ * If detail exists but name or content fields are null/empty, fill from system default.
+ */
+if (!function_exists("applyDetailFallbackToModel")) {
+    function applyDetailFallbackToModel($model, $relationName, $defaultLang)
+    {
+        if (!$model || !$defaultLang) {
+            return;
+        }
+        $details = $model->$relationName;
+        if ($details === null) {
+            return;
+        }
+        $systemDefaultLang = Language::whereIsDefault(1)->first() ?? Language::first();
+        $relation = $model->$relationName();
+        $detailModel = $relation->getRelated();
+        $foreignKey = $relation->getForeignKeyName();
+        $parentId = $model->getKey();
+        $fallbackDetail = $systemDefaultLang && $systemDefaultLang->id != $defaultLang->id
+            ? $detailModel::where($foreignKey, $parentId)->where('language_id', $systemDefaultLang->id)->first()
+            : null;
+
+        if ($details->isEmpty()) {
+            if ($fallbackDetail) {
+                $synthetic = $detailModel->newInstance($fallbackDetail->getAttributes());
+                $synthetic->language_id = $defaultLang->id;
+                $synthetic->id = null;
+                $model->setRelation($relationName, collect([$synthetic]));
+            }
+        } else {
+            $detail = $details->first();
+            if ($fallbackDetail) {
+                foreach (array_keys($fallbackDetail->getAttributes()) as $key) {
+                    if (!in_array($key, ['id', 'language_id'], true)) {
+                        $val = $detail->getAttribute($key);
+                        if ($val === null || $val === '') {
+                            $detail->setAttribute($key, $fallbackDetail->getAttribute($key));
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -287,6 +366,9 @@ if (!function_exists("getPageBySlug")) {
             $page = Page::whereSlug($slug)->with(['pageDetail' => function ($q) use ($defaultLang) {
                 $q->where('language_id', $defaultLang->id);
             }])->with(['facebook'])->first();
+            if ($page) {
+                applyDetailFallbackToModel($page, 'pageDetail', $defaultLang);
+            }
         }
         return $page;
     }
@@ -301,6 +383,9 @@ if (!function_exists("getWidgetDetail")) {
         $widget = Widget::where('short_code', $short_code)->with(['widgetDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($widget) {
+            applyDetailFallbackToModel($widget, 'widgetDetail', $defaultLang);
+        }
         return $widget;
     }
 }
@@ -320,6 +405,9 @@ if (!function_exists("getHomePageSetting")) {
         $homePageSetting = HomePageSetting::wherePageId($page->id)->with(['homePageSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($homePageSetting) {
+            applyDetailFallbackToModel($homePageSetting, 'homePageSettingDetail', $defaultLang);
+        }
         return $homePageSetting;
     }
 }
@@ -342,6 +430,9 @@ if (!function_exists("getLatestHomePageSetting")) {
         }
 
         $homePageSetting = $homePageSetting->first();
+        if ($homePageSetting) {
+            applyDetailFallbackToModel($homePageSetting, 'homePageSettingDetail', $defaultLang);
+        }
         return $homePageSetting;
     }
 }
@@ -368,28 +459,18 @@ if (!function_exists("getFooterSetting")) {
             }]);
 
         $footerSetting = $footerSetting->first();
-
-        // If no footer detail for current language (e.g. Spanish), fall back to default language so footer is always visible
-        if ($footerSetting && $footerSetting->footerSettingDetail->isEmpty()) {
-            $fallbackLang = Language::whereIsDefault(1)->first() ?: Language::first();
-            if ($fallbackLang && $fallbackLang->id !== $defaultLang->id) {
-                $footerSetting = FooterSetting::whereIsActive('1')->where('id', $footerSetting->id)
-                    ->with(['widget1Menu.menuDetail' => function ($q) use ($fallbackLang) {
-                        $q->where('language_id', $fallbackLang->id);
-                    }])
-                    ->with(['widget2Menu.menuDetail' => function ($q) use ($fallbackLang) {
-                        $q->where('language_id', $fallbackLang->id);
-                    }])
-                    ->with(['widget3Menu.menuDetail' => function ($q) use ($fallbackLang) {
-                        $q->where('language_id', $fallbackLang->id);
-                    }])
-                    ->with(['footerSettingDetail' => function ($q) use ($fallbackLang) {
-                        $q->where('language_id', $fallbackLang->id);
-                    }])
-                    ->first();
+        if ($footerSetting) {
+            applyDetailFallbackToModel($footerSetting, 'footerSettingDetail', $defaultLang);
+            if ($footerSetting->relationLoaded('widget1Menu') && $footerSetting->widget1Menu) {
+                applyDetailFallbackToModel($footerSetting->widget1Menu, 'menuDetail', $defaultLang);
+            }
+            if ($footerSetting->relationLoaded('widget2Menu') && $footerSetting->widget2Menu) {
+                applyDetailFallbackToModel($footerSetting->widget2Menu, 'menuDetail', $defaultLang);
+            }
+            if ($footerSetting->relationLoaded('widget3Menu') && $footerSetting->widget3Menu) {
+                applyDetailFallbackToModel($footerSetting->widget3Menu, 'menuDetail', $defaultLang);
             }
         }
-
         return $footerSetting;
     }
 }
@@ -400,6 +481,9 @@ if (!function_exists("getAboutUsPageSetting")) {
         $aboutUsPageSetting = AboutUsPageSetting::wherePageId($page->id)->with(['aboutUsPageSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($aboutUsPageSetting) {
+            applyDetailFallbackToModel($aboutUsPageSetting, 'aboutUsPageSettingDetail', $defaultLang);
+        }
         return $aboutUsPageSetting;
     }
 }
@@ -410,6 +494,9 @@ if (!function_exists("getContactUsSetting")) {
         $contactUsSetting = ContactUsSetting::wherePageId($page->id)->with(['contactUsSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($contactUsSetting) {
+            applyDetailFallbackToModel($contactUsSetting, 'contactUsSettingDetail', $defaultLang);
+        }
         return $contactUsSetting;
     }
 }
@@ -424,6 +511,9 @@ if (!function_exists("getI2BSetting")) {
             $i2bSetting = $i2bSetting->wherePageId($page->id);
         }
         $i2bSetting = $i2bSetting->first();
+        if ($i2bSetting) {
+            applyDetailFallbackToModel($i2bSetting, 'i2BSettingDetail', $defaultLang);
+        }
         return $i2bSetting;
     }
 }
@@ -437,6 +527,9 @@ if (!function_exists("getEventSetting")) {
             $eventSetting = $eventSetting->wherePageId($page->id);
         }
         $eventSetting = $eventSetting->first();
+        if ($eventSetting) {
+            applyDetailFallbackToModel($eventSetting, 'eventSettingDetail', $defaultLang);
+        }
         return $eventSetting;
     }
 }
@@ -447,6 +540,9 @@ if (!function_exists("getCommentsSetting")) {
         $commentsSetting = CommentsSetting::wherePageId($page->id)->with(['commentsSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($commentsSetting) {
+            applyDetailFallbackToModel($commentsSetting, 'commentsSettingDetail', $defaultLang);
+        }
         return $commentsSetting;
     }
 }
@@ -457,6 +553,9 @@ if (!function_exists("getRatesSetting")) {
         $ratesSetting = RatesSetting::wherePageId($page->id)->with(['ratesSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($ratesSetting) {
+            applyDetailFallbackToModel($ratesSetting, 'ratesSettingDetail', $defaultLang);
+        }
         return $ratesSetting;
     }
 }
@@ -467,6 +566,9 @@ if (!function_exists("getCloseAccountSetting")) {
         $closeAccountSetting = CloseAccountSetting::wherePageId($page->id)->with(['closeAccountSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($closeAccountSetting) {
+            applyDetailFallbackToModel($closeAccountSetting, 'closeAccountSettingDetail', $defaultLang);
+        }
         return $closeAccountSetting;
     }
 }
@@ -476,7 +578,10 @@ if (!function_exists("getBecomeSponsorSetting")) {
     {
         $becomeSponsorSetting = BecomeSponsorSetting::wherePageId($page->id)->with(['becomeSponsorSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
-        }])->first();        
+        }])->first();
+        if ($becomeSponsorSetting) {
+            applyDetailFallbackToModel($becomeSponsorSetting, 'becomeSponsorSettingDetail', $defaultLang);
+        }
         return $becomeSponsorSetting;
     }
 }
@@ -487,6 +592,9 @@ if (!function_exists("getOnlineBusinessDirectorySetting")) {
         $onlineBusinessDirectorySetting = OnlineBusinessDirectorySetting::wherePageId($page->id)->with(['onlineBusinessDirectorySettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($onlineBusinessDirectorySetting) {
+            applyDetailFallbackToModel($onlineBusinessDirectorySetting, 'onlineBusinessDirectorySettingDetail', $defaultLang);
+        }
         return $onlineBusinessDirectorySetting;
     }
 }
@@ -505,6 +613,9 @@ if (!function_exists("getFinancingProgramSetting")) {
         $financingProgramSetting = FinancingProgramSetting::wherePageId($page->id)->with(['financingProgramSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($financingProgramSetting) {
+            applyDetailFallbackToModel($financingProgramSetting, 'financingProgramSettingDetail', $defaultLang);
+        }
         return $financingProgramSetting;
     }
 }
@@ -515,6 +626,9 @@ if (!function_exists("getContactForRateSetting")) {
         $contactForRateSetting = ContactForRateSetting::wherePageId($page->id)->with(['contactForRateSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($contactForRateSetting) {
+            applyDetailFallbackToModel($contactForRateSetting, 'contactForRateSettingDetail', $defaultLang);
+        }
         return $contactForRateSetting;
     }
 }
@@ -524,6 +638,9 @@ if (!function_exists("getScamAlertSetting")) {
         $scamAlertSetting = ScamAlertSetting::wherePageId($page->id)->with(['scamAlertSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($scamAlertSetting) {
+            applyDetailFallbackToModel($scamAlertSetting, 'scamAlertSettingDetail', $defaultLang);
+        }
         return $scamAlertSetting;
     }
 }
@@ -533,6 +650,9 @@ if (!function_exists("getSuccessStoriesSetting")) {
         $successStoriesSetting = SuccessStoriesSetting::wherePageId($page->id)->with(['successStoriesSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($successStoriesSetting) {
+            applyDetailFallbackToModel($successStoriesSetting, 'successStoriesSettingDetail', $defaultLang);
+        }
         return $successStoriesSetting;
     }
 }
@@ -542,6 +662,9 @@ if (!function_exists("getTestimonialSetting")) {
         $testimonialSetting = TestimonialSetting::wherePageId($page->id)->with(['testimonialSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($testimonialSetting) {
+            applyDetailFallbackToModel($testimonialSetting, 'testimonialSettingDetail', $defaultLang);
+        }
         return $testimonialSetting;
     }
 }
@@ -551,6 +674,9 @@ if (!function_exists("getFaqExporterSetting")) {
         $faqExporterSetting = FaqExporterSetting::wherePageId($page->id)->with(['faqExporterSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($faqExporterSetting) {
+            applyDetailFallbackToModel($faqExporterSetting, 'faqExporterSettingDetail', $defaultLang);
+        }
         return $faqExporterSetting;
     }
 }
@@ -560,6 +686,9 @@ if (!function_exists("getFaqImporterSetting")) {
         $faqImporterSetting = FaqImporterSetting::wherePageId($page->id)->with(['faqImporterSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($faqImporterSetting) {
+            applyDetailFallbackToModel($faqImporterSetting, 'faqImporterSettingDetail', $defaultLang);
+        }
         return $faqImporterSetting;
     }
 }
@@ -570,6 +699,9 @@ if (!function_exists("getOneMoreThingSetting")) {
         $oneMoreThingSetting = OneMoreThingSetting::wherePageId($page->id)->with(['oneMoreThingSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($oneMoreThingSetting) {
+            applyDetailFallbackToModel($oneMoreThingSetting, 'oneMoreThingSettingDetail', $defaultLang);
+        }
         return $oneMoreThingSetting;
     }
 }
@@ -580,6 +712,9 @@ if (!function_exists("getExportingFairSetting")) {
         $exportingFairSetting = ExportingFairSetting::wherePageId($page->id)->with(['exportingFairSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($exportingFairSetting) {
+            applyDetailFallbackToModel($exportingFairSetting, 'exportingFairSettingDetail', $defaultLang);
+        }
         return $exportingFairSetting;
     }
 }
@@ -590,6 +725,9 @@ if (!function_exists("getSponsorSetting")) {
         $sponsorPageSetting = SponsorPageSetting::wherePageId($page->id)->with(['sponsorPageSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($sponsorPageSetting) {
+            applyDetailFallbackToModel($sponsorPageSetting, 'sponsorPageSettingDetail', $defaultLang);
+        }
         return $sponsorPageSetting;
     }
 }
@@ -651,6 +789,9 @@ if (!function_exists("getEventCreateSetting")) {
         $eventCreateSetting = EventCreateSetting::wherePageId($page->id)->with(['eventCreateSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($eventCreateSetting) {
+            applyDetailFallbackToModel($eventCreateSetting, 'eventCreateSettingDetail', $defaultLang);
+        }
         return $eventCreateSetting;
     }
 }
@@ -660,7 +801,10 @@ if (!function_exists("getEventSignupSetting")) {
     {
         $eventSignupSetting = EventSignupSetting::wherePageId($page->id)->with(['eventSignupSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
-        }])->first();           
+        }])->first();
+        if ($eventSignupSetting) {
+            applyDetailFallbackToModel($eventSignupSetting, 'eventSignupSettingDetail', $defaultLang);
+        }
         return $eventSignupSetting;
     }
 }
@@ -671,6 +815,9 @@ if (!function_exists("getInfoLetterSetting")) {
         $infoLetterSetting = InfoLetterSetting::wherePageId($page->id)->with(['infoLetterSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($infoLetterSetting) {
+            applyDetailFallbackToModel($infoLetterSetting, 'infoLetterSettingDetail', $defaultLang);
+        }
         return $infoLetterSetting;
     }
 }
@@ -681,6 +828,9 @@ if (!function_exists("getRegPageSetting")) {
         $regPageSetting = RegPageSetting::wherePageId($page->id)->with(['regPageSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($regPageSetting) {
+            applyDetailFallbackToModel($regPageSetting, 'regPageSettingDetail', $defaultLang);
+        }
         return $regPageSetting;
     }
 }
@@ -691,6 +841,9 @@ if (!function_exists("getSponsorPageSetting")) {
         $becomeSponsorSetting = BecomeSponsorSetting::wherePageId($pageId)->with(['becomeSponsorSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($becomeSponsorSetting) {
+            applyDetailFallbackToModel($becomeSponsorSetting, 'becomeSponsorSettingDetail', $defaultLang);
+        }
         return $becomeSponsorSetting;
     }
 }
@@ -701,6 +854,9 @@ if (!function_exists("getFinancingPageSetting")) {
         $financingProgramSetting = FinancingProgramSetting::wherePageId($pageId)->with(['financingProgramSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($financingProgramSetting) {
+            applyDetailFallbackToModel($financingProgramSetting, 'financingProgramSettingDetail', $defaultLang);
+        }
         return $financingProgramSetting;
     }
 }
@@ -711,6 +867,9 @@ if (!function_exists("getContactForRatePageSetting")) {
         $contactForRateSetting = ContactForRateSetting::wherePageId($pageId)->with(['contactForRateSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($contactForRateSetting) {
+            applyDetailFallbackToModel($contactForRateSetting, 'contactForRateSettingDetail', $defaultLang);
+        }
         return $contactForRateSetting;
     }
 }
@@ -720,6 +879,9 @@ if (!function_exists("getRatesPageSetting")) {
         $ratesSetting = RatesSetting::wherePageId($pageId)->with(['ratesSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($ratesSetting) {
+            applyDetailFallbackToModel($ratesSetting, 'ratesSettingDetail', $defaultLang);
+        }
         return $ratesSetting;
     }
 }
@@ -730,6 +892,9 @@ if (!function_exists("getScamAlertPageSetting")) {
         $scamAlertSetting = ScamAlertSetting::wherePageId($pageId)->with(['scamAlertSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($scamAlertSetting) {
+            applyDetailFallbackToModel($scamAlertSetting, 'scamAlertSettingDetail', $defaultLang);
+        }
         return $scamAlertSetting;
     }
 }
@@ -739,6 +904,9 @@ if (!function_exists("getSuccessStoriesPageSetting")) {
         $successStoriesSetting = SuccessStoriesSetting::wherePageId($pageId)->with(['successStoriesSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($successStoriesSetting) {
+            applyDetailFallbackToModel($successStoriesSetting, 'successStoriesSettingDetail', $defaultLang);
+        }
         return $successStoriesSetting;
     }
 }
@@ -748,6 +916,9 @@ if (!function_exists("getTestimonialPageSetting")) {
         $testimonialSetting = TestimonialSetting::wherePageId($pageId)->with(['testimonialSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($testimonialSetting) {
+            applyDetailFallbackToModel($testimonialSetting, 'testimonialSettingDetail', $defaultLang);
+        }
         return $testimonialSetting;
     }
 }
@@ -757,6 +928,9 @@ if (!function_exists("getFaqExporterPageSetting")) {
         $faqExporterSetting = FaqExporterSetting::wherePageId($pageId)->with(['faqExporterSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($faqExporterSetting) {
+            applyDetailFallbackToModel($faqExporterSetting, 'faqExporterSettingDetail', $defaultLang);
+        }
         return $faqExporterSetting;
     }
 }
@@ -766,6 +940,9 @@ if (!function_exists("getFaqImporterPageSetting")) {
         $faqImporterSetting = FaqImporterSetting::wherePageId($pageId)->with(['faqImporterSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($faqImporterSetting) {
+            applyDetailFallbackToModel($faqImporterSetting, 'faqImporterSettingDetail', $defaultLang);
+        }
         return $faqImporterSetting;
     }
 }
@@ -776,6 +953,9 @@ if (!function_exists("getRatesPageSetting")) {
         $ratesSetting = RatesSetting::wherePageId($pageId)->with(['ratesSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($ratesSetting) {
+            applyDetailFallbackToModel($ratesSetting, 'ratesSettingDetail', $defaultLang);
+        }
         return $ratesSetting;
     }
 }
@@ -785,6 +965,9 @@ if (!function_exists("getCloseAccountPageSetting")) {
         $closeAccountSetting = CloseAccountSetting::wherePageId($pageId)->with(['closeAccountSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($closeAccountSetting) {
+            applyDetailFallbackToModel($closeAccountSetting, 'closeAccountSettingDetail', $defaultLang);
+        }
         return $closeAccountSetting;
     }
 }
@@ -795,6 +978,9 @@ if (!function_exists("getEventCreateSettingById")) {
         $eventCreateSetting = EventCreateSetting::wherePageId($pageId)->with(['eventCreateSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($eventCreateSetting) {
+            applyDetailFallbackToModel($eventCreateSetting, 'eventCreateSettingDetail', $defaultLang);
+        }
         return $eventCreateSetting;
     }
 }
@@ -805,6 +991,9 @@ if (!function_exists("getI2BSettingSettingById")) {
         $i2bSetting = I2BSetting::wherePageId($pageId)->with(['i2BSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($i2bSetting) {
+            applyDetailFallbackToModel($i2bSetting, 'i2BSettingDetail', $defaultLang);
+        }
         return $i2bSetting;
     }
 }
@@ -814,6 +1003,9 @@ if (!function_exists("getEventSettingSettingById")) {
         $eventSetting = EventSetting::wherePageId($pageId)->with(['eventSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($eventSetting) {
+            applyDetailFallbackToModel($eventSetting, 'eventSettingDetail', $defaultLang);
+        }
         return $eventSetting;
     }
 }
@@ -823,6 +1015,9 @@ if (!function_exists("getSponsorSettingSettingById")) {
         $sponsorPageSetting = SponsorPageSetting::wherePageId($pageId)->with(['sponsorPageSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($sponsorPageSetting) {
+            applyDetailFallbackToModel($sponsorPageSetting, 'sponsorPageSettingDetail', $defaultLang);
+        }
         return $sponsorPageSetting;
     }
 }
@@ -833,6 +1028,9 @@ if (!function_exists("getContactUsSettingById")) {
         $contactUsSetting = ContactUsSetting::wherePageId($pageId)->with(['contactUsSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($contactUsSetting) {
+            applyDetailFallbackToModel($contactUsSetting, 'contactUsSettingDetail', $defaultLang);
+        }
         return $contactUsSetting;
     }
 }
@@ -843,6 +1041,9 @@ if (!function_exists("getCommentsSettingById")) {
         $commentsSetting = CommentsSetting::wherePageId($pageId)->with(['commentsSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($commentsSetting) {
+            applyDetailFallbackToModel($commentsSetting, 'commentsSettingDetail', $defaultLang);
+        }
         return $commentsSetting;
     }
 }
@@ -861,6 +1062,9 @@ if (!function_exists("getLoginPageSetting")) {
             $loginPageSetting = LoginPageSetting::wherePageId($page->id)->with(['loginPageSettingDetail' => function ($q) use ($defaultLang) {
                 $q->where('language_id', $defaultLang->id);
             }])->first();
+            if ($loginPageSetting) {
+                applyDetailFallbackToModel($loginPageSetting, 'loginPageSettingDetail', $defaultLang);
+            }
             return $loginPageSetting;
         }
         return false;
@@ -873,6 +1077,9 @@ if (!function_exists("getForgetPageSetting")) {
         $forgetPageSetting = ForgetPageSetting::wherePageId($page->id)->with(['forgetPageSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($forgetPageSetting) {
+            applyDetailFallbackToModel($forgetPageSetting, 'forgetPageSettingDetail', $defaultLang);
+        }
         return $forgetPageSetting;
     }
 }
@@ -1733,6 +1940,9 @@ if (!function_exists("getAdvertiserSetting")) {
         $advertiserSetting = AdvertiserSetting::wherePageId($page->id)->with(['advertiserSettingDetail' => function ($q) use ($defaultLang) {
             $q->where('language_id', $defaultLang->id);
         }])->first();
+        if ($advertiserSetting) {
+            applyDetailFallbackToModel($advertiserSetting, 'advertiserSettingDetail', $defaultLang);
+        }
         return $advertiserSetting;
     }
 }
