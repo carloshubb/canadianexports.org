@@ -5,10 +5,10 @@
         <div class="flex items-center justify-between">
           <div>
             <h2 class="can-exp-h2 text-primary mb-2">
-              {{ __("Webinars") }}
+              Webinars
             </h2>
             <p class="text-gray-600" v-if="!webinars || webinars.length === 0">
-              {{ __("There are currently no webinars available. Please check back later.") }}
+              There are currently no webinars available. Please check back later.
             </p>
           </div>
           <a 
@@ -16,7 +16,7 @@
             :href="getMyWebinarsUrl()" 
             class="button-exp-fill whitespace-nowrap ml-4"
           >
-            {{ __("+ Host a Webinar") }}
+            + Host a Webinar
           </a>
         </div>
       </div>
@@ -45,10 +45,10 @@
                   {{ getTypeLabel(webinar.webinar_type) }}
                 </span>
                 <span v-if="isPast(webinar)" class="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded whitespace-nowrap">
-                  {{ __("Past") }}
+                  Past
                 </span>
                 <span v-else class="text-xs bg-green-200 text-green-700 px-2 py-1 rounded whitespace-nowrap">
-                  {{ __("Upcoming") }}
+                  Upcoming
                 </span>
               </div>
             </div>
@@ -64,25 +64,25 @@
               <div v-else class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center mr-3">
                 <span class="text-gray-600 text-sm font-medium">{{ webinar.presenter_name.charAt(0) }}</span>
               </div>
-              <span class="text-sm text-gray-600">{{ __("With") }} {{ webinar.presenter_name }}</span>
+              <span class="text-sm text-gray-600">With {{ webinar.presenter_name }}</span>
             </div>
 
             <div class="text-sm text-gray-700 space-y-1 mb-4">
               <p>
-                <span class="font-semibold">{{ __("Date & time:") }}</span>
+                <span class="font-semibold">Date & time:</span>
                 {{ formatDate(webinar.scheduled_at) }}
               </p>
               <p>
-                <span class="font-semibold">{{ __("Duration:") }}</span>
-                {{ webinar.duration_minutes }} {{ __("minutes") }}
+                <span class="font-semibold">Duration:</span>
+                {{ webinar.duration_minutes }} minutes
               </p>
               <p>
-                <span class="font-semibold">{{ __("Seats:") }}</span>
+                <span class="font-semibold">Seats:</span>
                 <span v-if="webinar.available_seats === 'Unlimited'">
-                  {{ __("Unlimited") }}
+                  Unlimited
                 </span>
                 <span v-else>
-                  {{ webinar.available_seats }} {{ __("remaining") }}
+                  {{ webinar.available_seats }} remaining
                 </span>
               </p>
             </div>
@@ -104,7 +104,7 @@
 
           <div class="mt-4 border-t border-gray-200 pt-4 p-5">
             <div v-if="isFull(webinar)" class="text-red-600 text-sm mb-2">
-              {{ __("This webinar is fully booked.") }}
+              This webinar is fully booked.
             </div>
 
             <!-- Tabs for registered users (works for both upcoming and past webinars) -->
@@ -113,7 +113,7 @@
                 <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                 </svg>
-                {{ isPast(webinar) ? __("You were registered") : __("You are registered") }} {{ __("for this webinar") }}
+                {{ isPast(webinar) ? "You were registered" : "You are registered" }} for this webinar
               </div>
 
               <!-- Webinar interaction tabs (available for registered users on past webinars too) -->
@@ -149,7 +149,7 @@
                 <div v-if="getActiveTab(webinar.id) === 'qa' && webinar.allow_qa" class="p-4">
                   <div class="mb-4 max-h-64 overflow-y-auto space-y-3">
                     <div v-if="!questions[webinar.id] || questions[webinar.id].length === 0" class="text-gray-500 text-sm">
-                      {{ __("No questions yet. Be the first to ask!") }}
+                      No questions yet. Be the first to ask!
                     </div>
                     <div v-for="q in questions[webinar.id]" :key="q.id" class="border-b pb-3">
                       <div class="flex justify-between items-start">
@@ -158,7 +158,7 @@
                       </div>
                       <p class="text-sm text-gray-700">{{ q.question }}</p>
                       <div v-if="q.answer" class="mt-2 bg-blue-50 p-2 rounded text-sm">
-                        <span class="font-medium">{{ __("Answer:") }}</span> {{ q.answer }}
+                        <span class="font-medium">Answer:</span> {{ q.answer }}
                       </div>
                       <div class="mt-1 flex items-center gap-2">
                         <button @click="upvoteQuestion(webinar.id, q.id)" class="text-xs text-gray-500 hover:text-purple-600">
@@ -170,17 +170,17 @@
                   <form @submit.prevent="submitQuestion(webinar.id)" class="space-y-2">
                     <textarea 
                       v-model="questionForm.question"
-                      :placeholder="__('Ask a question...')"
+                      :placeholder="'Ask a question...'"
                       rows="2"
                       class="w-full border rounded p-2 text-sm"
                     ></textarea>
                     <div class="flex items-center justify-between">
                       <label class="flex items-center text-sm">
                         <input type="checkbox" v-model="questionForm.is_anonymous" class="mr-2">
-                        {{ __("Ask anonymously") }}
+                        Ask anonymously
                       </label>
                       <button type="submit" class="button-exp-fill text-sm" :disabled="loadingQ">
-                        {{ loadingQ ? __("Sending...") : __("Submit Question") }}
+                        {{ loadingQ ? "Sending..." : "Submit Question" }}
                       </button>
                     </div>
                   </form>
@@ -190,7 +190,7 @@
                 <div v-if="getActiveTab(webinar.id) === 'chat' && webinar.allow_chat" class="p-4">
                   <div class="mb-4 max-h-64 overflow-y-auto space-y-2" ref="chatContainer">
                     <div v-if="!chatMessages[webinar.id] || chatMessages[webinar.id].length === 0" class="text-gray-500 text-sm">
-                      {{ __("No messages yet. Start the conversation!") }}
+                      No messages yet. Start the conversation!
                     </div>
                     <div v-for="msg in chatMessages[webinar.id]" :key="msg.id" class="text-sm">
                       <span class="font-medium">{{ msg.sender_name }}:</span>
@@ -201,11 +201,11 @@
                     <input 
                       v-model="chatForm.message"
                       type="text"
-                      :placeholder="__('Type a message...')"
+                      :placeholder="'Type a message...'"
                       class="flex-1 border rounded px-3 py-2 text-sm"
                     />
                     <button type="submit" class="button-exp-fill text-sm" :disabled="loadingChat">
-                      {{ __("Send") }}
+                      Send
                     </button>
                   </form>
                 </div>
@@ -214,7 +214,7 @@
                 <div v-if="getActiveTab(webinar.id) === 'messages' && webinar.allow_private_messages" class="p-4">
                   <div class="mb-4 max-h-64 overflow-y-auto space-y-2">
                     <div v-if="!privateMessages[webinar.id] || privateMessages[webinar.id].length === 0" class="text-gray-500 text-sm">
-                      {{ __("Send a private message to the presenter.") }}
+                      Send a private message to the presenter.
                     </div>
                     <div 
                       v-for="msg in privateMessages[webinar.id]" 
@@ -222,19 +222,19 @@
                       class="p-2 rounded text-sm"
                       :class="msg.sender_type === 'attendee' ? 'bg-gray-100' : 'bg-blue-50'"
                     >
-                      <p class="text-xs text-gray-500 mb-1">{{ msg.sender_type === 'attendee' ? __("You") : __("Presenter") }} • {{ formatTime(msg.created_at) }}</p>
+                      <p class="text-xs text-gray-500 mb-1">{{ msg.sender_type === 'attendee' ? "You" : "Presenter" }} • {{ formatTime(msg.created_at) }}</p>
                       <p>{{ msg.message }}</p>
                     </div>
                   </div>
                   <form @submit.prevent="sendPrivateMessage(webinar.id)" class="space-y-2">
                     <textarea 
                       v-model="messageForm.message"
-                      :placeholder="__('Write a private message to the presenter...')"
+                      :placeholder="'Write a private message to the presenter...'"
                       rows="2"
                       class="w-full border rounded p-2 text-sm"
                     ></textarea>
                     <button type="submit" class="button-exp-fill text-sm" :disabled="loadingMsg">
-                      {{ loadingMsg ? __("Sending...") : __("Send Private Message") }}
+                      {{ loadingMsg ? "Sending..." : "Send Private Message" }}
                     </button>
                   </form>
                 </div>
@@ -247,10 +247,10 @@
                 <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                 </svg>
-                {{ __("You were registered for this webinar") }}
+                You were registered for this webinar
               </div>
               <div v-else class="text-gray-500 text-sm">
-                {{ __("This webinar has already ended. Registration is no longer available.") }}
+                This webinar has already ended. Registration is no longer available.
               </div>
             </div>
 
@@ -261,7 +261,7 @@
               class="button-exp-fill mb-3"
               @click="toggleForm(webinar.id)"
             >
-              {{ activeFormId === webinar.id ? __("Close form") : __("Register") }}
+              {{ activeFormId === webinar.id ? "Close form" : "Register" }}
             </button>
 
             <form
@@ -272,7 +272,7 @@
               <div class="grid grid-cols-1 gap-3">
                 <div>
                   <label class="block text-gray-900 mb-1 text-sm" for="name">
-                    {{ __("Name *") }}
+                    Name *
                   </label>
                   <input
                     id="name"
@@ -308,7 +308,7 @@
 
                 <div>
                   <label class="block text-gray-900 mb-1 text-sm" for="phone">
-                    {{ __("Phone") }}
+                    Phone
                   </label>
                   <input
                     id="phone"
@@ -326,7 +326,7 @@
 
                 <div>
                   <label class="block text-gray-900 mb-1 text-sm" for="company">
-                    {{ __("Company") }}
+                    Company
                   </label>
                   <input
                     id="company"
@@ -348,7 +348,7 @@
                 class="button-exp-fill"
                 :disabled="loading"
               >
-                {{ loading ? __("Submitting...") : __("Submit registration") }}
+                {{ loading ? "Submitting..." : "Submit registration" }}
               </button>
             </form>
           </div>
@@ -360,14 +360,10 @@
 
 <script>
 import axios from "axios";
-import { useTranslation } from "@/Utils/i18n";
+
 
 export default {
   name: "WebinarsIndex",
-  setup() {
-    const { __ } = useTranslation();
-    return { __ };
-  },
   props: {
     webinars: {
       type: Array,
@@ -493,9 +489,9 @@ export default {
     },
     getTypeLabel(type) {
       const labels = {
-        live_interactive: this.__('Live Interactive'),
-        live_viewonly: this.__('Live'),
-        recorded: this.__('On-Demand'),
+        live_interactive: 'Live Interactive',
+        live_viewonly: 'Live',
+        recorded: 'On-Demand',
       };
       return labels[type] || type;
     },

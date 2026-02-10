@@ -5,7 +5,7 @@
       <div class="min-w-0 flex-1 p-4 rounded h-screen">
           <div class="mb-4 flex flex-col sm:flex-col md:flex-row lg:flex-row items-center justify-between gap-4">
             <h3 class="can-exp-h3 text-primary text-center sm:text-left">
-              {{ __("Dashboard") }}
+              Dashboard
             </h3>
             <!-- Add the button here -->
             <div class="">
@@ -14,7 +14,7 @@
               target="_blank"
                 class="button-exp-fill bg-blue-500 hover:bg-blue-600 block"
               >
-                {{ __("Send Holiday Emails") }}
+                Send Holiday Emails
               </a>
             </div>
           </div>
@@ -49,7 +49,7 @@
                   </div>
                 </div>
                 <div class="mt-2">
-                  <p class="text-sm text-gray-500">{{ __("Business profiles") }}</p>
+                  <p class="text-sm text-gray-500">Business profiles</p>
                 </div>
               </div>
             </li>
@@ -79,7 +79,7 @@
                   </div>
                 </div>
                 <div class="mt-2">
-                  <p class="text-sm text-gray-500">{{ __("Featured exporters") }}</p>
+                  <p class="text-sm text-gray-500">Featured exporters</p>
                 </div>
               </div>
             </li>
@@ -109,7 +109,7 @@
                   </div>
                 </div>
                 <div class="mt-2">
-                  <p class="text-sm text-gray-500">{{ __("Inquiries to buy") }}</p>
+                  <p class="text-sm text-gray-500">Inquiries to buy</p>
                 </div>
               </div>
             </li>
@@ -139,7 +139,7 @@
                   </div>
                 </div>
                 <div class="mt-2">
-                  <p class="text-sm text-gray-500">{{ __("Registered Users") }}</p>
+                  <p class="text-sm text-gray-500">Registered Users</p>
                 </div>
               </div>
             </li>
@@ -151,7 +151,7 @@
             <h2
               class="mx-auto max-w-2xl text-3xl font-semibold leading-6 text-gray-900 lg:mx-0 lg:max-w-none"
             >
-              {{ __("Recent activity") }}
+              Recent activity
             </h2>
           </div>
           <div class="mt-6 overflow-hidden border-t border-gray-100">
@@ -160,15 +160,15 @@
                 <table class="w-full text-left">
                   <thead class="sr-only">
                     <tr>
-                      <th>{{ __("Amount") }}</th>
-                      <th>{{ __("Client") }}</th>
-                      <th>{{ __("More details") }}</th>
+                      <th>Amount</th>
+                      <th>Client</th>
+                      <th>More details</th>
                     </tr>
                   </thead>
                   <tbody>
                       <tr class="text-sm leading-6 text-gray-900">
                           <th scope="colgroup" colspan="4" class="relative isolate py-2 font-semibold">
-                              {{ __("Latest profiles") }}
+                              Latest profiles
                               <div class="absolute inset-y-0 right-full -z-10 w-screen border-b border-gray-200 bg-gray-50"></div>
                               <div class="absolute inset-y-0 left-0 -z-10 w-screen border-b border-gray-200 bg-gray-50"></div>
                           </th>
@@ -185,10 +185,10 @@
                                               {{ order?.registration_package?.type }}
                                           </div>
                                           <div v-if="order?.status === 'deleted'" class="rounded-md py-1 px-2 text-xs font-medium ring-1 ring-inset text-red-700 bg-red-50 ring-red-600/20">
-                                              {{ __("Deleted") }}
+                                              Deleted
                                           </div>
                                           <div v-else class="rounded-md py-1 px-2 text-xs font-medium ring-1 ring-inset text-blue-700 bg-blue-50 ring-blue-600/20">
-                                              {{ __("Created") }}
+                                              Created
                                           </div>
                                       </div>
                                   </div>
@@ -223,13 +223,7 @@
   </AppLayout>
 </template>
 <script>
-import { useTranslation } from '@/Utils/i18n';
-
 export default {
-  setup() {
-    const { __ } = useTranslation();
-    return { __ };
-  },
   data() {
     return {
       stats: null,

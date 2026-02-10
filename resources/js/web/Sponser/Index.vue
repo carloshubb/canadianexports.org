@@ -4,12 +4,12 @@
             <div class="sm:flex sm:items-center py-4">
                 <div class="sm:flex-auto">
                     <h1 class="text-2xl font-bold text-primary mb-2" v-if="isLoggedInSponsor">
-                        {{ __("My Sponsorships") }}
+                        My Sponsorships
                     </h1>
                     <p class="text-gray-600">
                         <template v-if="sponsers && sponsers.length == 0">
                             <span v-if="isLoggedInSponsor">
-                                {{ __("You haven't started any sponsorships yet. Your support directly helps us promote and empower a diverse range of Canadian entrepreneurs—from First Nations and Women-owned businesses to Green startups and Rural enterprises. Click \"Become a Sponsor\" to help us champion these businesses on the global stage.") }}
+                                You haven't started any sponsorships yet. Your support directly helps us promote and empower a diverse range of Canadian entrepreneurs—from First Nations and Women-owned businesses to Green startups and Rural enterprises. Click "Become a Sponsor" to help us champion these businesses on the global stage.
                             </span>
                             <span v-else>
                                 {{
@@ -20,13 +20,13 @@
                                         ? sponser_setting
                                             .sponser_listing_setting_detail[0]
                                             .no_sponser_found_text
-                                        : __("No sponsorships found.")
+                                        : "No sponsorships found."
                                 }}
                             </span>
                         </template>
                         <template v-else-if="sponsers && sponsers.length > 0">
                             <span v-if="isLoggedInSponsor">
-                                {{ __("Thank you for your valued support. Your contributions allow us to provide a global platform for fresh startups, First Nations, Women-owned, and Minority-owned businesses, among others. Below are your active sponsorships that help us bring these diverse Canadian voices to the world.") }}
+                                Thank you for your valued support. Your contributions allow us to provide a global platform for fresh startups, First Nations, Women-owned, and Minority-owned businesses, among others. Below are your active sponsorships that help us bring these diverse Canadian voices to the world.
                             </span>
                             <span v-else>
                                 {{
@@ -45,9 +45,9 @@
                 </div>
                 <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
                     <div class="flex items-center justify-between gap-2">
-                        <a :aria-label="__('Canadian Exporters')" :href="`/${sponsor_become}/become-a-sponsor`"
+                        <a :aria-label="'Canadian Exporters'" :href="`/${sponsor_become}/become-a-sponsor`"
                             class="button-exp-fill" v-if="isLoggedInSponsor">
-                            {{ sponsers && sponsers.length > 0 ? __("Add Another Sponsorship") : __("Become a Sponsor") }}
+                            {{ sponsers && sponsers.length > 0 ? "Add Another Sponsorship" : "Become a Sponsor" }}
                         </a>
                     </div>
                 </div>
@@ -75,11 +75,11 @@
                                     </th>
                                     <th v-if="isLoggedInSponsor"
                                         class="sticky top-0 z-0 bg-primary backdrop-blur backdrop-filter py-3.5 pl-3 pr-3 text-left font-FuturaMdCnBT text-white lg:text-xl md:text-lg text-lg font-normal">
-                                        {{ __("Amount") }}
+                                        Amount
                                     </th>
                                     <th v-if="isLoggedInSponsor"
                                         class="sticky top-0 z-0 bg-primary backdrop-blur backdrop-filter py-3.5 pl-3 pr-3 text-left font-FuturaMdCnBT text-white lg:text-xl md:text-lg text-lg font-normal">
-                                        {{ __("Status") }}
+                                        Status
                                     </th>
                                     <th v-if="isLoggedInSponsor"
                                         class="sticky top-0 z-0 bg-primary backdrop-blur backdrop-filter py-3.5 pl-3 pr-3 text-center font-FuturaMdCnBT text-white lg:text-xl md:text-lg text-lg font-normal">
@@ -143,11 +143,11 @@
                                             <a :href="`/${sponsor_become}/user/sponsor-settings/${sponser.id}`"
                                                 class="px-3 py-1.5 bg-primary text-white rounded hover:bg-opacity-90 text-sm">
                                                 {{ sponser_setting?.sponser_listing_setting_detail?.[0]?.edit_button_text
-                                                || __('Edit')}}
+                                                || 'Edit'}}
                                             </a>
                                             <a :href="`/sponsor-detail/${sponser.slug}`" target="_blank"
                                                 class="px-3 py-1.5 border border-gray-300 text-gray-700 rounded hover:bg-gray-50 text-sm">
-                                                {{ __("View") }}
+                                                View
                                             </a>
                                         </div>
                                     </td>
@@ -160,10 +160,10 @@
                         class="flex items-center justify-between mt-6 bg-white p-4 rounded-lg shadow-sm border border-gray-200">
                         <!-- Pagination Info -->
                         <div class="text-sm text-gray-600">
-                            {{ __("Showing") }} <span class="font-medium">{{ pagination.from }}</span> {{ __("to") }} <span
+                            Showing <span class="font-medium">{{ pagination.from }}</span> to <span
                                 class="font-medium">{{
-                                    pagination.to }}</span> {{ __("of") }} <span class="font-medium">{{ pagination.total }}</span>
-                            {{ __("entries") }}
+                                    pagination.to }}</span> of <span class="font-medium">{{ pagination.total }}</span>
+                            entries
                         </div>
 
                         <!-- Pagination Controls -->
@@ -172,7 +172,7 @@
                             <button @click="fetchSponsers(pagination.prev_page_url)"
                                 :disabled="!pagination.prev_page_url"
                                 class="px-3 py-1 rounded border border-gray-300 text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition">
-                                {{ __("Previous") }}
+                                Previous
                             </button>
 
                             <!-- Page Numbers - Explicitly filter out unwanted labels -->
@@ -191,7 +191,7 @@
                             <button @click="fetchSponsers(pagination.next_page_url)"
                                 :disabled="!pagination.next_page_url"
                                 class="px-3 py-1 rounded border border-gray-300 text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition">
-                                {{ __("Next") }}
+                                Next
                             </button>
                         </div>
 
@@ -205,13 +205,9 @@
 <script>
 import _ from "lodash";
 import { mapState } from "vuex";
-import { useTranslation } from '@/Utils/i18n';
+
 
 export default {
-    setup() {
-        const { __ } = useTranslation();
-        return { __ };
-    },
     computed: {
         ...mapState({
             form: (state) => state.events.form,

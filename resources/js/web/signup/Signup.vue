@@ -9,7 +9,7 @@
                             .page_title
                         : ''
                     "></h1>
-                    <p style="text-align: center; line-height: 1;">{{ __("Join Canada's trusted export promotion platform and connect with global buyers. Choose the plan that fits your business stage.") }}&nbsp;</p>
+                    <p style="text-align: center; line-height: 1;">Join Canada's trusted export promotion platform and connect with global buyers. Choose the plan that fits your business stage.&nbsp;</p>
             </div>
             <div class="">
                 <span class="register-business" v-html="regPageSetting &&
@@ -80,7 +80,7 @@
                                         ? regPageSetting
                                             .reg_page_setting_detail[0]
                                             .submit_button_text
-                                        : __("Submit")
+                                        : "Submit"
                                 }}
                             </button>
                         </div>
@@ -122,18 +122,18 @@
                                     c5.883,0.84,10.02,6.206,9.503,12.024C310.715,146.699,307.871,166.61,303.087,186.457z"/>
                             </g>
                             </svg>
-                            <p class="can-exp-p text-primary font-FuturaMdCnBT  text-lg md:text-xl lg:text-2xl" > <span style="font-size: 18pt;"><strong><span >{{ __("Your Privacy is Our Priority") }}</span></strong></span></p>
+                            <p class="can-exp-p text-primary font-FuturaMdCnBT  text-lg md:text-xl lg:text-2xl" > <span style="font-size: 18pt;"><strong><span >Your Privacy is Our Priority</span></strong></span></p>
                         </div>
                         <div class="mt-2 can-exp-p">
                             <ul>
-                            <li>{{ __("We never sell your personal information") }}</li>
-                            <li>{{ __("You retain full ownership of the content you share on our site") }}</li>
-                            <li>{{ __("We never send spam or unwanted emails") }}</li>
+                            <li>We never sell your personal information</li>
+                            <li>You retain full ownership of the content you share on our site</li>
+                            <li>We never send spam or unwanted emails</li>
                             </ul>
                         </div>
                     </div>
                     <div class="rounded-md p-3 mt-6 shadow bg-white">
-                        <p><strong><span class="can-exp-p text-primary font-FuturaMdCnBT  text-lg md:text-xl lg:text-2xl">{{ __("Details & Disclaimers:") }}</span></strong></p>
+                        <p><strong><span class="can-exp-p text-primary font-FuturaMdCnBT  text-lg md:text-xl lg:text-2xl">Details & Disclaimers:</span></strong></p>
                     <div class="text-base md:text-base lg:text-lg mt-4" v-html="regPageSetting &&
                             regPageSetting.reg_page_setting_detail &&
                             regPageSetting.reg_page_setting_detail[0]
@@ -167,13 +167,9 @@ import SocialMedia from "./SocialMedia.vue";
 import Media from "./Media.vue";
 import { mapState } from "vuex";
 import Error from "./../components/Error.vue";
-import { useTranslation } from "@/Utils/i18n";
+
 
 export default {
-    setup() {
-        const { __ } = useTranslation();
-        return { __ };
-    },
     props: ["page_id", "lang", "payment_setting"],
     computed: {
         ...mapState({
@@ -185,7 +181,7 @@ export default {
         }),
         step1HeadingDisplay() {
             const raw = this.regPageSetting?.reg_page_setting_detail?.[0]?.step_1_heading || "";
-            return raw ? String(raw).replace(/\d+ of \d+ - /, this.__("1 of 3 - ")) : this.__("1 of 3 - Registration Package");
+            return raw ? String(raw).replace(/\d+ of \d+ - /, "1 of 3 - ") : "1 of 3 - Registration Package";
         },
         isSubmitEnabled() {
             // formRevision changes on every setForm so this re-runs whenever any field is updated

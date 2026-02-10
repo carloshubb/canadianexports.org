@@ -73,7 +73,6 @@
             $ratesSettingDetail = isset($ratesSetting->ratesSettingDetail[0])
                 ? $ratesSetting->ratesSettingDetail[0]
                 : null;
-                // dd($ratesSetting);
         @endphp
 
         @include('front.pages.rates-template.index', ['page' => $page, 'lang' => $lang])

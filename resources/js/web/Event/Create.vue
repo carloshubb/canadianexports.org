@@ -1018,7 +1018,7 @@
                 <!-- event media -->
                 <div class="w-full">
                     <label for=""
-                        >{{ __("Event Main Image") }} <span class="text-red-500">*</span></label
+                        >Event Main Image <span class="text-red-500">*</span></label
                     >
                     <div class="relative z-0 w-full mb-6 group">
                         <template
@@ -1221,7 +1221,7 @@
                                 <label
                                     for="cards"
                                     class="block mb-2 text-gray-900 dark:text-white"
-                                    >{{ __("Cards") }}</label
+                                    >Cards</label
                                 >
                                 <select
                                     id="cards"
@@ -1241,7 +1241,7 @@
                                         {{ customerPaymentMethod.card_no }}
                                     </option>
                                     <option value="add_new_card">
-                                        {{ __("Add new card") }}
+                                        Add new card
                                     </option>
                                 </select>
                             </div>
@@ -1649,7 +1649,7 @@
 import { load } from "recaptcha-v3";
 import swal from "sweetalert2";
 import helper from "../../helper";
-import { useTranslation } from "@/Utils/i18n";
+
 // Import filepond
 import vueFilePond, { setOptions } from "vue-filepond";
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.esm.js";
@@ -1666,10 +1666,6 @@ import ErrorHandling from "../../ErrorHandling";
 
 import { mapState } from "vuex";
 export default {
-    setup() {
-        const { __ } = useTranslation();
-        return { __ };
-    },
     props: [
         "languages",
         "eventsetting",
@@ -1681,7 +1677,7 @@ export default {
     ],
     computed: {
         labelIdleGallery() {
-            return "<span class='cursor-pointer'>" + this.__("Drag & Drop your files or") + " <span class='filepond--label-action'>" + this.__("Browse") + "</span></span>";
+            return "<span class='cursor-pointer'>" + "Drag & Drop your files or" + " <span class='filepond--label-action'>" + "Browse" + "</span></span>";
         },
         ...mapState({
             isFormEdit: (state) => state.events.isFormEdit,
@@ -2347,13 +2343,13 @@ export default {
                         } else {
                             this.$store.commit("events/resetForm");
                             // Use custom message for event updates
-                            const message = this.event_id ? this.__("Your event has been updated") : response.data.message;
+                            const message = this.event_id ? "Your event has been updated" : response.data.message;
                             
                             // Show popup with proper configuration
                             swal.fire({
                                 position: "center",
                                 showConfirmButton: true,
-                                confirmButtonText: this.__('Close'),
+                                confirmButtonText: 'Close',
                                 showCloseButton: false,
                                 background: "#ffffffff",
                                 buttonsStyling: false,
@@ -2388,7 +2384,7 @@ export default {
                         error.response.data.status == "Error"
                     ) {
                         helper.swalErrorMessageForWeb(
-                            error.response.data.message || this.__("An error occurred. Please try again.")
+                            error.response.data.message || "An error occurred. Please try again."
                         );
                     }
                 });

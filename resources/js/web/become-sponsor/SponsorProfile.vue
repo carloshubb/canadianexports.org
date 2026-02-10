@@ -3,7 +3,7 @@
     <!-- CONTACT INFORMATION -->
     <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
       <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-        <h4 class="text-white">{{ __("Contact Information") }}</h4>
+        <h4 class="text-white">Contact Information</h4>
       </div>
       <div class="p-6">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -93,7 +93,7 @@
     <!-- APPOINTMENT PREFERENCES -->
     <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
       <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-        <h4 class="text-white">{{ __("Appointment Preferences") }}</h4>
+        <h4 class="text-white">Appointment Preferences</h4>
       </div>
       <div class="p-6">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -159,14 +159,14 @@
     <!-- COMPANY MEDIA -->
     <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
       <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-        <h4 class="text-white">{{ __("Company Media") }}</h4>
+        <h4 class="text-white">Company Media</h4>
       </div>
       <div class="p-6">
         <div class="grid grid-cols-1 gap-4">
           <div class="relative w-full">
             <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="image">
               {{ JSON.parse(become_sponsor)["image_label"] }}
-              <span class="text-sm text-gray-500">- {{ __("Max 5MB, PNG/JPG/JPEG/GIF") }}</span>
+              <span class="text-sm text-gray-500">- Max 5MB, PNG/JPG/JPEG/GIF</span>
             </label>
             <FilePond 
               @input="clearErrors('image')" 
@@ -187,7 +187,7 @@
           <div class="relative w-full">
             <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="feature_image">
               {{ JSON.parse(become_sponsor)["feature_image_label"] }}
-              <span class="text-sm text-gray-500">- {{ __("Max 5MB, PNG/JPG/JPEG/GIF") }}</span>
+              <span class="text-sm text-gray-500">- Max 5MB, PNG/JPG/JPEG/GIF</span>
             </label>
             <FilePond 
               @input="clearErrors('feature_image')" 
@@ -211,7 +211,7 @@
     <!-- COMPANY DESCRIPTION -->
     <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
       <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-        <h4 class="text-white">{{ __("Company Description") }}</h4>
+        <h4 class="text-white">Company Description</h4>
       </div>
       <div class="p-6">
         <div class="grid grid-cols-1 gap-4">
@@ -282,7 +282,7 @@
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
           </svg>
-          {{ __("Processing...") }}
+          Processing...
         </span>
         <span v-else>
           {{ JSON.parse(become_sponsor)["submit_btn_text"] }}
@@ -310,7 +310,7 @@ import Error from "./../components/Error.vue";
 import ListErrors from "./../components/ListErrors.vue";
 import axios from "axios";
 import ErrorHandling from "../../ErrorHandling";
-import { useTranslation } from "@/Utils/i18n";
+
 import helper from "../../helper";
 // Import filepond
 import vueFilePond, { setOptions } from "vue-filepond";
@@ -326,10 +326,6 @@ const FilePond = vueFilePond(
 );
 export default {
   props: ["become_sponsor", "submit_url", "page_id", "user", "sponsor"],
-  setup() {
-    const { __ } = useTranslation();
-    return { __ };
-  },
   components: {
     Error,
     ListErrors,

@@ -2,7 +2,7 @@
     <form class="lg:w-full" @submit.prevent="recaptcha()">
         <!-- Event dashboard welcome (Premium / Featured) -->
         <div v-if="eventDashboardDescription" class="bg-white px-4 sm:px-10 rounded-lg sm:pt-20 w-full max-w-full min-w-0 mt-20 mb-6">
-            <h2 class="font-FuturaMdCnBT text-gray-900 break-words">{{ __("Welcome back") }} {{ eventDashboardFirstName }},</h2>
+            <h2 class="font-FuturaMdCnBT text-gray-900 break-words">Welcome back {{ eventDashboardFirstName }},</h2>
             <p class="font-FuturaMdCnBT text-gray-900 break-words whitespace-normal" style="line-height: 1.6; word-wrap: break-word;" v-html="eventDashboardDescription"></p>
         </div>
         <div class="my-4">
@@ -10,7 +10,7 @@
             <div
                 class="px-4 py-1.5 sm:px-6 text-center bg-gradient-to-r from-primary via-primary to-secondary rounded-md cursor-pointer my-6">
                 <h4 class="text-center card-heading text-white">
-                    {{ JSON.parse(event_detail)["package_section_heading"] ?? __("Select Your Package") }}
+                    {{ JSON.parse(event_detail)["package_section_heading"] ?? "Select Your Package" }}
                 </h4>
             </div>
             <div class="w-full">
@@ -19,7 +19,7 @@
                         <div v-if="showDowngradeMessage"
                             class="mx-auto mt-4 max-w-2xl rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800"
                             role="alert">
-                            {{ __("Membership downgrades cannot be processed automatically. Please contact us to adjust your plan.") }}
+                            Membership downgrades cannot be processed automatically. Please contact us to adjust your plan.
                         </div>
                         <div
                             class="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-auto lg:max-w-3xl md:grid-cols-2 lg:grid-cols-2">
@@ -34,12 +34,12 @@
                                 @click.prevent="onPackageSelect(premiumPackage)">
                                 <div
                                     class="w-full mb-6 rounded-t-xl rounded-b-none bg-red-600 py-2.5 flex items-center justify-center">
-                                    <span class="text-white font-semibold text-lg">{{ __("Premium") }}</span>
+                                    <span class="text-white font-semibold text-lg">Premium</span>
                                 </div>
                                 <div class="flex flex-col items-center justify-center text-center gap-y-2">
                                     <p v-if="premiumPackage?.is_default"
                                         class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600">
-                                        {{ __("Most popular") }}
+                                        Most popular
                                     </p>
                                 </div>
                                 <p class="mt-4 text-sm leading-6 text-gray-600">
@@ -83,12 +83,12 @@
                                 @click.prevent="onPackageSelect(featuredPackage)">
                                 <div
                                     class="w-full mb-6 rounded-t-xl rounded-b-none bg-[#800000] py-2.5 flex items-center justify-center">
-                                    <span class="font-semibold text-lg text-[#C9A227]">{{ __("Featured") }}</span>
+                                    <span class="font-semibold text-lg text-[#C9A227]">Featured</span>
                                 </div>
                                 <div class="flex flex-col items-center justify-center text-center gap-y-1">
                                     <p class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600 mt-1"
                                         v-if="featuredPackage?.is_default">
-                                        {{ __("Most popular") }}
+                                        Most popular
                                     </p>
                                 </div>
                                 <p class="mt-4 text-sm leading-6 text-gray-600">
@@ -134,7 +134,7 @@
             </div>
             <div class="mb-6">
                 <div class="relative w-full border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
-                    <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">{{ __("Your Profile") }}</h5>
+                    <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">Your Profile</h5>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="relative w-full mb-3">
                             <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="name">{{
@@ -156,13 +156,13 @@
                 </div>
                 <div class="mb-6">
                     <div class="border border-gray-200 mt-6 rounded-lg p-6 bg-white shadow-sm">
-                        <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">{{ __("The Organizer") }}
+                        <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">The Organizer
                         </h5>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="relative w-full mb-3">
                                 <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
                                     for="business-name">{{
-                                        JSON.parse(event_detail)["business_name_label"] || __("Organizer Name") }}</label>
+                                        JSON.parse(event_detail)["business_name_label"] || "Organizer Name" }}</label>
                                 <input @input="clearErrors('business_name')" type="text" class="can-exp-input"
                                     name="business-name" id="business-name" v-model="form.business_name" />
                                 <Error v-if="submitted" fieldName="business_name" :validationErros="validationErros"
@@ -170,7 +170,7 @@
                             </div>
                             <div class="relative w-full mb-3">
                                 <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
-                                    for="organizer_website">{{ __("Organizer Website") }}</label>
+                                    for="organizer_website">Organizer Website</label>
                                 <input @input="clearErrors('organizer_website')" type="url" class="can-exp-input"
                                     name="organizer_website" id="organizer_website" v-model="form.organizer_website" />
                                 <Error v-if="submitted" fieldName="organizer_website" :validationErros="validationErros"
@@ -178,7 +178,7 @@
                             </div>
                             <div class="relative w-full mb-3">
                                 <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
-                                    for="organizer_phone">{{ __("Phone") }}<span class="text-red-500">*</span></label>
+                                    for="organizer_phone">Phone<span class="text-red-500">*</span></label>
                                 <input type="text" class="can-exp-input" name="organizer_phone" id="organizer_phone"
                                     v-model="form.organizer_phone" maxlength="16"
                                     @input="handleOrganizerPhoneInput($event.target.value)"
@@ -188,7 +188,7 @@
                             </div>
                             <div class="relative w-full mb-3 md:col-span-2">
                                 <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
-                                    for="mailing_address">{{ __("Mailing Address") }}</label>
+                                    for="mailing_address">Mailing Address</label>
                                 <input @input="clearErrors('mailing_address')" type="text" class="can-exp-input"
                                     name="mailing_address" id="mailing_address" v-model="form.mailing_address" />
                                 <Error v-if="submitted" fieldName="mailing_address" :validationErros="validationErros"
@@ -199,13 +199,13 @@
                 </div>
                 <div class="mb-6">
                     <div class="border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
-                        <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">{{ __("Contact Person") }}
+                        <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">Contact Person
                         </h5>
                         <div v-for="(contact, index) in contacts" :key="index">
                             <div class="grid md:grid-cols-2 md:gap-6 gap-4 mt-6 bg-white shadow rounded-lg p-6">
                                 <div class="relative z-0 w-full group">
                                     <label :for="`contact-name-[${index}]`"
-                                        class="text-base md:text-base lg:text-lg">{{ __("Full Name and Title") }} <span class="text-red-500">*</span></label>
+                                        class="text-base md:text-base lg:text-lg">Full Name and Title <span class="text-red-500">*</span></label>
                                     <input type="text" name="contact-name" :id="`contact-name-[${index}]`"
                                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                                         v-model="contact.name"
@@ -214,8 +214,8 @@
                                 </div>
                                 <div class="relative z-0 w-full group">
                                     <label :for="`contact-phone-[${index}]`"
-                                        class="text-base md:text-base lg:text-lg">{{ __("Contact Phone") }}
-                                        <span class="text-gray-500 text-xs">({{ __("If different from the business phone") }})</span></label>
+                                        class="text-base md:text-base lg:text-lg">Contact Phone
+                                        <span class="text-gray-500 text-xs">(If different from the business phone)</span></label>
                                     <input type="text" name="contact-phone" :id="`contact-phone-[${index}]`"
                                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                                         v-model="contact.phone" maxlength="15"
@@ -225,8 +225,8 @@
                                 </div>
                                 <div class="relative z-0 w-full group">
                                     <label :for="`contact-email-[${index}]`"
-                                        class="text-base md:text-base lg:text-lg">{{ __("Email") }} <span
-                                            class="text-gray-500 text-xs">({{ __("If different from the login email") }})</span>
+                                        class="text-base md:text-base lg:text-lg">Email <span
+                                            class="text-gray-500 text-xs">(If different from the login email)</span>
                                     </label>
                                     <input type="text" name="contact-email" :id="`contact-email-[${index}]`"
                                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
@@ -236,7 +236,7 @@
                                 </div>
                                 <div class="relative z-0 w-full group">
                                     <label class="text-base md:text-base lg:text-lg inline-flex items-center gap-1">
-                                        {{ __("Contact Person's Photo") }}
+                                        Contact Person's Photo
                                         <span class="relative inline-flex flex-shrink-0">
                                             <span
                                                 class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-gray-400 text-white text-xs font-bold cursor-pointer flex-shrink-0"
@@ -278,7 +278,7 @@
             <div
                 class="px-4 my-6 py-1.5 sm:px-6 text-center bg-gradient-to-r from-primary via-primary to-secondary rounded-md">
                 <h4 class="text-white">
-                    {{ JSON.parse(event_detail)["event_section_heading"] || __("Step 3 of 5 - Create your event") }}
+                    {{ JSON.parse(event_detail)["event_section_heading"] || "Step 3 of 5 - Create your event" }}
                 </h4>
             </div>
             <div class="grid my-5 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6"
@@ -778,9 +778,9 @@
                         <button class="button-exp-fill mt-6 font-bold" type="button" @click="recaptcha()"
                             :disabled="form.order_amount > 0 && !upgradePaymentFieldsFilled"
                             :class="{ 'opacity-50 cursor-not-allowed': form.order_amount > 0 && !upgradePaymentFieldsFilled }">
-                            {{ form.order_amount > 0 ? __("Upgrade & Pay Now") :
+                            {{ form.order_amount > 0 ? "Upgrade & Pay Now" :
                                 (payment_setting && JSON.parse(payment_setting) ?
-                                    JSON.parse(payment_setting)["confirm_and_proceed_btn_text"] : __("Update")) }}
+                                    JSON.parse(payment_setting)["confirm_and_proceed_btn_text"] : "Update") }}
                         </button>
                     </div>
                 </div>
@@ -799,7 +799,7 @@
                         :disabled="!profileFormHasChanges"
                         :class="{ 'opacity-50 cursor-not-allowed': !profileFormHasChanges }">
                         {{ payment_setting && JSON.parse(payment_setting) ?
-                            JSON.parse(payment_setting)["confirm_and_proceed_btn_text"] || __("Update") : __("Update")
+                            JSON.parse(payment_setting)["confirm_and_proceed_btn_text"] || "Update" : "Update"
                         }}
                     </button>
                 </div>
@@ -822,7 +822,7 @@
 import { load } from "recaptcha-v3";
 import { loadStripe } from "@stripe/stripe-js";
 import helper from "../../helper";
-import { useTranslation } from "@/Utils/i18n";
+
 // Import filepond
 import vueFilePond, { setOptions } from "vue-filepond";
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.esm.js";
@@ -839,13 +839,9 @@ import axios from "axios";
 import ErrorHandling from "../../ErrorHandling";
 import { mapState } from "vuex";
 export default {
-    setup() {
-        const { __ } = useTranslation();
-        return { __ };
-    },
     computed: {
         labelIdleGallery() {
-            return "<span class='cursor-pointer'>" + this.__("Drag & Drop your files or") + " <span class='filepond--label-action'>" + this.__("Browse") + "</span></span>";
+            return "<span class='cursor-pointer'>" + "Drag & Drop your files or" + " <span class='filepond--label-action'>" + "Browse" + "</span></span>";
         },
         /** Safe list of languages (handles prop as array from :languages='@json()' or JSON string) */
         languagesList() {
@@ -898,8 +894,8 @@ export default {
         eventDashboardDescription() {
             if (!this.effectivePackageType) return '';
             const texts = {
-                premium: this.__('This is your <strong>Premium Event</strong> page; update your event details here or <strong>reach more attendees</strong> with a Featured upgrade. Need help? <strong>Contact us.</strong>'),
-                featured: this.__('Welcome to your <strong>Featured Event</strong> page. Your event is receiving our highest level of visibility. Update your details here, or reach out to our <strong>specialized team</strong> to ensure your event looks perfect.')
+                premium: 'This is your <strong>Premium Event</strong> page; update your event details here or <strong>reach more attendees</strong> with a Featured upgrade. Need help? <strong>Contact us.</strong>',
+                featured: 'Welcome to your <strong>Featured Event</strong> page. Your event is receiving our highest level of visibility. Update your details here, or reach out to our <strong>specialized team</strong> to ensure your event looks perfect.'
             };
             return texts[this.effectivePackageType] || '';
         },
@@ -907,7 +903,7 @@ export default {
             return this.effectivePackageType === 'premium' || this.effectivePackageType === 'featured';
         },
         downgradeTooltipText() {
-            return this.__("Membership downgrades cannot be processed automatically. Please contact us to adjust your plan.");
+            return "Membership downgrades cannot be processed automatically. Please contact us to adjust your plan.";
         },
         /** True when the user has changed any profile/event details from the initial load (for Update button) */
         profileFormHasChanges() {
@@ -921,12 +917,12 @@ export default {
         },
         photoGallerySectionTitle() {
             if (this.effectivePackageType === 'featured') {
-                return this.__('Photo Gallery (Upload up to 20 images. Max 10 MB each. Supports PNG, GIF, or JPG)');
+                return 'Photo Gallery (Upload up to 20 images. Max 10 MB each. Supports PNG, GIF, or JPG)';
             }
             if (this.effectivePackageType === 'premium') {
-                return this.__('Photo Gallery (Upload up to 8 images. Max 10 MB each. Supports PNG, GIF, or JPG)');
+                return 'Photo Gallery (Upload up to 8 images. Max 10 MB each. Supports PNG, GIF, or JPG)';
             }
-            return this.__('Photo Gallery');
+            return 'Photo Gallery';
         },
         photoGalleryServerConfig() {
             const csrf = document.head.querySelector('meta[name="csrf-token"]')?.content;
@@ -1414,7 +1410,7 @@ export default {
                             window.location.href = res.data.data.redirect_url;
                         }
                     } else {
-                        helper.swalErrorMessageForWeb(res.data.message || this.__("An error occurred. Please try again."));
+                        helper.swalErrorMessageForWeb(res.data.message || "An error occurred. Please try again.");
                     }
                 })
                 .catch((error) => {
@@ -1429,7 +1425,7 @@ export default {
                         error.response.data.status == "Error"
                     ) {
                         helper.swalErrorMessageForWeb(
-                            error.response.data.message || this.__("An error occurred. Please try again.")
+                            error.response.data.message || "An error occurred. Please try again."
                         );
                     }
                 });

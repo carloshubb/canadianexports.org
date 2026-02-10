@@ -1,29 +1,29 @@
 <template>
   <div class="bg-white rounded-lg shadow-md p-6">
     <div class="flex items-center justify-between mb-6">
-      <h2 class="text-2xl font-bold text-primary">{{ __("My Webinars") }}</h2>
+      <h2 class="text-2xl font-bold text-primary">My Webinars</h2>
       <button @click="showCreateModal = true" class="button-exp-fill">
-        {{ __("+ Host a Webinar") }}
+        + Host a Webinar
       </button>
     </div>
 
     <!-- Filters -->
     <div class="mb-4 flex gap-4">
       <select v-model="filter" @change="loadWebinars" class="can-exp-input border border-gray-300 rounded">
-        <option value="all">{{ __("All Webinars") }}</option>
-        <option value="draft">{{ __("Draft") }}</option>
-        <option value="published">{{ __("Published") }}</option>
-        <option value="completed">{{ __("Completed") }}</option>
-        <option value="cancelled">{{ __("Cancelled") }}</option>
+        <option value="all">All Webinars</option>
+        <option value="draft">Draft</option>
+        <option value="published">Published</option>
+        <option value="completed">Completed</option>
+        <option value="cancelled">Cancelled</option>
       </select>
     </div>
 
     <!-- Webinars List -->
-    <div v-if="loading" class="text-center py-8">{{ __("Loading...") }}</div>
+    <div v-if="loading" class="text-center py-8">Loading...</div>
     <div v-else-if="!webinars.length" class="text-center py-8 text-gray-500">
-      <p class="mb-4">{{ __("You haven't created any webinars yet.") }}</p>
+      <p class="mb-4">You haven't created any webinars yet.</p>
       <button @click="showCreateModal = true" class="button-exp-fill">
-        {{ __("Create Your First Webinar") }}
+        Create Your First Webinar
       </button>
     </div>
     <div v-else class="grid gap-6 md:grid-cols-2">
@@ -46,23 +46,23 @@
           </div>
 
           <div class="text-sm text-gray-700 space-y-1 mb-4">
-            <p><span class="font-semibold">{{ __("Date:") }}</span> {{ formatDate(webinar.scheduled_at) }}</p>
-            <p><span class="font-semibold">{{ __("Type:") }}</span> {{ getTypeLabel(webinar.webinar_type) }}</p>
-            <p><span class="font-semibold">{{ __("Registrations:") }}</span> {{ webinar.registrations_count || 0 }}</p>
+            <p><span class="font-semibold">Date:</span> {{ formatDate(webinar.scheduled_at) }}</p>
+            <p><span class="font-semibold">Type:</span> {{ getTypeLabel(webinar.webinar_type) }}</p>
+            <p><span class="font-semibold">Registrations:</span> {{ webinar.registrations_count || 0 }}</p>
           </div>
 
           <div class="flex gap-2 mt-4">
             <button @click="editWebinar(webinar)" class="flex-1 button-exp-fill text-sm">
-              {{ __("Edit") }}
+              Edit
             </button>
             <button @click="viewRegistrations(webinar.id)" class="flex-1 button-exp-fill text-sm">
-              {{ __("Registrations") }}
+              Registrations
             </button>
             <button @click="viewQuestions(webinar.id)" class="flex-1 button-exp-fill text-sm" v-if="webinar.allow_qa">
-              {{ __("Q&A") }}
+              Q&A
             </button>
             <button @click="deleteWebinar(webinar.id)" class="text-red-600 hover:underline text-sm">
-              {{ __("Delete") }}
+              Delete
             </button>
           </div>
         </div>
@@ -74,87 +74,87 @@
       <div class="bg-white rounded-lg max-w-4xl w-full max-h-[calc(100vh-8rem)] overflow-y-auto mx-auto shadow-xl">
         <div class="p-6">
           <div class="flex justify-between items-center mb-4">
-            <h3 class="text-xl font-bold">{{ editingWebinar ? __("Edit") : __("Create") }} {{ __("Webinar") }}</h3>
+            <h3 class="text-xl font-bold">{{ editingWebinar ? "Edit" : "Create" }} Webinar</h3>
             <button @click="closeModal" class="text-gray-500 hover:text-gray-700">✕</button>
           </div>
 
           <form @submit.prevent="saveWebinar" class="space-y-4">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label class="block text-sm font-medium mb-1">{{ __("Title *") }}</label>
+                <label class="block text-sm font-medium mb-1">Title *</label>
                 <input v-model="form.title" type="text" class="can-exp-input w-full" required />
               </div>
 
               <div>
-                <label class="block text-sm font-medium mb-1">{{ __("Webinar Type *") }}</label>
+                <label class="block text-sm font-medium mb-1">Webinar Type *</label>
                 <select v-model="form.webinar_type" class="can-exp-input w-full" required>
-                  <option value="live_interactive">{{ __("Live Interactive") }}</option>
-                  <option value="live_viewonly">{{ __("Live View-Only") }}</option>
-                  <option value="recorded">{{ __("Recorded/On-Demand") }}</option>
+                  <option value="live_interactive">Live Interactive</option>
+                  <option value="live_viewonly">Live View-Only</option>
+                  <option value="recorded">Recorded/On-Demand</option>
                 </select>
               </div>
 
               <div>
-                <label class="block text-sm font-medium mb-1">{{ __("Scheduled Date & Time *") }}</label>
+                <label class="block text-sm font-medium mb-1">Scheduled Date & Time *</label>
                 <input v-model="form.scheduled_at" type="datetime-local" class="can-exp-input w-full" required />
               </div>
 
               <div>
-                <label class="block text-sm font-medium mb-1">{{ __("Duration (minutes) *") }}</label>
+                <label class="block text-sm font-medium mb-1">Duration (minutes) *</label>
                 <input v-model.number="form.duration_minutes" type="number" min="15" max="480" class="can-exp-input w-full" required />
               </div>
 
               <div>
-                <label class="block text-sm font-medium mb-1">{{ __("Presenter Name") }}</label>
+                <label class="block text-sm font-medium mb-1">Presenter Name</label>
                 <input v-model="form.presenter_name" type="text" class="can-exp-input w-full" />
               </div>
 
               <div>
-                <label class="block text-sm font-medium mb-1">{{ __("Meeting Platform") }}</label>
+                <label class="block text-sm font-medium mb-1">Meeting Platform</label>
                 <select v-model="form.meeting_platform" class="can-exp-input w-full">
-                  <option value="zoom">{{ __("Zoom") }}</option>
-                  <option value="teams">{{ __("Microsoft Teams") }}</option>
-                  <option value="youtube">{{ __("YouTube Live") }}</option>
-                  <option value="custom">{{ __("Custom") }}</option>
+                  <option value="zoom">Zoom</option>
+                  <option value="teams">Microsoft Teams</option>
+                  <option value="youtube">YouTube Live</option>
+                  <option value="custom">Custom</option>
                 </select>
               </div>
 
               <div class="md:col-span-2">
-                <label class="block text-sm font-medium mb-1">{{ __("Meeting Link") }}</label>
+                <label class="block text-sm font-medium mb-1">Meeting Link</label>
                 <input v-model="form.meeting_link" type="url" class="can-exp-input w-full" placeholder="https://zoom.us/j/..." />
               </div>
 
               <div>
-                <label class="block text-sm font-medium mb-1">{{ __("Max Attendees (leave empty for unlimited)") }}</label>
+                <label class="block text-sm font-medium mb-1">Max Attendees (leave empty for unlimited)</label>
                 <input v-model.number="form.max_attendees" type="number" min="1" class="can-exp-input w-full" />
               </div>
             </div>
 
             <div>
-              <label class="block text-sm font-medium mb-1">{{ __("Description") }}</label>
+              <label class="block text-sm font-medium mb-1">Description</label>
               <textarea v-model="form.description" rows="4" class="can-exp-input w-full"></textarea>
             </div>
 
             <div>
-              <label class="block text-sm font-medium mb-1">{{ __("Presenter Bio") }}</label>
+              <label class="block text-sm font-medium mb-1">Presenter Bio</label>
               <textarea v-model="form.presenter_bio" rows="3" class="can-exp-input w-full"></textarea>
             </div>
 
             <!-- Interaction Settings -->
             <div v-if="form.webinar_type === 'live_interactive'" class="bg-gray-50 p-4 rounded-lg">
-              <h4 class="font-medium mb-3">{{ __("Interaction Settings") }}</h4>
+              <h4 class="font-medium mb-3">Interaction Settings</h4>
               <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <label class="flex items-center">
                   <input type="checkbox" v-model="form.allow_qa" class="mr-2" />
-                  <span>{{ __("Enable Q&A") }}</span>
+                  <span>Enable Q&A</span>
                 </label>
                 <label class="flex items-center">
                   <input type="checkbox" v-model="form.allow_chat" class="mr-2" />
-                  <span>{{ __("Enable Chat") }}</span>
+                  <span>Enable Chat</span>
                 </label>
                 <label class="flex items-center">
                   <input type="checkbox" v-model="form.allow_private_messages" class="mr-2" />
-                  <span>{{ __("Enable Private Messages") }}</span>
+                  <span>Enable Private Messages</span>
                 </label>
               </div>
             </div>
@@ -162,7 +162,7 @@
             <!-- Recording fields for recorded webinars -->
             <div v-if="form.webinar_type === 'recorded'">
               <div>
-                <label class="block text-sm font-medium mb-1">{{ __("Recording URL") }}</label>
+                <label class="block text-sm font-medium mb-1">Recording URL</label>
                 <input v-model="form.recording_url" type="url" class="can-exp-input w-full" />
               </div>
               <div>
@@ -172,9 +172,9 @@
             </div>
 
             <div class="flex justify-end gap-2 pt-4">
-              <button type="button" @click="closeModal" class="px-4 py-2 border rounded">{{ __("Cancel") }}</button>
+              <button type="button" @click="closeModal" class="px-4 py-2 border rounded">Cancel</button>
               <button type="submit" class="button-exp-fill" :disabled="saving">
-                {{ saving ? __("Saving...") : __("Save Webinar") }}
+                {{ saving ? "Saving..." : "Save Webinar" }}
               </button>
             </div>
           </form>
@@ -190,14 +190,14 @@
             <h3 class="text-xl font-bold">Registrations</h3>
             <button @click="showRegistrations = false" class="text-gray-500 hover:text-gray-700">✕</button>
           </div>
-          <div v-if="loadingRegistrations" class="text-center py-8">{{ __("Loading...") }}</div>
-          <div v-else-if="!registrations.length" class="text-center py-8 text-gray-500">{{ __("No registrations yet") }}</div>
+          <div v-if="loadingRegistrations" class="text-center py-8">Loading...</div>
+          <div v-else-if="!registrations.length" class="text-center py-8 text-gray-500">No registrations yet</div>
           <div v-else class="space-y-2">
             <div v-for="reg in registrations" :key="reg.id" class="border rounded p-3">
               <p class="font-medium">{{ reg.name }}</p>
               <p class="text-sm text-gray-600">{{ reg.email }}</p>
               <p class="text-sm text-gray-600">{{ reg.company }}</p>
-              <p class="text-xs text-gray-500 mt-1">{{ __("Registered:") }} {{ formatDate(reg.registered_at) }}</p>
+              <p class="text-xs text-gray-500 mt-1">Registered: {{ formatDate(reg.registered_at) }}</p>
             </div>
           </div>
         </div>
@@ -209,11 +209,11 @@
       <div class="bg-white rounded-lg max-w-3xl w-full max-h-[calc(100vh-8rem)] overflow-y-auto mx-auto shadow-xl">
         <div class="p-6">
           <div class="flex justify-between items-center mb-4">
-            <h3 class="text-xl font-bold">{{ __("Q&A") }}</h3>
+            <h3 class="text-xl font-bold">Q&A</h3>
             <button @click="showQuestions = false" class="text-gray-500 hover:text-gray-700">✕</button>
           </div>
-          <div v-if="loadingQuestions" class="text-center py-8">{{ __("Loading...") }}</div>
-          <div v-else-if="!questions.length" class="text-center py-8 text-gray-500">{{ __("No questions yet") }}</div>
+          <div v-if="loadingQuestions" class="text-center py-8">Loading...</div>
+          <div v-else-if="!questions.length" class="text-center py-8 text-gray-500">No questions yet</div>
           <div v-else class="space-y-4">
             <div v-for="q in questions" :key="q.id" class="border rounded p-4">
               <div class="flex justify-between mb-2">
@@ -235,14 +235,10 @@
 
 <script>
 import axios from "axios";
-import { useTranslation } from "@/Utils/i18n";
+
 
 export default {
   name: "MyWebinars",
-  setup() {
-    const { __ } = useTranslation();
-    return { __ };
-  },
   data() {
     return {
       webinars: [],
@@ -427,9 +423,9 @@ export default {
     },
     getTypeLabel(type) {
       const labels = {
-        live_interactive: this.__("Live Interactive"),
-        live_viewonly: this.__("Live View-Only"),
-        recorded: this.__("Recorded"),
+        live_interactive: "Live Interactive",
+        live_viewonly: "Live View-Only",
+        recorded: "Recorded",
       };
       return labels[type] || type;
     },

@@ -196,14 +196,14 @@
         <div class="relative w-full mb-8" v-if="package_type && package_type.toLowerCase() !== 'free'">
           <label
             class="block text-gray-700 mb-1 text-base md:text-base lg:text-lg"
-            for="cta_btn">{{ __("CTA(Call-to-Action) Button") }}
-          <span class="ml-1 text-[0.85em] text-gray-600">{{ __("(Max. 5 words)") }}</span> 
+            for="cta_btn">CTA(Call-to-Action) Button
+          <span class="ml-1 text-[0.85em] text-gray-600">(Max. 5 words)</span> 
           </label>
            
           <input
             type="text"
             class="can-exp-input"
-            :placeholder="__('The button text that guides the user\'s next action; e.g., Learn More.')"
+            :placeholder="'The button text that guides the user\'s next action; e.g., Learn More.'"
             @input="
               handleInput($event.target.value, 'customer_profile_cta_btn');
               clearValidationError('customer_profile_cta_btn');
@@ -263,7 +263,7 @@
             {{
               regPageSetting?.reg_page_setting_detail?.[0]
                 ?.step_4_short_description_label
-            }}<span class="ml-1 text-[0.85em] text-gray-600">{{ __("(Max. 30 words)") }}</span> 
+            }}<span class="ml-1 text-[0.85em] text-gray-600">(Max. 30 words)</span> 
             <span class="text-red-500">*</span>
           </label>
           <textarea
@@ -299,7 +299,7 @@
             {{
               regPageSetting?.reg_page_setting_detail?.[0]
                 ?.step_4_description_label
-            }}<span class="ml-1 text-[0.85em] text-gray-600">{{ __("(Max. 300 words)") }}</span> 
+            }}<span class="ml-1 text-[0.85em] text-gray-600">(Max. 300 words)</span> 
             <span class="text-red-500">*</span>
           </label>
           <textarea
@@ -370,13 +370,9 @@
 <script>
 import { mapState } from "vuex";
 import Error from "./../components/Error.vue";
-import { useTranslation } from "@/Utils/i18n";
+
 
 export default {
-  setup() {
-    const { __ } = useTranslation();
-    return { __ };
-  },
   components: {
     Error,
   },
@@ -532,7 +528,7 @@ export default {
         inputElement.value = truncatedValue;
         this.updateForm(fieldName, truncatedValue);
 
-        const errorMessage = this.__("Mailing Address must not contain more than") + " " + maxLines + " " + this.__("lines.");
+        const errorMessage = "Mailing Address must not contain more than" + " " + maxLines + " " + "lines.";
 
         this.$store.commit("signup/updateValidationErros", {
           field: fieldName,

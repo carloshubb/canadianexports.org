@@ -13,13 +13,13 @@
                         <div class="mt-3 text-center sm:mt-0 w-full">
                             <!-- Title Section -->
                             <h3 class="text-2xl leading-6 font-bold text-gray-900 mb-4" id="modal-title">
-                                {{ __("Your Coffee Is on Someone Today ☕💛") }}
+                                Your Coffee Is on Someone Today ☕💛
                             </h3>
                             
                             <!-- Text Section -->
                             <div class="mt-4">
                                 <p class="text-lg text-gray-700">
-                                    {{ __("This Coffee comes from") }} <span class="font-semibold text-primary">{{ displayDonorName }}</span>{{ __(", who chose to support Canadian small businesses like yours.") }}
+                                    This Coffee comes from <span class="font-semibold text-primary">{{ displayDonorName }}</span>, who chose to support Canadian small businesses like yours.
                                 </p>
                             </div>
                         </div>
@@ -33,7 +33,7 @@
                         class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-6 py-3 bg-gradient-to-r from-xblue via-primary to-blue-600 text-base font-medium text-white hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary sm:ml-3 sm:w-auto sm:text-sm"
                         @click="closePopup"
                     >
-                        {{ __("Thank you") }}
+                        Thank you
                     </button>
                 </div>
             </div>
@@ -42,13 +42,9 @@
 </template>
 
 <script>
-import { useTranslation } from "@/Utils/i18n";
+
 
 export default {
-    setup() {
-        const { __ } = useTranslation();
-        return { __ };
-    },
     props: {
         isVisible: {
             type: Boolean,
@@ -61,7 +57,7 @@ export default {
     },
     computed: {
         displayDonorName() {
-            return this.donorName || this.__('A Kind Supporter');
+            return this.donorName || 'A Kind Supporter';
         }
     },
     methods: {

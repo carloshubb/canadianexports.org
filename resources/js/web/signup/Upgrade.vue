@@ -29,7 +29,7 @@
                             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-base md:text-base lg:text-lg p-1.5 inline-flex items-center"
                             data-modal-hide="defaultModal" @click="toggleModal">
                             <img class="h-6" src="/assets/icons/19-X-inside-circle-2.png" alt="Candian Exporters" />
-                            <span class="sr-only">{{ __("Close modal") }}</span>
+                            <span class="sr-only">Close modal</span>
                         </button>
                     </div>
                     <!-- Modal body -->
@@ -336,7 +336,7 @@
                                         {{ customerPaymentMethod.card_no }}
                                     </option>
                                     <option value="add_new_card">
-                                        {{ __("Add new card") }}
+                                        Add new card
                                     </option>
                                 </select>
                             </div>

@@ -18,7 +18,7 @@
                 <div class="sm:flex sm:items-center sm:justify-between py-4">
                     <div class="sm:flex-auto">
                         <p class="text-primary text-base md:text-lg">
-                            {{ __("Thank you for sharing your events with our community. Below is the list of your active trade shows and events currently being promoted on our platform. To reach even more attendees, click \"Register Another Event\" below.") }}
+                            Thank you for sharing your events with our community. Below is the list of your active trade shows and events currently being promoted on our platform. To reach even more attendees, click "Register Another Event" below.
                         </p>
                     </div>
                     <div class="mt-4 sm:mt-0 sm:ml-4 sm:flex-none flex items-center gap-2">
@@ -28,7 +28,7 @@
                         </a>
                         <a href="#" class="button-exp-fill" @click.prevent="handleAddEventClick"
                             v-if="parsedUser?.events_remaining !== '0'">
-                            {{ __("Register Another Event") }}
+                            Register Another Event
                         </a>
                     </div>
                 </div>
@@ -128,13 +128,9 @@
 <script>
 import _ from "lodash";
 import { mapState } from "vuex";
-import { useTranslation } from '@/Utils/i18n';
+
 
 export default {
-    setup() {
-        const { __ } = useTranslation();
-        return { __ };
-    },
     computed: {
         ...mapState({
             form: (state) => state.events.form,

@@ -6,7 +6,7 @@
       <!-- Sponsorship Amount & Frequency (Only for "Enter Your Amount" option) -->
       <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
         <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-          <h4 class="text-white">{{ __("Select Your Sponsorship Amount & Frequency") }}</h4>
+          <h4 class="text-white">Select Your Sponsorship Amount & Frequency</h4>
         </div>
         <div class="p-6">
           <div class="relative w-full mb-6">
@@ -58,7 +58,7 @@
 
               <input type="number" id="custom_amount1" v-model="custom_amount1" @keypress="inputAmount(custom_amount1)"
                 class="block mt-1 border-2 p-2.5 w-full rounded border-gray-200 focus:outline-none focus:border focus:border-blue-600 pl-10 h-12"
-                :placeholder="__('Enter your own amount')" />
+                :placeholder="'Enter your own amount'" />
             </div>
             <br></br><br></br>
             <div class="talk-to-us-frame flex-1 mt-3 rounded-lg p-[3px] transition-all duration-300"
@@ -71,12 +71,12 @@
                   ">
                 <input type="radio" name="sponsorship_option" :value="true" class="sr-only"
                   v-model="form.talk_to_us_first" @click="onOptionChange(true)" />
-                <span class="font-FuturaMdCnBT">{{ __("Talk to Us First") }}</span>
-                <span class="text-sm mt-2 opacity-90">{{ __("We're happy to discuss your goals and our partnership opportunities in detail before you make a selection.") }}</span>
+                <span class="font-FuturaMdCnBT">Talk to Us First</span>
+                <span class="text-sm mt-2 opacity-90">We're happy to discuss your goals and our partnership opportunities in detail before you make a selection.</span>
               </label>
             </div>
             <div v-if="getAmountsByFrequency(selectedFrequency).length === 0" class="text-center py-8 text-gray-500">
-              {{ __("No sponsorship amounts available for this frequency.") }}
+              No sponsorship amounts available for this frequency.
             </div>
 
             <Error v-if="submitted" fieldName="sponsorship_amount" :validationErros="validationErros" full_width="1" />
@@ -115,30 +115,30 @@
       <Transition name="slide-down">
         <div v-if="show_contact_preference" class="bg-white rounded-lg shadow-3xl my-6">
           <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-            <h4 class="text-white">{{ __("Contact Preferences") }}</h4>
+            <h4 class="text-white">Contact Preferences</h4>
           </div>
           <div class="p-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div class="relative w-full">
                 <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="preferred_call_time">
-                  {{ __("Best Time to Call") }}
+                  Best Time to Call
                   <!-- <span class="text-red-500">*</span> -->
                 </label>
                 <select id="preferred_call_time" v-model="form.preferred_call_time"
                   class="can-exp-input w-full block border border-gray-300 rounded"
                   @change="clearErrors('preferred_call_time')">
-                  <option value="morning">{{ __("Morning (9 AM - 12 PM)") }}</option>
-                  <option value="afternoon">{{ __("Afternoon (12 PM - 5 PM)") }}</option>
-                  <option value="evening">{{ __("Evening (5 PM - 8 PM)") }}</option>
+                  <option value="morning">Morning (9 AM - 12 PM)</option>
+                  <option value="afternoon">Afternoon (12 PM - 5 PM)</option>
+                  <option value="evening">Evening (5 PM - 8 PM)</option>
                 </select>
                 <Error v-if="submitted" fieldName="preferred_call_time" :validationErros="validationErros" />
               </div>
 
               <div class="relative w-full">
                 <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="preferred_call_date">
-                  {{ __("Preferred Date (Optional)") }}
+                  Preferred Date (Optional)
                 </label>
-                <VueDatePicker id="preferred_call_date" v-model="form.preferred_call_date" :placeholder="__('YYYY-MM-DD')"
+                <VueDatePicker id="preferred_call_date" v-model="form.preferred_call_date" :placeholder="'YYYY-MM-DD'"
                   model-type="yyyy-MM-dd" :formats="{ input: 'yyyy-MM-dd' }" :time-config="{ enableTimePicker: false }"
                   auto-apply @update:model-value="
                     clearErrors('preferred_call_date');">
@@ -153,13 +153,13 @@
       <!-- COMPANY INFORMATION -->
       <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
         <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-          <h4 class="text-white">{{ __("Account Details") }}</h4>
+          <h4 class="text-white">Account Details</h4>
         </div>
         <div class="p-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="relative w-full">
               <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="company_name">
-                {{ __("Business Name") }}
+                Business Name
                 <span class="text-red-500">*</span>
               </label>
               <input type="text" id="company_name" v-model="form.company_name" class="can-exp-input"
@@ -169,33 +169,33 @@
 
             <div class="relative w-full">
               <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="contact_name">
-                {{ __("Primary Contact Name & Title") }}
+                Primary Contact Name & Title
                 <span class="text-red-500">*</span>
               </label>
               <textarea id="contact_name" v-model="form.contact_name" class="can-exp-input scrollbar-textarea"
-                :placeholder="__('Please include your full name and the title you would like to be addressed by, separated by a dash or hyphen. For example, John Smith - Sales Manager')" :title="__('Please include your full name and the title you would like to be addressed by, separated by a dash or hyphen. For example, John Smith - Sales Manager')"
+                :placeholder="'Please include your full name and the title you would like to be addressed by, separated by a dash or hyphen. For example, John Smith - Sales Manager'" :title="'Please include your full name and the title you would like to be addressed by, separated by a dash or hyphen. For example, John Smith - Sales Manager'"
                 @input="clearErrors('contact_name')"></textarea>
               <Error v-if="submitted" fieldName="contact_name" :validationErros="validationErros" />
             </div>
 
             <div class="relative w-full">
               <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="email">
-                {{ __("Email Address") }}
+                Email Address
                 <span class="text-red-500">*</span>
               </label>
               <input type="email" id="email" v-model="form.email" class="can-exp-input"
-                :placeholder="__('Used for both login and contact.')" @input="clearErrors('email')" />
+                :placeholder="'Used for both login and contact.'" @input="clearErrors('email')" />
 
               <Error v-if="submitted" fieldName="email" :validationErros="validationErros" />
             </div>
 
             <div class="relative w-full">
               <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="contact_number">
-                {{ __("Phone Number") }}
+                Phone Number
                 <span class="text-red-500">*</span>
               </label>
               <input type="text" id="contact_number" v-model="form.contact_number" class="can-exp-input"
-                :placeholder="__('+15551234567')" @input="handlePhoneInput('contact_number')"
+                :placeholder="'+15551234567'" @input="handlePhoneInput('contact_number')"
                 @keypress="validatePhoneKeypress" />
               <Error v-if="submitted" fieldName="contact_number" :validationErros="validationErros" />
             </div>
@@ -203,9 +203,9 @@
             <div class="relative w-full" v-if="!isLoggedIn">
               <br>
               <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="password">
-                {{ __("Password") }} <span class="font-normal text-sm">{{ __("(Min. 8 characters. Must contain at least one lowercase and one uppercase)") }}</span>
+                Password <span class="font-normal text-sm">(Min. 8 characters. Must contain at least one lowercase and one uppercase)</span>
                 <span v-if="!show_contact_preference" class="text-red-500">*</span>
-                <span v-else class="text-gray-500">{{ __("(Optional)") }}</span>
+                <span v-else class="text-gray-500">(Optional)</span>
               </label>
               <div class="relative">
                 <input :type="showPassword ? 'text' : 'password'" id="password" v-model="form.password"
@@ -231,9 +231,9 @@
             <div class="relative w-full" v-if="!isLoggedIn">
               
               <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="password_confirmation"><br></br>
-                {{ __("Confirm Password") }}
+                Confirm Password
                 <span v-if="!show_contact_preference" class="text-red-500">*</span>
-                <span v-else class="text-gray-500">{{ __("(Optional)") }}</span>
+                <span v-else class="text-gray-500">(Optional)</span>
               </label>
               <div class="relative">
                 <input :type="showPasswordConfirm ? 'text' : 'password'" id="password_confirmation"
@@ -259,9 +259,9 @@
 
             <div class="relative w-full md:col-span-2">
               <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="url">
-                {{ __("Your Website") }}
+                Your Website
                 <span v-if="!show_contact_preference"></span>
-                <span v-else class="text-gray-500">{{ __("(Optional)") }}</span>
+                <span v-else class="text-gray-500">(Optional)</span>
               </label>
               <input type="url" id="url" v-model="form.url" class="can-exp-input" @input="clearErrors('url')" />
               <Error v-if="submitted" fieldName="url" :validationErros="validationErros" />
@@ -274,13 +274,13 @@
       <Transition name="slide-down">
       <div v-if="!show_contact_preference" class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
         <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-          <h4 class="text-white">{{ __("Brand Story & Media") }}</h4>
+          <h4 class="text-white">Brand Story & Media</h4>
         </div>
         <div class="p-6">
           <div class="grid grid-cols-1 gap-4">
             <div class="relative w-full">
               <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="summary">
-                {{ __("Brief Introduction") }}
+                Brief Introduction
                 <span v-if="!form.talk_to_us_first" class="text-red-500">*</span>
               </label>
               <div class="relative">
@@ -288,9 +288,9 @@
                   @input="clearErrors('summary')"></textarea>
 
                 <div v-if="!form.summary" class="absolute top-2 left-3 text-gray-400 pointer-events-none">
-                  {{ __("In 30 words or less") }}, share your company’s mission or a message of support. This text will appear on the Homepage to highlight your status as an Official Partner of
-                  <strong>{{ __("Canadian Exports") }}</strong> {{ __("and") }}
-                  <strong>{{ __("Canadian export community.") }}</strong>
+                  In 30 words or less, share your company’s mission or a message of support. This text will appear on the Homepage to highlight your status as an Official Partner of
+                  <strong>Canadian Exports</strong> and
+                  <strong>Canadian export community.</strong>
                 </div>
               </div>
 
@@ -299,22 +299,22 @@
 
             <div class="relative w-full">
               <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="detail_description">
-                {{ __("Detailed Description") }}
+                Detailed Description
                 <span v-if="!form.talk_to_us_first" class="text-red-500">*</span>
               </label>
               <textarea id="detail_description" v-model="form.detail_description" rows="4"
                 class="can-exp-input resize-none"
-                :placeholder="__('Use this space (up to 300 words) to share your company’s story and your commitment to supporting Canadian growth. You can outline your services or explain why you’ve chosen to champion small businesses, startups, and diverse entrepreneurs through this sponsorship.')"
+                :placeholder="'Use this space (up to 300 words) to share your company’s story and your commitment to supporting Canadian growth. You can outline your services or explain why you’ve chosen to champion small businesses, startups, and diverse entrepreneurs through this sponsorship.'"
                 @input="clearErrors('detail_description')"></textarea>
               <Error v-if="submitted" fieldName="detail_description" :validationErros="validationErros" />
             </div>
 
             <div class="relative w-full">
               <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="message">
-                {{ __("Additional Message") }}
+                Additional Message
               </label>
               <textarea id="message" v-model="form.message" rows="3" class="can-exp-input resize-none"
-                :placeholder="__('Please use this space to share any specific goals, questions, or details you’d like us to review before we get in touch. We want to ensure our partnership is perfectly tailored to your needs.')"
+                :placeholder="'Please use this space to share any specific goals, questions, or details you’d like us to review before we get in touch. We want to ensure our partnership is perfectly tailored to your needs.'"
                 @input="clearErrors('message')"></textarea>
               <Error v-if="submitted" fieldName="message" :validationErros="validationErros" />
             </div>
@@ -322,7 +322,7 @@
             <!-- Featured Image Upload (appears on Home page) -->
             <div class="relative w-full">
               <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="featured_image">
-                {{ __("Featured Image") }} (<span class="text-[0.75em] font-normal">{{ __("This is your main \"hero\" photo. It will be the large image on your homepage card and the banner at the top of your profile page. JPG, JPEG, or PNG, max 10MB") }})</span>
+                Featured Image (<span class="text-[0.75em] font-normal">This is your main "hero" photo. It will be the large image on your homepage card and the banner at the top of your profile page. JPG, JPEG, or PNG, max 10MB</span>)
 
                 <span class="text-red-500">*</span>
               </label>
@@ -336,8 +336,8 @@
 
             <!-- Profile Image Upload -->
             <div class="relative w-full">
-              <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="logo">{{ __("Logo") }}
-                <span class="text-[0.85em] font-normal"> {{ __("(Your primary brand mark. This will appear in search results, on the Our Sponsors page, and on your profile sidebar. JPG, JPEG, or PNG, max 5MB)") }}</span>
+              <label class="block text-gray-900 text-base md:text-base  lg:text-lg font-bold" for="logo">Logo
+                <span class="text-[0.85em] font-normal"> (Your primary brand mark. This will appear in search results, on the Our Sponsors page, and on your profile sidebar. JPG, JPEG, or PNG, max 5MB)</span>
                 <span class="text-red-500">*</span>
               </label>
               <FilePond @input="clearErrors('logo')" ref="filePondLogo" name="logo"
@@ -355,7 +355,7 @@
       <div v-if="!form.talk_to_us_first && form.sponsorship_amount > 0"
         class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
         <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-          <h4 class="text-white">{{ __("Payment Method") }}</h4>
+          <h4 class="text-white">Payment Method</h4>
         </div>
         <div class="p-6">
           <div class="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0 mt-2">
@@ -364,7 +364,7 @@
                 class="h-4 w-4 border-gray-300 accent-primary" @click="setPaymentMethod('stripe')"
                 :checked="form.payment_method == 'stripe'" />
               <label for="stripe" class="ml-2 block text-gray-900 font-medium">
-                {{ __("Debit or Credit Card") }}
+                Debit or Credit Card
               </label>
             </div>
             <div class="flex items-center">
@@ -398,7 +398,7 @@
               <div class="h-auto bg-white w-full">
                 <!-- Cardholder Name -->
                 <div class="input_text relative mb-4">
-                  <label class="block text-sm  text-gray-700 mb-1 font-bold">{{ __("Cardholder Name") }}</label>
+                  <label class="block text-sm  text-gray-700 mb-1 font-bold">Cardholder Name</label>
                   <input v-model="form.cardholder_name" type="text"  class="can-exp-input"
                     @input="clearErrors('cardholder_name')" />
                   <Error v-if="submitted" fieldName="cardholder_name" :validationErros="validationErros" />
@@ -406,7 +406,7 @@
 
                 <!-- Card Element -->
                 <div class="input_text relative mb-4">
-                  <label class="block text-sm  text-gray-700 mb-1 font-bold">{{ __("Card Details") }}</label>
+                  <label class="block text-sm  text-gray-700 mb-1 font-bold">Card Details</label>
                   <div id="card-element" class="p-3 border border-gray-300 rounded"></div>
                   <div id="card-errors" class="text-red-500 text-sm mt-1"></div>
                 </div>
@@ -428,11 +428,11 @@
             class="h-4 w-4 mt-1 rounded border-gray-300 text-primary focus:ring-primary"
           />
           <label for="agree_terms_and_privacy" class="ml-2 text-gray-900 text-base md:text-base  lg:text-lg">
-            {{ __("I agree to the") }}
-            <a :href="`/${locale}/terms-and-conditions`" target="_blank" rel="noopener noreferrer" class="text-primary underline hover:no-underline">{{ __("Terms & Conditions") }}</a>
-            {{ __("and") }}
-            <a :href="`/${locale}/privacy-policy`" target="_blank" rel="noopener noreferrer" class="text-primary underline hover:no-underline">{{ __("Privacy Policy") }}</a>
-            {{ __("of Canadian Exports.") }}
+            I agree to the
+            <a :href="`/${locale}/terms-and-conditions`" target="_blank" rel="noopener noreferrer" class="text-primary underline hover:no-underline">Terms & Conditions</a>
+            and
+            <a :href="`/${locale}/privacy-policy`" target="_blank" rel="noopener noreferrer" class="text-primary underline hover:no-underline">Privacy Policy</a>
+            of Canadian Exports.
           </label>
         </div>
         <div class="flex items-start pb-4">
@@ -443,7 +443,7 @@
             class="h-4 w-4 mt-1 rounded border-gray-300 text-primary focus:ring-primary"
           />
           <label for="agree_donation_non_refundable" class="ml-2 text-gray-900 text-base md:text-base  lg:text-lg">
-            {{ __("I understand that this payment is a donation to support the Canadian Exports platform and is non-refundable.") }}
+            I understand that this payment is a donation to support the Canadian Exports platform and is non-refundable.
           </label>
         </div>
       </div>
@@ -462,10 +462,10 @@
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
               </path>
             </svg>
-            {{ __("Processing...") }}
+            Processing...
           </span>
           <span v-else>
-            {{ isReactivationMode ? __("Reactivate Sponsorship") : (form.talk_to_us_first ? __("Submit") : __("Become a Sponsor")) }}
+            {{ isReactivationMode ? "Reactivate Sponsorship" : (form.talk_to_us_first ? "Submit" : "Become a Sponsor") }}
           </span>
         </button>
       </div>
@@ -580,10 +580,10 @@ export default {
   },
   computed: {
     labelIdleFeatured() {
-      return '<span class="cursor-pointer">' + this.__("Drag & Drop your featured image or Browse") + '</span>';
+      return '<span class="cursor-pointer">' + "Drag & Drop your featured image or Browse" + '</span>';
     },
     labelIdleLogo() {
-      return '<span class="cursor-pointer">' + this.__("Drag & Drop your profile image or Browse") + '</span>';
+      return '<span class="cursor-pointer">' + "Drag & Drop your profile image or Browse" + '</span>';
     },
     isLoggedIn() {
       return this.logged_in_user && JSON.parse(this.logged_in_user);

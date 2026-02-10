@@ -221,7 +221,7 @@
                         src="/assets/icons/19-X-inside-circle-2.png"
                         alt="Candian Exporters"
                       />
-                      <span class="sr-only">{{ __("Close modal") }}</span>
+                      <span class="sr-only">Close modal</span>
                     </button>
                   </div>
                   <div class="">
@@ -280,14 +280,14 @@
                       </div>
                       <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
                         <div class="text-base md:text-lg text-gray-700">
-                          {{ __("New to Canadian Exports?") }}
+                          New to Canadian Exports?
                         </div>
                         <a
                           href="../en/signup"
                           class="button-exp-fill"
-                          :aria-label="__('Register')"
+                          :aria-label="'Register'"
                         >
-                          {{ __("Register") }}
+                          Register
                         </a>
                       </div>
                     </div>
@@ -319,14 +319,10 @@ import Upgrade from "../signup/Upgrade";
 import ErrorHandling from "../../ErrorHandling";
 import axios from "axios";
 import { mapState } from "vuex";
-import { useTranslation } from "@/Utils/i18n";
+
 import helper from "../../helper";
 
 export default {
-  setup() {
-    const { __ } = useTranslation();
-    return { __ };
-  },
   props: [
     "inquiries",
     "home_page_setting_detail",
@@ -346,7 +342,7 @@ export default {
       customerPaymentMethods: (state) => state.signup.customerPaymentMethods,
     }),
     i2bModalSubmitInstruction() {
-      return this.__('Click <strong>"Submit"</strong> to receive the full details of this Purchase Inquiry by email.');
+      return 'Click <strong>"Submit"</strong> to receive the full details of this Purchase Inquiry by email.';
     },
     years() {
       const currentYear = new Date().getFullYear();
@@ -538,20 +534,20 @@ export default {
           } else if (res.data.status == "Error") {
             this.loading = 0;
             this.validationErros.record({
-              captcha: [res.data.message || this.__("reCAPTCHA verification failed")],
+              captcha: [res.data.message || "reCAPTCHA verification failed"],
             });
           }
         } catch (error) {
           this.loading = 0;
           recaptcha.hideBadge();
-          const errorMessage = error.response?.data?.message || this.__("reCAPTCHA verification failed. Please try again.");
+          const errorMessage = error.response?.data?.message || "reCAPTCHA verification failed. Please try again.";
           this.validationErros.record({
             captcha: [errorMessage],
           });
         }
       } catch (error) {
         this.loading = 0;
-        const errorMessage = error.message || this.__("Failed to load reCAPTCHA. Please try again.");
+        const errorMessage = error.message || "Failed to load reCAPTCHA. Please try again.";
         helper.swalErrorMessageForWeb(errorMessage);
       }
     },
@@ -573,7 +569,7 @@ export default {
           // If user is not Featured/Premium and hasn't paid, show error
           if (packageType !== 'featured' && packageType !== 'premium' && !isPaid && userData?.package_price > 0) {
             this.loading = false;
-            helper.swalErrorMessageForWeb(this.__("Please complete your payment to access this feature."));
+            helper.swalErrorMessageForWeb("Please complete your payment to access this feature.");
             return;
           }
         } catch (e) {
@@ -593,7 +589,7 @@ export default {
               this.$swal.fire({
                 position: "center",
                 showConfirmButton: true,
-                confirmButtonText: this.__('Close'),
+                confirmButtonText: 'Close',
                 showCloseButton: false,
                 background: "#ffffffff",
                 buttonsStyling: false,
@@ -604,14 +600,14 @@ export default {
                   confirmButton: 'button-exp-fill focus:outline-none',
                 },
                 html: `
-                  <p class="text-center mb-3">${this.__("The full details of this Purchase Inquiry will be emailed to you at no additional cost within the next hour.")}</p>
-                  <p class="text-center" style="font-style: italic;">${this.__("If you don't receive it within that time, please contact us.")}</p>
+                  <p class="text-center mb-3">${"The full details of this Purchase Inquiry will be emailed to you at no additional cost within the next hour."}</p>
+                  <p class="text-center" style="font-style: italic;">${"If you don't receive it within that time, please contact us."}</p>
                 `,
               });
               this.hideI2BModal();
             }
           } else if (res.data.status == "Error") {
-            helper.swalErrorMessageForWeb(res.data.message || this.__("Something went wrong, please try again."));
+            helper.swalErrorMessageForWeb(res.data.message || "Something went wrong, please try again.");
           }
         })
         .catch((error) => {
@@ -624,12 +620,12 @@ export default {
             error.response.data &&
             error.response.data.status == "Error"
           ) {
-            helper.swalErrorMessageForWeb(error.response.data.message || this.__("Something went wrong, please try again."));
+            helper.swalErrorMessageForWeb(error.response.data.message || "Something went wrong, please try again.");
           } else if (error.response && error.response.data && error.response.data.message) {
             helper.swalErrorMessageForWeb(error.response.data.message);
           } else {
             // Network error or other unexpected error
-            const errorMessage = error.message || this.__("Something went wrong, please try again.");
+            const errorMessage = error.message || "Something went wrong, please try again.";
             helper.swalErrorMessageForWeb(errorMessage);
           }
         })
@@ -638,13 +634,13 @@ export default {
     removeI2b(i2bId, type) {
       this.$swal
         .fire({
-          text: this.__("Are you sure you want to remove this listing from your search results?"),
+          text: "Are you sure you want to remove this listing from your search results?",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
-          confirmButtonText: this.__("Yes"),
-          cancelButtonText: this.__("No"),
+          confirmButtonText: "Yes",
+          cancelButtonText: "No",
           showCloseButton: true,
           customClass: {
             confirmButton: "inline-flex items-center button-exp-fill",

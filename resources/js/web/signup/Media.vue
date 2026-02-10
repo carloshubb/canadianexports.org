@@ -102,7 +102,7 @@
   >
     {{
       regPageSetting?.reg_page_setting_detail?.[0]?.step_5_title_label
-    }}<span class="ml-1 text-[0.85em] font-normal">{{ __("(Max. 10 words)") }}</span> 
+    }}<span class="ml-1 text-[0.85em] font-normal">(Max. 10 words)</span> 
   </label>
   <textarea
     rows="1"
@@ -124,7 +124,7 @@
       regPageSetting?.reg_page_setting_detail?.[0]
         ?.step_5_description_label
     }}
-    <span class="ml-1 text-[0.85em] font-normal">{{ __("(Max. 50 words)") }}</span> 
+    <span class="ml-1 text-[0.85em] font-normal">(Max. 50 words)</span> 
   </label>
   <textarea
     rows="3"
@@ -176,7 +176,7 @@
             {{
               regPageSetting?.reg_page_setting_detail?.[0]?.step_5_logo_label
             }}
-             <span class="ml-1 text-[0.85em] font-normal">{{ __("(PNG, GIF, JPG, or JPEG format, max 10 MB.)") }}</span>
+             <span class="ml-1 text-[0.85em] font-normal">(PNG, GIF, JPG, or JPEG format, max 10 MB.)</span>
           </label>
           <FilePond
             class="cursor-pointer"
@@ -205,7 +205,7 @@
             {{
               regPageSetting?.reg_page_setting_detail?.[0]
                 ?.step_5_gallery_image_label
-            }}<span class="ml-1 text-[0.85em] font-normal">{{ __("(Up to") }} {{ max_files }} {{ __("allowed, 5 MB max each, in PNG, GIF, JPG, or JPEG format.)") }}</span>
+            }}<span class="ml-1 text-[0.85em] font-normal">(Up to {{ max_files }} allowed, 5 MB max each, in PNG, GIF, JPG, or JPEG format.)</span>
 
             </label>
           <FilePond
@@ -252,7 +252,7 @@
 <script>
 import { mapState } from "vuex";
 import Error from "./../components/Error.vue";
-import { useTranslation } from "@/Utils/i18n";
+
 // Import filepond
 import vueFilePond, { setOptions } from "vue-filepond";
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.esm.js";
@@ -264,10 +264,6 @@ const FilePond = vueFilePond(
   FilePondPluginImagePreview
 );
 export default {
-  setup() {
-    const { __ } = useTranslation();
-    return { __ };
-  },
   components: {
     Error,
     FilePond,
@@ -387,7 +383,7 @@ export default {
       this.gallery_files = this.gallery_files.slice(0, this.max_files);
       this.$store.commit("signup/updateValidationErros", {
         field: "gallery_images",
-        message: this.__("Please limit the number of your images to") + " " + this.max_files,
+        message: "Please limit the number of your images to" + " " + this.max_files,
       });
     },
     limitWords(event, fieldName, maxWords) {
@@ -615,7 +611,7 @@ export default {
         if (count > this.max_files) {
           this.$store.commit("signup/updateValidationErros", {
             field: "gallery_images",
-            message: this.__("Please limit the number of your images to") + " " + this.max_files,
+            message: "Please limit the number of your images to" + " " + this.max_files,
           });
         }
       }

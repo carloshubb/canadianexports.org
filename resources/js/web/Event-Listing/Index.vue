@@ -6,27 +6,27 @@
             <div v-if="page == 'advance_search'"
                 class="flex justify-end absolute -top-3 -right-3 h-6 w-6 bg-white rounded-full"
                 @click.prevent="removeEvents(JSON.parse(event)['id'], 'events')">
-                <img class="h-6 cursor-pointer" src="/assets/icons/19-X-inside-circle-2.png" :alt="__('Canadian Exporters')" />
+                <img class="h-6 cursor-pointer" src="/assets/icons/19-X-inside-circle-2.png" :alt="'Canadian Exporters'" />
             </div>
 
             <div class="flex-1">
                 <div class="h-60 flex justify-center bg-gray-50 p-1 items-center rounded px-6">
-                    <a :aria-label="__('Canadian Exporters')" :href="url" class="">
+                    <a :aria-label="'Canadian Exporters'" :href="url" class="">
                         <template v-if="JSON.parse(event)['media_path']">
                             <img class="h-60 rounded aspect-video object-cover w-full" :src="JSON.parse(event)['media_path']
                                     ? JSON.parse(event)['media_path']
                                     : ''
-                                " :alt="__('Canadian Exporters')" />
+                                " :alt="'Canadian Exporters'" />
                         </template>
                         <template v-else>
                             <img class="h-60 rounded aspect-video object-contain w-full"
-                                src="/assets/images/logocircle.png" :alt="__('Canadian Exporters')" />
+                                src="/assets/images/logocircle.png" :alt="'Canadian Exporters'" />
                         </template>
                     </a>
                 </div>
                 <div class="content mt-3">
                     <div class="px-6">
-                        <a :aria-label="__('Canadian Exporters')" :href="url" class="card-heading flex-auto">{{
+                        <a :aria-label="'Canadian Exporters'" :href="url" class="card-heading flex-auto">{{
                             JSON.parse(event)["event_detail"] &&
                                 JSON.parse(event)["event_detail"][0]
                                 ? JSON.parse(event)["event_detail"][0]["title"]
@@ -120,7 +120,7 @@
 
             <div class="flex-end px-6">
                 <div class="flex items-center gap-2 justify-between">
-                    <a :aria-label="__('Canadian Exporters')" :href="url"
+                    <a :aria-label="'Canadian Exporters'" :href="url"
                         class="can-exp-a btn btn-link after:bg-secondary duration-500 ease-in-out flex items-center gap-1">
                         {{
                             JSON.parse(home_page_setting)[
@@ -128,7 +128,7 @@
                             ]
                         }}
                     </a>
-                    <a :aria-label="__('Canadian Exporters')" :href="JSON.parse(event)['event_website']" target="_blank"
+                    <a :aria-label="'Canadian Exporters'" :href="JSON.parse(event)['event_website']" target="_blank"
                         class="can-exp-a btn btn-link after:bg-secondary duration-500 ease-in-out flex items-center gap-1 fix-url"
                         onclick="fixUrls()">
                         {{
@@ -144,13 +144,9 @@
 </template>
 
 <script>
-import { useTranslation } from '@/Utils/i18n';
+
 
 export default {
-    setup() {
-        const { __ } = useTranslation();
-        return { __ };
-    },
     props: [
         "event",
         "home_page_setting",
@@ -163,7 +159,7 @@ export default {
         removeEvents(eventId, type) {
             this.$swal
                 .fire({
-                    text: this.__("Are you sure you want to remove this listing from your search results?"),
+                    text: "Are you sure you want to remove this listing from your search results?",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#3085d6",

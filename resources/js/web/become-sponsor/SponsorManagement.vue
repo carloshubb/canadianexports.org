@@ -3,7 +3,7 @@
     <!-- Loading State -->
     <div v-if="loading" class="text-center py-12">
       <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-      <p class="mt-4 text-gray-600">{{ __("Loading...") }}</p>
+      <p class="mt-4 text-gray-600">Loading...</p>
     </div>
 
     <!-- Show list when user has one or more sponsorships -->
@@ -21,14 +21,14 @@
       <svg class="mx-auto h-24 w-24 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
       </svg>
-      <h3 class="mt-4 text-lg font-medium text-gray-900">{{ __("No sponsorships yet") }}</h3>
-      <p class="mt-2 text-gray-500">{{ __("Get started by creating your first sponsorship.") }}</p>
+      <h3 class="mt-4 text-lg font-medium text-gray-900">No sponsorships yet</h3>
+      <p class="mt-2 text-gray-500">Get started by creating your first sponsorship.</p>
       <div class="mt-6">
         <a
           :href="`/${becomeSponsorSlug}`"
           class="button-exp-fill"
         >
-          {{ __("Create Your First Sponsorship") }}
+          Create Your First Sponsorship
         </a>
       </div>
     </div>
@@ -40,14 +40,10 @@ import axios from "axios";
 import helper from "../../helper";
 import SponsorProfileEdit from "./SponsorProfileEdit.vue";
 import SponsorshipsList from "./SponsorshipsList.vue";
-import { useTranslation } from "@/Utils/i18n";
+
 
 export default {
   name: "SponsorManagement",
-  setup() {
-    const { __ } = useTranslation();
-    return { __ };
-  },
   components: {
     SponsorProfileEdit,
     SponsorshipsList,
@@ -84,7 +80,7 @@ export default {
           const data = response.data.data;
           this.sponsorships = Array.isArray(data) ? data : (data ? [data] : []);
         } else {
-          helper.swalErrorMessageForWeb(this.__("Unable to load sponsorships"));
+          helper.swalErrorMessageForWeb("Unable to load sponsorships");
         }
       } catch (error) {
         console.error("Error fetching sponsorships:", error);
@@ -92,7 +88,7 @@ export default {
           // No sponsorships yet - this is OK
           this.sponsorships = [];
         } else {
-          helper.swalErrorMessageForWeb(this.__("Error loading sponsorships. Please try again."));
+          helper.swalErrorMessageForWeb("Error loading sponsorships. Please try again.");
         }
       } finally {
         this.loading = false;

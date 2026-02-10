@@ -4,19 +4,19 @@
             <h1 class="text-primary mb-2">{{ JSON.parse(coffee_wall_setting)["coffee_wall_heading"] ?? 'Coffee on Wall'
                 }}</h1>
             <p class="">
-  {{ __("The") }}
-  <span class="font-bold">“{{ __("The Coffee on the Wall") }}”</span>
-  {{ __("initiative was inspired by this") }}
+  The
+  <span class="font-bold">“The Coffee on the Wall”</span>
+  initiative was inspired by this
   <a :href="`/${locale}/coffee-on-the-wall-story`" target="_blank" rel="noopener"
      class="text-primary underline font-bold underline-none">
-    {{ __("beautiful story.") }}
+    beautiful story.
   </a>
 </p>
             <p class="">
-                {{ __("It's a wonderful example of how a simple act of kindness can change the way someone sees the world.") }}</p>
+                It's a wonderful example of how a simple act of kindness can change the way someone sees the world.</p>
                 <br>
-            <p>{{ __("Through this community-driven initiative, you can support small Canadian businesses by covering a coffee when they need it most.") }}</p>
-            <p>{{ __("How it works: Your contribution helps exporters who cannot afford our services by covering the cost of Exporter Profiles, Trade Shows, and other CaExp services.") }}</p>
+            <p>Through this community-driven initiative, you can support small Canadian businesses by covering a coffee when they need it most.</p>
+            <p>How it works: Your contribution helps exporters who cannot afford our services by covering the cost of Exporter Profiles, Trade Shows, and other CaExp services.</p>
 
             <div class="text-right mt-4 py-2 text-red-500 text-lg">
                 <span class="text-red-500">*</span> {{
@@ -175,7 +175,7 @@
             <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
                 <div
                     class="px-4 py-1.5 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-                    <h4 class="text-white">{{ __("Optional Donor Details") }}</h4>
+                    <h4 class="text-white">Optional Donor Details</h4>
                 </div>
                 <div class="p-4 space-y-4">
                     <!-- Checkbox 1: Display my name with this donation -->
@@ -184,7 +184,7 @@
                             id="display_my_name" v-model="form.display_my_name" class="mt-1 shrink-0" />
                         <label for="display_my_name"
                             class="text-gray-900 text-base md:text-base lg:text-lg font-bold cursor-pointer">
-                            {{ __("Display my name with this donation") }}
+                            Display my name with this donation
                         </label>
                     </div>
                     <transition name="slide">
@@ -208,7 +208,7 @@
                             id="notify_when_used" v-model="form.notify_when_used" class="mt-1 shrink-0" />
                         <label for="notify_when_used"
                             class="text-gray-900 text-base md:text-base lg:text-lg font-bold cursor-pointer inline-flex items-center gap-1">
-                            {{ __("Notify me when my Coffee is used") }}
+                            Notify me when my Coffee is used
                             <span class="relative inline-flex items-center group">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500 cursor-help"
                                     viewBox="0 0 20 20" fill="currentColor">
@@ -217,7 +217,7 @@
                                         clip-rule="evenodd" />
                                 </svg>
                                 <span class="invisible group-hover:visible absolute left-7 -top-8 w-64 p-3 bg-[rgb(0,110,183)] text-white text-sm rounded-lg shadow-lg z-50">
-                                    {{ __("You'll receive basic information about the business. Some details are shared only if the business chooses to make them public.") }}
+                                    You'll receive basic information about the business. Some details are shared only if the business chooses to make them public.
                                     <span class="absolute -left-2 top-1/2 -translate-y-1/2 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-r-8 border-r-[rgb(0,110,183)]"></span>
                                 </span>
                             </span>
@@ -383,9 +383,9 @@
                     <input @input="clearErrors('terms_privacy_agreement')" type="checkbox" class="mt-1"
                         name="terms_privacy_agreement" id="terms_privacy_agreement"
                         v-model="form.terms_privacy_agreement" />
-                    <p>{{ __("I understand that my contribution is a voluntary donation and non-refundable. By clicking") }} "<strong>{{ __("Make Someone's Day") }}</strong>", {{ __("I agree to the") }} <a
-                            :href="`/${locale}/terms-and-conditions`" target="_blank" rel="noopener">{{ __("Terms and Conditions") }}</a> {{ __("and") }} <a :href="`/${locale}/privacy-policy`" target="_blank"
-                            rel="noopener">{{ __("Privacy Policy") }}</a></p>
+                    <p>I understand that my contribution is a voluntary donation and non-refundable. By clicking "<strong>Make Someone's Day</strong>", I agree to the <a
+                            :href="`/${locale}/terms-and-conditions`" target="_blank" rel="noopener">Terms and Conditions</a> and <a :href="`/${locale}/privacy-policy`" target="_blank"
+                            rel="noopener">Privacy Policy</a></p>
                 </div>
                 <Error v-if="submitted" fieldName="terms_privacy_agreement" :validationErros="validationErros"
                     full_width="1" />
@@ -396,7 +396,7 @@
                         name="kindness_partner_share_agreement" id="kindness_partner_share_agreement"
                         v-model="form.kindness_partner_share_agreement" />
                     <label for="kindness_partner_share_agreement" class="block text-gray-900">
-                        {{ __("I agree to allow Canadian Exports to inform the Kindness Partner who contributed to my Coffee. Only my business name, category, province, and the service received will be shared.") }}
+                        I agree to allow Canadian Exports to inform the Kindness Partner who contributed to my Coffee. Only my business name, category, province, and the service received will be shared.
                     </label>
                 </div>
                 <Error v-if="submitted" fieldName="kindness_partner_share_agreement" :validationErros="validationErros"
@@ -419,7 +419,7 @@
                 <div v-if="faqs.donor.length > 0" class="bg-white rounded-lg overflow-hidden shadow-3xl">
                     <div @click="toggleFaqSection('donor')"
                         class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md cursor-pointer hover:opacity-90 transition-opacity flex justify-between items-center">
-                        <h4 class="text-white">{{ __("FAQ for the Donors") }}</h4>
+                        <h4 class="text-white">FAQ for the Donors</h4>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                             stroke="currentColor" class="w-5 h-5 text-white transition-transform duration-300"
                             :class="{ 'rotate-180': isFaqSectionOpen.donor }">
@@ -457,7 +457,7 @@
                 <div v-if="faqs.beneficiary.length > 0" class="bg-white rounded-lg overflow-hidden shadow-3xl">
                     <div @click="toggleFaqSection('beneficiary')"
                         class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md cursor-pointer hover:opacity-90 transition-opacity flex justify-between items-center">
-                        <h4 class="text-white">{{ __("FAQ for the Beneficiary") }}</h4>
+                        <h4 class="text-white">FAQ for the Beneficiary</h4>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                             stroke="currentColor" class="w-5 h-5 text-white transition-transform duration-300"
                             :class="{ 'rotate-180': isFaqSectionOpen.beneficiary }">
@@ -839,12 +839,12 @@ export default {
             this.validationErros.clear('name');
             this.validationErros.clear('email');
             if (this.form.display_my_name && !(this.form.name || '').trim()) {
-                this.validationErros.record({ name: [this.__('Your name is required when displaying your name with this donation.')] });
+                this.validationErros.record({ name: ['Your name is required when displaying your name with this donation.'] });
                 this.loading = false;
                 return;
             }
             if (this.form.notify_when_used && !(this.form.email || '').trim()) {
-                this.validationErros.record({ email: [this.__('Your email is required when you want to be notified.')] });
+                this.validationErros.record({ email: ['Your email is required when you want to be notified.'] });
                 this.loading = false;
                 return;
             }
@@ -907,10 +907,10 @@ export default {
 
                             // Show success popup in three sections: title, text, Thank you button
                             Swal.fire({
-                                title: this.__("Your coffee is now waiting for a business that needs it."),
-                                text: this.__("Your kindness helps open doors for Canadian exporters who are working hard to grow. Thank you."),
+                                title: "Your coffee is now waiting for a business that needs it.",
+                                text: "Your kindness helps open doors for Canadian exporters who are working hard to grow. Thank you.",
                                 icon: 'success',
-                                confirmButtonText: this.__('Close'),
+                                confirmButtonText: 'Close',
                                 allowOutsideClick: false,
                                 allowEscapeKey: false,
                                 customClass: {
