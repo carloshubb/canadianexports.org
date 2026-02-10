@@ -19,16 +19,8 @@ substr($useragent, 0, 4),
         $url = langBasedURL($lang, $url);
         $generalSetting = getI2bModalSetting($lang, ['general']);
         @endphp
-        <a aria-label="{{ __('Canadian Exporters') }}" class="logo pl-0" href="{{ $url }}" id="logo_outer">
-            <!-- <span class="items-center" id="logo_wrapper">
-                <div class="flex items-center gap-1" id="logo">
-                    <img src="{{ asset('/assets/images/logocircle.png') }}" class="max-w-[76px]" alt="{{ __('Canadian Exporters') }}"
-                        id="logocircle" />
-                    <img src="{{ asset('/assets/images/logotext.png') }}" class="max-w-[212px]" alt="{{ __('Canadian Exporters') }}"
-                        id="logotext" />
-                </div>
-            </span> -->
-            <img id="nav_logo" src="{{ asset('assets/images/logo.png') }}"  alt="{{ __('Canadian Exporters') }}">
+        <a aria-label="{{ __('Canadian Exporters') }}" class="logo pl-0 w-[315px]" href="{{ $url }}" id="logo_outer">
+           <img id="nav_logo" class="h-[75px]" src="{{ asset('assets/images/logo.png') }}"  alt="{{ __('Canadian Exporters') }}">
         </a>
 
         <!-- End Logo container-->

@@ -105,7 +105,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     {{-- Navbar morph transition (PowerPoint-style) --}}
     <style>
-        #topnav,
+        /* #topnav,
         #logo_outer,
         #nav_logo,
         #nav_items,
@@ -115,10 +115,10 @@
                 margin 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         #nav_items { transition-property: padding; }
-        #navigation { transition-property: margin; }
-        #topnav { transition-property: height; }
-        #logo_outer { transition-property: height; }
-        #nav_logo { transition-property: height; }
+        #navigation { transition-property: margin; } */
+        #topnav { transition: 0.5s; }
+        /* #logo_outer { transition-property: height; } */
+        #nav_logo { transition: 1s; }
     </style>
 </head>
 
@@ -490,31 +490,24 @@
     var navHeight = navbar.offsetHeight;
     window.addEventListener("scroll", function() {
         var topnav = document.getElementById("topnav");
+        var navLogo = document.getElementById("nav_logo");
         if (window.pageYOffset > 0) {
-            document.getElementById("nav_items").style.padding = "12px 0";
-            //document.getElementById("logo").style.margin = "5px 0px 0px 0px";
-           // document.getElementById("logocircle").style.width = "45px";
-            // document.getElementById("logotext").style.width = "140px";
-            //document.getElementById("logo_wrapper").style.display = "flex";
-            document.getElementById("logo_outer").style.height = "3.5rem";
-            var navLogo = document.getElementById("nav_logo");
-            if (navLogo) { navLogo.style.height = "50px"; }
-            topnav.style.height = "72px";
+            // document.getElementById("nav_items").style.padding = "12px 0";
+            // document.getElementById("logo_outer").style.height = "3.5rem";
+            navLogo.classList.remove("h-[75px]");
+            navLogo.classList.add("h-[51px]");
             topnav.classList.remove("h-[120px]");
-            document.getElementById("navigation").style.margin = "-12px 0px 0px 0px";
+            topnav.classList.add("h-[72px]");
+            // document.getElementById("navigation").style.margin = "-12px 0px 0px 0px";
 
         } else {
-            document.getElementById("nav_items").style.padding = "24px 0";
-            //document.getElementById("logo").style.margin = "5px 0px 0px 0px";
-            //document.getElementById("logocircle").style.width = "50px";
-            // document.getElementById("logotext").style.width = "160px";
-            //document.getElementById("logo_wrapper").style.display = "inline-block";
-            document.getElementById("logo_outer").style.height = "auto";
-            var navLogo = document.getElementById("nav_logo");
-            if (navLogo) { navLogo.style.height = ""; }
-            topnav.style.height = "120px";
+            // document.getElementById("nav_items").style.padding = "24px 0";
+            // document.getElementById("logo_outer").style.height = "auto";
+            navLogo.classList.remove("h-[51px]");
+            navLogo.classList.add("h-[75px]");
+            topnav.classList.remove("h-[72px]");
             topnav.classList.add("h-[120px]");
-            document.getElementById("navigation").style.margin = "0px 0px 0px 0px";
+            // document.getElementById("navigation").style.margin = "0px 0px 0px 0px";
         }
     });
     setTimeout(() => {
