@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Admin\{
     AboutUsPageSettingController,
+    PageSettingDetailController,
     SponsorPageSettingController,
     AdminAccountController,
     AdvertiserFormController,
@@ -137,6 +138,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum']], function (
     Route::put('billing-period-discounts/{id}', [BillingPeriodDiscountController::class, 'update']);
     Route::post('billing-period-discounts/batch-update', [BillingPeriodDiscountController::class, 'batchUpdate']);
     Route::apiResource('pages', PageController::class);
+    Route::get('page-setting-detail/export-xls', [PageSettingDetailController::class, 'exportXls']);
+    Route::post('page-setting-detail/import-xls', [PageSettingDetailController::class, 'importXls']);
     Route::post('password-verification', [LoginPageSettingController::class, 'passwordVerification']);
     Route::apiResource('general-setting', GeneralSettingController::class)->only(['index', 'store']);
     Route::post('meta-tags-setting', [GeneralSettingController::class, 'saveMetaTagsSetting']);

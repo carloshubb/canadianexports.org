@@ -128,14 +128,15 @@ class StaticTranslationController extends Controller
 
     public function exportXls()
     {
+        
         $fileName = 'languages_' . now()->format('Ymd_His') . '.xls';
         $filePath = "exports/$fileName";
-
+       
         // Ensure folder exists (on PUBLIC disk)
         if (!Storage::disk('public')->exists('exports')) {
             Storage::disk('public')->makeDirectory('exports');
         }
-
+       
         // Store XLS on public disk
         Excel::store(
             new StaticTranslationExport(),
