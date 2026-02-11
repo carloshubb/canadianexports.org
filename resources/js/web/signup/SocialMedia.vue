@@ -194,7 +194,7 @@
                             <Error fieldName="card_holder_name" :validationErros="validationErros" full_width="1" />
                           </div>
                           <div class="input_text mt-2 relative profile-card-field">
-                            <label class="">Card Details</label>
+                            <label class="">{{ JSON.parse(payment_setting)["card_number_label"] }}</label>
                             <div ref="stripeCard" class="can-exp-input profile-card-input profile-card-stripe-wrap"></div>
                             <Error fieldName="payment_method_id" :validationErros="validationErros" full_width="1" />
                           </div>
@@ -294,7 +294,7 @@
         <!-- Order Summary -->
         <div class="bg-white rounded-lg overflow-hidden shadow-3xl">
           <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-            <h4 class="text-white">Order Summary</h4>
+            <h4 class="text-white">{{ JSON.parse(payment_setting)["order_summary_label"]  }}</h4>
           </div>
           <div class="px-4 py-8 sm:px-10">
           <div class="w-full rounded-lg border bg-white p-4 md:p-6 shadow-md flex flex-col h-full">

@@ -25,18 +25,18 @@ class StaticTranslationController extends Controller
             $type = str_replace('-', '_', strtolower($_GET['findByType']));
             $staticTranslation = $staticTranslation->where('type', $type);
 
-
             if (isset($_GET['createStaticTranslationDetail']) && $_GET['createStaticTranslationDetail'] == '1') {
                 $lang = getDefaultLanguage();
                 $staticTrans = StaticTranslation::where('type', $type)->with(['staticTranslationDetail' => function ($q) use ($lang) {
                     $q->where('language_id', $lang->id);
-                }])->first();
-                if (isset($staticTrans, $staticTrans->staticTranslationDetail)) {
-                    $languages = getAllLanguages();
-                    foreach ($languages as $language) {
-                        foreach ($staticTrans->staticTranslationDetail as $staticTranslationDetail) {
-                            $response = StaticTranslationDetail::where('key', $staticTranslationDetail->key)->whereLanguageId($language->id)->where('static_translation_id', $staticTrans->id)->exists();
-                            if (!$response) {
+                    }])->first();
+                    if (isset($staticTrans, $staticTrans->staticTranslationDetail)) {
+                        $languages = getAllLanguages();
+                        foreach ($languages as $language) {
+                            foreach ($staticTrans->staticTranslationDetail as $staticTranslationDetail) {
+                                $response = StaticTranslationDetail::where('key', $staticTranslationDetail->key)->whereLanguageId($language->id)->where('static_translation_id', $staticTrans->id)->exists();
+                                
+                                if (!$response) {
                                 StaticTranslationDetail::create([
                                     'static_translation_id' => $staticTrans->id,
                                     'language_id' => $language->id,

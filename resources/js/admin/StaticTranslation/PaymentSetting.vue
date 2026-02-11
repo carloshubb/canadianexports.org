@@ -61,6 +61,7 @@
           'cvv_label',
           'cvv_placeholder',
           'cvv_error',
+          'order_summary_label',
         ]"
         :key="field"
         class="relative z-0 w-full group"
