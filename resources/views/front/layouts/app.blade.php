@@ -68,8 +68,8 @@
     {{-- <meta property="og:image" content="@yield('facebook_meta_image', 'https://xelent.pk/assets/images/xelent-staff.jpg')"> --}}
     @php
     $facebookMetaImage = isset($settings['facebook_meta_image']) ?  asset('storage/temp/' . basename($settings['facebook_meta_image'])) : 'https://xelent.pk/assets/images/xelent-staff.jpg';
-@endphp
-<meta property="og:image" content="{{ $facebookMetaImage }}">
+    @endphp
+    <meta property="og:image" content="{{ $facebookMetaImage }}">
 
     {{-- Twitter --}}
     <meta property="twitter:card" content="summary_large_image">
@@ -103,22 +103,27 @@
     {{-- <link href="{{ asset('assets/libs/choices.js/public/assets/styles/choices.min.css') }}" rel="stylesheet"> --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    {{-- Navbar morph transition (PowerPoint-style) --}}
     <style>
-        /* #topnav,
-        #logo_outer,
-        #nav_logo,
-        #nav_items,
-        #navigation {
-            transition: height 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                padding 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                margin 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        #nav_items { transition-property: padding; }
-        #navigation { transition-property: margin; } */
         #topnav { transition: 0.5s; }
-        /* #logo_outer { transition-property: height; } */
         #nav_logo { transition: 1s; }
+        /* Fix mobile overflow and spacing issues */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+            margin: 0;
+            padding: 0;
+        }
+        #canexp-app {
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+        @media (max-width: 768px) {
+            #canexp-app {
+                min-height: 100vh;
+            }
+        }
     </style>
 </head>
 
@@ -256,7 +261,7 @@
 
     @if ($isMobile)
         <div
-            class="fixed bottom-0 left-0 right-0 flex items-center justify-between bg-white px-5 py-3 text-center shadow-lg">
+            class="hidden fixed bottom-0 left-0 right-0 flex items-center justify-between bg-white px-5 py-3 text-center shadow-lg">
             @php
                 $homePageUrl = route('front.index');
                 $homePageUrl = langBasedURL($lang, $homePageUrl);
@@ -455,14 +460,6 @@
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
-    {{--
-        <script src="assets/"></script>
-        <script src="assets/"></script>
-        <script src="assets/"></script>
-        <script src="assets/"></script>
-        <script src="assets/"></script>
-        <script src="assets/js/xelent.js"></script> --}}
-    {{-- JAVASCRIPTS --}}
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-2PHESYKTMZ"></script>
     <script>
@@ -486,28 +483,24 @@
         document.getElementById(modalID + "-backdrop").classList.toggle("flex");
     }
 
-    var navbar = document.getElementById("topnav");
-    var navHeight = navbar.offsetHeight;
+    
     window.addEventListener("scroll", function() {
         var topnav = document.getElementById("topnav");
         var navLogo = document.getElementById("nav_logo");
+        var navigationUl = document.getElementById("navigation");
         if (window.pageYOffset > 0) {
-            // document.getElementById("nav_items").style.padding = "12px 0";
-            // document.getElementById("logo_outer").style.height = "3.5rem";
             navLogo.classList.remove("h-[75px]");
             navLogo.classList.add("h-[51px]");
             topnav.classList.remove("h-[120px]");
             topnav.classList.add("h-[72px]");
-            // document.getElementById("navigation").style.margin = "-12px 0px 0px 0px";
-
+            // navigationUl.setAttribute("style", "margin-top: 75px !important;");
+            
         } else {
-            // document.getElementById("nav_items").style.padding = "24px 0";
-            // document.getElementById("logo_outer").style.height = "auto";
             navLogo.classList.remove("h-[51px]");
             navLogo.classList.add("h-[75px]");
             topnav.classList.remove("h-[72px]");
             topnav.classList.add("h-[120px]");
-            // document.getElementById("navigation").style.margin = "0px 0px 0px 0px";
+            // navigationUl.setAttribute("style", "margin-top: 120px !important;");
         }
     });
     setTimeout(() => {
@@ -762,10 +755,10 @@
         var swiper = new Swiper('.featured-events-slider-container', {
             slidesPerView: 1,
             loop: true,
-            // autoplay: {
-            //     delay: 3000,
-            //     disableOnInteraction: false,
-            // },
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
             spaceBetween: 10,
             navigation: {
                 nextEl: '.featured-events-button-next-exp',

@@ -686,8 +686,8 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 [dir="ltr"] .logo{
-  margin-right: 15px;
-  padding-right: 15px;
+  /* margin-right: 15px;
+  padding-right: 15px; */
 }
 
 [dir="rtl"] .logo{
@@ -698,13 +698,13 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 @media screen and (max-width: 1024px) {
 
     #topnav .navigation-menu > li > a{
-      font-size: 20px !important;
+      font-size: 18px !important;
     }
   }
   @media screen and (min-width: 1024px) {
 
     #topnav .navigation-menu > li > a{
-      font-size: 22px !important;
+      font-size: 20px !important;
     }
   }
 
@@ -1036,8 +1036,8 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     width: auto;
   }
   #topnav #navigation{
-    margin-top: 70px;
-    max-height: 240px;
+    margin-top: 75px;
+    height: fit-content;
     --tw-shadow: 0 0 3px rgb(60 72 88 / 0.15);
     --tw-shadow-colored: 0 0 3px var(--tw-shadow-color);
     -webkit-box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
@@ -1193,12 +1193,12 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     bottom: 0;
     right: 0;
     left: auto;
-    width: min(200px, 75%);
+    /* width: min(200px, 75%); */
     max-width: 100%;
     height: 100vh;
     overflow-y: auto;
     overflow-x: hidden;
-    background-color: #cfcfcf;
+    background-color: #fff;
     border-top-left-radius: 1rem;
     border-bottom-left-radius: 1rem;
     z-index: 9999;

@@ -19,8 +19,8 @@ substr($useragent, 0, 4),
         $url = langBasedURL($lang, $url);
         $generalSetting = getI2bModalSetting($lang, ['general']);
         @endphp
-        <a aria-label="{{ __('Canadian Exporters') }}" class="logo pl-0 w-[315px]" href="{{ $url }}" id="logo_outer">
-           <img id="nav_logo" class="h-[75px]" src="{{ asset('assets/images/logo.png') }}"  alt="{{ __('Canadian Exporters') }}">
+        <a class="logo pl-0" href="{{ $url }}" id="logo_outer">
+           <img id="nav_logo" class="h-[75px] w-full" src="{{ asset('assets/images/logo.png') }}"  alt="{{ __('Canadian Exporters') }}">
         </a>
 
         <!-- End Logo container-->
@@ -46,9 +46,9 @@ substr($useragent, 0, 4),
         }
         @endphp
 
-        <div id="navigation" class="duration-300 ease-in-out">
+        <div id="navigation" class="duration-300 ease-in-out" style="transition: 0.5s;">
             <!-- Navigation Menu-->
-            <ul class="navigation-menu" id="nav_items">
+            <ul class="navigation-menu lg:gap-4" id="nav_items">
                 @isset($menuItems)
                 @foreach ($menuItems as $menuItem)
                 @php
@@ -67,12 +67,12 @@ substr($useragent, 0, 4),
                 @if ($isAboutUs)
                 {{-- About us: single link, no dropdown --}}
                 <li>
-                    <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $aboutUsUrl }}"
+                    <a href="{{ $aboutUsUrl }}"
                         class="sub-menu-item font-Futura">{{ $menuItem['name'] }}</a>
                 </li>
                 @elseif ($hasChildren)
                 <li class="has-submenu parent-menu-item dropdown-menu-exp-responsive">
-                    <a aria-label="{{ __('Canadian Exporters') }}" class="" onclick="toggleCollapsible()"
+                    <a class="" onclick="toggleCollapsible()"
                         href="#">
                         <span class="flex items-center gap-x-1">
                             {{ $menuItem['name'] }}
@@ -94,7 +94,7 @@ substr($useragent, 0, 4),
                     @php
                     $url = langBasedURL($lang, $menuItem['link']);
                     @endphp
-                    <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}"
+                    <a href="{{ $url }}"
                         class="sub-menu-item font-Futura">{{ $menuItem['name'] }}</a>
                 </li>
                 @endif
@@ -102,7 +102,14 @@ substr($useragent, 0, 4),
                 @endisset
                 @guest('customers')
                 <li>
-                    <ul class="mt-4 flex flex-col list-none items-stretch justify-center gap-6 lg:hidden">
+                    <ul class="mt-4 flex flex-col list-none items-stretch justify-center gap-4 lg:hidden">
+                        <li>
+                            @php
+                            $url = route('coffee_on_wall');
+                            $url = langBasedURL($lang, $url);
+                            @endphp
+                            <a href="{{ $url }}" class="button-exp-no-fill border-primary text-primary block w-48">{{ __('Coffee on the Wall') }}</a>
+                        </li>
                         <li>
                             @php
                             $url = isset($general_setting['user_signup_page'])
@@ -110,8 +117,8 @@ substr($useragent, 0, 4),
                             : '#';
                             $url = langBasedURL($lang, $url);
                             @endphp
-                            <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}"
-                                class="button-exp-no-fill border-primary text-primary">{{ isset($generalSetting['signup_button_text']) ? $generalSetting['signup_button_text'] : '' }}</a>
+                            <a href="{{ $url }}"
+                                class="button-exp-no-fill border-primary text-primary block w-48">{{ isset($generalSetting['signup_button_text']) ? $generalSetting['signup_button_text'] : '' }}</a>
                         </li>
                         <li>
                             @php
@@ -120,8 +127,8 @@ substr($useragent, 0, 4),
                             : '#';
                             $url = langBasedURL($lang, $url);
                             @endphp
-                            <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}"
-                                class="button-exp-fill border-2 font-FuturaMdCnBT hover:text-white">{{ isset($generalSetting['signin_button_text']) ? $generalSetting['signin_button_text'] : '' }}</a>
+                            <a href="{{ $url }}"
+                                class="button-exp-fill border-2 font-FuturaMdCnBT hover:text-white block w-48">{{ isset($generalSetting['signin_button_text']) ? $generalSetting['signin_button_text'] : '' }}</a>
                         </li>
                     </ul>
                 </li>
@@ -151,7 +158,7 @@ substr($useragent, 0, 4),
                     $url = route('coffee_on_wall');
                     $url = langBasedURL($lang, $url);
                     @endphp
-                    <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}" class="button-exp-no-fill">{{ __('Coffee on the Wall') }}</a>
+                    <a href="{{ $url }}" class="button-exp-no-fill">{{ __('Coffee on the Wall') }}</a>
                 </li>
                 <li class="mb-0 inline">
                     <div class="inline-flex align-middle">
@@ -195,7 +202,7 @@ substr($useragent, 0, 4),
                         $avatarSrc = 'https://ui-avatars.com/api/?name=' . urlencode($firstName ?: __('User')) . '&color=7F9CF5&background=EBF4FF';
                         }
                         @endphp
-                        <button aria-label="{{ __('Canadian Exporters') }}" type="button"
+                        <button type="button"
                             class="menu hover:text-primaryRed flex items-center gap-2 p-1 font-Futura text-sm font-medium text-gray-800 transition duration-300 lg:p-2 lg:text-base"
                             onclick="openDropdown(event,'dropdown-id2')">
                             <div class="flex h-9 w-9 shrink-0 overflow-hidden rounded-full shadow ring-1 ring-gray-200">
@@ -263,11 +270,11 @@ substr($useragent, 0, 4),
                                 class="menu block w-full whitespace-nowrap bg-transparent px-4 py-2 font-FuturaMdCnBT text-base text-slate-700 md:text-base lg:text-lg">
                                 <i class="fa fa-upload"></i> {{ __('Submit Content') }}
                             </a>
-                            <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $sponsorUrl }}"
+                            <a href="{{ $sponsorUrl }}"
                                 class="menu block w-full whitespace-nowrap bg-transparent px-4 py-2 font-FuturaMdCnBT text-base text-slate-700 md:text-base lg:text-lg">
                                 <i class="fa fa-handshake-o"></i> {{ __('Manage Sponsorships') }}
                             </a>
-                            <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $accountUrl }}"
+                            <a href="{{ $accountUrl }}"
                                 class="menu block w-full whitespace-nowrap bg-transparent px-4 py-2 font-FuturaMdCnBT text-base text-slate-700 md:text-base lg:text-lg">
                                 <i class="fa fa-user-circle"></i> {{ __('Profile Settings') }}
                             </a>
@@ -276,7 +283,7 @@ substr($useragent, 0, 4),
                             @php
                             $url = langBasedURL($lang, route('user.profile-settings.index'));
                             @endphp
-                            <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}"
+                            <a href="{{ $url }}"
                                 class="menu block w-full whitespace-nowrap bg-transparent px-4 py-2 font-FuturaMdCnBT text-base text-slate-700 md:text-base lg:text-lg">{{ isset($generalSetting['account_setting_text']) ? $generalSetting['account_setting_text'] : '' }}</a>
                             @php
                             $url = langBasedURL($lang, route('user.buissness-settings.index'));
@@ -289,7 +296,7 @@ substr($useragent, 0, 4),
                             : '#';
                             $url = langBasedURL($lang, $url);
                             @endphp
-                            <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}"
+                            <a href="{{ $url }}"
                                 class="menu block w-full whitespace-nowrap bg-transparent px-4 py-2 font-FuturaMdCnBT text-base text-slate-700 md:text-base lg:text-lg">{{ isset($generalSetting['event_listing_text']) ? $generalSetting['event_listing_text'] : '' }}</a>
                             @endif
                             @if ($customer->type == 'event' || $customer->type == 'customer')
@@ -300,7 +307,7 @@ substr($useragent, 0, 4),
                             : '#';
                             $url = langBasedURL($lang, $url);
                             @endphp
-                            <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}"
+                            <a href="{{ $url }}"
                                 class="menu block w-full whitespace-nowrap bg-transparent px-4 py-2 font-FuturaMdCnBT text-base text-slate-700 md:text-base lg:text-lg">
                                 {{ isset($generalSetting['sponser_listing_text']) ? $generalSetting['sponser_listing_text'] : __('Sponsor Listing') }}
                             </a>
@@ -312,12 +319,12 @@ substr($useragent, 0, 4),
                             : '#';
                             $url = langBasedURL($lang, $url);
                             @endphp
-                            <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}"
+                            <a href="{{ $url }}"
                                 class="menu block w-full whitespace-nowrap bg-transparent px-4 py-2 font-FuturaMdCnBT text-base text-slate-700 md:text-base lg:text-lg">
                                 {{ isset($generalSetting['delete_profile_text']) ? $generalSetting['delete_profile_text'] : '' }}
                             </a>
                             @endif
-                            <a aria-label="{{ __('Canadian Exporters') }}" href="#"
+                            <a href="#"
                                 class="menu block w-full whitespace-nowrap bg-transparent px-4 py-2 font-FuturaMdCnBT text-base text-red-700 md:text-base lg:text-lg"
                                 onclick="event.preventDefault(); document.getElementById('user-logout-form').submit();">{{ isset($generalSetting['logout_button_text']) ? $generalSetting['logout_button_text'] : '' }}</a>
                             <form id="user-logout-form" action="{{ route('web.user.logout') }}" method="POST"
@@ -334,7 +341,7 @@ substr($useragent, 0, 4),
                     $url = route('coffee_on_wall');
                     $url = langBasedURL($lang, $url);
                     @endphp
-                    <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}" class="button-exp-no-fill">{{ __('Coffee on the Wall') }}</a>
+                    <a href="{{ $url }}" class="button-exp-no-fill">{{ __('Coffee on the Wall') }}</a>
                 </li>
                 <li class="mb-0 hidden lg:inline-flex">
                     @php
@@ -343,8 +350,8 @@ substr($useragent, 0, 4),
                     : '#';
                     $url = langBasedURL($lang, $url);
                     @endphp
-                    <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}"
-                        class="button-exp-fill whitespace-nowrap hover:text-white border border-primary">{{ isset($generalSetting['signin_button_text']) ? $generalSetting['signin_button_text'] : '' }}</a>
+                    <a href="{{ $url }}"
+                        class="button-exp-fill hover:text-white border border-primary">{{ isset($generalSetting['signin_button_text']) ? $generalSetting['signin_button_text'] : '' }}</a>
                 </li>
                 <li class="mb-0 hidden pl-1 lg:inline-flex">
                     @php
@@ -361,7 +368,7 @@ substr($useragent, 0, 4),
             <div class="menu-extras lg:order-2">
                 <div class="menu-item">
                     <!-- Mobile menu toggle (right-top)-->
-                    <a aria-label="{{ __('Canadian Exporters') }}" class="navbar-toggle isToggle" onclick="toggleMenu()">
+                    <a class="navbar-toggle isToggle" onclick="toggleMenu()">
                         <div class="lines m-0">
                             <span></span>
                             <span></span>
@@ -381,7 +388,7 @@ substr($useragent, 0, 4),
                 @auth('customers')
                 <li class="mb-0 inline">
                     <div class="inline-flex align-middle">
-                        <button aria-label="{{ __('Canadian Exporters') }}" id="drawer-button" type="button"
+                        <button id="drawer-button" type="button"
                             class="menu hover:text-primaryRed flex items-center space-x-2 p-1 font-Futura text-sm font-medium text-gray-800 transition duration-300 lg:p-2 lg:text-base">
                             <span class="hidden lg:block">{{ auth()->guard('customers')->user()->name }}</span>
                             @php
@@ -457,7 +464,7 @@ substr($useragent, 0, 4),
                                 class="menu block w-full whitespace-nowrap border-b bg-transparent px-4 py-2 font-FuturaMdCnBT text-base text-white md:text-base lg:text-lg">
                                 <i class="fa fa-upload"></i> {{ __('Submit Content') }}
                             </a>
-                            <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}"
+                            <a href="{{ $url }}"
                                 class="menu block w-full whitespace-nowrap border-b bg-transparent px-4 py-2 font-FuturaMdCnBT text-base text-white md:text-base lg:text-lg">
                                 <i class="fa fa-edit"></i> {{ __('Edit Sponsor Profile') }}
                             </a>
@@ -466,7 +473,7 @@ substr($useragent, 0, 4),
                             @php
                             $url = langBasedURL($lang, route('user.profile-settings.index'));
                             @endphp
-                            <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}"
+                            <a href="{{ $url }}"
                                 class="menu block w-full whitespace-nowrap border-b bg-transparent px-4 py-2 font-FuturaMdCnBT text-base text-white md:text-base lg:text-lg">{{ isset($generalSetting['account_setting_text']) ? $generalSetting['account_setting_text'] : '' }}</a>
                             @php
                             $url = langBasedURL($lang, route('user.buissness-settings.index'));
@@ -479,7 +486,7 @@ substr($useragent, 0, 4),
                             : '#';
                             $url = langBasedURL($lang, $url);
                             @endphp
-                            <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}"
+                            <a href="{{ $url }}"
                                 class="menu block w-full whitespace-nowrap border-b bg-transparent px-4 py-2 font-FuturaMdCnBT text-base text-white md:text-base lg:text-lg">{{ isset($generalSetting['event_listing_text']) ? $generalSetting['event_listing_text'] : '' }}</a>
                             @endif
                             @if ($customer->type == 'event' || $customer->type == 'customer' || $customer->type == 'sponsor')
@@ -489,7 +496,7 @@ substr($useragent, 0, 4),
                             : '#';
                             $url = langBasedURL($lang, $url);
                             @endphp
-                            <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}"
+                            <a href="{{ $url }}"
                                 class="menu block w-full whitespace-nowrap border-b bg-transparent px-4 py-2 font-FuturaMdCnBT text-base text-white md:text-base lg:text-lg">{{ isset($generalSetting['sponser_listing_text']) ? $generalSetting['sponser_listing_text'] : __('Sponsor Listing') }}</a>
                             @endif
                             @if ($customer->type == 'event' || $customer->type == 'customer')
@@ -499,13 +506,13 @@ substr($useragent, 0, 4),
                             : '#';
                             $url = langBasedURL($lang, $url);
                             @endphp
-                            <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}"
+                            <a href="{{ $url }}"
                                 class="menu block w-full whitespace-nowrap border-b bg-transparent px-4 py-2 font-FuturaMdCnBT text-base text-white md:text-base lg:text-lg">
                                 {{ isset($generalSetting['delete_profile_text']) ? $generalSetting['delete_profile_text'] : '' }}
                             </a>
                             @endif
                             {{-- Logout button for all user types --}}
-                            <a aria-label="{{ __('Canadian Exporters') }}" href="#"
+                            <a href="#"
                                 class="menu block w-full whitespace-nowrap border-b bg-transparent px-4 py-2 font-FuturaMdCnBT text-base text-red-700 md:text-base lg:text-lg"
                                 onclick="event.preventDefault(); document.getElementById('user-logout-form').submit();">{{ isset($generalSetting['logout_button_text']) ? $generalSetting['logout_button_text'] : '' }}</a>
                             <form id="user-logout-form" action="{{ route('web.user.logout') }}" method="POST"
@@ -524,7 +531,7 @@ substr($useragent, 0, 4),
                     : '#';
                     $url = langBasedURL($lang, $url);
                     @endphp
-                    <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}"
+                    <a href="{{ $url }}"
                         class="button-exp-fill whitespace-nowrap hover:text-white">{{ isset($generalSetting['signin_button_text']) ? $generalSetting['signin_button_text'] : '' }}</a>
                 </li>
                 <li class="mb-0 hidden pl-1 lg:inline-flex">
@@ -534,7 +541,7 @@ substr($useragent, 0, 4),
                     : '#';
                     $url = langBasedURL($lang, $url);
                     @endphp
-                    <a aria-label="{{ __('Canadian Exporters') }}" href="{{ $url }}"
+                    <a href="{{ $url }}"
                         class="button-exp-no-fill">{{ isset($generalSetting['signup_button_text']) ? $generalSetting['signup_button_text'] : '' }}</a>
                 </li>
                 @endguest
@@ -542,7 +549,7 @@ substr($useragent, 0, 4),
             <div class="menu-extras lg:order-2">
                 <div class="menu-item">
                     <!-- Mobile menu toggle (right-top)-->
-                    <a aria-label="{{ __('Canadian Exporters') }}" class="navbar-toggle isToggle" id="toggle-btn"
+                    <a class="navbar-toggle isToggle" id="toggle-btn"
                         onclick="toggleMenu()">
                         <div class="lines m-0">
                             <span></span>

@@ -8,7 +8,7 @@
     </div>
 
     <!-- Decorative SVG gradients -->
-    <svg viewBox="0 0 1097 845" aria-hidden="true"
+    {{-- <svg viewBox="0 0 1097 845" aria-hidden="true"
         class="hidden transform-gpu blur-3xl sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:w-[68.5625rem]">
         <path fill="url(#10724532-9d81-43d2-bb94-866e98dd6e42)" fill-opacity=".2"
             d="M301.174 646.641 193.541 844.786 0 546.172l301.174 100.469 193.845-356.855c1.241 164.891 42.802 431.935 199.124 180.978 195.402-313.696 143.295-588.18 284.729-419.266 113.148 135.13 124.068 367.989 115.378 467.527L811.753 372.553l20.102 451.119-530.681-177.031Z" />
@@ -31,7 +31,7 @@
                 <stop offset="1" stop-color="#FF4694" />
             </linearGradient>
         </defs>
-    </svg>
+    </svg> --}}
 
     <!-- Content Container - Now centered vertically and horizontally -->
     <div class="container relative z-10 w-full px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto">
