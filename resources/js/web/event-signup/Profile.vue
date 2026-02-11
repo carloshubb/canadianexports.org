@@ -1,7 +1,7 @@
 <template>
     <form class="lg:w-full" @submit.prevent="recaptcha()">
         <!-- Event dashboard welcome (Premium / Featured) -->
-        <div v-if="eventDashboardDescription" class="bg-white px-4 sm:px-10 rounded-lg sm:pt-20 w-full max-w-full min-w-0 mt-20 mb-6">
+        <div v-if="eventDashboardDescription" class="bg-white px-4 sm:px-10 rounded-lg  w-full max-w-full min-w-0 mb-6">
             <h2 class="font-FuturaMdCnBT text-gray-900 break-words">Welcome back {{ eventDashboardFirstName }},</h2>
             <p class="font-FuturaMdCnBT text-gray-900 break-words whitespace-normal" style="line-height: 1.6; word-wrap: break-word;" v-html="eventDashboardDescription"></p>
         </div>
@@ -474,7 +474,7 @@
                 <!-- event media -->
                 <div class="w-full">
                     <label for="" class="text-base md:text-base lg:text-lg  truncate">Main Event Image <span
-                            class="ml-1 text-[0.95em] text-gray-600">(PNG, GIF, JPG, or JPEG format · 30 MB
+                            class="ml-1 text-[0.8em] text-gray-600">(PNG, GIF, JPG, or JPEG format · 30 MB
                             max)</span><span class="text-red-500">*</span></label>
                     <div class="relative z-0 w-full mb-6 group">
                         <template v-if="
@@ -1128,34 +1128,12 @@ export default {
                     this.form.visitors_url = user.event[0]?.visitors_url || '';
                     this.form.press_url = user.event[0]?.press_url || '';
                     this.form.video_url = user.event[0]?.video_url || '';
-
-                    // Populate main gallery and photo gallery from event_media (same logic as Create.vue)
-                    const eventMedia = user.event?.[0]?.event_media;
-                    if (eventMedia && Array.isArray(eventMedia) && eventMedia.length > 0) {
-                        let galleryImages = [];
-                        this.gallery_files = [];
-                        let photoGalleryImages = [];
-                        this.photo_gallery_files = [];
-                        eventMedia.forEach((media) => {
-                            if (!media.media) return;
-                            const type = media.type || 'main';
-                            const fileOpt = {
-                                source: media.media.id,
-                                options: {
-                                    type: 'local',
-                                    metadata: { serverId: media.media.id }
-                                }
-                            };
-                            if (type === 'gallery') {
-                                photoGalleryImages.push(media.media.id);
-                                this.photo_gallery_files.push(fileOpt);
-                            } else {
-                                galleryImages.push(media.media.id);
-                                this.gallery_files.push(fileOpt);
-                            }
-                        });
-                        this.form.gallery_images = JSON.stringify(galleryImages);
-                        this.form.photo_gallery_images = JSON.stringify(photoGalleryImages);
+                    this.form.cta_btn = user.event[0]?.cta_btn || '';
+                    this.form.cta_link = user.event[0]?.cta_link || '';
+                    // Fetch full event (with event_media and base64/URL) when user has an event — current_user does not include event_media
+                    const eventId = user.event?.[0]?.id;
+                    if (eventId) {
+                        this.fetchEventForProfile(eventId);
                     }
 
                 }
@@ -1701,6 +1679,48 @@ export default {
         updateTermsAgreement(checked) {
             this.form.is_agree = checked;
             this.clearErrors('is_agree');
+        },
+        /** Fetch full event with event_media (and media base64/URL) so Main Event Image and Photo Gallery display (reference: Media.vue, Create.vue fetchEvent). */
+        fetchEventForProfile(id) {
+            axios
+                .get(
+                    `${process.env.MIX_WEB_API_URL}events/${id}?withEventDetail=1&withEventContacts=1&withMedia=1`
+                )
+                .then((res) => {
+                    if (res.data.status !== "Success" || !res.data.data) return;
+                    const event = res.data.data;
+                    if (!event.event_media || !event.event_media.length) return;
+                    let galleryImages = [];
+                    this.gallery_files = [];
+                    let photoGalleryImages = [];
+                    this.photo_gallery_files = [];
+                    event.event_media.forEach((media) => {
+                        if (!media.media) return;
+                        const type = media.type || "main";
+                        const imageSource = media.media.base64 || media.media.full_path;
+                        const path = media.media.path;
+                        const fileOpt = {
+                            source: imageSource || path,
+                            options: {
+                                type: "local",
+                                metadata: {
+                                    serverId: path,
+                                    poster: imageSource || undefined,
+                                },
+                            },
+                        };
+                        if (type === "gallery") {
+                            photoGalleryImages.push(path);
+                            this.photo_gallery_files.push(fileOpt);
+                        } else {
+                            galleryImages.push(path);
+                            this.gallery_files.push(fileOpt);
+                        }
+                    });
+                    this.form.gallery_images = JSON.stringify(galleryImages);
+                    this.form.photo_gallery_images = JSON.stringify(photoGalleryImages);
+                })
+                .catch(() => {});
         },
     },
     created() {

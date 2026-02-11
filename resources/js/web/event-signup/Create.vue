@@ -444,7 +444,7 @@
                             <Error v-if="submitted" fieldName="email" :validationErros="validationErros"
                                 full_width="1" />
                         </div>
-                        <template v-if="!isEditMode && !isLoggedIn">
+                        <template v-if="!event_id">
                             <div class="relative w-full mb-3">
                                 <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg font-bold"
                                     for="password">{{ JSON.parse(event_detail)["password_label"] || 'Create Password' }}
@@ -1124,9 +1124,9 @@
                 <Error v-if="submitted" fieldName="captcha" :validationErros="validationErros" full_width="1" />
             </div>
         </div>
-        <!-- <ListErrors :validationErrors="validationErros" /> -->
+        <!-- <ListErrors :validationErrors="validationErros1" /> -->
 
-        <div class="mb-4" v-if="!isEditMode && !isLoggedIn">
+        <div class="mb-4" v-if="!event_id">
             <div class="flex items-start pb-4">
                 <input id="agree" type="checkbox" :checked="!!form.is_agree"
                     class="h-4 w-4 mt-1 rounded border-gray-500 text-primary focus:ring-primary" @input="
@@ -1143,7 +1143,7 @@
         </div>
 
         <div class="flex justify-center">
-            <button v-if="!isEditMode && !isLoggedIn" aria-label="Candian Exporters" type="submit" :disabled="!form.is_agree" :class="[
+            <button v-if="!event_id" aria-label="Candian Exporters" type="submit" :disabled="!form.is_agree" :class="[
                 'inline-flex items-center button-exp-fill mt-4 transition-opacity duration-200',
                 { 'opacity-40 cursor-not-allowed': !form.is_agree }
             ]">
@@ -2253,7 +2253,7 @@ export default {
                             }));
                         }
 
-                        // Populate main gallery and photo gallery (by type)
+                        // Populate main gallery and photo gallery (by type); use base64/full_path so FilePond shows images (reference: Media.vue)
                         if (event.event_media && event.event_media.length > 0) {
                             let galleryImages = [];
                             this.gallery_files = [];
@@ -2263,18 +2263,23 @@ export default {
                             event.event_media.forEach((media) => {
                                 if (!media.media) return;
                                 const type = media.type || 'main';
+                                const imageSource = media.media.base64 || media.media.full_path;
+                                const path = media.media.path;
                                 const fileOpt = {
-                                    source: media.media.id,
+                                    source: imageSource || path,
                                     options: {
                                         type: 'local',
-                                        metadata: { serverId: media.media.id }
-                                    }
+                                        metadata: {
+                                            serverId: path,
+                                            poster: imageSource || undefined,
+                                        },
+                                    },
                                 };
                                 if (type === 'gallery') {
-                                    photoGalleryImages.push(media.media.id);
+                                    photoGalleryImages.push(path);
                                     this.photo_gallery_files.push(fileOpt);
                                 } else {
-                                    galleryImages.push(media.media.id);
+                                    galleryImages.push(path);
                                     this.gallery_files.push(fileOpt);
                                 }
                             });
