@@ -630,7 +630,7 @@
                 <div class="border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
                     <label for="photo_gallery_images"
                         class="text-base md:text-base lg:text-lg font-medium block mb-2" id="photo_gallery_images">
-                        {{ photoGallerySectionTitle }}
+                        Photo Gallery <span class="text-[0.85em]" v-if="photoGallerySectionSubtitle">{{ photoGallerySectionSubtitle }}</span>
                     </label>
                     <div class="relative z-0 w-full mb-6 group">
                         <FilePond name="photo_gallery_image" :ref="el => { if (el) photoGalleryPond = el }"
@@ -915,14 +915,14 @@ export default {
             const nameFilled = (this.form.card_holder_name || '').trim() !== '';
             return nameFilled && this.stripeCardComplete;
         },
-        photoGallerySectionTitle() {
+        photoGallerySectionSubtitle() {
             if (this.effectivePackageType === 'featured') {
-                return 'Photo Gallery (Upload up to 20 images. Max 10 MB each. Supports PNG, GIF, or JPG)';
+                return '(Upload up to 20 images. Max 10 MB each. Supports PNG, GIF, or JPG)';
             }
             if (this.effectivePackageType === 'premium') {
-                return 'Photo Gallery (Upload up to 8 images. Max 10 MB each. Supports PNG, GIF, or JPG)';
+                return '(Upload up to 8 images. Max 10 MB each. Supports PNG, GIF, or JPG)';
             }
-            return 'Photo Gallery';
+            return '';
         },
         photoGalleryServerConfig() {
             const csrf = document.head.querySelector('meta[name="csrf-token"]')?.content;
@@ -1829,5 +1829,13 @@ export default {
     display: block;
     border: 1px solid #d1d5db;
     border-radius: 0.375rem;
+}
+
+/* Label text bold; text inside span remains regular */
+label {
+    font-weight: bold;
+}
+label span {
+    font-weight: normal;
 }
 </style>
