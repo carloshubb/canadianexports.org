@@ -14,7 +14,7 @@
           </div>
         </div>
       </header>
-      <form class="px-4 md:px-6 lg:px-8" @submit.prevent="addUpdateForm()">
+      <form class="px-4 md:px-6 lg:px-8 page-setting-form" @submit.prevent="addUpdateForm()">
         <div
           class="text-sm font-medium text-center text-gray-500 border-b border-gray-200"
         >

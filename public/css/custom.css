@@ -311,3 +311,10 @@ a.filepond--credits {
     height: auto;
     border-radius: 8px;
 }
+
+
+/* admin page */
+.page-setting-form label{
+    color: #333;
+    font-size: 1rem;
+}
