@@ -719,7 +719,8 @@
                                                             : ""
                                                     }}</label>
                                                     <i class="text-gray-400 fa fa-user"></i>
-                                                    <input type="text" class="can-exp-input profile-card-input" :placeholder="payment_setting &&
+                                                    <input type="text" class="can-exp-input profile-card-input" 
+                                                        :placeholder="payment_setting &&
                                                         JSON.parse(payment_setting) &&
                                                         JSON.parse(payment_setting)[
                                                         'cardholder_name_placeholder'
@@ -733,8 +734,7 @@
                                                                 'card_holder_name',
                                                                 $event.target.value
                                                             );
-                                                        clearErrors('card_holder_name');
-                                                        " id="card_holder_name" />
+                                                        clearErrors('card_holder_name');"  />
                                                     <Error fieldName="card_holder_name"
                                                         :validationErros="validationErros" full_width="1" />
                                                 </div>
@@ -1826,9 +1826,14 @@ export default {
     box-sizing: border-box;
 }
 .profile-card-stripe-wrap {
-    display: block;
+    display: flex;
+    align-items: center;
     border: 1px solid #d1d5db;
     border-radius: 0.375rem;
+}
+.profile-card-stripe-wrap > * {
+    flex: 1;
+    min-width: 0;
 }
 
 /* Label text bold; text inside span remains regular */
