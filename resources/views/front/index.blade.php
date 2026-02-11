@@ -92,7 +92,7 @@
                 : null;
            
         @endphp
-        @include('front.pages.become-sponsor-template.index', ['page' => $page, 'lang' => $lang])
+        @include('front.pages.become-sponsor-template.index', ['page' => $page, 'lang' => $lang, 'becomeSponsorSettingDetail' => $becomeSponsorSettingDetail])
         @elseif(isset($page) && $page->template == 'sponsor_listing')
         @php
             $sponsorPageSetting = getSponsorSetting($lang, $page);

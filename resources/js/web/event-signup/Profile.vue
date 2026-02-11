@@ -134,7 +134,7 @@
             </div>
             <div class="mb-6">
                 <div class="relative w-full border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
-                    <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">Your Profile</h5>
+                    <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">{{ JSON.parse(event_detail)["your_profile_heading"] || 'Your Profile' }}</h5>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="relative w-full mb-3">
                             <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="name">{{
@@ -156,8 +156,7 @@
                 </div>
                 <div class="mb-6">
                     <div class="border border-gray-200 mt-6 rounded-lg p-6 bg-white shadow-sm">
-                        <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">The Organizer
-                        </h5>
+                        <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">{{ JSON.parse(event_detail)["the_organizer_heading"] || 'The Organizer' }}</h5>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="relative w-full mb-3">
                                 <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
@@ -170,7 +169,7 @@
                             </div>
                             <div class="relative w-full mb-3">
                                 <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
-                                    for="organizer_website">Organizer Website</label>
+                                    for="organizer_website">{{ JSON.parse(event_detail)["organizer_website_label"] || 'Organizer Website' }}</label>
                                 <input @input="clearErrors('organizer_website')" type="url" class="can-exp-input"
                                     name="organizer_website" id="organizer_website" v-model="form.organizer_website" />
                                 <Error v-if="submitted" fieldName="organizer_website" :validationErros="validationErros"
@@ -178,7 +177,7 @@
                             </div>
                             <div class="relative w-full mb-3">
                                 <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
-                                    for="organizer_phone">Phone<span class="text-red-500">*</span></label>
+                                    for="organizer_phone">{{ JSON.parse(event_detail)["organizer_phone_label"] || 'Phone' }}<span class="text-red-500">*</span></label>
                                 <input type="text" class="can-exp-input" name="organizer_phone" id="organizer_phone"
                                     v-model="form.organizer_phone" maxlength="16"
                                     @input="handleOrganizerPhoneInput($event.target.value)"
@@ -188,7 +187,7 @@
                             </div>
                             <div class="relative w-full mb-3 md:col-span-2">
                                 <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
-                                    for="mailing_address">Mailing Address</label>
+                                    for="mailing_address">{{ JSON.parse(event_detail)["mailing_address_label"] || 'Mailing Address' }}</label>
                                 <input @input="clearErrors('mailing_address')" type="text" class="can-exp-input"
                                     name="mailing_address" id="mailing_address" v-model="form.mailing_address" />
                                 <Error v-if="submitted" fieldName="mailing_address" :validationErros="validationErros"
@@ -199,13 +198,12 @@
                 </div>
                 <div class="mb-6">
                     <div class="border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
-                        <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">Contact Person
-                        </h5>
+                        <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">{{ JSON.parse(event_detail)["contact_person_heading"] || 'Contact Person' }}</h5>
                         <div v-for="(contact, index) in contacts" :key="index">
                             <div class="grid md:grid-cols-2 md:gap-6 gap-4 mt-6 bg-white shadow rounded-lg p-6">
                                 <div class="relative z-0 w-full group">
                                     <label :for="`contact-name-[${index}]`"
-                                        class="text-base md:text-base lg:text-lg">Full Name and Title <span class="text-red-500">*</span></label>
+                                        class="text-base md:text-base lg:text-lg">{{ JSON.parse(event_detail)["contact_name_label"] || 'Full Name and Title' }} <span class="text-red-500">*</span></label>
                                     <input type="text" name="contact-name" :id="`contact-name-[${index}]`"
                                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                                         v-model="contact.name"
@@ -214,8 +212,8 @@
                                 </div>
                                 <div class="relative z-0 w-full group">
                                     <label :for="`contact-phone-[${index}]`"
-                                        class="text-base md:text-base lg:text-lg">Contact Phone
-                                        <span class="text-gray-500 text-xs">(If different from the business phone)</span></label>
+                                        class="text-base md:text-base lg:text-lg">{{ JSON.parse(event_detail)["contact_phone_label"] || 'Contact Phone' }}
+                                        <span class="text-gray-500 text-xs">{{ JSON.parse(event_detail)["contact_phone_hint"] || '(If different from the business phone)' }}</span></label>
                                     <input type="text" name="contact-phone" :id="`contact-phone-[${index}]`"
                                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                                         v-model="contact.phone" maxlength="15"
@@ -225,8 +223,8 @@
                                 </div>
                                 <div class="relative z-0 w-full group">
                                     <label :for="`contact-email-[${index}]`"
-                                        class="text-base md:text-base lg:text-lg">Email <span
-                                            class="text-gray-500 text-xs">(If different from the login email)</span>
+                                        class="text-base md:text-base lg:text-lg">{{ JSON.parse(event_detail)["contact_email_label"] || 'Email' }} <span
+                                            class="text-gray-500 text-xs">{{ JSON.parse(event_detail)["contact_email_hint"] || '(If different from the login email)' }}</span>
                                     </label>
                                     <input type="text" name="contact-email" :id="`contact-email-[${index}]`"
                                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
@@ -236,7 +234,7 @@
                                 </div>
                                 <div class="relative z-0 w-full group">
                                     <label class="text-base md:text-base lg:text-lg inline-flex items-center gap-1">
-                                        Contact Person's Photo
+                                        {{ JSON.parse(event_detail)["contact_photo_label"] || "Contact Person's Photo" }}
                                         <span class="relative inline-flex flex-shrink-0">
                                             <span
                                                 class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-gray-400 text-white text-xs font-bold cursor-pointer flex-shrink-0"
@@ -244,9 +242,7 @@
                                                 @click.stop="toggleContactPhotoTooltip(index)">!</span>
                                             <div v-if="contactPhotoTooltipIndex === index"
                                                 class="absolute left-0 top-full mt-1 z-50 min-w-[200px] max-w-[280px] px-3 py-2 text-sm text-gray-700 bg-white border border-gray-200 rounded-lg shadow-lg"
-                                                @click.stop>Adding a photo helps other delegates and attendees recognize
-                                                you at the
-                                                event!</div>
+                                                @click.stop>{{ JSON.parse(event_detail)["contact_photo_tooltip"] || 'Adding a photo helps other delegates and attendees recognize you at the event!' }}</div>
                                         </span>
                                     </label>
                                     <input type="file" name="contact-image" :id="`contact-image-[${index}]`"

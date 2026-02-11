@@ -46,7 +46,7 @@
                 <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
                     <div class="flex items-center justify-between gap-2">
                         <a :aria-label="'Canadian Exporters'" :href="`/${sponsor_become}/become-a-sponsor`"
-                            class="button-exp-fill" v-if="isLoggedInSponsor">
+                            class="button-exp-fill" >
                             {{ sponsers && sponsers.length > 0 ? "Add Another Sponsorship" : "Become a Sponsor" }}
                         </a>
                     </div>

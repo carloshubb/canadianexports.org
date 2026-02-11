@@ -217,6 +217,241 @@
                         </p>
                     </div>
                     <div class="relative z-0 w-full group">
+                        <label class="block text-sm font-medium leading-6 text-gray-900" :for="`organizer_website_label_${selectedLanguage}`">Label for organizer website</label>
+                        <input type="text" :name="`organizer_website_label_${selectedLanguage}`"
+                            :id="`organizer_website_label_${selectedLanguage}`"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                            placeholder=" "
+                            @input="
+                            handleInput(
+                                $event.target.value,
+                                language,
+                                'organizer_website_label',
+                                'updateHomePageSetting'
+                            )
+                        "
+                            :value="form['organizer_website_label'] &&
+                                form['organizer_website_label'][
+                                    `organizer_website_label_${selectedLanguage}`
+                                ] ?
+                                form['organizer_website_label'][
+                                    `organizer_website_label_${selectedLanguage}`
+                                ] :
+                                ''" />
+
+                        <p class="mt-2 text-sm text-red-400"
+                            v-if="
+                                validationErros.has(
+                                    `organizer_website_label.organizer_website_label_${selectedLanguage}`
+                                )
+                            "
+                            v-text="
+                                validationErros.get(
+                                    `organizer_website_label.organizer_website_label_${selectedLanguage}`
+                                )
+                            ">
+                        </p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <label class="block text-sm font-medium leading-6 text-gray-900" :for="`your_profile_heading_${selectedLanguage}`">Your profile heading</label>
+                        <input type="text" :name="`your_profile_heading_${selectedLanguage}`"
+                            :id="`your_profile_heading_${selectedLanguage}`"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                            placeholder=" "
+                            @input="handleInput($event.target.value, language, 'your_profile_heading', 'updateHomePageSetting')"
+                            :value="form['your_profile_heading']?.[`your_profile_heading_${selectedLanguage}`] ?? ''" />
+                        <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`your_profile_heading.your_profile_heading_${selectedLanguage}`)"
+                            v-text="validationErros.get(`your_profile_heading.your_profile_heading_${selectedLanguage}`)"></p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <label class="block text-sm font-medium leading-6 text-gray-900" :for="`the_organizer_heading_${selectedLanguage}`">The organizer heading</label>
+                        <input type="text" :name="`the_organizer_heading_${selectedLanguage}`"
+                            :id="`the_organizer_heading_${selectedLanguage}`"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                            placeholder=" "
+                            @input="handleInput($event.target.value, language, 'the_organizer_heading', 'updateHomePageSetting')"
+                            :value="form['the_organizer_heading']?.[`the_organizer_heading_${selectedLanguage}`] ?? ''" />
+                        <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`the_organizer_heading.the_organizer_heading_${selectedLanguage}`)"
+                            v-text="validationErros.get(`the_organizer_heading.the_organizer_heading_${selectedLanguage}`)"></p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <label class="block text-sm font-medium leading-6 text-gray-900" :for="`contact_person_heading_${selectedLanguage}`">Contact person heading</label>
+                        <input type="text" :name="`contact_person_heading_${selectedLanguage}`"
+                            :id="`contact_person_heading_${selectedLanguage}`"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                            placeholder=" "
+                            @input="handleInput($event.target.value, language, 'contact_person_heading', 'updateHomePageSetting')"
+                            :value="form['contact_person_heading']?.[`contact_person_heading_${selectedLanguage}`] ?? ''" />
+                        <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`contact_person_heading.contact_person_heading_${selectedLanguage}`)"
+                            v-text="validationErros.get(`contact_person_heading.contact_person_heading_${selectedLanguage}`)"></p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <label class="block text-sm font-medium leading-6 text-gray-900" :for="`organizer_phone_label_${selectedLanguage}`">Organizer phone label</label>
+                        <input type="text" :name="`organizer_phone_label_${selectedLanguage}`"
+                            :id="`organizer_phone_label_${selectedLanguage}`"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                            placeholder=" "
+                            @input="handleInput($event.target.value, language, 'organizer_phone_label', 'updateHomePageSetting')"
+                            :value="form['organizer_phone_label']?.[`organizer_phone_label_${selectedLanguage}`] ?? ''" />
+                        <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`organizer_phone_label.organizer_phone_label_${selectedLanguage}`)"
+                            v-text="validationErros.get(`organizer_phone_label.organizer_phone_label_${selectedLanguage}`)"></p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <label class="block text-sm font-medium leading-6 text-gray-900" :for="`mailing_address_label_${selectedLanguage}`">Mailing address label</label>
+                        <input type="text" :name="`mailing_address_label_${selectedLanguage}`"
+                            :id="`mailing_address_label_${selectedLanguage}`"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                            placeholder=" "
+                            @input="handleInput($event.target.value, language, 'mailing_address_label', 'updateHomePageSetting')"
+                            :value="form['mailing_address_label']?.[`mailing_address_label_${selectedLanguage}`] ?? ''" />
+                        <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`mailing_address_label.mailing_address_label_${selectedLanguage}`)"
+                            v-text="validationErros.get(`mailing_address_label.mailing_address_label_${selectedLanguage}`)"></p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <label class="block text-sm font-medium leading-6 text-gray-900" :for="`contact_name_label_${selectedLanguage}`">Contact name label</label>
+                        <input type="text" :name="`contact_name_label_${selectedLanguage}`" :id="`contact_name_label_${selectedLanguage}`"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                            placeholder=" " @input="handleInput($event.target.value, language, 'contact_name_label', 'updateHomePageSetting')"
+                            :value="form['contact_name_label']?.[`contact_name_label_${selectedLanguage}`] ?? ''" />
+                        <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`contact_name_label.contact_name_label_${selectedLanguage}`)" v-text="validationErros.get(`contact_name_label.contact_name_label_${selectedLanguage}`)"></p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <label class="block text-sm font-medium leading-6 text-gray-900" :for="`contact_phone_label_${selectedLanguage}`">Contact phone label</label>
+                        <input type="text" :name="`contact_phone_label_${selectedLanguage}`" :id="`contact_phone_label_${selectedLanguage}`"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                            placeholder=" " @input="handleInput($event.target.value, language, 'contact_phone_label', 'updateHomePageSetting')"
+                            :value="form['contact_phone_label']?.[`contact_phone_label_${selectedLanguage}`] ?? ''" />
+                        <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`contact_phone_label.contact_phone_label_${selectedLanguage}`)" v-text="validationErros.get(`contact_phone_label.contact_phone_label_${selectedLanguage}`)"></p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <label class="block text-sm font-medium leading-6 text-gray-900" :for="`contact_phone_hint_${selectedLanguage}`">Contact phone hint</label>
+                        <input type="text" :name="`contact_phone_hint_${selectedLanguage}`" :id="`contact_phone_hint_${selectedLanguage}`"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                            placeholder=" " @input="handleInput($event.target.value, language, 'contact_phone_hint', 'updateHomePageSetting')"
+                            :value="form['contact_phone_hint']?.[`contact_phone_hint_${selectedLanguage}`] ?? ''" />
+                        <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`contact_phone_hint.contact_phone_hint_${selectedLanguage}`)" v-text="validationErros.get(`contact_phone_hint.contact_phone_hint_${selectedLanguage}`)"></p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <label class="block text-sm font-medium leading-6 text-gray-900" :for="`contact_email_label_${selectedLanguage}`">Contact email label</label>
+                        <input type="text" :name="`contact_email_label_${selectedLanguage}`" :id="`contact_email_label_${selectedLanguage}`"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                            placeholder=" " @input="handleInput($event.target.value, language, 'contact_email_label', 'updateHomePageSetting')"
+                            :value="form['contact_email_label']?.[`contact_email_label_${selectedLanguage}`] ?? ''" />
+                        <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`contact_email_label.contact_email_label_${selectedLanguage}`)" v-text="validationErros.get(`contact_email_label.contact_email_label_${selectedLanguage}`)"></p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <label class="block text-sm font-medium leading-6 text-gray-900" :for="`contact_email_hint_${selectedLanguage}`">Contact email hint</label>
+                        <input type="text" :name="`contact_email_hint_${selectedLanguage}`" :id="`contact_email_hint_${selectedLanguage}`"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                            placeholder=" " @input="handleInput($event.target.value, language, 'contact_email_hint', 'updateHomePageSetting')"
+                            :value="form['contact_email_hint']?.[`contact_email_hint_${selectedLanguage}`] ?? ''" />
+                        <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`contact_email_hint.contact_email_hint_${selectedLanguage}`)" v-text="validationErros.get(`contact_email_hint.contact_email_hint_${selectedLanguage}`)"></p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <label class="block text-sm font-medium leading-6 text-gray-900" :for="`contact_photo_label_${selectedLanguage}`">Contact photo label</label>
+                        <input type="text" :name="`contact_photo_label_${selectedLanguage}`" :id="`contact_photo_label_${selectedLanguage}`"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                            placeholder=" " @input="handleInput($event.target.value, language, 'contact_photo_label', 'updateHomePageSetting')"
+                            :value="form['contact_photo_label']?.[`contact_photo_label_${selectedLanguage}`] ?? ''" />
+                        <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`contact_photo_label.contact_photo_label_${selectedLanguage}`)" v-text="validationErros.get(`contact_photo_label.contact_photo_label_${selectedLanguage}`)"></p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <label class="block text-sm font-medium leading-6 text-gray-900" :for="`contact_photo_tooltip_${selectedLanguage}`">Contact photo tooltip</label>
+                        <input type="text" :name="`contact_photo_tooltip_${selectedLanguage}`" :id="`contact_photo_tooltip_${selectedLanguage}`"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                            placeholder=" " @input="handleInput($event.target.value, language, 'contact_photo_tooltip', 'updateHomePageSetting')"
+                            :value="form['contact_photo_tooltip']?.[`contact_photo_tooltip_${selectedLanguage}`] ?? ''" />
+                        <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`contact_photo_tooltip.contact_photo_tooltip_${selectedLanguage}`)" v-text="validationErros.get(`contact_photo_tooltip.contact_photo_tooltip_${selectedLanguage}`)"></p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <label class="block text-sm font-medium leading-6 text-gray-900" :for="`main_event_image_label_${selectedLanguage}`">Main event image label</label>
+                        <input type="text" :name="`main_event_image_label_${selectedLanguage}`" :id="`main_event_image_label_${selectedLanguage}`"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                            placeholder=" " @input="handleInput($event.target.value, language, 'main_event_image_label', 'updateHomePageSetting')"
+                            :value="form['main_event_image_label']?.[`main_event_image_label_${selectedLanguage}`] ?? ''" />
+                        <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`main_event_image_label.main_event_image_label_${selectedLanguage}`)" v-text="validationErros.get(`main_event_image_label.main_event_image_label_${selectedLanguage}`)"></p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <label class="block text-sm font-medium leading-6 text-gray-900" :for="`main_event_image_hint_${selectedLanguage}`">Main event image hint</label>
+                        <input type="text" :name="`main_event_image_hint_${selectedLanguage}`" :id="`main_event_image_hint_${selectedLanguage}`"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                            placeholder=" " @input="handleInput($event.target.value, language, 'main_event_image_hint', 'updateHomePageSetting')"
+                            :value="form['main_event_image_hint']?.[`main_event_image_hint_${selectedLanguage}`] ?? ''" />
+                        <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`main_event_image_hint.main_event_image_hint_${selectedLanguage}`)" v-text="validationErros.get(`main_event_image_hint.main_event_image_hint_${selectedLanguage}`)"></p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <label class="block text-sm font-medium leading-6 text-gray-900" :for="`photo_gallery_heading_${selectedLanguage}`">Photo gallery heading</label>
+                        <input type="text" :name="`photo_gallery_heading_${selectedLanguage}`" :id="`photo_gallery_heading_${selectedLanguage}`"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                            placeholder=" " @input="handleInput($event.target.value, language, 'photo_gallery_heading', 'updateHomePageSetting')"
+                            :value="form['photo_gallery_heading']?.[`photo_gallery_heading_${selectedLanguage}`] ?? ''" />
+                        <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`photo_gallery_heading.photo_gallery_heading_${selectedLanguage}`)" v-text="validationErros.get(`photo_gallery_heading.photo_gallery_heading_${selectedLanguage}`)"></p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <label class="block text-sm font-medium leading-6 text-gray-900" :for="`photo_gallery_label_${selectedLanguage}`">Photo gallery label</label>
+                        <input type="text" :name="`photo_gallery_label_${selectedLanguage}`" :id="`photo_gallery_label_${selectedLanguage}`"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                            placeholder=" " @input="handleInput($event.target.value, language, 'photo_gallery_label', 'updateHomePageSetting')"
+                            :value="form['photo_gallery_label']?.[`photo_gallery_label_${selectedLanguage}`] ?? ''" />
+                        <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`photo_gallery_label.photo_gallery_label_${selectedLanguage}`)" v-text="validationErros.get(`photo_gallery_label.photo_gallery_label_${selectedLanguage}`)"></p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <label class="block text-sm font-medium leading-6 text-gray-900" :for="`photo_gallery_subtitle_featured_${selectedLanguage}`">Photo gallery subtitle (featured)</label>
+                        <input type="text" :name="`photo_gallery_subtitle_featured_${selectedLanguage}`" :id="`photo_gallery_subtitle_featured_${selectedLanguage}`"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                            placeholder=" " @input="handleInput($event.target.value, language, 'photo_gallery_subtitle_featured', 'updateHomePageSetting')"
+                            :value="form['photo_gallery_subtitle_featured']?.[`photo_gallery_subtitle_featured_${selectedLanguage}`] ?? ''" />
+                        <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`photo_gallery_subtitle_featured.photo_gallery_subtitle_featured_${selectedLanguage}`)" v-text="validationErros.get(`photo_gallery_subtitle_featured.photo_gallery_subtitle_featured_${selectedLanguage}`)"></p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <label class="block text-sm font-medium leading-6 text-gray-900" :for="`photo_gallery_subtitle_premium_${selectedLanguage}`">Photo gallery subtitle (premium)</label>
+                        <input type="text" :name="`photo_gallery_subtitle_premium_${selectedLanguage}`" :id="`photo_gallery_subtitle_premium_${selectedLanguage}`"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                            placeholder=" " @input="handleInput($event.target.value, language, 'photo_gallery_subtitle_premium', 'updateHomePageSetting')"
+                            :value="form['photo_gallery_subtitle_premium']?.[`photo_gallery_subtitle_premium_${selectedLanguage}`] ?? ''" />
+                        <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`photo_gallery_subtitle_premium.photo_gallery_subtitle_premium_${selectedLanguage}`)" v-text="validationErros.get(`photo_gallery_subtitle_premium.photo_gallery_subtitle_premium_${selectedLanguage}`)"></p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <label class="block text-sm font-medium leading-6 text-gray-900" :for="`update_btn_text_${selectedLanguage}`">Update button text</label>
+                        <input type="text" :name="`update_btn_text_${selectedLanguage}`" :id="`update_btn_text_${selectedLanguage}`"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                            placeholder=" " @input="handleInput($event.target.value, language, 'update_btn_text', 'updateHomePageSetting')"
+                            :value="form['update_btn_text']?.[`update_btn_text_${selectedLanguage}`] ?? ''" />
+                        <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`update_btn_text.update_btn_text_${selectedLanguage}`)" v-text="validationErros.get(`update_btn_text.update_btn_text_${selectedLanguage}`)"></p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <label class="block text-sm font-medium leading-6 text-gray-900" :for="`privacy_heading_${selectedLanguage}`">Privacy section heading</label>
+                        <input type="text" :name="`privacy_heading_${selectedLanguage}`" :id="`privacy_heading_${selectedLanguage}`"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                            placeholder=" " @input="handleInput($event.target.value, language, 'privacy_heading', 'updateHomePageSetting')"
+                            :value="form['privacy_heading']?.[`privacy_heading_${selectedLanguage}`] ?? ''" />
+                        <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`privacy_heading.privacy_heading_${selectedLanguage}`)" v-text="validationErros.get(`privacy_heading.privacy_heading_${selectedLanguage}`)"></p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <label class="block text-sm font-medium leading-6 text-gray-900" :for="`privacy_bullet_1_${selectedLanguage}`">Privacy bullet 1</label>
+                        <input type="text" :name="`privacy_bullet_1_${selectedLanguage}`" :id="`privacy_bullet_1_${selectedLanguage}`"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                            placeholder=" " @input="handleInput($event.target.value, language, 'privacy_bullet_1', 'updateHomePageSetting')"
+                            :value="form['privacy_bullet_1']?.[`privacy_bullet_1_${selectedLanguage}`] ?? ''" />
+                        <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`privacy_bullet_1.privacy_bullet_1_${selectedLanguage}`)" v-text="validationErros.get(`privacy_bullet_1.privacy_bullet_1_${selectedLanguage}`)"></p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <label class="block text-sm font-medium leading-6 text-gray-900" :for="`privacy_bullet_2_${selectedLanguage}`">Privacy bullet 2</label>
+                        <input type="text" :name="`privacy_bullet_2_${selectedLanguage}`" :id="`privacy_bullet_2_${selectedLanguage}`"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                            placeholder=" " @input="handleInput($event.target.value, language, 'privacy_bullet_2', 'updateHomePageSetting')"
+                            :value="form['privacy_bullet_2']?.[`privacy_bullet_2_${selectedLanguage}`] ?? ''" />
+                        <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`privacy_bullet_2.privacy_bullet_2_${selectedLanguage}`)" v-text="validationErros.get(`privacy_bullet_2.privacy_bullet_2_${selectedLanguage}`)"></p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <label class="block text-sm font-medium leading-6 text-gray-900" :for="`privacy_bullet_3_${selectedLanguage}`">Privacy bullet 3</label>
+                        <input type="text" :name="`privacy_bullet_3_${selectedLanguage}`" :id="`privacy_bullet_3_${selectedLanguage}`"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                            placeholder=" " @input="handleInput($event.target.value, language, 'privacy_bullet_3', 'updateHomePageSetting')"
+                            :value="form['privacy_bullet_3']?.[`privacy_bullet_3_${selectedLanguage}`] ?? ''" />
+                        <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`privacy_bullet_3.privacy_bullet_3_${selectedLanguage}`)" v-text="validationErros.get(`privacy_bullet_3.privacy_bullet_3_${selectedLanguage}`)"></p>
+                    </div>
+                    <div class="relative z-0 w-full group">
                         <label class="block text-sm font-medium leading-6 text-gray-900" :for="`email_label_${selectedLanguage}`">Label for email</label>
                         <input type="text" :name="`email_label_${selectedLanguage}`"
                             :id="`email_label_${selectedLanguage}`"
@@ -650,6 +885,18 @@
                     </div>
 
                     <div class="relative z-0 w-full group">
+                        <label class="block text-sm font-medium leading-6 text-gray-900" :for="`organizer_contact_section_heading_${selectedLanguage}`">Organizer & contact section heading</label>
+                        <input type="text" :name="`organizer_contact_section_heading_${selectedLanguage}`"
+                            :id="`organizer_contact_section_heading_${selectedLanguage}`"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                            placeholder=" "
+                            @input="handleInput($event.target.value, language, 'organizer_contact_section_heading', 'updateHomePageSetting')"
+                            :value="form['organizer_contact_section_heading']?.[`organizer_contact_section_heading_${selectedLanguage}`] ?? ''" />
+                        <p class="mt-2 text-sm text-red-400" v-if="validationErros.has(`organizer_contact_section_heading.organizer_contact_section_heading_${selectedLanguage}`)"
+                            v-text="validationErros.get(`organizer_contact_section_heading.organizer_contact_section_heading_${selectedLanguage}`)"></p>
+                    </div>
+
+                    <div class="relative z-0 w-full group">
                         <label class="block text-sm font-medium leading-6 text-gray-900" :for="`event_section_heading_${selectedLanguage}`">Heading for create event section</label>
                         <input type="text" :name="`event_section_heading_${selectedLanguage}`"
                             :id="`event_section_heading_${selectedLanguage}`"
@@ -890,6 +1137,96 @@ export default {
                     });
                     obj = {};
                     data.map((res) => {
+                        obj["organizer_website_label_" + res.language_id] = res.organizer_website_label;
+                    });
+                    this.$store.commit("pages/setHomePageSetting", {
+                        key: "organizer_website_label",
+                        value: obj,
+                    });
+                    obj = {};
+                    data.map((res) => {
+                        obj["your_profile_heading_" + res.language_id] = res.your_profile_heading;
+                    });
+                    this.$store.commit("pages/setHomePageSetting", { key: "your_profile_heading", value: obj });
+                    obj = {};
+                    data.map((res) => {
+                        obj["the_organizer_heading_" + res.language_id] = res.the_organizer_heading;
+                    });
+                    this.$store.commit("pages/setHomePageSetting", { key: "the_organizer_heading", value: obj });
+                    obj = {};
+                    data.map((res) => {
+                        obj["contact_person_heading_" + res.language_id] = res.contact_person_heading;
+                    });
+                    this.$store.commit("pages/setHomePageSetting", { key: "contact_person_heading", value: obj });
+                    obj = {};
+                    data.map((res) => {
+                        obj["organizer_phone_label_" + res.language_id] = res.organizer_phone_label;
+                    });
+                    this.$store.commit("pages/setHomePageSetting", { key: "organizer_phone_label", value: obj });
+                    obj = {};
+                    data.map((res) => {
+                        obj["mailing_address_label_" + res.language_id] = res.mailing_address_label;
+                    });
+                    this.$store.commit("pages/setHomePageSetting", { key: "mailing_address_label", value: obj });
+                    obj = {};
+                    data.map((res) => {
+                        obj["contact_name_label_" + res.language_id] = res.contact_name_label;
+                    });
+                    this.$store.commit("pages/setHomePageSetting", { key: "contact_name_label", value: obj });
+                    obj = {};
+                    data.map((res) => {
+                        obj["contact_phone_label_" + res.language_id] = res.contact_phone_label;
+                    });
+                    this.$store.commit("pages/setHomePageSetting", { key: "contact_phone_label", value: obj });
+                    obj = {};
+                    data.map((res) => {
+                        obj["contact_phone_hint_" + res.language_id] = res.contact_phone_hint;
+                    });
+                    this.$store.commit("pages/setHomePageSetting", { key: "contact_phone_hint", value: obj });
+                    obj = {};
+                    data.map((res) => {
+                        obj["contact_email_label_" + res.language_id] = res.contact_email_label;
+                    });
+                    this.$store.commit("pages/setHomePageSetting", { key: "contact_email_label", value: obj });
+                    obj = {};
+                    data.map((res) => {
+                        obj["contact_email_hint_" + res.language_id] = res.contact_email_hint;
+                    });
+                    this.$store.commit("pages/setHomePageSetting", { key: "contact_email_hint", value: obj });
+                    obj = {};
+                    data.map((res) => {
+                        obj["contact_photo_label_" + res.language_id] = res.contact_photo_label;
+                    });
+                    this.$store.commit("pages/setHomePageSetting", { key: "contact_photo_label", value: obj });
+                    obj = {};
+                    data.map((res) => {
+                        obj["contact_photo_tooltip_" + res.language_id] = res.contact_photo_tooltip;
+                    });
+                    this.$store.commit("pages/setHomePageSetting", { key: "contact_photo_tooltip", value: obj });
+                    obj = {}; data.map((res) => { obj["main_event_image_label_" + res.language_id] = res.main_event_image_label; });
+                    this.$store.commit("pages/setHomePageSetting", { key: "main_event_image_label", value: obj });
+                    obj = {}; data.map((res) => { obj["main_event_image_hint_" + res.language_id] = res.main_event_image_hint; });
+                    this.$store.commit("pages/setHomePageSetting", { key: "main_event_image_hint", value: obj });
+                    obj = {}; data.map((res) => { obj["photo_gallery_heading_" + res.language_id] = res.photo_gallery_heading; });
+                    this.$store.commit("pages/setHomePageSetting", { key: "photo_gallery_heading", value: obj });
+                    obj = {}; data.map((res) => { obj["photo_gallery_label_" + res.language_id] = res.photo_gallery_label; });
+                    this.$store.commit("pages/setHomePageSetting", { key: "photo_gallery_label", value: obj });
+                    obj = {}; data.map((res) => { obj["photo_gallery_subtitle_featured_" + res.language_id] = res.photo_gallery_subtitle_featured; });
+                    this.$store.commit("pages/setHomePageSetting", { key: "photo_gallery_subtitle_featured", value: obj });
+                    obj = {}; data.map((res) => { obj["photo_gallery_subtitle_premium_" + res.language_id] = res.photo_gallery_subtitle_premium; });
+                    this.$store.commit("pages/setHomePageSetting", { key: "photo_gallery_subtitle_premium", value: obj });
+                    obj = {}; data.map((res) => { obj["update_btn_text_" + res.language_id] = res.update_btn_text; });
+                    this.$store.commit("pages/setHomePageSetting", { key: "update_btn_text", value: obj });
+                    obj = {}; data.map((res) => { obj["privacy_heading_" + res.language_id] = res.privacy_heading; });
+                    this.$store.commit("pages/setHomePageSetting", { key: "privacy_heading", value: obj });
+                    obj = {}; data.map((res) => { obj["privacy_bullet_1_" + res.language_id] = res.privacy_bullet_1; });
+                    this.$store.commit("pages/setHomePageSetting", { key: "privacy_bullet_1", value: obj });
+                    obj = {}; data.map((res) => { obj["privacy_bullet_2_" + res.language_id] = res.privacy_bullet_2; });
+                    this.$store.commit("pages/setHomePageSetting", { key: "privacy_bullet_2", value: obj });
+                    obj = {}; data.map((res) => { obj["privacy_bullet_3_" + res.language_id] = res.privacy_bullet_3; });
+                    this.$store.commit("pages/setHomePageSetting", { key: "privacy_bullet_3", value: obj });
+                    obj = {};
+                    data.map((res) => {
                         obj["email_label_" + res.language_id] = res.email_label;
                     });
                     this.$store.commit("pages/setHomePageSetting", {
@@ -950,6 +1287,14 @@ export default {
                     });
                     this.$store.commit("pages/setHomePageSetting", {
                         key: "package_section_heading",
+                        value: obj,
+                    });
+                    obj = {};
+                    data.map((res) => {
+                        obj["organizer_contact_section_heading_" + res.language_id] = res.organizer_contact_section_heading;
+                    });
+                    this.$store.commit("pages/setHomePageSetting", {
+                        key: "organizer_contact_section_heading",
                         value: obj,
                     });
                     obj = {};
@@ -1025,6 +1370,30 @@ export default {
                 validationErros.has(`name_error.name_error_${language.id}`) ||
                 validationErros.has(`business_name_label.business_name_label_${language.id}`) ||
                 validationErros.has(`business_name_error.business_name_error_${language.id}`) ||
+                validationErros.has(`organizer_website_label.organizer_website_label_${language.id}`) ||
+                validationErros.has(`your_profile_heading.your_profile_heading_${language.id}`) ||
+                validationErros.has(`the_organizer_heading.the_organizer_heading_${language.id}`) ||
+                validationErros.has(`contact_person_heading.contact_person_heading_${language.id}`) ||
+                validationErros.has(`organizer_phone_label.organizer_phone_label_${language.id}`) ||
+                validationErros.has(`mailing_address_label.mailing_address_label_${language.id}`) ||
+                validationErros.has(`contact_name_label.contact_name_label_${language.id}`) ||
+                validationErros.has(`contact_phone_label.contact_phone_label_${language.id}`) ||
+                validationErros.has(`contact_phone_hint.contact_phone_hint_${language.id}`) ||
+                validationErros.has(`contact_email_label.contact_email_label_${language.id}`) ||
+                validationErros.has(`contact_email_hint.contact_email_hint_${language.id}`) ||
+                validationErros.has(`contact_photo_label.contact_photo_label_${language.id}`) ||
+                validationErros.has(`contact_photo_tooltip.contact_photo_tooltip_${language.id}`) ||
+                validationErros.has(`main_event_image_label.main_event_image_label_${language.id}`) ||
+                validationErros.has(`main_event_image_hint.main_event_image_hint_${language.id}`) ||
+                validationErros.has(`photo_gallery_heading.photo_gallery_heading_${language.id}`) ||
+                validationErros.has(`photo_gallery_label.photo_gallery_label_${language.id}`) ||
+                validationErros.has(`photo_gallery_subtitle_featured.photo_gallery_subtitle_featured_${language.id}`) ||
+                validationErros.has(`photo_gallery_subtitle_premium.photo_gallery_subtitle_premium_${language.id}`) ||
+                validationErros.has(`update_btn_text.update_btn_text_${language.id}`) ||
+                validationErros.has(`privacy_heading.privacy_heading_${language.id}`) ||
+                validationErros.has(`privacy_bullet_1.privacy_bullet_1_${language.id}`) ||
+                validationErros.has(`privacy_bullet_2.privacy_bullet_2_${language.id}`) ||
+                validationErros.has(`privacy_bullet_3.privacy_bullet_3_${language.id}`) ||
                 validationErros.has(`email_label.email_label_${language.id}`) ||
                 validationErros.has(`email_error.email_error_${language.id}`) ||
                 validationErros.has(`password_label.password_label_${language.id}`) ||
@@ -1032,6 +1401,7 @@ export default {
                 validationErros.has(`password_error.password_error_${language.id}`) ||
                 validationErros.has(`confirm_password_label.confirm_password_label_${language.id}`) ||
                 validationErros.has(`package_section_heading.package_section_heading_${language.id}`) ||
+                validationErros.has(`organizer_contact_section_heading.organizer_contact_section_heading_${language.id}`) ||
                 validationErros.has(`event_section_heading.event_section_heading_${language.id}`) ||
                 validationErros.has(`contact_section_heading.contact_section_heading_${language.id}`) ||
                 validationErros.has(`media_section_heading.media_section_heading_${language.id}`) ||
@@ -1095,6 +1465,78 @@ export default {
                 });
                 obj = {};
                 data.map((res) => {
+                    obj["organizer_website_label_" + res.id] = "";
+                });
+                this.$store.commit("pages/setHomePageSetting", {
+                    key: "organizer_website_label",
+                    value: obj,
+                });
+                obj = {};
+                data.map((res) => {
+                    obj["your_profile_heading_" + res.id] = "";
+                });
+                this.$store.commit("pages/setHomePageSetting", { key: "your_profile_heading", value: obj });
+                obj = {};
+                data.map((res) => {
+                    obj["the_organizer_heading_" + res.id] = "";
+                });
+                this.$store.commit("pages/setHomePageSetting", { key: "the_organizer_heading", value: obj });
+                obj = {};
+                data.map((res) => {
+                    obj["contact_person_heading_" + res.id] = "";
+                });
+                this.$store.commit("pages/setHomePageSetting", { key: "contact_person_heading", value: obj });
+                obj = {};
+                data.map((res) => {
+                    obj["organizer_phone_label_" + res.id] = "";
+                });
+                this.$store.commit("pages/setHomePageSetting", { key: "organizer_phone_label", value: obj });
+                obj = {};
+                data.map((res) => {
+                    obj["mailing_address_label_" + res.id] = "";
+                });
+                this.$store.commit("pages/setHomePageSetting", { key: "mailing_address_label", value: obj });
+                obj = {};
+                data.map((res) => {
+                    obj["contact_name_label_" + res.id] = "";
+                });
+                this.$store.commit("pages/setHomePageSetting", { key: "contact_name_label", value: obj });
+                obj = {};
+                data.map((res) => {
+                    obj["contact_phone_label_" + res.id] = "";
+                });
+                this.$store.commit("pages/setHomePageSetting", { key: "contact_phone_label", value: obj });
+                obj = {};
+                data.map((res) => {
+                    obj["contact_phone_hint_" + res.id] = "";
+                });
+                this.$store.commit("pages/setHomePageSetting", { key: "contact_phone_hint", value: obj });
+                obj = {};
+                data.map((res) => {
+                    obj["contact_email_label_" + res.id] = "";
+                });
+                this.$store.commit("pages/setHomePageSetting", { key: "contact_email_label", value: obj });
+                obj = {};
+                data.map((res) => {
+                    obj["contact_email_hint_" + res.id] = "";
+                });
+                this.$store.commit("pages/setHomePageSetting", { key: "contact_email_hint", value: obj });
+                obj = {};
+                data.map((res) => {
+                    obj["contact_photo_label_" + res.id] = "";
+                });
+                this.$store.commit("pages/setHomePageSetting", { key: "contact_photo_label", value: obj });
+                obj = {};
+                data.map((res) => {
+                    obj["contact_photo_tooltip_" + res.id] = "";
+                });
+                this.$store.commit("pages/setHomePageSetting", { key: "contact_photo_tooltip", value: obj });
+                ['main_event_image_label','main_event_image_hint','photo_gallery_heading','photo_gallery_label','photo_gallery_subtitle_featured','photo_gallery_subtitle_premium','update_btn_text','privacy_heading','privacy_bullet_1','privacy_bullet_2','privacy_bullet_3'].forEach(k => {
+                    obj = {}; data.map((res) => { obj[k + "_" + res.id] = ""; });
+                    this.$store.commit("pages/setHomePageSetting", { key: k, value: obj });
+                });
+                obj = {};
+                data.map((res) => {
                     obj["email_label_" + res.id] = "";
                 });
                 this.$store.commit("pages/setHomePageSetting", {
@@ -1155,6 +1597,14 @@ export default {
                 });
                 this.$store.commit("pages/setHomePageSetting", {
                     key: "package_section_heading",
+                    value: obj,
+                });
+                obj = {};
+                data.map((res) => {
+                    obj["organizer_contact_section_heading_" + res.id] = "";
+                });
+                this.$store.commit("pages/setHomePageSetting", {
+                    key: "organizer_contact_section_heading",
                     value: obj,
                 });
                 obj = {};
