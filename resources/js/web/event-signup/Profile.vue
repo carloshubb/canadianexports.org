@@ -629,7 +629,7 @@
                 </div>
                 <div class="border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
                     <label for="photo_gallery_images"
-                        class="text-base md:text-base lg:text-lg font-medium block mb-2" id="photo_gallery_images">
+                        class="text-base md:text-base lg:text-lg block mb-2" id="photo_gallery_images">
                         Photo Gallery <span class="text-[0.85em]" v-if="photoGallerySectionSubtitle">{{ photoGallerySectionSubtitle }}</span>
                     </label>
                     <div class="relative z-0 w-full mb-6 group">
