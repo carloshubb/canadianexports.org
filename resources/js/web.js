@@ -56,6 +56,11 @@ import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 import { translate } from "./Utils/i18n";
 
+// Initialize general messages from backend (if provided on window)
+if (window.__GENERAL_MESSAGES__) {
+    store.commit("setGeneralMessages", window.__GENERAL_MESSAGES__);
+}
+
 createApp({})
     .use(VueSweetalert2)
     .component("signup", signup)

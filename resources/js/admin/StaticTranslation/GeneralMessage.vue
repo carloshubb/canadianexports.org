@@ -71,6 +71,8 @@
           'message_65',
         //   'message_64',
           'message_66',
+          'message_67',
+          'field_required_message',
         ]"
         :key="field"
         class="relative z-0 w-full group"

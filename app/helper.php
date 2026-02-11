@@ -1907,8 +1907,6 @@ if (!function_exists("getI2bModalSetting")) {
         $staticTranslation = StaticTranslation::whereIn('type', $type)->pluck('id');
 
         $staticTranslationDetail = StaticTranslationDetail::whereIn('static_translation_id', $staticTranslation)->whereLanguageId($defaultLang->id)->pluck('value', 'key');
-     // dd($staticTranslationDetail);
-    // Log::info("staticTranslationDetail", ['sdf' => $staticTranslationDetail]); 
         return $staticTranslationDetail;
     }
 }
