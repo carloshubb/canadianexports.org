@@ -15,13 +15,13 @@
                 @endisset
                 <!--Tabs-->
                 <div class="grid grid-cols-1 gap-12 container">
-                    <div class="order-2 md:order-1">
+                    <div class="order-2 md:order-1 w-full">
                         <create-become-sponsor 
-                            become_sponsor="{{ $becomeSponsorSettingDetail }}"
+                            :become_sponsor='@json($becomeSponsorSettingDetail ?? [])'
                             submit_url="{{ route('user.become-sponsor.send-message') }}" 
                             page_id="{{ $page->id }}"
                             @auth('customers')
-                            logged_in_user="{{ json_encode(auth()->guard('customers')->user()) }}"
+                            :logged_in_user='@json(auth()->guard("customers")->user())'
                             @endauth
                         >
                         </create-become-sponsor>

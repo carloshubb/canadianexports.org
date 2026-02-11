@@ -329,6 +329,8 @@ class EventSignupController extends Controller
                 'pintrest_url' => $request->pintrest_url,
                 'instagram_url' => $request->instagram_url,
                 'snapchat_url' => $request->snapchat_url,
+                'cta_btn' => $request->cta_btn,
+                'cta_link' => $request->cta_link,
                 'customer_id' => $customer->id,
                 'registration_package_id' => $request->package_id,
                 'package_price' => isset($package->discount_price) && $package->discount_price > 0 ? $package->discount_price : (isset($package->price) ? $package->price : 0),

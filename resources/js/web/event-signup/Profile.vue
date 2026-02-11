@@ -1,7 +1,7 @@
 <template>
     <form class="lg:w-full" @submit.prevent="recaptcha()">
         <!-- Event dashboard welcome (Premium / Featured) -->
-        <div v-if="eventDashboardDescription" class="bg-white px-4 sm:px-10 rounded-lg sm:pt-20 w-full max-w-full min-w-0 mt-20 mb-6">
+        <div v-if="eventDashboardDescription" class="bg-white px-4 sm:px-10 rounded-lg  w-full max-w-full min-w-0 mb-6">
             <h2 class="font-FuturaMdCnBT text-gray-900 break-words">Welcome back {{ eventDashboardFirstName }},</h2>
             <p class="font-FuturaMdCnBT text-gray-900 break-words whitespace-normal" style="line-height: 1.6; word-wrap: break-word;" v-html="eventDashboardDescription"></p>
         </div>
@@ -134,7 +134,7 @@
             </div>
             <div class="mb-6">
                 <div class="relative w-full border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
-                    <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">Your Profile</h5>
+                    <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">{{ JSON.parse(event_detail)["your_profile_heading"] || 'Your Profile' }}</h5>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="relative w-full mb-3">
                             <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="name">{{
@@ -156,8 +156,7 @@
                 </div>
                 <div class="mb-6">
                     <div class="border border-gray-200 mt-6 rounded-lg p-6 bg-white shadow-sm">
-                        <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">The Organizer
-                        </h5>
+                        <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">{{ JSON.parse(event_detail)["the_organizer_heading"] || 'The Organizer' }}</h5>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="relative w-full mb-3">
                                 <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
@@ -170,7 +169,7 @@
                             </div>
                             <div class="relative w-full mb-3">
                                 <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
-                                    for="organizer_website">Organizer Website</label>
+                                    for="organizer_website">{{ JSON.parse(event_detail)["organizer_website_label"] || 'Organizer Website' }}</label>
                                 <input @input="clearErrors('organizer_website')" type="url" class="can-exp-input"
                                     name="organizer_website" id="organizer_website" v-model="form.organizer_website" />
                                 <Error v-if="submitted" fieldName="organizer_website" :validationErros="validationErros"
@@ -178,7 +177,7 @@
                             </div>
                             <div class="relative w-full mb-3">
                                 <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
-                                    for="organizer_phone">Phone<span class="text-red-500">*</span></label>
+                                    for="organizer_phone">{{ JSON.parse(event_detail)["organizer_phone_label"] || 'Phone' }}<span class="text-red-500">*</span></label>
                                 <input type="text" class="can-exp-input" name="organizer_phone" id="organizer_phone"
                                     v-model="form.organizer_phone" maxlength="16"
                                     @input="handleOrganizerPhoneInput($event.target.value)"
@@ -188,7 +187,7 @@
                             </div>
                             <div class="relative w-full mb-3 md:col-span-2">
                                 <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
-                                    for="mailing_address">Mailing Address</label>
+                                    for="mailing_address">{{ JSON.parse(event_detail)["mailing_address_label"] || 'Mailing Address' }}</label>
                                 <input @input="clearErrors('mailing_address')" type="text" class="can-exp-input"
                                     name="mailing_address" id="mailing_address" v-model="form.mailing_address" />
                                 <Error v-if="submitted" fieldName="mailing_address" :validationErros="validationErros"
@@ -199,13 +198,12 @@
                 </div>
                 <div class="mb-6">
                     <div class="border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
-                        <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">Contact Person
-                        </h5>
+                        <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">{{ JSON.parse(event_detail)["contact_person_heading"] || 'Contact Person' }}</h5>
                         <div v-for="(contact, index) in contacts" :key="index">
                             <div class="grid md:grid-cols-2 md:gap-6 gap-4 mt-6 bg-white shadow rounded-lg p-6">
                                 <div class="relative z-0 w-full group">
                                     <label :for="`contact-name-[${index}]`"
-                                        class="text-base md:text-base lg:text-lg">Full Name and Title <span class="text-red-500">*</span></label>
+                                        class="text-base md:text-base lg:text-lg">{{ JSON.parse(event_detail)["contact_name_label"] || 'Full Name and Title' }} <span class="text-red-500">*</span></label>
                                     <input type="text" name="contact-name" :id="`contact-name-[${index}]`"
                                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                                         v-model="contact.name"
@@ -214,8 +212,8 @@
                                 </div>
                                 <div class="relative z-0 w-full group">
                                     <label :for="`contact-phone-[${index}]`"
-                                        class="text-base md:text-base lg:text-lg">Contact Phone
-                                        <span class="text-gray-500 text-xs">(If different from the business phone)</span></label>
+                                        class="text-base md:text-base lg:text-lg">{{ JSON.parse(event_detail)["contact_phone_label"] || 'Contact Phone' }}
+                                        <span class="text-gray-500 text-xs">{{ JSON.parse(event_detail)["contact_phone_hint"] || '(If different from the business phone)' }}</span></label>
                                     <input type="text" name="contact-phone" :id="`contact-phone-[${index}]`"
                                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                                         v-model="contact.phone" maxlength="15"
@@ -225,8 +223,8 @@
                                 </div>
                                 <div class="relative z-0 w-full group">
                                     <label :for="`contact-email-[${index}]`"
-                                        class="text-base md:text-base lg:text-lg">Email <span
-                                            class="text-gray-500 text-xs">(If different from the login email)</span>
+                                        class="text-base md:text-base lg:text-lg">{{ JSON.parse(event_detail)["contact_email_label"] || 'Email' }} <span
+                                            class="text-gray-500 text-xs">{{ JSON.parse(event_detail)["contact_email_hint"] || '(If different from the login email)' }}</span>
                                     </label>
                                     <input type="text" name="contact-email" :id="`contact-email-[${index}]`"
                                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
@@ -236,7 +234,7 @@
                                 </div>
                                 <div class="relative z-0 w-full group">
                                     <label class="text-base md:text-base lg:text-lg inline-flex items-center gap-1">
-                                        Contact Person's Photo
+                                        {{ JSON.parse(event_detail)["contact_photo_label"] || "Contact Person's Photo" }}
                                         <span class="relative inline-flex flex-shrink-0">
                                             <span
                                                 class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-gray-400 text-white text-xs font-bold cursor-pointer flex-shrink-0"
@@ -244,9 +242,7 @@
                                                 @click.stop="toggleContactPhotoTooltip(index)">!</span>
                                             <div v-if="contactPhotoTooltipIndex === index"
                                                 class="absolute left-0 top-full mt-1 z-50 min-w-[200px] max-w-[280px] px-3 py-2 text-sm text-gray-700 bg-white border border-gray-200 rounded-lg shadow-lg"
-                                                @click.stop>Adding a photo helps other delegates and attendees recognize
-                                                you at the
-                                                event!</div>
+                                                @click.stop>{{ JSON.parse(event_detail)["contact_photo_tooltip"] || 'Adding a photo helps other delegates and attendees recognize you at the event!' }}</div>
                                         </span>
                                     </label>
                                     <input type="file" name="contact-image" :id="`contact-image-[${index}]`"
@@ -474,7 +470,7 @@
                 <!-- event media -->
                 <div class="w-full">
                     <label for="" class="text-base md:text-base lg:text-lg  truncate">Main Event Image <span
-                            class="ml-1 text-[0.95em] text-gray-600">(PNG, GIF, JPG, or JPEG format · 30 MB
+                            class="ml-1 text-[0.8em] text-gray-600">(PNG, GIF, JPG, or JPEG format · 30 MB
                             max)</span><span class="text-red-500">*</span></label>
                     <div class="relative z-0 w-full mb-6 group">
                         <template v-if="
@@ -629,8 +625,8 @@
                 </div>
                 <div class="border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
                     <label for="photo_gallery_images"
-                        class="text-base md:text-base lg:text-lg font-medium block mb-2" id="photo_gallery_images">
-                        {{ photoGallerySectionTitle }}
+                        class="text-base md:text-base lg:text-lg block mb-2" id="photo_gallery_images">
+                        Photo Gallery <span class="text-[0.85em]" v-if="photoGallerySectionSubtitle">{{ photoGallerySectionSubtitle }}</span>
                     </label>
                     <div class="relative z-0 w-full mb-6 group">
                         <FilePond name="photo_gallery_image" :ref="el => { if (el) photoGalleryPond = el }"
@@ -719,7 +715,8 @@
                                                             : ""
                                                     }}</label>
                                                     <i class="text-gray-400 fa fa-user"></i>
-                                                    <input type="text" class="can-exp-input profile-card-input" :placeholder="payment_setting &&
+                                                    <input type="text" class="can-exp-input profile-card-input" 
+                                                        :placeholder="payment_setting &&
                                                         JSON.parse(payment_setting) &&
                                                         JSON.parse(payment_setting)[
                                                         'cardholder_name_placeholder'
@@ -733,8 +730,7 @@
                                                                 'card_holder_name',
                                                                 $event.target.value
                                                             );
-                                                        clearErrors('card_holder_name');
-                                                        " id="card_holder_name" />
+                                                        clearErrors('card_holder_name');"  />
                                                     <Error fieldName="card_holder_name"
                                                         :validationErros="validationErros" full_width="1" />
                                                 </div>
@@ -915,14 +911,14 @@ export default {
             const nameFilled = (this.form.card_holder_name || '').trim() !== '';
             return nameFilled && this.stripeCardComplete;
         },
-        photoGallerySectionTitle() {
+        photoGallerySectionSubtitle() {
             if (this.effectivePackageType === 'featured') {
-                return 'Photo Gallery (Upload up to 20 images. Max 10 MB each. Supports PNG, GIF, or JPG)';
+                return '(Upload up to 20 images. Max 10 MB each. Supports PNG, GIF, or JPG)';
             }
             if (this.effectivePackageType === 'premium') {
-                return 'Photo Gallery (Upload up to 8 images. Max 10 MB each. Supports PNG, GIF, or JPG)';
+                return '(Upload up to 8 images. Max 10 MB each. Supports PNG, GIF, or JPG)';
             }
-            return 'Photo Gallery';
+            return '';
         },
         photoGalleryServerConfig() {
             const csrf = document.head.querySelector('meta[name="csrf-token"]')?.content;
@@ -1128,34 +1124,12 @@ export default {
                     this.form.visitors_url = user.event[0]?.visitors_url || '';
                     this.form.press_url = user.event[0]?.press_url || '';
                     this.form.video_url = user.event[0]?.video_url || '';
-
-                    // Populate main gallery and photo gallery from event_media (same logic as Create.vue)
-                    const eventMedia = user.event?.[0]?.event_media;
-                    if (eventMedia && Array.isArray(eventMedia) && eventMedia.length > 0) {
-                        let galleryImages = [];
-                        this.gallery_files = [];
-                        let photoGalleryImages = [];
-                        this.photo_gallery_files = [];
-                        eventMedia.forEach((media) => {
-                            if (!media.media) return;
-                            const type = media.type || 'main';
-                            const fileOpt = {
-                                source: media.media.id,
-                                options: {
-                                    type: 'local',
-                                    metadata: { serverId: media.media.id }
-                                }
-                            };
-                            if (type === 'gallery') {
-                                photoGalleryImages.push(media.media.id);
-                                this.photo_gallery_files.push(fileOpt);
-                            } else {
-                                galleryImages.push(media.media.id);
-                                this.gallery_files.push(fileOpt);
-                            }
-                        });
-                        this.form.gallery_images = JSON.stringify(galleryImages);
-                        this.form.photo_gallery_images = JSON.stringify(photoGalleryImages);
+                    this.form.cta_btn = user.event[0]?.cta_btn || '';
+                    this.form.cta_link = user.event[0]?.cta_link || '';
+                    // Fetch full event (with event_media and base64/URL) when user has an event — current_user does not include event_media
+                    const eventId = user.event?.[0]?.id;
+                    if (eventId) {
+                        this.fetchEventForProfile(eventId);
                     }
 
                 }
@@ -1702,6 +1676,48 @@ export default {
             this.form.is_agree = checked;
             this.clearErrors('is_agree');
         },
+        /** Fetch full event with event_media (and media base64/URL) so Main Event Image and Photo Gallery display (reference: Media.vue, Create.vue fetchEvent). */
+        fetchEventForProfile(id) {
+            axios
+                .get(
+                    `${process.env.MIX_WEB_API_URL}events/${id}?withEventDetail=1&withEventContacts=1&withMedia=1`
+                )
+                .then((res) => {
+                    if (res.data.status !== "Success" || !res.data.data) return;
+                    const event = res.data.data;
+                    if (!event.event_media || !event.event_media.length) return;
+                    let galleryImages = [];
+                    this.gallery_files = [];
+                    let photoGalleryImages = [];
+                    this.photo_gallery_files = [];
+                    event.event_media.forEach((media) => {
+                        if (!media.media) return;
+                        const type = media.type || "main";
+                        const imageSource = media.media.base64 || media.media.full_path;
+                        const path = media.media.path;
+                        const fileOpt = {
+                            source: imageSource || path,
+                            options: {
+                                type: "local",
+                                metadata: {
+                                    serverId: path,
+                                    poster: imageSource || undefined,
+                                },
+                            },
+                        };
+                        if (type === "gallery") {
+                            photoGalleryImages.push(path);
+                            this.photo_gallery_files.push(fileOpt);
+                        } else {
+                            galleryImages.push(path);
+                            this.gallery_files.push(fileOpt);
+                        }
+                    });
+                    this.form.gallery_images = JSON.stringify(galleryImages);
+                    this.form.photo_gallery_images = JSON.stringify(photoGalleryImages);
+                })
+                .catch(() => {});
+        },
     },
     created() {
         this.gallery_files = [];
@@ -1806,8 +1822,21 @@ export default {
     box-sizing: border-box;
 }
 .profile-card-stripe-wrap {
-    display: block;
+    display: flex;
+    align-items: center;
     border: 1px solid #d1d5db;
     border-radius: 0.375rem;
+}
+.profile-card-stripe-wrap > * {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Label text bold; text inside span remains regular */
+label {
+    font-weight: bold;
+}
+label span {
+    font-weight: normal;
 }
 </style>

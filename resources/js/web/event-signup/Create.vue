@@ -123,301 +123,7 @@
                     </div>
                 </div>
                 <Error v-if="submitted" fieldName="package_id" :validationErros="validationErros" full_width="1" />
-                <!-- <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div
-                        class="flex flex-col space-y-3 mt-6"
-                        v-if="form.order_amount > 0"
-                    >
-                        <div class="flex space-x-4">
-                            <div class="flex items-center">
-                                <input
-                                    id="stripe"
-                                    value="stripe"
-                                    name="payment-method"
-                                    type="radio"
-                                    class="h-4 w-4 border-gray-300 accent-primaryRed"
-                                    @click="setPaymentMethod('stripe')"
-                                    :checked="form.payment_method == 'stripe'"
-                                />
-                                <label
-                                    for="stripe"
-                                    class="ml-2 block text-gray-900"
-                                    >{{
-                                        payment_setting &&
-                                        JSON.parse(payment_setting)
-                                            ? JSON.parse(payment_setting)[
-                                                  "pay_with_credit_card_text"
-                                              ]
-                                            : ""
-                                    }}</label
-                                >
-                            </div>
-                            <div class="flex items-center">
-                                <input
-                                    id="paypal"
-                                    value="paypal"
-                                    name="payment-method"
-                                    type="radio"
-                                    class="h-4 w-4 border-gray-300 accent-primaryRed"
-                                    @click="setPaymentMethod('paypal')"
-                                    :checked="form.payment_method == 'paypal'"
-                                />
-                                <label
-                                    for="paypal"
-                                    class="ml-2 block text-gray-900"
-                                >
-                                    <svg
-                                        viewBox="0 0 157 44"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="w-16 h-16 text-[#635BFF]"
-                                    >
-                                        <g clip-path="url(#clip0_6_187)">
-                                            <path
-                                                d="M6.89999 2C7.29999 0.3 7.79999 0 9.49999 0C11.5 0 13.5 0 15.6 0C18.2 0.1 20.8 0.1 23.4 0.3C24.9 0.4 26.4 0.9 27.8 1.5C31.1 2.9 32.9 6.5 32.3 10.3C31.5 16 27.9 19.1 22.6 20.7C20.1 21.4 17.6 21.6 15 21.7C14.6 21.7 14.3 21.7 13.9 21.7C11.8 21.8 11 22.4 10.4 24.4C9.79999 26.7 9.09999 28.9 8.49999 31.2C8.19999 32.4 7.89999 32.6 6.59999 32.6C4.79999 32.6 2.99999 32.6 1.29999 32.4C0.0999947 32.3 -0.200005 31.9 0.0999947 30.7L6.89999 2ZM15.3 15.6C17 15.6 19.3 14.9 21 14.1C22.3 13.5 23 12.5 23.2 11.1C23.6 8.9 22.9 7.2 21.2 6.6C19.4 5.9 17.4 5.8 15.5 6.2C14.8 6.4 14.3 6.8 14.2 7.5C13.7 9.3 13.2 11.1 12.9 12.9C12.5 15.1 13 15.6 15.3 15.6ZM59.6 40.3C59.2 41 58.8 41.7 58.5 42.4C58.3 43 58.6 43.5 59.2 43.5C60.8 43.5 62.5 43.5 64.1 43.5C65.6 43.5 66.6 42.9 67.4 41.7C68 40.7 68.6 39.6 69.2 38.6C75.2 28.5 81.2 18.3 87.2 8.2C87.4 7.9 87.5 7.7 87.7 7.3C85.7 7.3 83.9 7.4 82 7.3C80 7.2 78.7 8.1 77.7 9.8C75.3 14 72.9 18.1 70.5 22.2C70.3 22.5 70.1 22.8 69.8 23.1C69.7 23.1 69.7 23 69.6 23C69.5 22.7 69.4 22.3 69.4 22C68.7 17.7 68 13.4 67.3 9.1C67.1 8.1 66.3 7.3 65.2 7.3C63.9 7.3 62.5 7.4 61.2 7.3C59.4 7.2 59.1 8.1 59.3 9.5L63 33.2C63.1 33.7 63 34.2 62.7 34.6L59.6 40.3ZM44.9 32.7C45.1 31.7 45.2 31 45.4 30.1C44.9 30.4 44.6 30.6 44.3 30.8C42.1 32 40 33 37.6 33.4C33.8 34 30.2 31.9 29.4 28.4C28.7 25.5 29.8 22.3 32.3 20.5C34.6 18.8 37.3 18.1 40 17.7C42.6 17.3 45.1 17 47.7 16.8C48.5 16.7 48.6 16.4 48.6 15.7C48.4 13.9 47.2 12.9 45 12.7C42.2 12.5 39.4 13.2 36.7 13.9C36.2 14 35.7 14.2 35.1 14.4C35.1 14.1 35 13.9 35 13.7C35.1 12.4 35.1 11.1 35.2 9.9C35.2 9.4 35.3 8.9 35.9 8.7C41 7.6 46.1 7 51.3 8.1C51.6 8.2 52 8.3 52.3 8.4C55.8 9.6 57 11.5 56.3 15.1C55.3 20.1 54.2 25.2 53.1 30.2C53 30.7 52.8 31.2 52.6 31.7C52.2 32.4 51.6 32.9 50.8 32.9C48.9 32.7 47 32.7 44.9 32.7ZM47.4 21C46.4 21.1 45.4 21.1 44.6 21.3C43 21.6 41.5 21.9 40 22.3C38.6 22.7 37.9 23.8 37.6 25.2C37.3 26.8 38 27.9 39.6 28.2C41.8 28.6 43.8 28 45.6 27C45.9 26.8 46.2 26.6 46.3 26.3C46.6 24.5 47 22.8 47.4 21Z"
-                                                fill="#162E53"
-                                            />
-                                            <path
-                                                d="M91.7 1.4C92.1 0.3 92.6 0 93.7 0C95.9 0 98.1 0 100.3 0C102.9 0.1 105.5 0.1 108.1 0.3C109.6 0.5 111.1 0.9 112.5 1.5C115.7 2.8 117.5 6.3 117.1 9.9C116.5 15.3 113.1 19.2 107.3 20.6C105 21.2 102.5 21.3 100.1 21.6C99.6 21.7 99.1 21.6 98.5 21.6C96.5 21.7 95.7 22.3 95.1 24.2C94.5 26.4 93.8 28.7 93.2 30.9C92.8 32.2 92.6 32.4 91.2 32.4C89.5 32.4 87.9 32.4 86.2 32.3C84.6 32.2 84.4 31.8 84.7 30.3L91.7 1.4ZM102.3 5.9C101.7 6 100.9 6 100.2 6.2C99.7 6.4 99.2 6.8 99 7.2C98.4 9.3 97.9 11.4 97.5 13.5C97.2 15 97.7 15.4 99.2 15.5C101.4 15.6 103.5 15 105.5 14.1C107.1 13.4 107.8 12.2 108 10.5C108.2 8 107.2 6.6 104.8 6.1C104 6 103.2 6 102.3 5.9ZM119.7 14.1C119.8 13 119.8 11.9 119.9 10.8C120.1 8.3 119.8 8.7 122.3 8.2C126.2 7.4 130.1 7.1 134.1 7.6C135.2 7.7 136.4 8 137.4 8.4C140.5 9.5 141.7 11.5 141.1 14.7C140.1 19.8 138.9 24.9 137.8 30C137.7 30.5 137.5 31.1 137.2 31.5C136.8 32 136.2 32.6 135.7 32.6C133.7 32.7 131.6 32.7 129.5 32.7C129.7 31.8 129.8 31 130 30.2C129.3 30.6 128.7 31 128 31.3C125.9 32.4 123.7 33.5 121.3 33.5C117.8 33.6 115.1 31.9 114.1 29C113.1 26 114.2 22.4 116.9 20.5C119.2 18.8 121.9 18.1 124.6 17.7C127.2 17.3 129.7 17.1 132.3 16.8C132.9 16.7 133.2 16.5 133.1 15.8C133 14 131.7 12.9 129.5 12.7C126.5 12.5 123.6 13.2 120.8 14C120.5 14.1 120.2 14.2 120 14.2C120 14.2 119.9 14.1 119.7 14.1ZM132 21C131.1 21.1 130.2 21.1 129.4 21.2C127.8 21.5 126.2 21.7 124.7 22.2C123.4 22.6 122.5 23.5 122.2 24.9C121.8 26.7 122.5 27.8 124.3 28.1C126.4 28.4 128.4 27.9 130.2 26.8C130.5 26.6 130.8 26.3 130.9 25.9C131.3 24.4 131.6 22.7 132 21ZM156.3 0.1C154.3 0.1 152.5 0.1 150.6 0.1C149 0.1 148.6 0.4 148.2 2L142 30.1C141.6 31.8 141.9 32.2 143.7 32.2C144.9 32.2 146.2 32.3 147.4 32.3C148.9 32.3 149.2 32.1 149.5 30.6L156.3 0.1Z"
-                                                fill="#1E6196"
-                                            />
-                                        </g>
-                                        <defs>
-                                            <clipPath id="clip0_6_187">
-                                                <rect
-                                                    width="156.3"
-                                                    height="43.5"
-                                                    fill="white"
-                                                />
-                                            </clipPath>
-                                        </defs>
-                                    </svg>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div
-                            id="card-element"
-                            class="border border-primary rounded p-2 mb-2"
-                            v-if="
-                                form.order_amount > 0 &&
-                                form.payment_method == 'stripe'
-                            "
-                        >
-                            <div class="flex justify-center items-center">
-                                <div
-                                    class="h-auto bg-white p-3 rounded-lg w-full"
-                                >
-                                    <div class="input_text mt-6 relative">
-                                        <label class="">{{
-                                            payment_setting &&
-                                            JSON.parse(payment_setting)
-                                                ? JSON.parse(payment_setting)[
-                                                      "cardholder_name_label"
-                                                  ]
-                                                : ""
-                                        }}</label>
-                                        <i class="text-gray-400 fa fa-user"></i>
-                                        <input
-                                            type="text"
-                                            class="can-exp-input"
-                                            :placeholder="
-                                                payment_setting &&
-                                                JSON.parse(payment_setting)
-                                                    ? JSON.parse(
-                                                          payment_setting
-                                                      )[
-                                                          'cardholder_name_placeholder'
-                                                      ]
-                                                    : ''
-                                            "
-                                            v-model="form.card_holder_name"
-                                        />
-                                        <Error
-                                            fieldName="card_holder_name"
-                                            :validationErros="validationErros"
-                                            full_width="1"
-                                        />
-                                    </div>
-                                    <div class="input_text mt-2 relative">
-                                        <label class="">{{
-                                            payment_setting &&
-                                            JSON.parse(payment_setting)
-                                                ? JSON.parse(payment_setting)[
-                                                      "card_number_label"
-                                                  ]
-                                                : ""
-                                        }}</label>
-                                        <i
-                                            class="text-gray-400 text-sm fa fa-credit-card"
-                                        ></i>
-                                        <input
-                                            type="text"
-                                            class="can-exp-input"
-                                            :placeholder="
-                                                payment_setting &&
-                                                JSON.parse(payment_setting)
-                                                    ? JSON.parse(
-                                                          payment_setting
-                                                      )[
-                                                          'card_number_placeholder'
-                                                      ]
-                                                    : ''
-                                            "
-                                            v-model="form.card_no"
-                                            @keypress="
-                                                restrictToNumbers($event, 16)
-                                            "
-                                        />
-                                        <Error
-                                            fieldName="card_no"
-                                            :validationErros="validationErros"
-                                            full_width="1"
-                                        />
-                                    </div>
-                                    <div class="input_text mt-2 relative">
-                                        <label class="">{{
-                                            payment_setting &&
-                                            JSON.parse(payment_setting)
-                                                ? JSON.parse(payment_setting)[
-                                                      "expiry_month_label"
-                                                  ]
-                                                : ""
-                                        }}</label>
-                                        <select
-                                            class="rounded-md px-3 pr-8 py-1 w-full"
-                                            v-model="form.expiry_month"
-                                        >
-                                            <option value="01">01</option>
-                                            <option value="02">02</option>
-                                            <option value="03">03</option>
-                                            <option value="04">04</option>
-                                            <option value="05">05</option>
-                                            <option value="06">06</option>
-                                            <option value="07">07</option>
-                                            <option value="08">08</option>
-                                            <option value="09">09</option>
-                                            <option value="10">10</option>
-                                            <option value="11">11</option>
-                                            <option value="12">12</option>
-                                        </select>
-                                        <Error
-                                            fieldName="expiry_month"
-                                            :validationErros="validationErros"
-                                            full_width="1"
-                                        />
-                                    </div>
-                                    <div class="input_text mt-2 relative">
-                                        <label class="">{{
-                                            payment_setting &&
-                                            JSON.parse(payment_setting)
-                                                ? JSON.parse(payment_setting)[
-                                                      "expiry_year_label"
-                                                  ]
-                                                : ""
-                                        }}</label>
-                                        <select
-                                            class="rounded-md px-3 pr-8 py-1 w-full"
-                                            v-model="form.expiry_year"
-                                        >
-                                            <option
-                                                v-for="year in years"
-                                                :key="year"
-                                                :value="year"
-                                            >
-                                                {{ year }}
-                                            </option>
-                                        </select>
-                                        <Error
-                                            fieldName="expiry_year"
-                                            :validationErros="validationErros"
-                                            full_width="1"
-                                        />
-                                    </div>
-                                    <div class="input_text mt-2 relative">
-                                        <div
-                                            class="flex justify-between items-center"
-                                        >
-                                            <div>
-                                                <label class="">{{
-                                                    payment_setting &&
-                                                    JSON.parse(payment_setting)
-                                                        ? JSON.parse(
-                                                              payment_setting
-                                                          )["cvv_label"]
-                                                        : ""
-                                                }}</label>
-                                                <i
-                                                    class="text-gray-400 fa fa-calendar-o"
-                                                ></i>
-                                            </div>
-                                            <div
-                                                class="relative"
-                                                @mouseleave="
-                                                    showTooltip = false
-                                                "
-                                            >
-                                                <button
-                                                    @mouseenter="
-                                                        showTooltip = true
-                                                    "
-                                                    class="focus:outline-none"
-                                                >
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        fill="none"
-                                                        viewBox="0 0 24 24"
-                                                        stroke-width="1.5"
-                                                        stroke="currentColor"
-                                                        class="w-6 h-6 mt-2"
-                                                    >
-                                                        <path
-                                                            stroke-linecap="round"
-                                                            stroke-linejoin="round"
-                                                            d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
-                                                        />
-                                                    </svg>
-                                                </button>
-                                                <div
-                                                    v-if="showTooltip"
-                                                    class="absolute h-60 w-96 rounded-md bg-white right-0 shadow p-2"
-                                                >
-                                                    <img
-                                                        class="object-cover w-full h-full"
-                                                        src="/assets/images/img (1).png"
-                                                        alt=""
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <input
-                                            type="text"
-                                            class="can-exp-input"
-                                            :placeholder="
-                                                payment_setting &&
-                                                JSON.parse(payment_setting)
-                                                    ? JSON.parse(
-                                                          payment_setting
-                                                      )['cvv_placeholder']
-                                                    : ''
-                                            "
-                                            v-model="form.cvc"
-                                            @keypress="
-                                                restrictToNumbers($event, 4)
-                                            "
-                                        />
-                                        <Error
-                                            fieldName="cvc"
-                                            :validationErros="validationErros"
-                                            full_width="1"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-            </div>
+               </div>
 
             <!-- Step 2 of 4: Organizer & Contact Information -->
             <div
@@ -426,7 +132,7 @@
             </div>
             <div class="mb-6">
                 <div class="border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
-                    <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">Your Profile</h5>
+                    <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">{{ JSON.parse(event_detail)["your_profile_heading"] || 'Your Profile' }}</h5>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="relative w-full mb-3">
                             <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg font-bold" for="name">{{
@@ -444,7 +150,7 @@
                             <Error v-if="submitted" fieldName="email" :validationErros="validationErros"
                                 full_width="1" />
                         </div>
-                        <template v-if="!isEditMode && !isLoggedIn">
+                        <template v-if="!event_id">
                             <div class="relative w-full mb-3">
                                 <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg font-bold"
                                     for="password">{{ JSON.parse(event_detail)["password_label"] || 'Create Password' }}
@@ -516,8 +222,7 @@
                 </div>
                 <div class="mb-6">
                     <div class="border border-gray-200 mt-6 rounded-lg p-6 bg-white shadow-sm">
-                        <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">The Organizer
-                        </h5>
+                        <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">{{ JSON.parse(event_detail)["the_organizer_heading"] || 'The Organizer' }}</h5>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="relative w-full mb-3">
                                 <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg font-bold"
@@ -530,7 +235,7 @@
                             </div>
                             <div class="relative w-full mb-3">
                                 <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg font-bold"
-                                    for="organizer_website">Organizer Website</label>
+                                    for="organizer_website">{{ JSON.parse(event_detail)["organizer_website_label"] || 'Organizer Website' }}</label>
                                 <input @input="clearErrors('organizer_website')" type="url" class="can-exp-input"
                                     name="organizer_website" id="organizer_website" v-model="form.organizer_website" />
                                 <Error v-if="submitted" fieldName="organizer_website" :validationErros="validationErros"
@@ -538,7 +243,7 @@
                             </div>
                             <div class="relative w-full mb-3">
                                 <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg font-bold"
-                                    for="organizer_phone">Phone<span class="text-red-500">*</span></label>
+                                    for="organizer_phone">{{ JSON.parse(event_detail)["organizer_phone_label"] || 'Phone' }}<span class="text-red-500">*</span></label>
                                 <input type="text" class="can-exp-input" name="organizer_phone" id="organizer_phone"
                                     v-model="form.organizer_phone" maxlength="16"
                                     @input="handleOrganizerPhoneInput($event.target.value)"
@@ -548,7 +253,7 @@
                             </div>
                             <div class="relative w-full mb-3 md:col-span-2">
                                 <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg font-bold"
-                                    for="mailing_address">Mailing Address</label>
+                                    for="mailing_address">{{ JSON.parse(event_detail)["mailing_address_label"] || 'Mailing Address' }}</label>
                                 <input @input="clearErrors('mailing_address')" type="text" class="can-exp-input"
                                     name="mailing_address" id="mailing_address" v-model="form.mailing_address" />
                                 <Error v-if="submitted" fieldName="mailing_address" :validationErros="validationErros"
@@ -559,13 +264,12 @@
                 </div>
                 <div class="mb-6">
                     <div class="border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
-                        <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">Contact Person
-                        </h5>
+                        <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">{{ JSON.parse(event_detail)["contact_person_heading"] || 'Contact Person' }}</h5>
                         <div v-for="(contact, index) in contacts" :key="index">
                             <div class="grid md:grid-cols-2 md:gap-6 gap-4 mt-6 bg-white shadow rounded-lg p-6">
                                 <div class="relative z-0 w-full group">
                                     <label :for="`contact-name-[${index}]`"
-                                        class="text-base md:text-base lg:text-lg font-bold">Full Name and Title<span class="text-red-500">*</span></label>
+                                        class="text-base md:text-base lg:text-lg font-bold">{{ JSON.parse(event_detail)["contact_name_label"] || 'Full Name and Title' }}<span class="text-red-500">*</span></label>
                                     <input type="text" name="contact-name" :id="`contact-name-[${index}]`"
                                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                                         v-model="contact.name"
@@ -574,8 +278,8 @@
                                 </div>
                                 <div class="relative z-0 w-full group">
                                     <label :for="`contact-phone-[${index}]`"
-                                        class="text-base md:text-base lg:text-lg font-bold">Contact Phone
-                                        <span class="text-gray-500 text-xs  font-normal">(If different from the business phone)</span></label>
+                                        class="text-base md:text-base lg:text-lg font-bold">{{ JSON.parse(event_detail)["contact_phone_label"] || 'Contact Phone' }}
+                                        <span class="text-gray-500 text-xs  font-normal">{{ JSON.parse(event_detail)["contact_phone_hint"] || '(If different from the business phone)' }}</span></label>
                                     <input type="text" name="contact-phone" :id="`contact-phone-[${index}]`"
                                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
                                         v-model="contact.phone" maxlength="15"
@@ -585,8 +289,8 @@
                                 </div>
                                 <div class="relative z-0 w-full group">
                                     <label :for="`contact-email-[${index}]`"
-                                        class="text-base md:text-base lg:text-lg font-bold">Email <span
-                                            class="text-gray-500 text-xs  font-normal">(If different from the login email)</span>
+                                        class="text-base md:text-base lg:text-lg font-bold">{{ JSON.parse(event_detail)["contact_email_label"] || 'Email' }} <span
+                                            class="text-gray-500 text-xs  font-normal">{{ JSON.parse(event_detail)["contact_email_hint"] || '(If different from the login email)' }}</span>
                                     </label>
                                     <input type="text" name="contact-email" :id="`contact-email-[${index}]`"
                                         class="can-exp-input w-full block border border-gray-300 rounded focus:border-blue-600"
@@ -596,7 +300,7 @@
                                 </div>
                                 <div class="relative z-0 w-full group">
                                     <label class="text-base md:text-base lg:text-lg inline-flex items-center gap-1 font-bold">
-                                        Contact Person's Photo
+                                        {{ JSON.parse(event_detail)["contact_photo_label"] || "Contact Person's Photo" }}
                                         <span class="relative inline-flex flex-shrink-0 font-normal">
                                             <span
                                                 class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-gray-400 text-white text-xs font-bold cursor-pointer flex-shrink-0"
@@ -604,7 +308,7 @@
                                                 @click.stop="toggleContactPhotoTooltip(index)">!</span>
                                             <div v-if="contactPhotoTooltipIndex === index"
                                                 class="absolute left-0 top-full mt-1 z-50 min-w-[200px] max-w-[280px] px-3 py-2 text-sm text-gray-700 bg-white border border-gray-200 rounded-lg shadow-lg"
-                                                @click.stop>Adding a photo helps other delegates and attendees recognize you at the event!</div>
+                                                @click.stop>{{ JSON.parse(event_detail)["contact_photo_tooltip"] || 'Adding a photo helps other delegates and attendees recognize you at the event!' }}</div>
                                         </span>
                                     </label>
                                     <input type="file" name="contact-image" :id="`contact-image-[${index}]`"
@@ -778,7 +482,7 @@
                             :validationErros="validationErros" />
                     </div>
                     <div class="relative z-0 w-full group">
-                        <label for="short_description" class="text-base md:text-base lg:text-lg">
+                        <label for="short_description" class="text-base md:text-base font-bold lg:text-lg">
                             {{ JSON.parse(eventsetting).short_description_label }}
                             <span class="text-red-500">*</span>
                         </label>
@@ -812,7 +516,7 @@
 
                     <!-- Description (Max 300 Words) -->
                     <div class="relative z-0 w-full mb-6 group">
-                        <label for="description" class="text-base md:text-base lg:text-lg">
+                        <label for="description" class="text-base md:text-base font-bold lg:text-lg">
                             {{ JSON.parse(eventsetting).description_label }}
                             <span class="text-red-500">*</span>
                         </label>
@@ -944,9 +648,8 @@
 
                     <!-- event media -->
                     <div class="w-full">
-                        <label for="" class="text-base md:text-base lg:text-lg  font-bold  truncate">Main Event Image <span
-                                class="ml-1 text-[0.95em] text-gray-600">(PNG, GIF, JPG, or JPEG format · 30 MB
-                                max)</span><span class="text-red-500">*</span></label>
+                        <label for="" class="text-base md:text-base lg:text-lg  font-bold  truncate">{{ JSON.parse(event_detail)["main_event_image_label"] || 'Main Event Image' }} <span
+                                class="ml-1 font-normal  text-[0.8em] text-gray-600">{{ JSON.parse(event_detail)["main_event_image_hint"] || '(PNG, GIF, JPG, or JPEG format · 30 MB max)' }}</span><span class="text-red-500">*</span></label>
                         <div class="relative z-0 w-full mb-6 group">
                             <template v-if="
                                 current_user &&
@@ -1095,13 +798,13 @@
                     <div
                         class="px-4 my-6 py-1.5 sm:px-6 text-center bg-gradient-to-r from-primary via-primary to-secondary rounded-md">
                         <h4 class="text-center card-heading text-white">
-                            Photo Gallery
+                            {{ JSON.parse(event_detail)["photo_gallery_heading"] || 'Photo Gallery' }}
                         </h4>
                     </div>
                     <div class="border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
                         <label for="photo_gallery_images"
-                            class="text-base md:text-base lg:text-lg font-medium block mb-2" id="photo_gallery_images">
-                            {{ photoGallerySectionTitle }}
+                            class="text-base md:text-base lg:text-lg block mb-2 font-bold"  id="photo_gallery_images">
+                            {{ JSON.parse(event_detail)["photo_gallery_label"] || 'Photo Gallery' }} <span class="text-[0.85em] font-normal" v-if="photoGallerySectionSubtitle">{{ photoGallerySectionSubtitle }}</span>
                         </label>
                         <div class="relative z-0 w-full mb-6 group">
                             <FilePond name="photo_gallery_image" :ref="el => { if (el) photoGalleryPond = el }"
@@ -1124,9 +827,9 @@
                 <Error v-if="submitted" fieldName="captcha" :validationErros="validationErros" full_width="1" />
             </div>
         </div>
-        <!-- <ListErrors :validationErrors="validationErros" /> -->
+        <!-- <ListErrors :validationErrors="validationErros1" /> -->
 
-        <div class="mb-4" v-if="!isEditMode && !isLoggedIn">
+        <div class="mb-4" v-if="!event_id">
             <div class="flex items-start pb-4">
                 <input id="agree" type="checkbox" :checked="!!form.is_agree"
                     class="h-4 w-4 mt-1 rounded border-gray-500 text-primary focus:ring-primary" @input="
@@ -1143,7 +846,7 @@
         </div>
 
         <div class="flex justify-center">
-            <button v-if="!isEditMode && !isLoggedIn" aria-label="Candian Exporters" type="submit" :disabled="!form.is_agree" :class="[
+            <button v-if="!event_id" aria-label="Candian Exporters" type="submit" :disabled="!form.is_agree" :class="[
                 'inline-flex items-center button-exp-fill mt-4 transition-opacity duration-200',
                 { 'opacity-40 cursor-not-allowed': !form.is_agree }
             ]">
@@ -1153,7 +856,7 @@
                 'inline-flex items-center button-exp-fill mt-4 transition-opacity duration-200',
                
             ]">
-                Update
+                {{ JSON.parse(event_detail)["update_btn_text"] || 'Update' }}
             </button>
         </div>
 
@@ -1200,19 +903,19 @@
                                     c5.883,0.84,10.02,6.206,9.503,12.024C310.715,146.699,307.871,166.61,303.087,186.457z" />
                     </g>
                 </svg>
-                <p style="color: #3498db; font-family: 'Futura BdCn BT';"><span style="font-size: 18pt;">Protecting your privacy is fundamental to our mission and business:</span></p>
+                <p style="color: #3498db; font-family: 'Futura BdCn BT';"><span style="font-size: 18pt;">{{ JSON.parse(event_detail)["privacy_heading"] || 'Protecting your privacy is fundamental to our mission and business:' }}</span></p>
 
             </div>
             <div class="mt-2 can-exp-p">
                 <ul>
                     <li>
-                        <p>We never sell your data or information</p>
+                        <p>{{ JSON.parse(event_detail)["privacy_bullet_1"] || 'We never sell your data or information' }}</p>
                     </li>
                     <li>
-                        <p>We do not own the content that you upload on our website</p>
+                        <p>{{ JSON.parse(event_detail)["privacy_bullet_2"] || 'We do not own the content that you upload on our website' }}</p>
                     </li>
                     <li>
-                        <p>We never send you junk e-mail</p>
+                        <p>{{ JSON.parse(event_detail)["privacy_bullet_3"] || 'We never send you junk e-mail' }}</p>
                     </li>
                 </ul>
             </div>
@@ -1321,14 +1024,17 @@ export default {
         downgradeTooltipText() {
             return "Membership downgrades cannot be processed automatically. Please contact us to adjust your plan.";
         },
-        photoGallerySectionTitle() {
-            if (this.effectivePackageType === 'featured') {
-                return 'Photo Gallery (Upload up to 20 images. Max 10 MB each. Supports PNG, GIF, or JPG)';
-            }
-            if (this.effectivePackageType === 'premium') {
-                return 'Photo Gallery (Upload up to 8 images. Max 10 MB each. Supports PNG, GIF, or JPG)';
-            }
-            return 'Photo Gallery';
+        photoGallerySectionSubtitle() {
+            try {
+                const detail = JSON.parse(this.event_detail || '{}');
+                if (this.effectivePackageType === 'featured') {
+                    return detail.photo_gallery_subtitle_featured || '(Upload up to 20 images. Max 10 MB each. Supports PNG, GIF, or JPG)';
+                }
+                if (this.effectivePackageType === 'premium') {
+                    return detail.photo_gallery_subtitle_premium || '(Upload up to 8 images. Max 10 MB each. Supports PNG, GIF, or JPG)';
+                }
+            } catch (_) {}
+            return '';
         },
         photoGalleryServerConfig() {
             const csrf = document.head.querySelector('meta[name="csrf-token"]')?.content;
@@ -2253,7 +1959,7 @@ export default {
                             }));
                         }
 
-                        // Populate main gallery and photo gallery (by type)
+                        // Populate main gallery and photo gallery (by type); use base64/full_path so FilePond shows images (reference: Media.vue)
                         if (event.event_media && event.event_media.length > 0) {
                             let galleryImages = [];
                             this.gallery_files = [];
@@ -2263,18 +1969,23 @@ export default {
                             event.event_media.forEach((media) => {
                                 if (!media.media) return;
                                 const type = media.type || 'main';
+                                const imageSource = media.media.base64 || media.media.full_path;
+                                const path = media.media.path;
                                 const fileOpt = {
-                                    source: media.media.id,
+                                    source: imageSource || path,
                                     options: {
                                         type: 'local',
-                                        metadata: { serverId: media.media.id }
-                                    }
+                                        metadata: {
+                                            serverId: path,
+                                            poster: imageSource || undefined,
+                                        },
+                                    },
                                 };
                                 if (type === 'gallery') {
-                                    photoGalleryImages.push(media.media.id);
+                                    photoGalleryImages.push(path);
                                     this.photo_gallery_files.push(fileOpt);
                                 } else {
-                                    galleryImages.push(media.media.id);
+                                    galleryImages.push(path);
                                     this.gallery_files.push(fileOpt);
                                 }
                             });

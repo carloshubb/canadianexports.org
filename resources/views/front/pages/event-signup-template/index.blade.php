@@ -13,6 +13,7 @@
                         $submit_url = $user
                             ? route('web.event-signup.payment')
                             : route('web.event-signup.signup');
+                        
                     @endphp
                     @isset($page->pageDetail[0])
                         <div class="">
