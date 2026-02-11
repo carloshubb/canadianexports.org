@@ -294,7 +294,7 @@
 
                 <!-- Card Element -->
                 <div class="input_text relative mb-4">
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Card Details</label>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">{{ JSON.parse(payment_setting)["card_number_label"] }}</label>
                   <div ref="stripeCard" class="can-exp-input"></div>
                   <div id="card-errors" class="text-red-500 text-sm mt-1"></div>
                 </div>

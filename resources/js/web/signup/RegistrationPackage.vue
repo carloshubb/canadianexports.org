@@ -32,7 +32,7 @@
         </svg>
       </div>
       <div class="my-4 space-y-2" id="registration_package_id">
-        <div :class="profile == '1' ? 'bg-white' : 'bg-gray-50'">
+        <div :class="profile == '1' ? 'bg-white' : 'bg-gray-150'">
           <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <div class="flex justify-center">
               <fieldset
@@ -482,6 +482,8 @@ export default {
     Error,
   },
   computed: {
+    
+    
     step1HeadingDisplay() {
       if (this.profile != "1") return "";
       return "1 of 3 - Registration Package";
@@ -675,21 +677,25 @@ export default {
     }
   },
   mounted() {
+    // Get current package type from Vuex store
+    const currentPackageType = this.package_type;
+    
     // On review-confirmation (and other profile pages), ensure reg page setting is loaded so section titles and options display
     if (this.page_id && !this.regPageSetting) {
       this.$store.dispatch("signup/fetchRegPageSetting", { id: this.page_id });
     }
-    const url = window.location.href;
-    const parsedUrl = new URL(url);
-    const queryParams = new URLSearchParams(parsedUrl.search);
-    const _package = queryParams.get("package");
+    // const url = window.location.href;
+    // const parsedUrl = new URL(url);
+    // const queryParams = new URLSearchParams(parsedUrl.search);
+    // const _package = queryParams.get("package");
     let _this = this;
     setTimeout(() => {
-      if (_package == "free") {
+      
+      if (currentPackageType == "free") {
         _this.updatePackageForm("package_type", _this.freePackage);
-      } else if (_package == "premium") {
+      } else if (currentPackageType == "premium") {
         _this.updatePackageForm("package_type", _this.premiumPackage);
-      } else if (_package == "featured") {
+      } else if (currentPackageType == "featured") {
         _this.updatePackageForm("package_type", _this.featuredPackage);
       } else if (!_this.package_type && _this.premiumPackage) {
         // Set Premium as default if no package is selected and no URL parameter

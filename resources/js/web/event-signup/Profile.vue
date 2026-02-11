@@ -739,7 +739,7 @@
                                                         :validationErros="validationErros" full_width="1" />
                                                 </div>
                                                 <div class="input_text mt-2 relative profile-card-field">
-                                                    <label class="">Card Details</label>
+                                                    <label class="">{{ JSON.parse(payment_setting)["card_number_label"] }}</label>
                                                     <div ref="stripeCard" class="can-exp-input profile-card-input profile-card-stripe-wrap"></div>
                                                     <Error fieldName="payment_method_id"
                                                         :validationErros="validationErros" full_width="1" />

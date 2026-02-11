@@ -406,7 +406,7 @@
 
                 <!-- Card Element -->
                 <div class="input_text relative mb-4">
-                  <label class="block text-sm  text-gray-700 mb-1 font-bold">Card Details</label>
+                  <label class="block text-sm  text-gray-700 mb-1 font-bold">{{ JSON.parse(payment_setting)["card_number_label"] }}</label>
                   <div id="card-element" class="p-3 border border-gray-300 rounded"></div>
                   <div id="card-errors" class="text-red-500 text-sm mt-1"></div>
                 </div>

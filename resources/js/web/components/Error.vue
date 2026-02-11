@@ -9,7 +9,7 @@
             </div>
             <!-- Display generic error message -->
             <span class="text-white leading-none py-1 text-base md:text-base lg:text-lg text-left block">
-                This field is required
+                {{ errorText }}
             </span>
         </div>
     </div>
@@ -17,7 +17,7 @@
 
 <script>
 export default {
-    props: ['validationErros', 'fieldName', 'full_width', 'arrowAlign'],
+    props: ['validationErros', 'fieldName', 'full_width', 'arrowAlign', 'messageKey'],
     computed: {
         arrowPosition() {
             // Determine arrow position: left, center, or right
@@ -32,7 +32,20 @@ export default {
                 // center (default)
                 return 'left-1/2 transform -translate-x-1/2';
             }
-        }
+        },
+        errorText() {
+            const defaultMessage = 'This field is required';
+            const key = this.messageKey || 'field_required_message';
+
+            if (this.$store && this.$store.state && this.$store.state.generalMessages) {
+                const msgs = this.$store.state.generalMessages;
+                if (msgs && Object.prototype.hasOwnProperty.call(msgs, key)) {
+                    return msgs[key] || defaultMessage;
+                }
+            }
+
+            return defaultMessage;
+        },
     }
 };
 </script>

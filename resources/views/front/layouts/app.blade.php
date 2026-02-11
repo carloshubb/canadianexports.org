@@ -13,6 +13,7 @@
     App::setLocale($locale);
     $cookie_setting = getI2bModalSetting($lang, ['cookies_modal']);
     $generalSetting = getI2bModalSetting($lang, ['general']);
+    $generalMessages = getI2bModalSetting($lang, ['general_messages']);
     $useragent = $_SERVER['HTTP_USER_AGENT'];
     $isMobile =
         preg_match(
@@ -458,6 +459,9 @@
     {{-- <script src="{{ asset('assets/libs/wow.js/wow.min.js') }}"></script> --}}
     <script src="{{ asset('assets/js/app.js') }}" defer></script>
     <script>window.__LOCALE__ = "{{ $locale }}";</script>
+    <script>
+        window.__GENERAL_MESSAGES__ = @json($generalMessages ?? []);
+    </script>
     <script src="{{ asset('/js/web.js') }}" defer></script>
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>

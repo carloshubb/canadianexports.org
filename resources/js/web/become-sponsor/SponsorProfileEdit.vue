@@ -401,7 +401,7 @@
                 <input v-model="upgradeForm.cardholder_name" type="text" class="can-exp-input w-full" :placeholder="'John Doe'" />
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Card Details</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">{{ JSON.parse(payment_setting)["card_number_label"] }}</label>
                 <div ref="upgradeStripeCard" class="can-exp-input min-h-[40px]"></div>
                 <p v-if="upgradePreview.amount_due_today === 0" class="text-xs text-gray-500 mt-1">Your credit covers this upgrade; card will be used for future renewals.</p>
               </div>
