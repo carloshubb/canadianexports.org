@@ -38,7 +38,7 @@
               <fieldset
                 class="grid sm:grid-cols-4 grid-cols-2 gap-2 text-center"
               >
-                <legend class="sr-only">Payment frequency</legend>
+                <legend class="sr-only">{{ regPageSetting?.reg_page_setting_detail?.[0]?.payment_frequency_legend || "Payment frequency" }}</legend>
 
                 <div>
                   <label
@@ -175,7 +175,7 @@
               class="mx-auto mt-4 max-w-2xl rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800"
               role="alert"
             >
-              Membership downgrades cannot be processed automatically. Please contact us to adjust your plan.
+              {{ regPageSetting?.reg_page_setting_detail?.[0]?.downgrade_message || "Membership downgrades cannot be processed automatically. Please contact us to adjust your plan." }}
             </div>
             <div
               class="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none md:grid-cols-2 lg:grid-cols-3"
@@ -203,7 +203,7 @@
                     class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600 text-center mt-2"
                     v-if="freePackage?.is_default"
                   >
-                    Most popular
+                    {{ regPageSetting?.reg_page_setting_detail?.[0]?.most_popular_label || "Most popular" }}
                   </p>
                 </div>
                 <p class="mt-4 text-sm leading-6 text-gray-700">
@@ -288,7 +288,7 @@
                     class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600 text-center mt-2"
                     v-if="premiumPackage?.is_default"
                   >
-                    Most popular
+                    {{ regPageSetting?.reg_page_setting_detail?.[0]?.most_popular_label || "Most popular" }}
                   </p>
                 </div>
                 <p class="mt-4 text-sm leading-6 text-gray-700">
@@ -374,7 +374,7 @@
                     class="rounded-full bg-red-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-red-600 text-center mt-2"
                     v-if="featuredPackage?.is_default"
                   >
-                    Most popular
+                    {{ regPageSetting?.reg_page_setting_detail?.[0]?.most_popular_label || "Most popular" }}
                   </p>
                 </div>
                 <p class="mt-4 text-sm leading-6 text-gray-700">
@@ -486,10 +486,11 @@ export default {
     
     step1HeadingDisplay() {
       if (this.profile != "1") return "";
-      return "1 of 3 - Registration Package";
+      const raw = this.regPageSetting?.reg_page_setting_detail?.[0]?.step_1_heading || this.regPageSetting?.reg_page_setting_detail?.[0]?.step_1_acc_heading;
+      return raw ? String(raw).replace(/\d+ of \d+ - /, "1 of 3 - ") : "1 of 3 - Registration Package";
     },
     downgradeTooltipText() {
-      return "Membership downgrades cannot be processed automatically. Please contact us to adjust your plan.";
+      return this.regPageSetting?.reg_page_setting_detail?.[0]?.downgrade_message || "Membership downgrades cannot be processed automatically. Please contact us to adjust your plan.";
     },
     ...mapState({
       regPageSetting: (state) => state.signup.regPageSetting,

@@ -11,14 +11,14 @@
         </template>
       </div>
       <div class="px-4 py-1.5 sm:px-6 text-center bg-gradient-to-r from-xblue via-primary to-blue-600 rounded-md">
-        <h4 class="text-white">2 of 3 - Company & Contact Information</h4>
+        <h4 class="text-white">{{ regPageSetting?.reg_page_setting_detail?.[0]?.step_2_heading || regPageSetting?.reg_page_setting_detail?.[0]?.step_2_acc_heading || "2 of 3 - Company & Contact Information" }}</h4>
       </div>
 
       <div class="my-4 space-y-8">
         <!-- Sub-section 1: Contact Person -->
         <div class="border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
           <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">
-            Contact Person
+            {{ regPageSetting?.reg_page_setting_detail?.[0]?.contact_person_heading || "Contact Person" }}
           </h5>
 
           <div class="relative w-full mb-8">
@@ -61,7 +61,7 @@
           <div class="relative w-full mb-8" v-if="profile != '1'">
             <label class="block mb-1 text-base md:text-base lg:text-lg font-bold" for="password">
               {{ regPageSetting?.reg_page_setting_detail?.[0]?.step_2_password_label }}
-              <span class="ml-1 text-[0.85em] font-normal">(Min. 8 characters. Must contain at least one lowercase and one uppercase)</span>
+              <span class="ml-1 text-[0.85em] font-normal">{{ regPageSetting?.reg_page_setting_detail?.[0]?.password_hint || "(Min. 8 characters. Must contain at least one lowercase and one uppercase)" }}</span>
               <span class="text-red-500">*</span>
             </label>
             <div class="relative">
@@ -108,7 +108,7 @@
         <!-- Sub-section 2: Company Location & Contact -->
         <div class="border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
           <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">
-          Company Location & Contact</h5>
+          {{ regPageSetting?.reg_page_setting_detail?.[0]?.company_location_heading || "Company Location & Contact" }}</h5>
           <div class="relative w-full mb-8">
             <label class="block mb-1 text-base md:text-base lg:text-lg font-bold" for="customer_profile_company_name">
               {{ regPageSetting?.reg_page_setting_detail?.[0]?.step_4_name_label }}
@@ -171,11 +171,11 @@
         <!-- Sub-section 3: Company Profile & Keywords -->
         <div class="border border-gray-200 rounded-lg p-6 bg-white shadow-sm">
           <h5 class="text-primary font-FuturaMdCnBT mb-4 text-lg md:text-xl lg:text-2xl">
-            Company Profile & Keywords</h5>
+            {{ regPageSetting?.reg_page_setting_detail?.[0]?.company_profile_heading || "Company Profile & Keywords" }}</h5>
           <div class="relative w-full mb-8">
             <label class="block mb-1 text-base md:text-base lg:text-lg font-bold" for="customer_profile_short_description">
-              Short Summary
-              <span class="ml-1 text-[0.85em] font-normal">(Max. 30 words)</span>
+              {{ regPageSetting?.reg_page_setting_detail?.[0]?.step_4_short_description_label || "Short Summary" }}
+              <span class="ml-1 text-[0.85em] font-normal">{{ regPageSetting?.reg_page_setting_detail?.[0]?.short_summary_hint || "(Max. 30 words)" }}</span>
               <span class="text-red-500">*</span>
             </label>
             <textarea rows="3" id="customer_profile_short_description" class="can-exp-input"
@@ -186,8 +186,8 @@
           </div>
           <div class="relative w-full mb-8">
             <label class="block mb-1 text-base md:text-base lg:text-lg font-bold" for="customer_profile_description">
-              Full Description
-              <span class="ml-1 text-[0.85em] font-normal">(Max. 300 words)</span>
+              {{ regPageSetting?.reg_page_setting_detail?.[0]?.step_4_description_label || "Full Description" }}
+              <span class="ml-1 text-[0.85em] font-normal">{{ regPageSetting?.reg_page_setting_detail?.[0]?.full_description_hint || "(Max. 300 words)" }}</span>
               <span class="text-red-500">*</span>
             </label>
             <textarea rows="6" id="customer_profile_description" class="can-exp-input"
@@ -209,11 +209,11 @@
           </div>
           <div class="relative w-full mb-8" v-if="package_type && package_type.toLowerCase() !== 'free'">
             <label class="block  mb-1 text-base md:text-base lg:text-lg font-bold" for="customer_profile_cta_btn">
-              CTA(Call-to-Action) Button
-              <span class="ml-1 text-[0.85em] font-normal">(Max. 5 words)</span>
+              {{ regPageSetting?.reg_page_setting_detail?.[0]?.step_4_cta_btn_label || "CTA(Call-to-Action) Button" }}
+              <span class="ml-1 text-[0.85em] font-normal">{{ regPageSetting?.reg_page_setting_detail?.[0]?.cta_btn_hint || "(Max. 5 words)" }}</span>
             </label>
             <input type="text" id="customer_profile_cta_btn" class="can-exp-input"
-              :placeholder="'The button text that guides the user\'s next action; e.g., Learn More.'"
+              :placeholder="regPageSetting?.reg_page_setting_detail?.[0]?.step_4_cta_btn_placeholder || 'The button text that guides the user\'s next action; e.g., Learn More.'"
               @input="onFieldInput($event, 'customer_profile_cta_btn')"
               :value="form && form.has('customer_profile_cta_btn') ? form.get('customer_profile_cta_btn') : ''" />
             <Error fieldName="customer_profile_cta_btn" :validationErros="validationErros" />
@@ -394,7 +394,7 @@ export default {
         this.updateForm(fieldName, truncatedValue);
         this.$store.commit("signup/recordValidationError", {
           field: fieldName,
-          error: "Mailing Address must not contain more than" + " " + maxLines + " " + "lines.",
+          error: (regPageSetting?.reg_page_setting_detail?.[0]?.mailing_address_lines_error || "Mailing Address must not contain more than {max} lines.").replace("{max}", maxLines),
         });
         return;
       }

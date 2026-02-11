@@ -102,7 +102,7 @@
   >
     {{
       regPageSetting?.reg_page_setting_detail?.[0]?.step_5_title_label
-    }}<span class="ml-1 text-[0.85em] font-normal">(Max. 10 words)</span> 
+    }}<span class="ml-1 text-[0.85em] font-normal">{{ regPageSetting?.reg_page_setting_detail?.[0]?.step_5_title_hint || "(Max. 10 words)" }}</span> 
   </label>
   <textarea
     rows="1"
@@ -124,7 +124,7 @@
       regPageSetting?.reg_page_setting_detail?.[0]
         ?.step_5_description_label
     }}
-    <span class="ml-1 text-[0.85em] font-normal">(Max. 50 words)</span> 
+    <span class="ml-1 text-[0.85em] font-normal">{{ regPageSetting?.reg_page_setting_detail?.[0]?.step_5_description_hint || "(Max. 50 words)" }}</span> 
   </label>
   <textarea
     rows="3"
@@ -176,7 +176,7 @@
             {{
               regPageSetting?.reg_page_setting_detail?.[0]?.step_5_logo_label
             }}
-             <span class="ml-1 text-[0.85em] font-normal">(PNG, GIF, JPG, or JPEG format, max 10 MB.)</span>
+             <span class="ml-1 text-[0.85em] font-normal">{{ regPageSetting?.reg_page_setting_detail?.[0]?.step_5_logo_format_hint || "(PNG, GIF, JPG, or JPEG format, max 10 MB.)" }}</span>
           </label>
           <FilePond
             class="cursor-pointer"
@@ -205,7 +205,7 @@
             {{
               regPageSetting?.reg_page_setting_detail?.[0]
                 ?.step_5_gallery_image_label
-            }}<span class="ml-1 text-[0.85em] font-normal">(Up to {{ max_files }} allowed, 5 MB max each, in PNG, GIF, JPG, or JPEG format.)</span>
+            }}<span class="ml-1 text-[0.85em] font-normal">{{ (regPageSetting?.reg_page_setting_detail?.[0]?.step_5_gallery_format_hint || "(Up to {max} allowed, 5 MB max each, in PNG, GIF, JPG, or JPEG format.)").replace("{max}", max_files) }}</span>
 
             </label>
           <FilePond

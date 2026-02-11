@@ -84,6 +84,10 @@ class RegistrationPageSettingService
             $validationRule = array_merge($validationRule, ['step_2_profile_image_label.step_2_profile_image_label_' . $language->id => ['nullable', 'string']]);
             $validationRule = array_merge($validationRule, ['step_2_profile_image_placeholder.step_2_profile_image_placeholder_' . $language->id => ['nullable', 'string']]);
             $validationRule = array_merge($validationRule, ['step_2_profile_image_error.step_2_profile_image_error_' . $language->id => ['nullable', 'string']]);
+            $validationRule = array_merge($validationRule, ['step_2_full_name_label.step_2_full_name_label_' . $language->id => ['nullable', 'string']]);
+            $validationRule = array_merge($validationRule, ['step_2_full_name_placeholder.step_2_full_name_placeholder_' . $language->id => ['nullable', 'string']]);
+            $validationRule = array_merge($validationRule, ['step_2_job_title_label.step_2_job_title_label_' . $language->id => ['nullable', 'string']]);
+            $validationRule = array_merge($validationRule, ['step_2_job_title_placeholder.step_2_job_title_placeholder_' . $language->id => ['nullable', 'string']]);
             $errorMessages = array_merge($errorMessages, ['step_2_confirm_password_placeholder.step_2_confirm_password_placeholder_' . $language->id . '.required' => 'This field is required.']);
 
             $validationRule = array_merge($validationRule, ['step_3_heading.step_3_heading_' . $language->id => ['nullable', 'string']]);
@@ -309,6 +313,30 @@ class RegistrationPageSettingService
 
             $validationRule = array_merge($validationRule, ['footer_text.footer_text_' . $language->id => ['nullable', 'string']]);
             $errorMessages = array_merge($errorMessages, ['footer_text.footer_text_' . $language->id . '.required' => 'This field is required.']);
+
+            $validationRule = array_merge($validationRule, ['intro_subtitle.intro_subtitle_' . $language->id => ['nullable', 'string']]);
+            $validationRule = array_merge($validationRule, ['privacy_section_heading.privacy_section_heading_' . $language->id => ['nullable', 'string']]);
+            $validationRule = array_merge($validationRule, ['privacy_bullet_1.privacy_bullet_1_' . $language->id => ['nullable', 'string']]);
+            $validationRule = array_merge($validationRule, ['privacy_bullet_2.privacy_bullet_2_' . $language->id => ['nullable', 'string']]);
+            $validationRule = array_merge($validationRule, ['privacy_bullet_3.privacy_bullet_3_' . $language->id => ['nullable', 'string']]);
+            $validationRule = array_merge($validationRule, ['details_disclaimers_heading.details_disclaimers_heading_' . $language->id => ['nullable', 'string']]);
+
+            $validationRule = array_merge($validationRule, ['contact_person_heading.contact_person_heading_' . $language->id => ['nullable', 'string']]);
+            $validationRule = array_merge($validationRule, ['company_location_heading.company_location_heading_' . $language->id => ['nullable', 'string']]);
+            $validationRule = array_merge($validationRule, ['company_profile_heading.company_profile_heading_' . $language->id => ['nullable', 'string']]);
+            $validationRule = array_merge($validationRule, ['password_hint.password_hint_' . $language->id => ['nullable', 'string']]);
+            $validationRule = array_merge($validationRule, ['short_summary_hint.short_summary_hint_' . $language->id => ['nullable', 'string']]);
+            $validationRule = array_merge($validationRule, ['full_description_hint.full_description_hint_' . $language->id => ['nullable', 'string']]);
+            $validationRule = array_merge($validationRule, ['cta_btn_hint.cta_btn_hint_' . $language->id => ['nullable', 'string']]);
+            $validationRule = array_merge($validationRule, ['mailing_address_lines_error.mailing_address_lines_error_' . $language->id => ['nullable', 'string']]);
+            $validationRule = array_merge($validationRule, ['payment_frequency_legend.payment_frequency_legend_' . $language->id => ['nullable', 'string']]);
+            $validationRule = array_merge($validationRule, ['most_popular_label.most_popular_label_' . $language->id => ['nullable', 'string']]);
+            $validationRule = array_merge($validationRule, ['downgrade_message.downgrade_message_' . $language->id => ['nullable', 'string']]);
+            $validationRule = array_merge($validationRule, ['step_5_title_hint.step_5_title_hint_' . $language->id => ['nullable', 'string']]);
+            $validationRule = array_merge($validationRule, ['step_5_description_hint.step_5_description_hint_' . $language->id => ['nullable', 'string']]);
+            $validationRule = array_merge($validationRule, ['step_5_logo_format_hint.step_5_logo_format_hint_' . $language->id => ['nullable', 'string']]);
+            $validationRule = array_merge($validationRule, ['step_5_gallery_format_hint.step_5_gallery_format_hint_' . $language->id => ['nullable', 'string']]);
+            $validationRule = array_merge($validationRule, ['select_payment_method_heading.select_payment_method_heading_' . $language->id => ['nullable', 'string']]);
         }
         return ['validation_rules' => $validationRule, 'error_messages' => $errorMessages];
     }
@@ -346,6 +374,10 @@ class RegistrationPageSettingService
             'step_2_profile_image_label' => $request['step_2_profile_image_label']['step_2_profile_image_label_' . $language->id] ?? null,
             'step_2_profile_image_placeholder' => $request['step_2_profile_image_placeholder']['step_2_profile_image_placeholder_' . $language->id] ?? null,
             'step_2_profile_image_error' => $request['step_2_profile_image_error']['step_2_profile_image_error_' . $language->id] ?? null,
+            'step_2_full_name_label' => $request['step_2_full_name_label']['step_2_full_name_label_' . $language->id] ?? null,
+            'step_2_full_name_placeholder' => $request['step_2_full_name_placeholder']['step_2_full_name_placeholder_' . $language->id] ?? null,
+            'step_2_job_title_label' => $request['step_2_job_title_label']['step_2_job_title_label_' . $language->id] ?? null,
+            'step_2_job_title_placeholder' => $request['step_2_job_title_placeholder']['step_2_job_title_placeholder_' . $language->id] ?? null,
             'step_3_heading' => $request['step_3_heading']['step_3_heading_' . $language->id] ?? null,
             'step_3_acc_heading' => $request['step_3_acc_heading']['step_3_acc_heading_' . $language->id] ?? null,
             'step_3_description' => $request['step_3_description']['step_3_description_' . $language->id] ?? null,
@@ -425,6 +457,30 @@ class RegistrationPageSettingService
             'greeting_text' => $request['greeting_text']['greeting_text_' . $language->id] ?? null,
             'submit_button_text' => $request['submit_button_text']['submit_button_text_' . $language->id] ?? null,
             'footer_text' => $request['footer_text']['footer_text_' . $language->id] ?? null,
+
+            'intro_subtitle' => $request['intro_subtitle']['intro_subtitle_' . $language->id] ?? null,
+            'privacy_section_heading' => $request['privacy_section_heading']['privacy_section_heading_' . $language->id] ?? null,
+            'privacy_bullet_1' => $request['privacy_bullet_1']['privacy_bullet_1_' . $language->id] ?? null,
+            'privacy_bullet_2' => $request['privacy_bullet_2']['privacy_bullet_2_' . $language->id] ?? null,
+            'privacy_bullet_3' => $request['privacy_bullet_3']['privacy_bullet_3_' . $language->id] ?? null,
+            'details_disclaimers_heading' => $request['details_disclaimers_heading']['details_disclaimers_heading_' . $language->id] ?? null,
+
+            'contact_person_heading' => $request['contact_person_heading']['contact_person_heading_' . $language->id] ?? null,
+            'company_location_heading' => $request['company_location_heading']['company_location_heading_' . $language->id] ?? null,
+            'company_profile_heading' => $request['company_profile_heading']['company_profile_heading_' . $language->id] ?? null,
+            'password_hint' => $request['password_hint']['password_hint_' . $language->id] ?? null,
+            'short_summary_hint' => $request['short_summary_hint']['short_summary_hint_' . $language->id] ?? null,
+            'full_description_hint' => $request['full_description_hint']['full_description_hint_' . $language->id] ?? null,
+            'cta_btn_hint' => $request['cta_btn_hint']['cta_btn_hint_' . $language->id] ?? null,
+            'mailing_address_lines_error' => $request['mailing_address_lines_error']['mailing_address_lines_error_' . $language->id] ?? null,
+            'payment_frequency_legend' => $request['payment_frequency_legend']['payment_frequency_legend_' . $language->id] ?? null,
+            'most_popular_label' => $request['most_popular_label']['most_popular_label_' . $language->id] ?? null,
+            'downgrade_message' => $request['downgrade_message']['downgrade_message_' . $language->id] ?? null,
+            'step_5_title_hint' => $request['step_5_title_hint']['step_5_title_hint_' . $language->id] ?? null,
+            'step_5_description_hint' => $request['step_5_description_hint']['step_5_description_hint_' . $language->id] ?? null,
+            'step_5_logo_format_hint' => $request['step_5_logo_format_hint']['step_5_logo_format_hint_' . $language->id] ?? null,
+            'step_5_gallery_format_hint' => $request['step_5_gallery_format_hint']['step_5_gallery_format_hint_' . $language->id] ?? null,
+            'select_payment_method_heading' => $request['select_payment_method_heading']['select_payment_method_heading_' . $language->id] ?? null,
         ];
     }
 

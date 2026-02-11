@@ -9,7 +9,7 @@
                             .page_title
                         : ''
                     "></h1>
-                    <p style="text-align: center; line-height: 1;">Join Canada's trusted export promotion platform and connect with global buyers. Choose the plan that fits your business stage.&nbsp;</p>
+                    <p style="text-align: center; line-height: 1;">{{ regPageSetting?.reg_page_setting_detail?.[0]?.intro_subtitle || "Join Canada's trusted export promotion platform and connect with global buyers. Choose the plan that fits your business stage." }}</p>
             </div>
             <div class="">
                 <span class="register-business" v-html="regPageSetting &&
@@ -122,18 +122,18 @@
                                     c5.883,0.84,10.02,6.206,9.503,12.024C310.715,146.699,307.871,166.61,303.087,186.457z"/>
                             </g>
                             </svg>
-                            <p class="can-exp-p text-primary font-FuturaMdCnBT  text-lg md:text-xl lg:text-2xl" > <span style="font-size: 18pt;"><strong><span >Your Privacy is Our Priority</span></strong></span></p>
+                            <p class="can-exp-p text-primary font-FuturaMdCnBT  text-lg md:text-xl lg:text-2xl" > <span style="font-size: 18pt;"><strong><span>{{ regPageSetting?.reg_page_setting_detail?.[0]?.privacy_section_heading || "Your Privacy is Our Priority" }}</span></strong></span></p>
                         </div>
                         <div class="mt-2 can-exp-p">
                             <ul>
-                            <li>We never sell your personal information</li>
-                            <li>You retain full ownership of the content you share on our site</li>
-                            <li>We never send spam or unwanted emails</li>
+                            <li>{{ regPageSetting?.reg_page_setting_detail?.[0]?.privacy_bullet_1 || "We never sell your personal information" }}</li>
+                            <li>{{ regPageSetting?.reg_page_setting_detail?.[0]?.privacy_bullet_2 || "You retain full ownership of the content you share on our site" }}</li>
+                            <li>{{ regPageSetting?.reg_page_setting_detail?.[0]?.privacy_bullet_3 || "We never send spam or unwanted emails" }}</li>
                             </ul>
                         </div>
                     </div>
                     <div class="rounded-md p-3 mt-6 shadow bg-white">
-                        <p><strong><span class="can-exp-p text-primary font-FuturaMdCnBT  text-lg md:text-xl lg:text-2xl">Details & Disclaimers:</span></strong></p>
+                        <p><strong><span class="can-exp-p text-primary font-FuturaMdCnBT  text-lg md:text-xl lg:text-2xl">{{ regPageSetting?.reg_page_setting_detail?.[0]?.details_disclaimers_heading || "Details & Disclaimers:" }}</span></strong></p>
                     <div class="text-base md:text-base lg:text-lg mt-4" v-html="regPageSetting &&
                             regPageSetting.reg_page_setting_detail &&
                             regPageSetting.reg_page_setting_detail[0]

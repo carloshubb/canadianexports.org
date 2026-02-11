@@ -115,7 +115,7 @@
         <!-- Select Payment Method -->
         <div class="bg-white rounded-lg overflow-hidden shadow-3xl">
           <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-            <h4 class="text-white">Select Payment Method</h4>
+            <h4 class="text-white">{{ regPageSetting?.reg_page_setting_detail?.[0]?.select_payment_method_heading || "Select Payment Method" }}</h4>
           </div>
           <div class="px-4 py-8 sm:px-10">
           <div v-if="calTotalPrice() > 0" class="w-full flex">
