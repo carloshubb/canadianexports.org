@@ -114,7 +114,8 @@
         </div>
     </div>
 </div>
-
+@section('scripts')
+@parent
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const categorySelect = document.getElementById('category');
@@ -140,3 +141,4 @@
         }
     });
 </script>
+@endsection

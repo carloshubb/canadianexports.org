@@ -77,7 +77,8 @@
                 </button>
             </div>
         </div>
-
+@section('styles')
+@parent
         <style>
             .business-categories-container {
                 position: relative;
@@ -106,11 +107,22 @@
                 }
             }
         </style>
+@endsection
 
+@section('scripts')
+@parent
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
+            // Function to initialize the category toggle functionality
+            function initCategoryToggle() {
                 const toggleBtn = document.getElementById('toggleCategoriesBtn');
                 const toggleBtnExpanded = document.getElementById('toggleCategoriesBtnExpanded');
+                
+                // If elements don't exist yet, wait and try again
+                if (!toggleBtn || !toggleBtnExpanded) {
+                    setTimeout(initCategoryToggle, 100);
+                    return;
+                }
+                
                 const categoriesGrid = document.getElementById('categoriesGrid');
                 const initialControls = document.getElementById('initialViewControls');
                 const expandedControls = document.getElementById('expandedViewControls');
@@ -141,8 +153,8 @@
 
                     // Hide initial controls and show expanded controls
                     setTimeout(() => {
-                        initialControls.classList.add('hidden');
-                        expandedControls.classList.remove('hidden');
+                        if (initialControls) initialControls.classList.add('hidden');
+                        if (expandedControls) expandedControls.classList.remove('hidden');
                         
                         // Smooth scroll to maintain position
                         const scrollPosition = window.scrollY;
@@ -157,8 +169,8 @@
                     isExpanded = false;
                     
                     // Hide expanded controls and show initial controls
-                    expandedControls.classList.add('hidden');
-                    initialControls.classList.remove('hidden');
+                    if (expandedControls) expandedControls.classList.add('hidden');
+                    if (initialControls) initialControls.classList.remove('hidden');
 
                     // Hide category items beyond the first 6
                     categoryItems.forEach((item, index) => {
@@ -180,10 +192,33 @@
                     }
                 }
 
-                toggleBtn.addEventListener('click', expandCategories);
-                toggleBtnExpanded.addEventListener('click', collapseCategories);
-            });
+                // Only add event listeners if buttons exist
+                if (toggleBtn) {
+                    toggleBtn.addEventListener('click', expandCategories);
+                }
+                if (toggleBtnExpanded) {
+                    toggleBtnExpanded.addEventListener('click', collapseCategories);
+                }
+            }
+            
+            // Try to initialize immediately if DOM is ready, otherwise wait for DOMContentLoaded
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initCategoryToggle);
+            } else {
+                // DOM is already loaded, but content might be restored later
+                // Use a small delay and also listen for content restoration
+                setTimeout(initCategoryToggle, 100);
+            }
+            
+            // Also try to initialize after a longer delay in case content is restored later
+            setTimeout(initCategoryToggle, 500);
+            
+            // Listen for content restoration event (dispatched after Vue restores Blade content)
+            window.addEventListener('contentRestored', initCategoryToggle);
+            
+            // Also listen for DOMContentLoaded again in case it's re-dispatched
+            document.addEventListener('DOMContentLoaded', initCategoryToggle);
         </script>
-
+@endsection
 
 </section>

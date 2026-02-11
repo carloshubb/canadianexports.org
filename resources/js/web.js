@@ -52,11 +52,17 @@ import SubmitContent from "./web/submit-content/SubmitContent.vue";
 
 import LanguageModal from "./web/modals/LanguageModal.vue";
 import Message from "./web/components/Message.vue";
+import App from "./web/App.vue";
 import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 import { translate } from "./Utils/i18n";
 
-createApp({})
+// Store the Blade-rendered content before Vue mounts
+const mountEl = document.getElementById('canexp-app');
+const preservedContent = mountEl ? mountEl.innerHTML : '';
+const preservedClasses = mountEl ? mountEl.className : '';
+
+const app = createApp(App)
     .use(VueSweetalert2)
     .component("signup", signup)
 
@@ -108,8 +114,32 @@ createApp({})
     .component("WebinarsIndex", WebinarsIndex)
     .component("MyWebinars", MyWebinars)
     .component("SubmitContent", SubmitContent)
-    .use(store)
-    .mount("#canexp-app");
+    .use(store);
+
+// Mount Vue (this temporarily replaces the content)
+app.mount("#canexp-app");
+
+// Immediately restore the Blade content
+// Vue 3 will automatically compile Vue components that are in the DOM
+if (mountEl && preservedContent) {
+  // Use requestAnimationFrame to ensure Vue has finished mounting
+  requestAnimationFrame(() => {
+    mountEl.innerHTML = preservedContent;
+    if (preservedClasses) {
+      mountEl.className = preservedClasses;
+    }
+    
+    // Trigger a custom event to notify that content has been restored
+    // This allows scripts to re-initialize if needed
+    window.dispatchEvent(new CustomEvent('contentRestored'));
+    
+    // Also dispatch DOMContentLoaded again for scripts that listen to it
+    // This is safe to do multiple times
+    if (document.readyState !== 'loading') {
+      document.dispatchEvent(new Event('DOMContentLoaded', { bubbles: true }));
+    }
+  });
+}
 
 // Apply translations to Blade-rendered elements with data-i18n (fallback for server-side __() not translating)
 document.querySelectorAll("[data-i18n]").forEach((el) => {

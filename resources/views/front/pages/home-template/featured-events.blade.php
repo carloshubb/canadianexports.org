@@ -19,10 +19,10 @@ $events = getAllEvents(30, $lang, 'package_type');
                     // Get dynamic messages
                     $general_messages = getStaticTranslationByKey($lang ?? null, 'general_messages', [
                     'message_66',
-                    'message_66',
+                    'message_67',
                     ]);
                     $message_66 = $general_messages['message_66'] ?? 'Sponsor accounts cannot access event listings.';
-                    $message_66 = $general_messages['message_66'] ?? 'Sponsor accounts cannot create events.';
+                    $message_67 = $general_messages['message_67'] ?? 'Sponsor accounts cannot create events.';
                     @endphp
                     @if (Auth::guard('customers')->check() && Auth::guard('customers')->user()->type === 'sponsor')
                     <a aria-label="{{ __('Canadian Exporters') }}" href="{!! $url !!}" class="button-exp-fill flex justify-center items-center h-[40px] rounded-none">
@@ -240,16 +240,13 @@ $events = getAllEvents(30, $lang, 'package_type');
             </div>
         </div>
     </div>
-
+@section('scripts')
+@parent
     <script>
         // Define messages in JavaScript from PHP
         const restrictionMessages = {
-            see_all: {
-                !!json_encode($message_66) !!
-            },
-            add_event: {
-                !!json_encode($message_66) !!
-            }
+            see_all: {!! json_encode($message_66) !!},
+            add_event: {!! json_encode($message_67) !!}
         };
 
         function showSponsorRestrictionPopup(action) {
@@ -264,4 +261,5 @@ $events = getAllEvents(30, $lang, 'package_type');
             modal.classList.remove('hidden');
         }
     </script>
+@endsection
 </section>

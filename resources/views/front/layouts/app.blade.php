@@ -125,6 +125,8 @@
             }
         }
     </style>
+    {{-- custom styles --}}
+    @yield('styles')
 </head>
 
 <body class="text-black">
@@ -472,382 +474,382 @@
 
         gtag('config', 'G-2PHESYKTMZ');
     </script>
-</body>
-<script src="{{ asset('plugins/popper/popper.min.js') }}" charset="utf-8"></script>
-@yield('scripts')
-<script>
-    function toggleRegistrationModal(modalID){
-        document.getElementById(modalID).classList.toggle("hidden");
-        document.getElementById(modalID + "-backdrop").classList.toggle("hidden");
-        document.getElementById(modalID).classList.toggle("flex");
-        document.getElementById(modalID + "-backdrop").classList.toggle("flex");
-    }
-
-    
-    window.addEventListener("scroll", function() {
-        var topnav = document.getElementById("topnav");
-        var navLogo = document.getElementById("nav_logo");
-        var navigationUl = document.getElementById("navigation");
-        if (window.pageYOffset > 0) {
-            navLogo.classList.remove("h-[75px]");
-            navLogo.classList.add("h-[51px]");
-            topnav.classList.remove("h-[120px]");
-            topnav.classList.add("h-[72px]");
-            // navigationUl.setAttribute("style", "margin-top: 75px !important;");
-            
-        } else {
-            navLogo.classList.remove("h-[51px]");
-            navLogo.classList.add("h-[75px]");
-            topnav.classList.remove("h-[72px]");
-            topnav.classList.add("h-[120px]");
-            // navigationUl.setAttribute("style", "margin-top: 120px !important;");
+    <script src="{{ asset('plugins/popper/popper.min.js') }}" charset="utf-8"></script>
+    @yield('scripts')
+    <script>
+        function toggleRegistrationModal(modalID){
+            document.getElementById(modalID).classList.toggle("hidden");
+            document.getElementById(modalID + "-backdrop").classList.toggle("hidden");
+            document.getElementById(modalID).classList.toggle("flex");
+            document.getElementById(modalID + "-backdrop").classList.toggle("flex");
         }
-    });
-    setTimeout(() => {
-        new Swiper(".mySwiper", {
-            // Default parameters
-            slidesPerView: 1,
-            spaceBetween: 30,
-            speed: 400,
-            navigation: {
-                nextEl: '.swiper-button-next-exp',
-                prevEl: '.swiper-button-prev-exp',
-            },
-        });
-    }, 3000);
 
-    function openDropdown(event, dropdownID) {
-        let element = event.target;
-        while (element.nodeName !== "BUTTON") {
-            element = element.parentNode;
-        }
-        var dropdown = document.getElementById(dropdownID);
-        var popper = Popper.createPopper(element, dropdown, {
-            placement: 'bottom-start'
-        });
-
-        dropdown.classList.toggle("hidden");
-        dropdown.classList.toggle("block");
-
-        // Add event listener to close dropdown when clicking outside
-        function closeDropdownOutsideClick(event) {
-            if (!element.contains(event.target) && !dropdown.contains(event.target)) {
-                dropdown.classList.add("hidden");
-                dropdown.classList.remove("block");
-                document.removeEventListener("click", closeDropdownOutsideClick);
+        
+        window.addEventListener("scroll", function() {
+            var topnav = document.getElementById("topnav");
+            var navLogo = document.getElementById("nav_logo");
+            var navigationUl = document.getElementById("navigation");
+            if (window.pageYOffset > 0) {
+                navLogo.classList.remove("h-[75px]");
+                navLogo.classList.add("h-[51px]");
+                topnav.classList.remove("h-[120px]");
+                topnav.classList.add("h-[72px]");
+                // navigationUl.setAttribute("style", "margin-top: 75px !important;");
+                
+            } else {
+                navLogo.classList.remove("h-[51px]");
+                navLogo.classList.add("h-[75px]");
+                topnav.classList.remove("h-[72px]");
+                topnav.classList.add("h-[120px]");
+                // navigationUl.setAttribute("style", "margin-top: 120px !important;");
             }
-        }
+        });
+        setTimeout(() => {
+            new Swiper(".mySwiper", {
+                // Default parameters
+                slidesPerView: 1,
+                spaceBetween: 30,
+                speed: 400,
+                navigation: {
+                    nextEl: '.swiper-button-next-exp',
+                    prevEl: '.swiper-button-prev-exp',
+                },
+            });
+        }, 3000);
 
-        document.addEventListener("click", closeDropdownOutsideClick);
-    }
+        function openDropdown(event, dropdownID) {
+            let element = event.target;
+            while (element.nodeName !== "BUTTON") {
+                element = element.parentNode;
+            }
+            var dropdown = document.getElementById(dropdownID);
+            var popper = Popper.createPopper(element, dropdown, {
+                placement: 'bottom-start'
+            });
 
+            dropdown.classList.toggle("hidden");
+            dropdown.classList.toggle("block");
 
-    function acceptCookies() {
-        fetch("{{ route('accept-cookies') }}")
-            .then(response => {
-                if (response.ok) {
-                    // Hide the cookie consent popup
-                    document.getElementById('cookies-contest').classList.toggle('hidden');
+            // Add event listener to close dropdown when clicking outside
+            function closeDropdownOutsideClick(event) {
+                if (!element.contains(event.target) && !dropdown.contains(event.target)) {
+                    dropdown.classList.add("hidden");
+                    dropdown.classList.remove("block");
+                    document.removeEventListener("click", closeDropdownOutsideClick);
                 }
-            })
-            .catch(error => {
-                console.error('Failed to accept cookies:', error);
-            });
-    }
+            }
 
-    function toggleCollapsible() {
-        const content = document.getElementById("collapsibleContent");
-        const arrowIcon = document.getElementById("arrowIcon");
-
-        if (content.style.opacity === "1") {
-            content.style.opacity = "0";
-            setTimeout(function() {
-                content.classList.add("hidden");
-            }, 300); // Transition duration in milliseconds (adjust as needed)
-        } else {
-            content.classList.remove("hidden");
-            setTimeout(function() {
-                content.style.opacity = "1";
-            }, 0); // Wait for display to be set before applying opacity (adjust as needed)
+            document.addEventListener("click", closeDropdownOutsideClick);
         }
 
-        arrowIcon.classList.toggle("rotate-180");
-    }
 
-
-    setTimeout(() => {
-        const drawerButton = document.getElementById('drawer-button');
-        const drawerMenu = document.getElementById('drawer-menu');
-        const drawerCloseButton = document.getElementById('drawer-close-button');
-
-        // Open drawer menu when the drawer button is clicked
-        if (drawerButton) {
-            drawerButton.addEventListener('click', function(event) {
-                drawerMenu.style.transform = 'translateX(0)';
-                event.stopPropagation(); // Prevent the click event from reaching the document
-            });
+        function acceptCookies() {
+            fetch("{{ route('accept-cookies') }}")
+                .then(response => {
+                    if (response.ok) {
+                        // Hide the cookie consent popup
+                        document.getElementById('cookies-contest').classList.toggle('hidden');
+                    }
+                })
+                .catch(error => {
+                    console.error('Failed to accept cookies:', error);
+                });
         }
 
-        // Close drawer menu when the close button is clicked
-        if (drawerCloseButton) {
-            drawerCloseButton.addEventListener('click', function() {
-                drawerMenu.style.transform = 'translateX(100%)';
-            });
+        function toggleCollapsible() {
+            const content = document.getElementById("collapsibleContent");
+            const arrowIcon = document.getElementById("arrowIcon");
+
+            if (content.style.opacity === "1") {
+                content.style.opacity = "0";
+                setTimeout(function() {
+                    content.classList.add("hidden");
+                }, 300); // Transition duration in milliseconds (adjust as needed)
+            } else {
+                content.classList.remove("hidden");
+                setTimeout(function() {
+                    content.style.opacity = "1";
+                }, 0); // Wait for display to be set before applying opacity (adjust as needed)
+            }
+
+            arrowIcon.classList.toggle("rotate-180");
         }
 
-        // Close drawer menu when clicking outside of the menu
-        if (drawerMenu && drawerButton) {
-            document.addEventListener('click', function(event) {
-                const isClickInsideDrawer = drawerMenu.contains(event.target);
-                const isClickOnDrawerButton = drawerButton.contains(event.target);
 
-                if (!isClickInsideDrawer && !isClickOnDrawerButton) {
+        setTimeout(() => {
+            const drawerButton = document.getElementById('drawer-button');
+            const drawerMenu = document.getElementById('drawer-menu');
+            const drawerCloseButton = document.getElementById('drawer-close-button');
+
+            // Open drawer menu when the drawer button is clicked
+            if (drawerButton) {
+                drawerButton.addEventListener('click', function(event) {
+                    drawerMenu.style.transform = 'translateX(0)';
+                    event.stopPropagation(); // Prevent the click event from reaching the document
+                });
+            }
+
+            // Close drawer menu when the close button is clicked
+            if (drawerCloseButton) {
+                drawerCloseButton.addEventListener('click', function() {
                     drawerMenu.style.transform = 'translateX(100%)';
+                });
+            }
+
+            // Close drawer menu when clicking outside of the menu
+            if (drawerMenu && drawerButton) {
+                document.addEventListener('click', function(event) {
+                    const isClickInsideDrawer = drawerMenu.contains(event.target);
+                    const isClickOnDrawerButton = drawerButton.contains(event.target);
+
+                    if (!isClickInsideDrawer && !isClickOnDrawerButton) {
+                        drawerMenu.style.transform = 'translateX(100%)';
+                    }
+                });
+            }
+
+            // Prevent clicks inside the drawer menu from closing the menu
+            if (drawerMenu) {
+                drawerMenu.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                });
+            }
+
+        }, 2000);
+        setTimeout(() => {
+            var swiper = new Swiper('.magazine-slider-container', {
+                slidesPerView: 1,
+                spaceBetween: 10,
+                navigation: {
+                    nextEl: '.magazine-button-next-exp',
+                    prevEl: '.magazine-button-prev-exp',
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                    },
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 30,
+                    },
+                    1024: {
+                        slidesPerView: 4,
+                        spaceBetween: 40,
+                    },
                 }
             });
-        }
 
-        // Prevent clicks inside the drawer menu from closing the menu
-        if (drawerMenu) {
-            drawerMenu.addEventListener('click', function(event) {
-                event.stopPropagation();
+        }, 2000);
+        setTimeout(() => {
+            var swiper = new Swiper('.sponsor-slider-container', {
+                slidesPerView: 1,
+                loop: true,
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
+                },
+                spaceBetween: 10,
+                navigation: {
+                    nextEl: '.sponsor-button-next-exp',
+                    prevEl: '.sponsor-button-prev-exp',
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                    },
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 30,
+                    },
+                    1024: {
+                        slidesPerView: 2,
+                        spaceBetween: 40,
+                    },
+                },
+                on: {
+                    init: function() {
+                        setEqualHeight('sponsor-swiper-slide');
+                    },
+                    resize: function() {
+                        setEqualHeight('sponsor-swiper-slide');
+                    }
+                }
+            });
+
+        }, 2000);
+
+        function setEqualHeight(className) {
+            var slides = document.querySelectorAll(`.${className}`);
+            var maxHeight = 0;
+
+            // Reset height
+            slides.forEach(function(slide) {
+                slide.style.height = 'auto';
+            });
+
+            // Calculate max height
+            slides.forEach(function(slide) {
+                var slideHeight = slide.offsetHeight;
+                if (slideHeight > maxHeight) {
+                    maxHeight = slideHeight;
+                }
+            });
+
+            // Set max height to all slides
+            slides.forEach(function(slide) {
+                slide.style.height = maxHeight + 'px';
             });
         }
-
-    }, 2000);
-    setTimeout(() => {
-        var swiper = new Swiper('.magazine-slider-container', {
-            slidesPerView: 1,
-            spaceBetween: 10,
-            navigation: {
-                nextEl: '.magazine-button-next-exp',
-                prevEl: '.magazine-button-prev-exp',
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            breakpoints: {
-                640: {
-                    slidesPerView: 2,
-                    spaceBetween: 20,
+        setTimeout(() => {
+            var swiper = new Swiper('.featured-exporter-slider-container', {
+                slidesPerView: 1,
+                loop: true,
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
                 },
-                768: {
-                    slidesPerView: 3,
-                    spaceBetween: 30,
+                spaceBetween: 10,
+                navigation: {
+                    nextEl: '.featured-exporter-button-next-exp',
+                    prevEl: '.featured-exporter-button-prev-exp',
                 },
-                1024: {
-                    slidesPerView: 4,
-                    spaceBetween: 40,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
                 },
-            }
-        });
-
-    }, 2000);
-    setTimeout(() => {
-        var swiper = new Swiper('.sponsor-slider-container', {
-            slidesPerView: 1,
-            loop: true,
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-            },
-            spaceBetween: 10,
-            navigation: {
-                nextEl: '.sponsor-button-next-exp',
-                prevEl: '.sponsor-button-prev-exp',
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            breakpoints: {
-                640: {
-                    slidesPerView: 2,
-                    spaceBetween: 20,
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                    },
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 30,
+                    },
+                    1024: {
+                        slidesPerView: 4,
+                        spaceBetween: 40,
+                    },
                 },
-                768: {
-                    slidesPerView: 2,
-                    spaceBetween: 30,
-                },
-                1024: {
-                    slidesPerView: 2,
-                    spaceBetween: 40,
-                },
-            },
-            on: {
-                init: function() {
-                    setEqualHeight('sponsor-swiper-slide');
-                },
-                resize: function() {
-                    setEqualHeight('sponsor-swiper-slide');
+                on: {
+                    init: function() {
+                        setEqualHeight('featured-exporter-swiper-slide');
+                    },
+                    resize: function() {
+                        setEqualHeight('featured-exporter-swiper-slide');
+                    }
                 }
-            }
-        });
+            });
 
-    }, 2000);
-
-    function setEqualHeight(className) {
-        var slides = document.querySelectorAll(`.${className}`);
-        var maxHeight = 0;
-
-        // Reset height
-        slides.forEach(function(slide) {
-            slide.style.height = 'auto';
-        });
-
-        // Calculate max height
-        slides.forEach(function(slide) {
-            var slideHeight = slide.offsetHeight;
-            if (slideHeight > maxHeight) {
-                maxHeight = slideHeight;
-            }
-        });
-
-        // Set max height to all slides
-        slides.forEach(function(slide) {
-            slide.style.height = maxHeight + 'px';
-        });
-    }
-    setTimeout(() => {
-        var swiper = new Swiper('.featured-exporter-slider-container', {
-            slidesPerView: 1,
-            loop: true,
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-            },
-            spaceBetween: 10,
-            navigation: {
-                nextEl: '.featured-exporter-button-next-exp',
-                prevEl: '.featured-exporter-button-prev-exp',
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            breakpoints: {
-                640: {
-                    slidesPerView: 2,
-                    spaceBetween: 20,
+        }, 2000);
+        setTimeout(() => {
+            var swiper = new Swiper('.featured-events-slider-container', {
+                slidesPerView: 1,
+                loop: true,
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
                 },
-                768: {
-                    slidesPerView: 3,
-                    spaceBetween: 30,
+                spaceBetween: 10,
+                navigation: {
+                    nextEl: '.featured-events-button-next-exp',
+                    prevEl: '.featured-events-button-prev-exp',
                 },
-                1024: {
-                    slidesPerView: 4,
-                    spaceBetween: 40,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
                 },
-            },
-            on: {
-                init: function() {
-                    setEqualHeight('featured-exporter-swiper-slide');
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                    },
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 30,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 40,
+                    },
                 },
-                resize: function() {
-                    setEqualHeight('featured-exporter-swiper-slide');
+                on: {
+                    init: function() {
+                        setEqualHeight('featured-events-swiper-slide');
+                    },
+                    resize: function() {
+                        setEqualHeight('featured-events-swiper-slide');
+                    }
                 }
-            }
-        });
+            });
 
-    }, 2000);
-    setTimeout(() => {
-        var swiper = new Swiper('.featured-events-slider-container', {
-            slidesPerView: 1,
-            loop: true,
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-            },
-            spaceBetween: 10,
-            navigation: {
-                nextEl: '.featured-events-button-next-exp',
-                prevEl: '.featured-events-button-prev-exp',
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            breakpoints: {
-                640: {
-                    slidesPerView: 2,
-                    spaceBetween: 20,
+        }, 2000);
+
+        setTimeout(() => {
+            var swiper = new Swiper('.i2b-slider-container', {
+                loop: true,
+                slidesPerView: 1,
+
+                spaceBetween: 10,
+                navigation: {
+                    nextEl: '.i2b-button-next-exp',
+                    prevEl: '.i2b-button-prev-exp',
                 },
-                768: {
-                    slidesPerView: 2,
-                    spaceBetween: 30,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
                 },
-                1024: {
-                    slidesPerView: 3,
-                    spaceBetween: 40,
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                    },
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 30,
+                    },
+                    1024: {
+                        slidesPerView: 4,
+                        spaceBetween: 40,
+                    },
                 },
-            },
-            on: {
-                init: function() {
-                    setEqualHeight('featured-events-swiper-slide');
-                },
-                resize: function() {
-                    setEqualHeight('featured-events-swiper-slide');
+                on: {
+                    init: function() {
+                        setEqualHeight('i2b-swiper-slide');
+                    },
+                    resize: function() {
+                        setEqualHeight('i2b-swiper-slide');
+                    }
                 }
-            }
-        });
+            });
 
-    }, 2000);
+        }, 2000);
 
-    setTimeout(() => {
-        var swiper = new Swiper('.i2b-slider-container', {
-            loop: true,
-            slidesPerView: 1,
+        function fixUrls() {
+            var links = document.getElementsByClassName('fix-url');
 
-            spaceBetween: 10,
-            navigation: {
-                nextEl: '.i2b-button-next-exp',
-                prevEl: '.i2b-button-prev-exp',
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            breakpoints: {
-                640: {
-                    slidesPerView: 2,
-                    spaceBetween: 20,
-                },
-                768: {
-                    slidesPerView: 3,
-                    spaceBetween: 30,
-                },
-                1024: {
-                    slidesPerView: 4,
-                    spaceBetween: 40,
-                },
-            },
-            on: {
-                init: function() {
-                    setEqualHeight('i2b-swiper-slide');
-                },
-                resize: function() {
-                    setEqualHeight('i2b-swiper-slide');
+            for (var i = 0; i < links.length; i++) {
+                var url = links[i].getAttribute('href');
+
+                if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
+                    url = 'https://' + url;
+                    links[i].setAttribute('href', url);
                 }
-            }
-        });
-
-    }, 2000);
-
-    function fixUrls() {
-        var links = document.getElementsByClassName('fix-url');
-
-        for (var i = 0; i < links.length; i++) {
-            var url = links[i].getAttribute('href');
-
-            if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
-                url = 'https://' + url;
-                links[i].setAttribute('href', url);
             }
         }
-    }
-</script>
-{{-- <script src="https://www.google.com/recaptcha/api.js?render=6Lfn-usoAAAAABX3ZhQ_pGrVHjPtgHfqdF-y1afb"></script> --}}
-{{-- <script src="https://www.google.com/recaptcha/api.js?render=6Lfn-usoAAAAABX3ZhQ_pGrVHjPtgHfqdF-y1afb"></script> --}}
+    </script>
+    {{-- <script src="https://www.google.com/recaptcha/api.js?render=6Lfn-usoAAAAABX3ZhQ_pGrVHjPtgHfqdF-y1afb"></script> --}}
+    {{-- <script src="https://www.google.com/recaptcha/api.js?render=6Lfn-usoAAAAABX3ZhQ_pGrVHjPtgHfqdF-y1afb"></script> --}}
+</body>
 
 </html>

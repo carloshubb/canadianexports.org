@@ -34,6 +34,8 @@
         </div>
     </div>
 </div>
+@section('scripts')
+@parent
 <script>
 (function() {
     window.openMembershipNoticeEventPostingModal = function() {
@@ -52,3 +54,4 @@
     };
 })();
 </script>
+@endsection

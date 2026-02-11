@@ -303,9 +303,9 @@
                 $('.js-example-basic-multiple').select2({
                     width: '100%'
                 });
-            });
+            // });
 
-            document.addEventListener("DOMContentLoaded", function() {
+            // document.addEventListener("DOMContentLoaded", function() {
 
                 $('#business-categories-select').on('select2:select', function(e) {
                     const selectedValues = $('#business-categories-select').val() || [];

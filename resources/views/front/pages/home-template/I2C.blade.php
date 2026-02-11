@@ -145,7 +145,8 @@
             </div>
         </div>
     </div>
-
+    @section('scripts')
+    @parent
         <script>
             document.getElementById('section2-button').addEventListener('click', function(event) {
                 @if (isset($user) && !$user->is_package_amount_paid)
@@ -154,5 +155,6 @@
                 @endif
             });
         </script>
+    @endsection
     </div>
 </section>

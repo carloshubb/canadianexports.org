@@ -267,6 +267,7 @@
     </div>
 @endsection
 @section('scripts')
+@parent
     <script>
         var elements = document.getElementsByClassName('remove-item');
         var removeCustomerProfile = function() {

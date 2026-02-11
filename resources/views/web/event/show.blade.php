@@ -391,7 +391,7 @@
         </div>
     </div>
 @endsection
-@section('scripts')
+@push('scripts')
     <script>
 
         setTimeout(() => {
@@ -425,4 +425,4 @@
         }, 3000);
     </script>
 
-@endsection
+@endpush

@@ -22,9 +22,11 @@
             $isPaid = $user && $user->is_package_amount_paid == 1;
         @endphp
         @if ($isPaid)
+        @push('scripts')
             <script>
                 window.location.href = "{{ $url }}";
             </script>
+            @endpush
         @else
             @if ($user->type == 'event')
                 @include('web.signup-bussiness-setting.event-account-setting-partial', [
@@ -42,6 +44,7 @@
                     package_detail="{{ $package_detail }}" payment_setting="{{ $payment_setting }}"></create-profile-payment>
             @endif
         @endif
+        @push('scripts')
         <script>
             window.addEventListener('pageshow', function(event) {
                 if (event.persisted) {
@@ -49,5 +52,6 @@
                 }
             });
         </script>
+        @endpush
     </div>
 @endsection

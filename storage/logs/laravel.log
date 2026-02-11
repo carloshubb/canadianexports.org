@@ -3823,3 +3823,1175 @@ Make sure to put the “X” sign on top right of this popup, and make sure it w
 #48 Command line code(1): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #49 {main}
 "} 
+[2026-02-11 07:19:12] local.ERROR: SQLSTATE[HY000] [2002] A socket operation was attempted to an unreachable host (SQL: select `abbreviation` from `languages`) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 2002): SQLSTATE[HY000] [2002] A socket operation was attempted to an unreachable host (SQL: select `abbreviation` from `languages`) at D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:760)
+[stacktrace]
+#0 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(720): Illuminate\\Database\\Connection->runQueryCallback('select `abbrevi...', Array, Object(Closure))
+#1 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(405): Illuminate\\Database\\Connection->run('select `abbrevi...', Array, Object(Closure))
+#2 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2705): Illuminate\\Database\\Connection->select('select `abbrevi...', Array, true)
+#3 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2920): Illuminate\\Database\\Query\\Builder->runSelect()
+#4 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(3230): Illuminate\\Database\\Query\\Builder->{closure:Illuminate\\Database\\Query\\Builder::pluck():2918}()
+#5 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2916): Illuminate\\Database\\Query\\Builder->onceWithColumns(Array, Object(Closure))
+#6 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(860): Illuminate\\Database\\Query\\Builder->pluck('abbreviation', NULL)
+#7 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Traits\\ForwardsCalls.php(23): Illuminate\\Database\\Eloquent\\Builder->pluck('abbreviation')
+#8 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php(2330): Illuminate\\Database\\Eloquent\\Model->forwardCallTo(Object(Illuminate\\Database\\Eloquent\\Builder), 'pluck', Array)
+#9 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php(2342): Illuminate\\Database\\Eloquent\\Model->__call('pluck', Array)
+#10 D:\\work\\canadianexports.org\\routes\\auth.php(39): Illuminate\\Database\\Eloquent\\Model::__callStatic('pluck', Array)
+#11 D:\\work\\canadianexports.org\\routes\\web.php(37): require('D:\\\\work\\\\canadia...')
+#12 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteFileRegistrar.php(35): require('D:\\\\work\\\\canadia...')
+#13 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(503): Illuminate\\Routing\\RouteFileRegistrar->register('D:\\\\work\\\\canadia...')
+#14 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(457): Illuminate\\Routing\\Router->loadRoutes('D:\\\\work\\\\canadia...')
+#15 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteRegistrar.php(192): Illuminate\\Routing\\Router->group(Array, 'D:\\\\work\\\\canadia...')
+#16 D:\\work\\canadianexports.org\\app\\Providers\\RouteServiceProvider.php(48): Illuminate\\Routing\\RouteRegistrar->group('D:\\\\work\\\\canadia...')
+#17 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): App\\Providers\\RouteServiceProvider->{closure:App\\Providers\\RouteServiceProvider::boot():40}()
+#18 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(41): Illuminate\\Container\\BoundMethod::{closure:Illuminate\\Container\\BoundMethod::call():35}()
+#19 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(81): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#20 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Object(Closure), Object(Closure))
+#21 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(661): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Object(Closure), Array, NULL)
+#22 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider.php(120): Illuminate\\Container\\Container->call(Object(Closure))
+#23 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider.php(45): Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider->loadRoutes()
+#24 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider->{closure:Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider::register():39}()
+#25 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(41): Illuminate\\Container\\BoundMethod::{closure:Illuminate\\Container\\BoundMethod::call():35}()
+#26 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(81): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#27 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Object(Closure), Object(Closure))
+#28 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(661): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Object(Closure), Array, NULL)
+#29 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\ServiceProvider.php(119): Illuminate\\Container\\Container->call(Object(Closure))
+#30 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(957): Illuminate\\Support\\ServiceProvider->callBootedCallbacks()
+#31 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(935): Illuminate\\Foundation\\Application->bootProvider(Object(App\\Providers\\RouteServiceProvider))
+#32 [internal function]: Illuminate\\Foundation\\Application->{closure:Illuminate\\Foundation\\Application::boot():934}(Object(App\\Providers\\RouteServiceProvider), 31)
+#33 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(934): array_walk(Array, Object(Closure))
+#34 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\BootProviders.php(17): Illuminate\\Foundation\\Application->boot()
+#35 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(265): Illuminate\\Foundation\\Bootstrap\\BootProviders->bootstrap(Object(Illuminate\\Foundation\\Application))
+#36 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(383): Illuminate\\Foundation\\Application->bootstrapWith(Array)
+#37 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(153): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#38 Command line code(1): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#39 {main}
+
+[previous exception] [object] (PDOException(code: 2002): SQLSTATE[HY000] [2002] A socket operation was attempted to an unreachable host at D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
+[stacktrace]
+#0 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php(70): PDO->__construct('mysql:host=192....', 'root', Object(SensitiveParameterValue), Array)
+#1 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php(45): Illuminate\\Database\\Connectors\\Connector->createPdoConnection('mysql:host=192....', 'root', 'Whitepig527@', Array)
+#2 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\MySqlConnector.php(24): Illuminate\\Database\\Connectors\\Connector->createConnection('mysql:host=192....', Array, Array)
+#3 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\ConnectionFactory.php(184): Illuminate\\Database\\Connectors\\MySqlConnector->connect(Array)
+#4 [internal function]: Illuminate\\Database\\Connectors\\ConnectionFactory->{closure:Illuminate\\Database\\Connectors\\ConnectionFactory::createPdoResolverWithHosts():179}()
+#5 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(1181): call_user_func(Object(Closure))
+#6 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(1217): Illuminate\\Database\\Connection->getPdo()
+#7 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(486): Illuminate\\Database\\Connection->getReadPdo()
+#8 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(414): Illuminate\\Database\\Connection->getPdoForSelect(true)
+#9 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(753): Illuminate\\Database\\Connection->{closure:Illuminate\\Database\\Connection::select():405}('select `abbrevi...', Array)
+#10 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(720): Illuminate\\Database\\Connection->runQueryCallback('select `abbrevi...', Array, Object(Closure))
+#11 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(405): Illuminate\\Database\\Connection->run('select `abbrevi...', Array, Object(Closure))
+#12 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2705): Illuminate\\Database\\Connection->select('select `abbrevi...', Array, true)
+#13 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2920): Illuminate\\Database\\Query\\Builder->runSelect()
+#14 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(3230): Illuminate\\Database\\Query\\Builder->{closure:Illuminate\\Database\\Query\\Builder::pluck():2918}()
+#15 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2916): Illuminate\\Database\\Query\\Builder->onceWithColumns(Array, Object(Closure))
+#16 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(860): Illuminate\\Database\\Query\\Builder->pluck('abbreviation', NULL)
+#17 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Traits\\ForwardsCalls.php(23): Illuminate\\Database\\Eloquent\\Builder->pluck('abbreviation')
+#18 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php(2330): Illuminate\\Database\\Eloquent\\Model->forwardCallTo(Object(Illuminate\\Database\\Eloquent\\Builder), 'pluck', Array)
+#19 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php(2342): Illuminate\\Database\\Eloquent\\Model->__call('pluck', Array)
+#20 D:\\work\\canadianexports.org\\routes\\auth.php(39): Illuminate\\Database\\Eloquent\\Model::__callStatic('pluck', Array)
+#21 D:\\work\\canadianexports.org\\routes\\web.php(37): require('D:\\\\work\\\\canadia...')
+#22 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteFileRegistrar.php(35): require('D:\\\\work\\\\canadia...')
+#23 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(503): Illuminate\\Routing\\RouteFileRegistrar->register('D:\\\\work\\\\canadia...')
+#24 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(457): Illuminate\\Routing\\Router->loadRoutes('D:\\\\work\\\\canadia...')
+#25 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteRegistrar.php(192): Illuminate\\Routing\\Router->group(Array, 'D:\\\\work\\\\canadia...')
+#26 D:\\work\\canadianexports.org\\app\\Providers\\RouteServiceProvider.php(48): Illuminate\\Routing\\RouteRegistrar->group('D:\\\\work\\\\canadia...')
+#27 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): App\\Providers\\RouteServiceProvider->{closure:App\\Providers\\RouteServiceProvider::boot():40}()
+#28 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(41): Illuminate\\Container\\BoundMethod::{closure:Illuminate\\Container\\BoundMethod::call():35}()
+#29 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(81): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#30 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Object(Closure), Object(Closure))
+#31 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(661): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Object(Closure), Array, NULL)
+#32 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider.php(120): Illuminate\\Container\\Container->call(Object(Closure))
+#33 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider.php(45): Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider->loadRoutes()
+#34 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider->{closure:Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider::register():39}()
+#35 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(41): Illuminate\\Container\\BoundMethod::{closure:Illuminate\\Container\\BoundMethod::call():35}()
+#36 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(81): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#37 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Object(Closure), Object(Closure))
+#38 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(661): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Object(Closure), Array, NULL)
+#39 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\ServiceProvider.php(119): Illuminate\\Container\\Container->call(Object(Closure))
+#40 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(957): Illuminate\\Support\\ServiceProvider->callBootedCallbacks()
+#41 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(935): Illuminate\\Foundation\\Application->bootProvider(Object(App\\Providers\\RouteServiceProvider))
+#42 [internal function]: Illuminate\\Foundation\\Application->{closure:Illuminate\\Foundation\\Application::boot():934}(Object(App\\Providers\\RouteServiceProvider), 31)
+#43 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(934): array_walk(Array, Object(Closure))
+#44 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\BootProviders.php(17): Illuminate\\Foundation\\Application->boot()
+#45 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(265): Illuminate\\Foundation\\Bootstrap\\BootProviders->bootstrap(Object(Illuminate\\Foundation\\Application))
+#46 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(383): Illuminate\\Foundation\\Application->bootstrapWith(Array)
+#47 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(153): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#48 Command line code(1): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#49 {main}
+"} 
+[2026-02-11 07:58:47] local.ERROR: Undefined variable $message_67 {"view":{"view":"D:\\work\\canadianexports.org\\resources\\views\\front\\pages\\home-template\\featured-events.blade.php","data":{"errors":"<pre class=sf-dump id=sf-dump-1413176274 data-indent-pad=\"  \"><span class=sf-dump-note>Illuminate\\Support\\ViewErrorBag</span> {<a class=sf-dump-ref>#1740</a><samp data-depth=1 class=sf-dump-expanded>
+  #<span class=sf-dump-protected title=\"Protected property\">bags</span>: []
+</samp>}
+</pre><script>Sfdump(\"sf-dump-1413176274\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","general_setting":"<pre class=sf-dump id=sf-dump-162175357 data-indent-pad=\"  \"><span class=sf-dump-note>Illuminate\\Support\\Collection</span> {<a class=sf-dump-ref>#1753</a><samp data-depth=1 class=sf-dump-expanded>
+  #<span class=sf-dump-protected title=\"Protected property\">items</span>: <span class=sf-dump-note>array:33</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>admin_email</span>\" => \"<span class=sf-dump-str title=\"16 characters\">ccaned@gmail.com</span>\"
+    \"<span class=sf-dump-key>user_signup_page</span>\" => \"<span class=sf-dump-str title=\"6 characters\">signup</span>\"
+    \"<span class=sf-dump-key>user_signin_page</span>\" => \"<span class=sf-dump-str title=\"6 characters\">signin</span>\"
+    \"<span class=sf-dump-key>user_event_signup_page</span>\" => \"<span class=sf-dump-str title=\"12 characters\">event-signup</span>\"
+    \"<span class=sf-dump-key>user_event_create_page</span>\" => \"<span class=sf-dump-str title=\"12 characters\">create-event</span>\"
+    \"<span class=sf-dump-key>user_event_listing_page</span>\" => \"<span class=sf-dump-str title=\"15 characters\">events-listings</span>\"
+    \"<span class=sf-dump-key>user_forget_password_page</span>\" => \"<span class=sf-dump-str title=\"20 characters\">user/forgot-password</span>\"
+    \"<span class=sf-dump-key>business_profile_page</span>\" => \"<span class=sf-dump-str title=\"10 characters\">Advertiser</span>\"
+    \"<span class=sf-dump-key>contact_us_page</span>\" => \"<span class=sf-dump-str title=\"10 characters\">contact-us</span>\"
+    \"<span class=sf-dump-key>close_account_page</span>\" => \"<span class=sf-dump-str title=\"13 characters\">close-account</span>\"
+    \"<span class=sf-dump-key>thumbnail_image_width</span>\" => \"<span class=sf-dump-str title=\"3 characters\">200</span>\"
+    \"<span class=sf-dump-key>thumbnail_image_height</span>\" => \"<span class=sf-dump-str title=\"3 characters\">200</span>\"
+    \"<span class=sf-dump-key>medium_image_width</span>\" => \"<span class=sf-dump-str title=\"3 characters\">400</span>\"
+    \"<span class=sf-dump-key>medium_image_height</span>\" => \"<span class=sf-dump-str title=\"3 characters\">600</span>\"
+    \"<span class=sf-dump-key>large_image_width</span>\" => \"<span class=sf-dump-str title=\"3 characters\">800</span>\"
+    \"<span class=sf-dump-key>large_image_height</span>\" => \"<span class=sf-dump-str title=\"3 characters\">640</span>\"
+    \"<span class=sf-dump-key>canadian_exporters_emails_per_day</span>\" => \"<span class=sf-dump-str title=\"3 characters\">100</span>\"
+    \"<span class=sf-dump-key>free_package_price_per_month</span>\" => \"<span class=sf-dump-str>0</span>\"
+    \"<span class=sf-dump-key>featured_package_price_per_month</span>\" => \"<span class=sf-dump-str title=\"6 characters\">100000</span>\"
+    \"<span class=sf-dump-key>premium_package_price_per_month</span>\" => \"<span class=sf-dump-str title=\"2 characters\">10</span>\"
+    \"<span class=sf-dump-key>facebook_meta_image</span>\" => \"<span class=sf-dump-str title=\"6 characters\">252896</span>\"
+    \"<span class=sf-dump-key>twitter_meta_image</span>\" => \"<span class=sf-dump-str title=\"3 characters\">435</span>\"
+    \"<span class=sf-dump-key>linkedin_meta_image</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>stripe_free_product</span>\" => \"<span class=sf-dump-str title=\"19 characters\">prod_QjRVuWqmhWnTJb</span>\"
+    \"<span class=sf-dump-key>stripe_featured_product</span>\" => \"<span class=sf-dump-str title=\"19 characters\">prod_TIgNfYhydRA0Fl</span>\"
+    \"<span class=sf-dump-key>stripe_premium_product</span>\" => \"<span class=sf-dump-str title=\"19 characters\">prod_TIgOvhcC0V2j7o</span>\"
+    \"<span class=sf-dump-key>stripe_pay_to_go_product</span>\" => \"<span class=sf-dump-str title=\"19 characters\">prod_QjRVGVo6XCWomX</span>\"
+    \"<span class=sf-dump-key>see_all_magazine_page</span>\" => \"<span class=sf-dump-str title=\"25 characters\">canadian-exports-magazine</span>\"
+    \"<span class=sf-dump-key>paypal_free_product</span>\" => \"<span class=sf-dump-str title=\"22 characters\">PROD-5TE37341RJ985762J</span>\"
+    \"<span class=sf-dump-key>paypal_featured_product</span>\" => \"<span class=sf-dump-str title=\"22 characters\">PROD-8SG92589P71338115</span>\"
+    \"<span class=sf-dump-key>paypal_premium_product</span>\" => \"<span class=sf-dump-str title=\"22 characters\">PROD-802624617R112292X</span>\"
+    \"<span class=sf-dump-key>paypal_pay_to_go_product</span>\" => \"<span class=sf-dump-str title=\"22 characters\">PROD-78Y29276DK774223A</span>\"
+    \"<span class=sf-dump-key>user_sponser_listing_page</span>\" => \"<span class=sf-dump-str title=\"20 characters\">sponsor-listing-page</span>\"
+  </samp>]
+  #<span class=sf-dump-protected title=\"Protected property\">escapeWhenCastingToString</span>: <span class=sf-dump-const>false</span>
+</samp>}
+</pre><script>Sfdump(\"sf-dump-162175357\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","slug":"<pre class=sf-dump id=sf-dump-362695701 data-indent-pad=\"  \"><span class=sf-dump-const>null</span>
+</pre><script>Sfdump(\"sf-dump-362695701\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","page":"<pre class=sf-dump id=sf-dump-2054434596 data-indent-pad=\"  \"><span class=sf-dump-note>App\\Models\\Page</span> {<a class=sf-dump-ref>#1814</a><samp data-depth=1 class=sf-dump-expanded>
+  #<span class=sf-dump-protected title=\"Protected property\">connection</span>: \"<span class=sf-dump-str title=\"5 characters\">mysql</span>\"
+  #<span class=sf-dump-protected title=\"Protected property\">table</span>: \"<span class=sf-dump-str title=\"5 characters\">pages</span>\"
+  #<span class=sf-dump-protected title=\"Protected property\">primaryKey</span>: \"<span class=sf-dump-str title=\"2 characters\">id</span>\"
+  #<span class=sf-dump-protected title=\"Protected property\">keyType</span>: \"<span class=sf-dump-str title=\"3 characters\">int</span>\"
+  +<span class=sf-dump-public title=\"Public property\">incrementing</span>: <span class=sf-dump-const>true</span>
+  #<span class=sf-dump-protected title=\"Protected property\">with</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">withCount</span>: []
+  +<span class=sf-dump-public title=\"Public property\">preventsLazyLoading</span>: <span class=sf-dump-const>false</span>
+  #<span class=sf-dump-protected title=\"Protected property\">perPage</span>: <span class=sf-dump-num>15</span>
+  +<span class=sf-dump-public title=\"Public property\">exists</span>: <span class=sf-dump-const>true</span>
+  +<span class=sf-dump-public title=\"Public property\">wasRecentlyCreated</span>: <span class=sf-dump-const>false</span>
+  #<span class=sf-dump-protected title=\"Protected property\">escapeWhenCastingToString</span>: <span class=sf-dump-const>false</span>
+  #<span class=sf-dump-protected title=\"Protected property\">attributes</span>: <span class=sf-dump-note>array:11</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>id</span>\" => <span class=sf-dump-num>3</span>
+    \"<span class=sf-dump-key>template</span>\" => \"<span class=sf-dump-str title=\"13 characters\">home_template</span>\"
+    \"<span class=sf-dump-key>is_home_page</span>\" => <span class=sf-dump-num>1</span>
+    \"<span class=sf-dump-key>slug</span>\" => \"<span class=sf-dump-str title=\"9 characters\">home-page</span>\"
+    \"<span class=sf-dump-key>created_at</span>\" => \"<span class=sf-dump-str title=\"19 characters\">2023-05-08 14:07:50</span>\"
+    \"<span class=sf-dump-key>updated_at</span>\" => \"<span class=sf-dump-str title=\"19 characters\">2026-02-02 14:35:16</span>\"
+    \"<span class=sf-dump-key>facebook_media_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>twitter_media_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>linkedin_media_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>after_header_widget_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>before_footer_widget_id</span>\" => <span class=sf-dump-const>null</span>
+  </samp>]
+  #<span class=sf-dump-protected title=\"Protected property\">original</span>: <span class=sf-dump-note>array:11</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>id</span>\" => <span class=sf-dump-num>3</span>
+    \"<span class=sf-dump-key>template</span>\" => \"<span class=sf-dump-str title=\"13 characters\">home_template</span>\"
+    \"<span class=sf-dump-key>is_home_page</span>\" => <span class=sf-dump-num>1</span>
+    \"<span class=sf-dump-key>slug</span>\" => \"<span class=sf-dump-str title=\"9 characters\">home-page</span>\"
+    \"<span class=sf-dump-key>created_at</span>\" => \"<span class=sf-dump-str title=\"19 characters\">2023-05-08 14:07:50</span>\"
+    \"<span class=sf-dump-key>updated_at</span>\" => \"<span class=sf-dump-str title=\"19 characters\">2026-02-02 14:35:16</span>\"
+    \"<span class=sf-dump-key>facebook_media_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>twitter_media_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>linkedin_media_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>after_header_widget_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>before_footer_widget_id</span>\" => <span class=sf-dump-const>null</span>
+  </samp>]
+  #<span class=sf-dump-protected title=\"Protected property\">changes</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">casts</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">classCastCache</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">attributeCastCache</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">dates</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">dateFormat</span>: <span class=sf-dump-const>null</span>
+  #<span class=sf-dump-protected title=\"Protected property\">appends</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">dispatchesEvents</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">observables</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">relations</span>: <span class=sf-dump-note>array:2</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>facebook</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>pageDetail</span>\" => <span class=\"sf-dump-note sf-dump-ellipsization\" title=\"Illuminate\\Database\\Eloquent\\Collection
+\"><span class=\"sf-dump-ellipsis sf-dump-ellipsis-note\">Illuminate\\Database\\Eloquent</span><span class=\"sf-dump-ellipsis sf-dump-ellipsis-note\">\\</span><span class=\"sf-dump-ellipsis-tail\">Collection</span></span> {<a class=sf-dump-ref>#1763</a><samp data-depth=3 class=sf-dump-compact>
+      #<span class=sf-dump-protected title=\"Protected property\">items</span>: <span class=sf-dump-note>array:5</span> [ &#8230;5]
+      #<span class=sf-dump-protected title=\"Protected property\">escapeWhenCastingToString</span>: <span class=sf-dump-const>false</span>
+    </samp>}
+  </samp>]
+  #<span class=sf-dump-protected title=\"Protected property\">touches</span>: []
+  +<span class=sf-dump-public title=\"Public property\">timestamps</span>: <span class=sf-dump-const>true</span>
+  #<span class=sf-dump-protected title=\"Protected property\">hidden</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">visible</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">fillable</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">guarded</span>: []
+</samp>}
+</pre><script>Sfdump(\"sf-dump-2054434596\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","lang":"<pre class=sf-dump id=sf-dump-1113773774 data-indent-pad=\"  \"><span class=sf-dump-note>App\\Models\\Language</span> {<a class=sf-dump-ref>#1824</a><samp data-depth=1 class=sf-dump-expanded>
+  #<span class=sf-dump-protected title=\"Protected property\">connection</span>: \"<span class=sf-dump-str title=\"5 characters\">mysql</span>\"
+  #<span class=sf-dump-protected title=\"Protected property\">table</span>: \"<span class=sf-dump-str title=\"9 characters\">languages</span>\"
+  #<span class=sf-dump-protected title=\"Protected property\">primaryKey</span>: \"<span class=sf-dump-str title=\"2 characters\">id</span>\"
+  #<span class=sf-dump-protected title=\"Protected property\">keyType</span>: \"<span class=sf-dump-str title=\"3 characters\">int</span>\"
+  +<span class=sf-dump-public title=\"Public property\">incrementing</span>: <span class=sf-dump-const>true</span>
+  #<span class=sf-dump-protected title=\"Protected property\">with</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">withCount</span>: []
+  +<span class=sf-dump-public title=\"Public property\">preventsLazyLoading</span>: <span class=sf-dump-const>false</span>
+  #<span class=sf-dump-protected title=\"Protected property\">perPage</span>: <span class=sf-dump-num>15</span>
+  +<span class=sf-dump-public title=\"Public property\">exists</span>: <span class=sf-dump-const>true</span>
+  +<span class=sf-dump-public title=\"Public property\">wasRecentlyCreated</span>: <span class=sf-dump-const>false</span>
+  #<span class=sf-dump-protected title=\"Protected property\">escapeWhenCastingToString</span>: <span class=sf-dump-const>false</span>
+  #<span class=sf-dump-protected title=\"Protected property\">attributes</span>: <span class=sf-dump-note>array:9</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>id</span>\" => <span class=sf-dump-num>1</span>
+    \"<span class=sf-dump-key>name</span>\" => \"<span class=sf-dump-str title=\"7 characters\">English</span>\"
+    \"<span class=sf-dump-key>abbreviation</span>\" => \"<span class=sf-dump-str title=\"2 characters\">en</span>\"
+    \"<span class=sf-dump-key>native_name</span>\" => \"<span class=sf-dump-str title=\"7 characters\">English</span>\"
+    \"<span class=sf-dump-key>is_default</span>\" => \"<span class=sf-dump-str>1</span>\"
+    \"<span class=sf-dump-key>flag_icon</span>\" => <span class=sf-dump-num>253082</span>
+    \"<span class=sf-dump-key>created_at</span>\" => \"<span class=sf-dump-str title=\"19 characters\">2023-03-17 23:21:19</span>\"
+    \"<span class=sf-dump-key>updated_at</span>\" => \"<span class=sf-dump-str title=\"19 characters\">2025-12-19 14:16:21</span>\"
+    \"<span class=sf-dump-key>direction</span>\" => \"<span class=sf-dump-str title=\"3 characters\">ltr</span>\"
+  </samp>]
+  #<span class=sf-dump-protected title=\"Protected property\">original</span>: <span class=sf-dump-note>array:9</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>id</span>\" => <span class=sf-dump-num>1</span>
+    \"<span class=sf-dump-key>name</span>\" => \"<span class=sf-dump-str title=\"7 characters\">English</span>\"
+    \"<span class=sf-dump-key>abbreviation</span>\" => \"<span class=sf-dump-str title=\"2 characters\">en</span>\"
+    \"<span class=sf-dump-key>native_name</span>\" => \"<span class=sf-dump-str title=\"7 characters\">English</span>\"
+    \"<span class=sf-dump-key>is_default</span>\" => \"<span class=sf-dump-str>1</span>\"
+    \"<span class=sf-dump-key>flag_icon</span>\" => <span class=sf-dump-num>253082</span>
+    \"<span class=sf-dump-key>created_at</span>\" => \"<span class=sf-dump-str title=\"19 characters\">2023-03-17 23:21:19</span>\"
+    \"<span class=sf-dump-key>updated_at</span>\" => \"<span class=sf-dump-str title=\"19 characters\">2025-12-19 14:16:21</span>\"
+    \"<span class=sf-dump-key>direction</span>\" => \"<span class=sf-dump-str title=\"3 characters\">ltr</span>\"
+  </samp>]
+  #<span class=sf-dump-protected title=\"Protected property\">changes</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">casts</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">classCastCache</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">attributeCastCache</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">dates</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">dateFormat</span>: <span class=sf-dump-const>null</span>
+  #<span class=sf-dump-protected title=\"Protected property\">appends</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">dispatchesEvents</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">observables</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">relations</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">touches</span>: []
+  +<span class=sf-dump-public title=\"Public property\">timestamps</span>: <span class=sf-dump-const>true</span>
+  #<span class=sf-dump-protected title=\"Protected property\">hidden</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">visible</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">fillable</span>: <span class=sf-dump-note>array:6</span> [<samp data-depth=2 class=sf-dump-compact>
+    <span class=sf-dump-index>0</span> => \"<span class=sf-dump-str title=\"4 characters\">name</span>\"
+    <span class=sf-dump-index>1</span> => \"<span class=sf-dump-str title=\"12 characters\">abbreviation</span>\"
+    <span class=sf-dump-index>2</span> => \"<span class=sf-dump-str title=\"11 characters\">native_name</span>\"
+    <span class=sf-dump-index>3</span> => \"<span class=sf-dump-str title=\"10 characters\">is_default</span>\"
+    <span class=sf-dump-index>4</span> => \"<span class=sf-dump-str title=\"9 characters\">flag_icon</span>\"
+    <span class=sf-dump-index>5</span> => \"<span class=sf-dump-str title=\"9 characters\">direction</span>\"
+  </samp>]
+  #<span class=sf-dump-protected title=\"Protected property\">guarded</span>: <span class=sf-dump-note>array:1</span> [<samp data-depth=2 class=sf-dump-compact>
+    <span class=sf-dump-index>0</span> => \"<span class=sf-dump-str>*</span>\"
+  </samp>]
+</samp>}
+</pre><script>Sfdump(\"sf-dump-1113773774\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","facebook":"<pre class=sf-dump id=sf-dump-1850549254 data-indent-pad=\"  \"><span class=sf-dump-const>null</span>
+</pre><script>Sfdump(\"sf-dump-1850549254\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","mediaId":"<pre class=sf-dump id=sf-dump-646457467 data-indent-pad=\"  \"><span class=sf-dump-note>Illuminate\\Support\\Collection</span> {<a class=sf-dump-ref>#1773</a><samp data-depth=1 class=sf-dump-expanded>
+  #<span class=sf-dump-protected title=\"Protected property\">items</span>: <span class=sf-dump-note>array:1</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>facebook_meta_image</span>\" => \"<span class=sf-dump-str title=\"6 characters\">252896</span>\"
+  </samp>]
+  #<span class=sf-dump-protected title=\"Protected property\">escapeWhenCastingToString</span>: <span class=sf-dump-const>false</span>
+</samp>}
+</pre><script>Sfdump(\"sf-dump-646457467\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","meta_desc":"<pre class=sf-dump id=sf-dump-366386411 data-indent-pad=\"  \">\"<span class=sf-dump-str title=\"9 characters\">home page</span>\"
+</pre><script>Sfdump(\"sf-dump-366386411\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","homePageSetting":"<pre class=sf-dump id=sf-dump-399900607 data-indent-pad=\"  \"><span class=sf-dump-note>App\\Models\\HomePageSetting</span> {<a class=sf-dump-ref>#1828</a><samp data-depth=1 class=sf-dump-expanded>
+  #<span class=sf-dump-protected title=\"Protected property\">connection</span>: \"<span class=sf-dump-str title=\"5 characters\">mysql</span>\"
+  #<span class=sf-dump-protected title=\"Protected property\">table</span>: \"<span class=sf-dump-str title=\"17 characters\">home_page_setting</span>\"
+  #<span class=sf-dump-protected title=\"Protected property\">primaryKey</span>: \"<span class=sf-dump-str title=\"2 characters\">id</span>\"
+  #<span class=sf-dump-protected title=\"Protected property\">keyType</span>: \"<span class=sf-dump-str title=\"3 characters\">int</span>\"
+  +<span class=sf-dump-public title=\"Public property\">incrementing</span>: <span class=sf-dump-const>true</span>
+  #<span class=sf-dump-protected title=\"Protected property\">with</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">withCount</span>: []
+  +<span class=sf-dump-public title=\"Public property\">preventsLazyLoading</span>: <span class=sf-dump-const>false</span>
+  #<span class=sf-dump-protected title=\"Protected property\">perPage</span>: <span class=sf-dump-num>15</span>
+  +<span class=sf-dump-public title=\"Public property\">exists</span>: <span class=sf-dump-const>true</span>
+  +<span class=sf-dump-public title=\"Public property\">wasRecentlyCreated</span>: <span class=sf-dump-const>false</span>
+  #<span class=sf-dump-protected title=\"Protected property\">escapeWhenCastingToString</span>: <span class=sf-dump-const>false</span>
+  #<span class=sf-dump-protected title=\"Protected property\">attributes</span>: <span class=sf-dump-note>array:12</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>id</span>\" => <span class=sf-dump-num>2</span>
+    \"<span class=sf-dump-key>page_id</span>\" => <span class=sf-dump-num>3</span>
+    \"<span class=sf-dump-key>created_at</span>\" => \"<span class=sf-dump-str title=\"19 characters\">2023-05-08 14:07:50</span>\"
+    \"<span class=sf-dump-key>updated_at</span>\" => \"<span class=sf-dump-str title=\"19 characters\">2025-04-30 04:08:28</span>\"
+    \"<span class=sf-dump-key>number_of_featured_exporters</span>\" => \"<span class=sf-dump-str>8</span>\"
+    \"<span class=sf-dump-key>header_widget_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>business_category_widget_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>i2b_widget_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>sponsor_widget_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>business_widget_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>events_widget_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>magazine_widget_id</span>\" => <span class=sf-dump-const>null</span>
+  </samp>]
+  #<span class=sf-dump-protected title=\"Protected property\">original</span>: <span class=sf-dump-note>array:12</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>id</span>\" => <span class=sf-dump-num>2</span>
+    \"<span class=sf-dump-key>page_id</span>\" => <span class=sf-dump-num>3</span>
+    \"<span class=sf-dump-key>created_at</span>\" => \"<span class=sf-dump-str title=\"19 characters\">2023-05-08 14:07:50</span>\"
+    \"<span class=sf-dump-key>updated_at</span>\" => \"<span class=sf-dump-str title=\"19 characters\">2025-04-30 04:08:28</span>\"
+    \"<span class=sf-dump-key>number_of_featured_exporters</span>\" => \"<span class=sf-dump-str>8</span>\"
+    \"<span class=sf-dump-key>header_widget_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>business_category_widget_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>i2b_widget_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>sponsor_widget_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>business_widget_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>events_widget_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>magazine_widget_id</span>\" => <span class=sf-dump-const>null</span>
+  </samp>]
+  #<span class=sf-dump-protected title=\"Protected property\">changes</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">casts</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">classCastCache</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">attributeCastCache</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">dates</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">dateFormat</span>: <span class=sf-dump-const>null</span>
+  #<span class=sf-dump-protected title=\"Protected property\">appends</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">dispatchesEvents</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">observables</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">relations</span>: <span class=sf-dump-note>array:1</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>homePageSettingDetail</span>\" => <span class=\"sf-dump-note sf-dump-ellipsization\" title=\"Illuminate\\Database\\Eloquent\\Collection
+\"><span class=\"sf-dump-ellipsis sf-dump-ellipsis-note\">Illuminate\\Database\\Eloquent</span><span class=\"sf-dump-ellipsis sf-dump-ellipsis-note\">\\</span><span class=\"sf-dump-ellipsis-tail\">Collection</span></span> {<a class=sf-dump-ref>#1832</a><samp data-depth=3 class=sf-dump-compact>
+      #<span class=sf-dump-protected title=\"Protected property\">items</span>: <span class=sf-dump-note>array:1</span> [ &#8230;1]
+      #<span class=sf-dump-protected title=\"Protected property\">escapeWhenCastingToString</span>: <span class=sf-dump-const>false</span>
+    </samp>}
+  </samp>]
+  #<span class=sf-dump-protected title=\"Protected property\">touches</span>: []
+  +<span class=sf-dump-public title=\"Public property\">timestamps</span>: <span class=sf-dump-const>true</span>
+  #<span class=sf-dump-protected title=\"Protected property\">hidden</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">visible</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">fillable</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">guarded</span>: []
+</samp>}
+</pre><script>Sfdump(\"sf-dump-399900607\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","homePageSettingDetail":"<pre class=sf-dump id=sf-dump-983865380 data-indent-pad=\"  \"><span class=sf-dump-note>App\\Models\\HomePageSettingDetail</span> {<a class=sf-dump-ref>#1835</a><samp data-depth=1 class=sf-dump-expanded>
+  #<span class=sf-dump-protected title=\"Protected property\">connection</span>: \"<span class=sf-dump-str title=\"5 characters\">mysql</span>\"
+  #<span class=sf-dump-protected title=\"Protected property\">table</span>: \"<span class=sf-dump-str title=\"24 characters\">home_page_setting_detail</span>\"
+  #<span class=sf-dump-protected title=\"Protected property\">primaryKey</span>: \"<span class=sf-dump-str title=\"2 characters\">id</span>\"
+  #<span class=sf-dump-protected title=\"Protected property\">keyType</span>: \"<span class=sf-dump-str title=\"3 characters\">int</span>\"
+  +<span class=sf-dump-public title=\"Public property\">incrementing</span>: <span class=sf-dump-const>true</span>
+  #<span class=sf-dump-protected title=\"Protected property\">with</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">withCount</span>: []
+  +<span class=sf-dump-public title=\"Public property\">preventsLazyLoading</span>: <span class=sf-dump-const>false</span>
+  #<span class=sf-dump-protected title=\"Protected property\">perPage</span>: <span class=sf-dump-num>15</span>
+  +<span class=sf-dump-public title=\"Public property\">exists</span>: <span class=sf-dump-const>true</span>
+  +<span class=sf-dump-public title=\"Public property\">wasRecentlyCreated</span>: <span class=sf-dump-const>false</span>
+  #<span class=sf-dump-protected title=\"Protected property\">escapeWhenCastingToString</span>: <span class=sf-dump-const>false</span>
+  #<span class=sf-dump-protected title=\"Protected property\">attributes</span>: <span class=sf-dump-note>array:40</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>id</span>\" => <span class=sf-dump-num>3</span>
+    \"<span class=sf-dump-key>home_page_setting_id</span>\" => <span class=sf-dump-num>2</span>
+    \"<span class=sf-dump-key>language_id</span>\" => <span class=sf-dump-num>1</span>
+    \"<span class=sf-dump-key>slider_heading</span>\" => \"<span class=sf-dump-str title=\"76 characters\">Welcome to Canadian Exports &#8211; &lt;br&gt;Your Gateway to Trusted Canadian Suppliers</span>\"
+    \"<span class=sf-dump-key>slider_description</span>\" => \"<span class=sf-dump-str title=\"27 characters\">We promote Canadian Exports</span>\"
+    \"<span class=sf-dump-key>slider_search_placeholder</span>\" => \"<span class=sf-dump-str title=\"19 characters\">Search your keyword</span>\"
+    \"<span class=sf-dump-key>slider_advance_search_text</span>\" => \"<span class=sf-dump-str title=\"15 characters\">Advanced Search</span>\"
+    \"<span class=sf-dump-key>slider_image</span>\" => \"<span class=sf-dump-str title=\"22 characters\">/images/1766761315.jpg</span>\"
+    \"<span class=sf-dump-key>section1_heading</span>\" => \"<span class=sf-dump-str title=\"19 characters\">Business Categories</span>\"
+    \"<span class=sf-dump-key>section1_description</span>\" => \"\"\"
+      <span class=sf-dump-str title=\"896 characters\">&lt;p&gt;Canadian Exports proudly hosts the largest online database of Canadian manufacturers and exporters. Our mission is to promote Canadian products and services globally by helping Canadian companies connect with international buyers, distributors, and trade partners.&lt;/p&gt;<span class=\"sf-dump-default sf-dump-ns\">\\n</span></span>
+      <span class=sf-dump-str title=\"896 characters\">&lt;p&gt;As the official export promotion platform of Canada, our Canadian Exports Magazine is distributed to over 100,000 verified importers and buyers across more than 120 countries&amp;mdash;making it one of the most widely circulated export-focused publications in the nation.&lt;/p&gt;<span class=\"sf-dump-default sf-dump-ns\">\\n</span></span>
+      <span class=sf-dump-str title=\"896 characters\">&lt;p&gt;Getting started is quick and easy&amp;mdash;&lt;a href=&quot;../en/signup&quot;&gt;online registration&lt;/a&gt; takes just a few minutes.&lt;/p&gt;<span class=\"sf-dump-default sf-dump-ns\">\\n</span></span>
+      <span class=sf-dump-str title=\"896 characters\">&lt;p&gt;&amp;nbsp;&lt;/p&gt;<span class=\"sf-dump-default sf-dump-ns\">\\n</span></span>
+      <span class=sf-dump-str title=\"896 characters\">&lt;p&gt;Explore these extensive Business Categories, each featuring reputable and export-ready Canadian companies eager to build lasting partnerships and bring their high-quality products and services to your market.&lt;/p&gt;</span>
+      \"\"\"
+    \"<span class=sf-dump-key>section1_business_category</span>\" => \"<span class=sf-dump-str title=\"40 characters\">How These Business Categories Came About</span>\"
+    \"<span class=sf-dump-key>section1_business_category_url</span>\" => \"<span class=sf-dump-str title=\"40 characters\">how-these-business-categories-came-about</span>\"
+    \"<span class=sf-dump-key>section2_heading</span>\" => \"<span class=sf-dump-str title=\"18 characters\">Purchase Inquiries</span>\"
+    \"<span class=sf-dump-key>section2_category_label</span>\" => \"<span class=sf-dump-str title=\"17 characters\">Business Category</span>\"
+    \"<span class=sf-dump-key>section2_country_label</span>\" => \"<span class=sf-dump-str title=\"7 characters\">Country</span>\"
+    \"<span class=sf-dump-key>section2_deadline_label</span>\" => \"<span class=sf-dump-str title=\"8 characters\">Deadline</span>\"
+    \"<span class=sf-dump-key>section2_estimated_value_label</span>\" => \"<span class=sf-dump-str title=\"15 characters\">Estimated Value</span>\"
+    \"<span class=sf-dump-key>section2_i2b_button_text</span>\" => \"<span class=sf-dump-str title=\"12 characters\">More Details</span>\"
+    \"<span class=sf-dump-key>section2_button_text</span>\" => \"<span class=sf-dump-str title=\"32 characters\">Purchase / Procurement Inquiries</span>\"
+    \"<span class=sf-dump-key>section2_button_url</span>\" => \"<span class=sf-dump-str title=\"16 characters\">inquiries-to-buy</span>\"
+    \"<span class=sf-dump-key>section3_heading</span>\" => \"<span class=sf-dump-str title=\"21 characters\">We Value Our Sponsors</span>\"
+    \"<span class=sf-dump-key>section3_button_text</span>\" => \"<span class=sf-dump-str title=\"16 characters\">Become a Sponsor</span>\"
+    \"<span class=sf-dump-key>section3_button_url</span>\" => \"<span class=sf-dump-str title=\"16 characters\">become-a-sponsor</span>\"
+    \"<span class=sf-dump-key>sponsor_value_button_text</span>\" => \"<span class=sf-dump-str title=\"12 characters\">Our Sponsors</span>\"
+    \"<span class=sf-dump-key>sponsor_value_button_url</span>\" => \"<span class=sf-dump-str title=\"21 characters\">we-value-our-sponsors</span>\"
+    \"<span class=sf-dump-key>section3_become_sponsor_btn_text</span>\" => \"<span class=sf-dump-str title=\"16 characters\">Become a sponsor</span>\"
+    \"<span class=sf-dump-key>section3_become_sponsor_btn_url</span>\" => \"<span class=sf-dump-str title=\"35 characters\">http://canexp.test/become-a-sponsor</span>\"
+    \"<span class=sf-dump-key>section4_heading</span>\" => \"<span class=sf-dump-str title=\"18 characters\">Featured Exporters</span>\"
+    \"<span class=sf-dump-key>section5_heading</span>\" => \"<span class=sf-dump-str title=\"20 characters\">Trade Shows &amp; Events</span>\"
+    \"<span class=sf-dump-key>section5_event_detail_button_text</span>\" => \"<span class=sf-dump-str title=\"18 characters\">More Event Details</span>\"
+    \"<span class=sf-dump-key>section5_website_button_text</span>\" => \"<span class=sf-dump-str title=\"13 characters\">Event Website</span>\"
+    \"<span class=sf-dump-key>section5_see_all_button_text</span>\" => \"<span class=sf-dump-str title=\"14 characters\">See All Events</span>\"
+    \"<span class=sf-dump-key>section5_see_all_button_url</span>\" => \"<span class=sf-dump-str title=\"18 characters\">trade-shows-events</span>\"
+    \"<span class=sf-dump-key>section5_add_event_text</span>\" => \"<span class=sf-dump-str title=\"14 characters\">Add Your Event</span>\"
+    \"<span class=sf-dump-key>section5_add_event_url</span>\" => \"<span class=sf-dump-str title=\"12 characters\">create-event</span>\"
+    \"<span class=sf-dump-key>section6_heading</span>\" => \"<span class=sf-dump-str title=\"25 characters\">Canadian Exports Magazine</span>\"
+    \"<span class=sf-dump-key>section6_description</span>\" => \"<span class=sf-dump-str title=\"130 characters\">&lt;p style=&quot;text-align: center;&quot;&gt;Subscribe to our Info letter above to receive Canadian Exports Magazine directly in your email.&lt;/p&gt;</span>\"
+    \"<span class=sf-dump-key>section6_see_all_button</span>\" => \"<span class=sf-dump-str title=\"29 characters\">Sample of Our Previous Issues</span>\"
+    \"<span class=sf-dump-key>contact_for_rates_btn_text</span>\" => \"<span class=sf-dump-str title=\"31 characters\">Register as a Featured Exporter</span>\"
+    \"<span class=sf-dump-key>contact_for_rates_btn_url</span>\" => \"<span class=sf-dump-str title=\"23 characters\">signup?package=featured</span>\"
+  </samp>]
+  #<span class=sf-dump-protected title=\"Protected property\">original</span>: <span class=sf-dump-note>array:40</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>id</span>\" => <span class=sf-dump-num>3</span>
+    \"<span class=sf-dump-key>home_page_setting_id</span>\" => <span class=sf-dump-num>2</span>
+    \"<span class=sf-dump-key>language_id</span>\" => <span class=sf-dump-num>1</span>
+    \"<span class=sf-dump-key>slider_heading</span>\" => \"<span class=sf-dump-str title=\"76 characters\">Welcome to Canadian Exports &#8211; &lt;br&gt;Your Gateway to Trusted Canadian Suppliers</span>\"
+    \"<span class=sf-dump-key>slider_description</span>\" => \"<span class=sf-dump-str title=\"27 characters\">We promote Canadian Exports</span>\"
+    \"<span class=sf-dump-key>slider_search_placeholder</span>\" => \"<span class=sf-dump-str title=\"19 characters\">Search your keyword</span>\"
+    \"<span class=sf-dump-key>slider_advance_search_text</span>\" => \"<span class=sf-dump-str title=\"15 characters\">Advanced Search</span>\"
+    \"<span class=sf-dump-key>slider_image</span>\" => \"<span class=sf-dump-str title=\"22 characters\">/images/1766761315.jpg</span>\"
+    \"<span class=sf-dump-key>section1_heading</span>\" => \"<span class=sf-dump-str title=\"19 characters\">Business Categories</span>\"
+    \"<span class=sf-dump-key>section1_description</span>\" => \"\"\"
+      <span class=sf-dump-str title=\"896 characters\">&lt;p&gt;Canadian Exports proudly hosts the largest online database of Canadian manufacturers and exporters. Our mission is to promote Canadian products and services globally by helping Canadian companies connect with international buyers, distributors, and trade partners.&lt;/p&gt;<span class=\"sf-dump-default sf-dump-ns\">\\n</span></span>
+      <span class=sf-dump-str title=\"896 characters\">&lt;p&gt;As the official export promotion platform of Canada, our Canadian Exports Magazine is distributed to over 100,000 verified importers and buyers across more than 120 countries&amp;mdash;making it one of the most widely circulated export-focused publications in the nation.&lt;/p&gt;<span class=\"sf-dump-default sf-dump-ns\">\\n</span></span>
+      <span class=sf-dump-str title=\"896 characters\">&lt;p&gt;Getting started is quick and easy&amp;mdash;&lt;a href=&quot;../en/signup&quot;&gt;online registration&lt;/a&gt; takes just a few minutes.&lt;/p&gt;<span class=\"sf-dump-default sf-dump-ns\">\\n</span></span>
+      <span class=sf-dump-str title=\"896 characters\">&lt;p&gt;&amp;nbsp;&lt;/p&gt;<span class=\"sf-dump-default sf-dump-ns\">\\n</span></span>
+      <span class=sf-dump-str title=\"896 characters\">&lt;p&gt;Explore these extensive Business Categories, each featuring reputable and export-ready Canadian companies eager to build lasting partnerships and bring their high-quality products and services to your market.&lt;/p&gt;</span>
+      \"\"\"
+    \"<span class=sf-dump-key>section1_business_category</span>\" => \"<span class=sf-dump-str title=\"40 characters\">How These Business Categories Came About</span>\"
+    \"<span class=sf-dump-key>section1_business_category_url</span>\" => \"<span class=sf-dump-str title=\"40 characters\">how-these-business-categories-came-about</span>\"
+    \"<span class=sf-dump-key>section2_heading</span>\" => \"<span class=sf-dump-str title=\"18 characters\">Purchase Inquiries</span>\"
+    \"<span class=sf-dump-key>section2_category_label</span>\" => \"<span class=sf-dump-str title=\"17 characters\">Business Category</span>\"
+    \"<span class=sf-dump-key>section2_country_label</span>\" => \"<span class=sf-dump-str title=\"7 characters\">Country</span>\"
+    \"<span class=sf-dump-key>section2_deadline_label</span>\" => \"<span class=sf-dump-str title=\"8 characters\">Deadline</span>\"
+    \"<span class=sf-dump-key>section2_estimated_value_label</span>\" => \"<span class=sf-dump-str title=\"15 characters\">Estimated Value</span>\"
+    \"<span class=sf-dump-key>section2_i2b_button_text</span>\" => \"<span class=sf-dump-str title=\"12 characters\">More Details</span>\"
+    \"<span class=sf-dump-key>section2_button_text</span>\" => \"<span class=sf-dump-str title=\"32 characters\">Purchase / Procurement Inquiries</span>\"
+    \"<span class=sf-dump-key>section2_button_url</span>\" => \"<span class=sf-dump-str title=\"16 characters\">inquiries-to-buy</span>\"
+    \"<span class=sf-dump-key>section3_heading</span>\" => \"<span class=sf-dump-str title=\"21 characters\">We Value Our Sponsors</span>\"
+    \"<span class=sf-dump-key>section3_button_text</span>\" => \"<span class=sf-dump-str title=\"16 characters\">Become a Sponsor</span>\"
+    \"<span class=sf-dump-key>section3_button_url</span>\" => \"<span class=sf-dump-str title=\"16 characters\">become-a-sponsor</span>\"
+    \"<span class=sf-dump-key>sponsor_value_button_text</span>\" => \"<span class=sf-dump-str title=\"12 characters\">Our Sponsors</span>\"
+    \"<span class=sf-dump-key>sponsor_value_button_url</span>\" => \"<span class=sf-dump-str title=\"21 characters\">we-value-our-sponsors</span>\"
+    \"<span class=sf-dump-key>section3_become_sponsor_btn_text</span>\" => \"<span class=sf-dump-str title=\"16 characters\">Become a sponsor</span>\"
+    \"<span class=sf-dump-key>section3_become_sponsor_btn_url</span>\" => \"<span class=sf-dump-str title=\"35 characters\">http://canexp.test/become-a-sponsor</span>\"
+    \"<span class=sf-dump-key>section4_heading</span>\" => \"<span class=sf-dump-str title=\"18 characters\">Featured Exporters</span>\"
+    \"<span class=sf-dump-key>section5_heading</span>\" => \"<span class=sf-dump-str title=\"20 characters\">Trade Shows &amp; Events</span>\"
+    \"<span class=sf-dump-key>section5_event_detail_button_text</span>\" => \"<span class=sf-dump-str title=\"18 characters\">More Event Details</span>\"
+    \"<span class=sf-dump-key>section5_website_button_text</span>\" => \"<span class=sf-dump-str title=\"13 characters\">Event Website</span>\"
+    \"<span class=sf-dump-key>section5_see_all_button_text</span>\" => \"<span class=sf-dump-str title=\"14 characters\">See All Events</span>\"
+    \"<span class=sf-dump-key>section5_see_all_button_url</span>\" => \"<span class=sf-dump-str title=\"18 characters\">trade-shows-events</span>\"
+    \"<span class=sf-dump-key>section5_add_event_text</span>\" => \"<span class=sf-dump-str title=\"14 characters\">Add Your Event</span>\"
+    \"<span class=sf-dump-key>section5_add_event_url</span>\" => \"<span class=sf-dump-str title=\"12 characters\">create-event</span>\"
+    \"<span class=sf-dump-key>section6_heading</span>\" => \"<span class=sf-dump-str title=\"25 characters\">Canadian Exports Magazine</span>\"
+    \"<span class=sf-dump-key>section6_description</span>\" => \"<span class=sf-dump-str title=\"130 characters\">&lt;p style=&quot;text-align: center;&quot;&gt;Subscribe to our Info letter above to receive Canadian Exports Magazine directly in your email.&lt;/p&gt;</span>\"
+    \"<span class=sf-dump-key>section6_see_all_button</span>\" => \"<span class=sf-dump-str title=\"29 characters\">Sample of Our Previous Issues</span>\"
+    \"<span class=sf-dump-key>contact_for_rates_btn_text</span>\" => \"<span class=sf-dump-str title=\"31 characters\">Register as a Featured Exporter</span>\"
+    \"<span class=sf-dump-key>contact_for_rates_btn_url</span>\" => \"<span class=sf-dump-str title=\"23 characters\">signup?package=featured</span>\"
+  </samp>]
+  #<span class=sf-dump-protected title=\"Protected property\">changes</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">casts</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">classCastCache</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">attributeCastCache</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">dates</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">dateFormat</span>: <span class=sf-dump-const>null</span>
+  #<span class=sf-dump-protected title=\"Protected property\">appends</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">dispatchesEvents</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">observables</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">relations</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">touches</span>: []
+  +<span class=sf-dump-public title=\"Public property\">timestamps</span>: <span class=sf-dump-const>false</span>
+  #<span class=sf-dump-protected title=\"Protected property\">hidden</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">visible</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">fillable</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">guarded</span>: []
+</samp>}
+</pre><script>Sfdump(\"sf-dump-983865380\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+"}},"exception":"[object] (Spatie\\LaravelIgnition\\Exceptions\\ViewException(code: 0): Undefined variable $message_67 at D:\\work\\canadianexports.org\\resources\\views\\front\\pages\\home-template\\featured-events.blade.php:249)
+[stacktrace]
+#0 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(270): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Undefined varia...', 'D:\\\\work\\\\canadia...', 264)
+#1 D:\\work\\canadianexports.org\\resources\\views\\front\\pages\\home-template\\featured-events.blade.php(249): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->{closure:Illuminate\\Foundation\\Bootstrap\\HandleExceptions::forwardsTo():269}(2, 'Undefined varia...', 'D:\\\\work\\\\canadia...', 264)
+#2 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(109): require('D:\\\\work\\\\canadia...')
+#3 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(110): Illuminate\\Filesystem\\Filesystem::{closure:Illuminate\\Filesystem\\Filesystem::getRequire():106}()
+#4 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('D:\\\\work\\\\canadia...', Array)
+#5 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(70): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('D:\\\\work\\\\canadia...', Array)
+#6 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(195): Illuminate\\View\\Engines\\CompilerEngine->get('D:\\\\work\\\\canadia...', Array)
+#7 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(178): Illuminate\\View\\View->getContents()
+#8 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(147): Illuminate\\View\\View->renderContents()
+#9 D:\\work\\canadianexports.org\\resources\\views\\front\\pages\\home-template\\index.blade.php(13): Illuminate\\View\\View->render()
+#10 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(109): require('D:\\\\work\\\\canadia...')
+#11 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(110): Illuminate\\Filesystem\\Filesystem::{closure:Illuminate\\Filesystem\\Filesystem::getRequire():106}()
+#12 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('D:\\\\work\\\\canadia...', Array)
+#13 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(70): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('D:\\\\work\\\\canadia...', Array)
+#14 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(195): Illuminate\\View\\Engines\\CompilerEngine->get('D:\\\\work\\\\canadia...', Array)
+#15 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(178): Illuminate\\View\\View->getContents()
+#16 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(147): Illuminate\\View\\View->renderContents()
+#17 D:\\work\\canadianexports.org\\resources\\views\\front\\index.blade.php(35): Illuminate\\View\\View->render()
+#18 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(109): require('D:\\\\work\\\\canadia...')
+#19 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(110): Illuminate\\Filesystem\\Filesystem::{closure:Illuminate\\Filesystem\\Filesystem::getRequire():106}()
+#20 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('D:\\\\work\\\\canadia...', Array)
+#21 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(70): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('D:\\\\work\\\\canadia...', Array)
+#22 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(195): Illuminate\\View\\Engines\\CompilerEngine->get('D:\\\\work\\\\canadia...', Array)
+#23 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(178): Illuminate\\View\\View->getContents()
+#24 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(147): Illuminate\\View\\View->renderContents()
+#25 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(69): Illuminate\\View\\View->render()
+#26 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(35): Illuminate\\Http\\Response->setContent(Object(Illuminate\\View\\View))
+#27 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(906): Illuminate\\Http\\Response->__construct(Object(Illuminate\\View\\View), 200, Array)
+#28 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(875): Illuminate\\Routing\\Router::toResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#29 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(797): Illuminate\\Routing\\Router->prepareResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#30 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Routing\\Router->{closure:Illuminate\\Routing\\Router::runRouteWithinStack():797}(Object(Illuminate\\Http\\Request))
+#31 D:\\work\\canadianexports.org\\app\\Http\\Middleware\\UserAccess.php(174): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():139}(Object(Illuminate\\Http\\Request))
+#32 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\UserAccess->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#33 D:\\work\\canadianexports.org\\app\\Http\\Middleware\\UserStatus.php(27): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#34 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\UserStatus->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#35 D:\\work\\canadianexports.org\\app\\Http\\Middleware\\ShareVariableMiddleware.php(16): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#36 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\ShareVariableMiddleware->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 D:\\work\\canadianexports.org\\app\\Http\\Middleware\\StorePreviousUrl.php(23): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#38 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\StorePreviousUrl->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#40 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken.php(78): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#42 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#43 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Middleware\\ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#44 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#45 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(121): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#46 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest(Object(Illuminate\\Http\\Request), Object(Illuminate\\Session\\Store), Object(Closure))
+#47 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#48 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#49 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#50 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\EncryptCookies.php(67): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#51 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#52 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#53 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(797): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#54 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(776): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#55 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(740): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#56 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(729): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#57 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(190): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#58 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Foundation\\Http\\Kernel->{closure:Illuminate\\Foundation\\Http\\Kernel::dispatchToRouter():187}(Object(Illuminate\\Http\\Request))
+#59 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():139}(Object(Illuminate\\Http\\Request))
+#60 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#61 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#62 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#63 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#64 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#65 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#66 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#67 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#68 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#69 D:\\work\\canadianexports.org\\vendor\\fruitcake\\laravel-cors\\src\\HandleCors.php(38): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#70 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Fruitcake\\Cors\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#71 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#72 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#73 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#74 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(165): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#75 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#76 D:\\work\\canadianexports.org\\public\\index.php(77): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#77 D:\\work\\canadianexports.org\\server.php(21): require_once('D:\\\\work\\\\canadia...')
+#78 {main}
+
+[previous exception] [object] (ErrorException(code: 0): Undefined variable $message_67 at D:\\work\\canadianexports.org\\storage\\framework\\views\\fab7821fc7340d3ff282840ba55436c631d9beaf.php:264)
+[stacktrace]
+#0 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(270): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Undefined varia...', 'D:\\\\work\\\\canadia...', 264)
+#1 D:\\work\\canadianexports.org\\storage\\framework\\views\\fab7821fc7340d3ff282840ba55436c631d9beaf.php(264): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->{closure:Illuminate\\Foundation\\Bootstrap\\HandleExceptions::forwardsTo():269}(2, 'Undefined varia...', 'D:\\\\work\\\\canadia...', 264)
+#2 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(109): require('D:\\\\work\\\\canadia...')
+#3 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(110): Illuminate\\Filesystem\\Filesystem::{closure:Illuminate\\Filesystem\\Filesystem::getRequire():106}()
+#4 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('D:\\\\work\\\\canadia...', Array)
+#5 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(70): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('D:\\\\work\\\\canadia...', Array)
+#6 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(195): Illuminate\\View\\Engines\\CompilerEngine->get('D:\\\\work\\\\canadia...', Array)
+#7 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(178): Illuminate\\View\\View->getContents()
+#8 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(147): Illuminate\\View\\View->renderContents()
+#9 D:\\work\\canadianexports.org\\storage\\framework\\views\\48dff57c45f0b94f190594828e7320d1c5eaf56d.php(13): Illuminate\\View\\View->render()
+#10 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(109): require('D:\\\\work\\\\canadia...')
+#11 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(110): Illuminate\\Filesystem\\Filesystem::{closure:Illuminate\\Filesystem\\Filesystem::getRequire():106}()
+#12 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('D:\\\\work\\\\canadia...', Array)
+#13 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(70): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('D:\\\\work\\\\canadia...', Array)
+#14 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(195): Illuminate\\View\\Engines\\CompilerEngine->get('D:\\\\work\\\\canadia...', Array)
+#15 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(178): Illuminate\\View\\View->getContents()
+#16 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(147): Illuminate\\View\\View->renderContents()
+#17 D:\\work\\canadianexports.org\\storage\\framework\\views\\843a2c11544952f719319b1237c3a7f88baac1e0.php(35): Illuminate\\View\\View->render()
+#18 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(109): require('D:\\\\work\\\\canadia...')
+#19 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(110): Illuminate\\Filesystem\\Filesystem::{closure:Illuminate\\Filesystem\\Filesystem::getRequire():106}()
+#20 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('D:\\\\work\\\\canadia...', Array)
+#21 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(70): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('D:\\\\work\\\\canadia...', Array)
+#22 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(195): Illuminate\\View\\Engines\\CompilerEngine->get('D:\\\\work\\\\canadia...', Array)
+#23 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(178): Illuminate\\View\\View->getContents()
+#24 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(147): Illuminate\\View\\View->renderContents()
+#25 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(69): Illuminate\\View\\View->render()
+#26 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(35): Illuminate\\Http\\Response->setContent(Object(Illuminate\\View\\View))
+#27 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(906): Illuminate\\Http\\Response->__construct(Object(Illuminate\\View\\View), 200, Array)
+#28 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(875): Illuminate\\Routing\\Router::toResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#29 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(797): Illuminate\\Routing\\Router->prepareResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#30 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Routing\\Router->{closure:Illuminate\\Routing\\Router::runRouteWithinStack():797}(Object(Illuminate\\Http\\Request))
+#31 D:\\work\\canadianexports.org\\app\\Http\\Middleware\\UserAccess.php(174): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():139}(Object(Illuminate\\Http\\Request))
+#32 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\UserAccess->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#33 D:\\work\\canadianexports.org\\app\\Http\\Middleware\\UserStatus.php(27): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#34 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\UserStatus->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#35 D:\\work\\canadianexports.org\\app\\Http\\Middleware\\ShareVariableMiddleware.php(16): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#36 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\ShareVariableMiddleware->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 D:\\work\\canadianexports.org\\app\\Http\\Middleware\\StorePreviousUrl.php(23): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#38 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\StorePreviousUrl->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#40 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken.php(78): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#42 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#43 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Middleware\\ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#44 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#45 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(121): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#46 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest(Object(Illuminate\\Http\\Request), Object(Illuminate\\Session\\Store), Object(Closure))
+#47 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#48 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#49 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#50 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\EncryptCookies.php(67): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#51 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#52 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#53 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(797): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#54 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(776): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#55 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(740): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#56 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(729): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#57 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(190): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#58 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Foundation\\Http\\Kernel->{closure:Illuminate\\Foundation\\Http\\Kernel::dispatchToRouter():187}(Object(Illuminate\\Http\\Request))
+#59 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():139}(Object(Illuminate\\Http\\Request))
+#60 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#61 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#62 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#63 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#64 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#65 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#66 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#67 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#68 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#69 D:\\work\\canadianexports.org\\vendor\\fruitcake\\laravel-cors\\src\\HandleCors.php(38): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#70 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Fruitcake\\Cors\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#71 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#72 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#73 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#74 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(165): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#75 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#76 D:\\work\\canadianexports.org\\public\\index.php(77): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#77 D:\\work\\canadianexports.org\\server.php(21): require_once('D:\\\\work\\\\canadia...')
+#78 {main}
+"} 
+[2026-02-11 07:58:55] local.ERROR: Undefined variable $message_67 {"view":{"view":"D:\\work\\canadianexports.org\\resources\\views\\front\\pages\\home-template\\featured-events.blade.php","data":{"errors":"<pre class=sf-dump id=sf-dump-1110360551 data-indent-pad=\"  \"><span class=sf-dump-note>Illuminate\\Support\\ViewErrorBag</span> {<a class=sf-dump-ref>#1740</a><samp data-depth=1 class=sf-dump-expanded>
+  #<span class=sf-dump-protected title=\"Protected property\">bags</span>: []
+</samp>}
+</pre><script>Sfdump(\"sf-dump-1110360551\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","general_setting":"<pre class=sf-dump id=sf-dump-1514720579 data-indent-pad=\"  \"><span class=sf-dump-note>Illuminate\\Support\\Collection</span> {<a class=sf-dump-ref>#1753</a><samp data-depth=1 class=sf-dump-expanded>
+  #<span class=sf-dump-protected title=\"Protected property\">items</span>: <span class=sf-dump-note>array:33</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>admin_email</span>\" => \"<span class=sf-dump-str title=\"16 characters\">ccaned@gmail.com</span>\"
+    \"<span class=sf-dump-key>user_signup_page</span>\" => \"<span class=sf-dump-str title=\"6 characters\">signup</span>\"
+    \"<span class=sf-dump-key>user_signin_page</span>\" => \"<span class=sf-dump-str title=\"6 characters\">signin</span>\"
+    \"<span class=sf-dump-key>user_event_signup_page</span>\" => \"<span class=sf-dump-str title=\"12 characters\">event-signup</span>\"
+    \"<span class=sf-dump-key>user_event_create_page</span>\" => \"<span class=sf-dump-str title=\"12 characters\">create-event</span>\"
+    \"<span class=sf-dump-key>user_event_listing_page</span>\" => \"<span class=sf-dump-str title=\"15 characters\">events-listings</span>\"
+    \"<span class=sf-dump-key>user_forget_password_page</span>\" => \"<span class=sf-dump-str title=\"20 characters\">user/forgot-password</span>\"
+    \"<span class=sf-dump-key>business_profile_page</span>\" => \"<span class=sf-dump-str title=\"10 characters\">Advertiser</span>\"
+    \"<span class=sf-dump-key>contact_us_page</span>\" => \"<span class=sf-dump-str title=\"10 characters\">contact-us</span>\"
+    \"<span class=sf-dump-key>close_account_page</span>\" => \"<span class=sf-dump-str title=\"13 characters\">close-account</span>\"
+    \"<span class=sf-dump-key>thumbnail_image_width</span>\" => \"<span class=sf-dump-str title=\"3 characters\">200</span>\"
+    \"<span class=sf-dump-key>thumbnail_image_height</span>\" => \"<span class=sf-dump-str title=\"3 characters\">200</span>\"
+    \"<span class=sf-dump-key>medium_image_width</span>\" => \"<span class=sf-dump-str title=\"3 characters\">400</span>\"
+    \"<span class=sf-dump-key>medium_image_height</span>\" => \"<span class=sf-dump-str title=\"3 characters\">600</span>\"
+    \"<span class=sf-dump-key>large_image_width</span>\" => \"<span class=sf-dump-str title=\"3 characters\">800</span>\"
+    \"<span class=sf-dump-key>large_image_height</span>\" => \"<span class=sf-dump-str title=\"3 characters\">640</span>\"
+    \"<span class=sf-dump-key>canadian_exporters_emails_per_day</span>\" => \"<span class=sf-dump-str title=\"3 characters\">100</span>\"
+    \"<span class=sf-dump-key>free_package_price_per_month</span>\" => \"<span class=sf-dump-str>0</span>\"
+    \"<span class=sf-dump-key>featured_package_price_per_month</span>\" => \"<span class=sf-dump-str title=\"6 characters\">100000</span>\"
+    \"<span class=sf-dump-key>premium_package_price_per_month</span>\" => \"<span class=sf-dump-str title=\"2 characters\">10</span>\"
+    \"<span class=sf-dump-key>facebook_meta_image</span>\" => \"<span class=sf-dump-str title=\"6 characters\">252896</span>\"
+    \"<span class=sf-dump-key>twitter_meta_image</span>\" => \"<span class=sf-dump-str title=\"3 characters\">435</span>\"
+    \"<span class=sf-dump-key>linkedin_meta_image</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>stripe_free_product</span>\" => \"<span class=sf-dump-str title=\"19 characters\">prod_QjRVuWqmhWnTJb</span>\"
+    \"<span class=sf-dump-key>stripe_featured_product</span>\" => \"<span class=sf-dump-str title=\"19 characters\">prod_TIgNfYhydRA0Fl</span>\"
+    \"<span class=sf-dump-key>stripe_premium_product</span>\" => \"<span class=sf-dump-str title=\"19 characters\">prod_TIgOvhcC0V2j7o</span>\"
+    \"<span class=sf-dump-key>stripe_pay_to_go_product</span>\" => \"<span class=sf-dump-str title=\"19 characters\">prod_QjRVGVo6XCWomX</span>\"
+    \"<span class=sf-dump-key>see_all_magazine_page</span>\" => \"<span class=sf-dump-str title=\"25 characters\">canadian-exports-magazine</span>\"
+    \"<span class=sf-dump-key>paypal_free_product</span>\" => \"<span class=sf-dump-str title=\"22 characters\">PROD-5TE37341RJ985762J</span>\"
+    \"<span class=sf-dump-key>paypal_featured_product</span>\" => \"<span class=sf-dump-str title=\"22 characters\">PROD-8SG92589P71338115</span>\"
+    \"<span class=sf-dump-key>paypal_premium_product</span>\" => \"<span class=sf-dump-str title=\"22 characters\">PROD-802624617R112292X</span>\"
+    \"<span class=sf-dump-key>paypal_pay_to_go_product</span>\" => \"<span class=sf-dump-str title=\"22 characters\">PROD-78Y29276DK774223A</span>\"
+    \"<span class=sf-dump-key>user_sponser_listing_page</span>\" => \"<span class=sf-dump-str title=\"20 characters\">sponsor-listing-page</span>\"
+  </samp>]
+  #<span class=sf-dump-protected title=\"Protected property\">escapeWhenCastingToString</span>: <span class=sf-dump-const>false</span>
+</samp>}
+</pre><script>Sfdump(\"sf-dump-1514720579\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","slug":"<pre class=sf-dump id=sf-dump-425102115 data-indent-pad=\"  \"><span class=sf-dump-const>null</span>
+</pre><script>Sfdump(\"sf-dump-425102115\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","page":"<pre class=sf-dump id=sf-dump-1199676669 data-indent-pad=\"  \"><span class=sf-dump-note>App\\Models\\Page</span> {<a class=sf-dump-ref>#1814</a><samp data-depth=1 class=sf-dump-expanded>
+  #<span class=sf-dump-protected title=\"Protected property\">connection</span>: \"<span class=sf-dump-str title=\"5 characters\">mysql</span>\"
+  #<span class=sf-dump-protected title=\"Protected property\">table</span>: \"<span class=sf-dump-str title=\"5 characters\">pages</span>\"
+  #<span class=sf-dump-protected title=\"Protected property\">primaryKey</span>: \"<span class=sf-dump-str title=\"2 characters\">id</span>\"
+  #<span class=sf-dump-protected title=\"Protected property\">keyType</span>: \"<span class=sf-dump-str title=\"3 characters\">int</span>\"
+  +<span class=sf-dump-public title=\"Public property\">incrementing</span>: <span class=sf-dump-const>true</span>
+  #<span class=sf-dump-protected title=\"Protected property\">with</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">withCount</span>: []
+  +<span class=sf-dump-public title=\"Public property\">preventsLazyLoading</span>: <span class=sf-dump-const>false</span>
+  #<span class=sf-dump-protected title=\"Protected property\">perPage</span>: <span class=sf-dump-num>15</span>
+  +<span class=sf-dump-public title=\"Public property\">exists</span>: <span class=sf-dump-const>true</span>
+  +<span class=sf-dump-public title=\"Public property\">wasRecentlyCreated</span>: <span class=sf-dump-const>false</span>
+  #<span class=sf-dump-protected title=\"Protected property\">escapeWhenCastingToString</span>: <span class=sf-dump-const>false</span>
+  #<span class=sf-dump-protected title=\"Protected property\">attributes</span>: <span class=sf-dump-note>array:11</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>id</span>\" => <span class=sf-dump-num>3</span>
+    \"<span class=sf-dump-key>template</span>\" => \"<span class=sf-dump-str title=\"13 characters\">home_template</span>\"
+    \"<span class=sf-dump-key>is_home_page</span>\" => <span class=sf-dump-num>1</span>
+    \"<span class=sf-dump-key>slug</span>\" => \"<span class=sf-dump-str title=\"9 characters\">home-page</span>\"
+    \"<span class=sf-dump-key>created_at</span>\" => \"<span class=sf-dump-str title=\"19 characters\">2023-05-08 14:07:50</span>\"
+    \"<span class=sf-dump-key>updated_at</span>\" => \"<span class=sf-dump-str title=\"19 characters\">2026-02-02 14:35:16</span>\"
+    \"<span class=sf-dump-key>facebook_media_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>twitter_media_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>linkedin_media_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>after_header_widget_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>before_footer_widget_id</span>\" => <span class=sf-dump-const>null</span>
+  </samp>]
+  #<span class=sf-dump-protected title=\"Protected property\">original</span>: <span class=sf-dump-note>array:11</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>id</span>\" => <span class=sf-dump-num>3</span>
+    \"<span class=sf-dump-key>template</span>\" => \"<span class=sf-dump-str title=\"13 characters\">home_template</span>\"
+    \"<span class=sf-dump-key>is_home_page</span>\" => <span class=sf-dump-num>1</span>
+    \"<span class=sf-dump-key>slug</span>\" => \"<span class=sf-dump-str title=\"9 characters\">home-page</span>\"
+    \"<span class=sf-dump-key>created_at</span>\" => \"<span class=sf-dump-str title=\"19 characters\">2023-05-08 14:07:50</span>\"
+    \"<span class=sf-dump-key>updated_at</span>\" => \"<span class=sf-dump-str title=\"19 characters\">2026-02-02 14:35:16</span>\"
+    \"<span class=sf-dump-key>facebook_media_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>twitter_media_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>linkedin_media_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>after_header_widget_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>before_footer_widget_id</span>\" => <span class=sf-dump-const>null</span>
+  </samp>]
+  #<span class=sf-dump-protected title=\"Protected property\">changes</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">casts</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">classCastCache</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">attributeCastCache</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">dates</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">dateFormat</span>: <span class=sf-dump-const>null</span>
+  #<span class=sf-dump-protected title=\"Protected property\">appends</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">dispatchesEvents</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">observables</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">relations</span>: <span class=sf-dump-note>array:2</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>facebook</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>pageDetail</span>\" => <span class=\"sf-dump-note sf-dump-ellipsization\" title=\"Illuminate\\Database\\Eloquent\\Collection
+\"><span class=\"sf-dump-ellipsis sf-dump-ellipsis-note\">Illuminate\\Database\\Eloquent</span><span class=\"sf-dump-ellipsis sf-dump-ellipsis-note\">\\</span><span class=\"sf-dump-ellipsis-tail\">Collection</span></span> {<a class=sf-dump-ref>#1763</a><samp data-depth=3 class=sf-dump-compact>
+      #<span class=sf-dump-protected title=\"Protected property\">items</span>: <span class=sf-dump-note>array:5</span> [ &#8230;5]
+      #<span class=sf-dump-protected title=\"Protected property\">escapeWhenCastingToString</span>: <span class=sf-dump-const>false</span>
+    </samp>}
+  </samp>]
+  #<span class=sf-dump-protected title=\"Protected property\">touches</span>: []
+  +<span class=sf-dump-public title=\"Public property\">timestamps</span>: <span class=sf-dump-const>true</span>
+  #<span class=sf-dump-protected title=\"Protected property\">hidden</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">visible</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">fillable</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">guarded</span>: []
+</samp>}
+</pre><script>Sfdump(\"sf-dump-1199676669\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","lang":"<pre class=sf-dump id=sf-dump-1323244949 data-indent-pad=\"  \"><span class=sf-dump-note>App\\Models\\Language</span> {<a class=sf-dump-ref>#1824</a><samp data-depth=1 class=sf-dump-expanded>
+  #<span class=sf-dump-protected title=\"Protected property\">connection</span>: \"<span class=sf-dump-str title=\"5 characters\">mysql</span>\"
+  #<span class=sf-dump-protected title=\"Protected property\">table</span>: \"<span class=sf-dump-str title=\"9 characters\">languages</span>\"
+  #<span class=sf-dump-protected title=\"Protected property\">primaryKey</span>: \"<span class=sf-dump-str title=\"2 characters\">id</span>\"
+  #<span class=sf-dump-protected title=\"Protected property\">keyType</span>: \"<span class=sf-dump-str title=\"3 characters\">int</span>\"
+  +<span class=sf-dump-public title=\"Public property\">incrementing</span>: <span class=sf-dump-const>true</span>
+  #<span class=sf-dump-protected title=\"Protected property\">with</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">withCount</span>: []
+  +<span class=sf-dump-public title=\"Public property\">preventsLazyLoading</span>: <span class=sf-dump-const>false</span>
+  #<span class=sf-dump-protected title=\"Protected property\">perPage</span>: <span class=sf-dump-num>15</span>
+  +<span class=sf-dump-public title=\"Public property\">exists</span>: <span class=sf-dump-const>true</span>
+  +<span class=sf-dump-public title=\"Public property\">wasRecentlyCreated</span>: <span class=sf-dump-const>false</span>
+  #<span class=sf-dump-protected title=\"Protected property\">escapeWhenCastingToString</span>: <span class=sf-dump-const>false</span>
+  #<span class=sf-dump-protected title=\"Protected property\">attributes</span>: <span class=sf-dump-note>array:9</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>id</span>\" => <span class=sf-dump-num>1</span>
+    \"<span class=sf-dump-key>name</span>\" => \"<span class=sf-dump-str title=\"7 characters\">English</span>\"
+    \"<span class=sf-dump-key>abbreviation</span>\" => \"<span class=sf-dump-str title=\"2 characters\">en</span>\"
+    \"<span class=sf-dump-key>native_name</span>\" => \"<span class=sf-dump-str title=\"7 characters\">English</span>\"
+    \"<span class=sf-dump-key>is_default</span>\" => \"<span class=sf-dump-str>1</span>\"
+    \"<span class=sf-dump-key>flag_icon</span>\" => <span class=sf-dump-num>253082</span>
+    \"<span class=sf-dump-key>created_at</span>\" => \"<span class=sf-dump-str title=\"19 characters\">2023-03-17 23:21:19</span>\"
+    \"<span class=sf-dump-key>updated_at</span>\" => \"<span class=sf-dump-str title=\"19 characters\">2025-12-19 14:16:21</span>\"
+    \"<span class=sf-dump-key>direction</span>\" => \"<span class=sf-dump-str title=\"3 characters\">ltr</span>\"
+  </samp>]
+  #<span class=sf-dump-protected title=\"Protected property\">original</span>: <span class=sf-dump-note>array:9</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>id</span>\" => <span class=sf-dump-num>1</span>
+    \"<span class=sf-dump-key>name</span>\" => \"<span class=sf-dump-str title=\"7 characters\">English</span>\"
+    \"<span class=sf-dump-key>abbreviation</span>\" => \"<span class=sf-dump-str title=\"2 characters\">en</span>\"
+    \"<span class=sf-dump-key>native_name</span>\" => \"<span class=sf-dump-str title=\"7 characters\">English</span>\"
+    \"<span class=sf-dump-key>is_default</span>\" => \"<span class=sf-dump-str>1</span>\"
+    \"<span class=sf-dump-key>flag_icon</span>\" => <span class=sf-dump-num>253082</span>
+    \"<span class=sf-dump-key>created_at</span>\" => \"<span class=sf-dump-str title=\"19 characters\">2023-03-17 23:21:19</span>\"
+    \"<span class=sf-dump-key>updated_at</span>\" => \"<span class=sf-dump-str title=\"19 characters\">2025-12-19 14:16:21</span>\"
+    \"<span class=sf-dump-key>direction</span>\" => \"<span class=sf-dump-str title=\"3 characters\">ltr</span>\"
+  </samp>]
+  #<span class=sf-dump-protected title=\"Protected property\">changes</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">casts</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">classCastCache</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">attributeCastCache</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">dates</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">dateFormat</span>: <span class=sf-dump-const>null</span>
+  #<span class=sf-dump-protected title=\"Protected property\">appends</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">dispatchesEvents</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">observables</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">relations</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">touches</span>: []
+  +<span class=sf-dump-public title=\"Public property\">timestamps</span>: <span class=sf-dump-const>true</span>
+  #<span class=sf-dump-protected title=\"Protected property\">hidden</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">visible</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">fillable</span>: <span class=sf-dump-note>array:6</span> [<samp data-depth=2 class=sf-dump-compact>
+    <span class=sf-dump-index>0</span> => \"<span class=sf-dump-str title=\"4 characters\">name</span>\"
+    <span class=sf-dump-index>1</span> => \"<span class=sf-dump-str title=\"12 characters\">abbreviation</span>\"
+    <span class=sf-dump-index>2</span> => \"<span class=sf-dump-str title=\"11 characters\">native_name</span>\"
+    <span class=sf-dump-index>3</span> => \"<span class=sf-dump-str title=\"10 characters\">is_default</span>\"
+    <span class=sf-dump-index>4</span> => \"<span class=sf-dump-str title=\"9 characters\">flag_icon</span>\"
+    <span class=sf-dump-index>5</span> => \"<span class=sf-dump-str title=\"9 characters\">direction</span>\"
+  </samp>]
+  #<span class=sf-dump-protected title=\"Protected property\">guarded</span>: <span class=sf-dump-note>array:1</span> [<samp data-depth=2 class=sf-dump-compact>
+    <span class=sf-dump-index>0</span> => \"<span class=sf-dump-str>*</span>\"
+  </samp>]
+</samp>}
+</pre><script>Sfdump(\"sf-dump-1323244949\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","facebook":"<pre class=sf-dump id=sf-dump-653937804 data-indent-pad=\"  \"><span class=sf-dump-const>null</span>
+</pre><script>Sfdump(\"sf-dump-653937804\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","mediaId":"<pre class=sf-dump id=sf-dump-437581637 data-indent-pad=\"  \"><span class=sf-dump-note>Illuminate\\Support\\Collection</span> {<a class=sf-dump-ref>#1773</a><samp data-depth=1 class=sf-dump-expanded>
+  #<span class=sf-dump-protected title=\"Protected property\">items</span>: <span class=sf-dump-note>array:1</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>facebook_meta_image</span>\" => \"<span class=sf-dump-str title=\"6 characters\">252896</span>\"
+  </samp>]
+  #<span class=sf-dump-protected title=\"Protected property\">escapeWhenCastingToString</span>: <span class=sf-dump-const>false</span>
+</samp>}
+</pre><script>Sfdump(\"sf-dump-437581637\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","meta_desc":"<pre class=sf-dump id=sf-dump-1081108434 data-indent-pad=\"  \">\"<span class=sf-dump-str title=\"9 characters\">home page</span>\"
+</pre><script>Sfdump(\"sf-dump-1081108434\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","homePageSetting":"<pre class=sf-dump id=sf-dump-978867878 data-indent-pad=\"  \"><span class=sf-dump-note>App\\Models\\HomePageSetting</span> {<a class=sf-dump-ref>#1828</a><samp data-depth=1 class=sf-dump-expanded>
+  #<span class=sf-dump-protected title=\"Protected property\">connection</span>: \"<span class=sf-dump-str title=\"5 characters\">mysql</span>\"
+  #<span class=sf-dump-protected title=\"Protected property\">table</span>: \"<span class=sf-dump-str title=\"17 characters\">home_page_setting</span>\"
+  #<span class=sf-dump-protected title=\"Protected property\">primaryKey</span>: \"<span class=sf-dump-str title=\"2 characters\">id</span>\"
+  #<span class=sf-dump-protected title=\"Protected property\">keyType</span>: \"<span class=sf-dump-str title=\"3 characters\">int</span>\"
+  +<span class=sf-dump-public title=\"Public property\">incrementing</span>: <span class=sf-dump-const>true</span>
+  #<span class=sf-dump-protected title=\"Protected property\">with</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">withCount</span>: []
+  +<span class=sf-dump-public title=\"Public property\">preventsLazyLoading</span>: <span class=sf-dump-const>false</span>
+  #<span class=sf-dump-protected title=\"Protected property\">perPage</span>: <span class=sf-dump-num>15</span>
+  +<span class=sf-dump-public title=\"Public property\">exists</span>: <span class=sf-dump-const>true</span>
+  +<span class=sf-dump-public title=\"Public property\">wasRecentlyCreated</span>: <span class=sf-dump-const>false</span>
+  #<span class=sf-dump-protected title=\"Protected property\">escapeWhenCastingToString</span>: <span class=sf-dump-const>false</span>
+  #<span class=sf-dump-protected title=\"Protected property\">attributes</span>: <span class=sf-dump-note>array:12</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>id</span>\" => <span class=sf-dump-num>2</span>
+    \"<span class=sf-dump-key>page_id</span>\" => <span class=sf-dump-num>3</span>
+    \"<span class=sf-dump-key>created_at</span>\" => \"<span class=sf-dump-str title=\"19 characters\">2023-05-08 14:07:50</span>\"
+    \"<span class=sf-dump-key>updated_at</span>\" => \"<span class=sf-dump-str title=\"19 characters\">2025-04-30 04:08:28</span>\"
+    \"<span class=sf-dump-key>number_of_featured_exporters</span>\" => \"<span class=sf-dump-str>8</span>\"
+    \"<span class=sf-dump-key>header_widget_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>business_category_widget_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>i2b_widget_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>sponsor_widget_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>business_widget_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>events_widget_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>magazine_widget_id</span>\" => <span class=sf-dump-const>null</span>
+  </samp>]
+  #<span class=sf-dump-protected title=\"Protected property\">original</span>: <span class=sf-dump-note>array:12</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>id</span>\" => <span class=sf-dump-num>2</span>
+    \"<span class=sf-dump-key>page_id</span>\" => <span class=sf-dump-num>3</span>
+    \"<span class=sf-dump-key>created_at</span>\" => \"<span class=sf-dump-str title=\"19 characters\">2023-05-08 14:07:50</span>\"
+    \"<span class=sf-dump-key>updated_at</span>\" => \"<span class=sf-dump-str title=\"19 characters\">2025-04-30 04:08:28</span>\"
+    \"<span class=sf-dump-key>number_of_featured_exporters</span>\" => \"<span class=sf-dump-str>8</span>\"
+    \"<span class=sf-dump-key>header_widget_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>business_category_widget_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>i2b_widget_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>sponsor_widget_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>business_widget_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>events_widget_id</span>\" => <span class=sf-dump-const>null</span>
+    \"<span class=sf-dump-key>magazine_widget_id</span>\" => <span class=sf-dump-const>null</span>
+  </samp>]
+  #<span class=sf-dump-protected title=\"Protected property\">changes</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">casts</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">classCastCache</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">attributeCastCache</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">dates</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">dateFormat</span>: <span class=sf-dump-const>null</span>
+  #<span class=sf-dump-protected title=\"Protected property\">appends</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">dispatchesEvents</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">observables</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">relations</span>: <span class=sf-dump-note>array:1</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>homePageSettingDetail</span>\" => <span class=\"sf-dump-note sf-dump-ellipsization\" title=\"Illuminate\\Database\\Eloquent\\Collection
+\"><span class=\"sf-dump-ellipsis sf-dump-ellipsis-note\">Illuminate\\Database\\Eloquent</span><span class=\"sf-dump-ellipsis sf-dump-ellipsis-note\">\\</span><span class=\"sf-dump-ellipsis-tail\">Collection</span></span> {<a class=sf-dump-ref>#1832</a><samp data-depth=3 class=sf-dump-compact>
+      #<span class=sf-dump-protected title=\"Protected property\">items</span>: <span class=sf-dump-note>array:1</span> [ &#8230;1]
+      #<span class=sf-dump-protected title=\"Protected property\">escapeWhenCastingToString</span>: <span class=sf-dump-const>false</span>
+    </samp>}
+  </samp>]
+  #<span class=sf-dump-protected title=\"Protected property\">touches</span>: []
+  +<span class=sf-dump-public title=\"Public property\">timestamps</span>: <span class=sf-dump-const>true</span>
+  #<span class=sf-dump-protected title=\"Protected property\">hidden</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">visible</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">fillable</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">guarded</span>: []
+</samp>}
+</pre><script>Sfdump(\"sf-dump-978867878\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","homePageSettingDetail":"<pre class=sf-dump id=sf-dump-358917185 data-indent-pad=\"  \"><span class=sf-dump-note>App\\Models\\HomePageSettingDetail</span> {<a class=sf-dump-ref>#1835</a><samp data-depth=1 class=sf-dump-expanded>
+  #<span class=sf-dump-protected title=\"Protected property\">connection</span>: \"<span class=sf-dump-str title=\"5 characters\">mysql</span>\"
+  #<span class=sf-dump-protected title=\"Protected property\">table</span>: \"<span class=sf-dump-str title=\"24 characters\">home_page_setting_detail</span>\"
+  #<span class=sf-dump-protected title=\"Protected property\">primaryKey</span>: \"<span class=sf-dump-str title=\"2 characters\">id</span>\"
+  #<span class=sf-dump-protected title=\"Protected property\">keyType</span>: \"<span class=sf-dump-str title=\"3 characters\">int</span>\"
+  +<span class=sf-dump-public title=\"Public property\">incrementing</span>: <span class=sf-dump-const>true</span>
+  #<span class=sf-dump-protected title=\"Protected property\">with</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">withCount</span>: []
+  +<span class=sf-dump-public title=\"Public property\">preventsLazyLoading</span>: <span class=sf-dump-const>false</span>
+  #<span class=sf-dump-protected title=\"Protected property\">perPage</span>: <span class=sf-dump-num>15</span>
+  +<span class=sf-dump-public title=\"Public property\">exists</span>: <span class=sf-dump-const>true</span>
+  +<span class=sf-dump-public title=\"Public property\">wasRecentlyCreated</span>: <span class=sf-dump-const>false</span>
+  #<span class=sf-dump-protected title=\"Protected property\">escapeWhenCastingToString</span>: <span class=sf-dump-const>false</span>
+  #<span class=sf-dump-protected title=\"Protected property\">attributes</span>: <span class=sf-dump-note>array:40</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>id</span>\" => <span class=sf-dump-num>3</span>
+    \"<span class=sf-dump-key>home_page_setting_id</span>\" => <span class=sf-dump-num>2</span>
+    \"<span class=sf-dump-key>language_id</span>\" => <span class=sf-dump-num>1</span>
+    \"<span class=sf-dump-key>slider_heading</span>\" => \"<span class=sf-dump-str title=\"76 characters\">Welcome to Canadian Exports &#8211; &lt;br&gt;Your Gateway to Trusted Canadian Suppliers</span>\"
+    \"<span class=sf-dump-key>slider_description</span>\" => \"<span class=sf-dump-str title=\"27 characters\">We promote Canadian Exports</span>\"
+    \"<span class=sf-dump-key>slider_search_placeholder</span>\" => \"<span class=sf-dump-str title=\"19 characters\">Search your keyword</span>\"
+    \"<span class=sf-dump-key>slider_advance_search_text</span>\" => \"<span class=sf-dump-str title=\"15 characters\">Advanced Search</span>\"
+    \"<span class=sf-dump-key>slider_image</span>\" => \"<span class=sf-dump-str title=\"22 characters\">/images/1766761315.jpg</span>\"
+    \"<span class=sf-dump-key>section1_heading</span>\" => \"<span class=sf-dump-str title=\"19 characters\">Business Categories</span>\"
+    \"<span class=sf-dump-key>section1_description</span>\" => \"\"\"
+      <span class=sf-dump-str title=\"896 characters\">&lt;p&gt;Canadian Exports proudly hosts the largest online database of Canadian manufacturers and exporters. Our mission is to promote Canadian products and services globally by helping Canadian companies connect with international buyers, distributors, and trade partners.&lt;/p&gt;<span class=\"sf-dump-default sf-dump-ns\">\\n</span></span>
+      <span class=sf-dump-str title=\"896 characters\">&lt;p&gt;As the official export promotion platform of Canada, our Canadian Exports Magazine is distributed to over 100,000 verified importers and buyers across more than 120 countries&amp;mdash;making it one of the most widely circulated export-focused publications in the nation.&lt;/p&gt;<span class=\"sf-dump-default sf-dump-ns\">\\n</span></span>
+      <span class=sf-dump-str title=\"896 characters\">&lt;p&gt;Getting started is quick and easy&amp;mdash;&lt;a href=&quot;../en/signup&quot;&gt;online registration&lt;/a&gt; takes just a few minutes.&lt;/p&gt;<span class=\"sf-dump-default sf-dump-ns\">\\n</span></span>
+      <span class=sf-dump-str title=\"896 characters\">&lt;p&gt;&amp;nbsp;&lt;/p&gt;<span class=\"sf-dump-default sf-dump-ns\">\\n</span></span>
+      <span class=sf-dump-str title=\"896 characters\">&lt;p&gt;Explore these extensive Business Categories, each featuring reputable and export-ready Canadian companies eager to build lasting partnerships and bring their high-quality products and services to your market.&lt;/p&gt;</span>
+      \"\"\"
+    \"<span class=sf-dump-key>section1_business_category</span>\" => \"<span class=sf-dump-str title=\"40 characters\">How These Business Categories Came About</span>\"
+    \"<span class=sf-dump-key>section1_business_category_url</span>\" => \"<span class=sf-dump-str title=\"40 characters\">how-these-business-categories-came-about</span>\"
+    \"<span class=sf-dump-key>section2_heading</span>\" => \"<span class=sf-dump-str title=\"18 characters\">Purchase Inquiries</span>\"
+    \"<span class=sf-dump-key>section2_category_label</span>\" => \"<span class=sf-dump-str title=\"17 characters\">Business Category</span>\"
+    \"<span class=sf-dump-key>section2_country_label</span>\" => \"<span class=sf-dump-str title=\"7 characters\">Country</span>\"
+    \"<span class=sf-dump-key>section2_deadline_label</span>\" => \"<span class=sf-dump-str title=\"8 characters\">Deadline</span>\"
+    \"<span class=sf-dump-key>section2_estimated_value_label</span>\" => \"<span class=sf-dump-str title=\"15 characters\">Estimated Value</span>\"
+    \"<span class=sf-dump-key>section2_i2b_button_text</span>\" => \"<span class=sf-dump-str title=\"12 characters\">More Details</span>\"
+    \"<span class=sf-dump-key>section2_button_text</span>\" => \"<span class=sf-dump-str title=\"32 characters\">Purchase / Procurement Inquiries</span>\"
+    \"<span class=sf-dump-key>section2_button_url</span>\" => \"<span class=sf-dump-str title=\"16 characters\">inquiries-to-buy</span>\"
+    \"<span class=sf-dump-key>section3_heading</span>\" => \"<span class=sf-dump-str title=\"21 characters\">We Value Our Sponsors</span>\"
+    \"<span class=sf-dump-key>section3_button_text</span>\" => \"<span class=sf-dump-str title=\"16 characters\">Become a Sponsor</span>\"
+    \"<span class=sf-dump-key>section3_button_url</span>\" => \"<span class=sf-dump-str title=\"16 characters\">become-a-sponsor</span>\"
+    \"<span class=sf-dump-key>sponsor_value_button_text</span>\" => \"<span class=sf-dump-str title=\"12 characters\">Our Sponsors</span>\"
+    \"<span class=sf-dump-key>sponsor_value_button_url</span>\" => \"<span class=sf-dump-str title=\"21 characters\">we-value-our-sponsors</span>\"
+    \"<span class=sf-dump-key>section3_become_sponsor_btn_text</span>\" => \"<span class=sf-dump-str title=\"16 characters\">Become a sponsor</span>\"
+    \"<span class=sf-dump-key>section3_become_sponsor_btn_url</span>\" => \"<span class=sf-dump-str title=\"35 characters\">http://canexp.test/become-a-sponsor</span>\"
+    \"<span class=sf-dump-key>section4_heading</span>\" => \"<span class=sf-dump-str title=\"18 characters\">Featured Exporters</span>\"
+    \"<span class=sf-dump-key>section5_heading</span>\" => \"<span class=sf-dump-str title=\"20 characters\">Trade Shows &amp; Events</span>\"
+    \"<span class=sf-dump-key>section5_event_detail_button_text</span>\" => \"<span class=sf-dump-str title=\"18 characters\">More Event Details</span>\"
+    \"<span class=sf-dump-key>section5_website_button_text</span>\" => \"<span class=sf-dump-str title=\"13 characters\">Event Website</span>\"
+    \"<span class=sf-dump-key>section5_see_all_button_text</span>\" => \"<span class=sf-dump-str title=\"14 characters\">See All Events</span>\"
+    \"<span class=sf-dump-key>section5_see_all_button_url</span>\" => \"<span class=sf-dump-str title=\"18 characters\">trade-shows-events</span>\"
+    \"<span class=sf-dump-key>section5_add_event_text</span>\" => \"<span class=sf-dump-str title=\"14 characters\">Add Your Event</span>\"
+    \"<span class=sf-dump-key>section5_add_event_url</span>\" => \"<span class=sf-dump-str title=\"12 characters\">create-event</span>\"
+    \"<span class=sf-dump-key>section6_heading</span>\" => \"<span class=sf-dump-str title=\"25 characters\">Canadian Exports Magazine</span>\"
+    \"<span class=sf-dump-key>section6_description</span>\" => \"<span class=sf-dump-str title=\"130 characters\">&lt;p style=&quot;text-align: center;&quot;&gt;Subscribe to our Info letter above to receive Canadian Exports Magazine directly in your email.&lt;/p&gt;</span>\"
+    \"<span class=sf-dump-key>section6_see_all_button</span>\" => \"<span class=sf-dump-str title=\"29 characters\">Sample of Our Previous Issues</span>\"
+    \"<span class=sf-dump-key>contact_for_rates_btn_text</span>\" => \"<span class=sf-dump-str title=\"31 characters\">Register as a Featured Exporter</span>\"
+    \"<span class=sf-dump-key>contact_for_rates_btn_url</span>\" => \"<span class=sf-dump-str title=\"23 characters\">signup?package=featured</span>\"
+  </samp>]
+  #<span class=sf-dump-protected title=\"Protected property\">original</span>: <span class=sf-dump-note>array:40</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>id</span>\" => <span class=sf-dump-num>3</span>
+    \"<span class=sf-dump-key>home_page_setting_id</span>\" => <span class=sf-dump-num>2</span>
+    \"<span class=sf-dump-key>language_id</span>\" => <span class=sf-dump-num>1</span>
+    \"<span class=sf-dump-key>slider_heading</span>\" => \"<span class=sf-dump-str title=\"76 characters\">Welcome to Canadian Exports &#8211; &lt;br&gt;Your Gateway to Trusted Canadian Suppliers</span>\"
+    \"<span class=sf-dump-key>slider_description</span>\" => \"<span class=sf-dump-str title=\"27 characters\">We promote Canadian Exports</span>\"
+    \"<span class=sf-dump-key>slider_search_placeholder</span>\" => \"<span class=sf-dump-str title=\"19 characters\">Search your keyword</span>\"
+    \"<span class=sf-dump-key>slider_advance_search_text</span>\" => \"<span class=sf-dump-str title=\"15 characters\">Advanced Search</span>\"
+    \"<span class=sf-dump-key>slider_image</span>\" => \"<span class=sf-dump-str title=\"22 characters\">/images/1766761315.jpg</span>\"
+    \"<span class=sf-dump-key>section1_heading</span>\" => \"<span class=sf-dump-str title=\"19 characters\">Business Categories</span>\"
+    \"<span class=sf-dump-key>section1_description</span>\" => \"\"\"
+      <span class=sf-dump-str title=\"896 characters\">&lt;p&gt;Canadian Exports proudly hosts the largest online database of Canadian manufacturers and exporters. Our mission is to promote Canadian products and services globally by helping Canadian companies connect with international buyers, distributors, and trade partners.&lt;/p&gt;<span class=\"sf-dump-default sf-dump-ns\">\\n</span></span>
+      <span class=sf-dump-str title=\"896 characters\">&lt;p&gt;As the official export promotion platform of Canada, our Canadian Exports Magazine is distributed to over 100,000 verified importers and buyers across more than 120 countries&amp;mdash;making it one of the most widely circulated export-focused publications in the nation.&lt;/p&gt;<span class=\"sf-dump-default sf-dump-ns\">\\n</span></span>
+      <span class=sf-dump-str title=\"896 characters\">&lt;p&gt;Getting started is quick and easy&amp;mdash;&lt;a href=&quot;../en/signup&quot;&gt;online registration&lt;/a&gt; takes just a few minutes.&lt;/p&gt;<span class=\"sf-dump-default sf-dump-ns\">\\n</span></span>
+      <span class=sf-dump-str title=\"896 characters\">&lt;p&gt;&amp;nbsp;&lt;/p&gt;<span class=\"sf-dump-default sf-dump-ns\">\\n</span></span>
+      <span class=sf-dump-str title=\"896 characters\">&lt;p&gt;Explore these extensive Business Categories, each featuring reputable and export-ready Canadian companies eager to build lasting partnerships and bring their high-quality products and services to your market.&lt;/p&gt;</span>
+      \"\"\"
+    \"<span class=sf-dump-key>section1_business_category</span>\" => \"<span class=sf-dump-str title=\"40 characters\">How These Business Categories Came About</span>\"
+    \"<span class=sf-dump-key>section1_business_category_url</span>\" => \"<span class=sf-dump-str title=\"40 characters\">how-these-business-categories-came-about</span>\"
+    \"<span class=sf-dump-key>section2_heading</span>\" => \"<span class=sf-dump-str title=\"18 characters\">Purchase Inquiries</span>\"
+    \"<span class=sf-dump-key>section2_category_label</span>\" => \"<span class=sf-dump-str title=\"17 characters\">Business Category</span>\"
+    \"<span class=sf-dump-key>section2_country_label</span>\" => \"<span class=sf-dump-str title=\"7 characters\">Country</span>\"
+    \"<span class=sf-dump-key>section2_deadline_label</span>\" => \"<span class=sf-dump-str title=\"8 characters\">Deadline</span>\"
+    \"<span class=sf-dump-key>section2_estimated_value_label</span>\" => \"<span class=sf-dump-str title=\"15 characters\">Estimated Value</span>\"
+    \"<span class=sf-dump-key>section2_i2b_button_text</span>\" => \"<span class=sf-dump-str title=\"12 characters\">More Details</span>\"
+    \"<span class=sf-dump-key>section2_button_text</span>\" => \"<span class=sf-dump-str title=\"32 characters\">Purchase / Procurement Inquiries</span>\"
+    \"<span class=sf-dump-key>section2_button_url</span>\" => \"<span class=sf-dump-str title=\"16 characters\">inquiries-to-buy</span>\"
+    \"<span class=sf-dump-key>section3_heading</span>\" => \"<span class=sf-dump-str title=\"21 characters\">We Value Our Sponsors</span>\"
+    \"<span class=sf-dump-key>section3_button_text</span>\" => \"<span class=sf-dump-str title=\"16 characters\">Become a Sponsor</span>\"
+    \"<span class=sf-dump-key>section3_button_url</span>\" => \"<span class=sf-dump-str title=\"16 characters\">become-a-sponsor</span>\"
+    \"<span class=sf-dump-key>sponsor_value_button_text</span>\" => \"<span class=sf-dump-str title=\"12 characters\">Our Sponsors</span>\"
+    \"<span class=sf-dump-key>sponsor_value_button_url</span>\" => \"<span class=sf-dump-str title=\"21 characters\">we-value-our-sponsors</span>\"
+    \"<span class=sf-dump-key>section3_become_sponsor_btn_text</span>\" => \"<span class=sf-dump-str title=\"16 characters\">Become a sponsor</span>\"
+    \"<span class=sf-dump-key>section3_become_sponsor_btn_url</span>\" => \"<span class=sf-dump-str title=\"35 characters\">http://canexp.test/become-a-sponsor</span>\"
+    \"<span class=sf-dump-key>section4_heading</span>\" => \"<span class=sf-dump-str title=\"18 characters\">Featured Exporters</span>\"
+    \"<span class=sf-dump-key>section5_heading</span>\" => \"<span class=sf-dump-str title=\"20 characters\">Trade Shows &amp; Events</span>\"
+    \"<span class=sf-dump-key>section5_event_detail_button_text</span>\" => \"<span class=sf-dump-str title=\"18 characters\">More Event Details</span>\"
+    \"<span class=sf-dump-key>section5_website_button_text</span>\" => \"<span class=sf-dump-str title=\"13 characters\">Event Website</span>\"
+    \"<span class=sf-dump-key>section5_see_all_button_text</span>\" => \"<span class=sf-dump-str title=\"14 characters\">See All Events</span>\"
+    \"<span class=sf-dump-key>section5_see_all_button_url</span>\" => \"<span class=sf-dump-str title=\"18 characters\">trade-shows-events</span>\"
+    \"<span class=sf-dump-key>section5_add_event_text</span>\" => \"<span class=sf-dump-str title=\"14 characters\">Add Your Event</span>\"
+    \"<span class=sf-dump-key>section5_add_event_url</span>\" => \"<span class=sf-dump-str title=\"12 characters\">create-event</span>\"
+    \"<span class=sf-dump-key>section6_heading</span>\" => \"<span class=sf-dump-str title=\"25 characters\">Canadian Exports Magazine</span>\"
+    \"<span class=sf-dump-key>section6_description</span>\" => \"<span class=sf-dump-str title=\"130 characters\">&lt;p style=&quot;text-align: center;&quot;&gt;Subscribe to our Info letter above to receive Canadian Exports Magazine directly in your email.&lt;/p&gt;</span>\"
+    \"<span class=sf-dump-key>section6_see_all_button</span>\" => \"<span class=sf-dump-str title=\"29 characters\">Sample of Our Previous Issues</span>\"
+    \"<span class=sf-dump-key>contact_for_rates_btn_text</span>\" => \"<span class=sf-dump-str title=\"31 characters\">Register as a Featured Exporter</span>\"
+    \"<span class=sf-dump-key>contact_for_rates_btn_url</span>\" => \"<span class=sf-dump-str title=\"23 characters\">signup?package=featured</span>\"
+  </samp>]
+  #<span class=sf-dump-protected title=\"Protected property\">changes</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">casts</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">classCastCache</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">attributeCastCache</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">dates</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">dateFormat</span>: <span class=sf-dump-const>null</span>
+  #<span class=sf-dump-protected title=\"Protected property\">appends</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">dispatchesEvents</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">observables</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">relations</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">touches</span>: []
+  +<span class=sf-dump-public title=\"Public property\">timestamps</span>: <span class=sf-dump-const>false</span>
+  #<span class=sf-dump-protected title=\"Protected property\">hidden</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">visible</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">fillable</span>: []
+  #<span class=sf-dump-protected title=\"Protected property\">guarded</span>: []
+</samp>}
+</pre><script>Sfdump(\"sf-dump-358917185\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+"}},"exception":"[object] (Spatie\\LaravelIgnition\\Exceptions\\ViewException(code: 0): Undefined variable $message_67 at D:\\work\\canadianexports.org\\resources\\views\\front\\pages\\home-template\\featured-events.blade.php:249)
+[stacktrace]
+#0 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(270): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Undefined varia...', 'D:\\\\work\\\\canadia...', 264)
+#1 D:\\work\\canadianexports.org\\resources\\views\\front\\pages\\home-template\\featured-events.blade.php(249): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->{closure:Illuminate\\Foundation\\Bootstrap\\HandleExceptions::forwardsTo():269}(2, 'Undefined varia...', 'D:\\\\work\\\\canadia...', 264)
+#2 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(109): require('D:\\\\work\\\\canadia...')
+#3 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(110): Illuminate\\Filesystem\\Filesystem::{closure:Illuminate\\Filesystem\\Filesystem::getRequire():106}()
+#4 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('D:\\\\work\\\\canadia...', Array)
+#5 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(70): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('D:\\\\work\\\\canadia...', Array)
+#6 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(195): Illuminate\\View\\Engines\\CompilerEngine->get('D:\\\\work\\\\canadia...', Array)
+#7 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(178): Illuminate\\View\\View->getContents()
+#8 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(147): Illuminate\\View\\View->renderContents()
+#9 D:\\work\\canadianexports.org\\resources\\views\\front\\pages\\home-template\\index.blade.php(13): Illuminate\\View\\View->render()
+#10 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(109): require('D:\\\\work\\\\canadia...')
+#11 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(110): Illuminate\\Filesystem\\Filesystem::{closure:Illuminate\\Filesystem\\Filesystem::getRequire():106}()
+#12 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('D:\\\\work\\\\canadia...', Array)
+#13 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(70): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('D:\\\\work\\\\canadia...', Array)
+#14 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(195): Illuminate\\View\\Engines\\CompilerEngine->get('D:\\\\work\\\\canadia...', Array)
+#15 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(178): Illuminate\\View\\View->getContents()
+#16 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(147): Illuminate\\View\\View->renderContents()
+#17 D:\\work\\canadianexports.org\\resources\\views\\front\\index.blade.php(35): Illuminate\\View\\View->render()
+#18 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(109): require('D:\\\\work\\\\canadia...')
+#19 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(110): Illuminate\\Filesystem\\Filesystem::{closure:Illuminate\\Filesystem\\Filesystem::getRequire():106}()
+#20 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('D:\\\\work\\\\canadia...', Array)
+#21 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(70): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('D:\\\\work\\\\canadia...', Array)
+#22 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(195): Illuminate\\View\\Engines\\CompilerEngine->get('D:\\\\work\\\\canadia...', Array)
+#23 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(178): Illuminate\\View\\View->getContents()
+#24 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(147): Illuminate\\View\\View->renderContents()
+#25 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(69): Illuminate\\View\\View->render()
+#26 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(35): Illuminate\\Http\\Response->setContent(Object(Illuminate\\View\\View))
+#27 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(906): Illuminate\\Http\\Response->__construct(Object(Illuminate\\View\\View), 200, Array)
+#28 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(875): Illuminate\\Routing\\Router::toResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#29 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(797): Illuminate\\Routing\\Router->prepareResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#30 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Routing\\Router->{closure:Illuminate\\Routing\\Router::runRouteWithinStack():797}(Object(Illuminate\\Http\\Request))
+#31 D:\\work\\canadianexports.org\\app\\Http\\Middleware\\UserAccess.php(174): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():139}(Object(Illuminate\\Http\\Request))
+#32 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\UserAccess->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#33 D:\\work\\canadianexports.org\\app\\Http\\Middleware\\UserStatus.php(27): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#34 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\UserStatus->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#35 D:\\work\\canadianexports.org\\app\\Http\\Middleware\\ShareVariableMiddleware.php(16): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#36 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\ShareVariableMiddleware->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 D:\\work\\canadianexports.org\\app\\Http\\Middleware\\StorePreviousUrl.php(23): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#38 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\StorePreviousUrl->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#40 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken.php(78): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#42 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#43 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Middleware\\ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#44 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#45 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(121): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#46 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest(Object(Illuminate\\Http\\Request), Object(Illuminate\\Session\\Store), Object(Closure))
+#47 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#48 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#49 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#50 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\EncryptCookies.php(67): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#51 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#52 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#53 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(797): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#54 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(776): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#55 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(740): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#56 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(729): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#57 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(190): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#58 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Foundation\\Http\\Kernel->{closure:Illuminate\\Foundation\\Http\\Kernel::dispatchToRouter():187}(Object(Illuminate\\Http\\Request))
+#59 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():139}(Object(Illuminate\\Http\\Request))
+#60 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#61 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#62 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#63 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#64 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#65 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#66 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#67 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#68 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#69 D:\\work\\canadianexports.org\\vendor\\fruitcake\\laravel-cors\\src\\HandleCors.php(38): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#70 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Fruitcake\\Cors\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#71 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#72 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#73 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#74 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(165): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#75 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#76 D:\\work\\canadianexports.org\\public\\index.php(77): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#77 D:\\work\\canadianexports.org\\server.php(21): require_once('D:\\\\work\\\\canadia...')
+#78 {main}
+
+[previous exception] [object] (ErrorException(code: 0): Undefined variable $message_67 at D:\\work\\canadianexports.org\\storage\\framework\\views\\fab7821fc7340d3ff282840ba55436c631d9beaf.php:264)
+[stacktrace]
+#0 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(270): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Undefined varia...', 'D:\\\\work\\\\canadia...', 264)
+#1 D:\\work\\canadianexports.org\\storage\\framework\\views\\fab7821fc7340d3ff282840ba55436c631d9beaf.php(264): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->{closure:Illuminate\\Foundation\\Bootstrap\\HandleExceptions::forwardsTo():269}(2, 'Undefined varia...', 'D:\\\\work\\\\canadia...', 264)
+#2 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(109): require('D:\\\\work\\\\canadia...')
+#3 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(110): Illuminate\\Filesystem\\Filesystem::{closure:Illuminate\\Filesystem\\Filesystem::getRequire():106}()
+#4 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('D:\\\\work\\\\canadia...', Array)
+#5 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(70): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('D:\\\\work\\\\canadia...', Array)
+#6 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(195): Illuminate\\View\\Engines\\CompilerEngine->get('D:\\\\work\\\\canadia...', Array)
+#7 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(178): Illuminate\\View\\View->getContents()
+#8 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(147): Illuminate\\View\\View->renderContents()
+#9 D:\\work\\canadianexports.org\\storage\\framework\\views\\48dff57c45f0b94f190594828e7320d1c5eaf56d.php(13): Illuminate\\View\\View->render()
+#10 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(109): require('D:\\\\work\\\\canadia...')
+#11 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(110): Illuminate\\Filesystem\\Filesystem::{closure:Illuminate\\Filesystem\\Filesystem::getRequire():106}()
+#12 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('D:\\\\work\\\\canadia...', Array)
+#13 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(70): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('D:\\\\work\\\\canadia...', Array)
+#14 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(195): Illuminate\\View\\Engines\\CompilerEngine->get('D:\\\\work\\\\canadia...', Array)
+#15 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(178): Illuminate\\View\\View->getContents()
+#16 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(147): Illuminate\\View\\View->renderContents()
+#17 D:\\work\\canadianexports.org\\storage\\framework\\views\\843a2c11544952f719319b1237c3a7f88baac1e0.php(35): Illuminate\\View\\View->render()
+#18 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(109): require('D:\\\\work\\\\canadia...')
+#19 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(110): Illuminate\\Filesystem\\Filesystem::{closure:Illuminate\\Filesystem\\Filesystem::getRequire():106}()
+#20 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('D:\\\\work\\\\canadia...', Array)
+#21 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(70): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('D:\\\\work\\\\canadia...', Array)
+#22 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(195): Illuminate\\View\\Engines\\CompilerEngine->get('D:\\\\work\\\\canadia...', Array)
+#23 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(178): Illuminate\\View\\View->getContents()
+#24 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(147): Illuminate\\View\\View->renderContents()
+#25 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(69): Illuminate\\View\\View->render()
+#26 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(35): Illuminate\\Http\\Response->setContent(Object(Illuminate\\View\\View))
+#27 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(906): Illuminate\\Http\\Response->__construct(Object(Illuminate\\View\\View), 200, Array)
+#28 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(875): Illuminate\\Routing\\Router::toResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#29 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(797): Illuminate\\Routing\\Router->prepareResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#30 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Routing\\Router->{closure:Illuminate\\Routing\\Router::runRouteWithinStack():797}(Object(Illuminate\\Http\\Request))
+#31 D:\\work\\canadianexports.org\\app\\Http\\Middleware\\UserAccess.php(174): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():139}(Object(Illuminate\\Http\\Request))
+#32 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\UserAccess->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#33 D:\\work\\canadianexports.org\\app\\Http\\Middleware\\UserStatus.php(27): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#34 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\UserStatus->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#35 D:\\work\\canadianexports.org\\app\\Http\\Middleware\\ShareVariableMiddleware.php(16): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#36 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\ShareVariableMiddleware->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 D:\\work\\canadianexports.org\\app\\Http\\Middleware\\StorePreviousUrl.php(23): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#38 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): App\\Http\\Middleware\\StorePreviousUrl->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#40 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken.php(78): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#42 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#43 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Middleware\\ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#44 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#45 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(121): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#46 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest(Object(Illuminate\\Http\\Request), Object(Illuminate\\Session\\Store), Object(Closure))
+#47 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#48 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#49 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#50 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\EncryptCookies.php(67): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#51 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#52 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#53 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(797): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#54 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(776): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#55 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(740): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#56 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(729): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#57 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(190): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#58 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Foundation\\Http\\Kernel->{closure:Illuminate\\Foundation\\Http\\Kernel::dispatchToRouter():187}(Object(Illuminate\\Http\\Request))
+#59 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():139}(Object(Illuminate\\Http\\Request))
+#60 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#61 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#62 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#63 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#64 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#65 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#66 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#67 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#68 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#69 D:\\work\\canadianexports.org\\vendor\\fruitcake\\laravel-cors\\src\\HandleCors.php(38): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#70 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Fruitcake\\Cors\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#71 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#72 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#73 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():155}:156}(Object(Illuminate\\Http\\Request))
+#74 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(165): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#75 D:\\work\\canadianexports.org\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#76 D:\\work\\canadianexports.org\\public\\index.php(77): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#77 D:\\work\\canadianexports.org\\server.php(21): require_once('D:\\\\work\\\\canadia...')
+#78 {main}
+"} 

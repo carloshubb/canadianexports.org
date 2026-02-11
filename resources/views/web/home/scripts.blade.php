@@ -1,3 +1,4 @@
+@push('scripts')
 <script src="{{ asset('plugins/swiper/swiper-bundle.min.js') }}"></script>
 <script>
     const btn = document.querySelector("button.mobile-menu-button");
@@ -65,3 +66,4 @@
         }
     });
 </script>
+@endpush
