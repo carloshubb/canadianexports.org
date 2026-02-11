@@ -140,8 +140,7 @@
                 </label>
                 <VueDatePicker id="preferred_call_date" v-model="form.preferred_call_date" :placeholder="'YYYY-MM-DD'"
                   model-type="yyyy-MM-dd" :formats="{ input: 'yyyy-MM-dd' }" :time-config="{ enableTimePicker: false }"
-                  auto-apply @update:model-value="
-                    clearErrors('preferred_call_date');">
+                  auto-apply @update:model-value="clearErrors('preferred_call_date');">
                 </VueDatePicker>
                 <Error v-if="submitted" fieldName="preferred_call_date" :validationErros="validationErros" />
               </div>
@@ -406,7 +405,7 @@
 
                 <!-- Card Element -->
                 <div class="input_text relative mb-4">
-                  <label class="block text-sm  text-gray-700 mb-1 font-bold">{{ JSON.parse(payment_setting)["card_number_label"] }}</label>
+                  <label class="block text-sm  text-gray-700 mb-1 font-bold">{{ parsedPaymentSetting ? parsedPaymentSetting["card_number_label"] : "Card Number" }}</label>
                   <div id="card-element" class="p-3 border border-gray-300 rounded"></div>
                   <div id="card-errors" class="text-red-500 text-sm mt-1"></div>
                 </div>
@@ -521,6 +520,7 @@ export default {
     page_id: { type: [Number, String], default: null },
     logged_in_user: { type: [String, Object], default: null },
     reactivationSponsorship: { type: Object, default: null },
+    payment_setting: { type: [String, Object], default: null },
   },
   components: {
     Error,
@@ -593,6 +593,16 @@ export default {
     },
     isReactivationMode() {
       return this.reactivationSponsorship && this.reactivationSponsorship.id;
+    },
+    parsedPaymentSetting() {
+      if (!this.payment_setting) return null;
+      try {
+        return typeof this.payment_setting === 'string'
+          ? JSON.parse(this.payment_setting)
+          : this.payment_setting;
+      } catch {
+        return null;
+      }
     },
   },
   async mounted() {
