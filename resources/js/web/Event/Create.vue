@@ -1595,12 +1595,7 @@
                     <label
                         for="agree"
                         class="ml-2 text-gray-900 text-base md:text-base lg:text-lg text-left"
-                        v-html="
-                            JSON.parse(eventsetting)
-                                ? JSON.parse(eventsetting)
-                                      .terms_and_conditions_label
-                                : ''
-                        "
+                        v-html="JSON.parse(eventsetting)? JSON.parse(eventsetting).terms_and_conditions_label: ''"
                     ></label>
                 </div>
                 <Error

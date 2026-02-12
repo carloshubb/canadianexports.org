@@ -13,6 +13,7 @@
         :become-sponsor-slug="becomeSponsorSlug" 
         :sponsor-settings-slug="sponsorSettingsSlug"
         :logged-in-user="loggedInUser"
+        :become-sponsor="becomeSponsor || null"
       ></sponsorships-list>
     </div>
 
@@ -59,6 +60,10 @@ export default {
     },
     loggedInUser: {
       type: [String, Object],
+      default: null
+    },
+    becomeSponsor: {
+      type: [Object, Boolean],
       default: null
     }
   },

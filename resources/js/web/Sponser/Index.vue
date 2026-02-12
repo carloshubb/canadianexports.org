@@ -4,7 +4,16 @@
             <div class="sm:flex sm:items-center py-4">
                 <div class="sm:flex-auto">
                     <h1 class="text-2xl font-bold text-primary mb-2" v-if="isLoggedInSponsor">
-                        My Sponsorships
+                       {{
+                                    sponser_setting &&
+                                        sponser_setting.sponser_listing_setting_detail &&
+                                        sponser_setting
+                                            .sponser_listing_setting_detail[0]
+                                        ? sponser_setting
+                                            .sponser_listing_setting_detail[0]
+                                            .sponsor_heading_text
+                                        : "My Sponsorships"                                      
+                                }} 
                     </h1>
                     <p class="text-gray-600">
                         <template v-if="sponsers && sponsers.length == 0">

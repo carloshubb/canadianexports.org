@@ -235,22 +235,7 @@
             'page' => $page,
             'lang' => $lang,
             'i2BSettingDetail' => $i2BSettingDetail,
-        ])
-    {{-- @elseif(isset($page) && $page->template == 'sponsor_listing')
-        @include('front.pages.sponsor-listing.index', [
-            'page' => $page,
-            'lang' => $lang,
-        ]) --}}
-    {{-- @elseif(isset($page) && $page->template == 'testimonial_template')
-        @include('front.pages.testimonial-template.index', ['page' => $page, 'lang' => $lang]) --}}
-    {{-- @elseif(isset($page) && $page->template == 'event_template')
-        @php
-            $homePageSetting = getLatestHomePageSetting($lang, $page);
-            $homePageSettingDetail = isset($homePageSetting->homePageSettingDetail[0])
-                ? $homePageSetting->homePageSettingDetail[0]
-                : null;
-        @endphp
-        @include('front.pages.event-template.index', ['page' => $page, 'lang' => $lang]) --}}
+        ])    
         @elseif(isset($page) && $page->template == 'event_template')
         @php
             $homePageSetting = getLatestHomePageSetting($lang, $page);

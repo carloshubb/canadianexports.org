@@ -83,34 +83,7 @@
           </div>
         </div>
       </div>
-
-      <!-- Beneficiary Selection (Only for "Enter Your Amount" option) -->
-      <!-- <div v-if="!form.talk_to_us_first" class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
-        <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-          <h4 class="text-white">Select Beneficiary</h4>
-        </div>
-        <div class="p-6">
-          <div id="beneficiary_ids" class="relative w-full">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div v-for="beneficiary in beneficiaries" :key="beneficiary.id">
-                <div
-                  class="bg-gray-50 rounded-md border shadow text-base p-2 md:text-lg font-medium flex items-center justify-center h-12 hover:shadow-md border-gray-100 cursor-pointer hover:border-2 hover:border-green-500 transition-all"
-                  :class="
-                    isBeneficiarySelected(beneficiary.id)
-                      ? 'border-2 border-green-500 text-green-600 bg-green-50'
-                      : ''
-                  "
-                  @click="toggleBeneficiary(beneficiary)"
-                >
-                  <span class="text-center font-FuturaMdCnBT text-base md:text-lg select-none">{{ beneficiary.name }}</span>
-                </div>
-              </div>
-            </div>
-            <Error v-if="submitted" fieldName="beneficiary_ids" :validationErros="validationErros" full_width="1" />
-          </div>
-        </div>
-      </div> -->
-
+     
       <!-- TALK TO US FIELDS (Only for "Talk to Us First" option) -->
       <Transition name="slide-down">
         <div v-if="show_contact_preference" class="bg-white rounded-lg shadow-3xl my-6">
@@ -790,20 +763,7 @@ export default {
           console.log("sdsdfsdfsdfdsf Sponsor Amounts:", this.groupedAmounts);
           this.frequencies = response.data.data.frequencies || {};
           //console.log("Fetched Sponsor Amounts:",this.frequencies);
-          const frequencyKeys = Object.keys(this.frequencies);
-          //console.log("Available Frequencies:", frequencyKeys);
-          // if (frequencyKeys.length) {
-          //   if (this.form.frequency && frequencyKeys.includes(this.form.frequency)) {
-          //     this.selectedFrequency = this.form.frequency;
-          //   } else if (frequencyKeys.includes('one_time')) {
-          //     this.selectedFrequency = 'one_time';
-          //     this.form.frequency = 'one_time';
-          //   } else {
-          //     this.selectedFrequency = frequencyKeys[0];
-          //     this.form.frequency = frequencyKeys[0];
-          //   }
-          // }
-
+          const frequencyKeys = Object.keys(this.frequencies);         
           this.onFrequencyChange(this.selectedFrequency);
         }
       } catch (error) {

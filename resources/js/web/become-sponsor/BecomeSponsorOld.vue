@@ -21,27 +21,7 @@
             :placeholder="JSON.parse(become_sponsor)['name_placeholder']" id="name" v-model="form.name"
             @input="clearErrors('name')"></textarea>
           <Error v-if="submitted" fieldName="name" :validationErros="validationErros" />
-        </div>
-
-        <!-- <div class="relative w-full mb-3">
-                    <label
-                        class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg"
-                        for="email"
-                        >{{ JSON.parse(become_sponsor)["email_label"] }}
-                        <span class="text-red-500">*</span>
-                    </label>
-                    <input
-                        type="text"
-                        class="can-exp-input"
-                        placeholder=""
-                        id="email"
-                        v-model="form.email"
-                    />
-                    <Error
-                        fieldName="email"
-                        :validationErros="validationErros"
-                    />
-                </div> -->
+        </div>        
         <div class="relative w-full mb-3">
           <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="email">{{
             JSON.parse(become_sponsor)["email_label"] }}

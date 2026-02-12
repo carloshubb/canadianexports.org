@@ -5311,3 +5311,182 @@ Make sure to put the “X” sign on top right of this popup, and make sure it w
 #57 D:\\work\\canadianexports.org\\server.php(21): require_once('D:\\\\work\\\\canadia...')
 #58 {main}
 "} 
+[2026-02-12 07:28:29] local.INFO: exportingFairs {"sdf":{"Illuminate\\Database\\Eloquent\\Collection":[{"id":4,"zipcode":"liu","media_id":253196,"start_date":"2025-05-22","end_date":"2026-02-28","booth_number":"khjgfkhg","event_website":"www.cnn.com","exibitors_url":null,"visitors_url":null,"press_url":null,"video_url":null,"contact_name":"kjhgjh","contact_email":"uyfuyf2@YAHOO.FR","contact_phone":"1234567890","contact_designation":",MNBV,MNB","facebook_url":null,"twitter_url":null,"linkedin_url":null,"youtube_url":null,"pintrest_url":null,"instagram_url":null,"snapchat_url":null,"created_at":"2025-05-05T23:38:48.000000Z","updated_at":"2026-01-09T14:09:25.000000Z","exporting_fair_detail":[]},{"id":2,"zipcode":null,"media_id":253126,"start_date":"2023-10-19","end_date":"2028-05-21","booth_number":"32332","event_website":"https://www.sakotuho.cm","exibitors_url":"http://www.thespacelab.tv/spaceLAB/theSHOW/MusicFestivals/BottleRock-Festival-2023-Lineup-Tickets-Dates-Schedule.html","visitors_url":"https://people.com/bottlerock-napa-valley-2023-exclusive-photos-7505952","press_url":"https://www.musicfestivalwizard.com/festivals/bottlerock-napa-valley-2023/","video_url":null,"contact_name":"Nancy M. Ross","contact_email":"tuqon@mailinator.com","contact_phone":"+1 (875) 994-6737","contact_designation":"Market manager","facebook_url":"https://www.facebook.com","twitter_url":"https://www.twitter.com","linkedin_url":"https://www.linkedin.com","youtube_url":"https://www.youtube.com","pintrest_url":"https://www.pintrest.com","instagram_url":"https://www.instagram.com","snapchat_url":"https://www.snapchat.com","created_at":"2023-10-18T15:01:47.000000Z","updated_at":"2025-12-24T13:36:49.000000Z","exporting_fair_detail":[]},{"id":1,"zipcode":null,"media_id":253195,"start_date":"2023-10-18","end_date":"2026-06-18","booth_number":"459895","event_website":"https://www.bottlerocknapavalley.com/2023-artists/","exibitors_url":"http://www.thespacelab.tv/spaceLAB/theSHOW/MusicFestivals/BottleRock-Festival-2023-Lineup-Tickets-Dates-Schedule.html","visitors_url":"https://people.com/bottlerock-napa-valley-2023-exclusive-photos-7505952","press_url":"https://www.musicfestivalwizard.com/festivals/bottlerock-napa-valley-2023/","video_url":null,"contact_name":"Chandler Rivera","contact_email":"NancyMRoss@jourrapide.com","contact_phone":"+1 (297) 184-4163","contact_designation":"Marketing manager of dirstrict","facebook_url":"https://www.facebook.com/media/set/?set=a.1613292558722424&type=3","twitter_url":"https://www.twitter.com/","linkedin_url":"https://www.linkedin.com/company/xelent-solutions","youtube_url":"https://www.youtube.com/watch?v=jUnlPfC4asY&list=RDjUnlPfC4asY&start_radio=1","pintrest_url":"https://www.pinterest.com/","instagram_url":"https://www.instagram.com/p/CnM0kflpThO/","snapchat_url":"https://www.snapchat.com","created_at":"2023-10-18T14:54:38.000000Z","updated_at":"2026-01-09T14:08:54.000000Z","exporting_fair_detail":[]}]}} 
+[2026-02-12 08:26:25] local.INFO: getWebPublicPath: Temp media path {"input_path":"media/temp/698d8eb1b5919","document_root":"D:\\work\\_2025\\canadianexports.org\\public","laravel_public":"D:\\work\\_2025\\canadianexports.org\\public","web_root":"D:\\work\\_2025\\canadianexports.org\\public","base_path":"D:\\work\\_2025\\canadianexports.org\\public","full_path":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\698d8eb1b5919","laravel_in_webroot":true} 
+[2026-02-12 08:26:25] local.INFO: getWebPublicPath: Temp media path {"input_path":"media/temp/698d8eb1b5919","document_root":"D:\\work\\_2025\\canadianexports.org\\public","laravel_public":"D:\\work\\_2025\\canadianexports.org\\public","web_root":"D:\\work\\_2025\\canadianexports.org\\public","base_path":"D:\\work\\_2025\\canadianexports.org\\public","full_path":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\698d8eb1b5919","laravel_in_webroot":true} 
+[2026-02-12 08:26:25] local.INFO: getWebPublicPath: Temp media path {"input_path":"media/temp/test","document_root":"D:\\work\\_2025\\canadianexports.org\\public","laravel_public":"D:\\work\\_2025\\canadianexports.org\\public","web_root":"D:\\work\\_2025\\canadianexports.org\\public","base_path":"D:\\work\\_2025\\canadianexports.org\\public","full_path":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\test","laravel_in_webroot":true} 
+[2026-02-12 08:26:25] local.INFO: putFile: Saving temp file {"folderName":"temp/698d8eb1b5919","isTempMedia":true,"path":"media/temp/698d8eb1b5919/","pathForWeb":"media/temp/698d8eb1b5919","fullDirPath":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\698d8eb1b5919","fileName":"1770884785_download.png","document_root":"D:\\work\\_2025\\canadianexports.org\\public","public_path":"D:\\work\\_2025\\canadianexports.org\\public","web_public_path_test":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\test"} 
+[2026-02-12 08:26:25] local.INFO: putFile: File moved successfully {"fullFilePath":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\698d8eb1b5919\\1770884785_download.png","exists":true,"readable":true} 
+[2026-02-12 08:26:48] local.INFO: getWebPublicPath: Temp media path {"input_path":"media/temp/698d8ec81f1fd","document_root":"D:\\work\\_2025\\canadianexports.org\\public","laravel_public":"D:\\work\\_2025\\canadianexports.org\\public","web_root":"D:\\work\\_2025\\canadianexports.org\\public","base_path":"D:\\work\\_2025\\canadianexports.org\\public","full_path":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\698d8ec81f1fd","laravel_in_webroot":true} 
+[2026-02-12 08:26:48] local.INFO: getWebPublicPath: Temp media path {"input_path":"media/temp/698d8ec81f1fd","document_root":"D:\\work\\_2025\\canadianexports.org\\public","laravel_public":"D:\\work\\_2025\\canadianexports.org\\public","web_root":"D:\\work\\_2025\\canadianexports.org\\public","base_path":"D:\\work\\_2025\\canadianexports.org\\public","full_path":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\698d8ec81f1fd","laravel_in_webroot":true} 
+[2026-02-12 08:26:48] local.INFO: getWebPublicPath: Temp media path {"input_path":"media/temp/test","document_root":"D:\\work\\_2025\\canadianexports.org\\public","laravel_public":"D:\\work\\_2025\\canadianexports.org\\public","web_root":"D:\\work\\_2025\\canadianexports.org\\public","base_path":"D:\\work\\_2025\\canadianexports.org\\public","full_path":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\test","laravel_in_webroot":true} 
+[2026-02-12 08:26:48] local.INFO: putFile: Saving temp file {"folderName":"temp/698d8ec81f1fd","isTempMedia":true,"path":"media/temp/698d8ec81f1fd/","pathForWeb":"media/temp/698d8ec81f1fd","fullDirPath":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\698d8ec81f1fd","fileName":"1770884808_ChatGPT_Image_Jan_28,_2026,_03_32_14_AM.png","document_root":"D:\\work\\_2025\\canadianexports.org\\public","public_path":"D:\\work\\_2025\\canadianexports.org\\public","web_public_path_test":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\test"} 
+[2026-02-12 08:26:48] local.INFO: putFile: File moved successfully {"fullFilePath":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\698d8ec81f1fd\\1770884808_ChatGPT_Image_Jan_28,_2026,_03_32_14_AM.png","exists":true,"readable":true} 
+[2026-02-12 08:27:37] local.INFO: ===== Sponsor Payment Processing Started =====  
+[2026-02-12 08:27:37] local.INFO: Request data {"talk_to_us_first":false,"company_name":"Business Name *","contact_name":"Business Name *","email":"gsstart200025@gmail.com","contact_number":"200025","password":"135!#%qetQET","password_confirmation":"135!#%qetQET","url":"https://neon.shipfaststar.com","summary":"Brief Introduction *","detail_description":"Detailed Description *","message":"Message","logo":"[\"media\\/temp\\/698d8ec81f1fd\\/1770884808_ChatGPT_Image_Jan_28,_2026,_03_32_14_AM.png\"]","featured_image":"[\"media\\/temp\\/698d8eb1b5919\\/1770884785_download.png\"]","beneficiary_ids":[1],"sponsorship_amount":"100.00","frequency":"monthly","payment_method":"stripe","payment_method_id":"pm_1SzvFNQ5xuu3PqxrXxC4X6Qa","cardholder_name":"we"} 
+[2026-02-12 08:27:37] local.INFO: Validation passed  
+[2026-02-12 08:27:37] local.INFO: moveFile: Processing temp file {"original":"media/temp/698d8ec81f1fd/1770884808_ChatGPT_Image_Jan_28,_2026,_03_32_14_AM.png","normalized":"media/temp/698d8ec81f1fd/1770884808_ChatGPT_Image_Jan_28,_2026,_03_32_14_AM.png"} 
+[2026-02-12 08:27:37] local.INFO: moveFile: Found file at alternative path (public): D:\work\_2025\canadianexports.org\public\media\temp\698d8ec81f1fd\1770884808_ChatGPT_Image_Jan_28,_2026,_03_32_14_AM.png  
+[2026-02-12 08:27:37] local.INFO: moveFile: Processing temp file {"original":"media/temp/698d8eb1b5919/1770884785_download.png","normalized":"media/temp/698d8eb1b5919/1770884785_download.png"} 
+[2026-02-12 08:27:37] local.INFO: moveFile: Found file at alternative path (public): D:\work\_2025\canadianexports.org\public\media\temp\698d8eb1b5919\1770884785_download.png  
+[2026-02-12 08:27:37] local.INFO: Creating new customer account {"email":"gsstart200025@gmail.com"} 
+[2026-02-12 08:27:37] local.INFO: New sponsor customer created {"customer_id":50193} 
+[2026-02-12 08:27:37] local.INFO: Processing Stripe payment {"frequency":"monthly"} 
+[2026-02-12 08:27:39] local.INFO: Stripe customer created {"customer_id":"cus_TxqxNO53etS4v6"} 
+[2026-02-12 08:27:42] local.INFO: Created Stripe price for subscription {"price_id":"price_1SzvFTQ5xuu3PqxroY6NmyfN","frequency":"monthly"} 
+[2026-02-12 08:27:48] local.INFO: Stripe subscription created {"subscription_id":"sub_1SzvFTQ5xuu3PqxrMbl5aXuw"} 
+[2026-02-12 08:27:48] local.INFO: Stripe subscription payment succeeded {"subscription_id":"sub_1SzvFTQ5xuu3PqxrMbl5aXuw","payment_intent_id":"pi_3SzvFUQ5xuu3Pqxr1qBn78pq"} 
+[2026-02-12 08:27:48] local.INFO: Creating sponsor record {"company_name":"Business Name *","email":"gsstart200025@gmail.com","payment_status":"paid","customer_id":50193} 
+[2026-02-12 08:27:49] local.INFO: Sponsor created successfully {"sponsor_id":59} 
+[2026-02-12 08:27:49] local.INFO: Syncing beneficiaries {"beneficiary_ids":[1]} 
+[2026-02-12 08:27:49] local.INFO: Beneficiaries synced successfully  
+[2026-02-12 08:27:53] local.INFO: Admin notification sent (Payment success)  
+[2026-02-12 08:27:54] local.INFO: Auto-response email sent to customer  
+[2026-02-12 08:27:54] local.INFO: Customer auto-logged in after payment {"customer_id":50193} 
+[2026-02-12 08:27:54] local.INFO: ===== Sponsor Payment Processing Completed Successfully =====  
+[2026-02-12 08:28:11] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 08:28:11] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 08:28:23] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 08:28:23] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 09:27:31] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 09:27:31] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 09:27:45] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 09:27:45] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 09:29:53] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 09:29:53] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 09:30:05] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 09:30:05] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 09:30:10] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 09:30:10] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 09:31:51] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 09:31:51] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 09:32:03] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 09:32:03] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 09:32:15] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 09:32:15] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 11:48:19] local.INFO: Fetching specific sponsor profile {"customer_id":50193,"sponsor_id":"59"} 
+[2026-02-12 11:48:19] local.INFO: Sponsor profile found {"sponsor_id":59} 
+[2026-02-12 11:48:25] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 11:48:25] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 11:52:03] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 11:52:03] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 11:52:23] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 11:52:24] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 11:55:39] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 11:55:39] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 11:55:54] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 11:55:54] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 12:16:03] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 12:16:03] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 12:16:11] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 12:16:11] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 12:16:18] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 12:16:18] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 12:19:09] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 12:19:09] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 12:19:15] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 12:19:15] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 12:20:51] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 12:20:51] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 12:22:09] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 12:22:09] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 12:24:15] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 12:24:15] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 12:24:54] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 12:24:54] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 12:25:07] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 12:25:07] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 12:25:11] local.INFO: Fetching specific sponsor profile {"customer_id":50193,"sponsor_id":"59"} 
+[2026-02-12 12:25:11] local.INFO: Sponsor profile found {"sponsor_id":59} 
+[2026-02-12 12:25:29] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 12:25:29] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 12:29:32] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 12:29:32] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 12:30:11] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 12:30:11] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 12:30:16] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 12:30:16] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 12:31:14] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 12:31:14] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 12:31:31] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 12:31:31] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 12:34:13] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 12:34:13] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 12:34:37] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 12:34:37] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 12:45:17] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 12:45:17] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 12:45:28] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 12:45:28] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 12:46:39] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 12:46:39] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 12:47:06] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 12:47:06] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 12:47:31] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 12:47:31] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 12:54:16] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 12:54:16] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 13:14:55] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 13:14:55] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 13:15:03] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 13:15:03] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 13:43:09] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 13:43:09] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 13:44:59] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 13:44:59] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 13:45:57] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 13:45:57] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 13:46:19] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 13:46:19] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 13:46:28] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 13:46:28] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 13:47:42] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 13:47:42] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 13:48:02] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 13:48:03] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 13:48:16] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 13:48:16] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 13:51:23] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 13:51:23] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 14:01:59] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 14:01:59] local.INFO: Sponsor profiles found {"customer_id":50193,"count":1} 
+[2026-02-12 14:03:13] local.INFO: getWebPublicPath: Temp media path {"input_path":"media/temp/698ddda159e14","document_root":"D:\\work\\_2025\\canadianexports.org\\public","laravel_public":"D:\\work\\_2025\\canadianexports.org\\public","web_root":"D:\\work\\_2025\\canadianexports.org\\public","base_path":"D:\\work\\_2025\\canadianexports.org\\public","full_path":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\698ddda159e14","laravel_in_webroot":true} 
+[2026-02-12 14:03:13] local.INFO: getWebPublicPath: Temp media path {"input_path":"media/temp/698ddda159e14","document_root":"D:\\work\\_2025\\canadianexports.org\\public","laravel_public":"D:\\work\\_2025\\canadianexports.org\\public","web_root":"D:\\work\\_2025\\canadianexports.org\\public","base_path":"D:\\work\\_2025\\canadianexports.org\\public","full_path":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\698ddda159e14","laravel_in_webroot":true} 
+[2026-02-12 14:03:13] local.INFO: getWebPublicPath: Temp media path {"input_path":"media/temp/test","document_root":"D:\\work\\_2025\\canadianexports.org\\public","laravel_public":"D:\\work\\_2025\\canadianexports.org\\public","web_root":"D:\\work\\_2025\\canadianexports.org\\public","base_path":"D:\\work\\_2025\\canadianexports.org\\public","full_path":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\test","laravel_in_webroot":true} 
+[2026-02-12 14:03:13] local.INFO: putFile: Saving temp file {"folderName":"temp/698ddda159e14","isTempMedia":true,"path":"media/temp/698ddda159e14/","pathForWeb":"media/temp/698ddda159e14","fullDirPath":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\698ddda159e14","fileName":"1770904993_man.png","document_root":"D:\\work\\_2025\\canadianexports.org\\public","public_path":"D:\\work\\_2025\\canadianexports.org\\public","web_public_path_test":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\test"} 
+[2026-02-12 14:03:13] local.INFO: putFile: File moved successfully {"fullFilePath":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\698ddda159e14\\1770904993_man.png","exists":true,"readable":true} 
+[2026-02-12 14:03:16] local.INFO: getWebPublicPath: Temp media path {"input_path":"media/temp/698ddda4685d7","document_root":"D:\\work\\_2025\\canadianexports.org\\public","laravel_public":"D:\\work\\_2025\\canadianexports.org\\public","web_root":"D:\\work\\_2025\\canadianexports.org\\public","base_path":"D:\\work\\_2025\\canadianexports.org\\public","full_path":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\698ddda4685d7","laravel_in_webroot":true} 
+[2026-02-12 14:03:16] local.INFO: getWebPublicPath: Temp media path {"input_path":"media/temp/698ddda4685d7","document_root":"D:\\work\\_2025\\canadianexports.org\\public","laravel_public":"D:\\work\\_2025\\canadianexports.org\\public","web_root":"D:\\work\\_2025\\canadianexports.org\\public","base_path":"D:\\work\\_2025\\canadianexports.org\\public","full_path":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\698ddda4685d7","laravel_in_webroot":true} 
+[2026-02-12 14:03:16] local.INFO: getWebPublicPath: Temp media path {"input_path":"media/temp/test","document_root":"D:\\work\\_2025\\canadianexports.org\\public","laravel_public":"D:\\work\\_2025\\canadianexports.org\\public","web_root":"D:\\work\\_2025\\canadianexports.org\\public","base_path":"D:\\work\\_2025\\canadianexports.org\\public","full_path":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\test","laravel_in_webroot":true} 
+[2026-02-12 14:03:16] local.INFO: putFile: Saving temp file {"folderName":"temp/698ddda4685d7","isTempMedia":true,"path":"media/temp/698ddda4685d7/","pathForWeb":"media/temp/698ddda4685d7","fullDirPath":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\698ddda4685d7","fileName":"1770904996_13a4c0dbf61616bb22fbfaf42ae2ec33.png","document_root":"D:\\work\\_2025\\canadianexports.org\\public","public_path":"D:\\work\\_2025\\canadianexports.org\\public","web_public_path_test":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\test"} 
+[2026-02-12 14:03:16] local.INFO: putFile: File moved successfully {"fullFilePath":"D:\\work\\_2025\\canadianexports.org\\public\\media\\temp\\698ddda4685d7\\1770904996_13a4c0dbf61616bb22fbfaf42ae2ec33.png","exists":true,"readable":true} 
+[2026-02-12 14:03:39] local.INFO: ===== Sponsor Payment Processing Started =====  
+[2026-02-12 14:03:39] local.INFO: Request data {"talk_to_us_first":false,"company_name":"Business Name121212 *","contact_name":"Business Name121212 *","email":"gsstart200025@gmail.com","contact_number":"200025","password":"135!#%qetQET","password_confirmation":"135!#%qetQET","url":"http://neon.shipfaststar.com","summary":"Business Name121212 *","detail_description":"Business Name121212 *","message":"Business Name121212 *","logo":"[\"media\\/temp\\/698ddda4685d7\\/1770904996_13a4c0dbf61616bb22fbfaf42ae2ec33.png\"]","featured_image":"[\"media\\/temp\\/698ddda159e14\\/1770904993_man.png\"]","beneficiary_ids":[1],"sponsorship_amount":"250.00","frequency":"monthly","payment_method":"stripe","payment_method_id":"pm_1T00UaQ5xuu3Pqxr6JU7WL2i","cardholder_name":"4242"} 
+[2026-02-12 14:03:39] local.INFO: Validation passed  
+[2026-02-12 14:03:39] local.INFO: moveFile: Processing temp file {"original":"media/temp/698ddda4685d7/1770904996_13a4c0dbf61616bb22fbfaf42ae2ec33.png","normalized":"media/temp/698ddda4685d7/1770904996_13a4c0dbf61616bb22fbfaf42ae2ec33.png"} 
+[2026-02-12 14:03:39] local.INFO: moveFile: Found file at alternative path (public): D:\work\_2025\canadianexports.org\public\media\temp\698ddda4685d7\1770904996_13a4c0dbf61616bb22fbfaf42ae2ec33.png  
+[2026-02-12 14:03:39] local.INFO: moveFile: Processing temp file {"original":"media/temp/698ddda159e14/1770904993_man.png","normalized":"media/temp/698ddda159e14/1770904993_man.png"} 
+[2026-02-12 14:03:39] local.INFO: moveFile: Found file at alternative path (public): D:\work\_2025\canadianexports.org\public\media\temp\698ddda159e14\1770904993_man.png  
+[2026-02-12 14:03:40] local.INFO: Logged-in customer creating additional sponsorship {"customer_id":50193} 
+[2026-02-12 14:03:40] local.INFO: Processing Stripe payment {"frequency":"monthly"} 
+[2026-02-12 14:03:41] local.INFO: Stripe customer created {"customer_id":"cus_TxwNxWKcXqwbC6"} 
+[2026-02-12 14:03:45] local.INFO: Created Stripe price for subscription {"price_id":"price_1T00UgQ5xuu3Pqxr3O4kUwF5","frequency":"monthly"} 
+[2026-02-12 14:03:49] local.INFO: Stripe subscription created {"subscription_id":"sub_1T00UhQ5xuu3PqxrQ8wdJZ25"} 
+[2026-02-12 14:03:49] local.INFO: Stripe subscription payment succeeded {"subscription_id":"sub_1T00UhQ5xuu3PqxrQ8wdJZ25","payment_intent_id":"pi_3T00UiQ5xuu3Pqxr22VX8pSe"} 
+[2026-02-12 14:03:49] local.INFO: Creating sponsor record {"company_name":"Business Name121212 *","email":"gsstart200025@gmail.com","payment_status":"paid","customer_id":50193} 
+[2026-02-12 14:03:49] local.INFO: Sponsor created successfully {"sponsor_id":60} 
+[2026-02-12 14:03:49] local.INFO: Syncing beneficiaries {"beneficiary_ids":[1]} 
+[2026-02-12 14:03:49] local.INFO: Beneficiaries synced successfully  
+[2026-02-12 14:03:54] local.INFO: Admin notification sent (Payment success)  
+[2026-02-12 14:03:55] local.INFO: Auto-response email sent to customer  
+[2026-02-12 14:03:55] local.INFO: ===== Sponsor Payment Processing Completed Successfully =====  
+[2026-02-12 14:04:07] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 14:04:07] local.INFO: Sponsor profiles found {"customer_id":50193,"count":2} 
+[2026-02-12 14:06:06] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 14:06:06] local.INFO: Sponsor profiles found {"customer_id":50193,"count":2} 
+[2026-02-12 14:08:18] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 14:08:18] local.INFO: Sponsor profiles found {"customer_id":50193,"count":2} 
+[2026-02-12 14:08:24] local.INFO: Fetching specific sponsor profile {"customer_id":50193,"sponsor_id":"59"} 
+[2026-02-12 14:08:24] local.INFO: Sponsor profile found {"sponsor_id":59} 
+[2026-02-12 14:08:31] local.INFO: Fetching sponsor profiles {"customer_id":50193} 
+[2026-02-12 14:08:31] local.INFO: Sponsor profiles found {"customer_id":50193,"count":2} 

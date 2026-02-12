@@ -19,4 +19,6 @@ companies, Directory of Canadian companies, Canada trade, Canadian trade, Canada
             @endif
             @include('web.signup-sponsor-setting.sponsor-setting-partial')
         </div>
-        @endsection
+    </div>
+</div>
+@endsection

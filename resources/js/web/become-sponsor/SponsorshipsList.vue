@@ -2,19 +2,19 @@
   <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
     <div class="mb-6 flex items-center justify-between">
       <div>
-        <h1 class="text-3xl font-bold text-primary mb-2">Manage Sponsorship</h1>
-        <p class="text-gray-600">Review your active sponsorship details and payment history.</p>
-        <p class="text-gray-600">Thank you for your continued support of the Canadian export community.</p>
+        <h1 class="text-3xl font-bold text-primary mb-2">{{ bs('manage_sponsorship_heading', 'Manage Sponsorship') }}</h1>
+        <p class="text-gray-600">{{ bs('manage_sponsorship_subtitle', 'Review your active sponsorship details and payment history.') }}</p>
+        <p class="text-gray-600">{{ bs('manage_sponsorship_thanks', 'Thank you for your continued support of the Canadian export community.') }}</p>
       </div>
       <a :href="`/${becomeSponsorSlug}`" class="button-exp-fill">
-        Add Another Sponsorship
+        {{ bs('add_another_sponsorship_btn', 'Add Another Sponsorship') }}
       </a>
     </div>
 
     <!-- Loading State -->
     <div v-if="loading && !sponsorships.length" class="text-center py-12">
       <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-      <p class="mt-4 text-gray-600">Loading your sponsorships...</p>
+      <p class="mt-4 text-gray-600">{{ bs('loading_sponsorships', 'Loading your sponsorships...') }}</p>
     </div>
 
     <!-- No Sponsorships -->
@@ -22,11 +22,11 @@
       <svg class="mx-auto h-24 w-24 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
       </svg>
-      <h3 class="mt-4 text-lg font-medium text-gray-900">No sponsorships yet</h3>
-      <p class="mt-2 text-gray-500">Get started by creating your first sponsorship.</p>
+      <h3 class="mt-4 text-lg font-medium text-gray-900">{{ bs('no_sponsorships_heading', 'No sponsorships yet') }}</h3>
+      <p class="mt-2 text-gray-500">{{ bs('no_sponsorships_message', 'Get started by creating your first sponsorship.') }}</p>
       <div class="mt-6">
         <a :href="`/${becomeSponsorSlug}`" class="button-exp-fill">
-          Create Your First Sponsorship
+          {{ bs('create_first_sponsorship_btn', 'Create Your First Sponsorship') }}
         </a>
       </div>
     </div>
@@ -53,12 +53,12 @@
                   'bg-yellow-100 text-yellow-800': sponsorship.status === 'pending',
                   'bg-gray-100 text-gray-600': sponsorship.status === 'inactive',
                 }">
-                  {{ sponsorship.status === 'active' ? "Active" : sponsorship.status === 'pending' ? "Pending" : "Inactive" }}
+                  {{ sponsorship.status === 'active' ? bs('status_active', 'Active') : sponsorship.status === 'pending' ? bs('status_pending', 'Pending') : bs('status_inactive', 'Inactive') }}
                 </span>
                 <template v-if="sponsorship.status === 'inactive' || sponsorship.status === 'active'">
                   <button type="button" @click="toggleReactivation(sponsorship.id)"
                     class="px-4 py-1.5 text-sm font-medium rounded border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors">
-                    {{ expandedReactivationId === sponsorship.id ? "Collapse" : (sponsorship.status === 'inactive' ? "Reactivate Sponsorship" : "Change Frequency or Amount") }}
+                    {{ expandedReactivationId === sponsorship.id ? bs('collapse_btn', 'Collapse') : (sponsorship.status === 'inactive' ? bs('reactivate_btn_text', 'Reactivate Sponsorship') : bs('change_frequency_btn', 'Change Frequency or Amount')) }}
                   </button>
                 </template>
                 <span v-if="sponsorship.payment_status" class="px-3 py-1 rounded-full text-xs font-medium" :class="{
@@ -76,19 +76,19 @@
 
               <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                 <div>
-                  <span class="text-gray-500">Amount:</span>
+                  <span class="text-gray-500">{{ bs('label_amount', 'Amount') }}:</span>
                   <span class="ml-2 font-medium">${{ formatAmount(sponsorship.sponsorship_amount) }}</span>
                 </div>
                 <div v-if="sponsorship.beneficiary">
-                  <span class="text-gray-500">Beneficiary:</span>
+                  <span class="text-gray-500">{{ bs('label_beneficiary', 'Beneficiary') }}:</span>
                   <span class="ml-2 font-medium">{{ sponsorship.beneficiary.name }}</span>
                 </div>
                 <div>
-                  <span class="text-gray-500">Created:</span>
+                  <span class="text-gray-500">{{ bs('label_created', 'Created') }}:</span>
                   <span class="ml-2 font-medium">{{ formatDate(sponsorship.created_at) }}</span>
                 </div>
                 <div v-if="sponsorship.payment_method">
-                  <span class="text-gray-500">Payment method:</span>
+                  <span class="text-gray-500">{{ bs('label_payment_method', 'Payment method') }}:</span>
                   <span class="ml-2 font-medium">{{ getPaymentMethodLabel(sponsorship) }}</span>
                 </div>
               </div>
@@ -103,7 +103,7 @@
               </div>
               <a :href="`/${sponsorSettingsSlug}/${sponsorship.id}`"
                 class="px-4 py-2 bg-primary text-white rounded hover:bg-opacity-90 text-center">
-                Edit
+                {{ bs('edit_btn', 'Edit') }}
               </a>
             </div>
           </div>
@@ -114,7 +114,7 @@
           <div v-show="expandedReactivationId === sponsorship.id"
             class="reactivation-panel border-t border-gray-200 bg-gray-50/50">
             <div class="p-6 pt-4">
-              <p class="text-gray-600">Complete the reactivation form below to renew this sponsorship.</p>
+              <p class="text-gray-600">{{ bs('reactivation_panel_message', 'Complete the reactivation form below to renew this sponsorship.') }}</p>
             </div>
           </div>
         </Transition>
@@ -133,7 +133,7 @@
               d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
             </path>
           </svg>
-          <span class="text-lg font-medium">Loading...</span>
+          <span class="text-lg font-medium">{{ bs('loading_overlay_text', 'Loading...') }}</span>
         </div>
       </div>
     </div>
@@ -141,12 +141,12 @@
 
     <!-- Reactivation form: shown only when "Reactivate Sponsorship" is clicked -->
     <div v-if="expandedReactivationId" class="mt-8">
-      <h2 class="text-xl font-semibold text-gray-900 mb-4">Reactivate Sponsorship</h2>
+      <h2 class="text-xl font-semibold text-gray-900 mb-4">{{ bs('reactivate_heading', 'Reactivate Sponsorship') }}</h2>
       <form @submit.prevent="processPayment">
         <!-- Sponsorship Amount & Frequency (Only for "Enter Your Amount" option) -->
         <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
           <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-            <h4 class="text-white">Select Your Sponsorship Amount & Frequency*</h4>
+            <h4 class="text-white">{{ bs('sponsorship_section_heading', 'Select Your Sponsorship Amount & Frequency') }}*</h4>
           </div>
           <div class="p-6">
             <div class="relative w-full mb-6">
@@ -198,12 +198,12 @@
                 <input type="number" id="custom_amount1" v-model="custom_amount1"
                   @keypress="inputAmount(custom_amount1)"
                   class="block mt-1 border-2 p-2.5 w-full rounded border-gray-200 focus:outline-none focus:border focus:border-blue-600 pl-10 h-12"
-                  :placeholder="'Enter your own amount'" />
+                  :placeholder="bs('enter_amount_placeholder', 'Enter your own amount')" />
               </div>
 
               <!-- Next Billing Date (for sponsorship being reactivated) -->
               <div class="mt-4 pt-4 border-t border-gray-200">
-                <span class="text-gray-700 text-base md:text-lg font-medium">Next Billing Date: </span>
+                <span class="text-gray-700 text-base md:text-lg font-medium">{{ bs('next_billing_date_label', 'Next Billing Date') }}: </span>
                 <span class="text-gray-900 font-FuturaMdCnBT">{{ nextBillingDateText }}</span>
               </div>
 
@@ -219,12 +219,12 @@
                     ">
                   <input type="radio" name="sponsorship_option" :value="true" class="sr-only"
                     v-model="form.talk_to_us_first" @click="onOptionChange(true)" />
-                  <span class="font-FuturaMdCnBT">Talk to Us First</span>
-                  <span class="text-sm mt-2 opacity-90">We're happy to discuss your goals and our partnership opportunities in detail before you make a selection.</span>
+                  <span class="font-FuturaMdCnBT">{{ bs('talk_to_us_first_label', 'Talk to Us First') }}</span>
+                  <span class="text-sm mt-2 opacity-90">{{ bs('talk_to_us_first_description', "We're happy to discuss your goals and our partnership opportunities in detail before you make a selection.") }}</span>
                 </label>
               </div>
               <div v-if="getAmountsByFrequency(selectedFrequency).length === 0" class="text-center py-8 text-gray-500">
-                No sponsorship amounts available for this frequency.
+                {{ bs('no_amounts_message', 'No sponsorship amounts available for this frequency.') }}
               </div>
 
 
@@ -243,28 +243,28 @@
           <div v-if="show_contact_preference" class="bg-white rounded-lg shadow-3xl my-6">
             <div
               class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-              <h4 class="text-white">Contact Preferences</h4>
+              <h4 class="text-white">{{ bs('contact_preferences_heading', 'Contact Preferences') }}</h4>
             </div>
             <div class="p-6">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="relative w-full">
                   <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="preferred_call_time">
-                    Best Time to Call
+                    {{ bs('best_time_to_call_label', 'Best Time to Call') }}
                     <!-- <span class="text-red-500">*</span> -->
                   </label>
                   <select id="preferred_call_time" v-model="form.preferred_call_time"
                     class="can-exp-input w-full block border border-gray-300 rounded"
                     @change="clearErrors('preferred_call_time')">
-                    <option value="morning">Morning (9 AM - 12 PM)</option>
-                    <option value="afternoon">Afternoon (12 PM - 5 PM)</option>
-                    <option value="evening">Evening (5 PM - 8 PM)</option>
+                    <option value="morning">{{ bs('call_time_morning', 'Morning (9 AM - 12 PM)') }}</option>
+                    <option value="afternoon">{{ bs('call_time_afternoon', 'Afternoon (12 PM - 5 PM)') }}</option>
+                    <option value="evening">{{ bs('call_time_evening', 'Evening (5 PM - 8 PM)') }}</option>
                   </select>
                   <Error v-if="submitted" fieldName="preferred_call_time" :validationErros="validationErros" />
                 </div>
 
                 <div class="relative w-full">
                   <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="preferred_call_date">
-                    Preferred Date (Optional)
+                    {{ bs('preferred_date_label', 'Preferred Date (Optional)') }}
                   </label>
                   <VueDatePicker id="preferred_call_date" v-model="form.preferred_call_date" :placeholder="'YYYY-MM-DD'"
                     model-type="yyyy-MM-dd" :formats="{ input: 'yyyy-MM-dd' }"
@@ -281,13 +281,13 @@
         <!-- COMPANY INFORMATION -->
         <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
           <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-            <h4 class="text-white">Account Details</h4>
+            <h4 class="text-white">{{ bs('account_details_heading', 'Account Details') }}</h4>
           </div>
           <div class="p-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div class="relative w-full">
                 <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="company_name">
-                  Business Name
+                  {{ bs('company_name_label', 'Business Name') }}
                   <span class="text-red-500">*</span>
                 </label>
                 <input type="text" id="company_name" v-model="form.company_name" class="can-exp-input"
@@ -297,29 +297,29 @@
 
               <div class="relative w-full">
                 <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="contact_name">
-                  Primary Contact Name & Title
+                  {{ bs('name_label', 'Primary Contact Name & Title') }}
                   <span class="text-red-500">*</span>
                 </label>
                 <textarea id="contact_name" v-model="form.contact_name" class="can-exp-input scrollbar-textarea"
-                  :placeholder="'Please include your full name and the title you would like to be addressed by, separated by a dash or hyphen. For example, John Smith - Sales Manager'" :title="'Please include your full name and the title you would like to be addressed by, separated by a dash or hyphen. For example, John Smith - Sales Manager'"
+                  :placeholder="bs('contact_name_placeholder', 'Please include your full name and the title you would like to be addressed by, separated by a dash or hyphen. For example, John Smith - Sales Manager')" :title="bs('contact_name_placeholder', 'Please include your full name and the title you would like to be addressed by, separated by a dash or hyphen. For example, John Smith - Sales Manager')"
                   @input="clearErrors('contact_name')"></textarea>
                 <Error v-if="submitted" fieldName="contact_name" :validationErros="validationErros" />
               </div>
 
               <div class="relative w-full">
                 <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="email">
-                  Email Address
+                  {{ bs('email_label', 'Email Address') }}
                   <span class="text-red-500">*</span>
                 </label>
                 <input type="email" id="email" v-model="form.email" class="can-exp-input"
-                  :placeholder="'Used for both login and contact.'" @input="clearErrors('email')" />
+                  :placeholder="bs('email_hint', 'Used for both login and contact.')" @input="clearErrors('email')" />
 
                 <Error v-if="submitted" fieldName="email" :validationErros="validationErros" />
               </div>
 
               <div class="relative w-full">
                 <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="contact_number">
-                  Phone Number
+                  {{ bs('contact_number_label', 'Phone Number') }}
                   <span class="text-red-500">*</span>
                 </label>
                 <input type="text" id="contact_number" v-model="form.contact_number" class="can-exp-input"
@@ -331,9 +331,9 @@
               <div class="relative w-full" v-if="!isLoggedIn">
                 <br>
                 <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="password">
-                  Password (Min. 8 characters. Must contain at least one lowercase and one uppercase)
+                  {{ bs('password_label', 'Password') }} <span class="font-normal text-sm">{{ bs('password_hint', '(Min. 8 characters. Must contain at least one lowercase and one uppercase)') }}</span>
                   <span v-if="!show_contact_preference" class="text-red-500">*</span>
-                  <span v-else class="text-gray-500">(Optional)</span>
+                  <span v-else class="text-gray-500">{{ bs('optional_text', '(Optional)') }}</span>
                 </label>
                 <div class="relative">
                   <input :type="showPassword ? 'text' : 'password'" id="password" v-model="form.password"
@@ -360,9 +360,9 @@
                 <Br></Br>
                 <label class="block text-gray-900 text-base md:text-base lg:text-lg"
                   for="password_confirmation"><br></br>
-                  Confirm Password
+                  {{ bs('confirm_password_label', 'Confirm Password') }}
                   <span v-if="!show_contact_preference" class="text-red-500">*</span>
-                  <span v-else class="text-gray-500">(Optional)</span>
+                  <span v-else class="text-gray-500">{{ bs('optional_text', '(Optional)') }}</span>
                 </label>
                 <div class="relative">
                   <input :type="showPasswordConfirm ? 'text' : 'password'" id="password_confirmation"
@@ -388,9 +388,9 @@
 
               <div class="relative w-full md:col-span-2">
                 <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="url">
-                  Your Website
+                  {{ bs('url_label', 'Your Website') }}
                   <span v-if="!show_contact_preference"></span>
-                  <span v-else class="text-gray-500">(Optional)</span>
+                  <span v-else class="text-gray-500">{{ bs('optional_text', '(Optional)') }}</span>
                 </label>
                 <input type="url" id="url" v-model="form.url" class="can-exp-input" @input="clearErrors('url')" />
                 <Error v-if="submitted" fieldName="url" :validationErros="validationErros" />
@@ -404,13 +404,13 @@
           <div v-if="!show_contact_preference" class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
             <div
               class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-              <h4 class="text-white">Brand Story & Media</h4>
+              <h4 class="text-white">{{ bs('brand_story_heading', 'Brand Story & Media') }}</h4>
             </div>
             <div class="p-6">
               <div class="grid grid-cols-1 gap-4">
                 <div class="relative w-full">
                   <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="summary">
-                    Brief Introduction
+                    {{ bs('summary_label', 'Brief Introduction') }}
                     <span v-if="!form.talk_to_us_first" class="text-red-500">*</span>
                   </label>
                   <div class="relative">
@@ -418,11 +418,7 @@
                       @input="clearErrors('summary')"></textarea>
 
                     <div v-if="!form.summary" class="absolute top-2 left-3 text-gray-400 pointer-events-none">
-                      In 30 words or less, share your company’s mission or a message of support. This text will appear
-                      on
-                      the Homepage to highlight your status as an Official Partner of
-                      <strong>Canadian Exports</strong> and
-                      <strong>Canadian export community.</strong>
+                      {{ bs('summary_placeholder_long', "In 30 words or less, share your company's mission or a message of support. This text will appear on the Homepage to highlight your status as an Official Partner of Canadian Exports and Canadian export community.") }}
                     </div>
                   </div>
 
@@ -431,22 +427,22 @@
 
                 <div class="relative w-full">
                   <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="detail_description">
-                    Detailed Description
+                    {{ bs('detail_description_label', 'Detailed Description') }}
                     <span v-if="!form.talk_to_us_first" class="text-red-500">*</span>
                   </label>
                   <textarea id="detail_description" v-model="form.detail_description" rows="4"
                     class="can-exp-input resize-none"
-                    :placeholder="'Use this space (up to 300 words) to share your company’s story and your commitment to supporting Canadian growth. You can outline your services or explain why you’ve chosen to champion small businesses, startups, and diverse entrepreneurs through this sponsorship.'"
+                    :placeholder="detailDescPlaceholder"
                     @input="clearErrors('detail_description')"></textarea>
                   <Error v-if="submitted" fieldName="detail_description" :validationErros="validationErros" />
                 </div>
 
                 <div class="relative w-full">
                   <label class="block text-gray-900 text-base md:text-base lg:text-lg" for="message">
-                    Additional Message
+                    {{ bs('message_label', 'Additional Message') }}
                   </label>
                   <textarea id="message" v-model="form.message" rows="3" class="can-exp-input resize-none"
-                    :placeholder="'Please use this space to share any specific goals, questions, or details you’d like us to review before we get in touch. We want to ensure our partnership is perfectly tailored to your needs.'"
+                    :placeholder="messagePlaceholder"
                     @input="clearErrors('message')"></textarea>
                   <Error v-if="submitted" fieldName="message" :validationErros="validationErros" />
                 </div>
@@ -456,7 +452,7 @@
                   <!-- Logo -->
                   <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2" for="logo">
-                      Company Logo <span class="text-red-500">*</span>
+                      {{ bs('image_label', 'Company Logo') }} <span class="text-red-500">*</span>
                       <span class="text-xs text-gray-500">(Max 10MB, PNG/JPG/JPEG/GIF)</span>
                     </label>
                     <!-- Current Logo (when reactivating and sponsorship has logo) -->
@@ -477,7 +473,7 @@
                   <!-- Featured Image -->
                   <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2" for="featured_image">
-                      Featured Image <span class="text-red-500">*</span>
+                      {{ bs('feature_image_label', 'Featured Image') }} <span class="text-red-500">*</span>
                       <span class="text-xs text-gray-500">(Max 10MB, PNG/JPG/JPEG/GIF)</span>
                     </label>
                     <!-- Current Featured Image (when reactivating and sponsorship has featured) -->
@@ -505,7 +501,7 @@
         <div v-if="!form.talk_to_us_first && form.sponsorship_amount > 0"
           class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
           <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-            <h4 class="text-white">Payment Method</h4>
+            <h4 class="text-white">{{ bs('payment_method_heading', 'Payment Method') }}</h4>
           </div>
           <div class="p-6">
             <div class="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0 mt-2">
@@ -514,7 +510,7 @@
                   class="h-4 w-4 border-gray-300 accent-primary" @click="setPaymentMethod('stripe')"
                   :checked="form.payment_method == 'stripe'" />
                 <label for="stripe" class="ml-2 block text-gray-900 font-medium">
-                  Debit or Credit Card
+                  {{ bs('debit_credit_label', 'Debit or Credit Card') }}
                 </label>
               </div>
               <div class="flex items-center">
@@ -548,7 +544,7 @@
                 <div class="h-auto bg-white w-full">
                   <!-- Cardholder Name -->
                   <div class="input_text relative mb-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Cardholder Name</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">{{ bs('cardholder_name_label', 'Cardholder Name') }}</label>
                     <input v-model="form.cardholder_name" type="text" class="can-exp-input"
                       @input="clearErrors('cardholder_name')" />
                     <Error v-if="submitted" fieldName="cardholder_name" :validationErros="validationErros" />
@@ -556,7 +552,7 @@
 
                   <!-- Card Element -->
                   <div class="input_text relative mb-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">{{ JSON.parse(payment_setting)["card_number_label"] }}</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">{{ paymentSettingCardLabel }}</label>
                     <div v-show="form.payment_method === 'stripe'" class="border border-primary rounded p-4 mt-4">
                       <div id="card-element"></div>
                     </div>
@@ -577,20 +573,14 @@
             <input id="agree_terms_and_privacy" v-model="form.agree_terms_and_privacy" type="checkbox"
               class="h-4 w-4 mt-1 rounded border-gray-300 text-primary focus:ring-primary" />
             <label for="agree_terms_and_privacy" class="ml-2 text-gray-900 text-base md:text-base lg:text-lg">
-              I agree to the
-              <a :href="`/${locale}/terms-and-conditions`" target="_blank" rel="noopener noreferrer"
-                class="text-primary underline hover:no-underline">Terms & Conditions</a>
-              and
-              <a :href="`/${locale}/privacy-policy`" target="_blank" rel="noopener noreferrer"
-                class="text-primary underline hover:no-underline">Privacy Policy</a>
-              of Canadian Exports.
+              {{ bs('terms_privacy_label', 'I agree to the Terms & Conditions and Privacy Policy of Canadian Exports.') }}
             </label>
           </div>
           <div class="flex items-start pb-4">
             <input id="agree_donation_non_refundable" v-model="form.agree_donation_non_refundable" type="checkbox"
               class="h-4 w-4 mt-1 rounded border-gray-300 text-primary focus:ring-primary" />
             <label for="agree_donation_non_refundable" class="ml-2 text-gray-900 text-base md:text-base lg:text-lg">
-              I understand that this payment is a donation to support the Canadian Exports platform and is non-refundable.
+              {{ bs('donation_non_refundable_label', 'I understand that this payment is a donation to support the Canadian Exports platform and is non-refundable.') }}
             </label>
           </div>
         </div>
@@ -609,10 +599,10 @@
                   d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
                 </path>
               </svg>
-              Processing...
+              {{ bs('processing_text', 'Processing...') }}
             </span>
             <span v-else>
-              {{ isReactivationMode ? (reactivationSponsorship && reactivationSponsorship.status !== 'inactive' ? "Upgrade" : "Reactivate Sponsorship") : (form.talk_to_us_first ? "Submit" : "Become a Sponsor")
+              {{ isReactivationMode ? (reactivationSponsorship && reactivationSponsorship.status !== 'inactive' ? bs('upgrade_btn', 'Upgrade') : bs('reactivate_btn_text', 'Reactivate Sponsorship')) : (form.talk_to_us_first ? bs('submit_btn_text', 'Submit') : bs('become_sponsor_btn_text', 'Become a Sponsor'))
               }}
             </span>
           </button>
@@ -625,8 +615,6 @@
 <script>
 import axios from "axios";
 import helper from "../../helper";
-import BecomeSponsor from "./BecomeSponsor.vue";
-import { useTranslation, currentLocale } from "@/Utils/i18n";
 import Error from "../components/Error.vue";
 import ListErrors from "../components/ListErrors.vue";
 import ErrorHandling from "../../ErrorHandling";
@@ -648,12 +636,7 @@ const FilePond = vueFilePond(
 
 export default {
   name: "SponsorshipsList",
-  setup() {
-    const { __, locale } = useTranslation();
-    return { __, locale };
-  },
   components: {
-    CreateBecomeSponsor: BecomeSponsor,
     Error,
     ListErrors,
     VueDatePicker,
@@ -674,6 +657,14 @@ export default {
     },
     loggedInUser: {
       type: [String, Object],
+      default: null,
+    },
+    payment_setting: {
+      type: [String, Object],
+      default: null,
+    },
+    becomeSponsor: {
+      type: [Object, Boolean],
       default: null,
     },
   },
@@ -729,12 +720,23 @@ export default {
       datePickerObserver: null,
     };
   },
-  computed: {
+  computed: {    
+    parsedBecomeSponsor() {          
+      if (!this.become_sponsor) return {};
+      try {
+        if (typeof this.become_sponsor === "string") {
+          return JSON.parse(this.become_sponsor);
+        }
+        return this.become_sponsor;
+      } catch {
+        return {};
+      }
+    },
     labelIdleLogo() {
-      return '<span class="cursor-pointer">' + "Drag & Drop your logo or Browse" + '</span>';
+      return '<span class="cursor-pointer">' + (this.parsedBecomeSponsor.logo_idle || "Drag & Drop your logo or Browse") + '</span>';
     },
     labelIdleFeatured() {
-      return '<span class="cursor-pointer">' + "Drag & Drop your featured image or Browse" + '</span>';
+      return '<span class="cursor-pointer">' + (this.parsedBecomeSponsor.featured_image_idle || "Drag & Drop your featured image or Browse") + '</span>';
     },
     isLoggedIn() {
       if (!this.loggedInUser) return false;
@@ -758,8 +760,26 @@ export default {
       if (!next) return "N/A";
       return this.formatNextBillingDate(next);
     },
+    paymentSettingCardLabel() {
+      if (this.payment_setting == null || this.payment_setting === "") return "Card Number";
+      try {
+        const obj = typeof this.payment_setting === "string"
+          ? JSON.parse(this.payment_setting)
+          : this.payment_setting;
+        return (obj && obj.card_number_label) || "Card Number";
+      } catch {
+        return "Card Number";
+      }
+    },
+    detailDescPlaceholder() {
+      return this.bs("detail_description_placeholder_long", "Use this space (up to 300 words) to share your company's story and your commitment to supporting Canadian growth. You can outline your services or explain why you've chosen to champion small businesses, startups, and diverse entrepreneurs through this sponsorship.");
+    },
+    messagePlaceholder() {
+      return this.bs("message_placeholder_long", "Please use this space to share any specific goals, questions, or details you'd like us to review before we get in touch. We want to ensure our partnership is perfectly tailored to your needs.");
+    },
   },
   async mounted() {
+    
     if (this.initialSponsorships && this.initialSponsorships.length > 0) {
       this.sponsorships = this.initialSponsorships;
     } else {
@@ -824,12 +844,13 @@ export default {
     }
   },
   methods: {
+    bs(key, fallback) {
+      return this.becomeSponsor[key] ?? fallback ?? "";      
+    },
     async fetchSponsorships() {
       this.loading = true;
       try {
         const response = await axios.get(`${process.env.MIX_WEB_API_URL}sponsor/profile`);
-        console.log("sponsor/profile response.data", response.data);
-        console.log("sponsor/profile data (sponsorships)", response.data?.data);
         //this.$refs.filePondFeatured
         if (response.data.status === "Success") {
           this.sponsorships = response.data.data;
@@ -838,7 +859,6 @@ export default {
           helper.swalErrorMessageForWeb("Unable to load sponsorships");
         }
       } catch (error) {
-        console.error("Error fetching sponsorships:", error);
         if (error.response && error.response.status === 404) {
           // No sponsorships yet - this is OK
           this.sponsorships = [];
@@ -868,30 +888,31 @@ export default {
 
     getPaymentStatusText(status) {
       const statusMap = {
-        'paid': 'Paid',
-        'pending': 'Payment Pending',
-        'not_required': 'Contact Request',
-        'failed': 'Failed',
-        'refunded': 'Refunded'
+        paid: this.bs("payment_status_paid", "Paid"),
+        pending: this.bs("payment_status_pending", "Payment Pending"),
+        not_required: this.bs("payment_status_not_required", "Contact Request"),
+        failed: this.bs("payment_status_failed", "Failed"),
+        refunded: this.bs("payment_status_refunded", "Refunded"),
       };
       return statusMap[status] || status;
     },
 
     getPaymentMethodLabel(sponsorship) {
-      if (!sponsorship || !sponsorship.payment_method) return '';
-      if (sponsorship.payment_method === 'paypal') {
-        const email = sponsorship.paypal_email || '';
-        return email ? `PayPal (${'email'}: ${email})` : 'PayPal';
+      if (!sponsorship || !sponsorship.payment_method) return "";
+      if (sponsorship.payment_method === "paypal") {
+        const email = sponsorship.paypal_email || "";
+        return email ? `PayPal (${email})` : "PayPal";
       }
-      if (sponsorship.payment_method === 'stripe') {
+      if (sponsorship.payment_method === "stripe") {
         const brand = sponsorship.card_brand;
         const last4 = sponsorship.card_last4;
+        const endingIn = this.bs("payment_method_ending_in", "ending in");
         const brandLabel = this.getCardBrandLabel(brand);
-        if (brandLabel && last4) return `${brandLabel} ${'ending in'} ${last4}`;
-        if (last4) return `${'Card ending in'} ${last4}`;
-        return 'Debit or Credit Card';
+        if (brandLabel && last4) return `${brandLabel} ${endingIn} ${last4}`;
+        if (last4) return `Card ${endingIn} ${last4}`;
+        return this.bs("debit_credit_label", "Debit or Credit Card");
       }
-      return '';
+      return "";
     },
 
     getCardBrandLabel(brand) {
@@ -942,7 +963,6 @@ export default {
     async fetchBeneficiaries() {
       try {
         const response = await axios.get(`${process.env.MIX_WEB_API_URL}get-coffee-wall-beneficiaries`);
-        console.log("fetchBeneficiaries response", response);
         if (response.data.status === "Success") {
           this.beneficiaries = response.data.data;
           const allBeneficiary = this.beneficiaries.find(
