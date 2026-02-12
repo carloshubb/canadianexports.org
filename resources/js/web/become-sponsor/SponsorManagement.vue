@@ -7,14 +7,10 @@
     </div>
 
     <!-- Show list when user has one or more sponsorships -->
-    <div v-else-if="sponsorships.length >= 1">
-      <sponsorships-list 
-        :initial-sponsorships="sponsorships"
-        :become-sponsor-slug="becomeSponsorSlug" 
-        :sponsor-settings-slug="sponsorSettingsSlug"
-        :logged-in-user="loggedInUser"
-        :become-sponsor="becomeSponsor || null"
-      ></sponsorships-list>
+    <div v-else-if="sponsorships.length > 0">
+      <sponsorships-list :initial-sponsorships="sponsorships" :become-sponsor-slug="becomeSponsorSlug"
+        :sponsor-settings-slug="sponsorSettingsSlug" :logged-in-user="loggedInUser"
+        :become-sponsor="becomeSponsor || null"></sponsorships-list>
     </div>
 
     <!-- No sponsorships -->
@@ -22,14 +18,14 @@
       <svg class="mx-auto h-24 w-24 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
       </svg>
-      <h3 class="mt-4 text-lg font-medium text-gray-900">No sponsorships yet</h3>
-      <p class="mt-2 text-gray-500">Get started by creating your first sponsorship.</p>
+      <h3 class="mt-4 text-lg font-medium text-gray-900">
+        {{ becomeSponsor?.no_sponsorships_heading }}
+      </h3>
+
+      <p class="mt-2 text-gray-500">{{ becomeSponsor?.no_sponsorships_message }}</p>
       <div class="mt-6">
-        <a
-          :href="`/${becomeSponsorSlug}`"
-          class="button-exp-fill"
-        >
-          Create Your First Sponsorship
+        <a :href="`/${becomeSponsorSlug}`" class="button-exp-fill">
+          {{ becomeSponsor?.create_first_sponsorship_btn }}
         </a>
       </div>
     </div>
@@ -102,4 +98,3 @@ export default {
   },
 };
 </script>
-
