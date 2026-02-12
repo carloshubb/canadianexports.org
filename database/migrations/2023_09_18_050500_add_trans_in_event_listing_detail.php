@@ -24,6 +24,7 @@ return new class extends Migration
             $table->foreignId('language_id')->nullable()->constrained('languages')->onUpdate('cascade')->onDelete('cascade');
             $table->text('event_heading_text', 500)->nullable();
             $table->text('add_event_btn_text', 500)->nullable();
+            $table->text('add_another_event_btn_text', 500)->nullable();
             $table->text('search_placeholder_text', 500)->nullable();
             $table->text('show_text', 500)->nullable();
             $table->text('events_text', 500)->nullable();

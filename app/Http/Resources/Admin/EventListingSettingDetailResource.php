@@ -16,6 +16,7 @@ class EventListingSettingDetailResource extends JsonResource
             'no_event_found_text' => $this->no_event_found_text,
             'user_has_events_text' => $this->user_has_events_text,
             'add_event_btn_text' => $this->add_event_btn_text,
+            'add_another_event_btn_text' => $this->add_another_event_btn_text,
             'upgrade_profile_btn_text' => $this->upgrade_profile_btn_text,
             'search_placeholder_text' => $this->search_placeholder_text,
             'show_text' => $this->show_text,

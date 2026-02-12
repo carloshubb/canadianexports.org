@@ -101,6 +101,7 @@ class HelperController extends Controller
 
     public function getSponsorAmounts()
     {
+        $defaultLang = getDefaultLanguage(1);        
         $amounts = \App\Models\SponsorAmount::select('id', 'amount', 'frequency', 'is_default')
             ->orderBy('frequency')
             ->orderBy('sort_order')
@@ -108,10 +109,13 @@ class HelperController extends Controller
             ->get();
         // Group by frequency for easier frontend handling
         $grouped = $amounts->groupBy('frequency');
+
+        $frequencies = \App\Models\SponsorAmount::getFrequenciesForLang($defaultLang);
+
         return $this->successResponse([
             'amounts' => $amounts,
             'grouped' => $grouped,
-            'frequencies' => \App\Models\SponsorAmount::$frequencies
+            'frequencies' => $frequencies
         ], 'Data Get Successfully!');
     }
 

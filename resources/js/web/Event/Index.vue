@@ -4,11 +4,15 @@
             <!-- User has NO events: text below page main title, then centered "Register Your Event" button -->
             <div v-if="events && events.length === 0" class="py-4">
                 <p class="text-primary text-base md:text-lg">
-                    You haven't registered any events or trade shows yet. Promote your upcoming events to our global network of importers, buyers, and trade partners. Getting started is easy—click 'Register Your Event' to begin.
+                    {{ event_setting && event_setting.event_listing_setting_detail &&
+                                                event_setting.event_listing_setting_detail[0] ?
+                                                event_setting.event_listing_setting_detail[0].no_event_found_text : '' }}
                 </p>
                 <div class="flex justify-center mt-8">
                     <a href="#" class="button-exp-fill" @click.prevent="handleAddEventClick">
-                        Register Your Event
+                        {{ event_setting && event_setting.event_listing_setting_detail &&
+                                                event_setting.event_listing_setting_detail[0] ?
+                                                event_setting.event_listing_setting_detail[0].add_event_btn_text : '' }}
                     </a>
                 </div>
             </div>
@@ -18,7 +22,9 @@
                 <div class="sm:flex sm:items-center sm:justify-between py-4">
                     <div class="sm:flex-auto">
                         <p class="text-primary text-base md:text-lg">
-                            Thank you for sharing your events with our community. Below is the list of your active trade shows and events currently being promoted on our platform. To reach even more attendees, click "Register Another Event" below.
+                           {{ event_setting && event_setting.event_listing_setting_detail &&
+                                                event_setting.event_listing_setting_detail[0] ?
+                                                event_setting.event_listing_setting_detail[0].user_has_events_text : '' }}
                         </p>
                     </div>
                     <div class="mt-4 sm:mt-0 sm:ml-4 sm:flex-none flex items-center gap-2">
@@ -28,7 +34,7 @@
                         </a>
                         <a href="#" class="button-exp-fill" @click.prevent="handleAddEventClick"
                             v-if="parsedUser?.events_remaining !== '0'">
-                            Register Another Event
+                             {{ event_setting?.event_listing_setting_detail?.[0]?.add_another_event_btn_text ?? 'Register Another Event' }}
                         </a>
                     </div>
                 </div>
@@ -88,38 +94,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                    <!-- <div class="px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6" v-if="pagination">
-                        <div class="flex justify-between items-center w-full">
-                            <div>
-                                <p class="text-sm text-gray-700" v-if="pagination.current_page">
-                                    Page {{ pagination . current_page }} of {{ pagination . last_page }}
-                                </p>
-                            </div>
-                            <div>
-                                <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination" v-if="pagination.next_page_url || pagination.prev_page_url">
-                                    <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50" v-bind:class="[{disabled: !pagination.prev_page_url}]" @click="fetchEvents(pagination.prev_page_url)">
-                                        <span class="sr-only">Previous</span>
-                                        <svg class="h-5 w-5" x-description="Heroicon name: solid/chevron-left"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                            <path fill-rule="evenodd"
-                                            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                            clip-rule="evenodd"></path>
-                                        </svg>
-                                    </a>
-                                    <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50" v-bind:class="[{disabled: !pagination.next_page_url}]" @click="fetchEvents(pagination.next_page_url)">
-                                        <span class="sr-only">Next</span>
-                                        <svg class="h-5 w-5" x-description="Heroicon name: solid/chevron-right"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                            <path fill-rule="evenodd"
-                                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                            clip-rule="evenodd"></path>
-                                        </svg>
-                                    </a>
-                                </nav>
-                            </div>
-                        </div>
-                    </div> -->
+                    </div>                   
                 </div>
             </div>
         </div>

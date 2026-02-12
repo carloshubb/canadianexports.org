@@ -23,4 +23,26 @@ class SponsorAmount extends Model
         'quarterly' => 'Quarterly',
         'annually' => 'Annually'
     ];
+
+    public static $frequencies_es = [
+        'one_time' => 'Una vez',
+        'monthly' => 'Mensual',
+        'quarterly' => 'Trimestral',
+        'annually' => 'Anual'
+    ];
+
+    /**
+     * Get frequency labels for the given language.
+     *
+     * @param \App\Models\Language|null $lang
+     * @return array
+     */
+    public static function getFrequenciesForLang($lang)
+    {
+        $abbr = $lang ? strtolower(trim($lang->abbreviation ?? '')) : '';
+        if ($abbr === 'es') {
+            return static::$frequencies_es;
+        }
+        return static::$frequencies;
+    }
 }
