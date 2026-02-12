@@ -44,6 +44,11 @@ return new class extends Migration
             $table->text('debit_credit_label', 500)->nullable();
             $table->text('cardholder_name_label', 500)->nullable();
             $table->text('terms_privacy_label', 500)->nullable();
+            $table->string('terms_privacy_label_1')->nullable();
+            $table->string('terms_privacy_label_2')->nullable();
+            $table->string('terms_privacy_label_3')->nullable();
+            $table->string('terms_privacy_label_4')->nullable();
+            $table->string('terms_privacy_label_5')->nullable();
             $table->text('donation_non_refundable_label', 500)->nullable();
             $table->text('processing_text', 500)->nullable();
             $table->text('reactivate_btn_text', 500)->nullable();

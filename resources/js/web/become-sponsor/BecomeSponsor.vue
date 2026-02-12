@@ -397,7 +397,11 @@
             class="h-4 w-4 mt-1 rounded border-gray-300 text-primary focus:ring-primary"
           />
           <label for="agree_terms_and_privacy" class="ml-2 text-gray-900 text-base md:text-base  lg:text-lg">
-            {{ bs('terms_privacy_label', 'I agree to the Terms & Conditions and Privacy Policy of Canadian Exports.') }}
+            <span>{{ bs('terms_privacy_label_1', 'I agree to the ')}}</span>
+            <a :href="`/${locale}/terms-and-conditions`">{{ bs('terms_privacy_label_2', 'Terms & Conditions ')}}</a>
+            <span>{{ bs('terms_privacy_label_3', 'and ')}}</span>
+            <a :href="`/${locale}/privacy-policy`">{{ bs('terms_privacy_label_4', 'Privacy Policy ')}}</a>
+            <span>{{ bs('terms_privacy_label_5', 'of Canadian Exports.')}}</span>
           </label>
         </div>
         <div class="flex items-start pb-4">
