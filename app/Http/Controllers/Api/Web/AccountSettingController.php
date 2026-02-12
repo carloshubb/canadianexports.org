@@ -11,7 +11,9 @@ use App\Models\CustomerGalleryImage;
 use App\Models\CustomerMedia;
 use App\Models\CustomerProfile;
 use App\Models\CustomerSocialMedia;
+use App\Models\SponsorPageSettingDetail;
 use App\Models\Order;
+use App\Models\Page;
 use App\Rules\ValidUrl;
 use App\Rules\YoutubeUrl;
 use App\Services\CustomerProfileService;
@@ -81,9 +83,16 @@ class AccountSettingController extends Controller
         updateLangByAbber($abbreviation);
         $user = auth()->guard('customers')->user();
         $customerProfile = CustomerProfile::where('customer_id', $user->id)->first();
-
-        $lang = getDefaultLanguage(true);
-        return view('web.signup-sponsor-setting.edit', compact('user', 'customerProfile', 'lang', 'id'));
+        $lang = getDefaultLanguage(1);    
+        $page  = Page::find(76);
+        $sponsorPageSettingDetail = null;
+        if ($lang) {
+            App::setLocale($lang->abbreviation);
+            $sponsorPageSetting = getSponsorSetting($lang,$page);          
+            $sponsorPageSettingDetail = $sponsorPageSetting->sponsorPageSettingDetail;
+        }      
+        
+        return view('web.signup-sponsor-setting.edit', compact('user', 'customerProfile', 'lang', 'id','sponsorPageSettingDetail'));
     }
 
     public function sponsorAdd($abbreviation = null)

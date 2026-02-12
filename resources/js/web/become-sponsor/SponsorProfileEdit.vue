@@ -1,6 +1,5 @@
 <template>
   <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
-
     <!-- Profile status + View public profile (one line, badge/button style) -->
     <div v-if="sponsor" class="flex flex-wrap items-center gap-3 mb-6">
       <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 bg-gray-50/80 text-sm text-gray-700 font-FuturaMdCnBT">
@@ -12,7 +11,7 @@
       </span>
       <a :href="publicProfileUrl" target="_blank" rel="noopener noreferrer"
         class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/40 bg-primary/5 text-primary text-sm font-FuturaMdCnBT hover:bg-primary/10 hover:border-primary/60 transition-colors">
-        View Public Profile
+        {{ bs('view_public_profile_label', 'View Public Profile') }}
       </a>
     </div>
 
@@ -21,7 +20,7 @@
       class="bg-gradient-to-r from-blue-50 to-primary/10 border border-primary/30 rounded-lg p-6 mb-6">
       <div class="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h3 class="text-lg font-semibold text-gray-800">Sponsorship Status</h3>
+          <h3 class="text-lg font-semibold text-gray-800">{{ bs('sponsorship_status_heading', 'Sponsorship Status') }}</h3>
           <div class="flex items-center gap-3 mt-2">
             <span class="px-3 py-1 rounded-full text-sm font-medium" :class="{
               'bg-green-100 text-green-800': sponsor.status === 'active',
@@ -40,7 +39,7 @@
           </div>
         </div>
         <div v-if="sponsor.sponsorship_amount" class="text-right">
-          <p class="text-sm text-gray-600">Sponsorship Amount</p>
+          <p class="text-sm text-gray-600">{{ bs('sponsorship_amount_label', 'Sponsorship Amount') }}</p>
           <p class="text-2xl font-bold text-primary">${{ parseFloat(sponsor.sponsorship_amount).toFixed(2) }}</p>
           <p v-if="sponsor.paid_at" class="text-xs text-gray-500 mt-1">
             Paid on {{ formatDate(sponsor.paid_at) }}
@@ -52,13 +51,13 @@
       <div v-if="sponsor.payment_status === 'paid'" class="mt-4 pt-4 border-t border-primary/20">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
           <div>
-            <span class="text-gray-600">Payment Method:</span>
+            <span class="text-gray-600">{{ bs('payment_method_label', 'Payment Method:') }}</span>
             <span class="ml-2 font-medium capitalize">
               {{ getPaymentMethodDisplay(sponsor.payment_method) }}
             </span>
           </div>
           <div v-if="sponsor.beneficiary">
-            <span class="text-gray-600">Beneficiary:</span>
+            <span class="text-gray-600">{{ bs('beneficiary_label', 'Amount due today:') }}</span>
             <span class="ml-2 font-medium">{{ sponsor.beneficiary.name }}</span>
           </div>
         </div>
@@ -66,10 +65,10 @@
 
       <!-- Upgrade plan (only for recurring Stripe subscriptions) -->
       <div v-if="canUpgradePlan" class="mt-4 pt-4 border-t border-primary/20">
-        <p class="text-sm text-gray-600 mb-2">Upgrade your plan mid-cycle: we'll apply unused time from your current plan as credit toward the new one.</p>
+        <p class="text-sm text-gray-600 mb-2">{{ bs('upgrade_plan_text', 'Upgrade your plan mid-cycle: we will apply unused time from your current plan as credit toward the new one.') }}</p>
         <button type="button" @click="openUpgradeModal"
           class="px-4 py-2 rounded-md bg-primary text-white text-sm font-medium hover:opacity-90 transition-opacity">
-          Upgrade plan
+          {{ bs('upgrade_plan_button', 'Upgrade plan') }}
         </button>
       </div>
     </div>
@@ -79,13 +78,13 @@
       <!-- Company Information -->
       <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
         <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-          <h4 class="text-white">Company Information</h4>
+          <h4 class="text-white">{{ bs('company_information_heading', 'Company Information') }}</h4>
         </div>
         <div class="p-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2" for="company_name">
-                Company Name <span class="text-red-500">*</span>
+                {{ bs('company_name_label', 'Company Name') }}<span class="text-red-500">*</span>
               </label>
               <input type="text" id="company_name" v-model="form.company_name" class="can-exp-input"
                 :placeholder="'Your Company Inc.'" @input="clearErrors('company_name')" />
@@ -94,7 +93,7 @@
 
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2" for="contact_name">
-                Contact Person <span class="text-red-500">*</span>
+                {{ bs('contact_name_label', 'Contact Person') }} <span class="text-red-500">*</span>
               </label>
               <input type="text" id="contact_name" v-model="form.contact_name" class="can-exp-input"
                 :placeholder="'John Doe'" @input="clearErrors('contact_name')" />
@@ -103,7 +102,7 @@
 
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2" for="email">
-                Email Address <span class="text-red-500">*</span>
+                {{ bs('email_label', 'Email Address') }} <span class="text-red-500">*</span>
               </label>
               <input type="email" id="email" v-model="form.email" class="can-exp-input" :placeholder="'john@company.com'"
                 @input="clearErrors('email')" />
@@ -112,7 +111,7 @@
 
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2" for="contact_number">
-                Contact Number <span class="text-red-500">*</span>
+                {{ bs('contact_label', 'Contact Number') }} <span class="text-red-500">*</span>
               </label>
               <input type="text" id="contact_number" v-model="form.contact_number" class="can-exp-input"
                 placeholder="15551234567" maxlength="15" @input="handlePhoneInput('contact_number')"
@@ -122,7 +121,7 @@
 
             <div class="md:col-span-2">
               <label class="block text-sm font-medium text-gray-700 mb-2" for="url">
-                Company Website
+                {{ bs('company_website_label', 'Company Website') }}
               </label>
               <input type="url" id="url" v-model="form.url" class="can-exp-input"
                 :placeholder="'https://www.yourcompany.com'" @input="clearErrors('url')" />
@@ -135,13 +134,13 @@
       <!-- Company Description -->
       <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
         <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-          <h4 class="text-white">Company Description</h4>
+          <h4 class="text-white">{{ bs('company_description_heading', 'Company Description') }}</h4>
         </div>
         <div class="p-6">
           <div class="space-y-4">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2" for="summary">
-                Brief Description <span class="text-red-500">*</span>
+                {{ bs('brief_description_label', 'Brief Description') }}<span class="text-red-500">*</span>
               </label>
               <textarea id="summary" v-model="form.summary" rows="3" class="can-exp-input resize-none"
                 :placeholder="'A brief overview of your company...'" @input="clearErrors('summary')"></textarea>
@@ -150,7 +149,7 @@
 
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2" for="detail_description">
-                Detailed Description <span class="text-red-500">*</span>
+                {{ bs('detailed_description_label', 'Detailed Description') }} <span class="text-red-500">*</span>
               </label>
               <textarea id="detail_description" v-model="form.detail_description" rows="5"
                 class="can-exp-input resize-none"
@@ -161,7 +160,7 @@
 
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2" for="message">
-                Additional Message
+                {{ bs('message_label', 'Additional Message') }}
               </label>
               <textarea id="message" v-model="form.message" rows="3" class="can-exp-input resize-none"
                 :placeholder="'Any additional information...'" @input="clearErrors('message')"></textarea>
@@ -174,20 +173,20 @@
       <!-- Company Media -->
       <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
         <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-          <h4 class="text-white">Company Media</h4>
+          <h4 class="text-white">{{ bs('company_media_heading', 'Company Media') }}</h4>
         </div>
         <div class="p-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Logo -->
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">
-                Company Logo
+               {{ bs('logo_label', 'Company Logo') }} 
                 <span class="text-xs text-gray-500">(Max 10MB, PNG/JPG/JPEG/GIF)</span>
               </label>
 
               <!-- Current Logo Preview -->
               <div v-if="sponsor && sponsor.logo_media && !form.logo" class="mb-3">
-                <p class="text-xs text-gray-500 mb-2">Current Logo:</p>
+                <p class="text-xs text-gray-500 mb-2">{{ bs('current_logo_label', 'Current Logo:') }} </p>
                 <div class="relative inline-block">
                   <img :src="`/${sponsor.logo_media.path}`" alt="Current Logo"
                     class="w-32 h-32 object-contain border rounded" />
@@ -208,13 +207,13 @@
             <!-- Featured Image -->
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">
-                Featured Image
+                {{ bs('featured_image_label', 'Featured Image') }}
                 <span class="text-xs text-gray-500">(Max 10MB, PNG/JPG/JPEG/GIF)</span>
               </label>
 
               <!-- Current Featured Image Preview -->
               <div v-if="sponsor && sponsor.featured_media && !form.featured_image" class="mb-3">
-                <p class="text-xs text-gray-500 mb-2">Current Featured Image:</p>
+                <p class="text-xs text-gray-500 mb-2">{{ bs('current_featured_image_label', 'Current Featured Image:') }}</p>
                 <div class="relative inline-block">
                   <img :src="`/${sponsor.featured_media.path}`" alt="Current Featured Image"
                     class="w-32 h-32 object-cover border rounded" />
@@ -239,13 +238,13 @@
       <!-- Your Password -->
       <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
         <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-          <h4 class="text-white">Your Password</h4>
+          <h4 class="text-white">{{ bs('your_password_heading', 'Your Password') }}</h4>
         </div>
         <div class="p-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="md:col-span-2">
               <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="current_password">
-                Current Password
+                {{ bs('current_password_label', 'Current Password') }}
               </label>
               <div class="relative">
                 <input :type="showCurrentPassword ? 'text' : 'password'" id="current_password"
@@ -271,7 +270,7 @@
 
             <div>
               <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="new_password">
-                New Password
+                {{ bs('new_password_label', 'New Password') }}
               </label>
               <div class="relative">
                 <input :type="showNewPassword ? 'text' : 'password'" id="new_password" v-model="form.new_password"
@@ -296,7 +295,7 @@
 
             <div>
               <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="new_password_confirmation">
-                Confirm New Password
+                {{ bs('confirm_password_label', 'Confirm New Password') }}
               </label>
               <div class="relative">
                 <input :type="showNewPasswordConfirm ? 'text' : 'password'" id="new_password_confirmation"
@@ -322,7 +321,7 @@
           </div>
           <div class="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
             <p class="text-sm text-blue-800">
-              <strong>Note: </strong>Leave these fields blank to keep your current password. Only enter a new password if you wish to update it.
+              <strong>Note:  </strong>{{ bs('password_note', 'Leave these fields blank to keep your current password. Only enter a new password if you wish to update it.') }}
             </p>
           </div>
         </div>
@@ -334,7 +333,7 @@
           class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-opacity duration-200"
           :class="{ 'opacity-50': !formDirty }"
           :disabled="loading">
-          Reset Changes
+          {{ bs('reset_changes_button', 'Reset Changes') }}
         </button>
         <button type="submit" class="button-exp-fill transition-opacity duration-200" :class="{ 'opacity-50': !formDirty }"
           :disabled="loading">
@@ -346,10 +345,10 @@
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
               </path>
             </svg>
-            Updating...
+            {{ bs('updating_text', 'Updating...') }}
           </span>
           <span v-else>
-            Update Profile
+           {{ bs('update_profile_button', 'Update Profile') }}
           </span>
         </button>
       </div>
@@ -470,8 +469,13 @@ export default {
     sponsorshipId: {
       type: [String, Number],
       default: null
+    },
+    sponsorPageSettingDetail: {
+      type: [Object, Boolean],
+      default: null
     }
   },
+  
   components: {
     Error,
     FilePond,
@@ -523,6 +527,8 @@ export default {
     };
   },
   mounted() {
+    console.log(this.sponsorPageSettingDetail);
+    
     this.fetchSponsorProfile();
   },
   computed: {
@@ -556,6 +562,11 @@ export default {
     },
   },
   methods: {
+    bs(key, fallback) {
+      console.log(this.sponsorPageSettingDetail[0][key]);
+      
+      return this.sponsorPageSettingDetail[0][key] ?? fallback ?? '';
+    },
     async fetchSponsorProfile() {
       this.loading = true;
       try {

@@ -23,7 +23,7 @@
                         <p class="text-gray-600 mb-6" style="margin-top: 60px;" >{{ __('Welcome to your command center. Everything you share here helps Canadian exporters and international buyers find you. You can update your company details, media, and contact information at any time to keep your profile fresh and engaging.') }}</p>
 
                         {{-- Edit specific sponsorship --}}
-                        <sponsor-profile-edit :sponsorship-id="{{ $id }}"></sponsor-profile-edit>
+                        <sponsor-profile-edit :sponsorship-id="{{ $id }}" :sponsor-page-setting-detail="{{ $sponsorPageSettingDetail }}"></sponsor-profile-edit>
                     </div>
                 </div>
             </div>
