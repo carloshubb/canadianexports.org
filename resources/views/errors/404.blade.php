@@ -35,10 +35,15 @@
                 <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
                     Ho-ho-hold on! This page doesn't exist.
                 </h1>
-                <p class="text-gray-300 text-lg md:text-2xl">
+                <p class="text-gray-300 text-lg md:text-2xl ml-12 text-center">
                     The page you’re looking for may have been moved, removed,
                     <br class="hidden md:block">
                     renamed — or maybe it never existed in the first place.
+                </p>
+                <p class="text-gray-300 text-lg md:text-2xl ml-12 mt-3  text-center">
+                    Kind of like this skinny Santa, cruising in a Tesla and eating
+                    <br class="hidden md:block">
+                     a fat-free donut… in the middle of summer. 
                 </p>
             </div>
             
