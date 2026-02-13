@@ -1983,6 +1983,108 @@
         </div>
       </div>
     </div>
+
+    <!-- Sponsorship, account, payment & list labels -->
+    <div
+      class="border rounded w-full mt-4"
+      :class="collapseStates[1] ? 'bg-blue-50' : ''"
+    >
+      <div
+        class="lg:border-b lg:border-t lg:border-gray-200 cursor-pointer"
+        @click.prevent="collapseStates[1] = !collapseStates[1]"
+      >
+        <nav class="mx-auto" aria-label="Section">
+          <ol
+            role="list"
+            class="overflow-hidden rounded-md lg:flex lg:rounded-none lg:border-l lg:border-r lg:border-gray-200"
+          >
+            <li class="relative overflow-hidden lg:flex-1">
+              <div
+                class="overflow-hidden border border-gray-200 rounded-t-md border-b-0 lg:border-0 flex justify-between items-center"
+              >
+                <div class="group w-full">
+                  <span
+                    class="absolute left-0 top-0 h-full w-1 bg-transparent group-hover:bg-primary lg:bottom-0 lg:top-auto lg:h-1 lg:w-full"
+                    aria-hidden="true"
+                  ></span>
+                  <span class="flex items-start px-6 py-2 text-sm font-medium">
+                    <span class="flex-shrink-0">
+                      <span
+                        class="flex h-10 w-10 items-center justify-center rounded-full bg-primary"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          class="h-6 w-6 text-white"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <span class="ml-4 mt-0.5 flex min-w-0 flex-col">
+                      <span class="text-sm font-medium">Sponsorship, account, payment & list labels</span>
+                      <span class="text-sm font-medium text-gray-500"
+                        >Section headings, buttons, status & payment labels</span
+                      >
+                    </span>
+                  </span>
+                </div>
+                <svg
+                  class="w-5 h-5 fill-current text-gray-500"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M6 9l4 4 4-4"></path>
+                </svg>
+              </div>
+            </li>
+          </ol>
+        </nav>
+      </div>
+      <div class="p-4 bg-gray-50 border-t" v-show="collapseStates[1]">
+        <div
+          class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+        >
+          <div
+            v-for="item in sponsorshipListFields"
+            :key="item.key"
+            class="relative z-0 w-full group"
+          >
+            <label
+              class="block text-sm font-medium leading-6 text-gray-900"
+              :for="`${item.key}_${selectedLanguage}`"
+              v-text="item.label"
+            ></label>
+            <input
+              type="text"
+              :name="`${item.key}_${selectedLanguage}`"
+              :id="`${item.key}_${selectedLanguage}`"
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+              placeholder=" "
+              @input="
+                handleInput(
+                  $event.target.value,
+                  language,
+                  item.key,
+                  'updateHomePageSetting'
+                )
+              "
+              :value="
+                form[item.key] && form[item.key][`${item.key}_${selectedLanguage}`]
+                  ? form[item.key][`${item.key}_${selectedLanguage}`]
+                  : ''
+              "
+            />
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -2001,6 +2103,76 @@ export default {
   data() {
     return {
       collapseStates: [true, false, false, false, false, false, false],
+      sponsorshipListFields: [
+        { key: 'sponsorship_section_heading', label: 'Sponsorship section heading' },
+        { key: 'enter_amount_placeholder', label: 'Enter amount placeholder' },
+        { key: 'talk_to_us_first_label', label: 'Talk to us first label' },
+        { key: 'talk_to_us_first_description', label: 'Talk to us first description' },
+        { key: 'no_amounts_message', label: 'No amounts message' },
+        { key: 'contact_preferences_heading', label: 'Contact preferences heading' },
+        { key: 'best_time_to_call_label', label: 'Best time to call label' },
+        { key: 'preferred_date_label', label: 'Preferred date label' },
+        { key: 'call_time_morning', label: 'Call time morning' },
+        { key: 'call_time_afternoon', label: 'Call time afternoon' },
+        { key: 'call_time_evening', label: 'Call time evening' },
+        { key: 'account_details_heading', label: 'Account details heading' },
+        { key: 'contact_name_placeholder', label: 'Contact name placeholder' },
+        { key: 'email_hint', label: 'Email hint' },
+        { key: 'password_label', label: 'Password label' },
+        { key: 'password_hint', label: 'Password hint' },
+        { key: 'confirm_password_label', label: 'Confirm password label' },
+        { key: 'optional_text', label: 'Optional text' },
+        { key: 'brand_story_heading', label: 'Brand story heading' },
+        { key: 'featured_image_hint', label: 'Featured image hint' },
+        { key: 'logo_hint', label: 'Logo hint' },
+        { key: 'summary_placeholder_long', label: 'Summary placeholder (long)' },
+        { key: 'detail_description_placeholder_long', label: 'Detail description placeholder (long)' },
+        { key: 'message_placeholder_long', label: 'Message placeholder (long)' },
+        { key: 'featured_image_idle', label: 'Featured image idle' },
+        { key: 'logo_idle', label: 'Logo idle' },
+        { key: 'payment_method_heading', label: 'Payment method heading' },
+        { key: 'debit_credit_label', label: 'Debit/credit label' },
+        { key: 'cardholder_name_label', label: 'Cardholder name label' },
+        { key: 'terms_privacy_label', label: 'Terms & privacy label' },
+        { key: 'terms_privacy_label_1', label: 'Terms & privacy label 1' },
+        { key: 'terms_privacy_label_2', label: 'Terms & privacy label 2' },
+        { key: 'terms_privacy_label_3', label: 'Terms & privacy label 3' },
+        { key: 'terms_privacy_label_4', label: 'Terms & privacy label 4' },
+        { key: 'terms_privacy_label_5', label: 'Terms & privacy label 5' },
+        { key: 'donation_non_refundable_label', label: 'Donation non-refundable label' },
+        { key: 'processing_text', label: 'Processing text' },
+        { key: 'reactivate_btn_text', label: 'Reactivate button text' },
+        { key: 'become_sponsor_btn_text', label: 'Become sponsor button text' },
+        { key: 'manage_sponsorship_heading', label: 'Manage sponsorship heading' },
+        { key: 'manage_sponsorship_subtitle', label: 'Manage sponsorship subtitle' },
+        { key: 'manage_sponsorship_thanks', label: 'Manage sponsorship thanks' },
+        { key: 'add_another_sponsorship_btn', label: 'Add another sponsorship button' },
+        { key: 'loading_sponsorships', label: 'Loading sponsorships' },
+        { key: 'no_sponsorships_heading', label: 'No sponsorships heading' },
+        { key: 'no_sponsorships_message', label: 'No sponsorships message' },
+        { key: 'create_first_sponsorship_btn', label: 'Create first sponsorship button' },
+        { key: 'status_active', label: 'Status active' },
+        { key: 'status_pending', label: 'Status pending' },
+        { key: 'status_inactive', label: 'Status inactive' },
+        { key: 'change_frequency_btn', label: 'Change frequency button' },
+        { key: 'collapse_btn', label: 'Collapse button' },
+        { key: 'payment_status_paid', label: 'Payment status paid' },
+        { key: 'payment_status_pending', label: 'Payment status pending' },
+        { key: 'payment_status_not_required', label: 'Payment status not required' },
+        { key: 'payment_status_failed', label: 'Payment status failed' },
+        { key: 'payment_status_refunded', label: 'Payment status refunded' },
+        { key: 'label_amount', label: 'Label amount' },
+        { key: 'label_beneficiary', label: 'Label beneficiary' },
+        { key: 'label_created', label: 'Label created' },
+        { key: 'label_payment_method', label: 'Label payment method' },
+        { key: 'edit_btn', label: 'Edit button' },
+        { key: 'reactivation_panel_message', label: 'Reactivation panel message' },
+        { key: 'next_billing_date_label', label: 'Next billing date label' },
+        { key: 'upgrade_btn', label: 'Upgrade button' },
+        { key: 'reactivate_heading', label: 'Reactivate heading' },
+        { key: 'loading_overlay_text', label: 'Loading overlay text' },
+        { key: 'payment_method_ending_in', label: 'Payment method ending in' },
+      ],
     };
   },
   methods: {
@@ -2420,6 +2592,17 @@ export default {
             key: "submit_btn_text",
             value: obj,
           });
+
+          this.sponsorshipListFields.forEach((item) => {
+            obj = {};
+            data.map((res) => {
+              obj[item.key + "_" + res.language_id] = res[item.key] ?? "";
+            });
+            this.$store.commit("pages/setHomePageSetting", {
+              key: item.key,
+              value: obj,
+            });
+          });
         });
     },
     checkValidationError(validationErros, language) {
@@ -2433,7 +2616,10 @@ export default {
           `company_name_label.company_name_label_${language.id}`
         ) ||
         validationErros.has(
-          `company_name_error.company_name_error_${language.id}``company_name_placeholder.company_name_placeholder_${language.id}`
+          `company_name_error.company_name_error_${language.id}`
+        ) ||
+        validationErros.has(
+          `company_name_placeholder.company_name_placeholder_${language.id}`
         ) ||
         validationErros.has(`email_label.email_label_${language.id}`) ||
         validationErros.has(`email_error.email_error_${language.id}`) ||
@@ -2444,7 +2630,10 @@ export default {
           `contact_number_label.contact_number_label_${language.id}`
         ) ||
         validationErros.has(
-          `contact_number_error.contact_number_error_${language.id}``contact_number_placeholder.contact_number_placeholder_${language.id}`
+          `contact_number_error.contact_number_error_${language.id}`
+        ) ||
+        validationErros.has(
+          `contact_number_placeholder.contact_number_placeholder_${language.id}`
         ) ||
         validationErros.has(`message_label.message_label_${language.id}`) ||
         validationErros.has(`message_error.message_error_${language.id}`) ||
@@ -2891,6 +3080,17 @@ export default {
         this.$store.commit("pages/setHomePageSetting", {
           key: "submit_btn_text",
           value: obj,
+        });
+
+        this.sponsorshipListFields.forEach((item) => {
+          obj = {};
+          data.map((res) => {
+            obj[item.key + "_" + res.id] = "";
+          });
+          this.$store.commit("pages/setHomePageSetting", {
+            key: item.key,
+            value: obj,
+          });
         });
 
         if (this.$route.params.id) {

@@ -30,9 +30,7 @@
                 >
                   {{ inquiry?.["i2b_detail"]?.[0]?.["name"] || "" }}
                 </h2>
-                <!-- <p class="text-sm">
-              {{ (inquiry)?.["i2b_detail"]?.[0]?.["country_name"] }}
-            </p> -->
+               
               </div>
 
               <ul class="my-4 space-y-3 list-none p-0 flex-auto">
@@ -102,33 +100,15 @@
                 </li>
               </ul>
               <div class="flex-end mt-2 rounded-b-lg flex justify-end">
-                <!-- <a
-                  href="#"
-                  class="can-exp-a btn btn-link after:bg-secondary duration-500 ease-in-out flex items-center gap-1 w-fit"
-                  @click.prevent="
-                    displayI2BModal(
-                      inquiry?.id,
-                      inquiry?.['i2b_detail']?.[0]?.['name'] || ''
-                    )
-                  "
-                >
-                  {{
-                    JSON.parse(home_page_setting_detail)[
-                      "section2_i2b_button_text"
-                    ]
-                  }}
-                </a> -->
-                <a
-  href="#"
-  class="can-exp-a btn btn-link after:bg-secondary duration-500 ease-in-out flex items-center gap-1 w-fit"
-  @click.prevent="handleI2bButtonClick(inquiry?.id)"
->
-  {{
-    JSON.parse(home_page_setting_detail)[
-      "section2_i2b_button_text"
-    ]
-  }}
-</a>
+                <a  href="#"   class="can-exp-a btn btn-link after:bg-secondary duration-500 ease-in-out flex items-center gap-1 w-fit"
+                            @click.prevent="handleI2bButtonClick(inquiry?.id)"
+                          >
+                            {{
+                              JSON.parse(home_page_setting_detail)[
+                                "section2_i2b_button_text"
+                              ]
+                            }}
+                </a>
               </div>
             </div>
           </div>
@@ -388,32 +368,7 @@ export default {
       this.isUserLoggedIn = false;
       this.customer = [];
     },
-    // displayI2BModal(i2bId, i2bName) {
-    //   this.resetValues();
-    //   this.loading = 1;
-    //   axios
-    //     .post(`${process.env.MIX_APP_URL}/get-logged-in-user`)
-    //     .then((res) => {
-    //       this.isI2BModalDisplayed = 1;
-    //       this.inquiryId = i2bId;
-    //       this.loading = 0;
-    //       if (res.data.status == "Success") {
-    //         this.isUserLoggedIn = true;
-    //         this.customer = res?.data?.data?.customer ?? null;
-    //         axios
-    //           .get(
-    //             `${process.env.MIX_APP_URL}/get-registration-packages?getPayToGoPackagesOnly=1`
-    //           )
-    //           .then((res) => {
-    //             if (res.data.status == "Success") {
-    //             }
-    //           });
-    //       } else {
-    //         this.isUserLoggedIn = false;
-    //       }
-    //     })
-    //     .finally(() => (this.loading = false));
-    // },
+    
     displayI2BModal(i2bId, i2bName) {
       this.resetValues();
 

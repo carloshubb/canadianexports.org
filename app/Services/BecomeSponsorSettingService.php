@@ -57,6 +57,10 @@ class BecomeSponsorSettingService
 
             $validationRule = array_merge($validationRule, ['submit_btn_text.submit_btn_text_' . $language->id => ['nullable', 'string']]);
             $errorMessages = array_merge($errorMessages, ['submit_btn_text.submit_btn_text_' . $language->id . '.required' => 'Button text in ' . $language->name . ' is required.']);
+
+            foreach (['sponsorship_section_heading', 'enter_amount_placeholder', 'talk_to_us_first_label', 'talk_to_us_first_description', 'no_amounts_message', 'contact_preferences_heading', 'best_time_to_call_label', 'preferred_date_label', 'call_time_morning', 'call_time_afternoon', 'call_time_evening', 'account_details_heading', 'contact_name_placeholder', 'email_hint', 'password_label', 'password_hint', 'confirm_password_label', 'optional_text', 'brand_story_heading', 'featured_image_hint', 'logo_hint', 'summary_placeholder_long', 'detail_description_placeholder_long', 'message_placeholder_long', 'featured_image_idle', 'logo_idle', 'payment_method_heading', 'debit_credit_label', 'cardholder_name_label', 'terms_privacy_label', 'terms_privacy_label_1', 'terms_privacy_label_2', 'terms_privacy_label_3', 'terms_privacy_label_4', 'terms_privacy_label_5', 'donation_non_refundable_label', 'processing_text', 'reactivate_btn_text', 'become_sponsor_btn_text', 'manage_sponsorship_heading', 'manage_sponsorship_subtitle', 'manage_sponsorship_thanks', 'add_another_sponsorship_btn', 'loading_sponsorships', 'no_sponsorships_heading', 'no_sponsorships_message', 'create_first_sponsorship_btn', 'status_active', 'status_pending', 'status_inactive', 'change_frequency_btn', 'collapse_btn', 'payment_status_paid', 'payment_status_pending', 'payment_status_not_required', 'payment_status_failed', 'payment_status_refunded', 'label_amount', 'label_beneficiary', 'label_created', 'label_payment_method', 'edit_btn', 'reactivation_panel_message', 'next_billing_date_label', 'upgrade_btn', 'reactivate_heading', 'loading_overlay_text', 'payment_method_ending_in'] as $key) {
+                $validationRule = array_merge($validationRule, [$key . '.' . $key . '_' . $language->id => ['nullable', 'string']]);
+            }
         }
         return ['validation_rules' => $validationRule, 'error_messages' => $errorMessages];
     }
@@ -141,6 +145,40 @@ class BecomeSponsorSettingService
             'processing_text' => $request['processing_text']['processing_text_' . $language->id] ?? null,
             'reactivate_btn_text' => $request['reactivate_btn_text']['reactivate_btn_text_' . $language->id] ?? null,
             'become_sponsor_btn_text' => $request['become_sponsor_btn_text']['become_sponsor_btn_text_' . $language->id] ?? null,
+            'terms_privacy_label_1' => $request['terms_privacy_label_1']['terms_privacy_label_1_' . $language->id] ?? null,
+            'terms_privacy_label_2' => $request['terms_privacy_label_2']['terms_privacy_label_2_' . $language->id] ?? null,
+            'terms_privacy_label_3' => $request['terms_privacy_label_3']['terms_privacy_label_3_' . $language->id] ?? null,
+            'terms_privacy_label_4' => $request['terms_privacy_label_4']['terms_privacy_label_4_' . $language->id] ?? null,
+            'terms_privacy_label_5' => $request['terms_privacy_label_5']['terms_privacy_label_5_' . $language->id] ?? null,
+            'manage_sponsorship_heading' => $request['manage_sponsorship_heading']['manage_sponsorship_heading_' . $language->id] ?? null,
+            'manage_sponsorship_subtitle' => $request['manage_sponsorship_subtitle']['manage_sponsorship_subtitle_' . $language->id] ?? null,
+            'manage_sponsorship_thanks' => $request['manage_sponsorship_thanks']['manage_sponsorship_thanks_' . $language->id] ?? null,
+            'add_another_sponsorship_btn' => $request['add_another_sponsorship_btn']['add_another_sponsorship_btn_' . $language->id] ?? null,
+            'loading_sponsorships' => $request['loading_sponsorships']['loading_sponsorships_' . $language->id] ?? null,
+            'no_sponsorships_heading' => $request['no_sponsorships_heading']['no_sponsorships_heading_' . $language->id] ?? null,
+            'no_sponsorships_message' => $request['no_sponsorships_message']['no_sponsorships_message_' . $language->id] ?? null,
+            'create_first_sponsorship_btn' => $request['create_first_sponsorship_btn']['create_first_sponsorship_btn_' . $language->id] ?? null,
+            'status_active' => $request['status_active']['status_active_' . $language->id] ?? null,
+            'status_pending' => $request['status_pending']['status_pending_' . $language->id] ?? null,
+            'status_inactive' => $request['status_inactive']['status_inactive_' . $language->id] ?? null,
+            'change_frequency_btn' => $request['change_frequency_btn']['change_frequency_btn_' . $language->id] ?? null,
+            'collapse_btn' => $request['collapse_btn']['collapse_btn_' . $language->id] ?? null,
+            'payment_status_paid' => $request['payment_status_paid']['payment_status_paid_' . $language->id] ?? null,
+            'payment_status_pending' => $request['payment_status_pending']['payment_status_pending_' . $language->id] ?? null,
+            'payment_status_not_required' => $request['payment_status_not_required']['payment_status_not_required_' . $language->id] ?? null,
+            'payment_status_failed' => $request['payment_status_failed']['payment_status_failed_' . $language->id] ?? null,
+            'payment_status_refunded' => $request['payment_status_refunded']['payment_status_refunded_' . $language->id] ?? null,
+            'label_amount' => $request['label_amount']['label_amount_' . $language->id] ?? null,
+            'label_beneficiary' => $request['label_beneficiary']['label_beneficiary_' . $language->id] ?? null,
+            'label_created' => $request['label_created']['label_created_' . $language->id] ?? null,
+            'label_payment_method' => $request['label_payment_method']['label_payment_method_' . $language->id] ?? null,
+            'edit_btn' => $request['edit_btn']['edit_btn_' . $language->id] ?? null,
+            'reactivation_panel_message' => $request['reactivation_panel_message']['reactivation_panel_message_' . $language->id] ?? null,
+            'next_billing_date_label' => $request['next_billing_date_label']['next_billing_date_label_' . $language->id] ?? null,
+            'upgrade_btn' => $request['upgrade_btn']['upgrade_btn_' . $language->id] ?? null,
+            'reactivate_heading' => $request['reactivate_heading']['reactivate_heading_' . $language->id] ?? null,
+            'loading_overlay_text' => $request['loading_overlay_text']['loading_overlay_text_' . $language->id] ?? null,
+            'payment_method_ending_in' => $request['payment_method_ending_in']['payment_method_ending_in_' . $language->id] ?? null,
         ];
     }
 
