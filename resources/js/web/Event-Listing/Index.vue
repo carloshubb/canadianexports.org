@@ -61,60 +61,7 @@
                             {{ JSON.parse(event)["start_date"] }} -
                             {{ JSON.parse(event)["end_date"] }}
                         </p>
-                    </div>
-                    <div>
-                        <table class="w-full mb-0 mt-4 flex-1 border-none">
-                            <thead></thead>
-                            <tbody class="border-none">
-                                <!-- <tr class="border-none even:bg-white odd:bg-gray-100">
-                                <td
-                                    class="align-top text-base md:text-base lg:text-lg text-primary whitespace-nowrap border-none px-6 py-2"
-                                >
-                                    {{
-                                        event_detail_setting &&
-                                        JSON.parse(event_detail_setting)
-                                            ? JSON.parse(event_detail_setting)[
-                                                  "event_date_text"
-                                              ]
-                                            : ""
-                                    }}
-                                </td>
-                                <td
-                                    class="align-top text-base md:text-base lg:text-lg text-slate-600 pl-4 border-none px-6 py-2"
-                                >
-                                    {{ JSON.parse(event)["start_date"] }} -
-                                    {{ JSON.parse(event)["end_date"] }}
-                                </td>
-                            </tr>
-                            <tr class="border-none even:bg-white odd:bg-gray-100">
-                                <td
-                                    class="align-top text-base md:text-base lg:text-lg text-primary whitespace-nowrap border-none px-6 py-2"
-                                >
-                                    {{
-                                        event_detail_setting &&
-                                        JSON.parse(event_detail_setting)
-                                            ? JSON.parse(event_detail_setting)[
-                                                  "venue_text"
-                                              ]
-                                            : ""
-                                    }}
-                                </td>
-                                <td
-                                    class="align-top text-base md:text-base lg:text-lg text-slate-600 pl-4 border-none px-6 py-2"
-                                >
-                                    {{
-                                        JSON.parse(event)["event_detail"] &&
-                                        JSON.parse(event)["event_detail"][0]
-                                            ? JSON.parse(event)[
-                                                  "event_detail"
-                                              ][0]["venue"]
-                                            : ""
-                                    }}
-                                </td>
-                            </tr> -->
-                            </tbody>
-                        </table>
-                    </div>
+                    </div>                    
                 </div>
             </div>
 

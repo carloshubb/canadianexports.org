@@ -14,7 +14,7 @@
                         <div v-if="showDowngradeMessage"
                             class="mx-auto mt-4 max-w-2xl rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800"
                             role="alert">
-                            Membership downgrades cannot be processed automatically. Please contact us to adjust your plan.
+                            {{ JSON.parse(event_detail)["membership_downgrade_issue_message"] ?? "Membership downgrades cannot be processed automatically. Please contact us to adjust your plan." }}
                         </div>
                         <div
                             class="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-auto lg:max-w-3xl md:grid-cols-2 lg:grid-cols-2">
@@ -1578,15 +1578,7 @@ export default {
                     }
                 });
         },
-        // focusOnFirstErrorInput(errors) {
-        //     // Find the first error field
-        //     const firstErrorField = Object.keys(errors)[0];
-
-        //     const firstErrorInput = document.querySelector(`[id="${firstErrorField}"]`);
-        //     if (firstErrorInput) {
-        //         firstErrorInput.focus();
-        //     }
-        // },
+        
         focusOnFirstErrorInput(errors) {
             const errorKeys = new Set(Object.keys(errors));
 
