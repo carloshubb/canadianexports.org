@@ -190,7 +190,7 @@
                     <transition name="slide">
                         <div v-if="form.display_my_name" class="overflow-hidden">
                             <div class="relative w-full pl-6 pb-2">
-                                <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="name">{{
+                                <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg font-bold" for="name">{{
                                     JSON.parse(coffee_wall_setting)["name_label"] ?? 'Your Name' }}
                                     <span class="text-red-500">*</span>
                                 </label>
@@ -202,8 +202,8 @@
                         </div>
                     </transition>
 
-                    <!-- Checkbox 2: Notify me when my Coffee is used -->
-                    <div class="flex items-start gap-2">
+                     <!-- Checkbox 2: Notify me when my Coffee is used -->
+                    <div class="flex items-start gap-2 overflow-visible">
                         <input @input="clearErrors('email')" type="checkbox" name="notify_when_used"
                             id="notify_when_used" v-model="form.notify_when_used" class="mt-1 shrink-0" />
                         <label for="notify_when_used"
@@ -216,9 +216,17 @@
                                         d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
                                         clip-rule="evenodd" />
                                 </svg>
-                                <span class="invisible group-hover:visible absolute left-7 -top-8 w-64 p-3 bg-[rgb(0,110,183)] text-white text-sm rounded-lg shadow-lg z-50">
+                                <!-- Right tooltip - centered (when checked) -->
+                                <span v-if="form.notify_when_used" 
+                                    class="invisible group-hover:visible absolute left-7 top-1/2 -translate-y-1/2 w-64 p-3 bg-[rgb(0,110,183)] text-white text-sm rounded-lg shadow-lg z-50">
                                     You'll receive basic information about the business. Some details are shared only if the business chooses to make them public.
                                     <span class="absolute -left-2 top-1/2 -translate-y-1/2 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-r-8 border-r-[rgb(0,110,183)]"></span>
+                                </span>
+                                <!-- Right tooltip - positioned up (when unchecked) -->
+                                <span v-else
+                                    class="invisible group-hover:visible absolute left-7 -top-[50px] w-80 p-3 bg-[rgb(0,110,183)] text-white text-sm rounded-lg shadow-lg z-50">
+                                    You'll receive basic information about the business. Some details are shared only if the business chooses to make them public.
+                                    <span class="absolute -left-2 top-2/3 -translate-y-1/2 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-r-8 border-r-[rgb(0,110,183)]"></span>
                                 </span>
                             </span>
                         </label>
@@ -226,7 +234,7 @@
                     <transition name="slide">
                         <div v-if="form.notify_when_used" class="overflow-hidden">
                             <div class="relative w-full pl-6 pb-2">
-                                <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg" for="donor-email">{{
+                                <label class="block text-gray-900 mb-2 text-base md:text-base  font-bold lg:text-lg" for="donor-email">{{
                                     JSON.parse(coffee_wall_setting)["email_label"] ?? 'Your Email' }}
                                     <span class="text-red-500">*</span>
                                 </label>
@@ -257,7 +265,7 @@
                                             class="h-4 w-4 border-gray-300 accent-primaryRed"
                                             @click="setPaymentMethod('stripe')"
                                             :checked="form.payment_method == 'stripe'" />
-                                        <label for="stripe" class="ml-2 block text-gray-900">
+                                        <label for="stripe" class="ml-2 block text-gray-900  font-bold">
                                             {{
                                                 payment_setting &&
                                                     JSON.parse(payment_setting)

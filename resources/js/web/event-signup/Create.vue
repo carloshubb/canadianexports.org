@@ -2223,9 +2223,15 @@ export default {
     color: #6b7280;
     font-weight: 400;
 }
-</style>
 
-<style>
+/* Label text bold; text inside span remains regular */
+label {
+    font-weight: bold;
+}
+label span {
+    font-weight: normal;
+}
+
 /* @vuepic/vue-datepicker popup z-index fix - needs to be global */
 .dp__outer_menu_wrap {
     z-index: 99999 !important;
@@ -2244,3 +2250,5 @@ body>.dp__outer_menu_wrap {
     z-index: 99999 !important;
 }
 </style>
+
+
