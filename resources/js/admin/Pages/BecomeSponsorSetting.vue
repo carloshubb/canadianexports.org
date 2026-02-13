@@ -2597,12 +2597,16 @@ export default {
             obj = {};
             data.map((res) => {
               obj[item.key + "_" + res.language_id] = res[item.key] ?? "";
+              console.log(item.key," => ",res[item.key]);
             });
             this.$store.commit("pages/setHomePageSetting", {
               key: item.key,
               value: obj,
             });
           });
+
+          
+          
         });
     },
     checkValidationError(validationErros, language) {

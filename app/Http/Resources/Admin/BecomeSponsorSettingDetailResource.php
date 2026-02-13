@@ -8,6 +8,7 @@ class BecomeSponsorSettingDetailResource extends JsonResource
 {
     public function toArray($request)
     {
+        
         return [
             'id' => $this->id,
             'become_sponsor_setting_id' => $this->become_sponsor_setting_id,
@@ -83,6 +84,11 @@ class BecomeSponsorSettingDetailResource extends JsonResource
             'debit_credit_label' => $this->debit_credit_label,
             'cardholder_name_label' => $this->cardholder_name_label,
             'terms_privacy_label' => $this->terms_privacy_label,
+            'terms_privacy_label_1' => $this->terms_privacy_label_1,
+            'terms_privacy_label_2' => $this->terms_privacy_label_2,
+            'terms_privacy_label_3' => $this->terms_privacy_label_3,
+            'terms_privacy_label_4' => $this->terms_privacy_label_4,
+            'terms_privacy_label_5' => $this->terms_privacy_label_5,
             'donation_non_refundable_label' => $this->donation_non_refundable_label,
             'processing_text' => $this->processing_text,
             'reactivate_btn_text' => $this->reactivate_btn_text,
