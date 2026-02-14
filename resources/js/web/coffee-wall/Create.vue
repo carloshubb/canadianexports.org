@@ -676,6 +676,9 @@ export default {
             // User came from outside our website (or new tab) — clear any saved state and use defaults
             sessionStorage.removeItem(STORAGE_KEY);
         }
+
+        console.log(2323232121212,"newMethod");
+        
     },
     watch: {
         form: {
@@ -694,41 +697,12 @@ export default {
             },
             immediate: true // Run the handler immediately if `languages` is already available
         },
-        'form.payment_method': {
+        'form.payment_method': {            
             handler(newMethod) {
+                console.log(2323232,newMethod);
                 // Remount Stripe Elements when switching back to Stripe
                 if (newMethod === 'stripe') {
-                    this.$nextTick(() => {
-                        // Small delay to ensure DOM is ready
-                        setTimeout(() => {
-                            const mountPoint = this.$refs.stripeCard;
-                            if (mountPoint && this.cardElement && this.stripe) {
-                                try {
-                                    // Try to unmount first if already mounted
-                                    this.cardElement.unmount();
-                                } catch (e) {
-                                    // Element not mounted, that's okay
-                                }
-
-                                try {
-                                    // Mount to the DOM
-                                    this.cardElement.mount(mountPoint);
-                                    console.log('Stripe Element remounted successfully');
-                                } catch (e) {
-                                    console.error('Error mounting Stripe Element:', e);
-                                    // If mounting fails, recreate the element
-                                    this.cardElement = this.elements.create('card');
-                                    this.cardElement.mount(mountPoint);
-                                }
-                            } else if (mountPoint && this.stripe && !this.cardElement) {
-                                // Card element doesn't exist, create and mount it
-                                this.elements = this.stripe.elements();
-                                this.cardElement = this.elements.create('card');
-                                this.cardElement.mount(mountPoint);
-                                console.log('Stripe Element created and mounted');
-                            }
-                        }, 100);
-                    });
+                    this.mountStripeCardWhenReady();
                 }
             }
         }
@@ -1206,6 +1180,37 @@ export default {
             }
             return true;
         },
+        /** Mount or remount Stripe card element when the payment section is in the DOM (e.g. after selecting Premium). */
+        mountStripeCardWhenReady() {
+            this.$nextTick(() => {
+                setTimeout(() => {
+                    const mountPoint = this.$refs.stripeCard;
+                    if (!mountPoint || !this.stripe) return;
+                    if (this.cardElement) {
+                        try {
+                            this.cardElement.unmount();
+                        } catch (e) {
+                            // Element not mounted, that's okay
+                        }
+                        try {
+                            this.cardElement.mount(mountPoint);
+                            this.setupStripeCardChangeListener();
+                        } catch (e) {
+                            console.error('Error mounting Stripe Element:', e);
+                            this.elements = this.elements || this.stripe.elements();
+                            this.cardElement = this.elements.create('card');
+                            this.cardElement.mount(mountPoint);
+                            this.setupStripeCardChangeListener();
+                        }
+                    } else {
+                        this.elements = this.elements || this.stripe.elements();
+                        this.cardElement = this.elements.create('card');
+                        this.cardElement.mount(mountPoint);
+                        this.setupStripeCardChangeListener();
+                    }
+                }, 100);
+            });
+        },
     },
     created() {
         this.gallery_files = [];
@@ -1276,12 +1281,7 @@ export default {
                 if (this.stripe) {
                     this.elements = this.stripe.elements();
                     this.cardElement = this.elements.create('card');
-                    this.$nextTick(() => {
-                        const mountPoint = this.$refs.stripeCard;
-                        if (mountPoint && this.cardElement) {
-                            this.cardElement.mount(mountPoint);
-                        }
-                    });
+                    this.mountStripeCardWhenReady();
                 }
             } catch (e) {
                 console.error('Error loading Stripe:', e);
