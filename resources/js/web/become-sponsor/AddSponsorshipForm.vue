@@ -294,7 +294,8 @@
 
                 <!-- Card Element -->
                 <div class="input_text relative mb-4">
-                  <label class="block text-sm font-medium text-gray-700 mb-1">{{ JSON.parse(payment_setting)["card_number_label"] }}</label>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">Card Number
+                  </label>
                   <div ref="stripeCard" class="can-exp-input"></div>
                   <div id="card-errors" class="text-red-500 text-sm mt-1"></div>
                 </div>
@@ -361,6 +362,8 @@ export default {
   },
   computed: {
     user() {
+    console.log(this.loggedInUser);
+    
       if (this.loggedInUser) {
         try {
           return JSON.parse(this.loggedInUser);
@@ -414,6 +417,8 @@ export default {
     };
   },
   mounted() {
+    console.log(121212);
+    
     this.loadBeneficiaries();
 
     // Pre-fill user data from logged-in account
@@ -751,5 +756,9 @@ export default {
 <style scoped>
 .can-exp-input {
   @apply block border-2 p-3 w-full rounded border-gray-300 focus:outline-none focus:border-primary;
+}
+
+label{
+  font-weight: bold;
 }
 </style>

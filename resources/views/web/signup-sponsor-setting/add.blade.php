@@ -22,11 +22,11 @@
                     <div class="bg-white mt-10 py-8 px-4 sm:px-10">
                         @php
                             $langAbbr = app()->getLocale() ?? 'en';
-                            $sponsorSettingsUrl = "/{$langAbbr}/user/sponsor-settings";
+                            $sponsorSettingsUrl = "/{$langAbbr}/user/sponsor-settings";                            
                         @endphp
                         <add-sponsorship-form 
                             sponsor-settings-url="{{ $sponsorSettingsUrl }}"
-                            logged-in-user="{{ json_encode(auth()->guard('customers')->user()) }}"
+                            logged-in-user="{{ json_encode(auth()->guard('customers')->user())}}"
                         ></add-sponsorship-form>
                     </div>
                 </div>
