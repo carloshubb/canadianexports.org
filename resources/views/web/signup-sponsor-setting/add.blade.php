@@ -25,6 +25,7 @@
                             $sponsorSettingsUrl = "/{$langAbbr}/user/sponsor-settings";                            
                         @endphp
                         <add-sponsorship-form 
+                            :become_sponsor='@json($becomeSponsorSettingDetail ?? [])'
                             sponsor-settings-url="{{ $sponsorSettingsUrl }}"
                             logged-in-user="{{ json_encode(auth()->guard('customers')->user())}}"
                         ></add-sponsorship-form>

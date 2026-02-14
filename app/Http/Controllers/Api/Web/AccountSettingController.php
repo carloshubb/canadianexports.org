@@ -100,9 +100,18 @@ class AccountSettingController extends Controller
         updateLangByAbber($abbreviation);
         $user = auth()->guard('customers')->user();
         $customerProfile = CustomerProfile::where('customer_id', $user->id)->first();
-
+        $page = \App\Models\Page::where('template', 'become_sponsor_template')->first();
+        $becomeSponsorSetting = null;
+        $becomeSponsorSettingDetail = null;
         $lang = getDefaultLanguage(true);
-        return view('web.signup-sponsor-setting.add', compact('user', 'customerProfile', 'lang'));
+        if ($page) {
+            $becomeSponsorSetting = getBecomeSponsorSetting($lang, $page);
+            $becomeSponsorSettingDetail = isset($becomeSponsorSetting->becomeSponsorSettingDetail[0])
+                ? $becomeSponsorSetting->becomeSponsorSettingDetail[0]
+                : null;
+        }
+       
+        return view('web.signup-sponsor-setting.add', compact('user', 'customerProfile', 'lang','becomeSponsorSettingDetail'));
     }
 
     public function createBusinessProfile($abbreviation = null)
