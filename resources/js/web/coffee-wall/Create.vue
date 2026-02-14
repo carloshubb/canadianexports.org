@@ -677,7 +677,7 @@ export default {
             sessionStorage.removeItem(STORAGE_KEY);
         }
 
-        console.log(2323232121212,"newMethod");
+        
         
     },
     watch: {
@@ -1208,7 +1208,7 @@ export default {
                         this.cardElement.mount(mountPoint);
                         this.setupStripeCardChangeListener();
                     }
-                }, 100);
+                }, 150);
             });
         },
         setupStripeCardChangeListener() {
