@@ -1211,6 +1211,16 @@ export default {
                 }, 100);
             });
         },
+        setupStripeCardChangeListener() {
+            if (this.cardElement) {
+                this.stripeCardComplete = false;
+                this.cardElement.off('change');
+                this.cardElement.on('change', (e) => {
+                    this.stripeCardComplete = !!e.complete;
+                    this.validationErros.clear('payment_method_id');
+                });
+            }
+        },
     },
     created() {
         this.gallery_files = [];
@@ -1281,6 +1291,7 @@ export default {
                 if (this.stripe) {
                     this.elements = this.stripe.elements();
                     this.cardElement = this.elements.create('card');
+                    console.log("mountStripeCardWhenReady");                    
                     this.mountStripeCardWhenReady();
                 }
             } catch (e) {
