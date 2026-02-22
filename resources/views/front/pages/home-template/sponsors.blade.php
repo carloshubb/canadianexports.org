@@ -86,7 +86,7 @@ $banners = getBanners('sponsor', 8);
         </div>
     </div>
     <h3 class="mt-10 text-center font-semibold text-[#000000]">
-        {{ __('The Supporters Who Make It Possible. Powered by Our Incredible Sponsors.') }}
+        {!! $homePageSettingDetail->section3_sponsor_title !!}
     </h3>
     <div class="mt-8 flex justify-center gap-4">
         @php
