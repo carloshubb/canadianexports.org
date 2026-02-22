@@ -52,7 +52,7 @@ class AdvanceSearchService
 
         // return $searchCustomerProfiles = $searchCustomerProfiles->get();
         return $searchCustomerProfiles = $searchCustomerProfiles->paginate(25);
-        return $searchCustomerProfiles;
+        
     }
 
     function inquariesToBuy($search, $defaultLang)

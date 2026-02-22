@@ -24,13 +24,13 @@
                                     $page_detail = '<h1 style="text-align: center; line-height: 1;">Update Your Event Details</h1>
                                                     <p dir="ltr" style="text-align: center; line-height: 1;"><span style="font-size: 18px;">List your trade show or event on Canada&rsquo;s premier trade discovery platform. Connect with industry leaders and reach a global audience of exporters and buyers.</span></p>
                                                     <p dir="ltr"><br>&bull; Complete this secure form to submit your Trade Show or Event details.</p>
-                                                    <p dir="ltr">&bull; <strong id="docs-internal-guid-87b606bf-7fff-ec8d-7ae5-4d2e23fd0fba">Instant Activation: </strong>Your event listing goes live immediately after payment is confirmed.</p> 
-                                                    <p dir="ltr">&bull; <strong id="docs-internal-guid-0ab3d756-7fff-2cb4-abc7-310c1caa614a">Quality Control: </strong>We reserve the right to remove or edit listings that do not meet our professional standards.</p> 
-                                                    <p dir="ltr">&bull; <strong id="docs-internal-guid-dea970a8-7fff-9ccd-ec3f-3addbd16bfe5">Tax Transparency: </strong>Taxes are applied based on your location; 0% tax applies to most international organizers. Users are responsible for their own local tax reporting.</p> 
-                                                    <p dir="ltr"><strong id="docs-internal-guid-8d3c5e19-7fff-f72d-834b-951c2b47ae32">&bull; Need assistance?&nbsp;</strong>Call us at +1 877-333-3014 (Mon&ndash;Fri, 9:30 AM&ndash;4:00 PM EST).</p> 
+                                                    <p dir="ltr">&bull; <strong>Instant Activation: </strong>Your event listing goes live immediately after payment is confirmed.</p> 
+                                                    <p dir="ltr">&bull; <span>Quality Control: </span>We reserve the right to remove or edit listings that do not meet our professional standards.</p> 
+                                                    <p dir="ltr">&bull; <strong>Tax Transparency: </strong>Taxes are applied based on your location; 0% tax applies to most international organizers. Users are responsible for their own local tax reporting.</p> 
+                                                    <p dir="ltr"><strong>&bull; Need assistance?&nbsp;</strong>Call us at +1 877-333-3014 (Mon&ndash;Fri, 9:30 AM&ndash;4:00 PM EST).</p> 
                                                     <p dir="ltr">&bull;Refine your event information to ensure maximum impact. Any changes you make here will be updated Live on our global platform immediately. Keep your listing fresh and accurate to attract the best international trade partners. </p>
                                                     <p dir="ltr">&nbsp;</p>
-                                                    <p><strong id="docs-internal-guid-3bd1d111-7fff-9900-b4f1-3aa3ede040f9"></strong></p>
+                                                    <p><strong></strong></p>
                                                     <p style="text-align: right;"><span style="color: #e74c3c;">* Indicates required fields</span></p>
                                                     ';
                                 }

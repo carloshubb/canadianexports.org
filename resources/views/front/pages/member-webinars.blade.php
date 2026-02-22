@@ -6,11 +6,11 @@
     <div class="pt-[7.5rem] lg:pb-14 md:pb-10 pb-10">
         <div class="container mx-auto px-4">
             <div class="mb-6">
-                <h1 class="text-3xl font-bold text-primary mb-2">{{ __('My Webinars') }}</h1>
-                <p class="text-gray-600">{{ __('Create and manage your own webinars. Share your expertise with the community!') }}</p>
+                <h1 class="text-3xl font-bold text-primary mb-2">  {{ $webinarSettingDetail['my_webinars_heading'] ?? __('My Webinars') }}</h1>
+                <p class="text-gray-600">{{  $webinarSettingDetail['my_webinars_title'] ?? __('Create and manage your own webinars. Share your expertise with the community!') }}</p>
             </div>
 
-            <my-webinars></my-webinars>
+            <my-webinars :webinar-setting='@json($webinarSettingDetail ?? [])'></my-webinars>
         </div>
     </div>
 </div>

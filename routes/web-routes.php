@@ -35,6 +35,7 @@ use App\Http\Controllers\Web\ArticlePageController;
 use App\Models\Customer;
 use App\Models\Language;
 use App\Models\Event;
+use App\Models\Page;
 use App\Services\PaypalService;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
@@ -224,7 +225,18 @@ Route::group(['middleware' => ['share.variable', 'user.status']], function () {
         if (!auth('customers')->check()) {
             return redirect()->route('front.index', ['abbreviation' => $abbreviation]);
         }
-        return view('front.pages.member-webinars');
+       
+        $lang = Language::where('abbreviation', $abbreviation)->first() ?? getDefaultLanguage(true);
+        $lang = getDefaultLanguage(true);
+        $slug = "webinars";
+        $page = getPageBySlug($slug, $lang);
+        $webinarSetting = getWebinarSetting($lang, $page);
+        $webinarSettingDetail = isset($webinarSetting->webinarSettingDetail[0])
+            ? $webinarSetting->webinarSettingDetail[0]
+            : null;        
+        return view('front.pages.member-webinars', [
+            'webinarSettingDetail' => $webinarSettingDetail,
+        ]);
     })->name('member.webinars')->whereIn('abbreviation', Language::pluck('abbreviation')->toArray())->middleware('auth.user');
 
     //Route::get('/{slug?}', [HomeController::class, 'index'])->name('front.index');
