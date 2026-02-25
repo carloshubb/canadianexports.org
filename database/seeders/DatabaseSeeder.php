@@ -35,6 +35,7 @@ class DatabaseSeeder extends Seeder
             ExportingFairSettingSeeder::class,
             GeneralMessageSeeder::class,
             ResendEmailVerificationSettingSeeder::class,
+            WebinarSettingSeeder::class,
         ]);
     }
 }

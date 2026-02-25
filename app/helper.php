@@ -6,6 +6,8 @@ use App\Models\AboutUsPageSetting;
 use App\Models\AdvertiserSetting;
 use App\Models\ScamAlertSetting;
 use App\Models\SuccessStoriesSetting;
+use App\Models\WebinarSetting;
+use App\Models\WebinarSettingDetail;
 use App\Models\TestimonialSetting;
 use App\Models\SuccessStories;
 use App\Models\Banner;
@@ -642,6 +644,30 @@ if (!function_exists("getScamAlertSetting")) {
             applyDetailFallbackToModel($scamAlertSetting, 'scamAlertSettingDetail', $defaultLang);
         }
         return $scamAlertSetting;
+    }
+}
+if (!function_exists("getWebinarSetting")) {
+    function getWebinarSetting($defaultLang, $page = null)
+    {
+        $query = WebinarSetting::query();
+        if ($page !== null) {
+            $query->where('page_id', $page->id);
+        } else {
+            $query->whereNull('page_id');
+        }
+        $webinarSetting = $query->with(['webinarSettingDetail' => function ($q) use ($defaultLang) {
+            $q->where('language_id', $defaultLang->id);
+        }])->first();
+        if (!$webinarSetting && $page !== null) {
+            $webinarSetting = WebinarSetting::whereNull('page_id')
+                ->with(['webinarSettingDetail' => function ($q) use ($defaultLang) {
+                    $q->where('language_id', $defaultLang->id);
+                }])->first();
+        }
+        if ($webinarSetting) {
+            applyDetailFallbackToModel($webinarSetting, 'webinarSettingDetail', $defaultLang);
+        }
+        return $webinarSetting;
     }
 }
 if (!function_exists("getSuccessStoriesSetting")) {

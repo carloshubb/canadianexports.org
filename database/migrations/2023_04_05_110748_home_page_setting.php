@@ -36,6 +36,8 @@ return new class extends Migration
             $table->text('section2_button_text', 500)->nullable()->comment('Inquiries to buy section');
             $table->text('section2_button_url', 500)->nullable()->comment('Inquiries to buy section');
             $table->text('section3_heading', 500)->nullable()->comment('Our sponsors section');
+            $table->text('section3_title', 500)->nullable()->comment('Our sponsors section');
+            $table->text('section3_sponsor_title', 500)->nullable()->comment('Our sponsors section');
             $table->text('section3_button_text', 500)->nullable()->comment('Our sponsors section');
             $table->text('section3_button_url', 500)->nullable()->comment('Our sponsors section');
             $table->text('section4_heading', 500)->nullable()->comment('Featured businesses section');

@@ -1,15 +1,15 @@
 <template>
   <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
     <div class="mb-6">
-      <h1 class="text-3xl font-bold text-primary mb-2">Add New Sponsorship</h1>
-      <p class="text-gray-600">Create an additional sponsorship under your account</p>
+      <h1 class="text-3xl font-bold text-primary mb-2">{{ bs('add_new_sponsorship', 'Add New Sponsorship') }}</h1>
+      <p class="text-gray-600">{{ bs('add_new_sponsorship_subtitle', 'Create an additional sponsorship under your account') }}</p>
     </div>
 
     <form @submit.prevent="processPayment()">
       <!-- SPONSORSHIP OPTION -->
       <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
         <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-          <h4 class="text-white">Choose Your Option</h4>
+          <h4 class="text-white">{{ bs('choose_your_option', 'Choose Your Option') }}</h4>
         </div>
         <div class="p-6">
           <fieldset class="flex flex-col md:flex-row items-stretch w-full overflow-hidden rounded-md shadow-sm gap-4">
@@ -24,8 +24,8 @@
                 <input type="radio" name="sponsorship_option" :value="false" class="sr-only"
                   v-model="form.talk_to_us_first" />
                 <span class="text-2xl mb-2">💳</span>
-                <span class="font-bold">Enter Your Amount</span>
-                <span class="text-sm mt-2 opacity-90">Make a sponsorship payment now</span>
+                <span class="font-bold">{{ bs('enter_your_amount', 'Enter Your Amount') }}</span>
+                <span class="text-sm mt-2 opacity-90">{{ bs('enter_your_amount_desc', 'Make a sponsorship payment now') }}</span>
               </label>
             </div>
 
@@ -40,8 +40,8 @@
                 <input type="radio" name="sponsorship_option" :value="true" class="sr-only"
                   v-model="form.talk_to_us_first" />
                 <span class="text-2xl mb-2">📞</span>
-                <span class="font-bold">Talk to Us First</span>
-                <span class="text-sm mt-2 opacity-90">Let's discuss before you commit</span>
+                <span class="font-bold">{{ bs('talk_to_us_first_label', 'Talk to Us First') }}</span>
+                <span class="text-sm mt-2 opacity-90">{{ bs('talk_to_us_first_description', "Let's discuss before you commit") }}</span>
               </label>
             </div>
           </fieldset>
@@ -51,13 +51,13 @@
       <!-- AMOUNT & BENEFICIARY -->
       <div v-if="!form.talk_to_us_first" class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
         <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-          <h4 class="text-white">Sponsorship Details</h4>
+          <h4 class="text-white">{{ bs('sponsorship_details', 'Sponsorship Details') }}</h4>
         </div>
         <div class="p-6">
           <div class="relative w-full mb-6">
             <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg font-medium"
               for="sponsorship_amount">
-              Enter Your Sponsorship Amount <span class="text-red-500">*</span>
+              {{ bs('enter_sponsorship_amount', 'Enter Your Sponsorship Amount') }} <span class="text-red-500">*</span>
             </label>
             <div class="relative flex items-center">
               <span class="absolute left-4 text-gray-500 text-xl font-bold">$</span>
@@ -70,7 +70,7 @@
 
           <div class="relative w-full" id="beneficiary_ids">
             <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg font-medium">
-              Select Beneficiary <span class="text-red-500">*</span>
+              {{ bs('select_beneficiary', 'Select Beneficiary ') }}<span class="text-red-500">*</span>
             </label>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div v-for="beneficiary in beneficiaries" :key="beneficiary.id">
@@ -90,27 +90,27 @@
       <!-- TALK TO US FIELDS -->
       <div v-if="form.talk_to_us_first" class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
         <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-          <h4 class="text-white">Contact Preferences</h4>
+          <h4 class="text-white">{{ bs('contact_preferences', 'Contact Preferences') }}</h4>
         </div>
         <div class="p-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="relative w-full">
               <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg">
-                Preferred Call Time <span class="text-red-500">*</span>
+                {{ bs('select_time_placeholder', 'Preferred Call Time') }} <span class="text-red-500">*</span>
               </label>
               <select v-model="form.preferred_call_time" class="can-exp-input"
                 @change="clearErrors('preferred_call_time')">
-                <option value="">Select time...</option>
-                <option value="morning">Morning (8am - 12pm)</option>
-                <option value="afternoon">Afternoon (12pm - 5pm)</option>
-                <option value="evening">Evening (5pm - 8pm)</option>
+                <option value="">{{ bs('preferred_call_date_optional', 'Select time...') }}</option>
+                <option value="morning">{{ bs('call_time_morning', 'Morning (8am - 12pm)') }}</option>
+                <option value="afternoon">{{ bs('call_time_afternoon', 'Afternoon (12pm - 5pm)<') }}</option>
+                <option value="evening">{{ bs('call_time_evening', 'Evening (5pm - 8pm)') }}</option>
               </select>
               <Error v-if="submitted" fieldName="preferred_call_time" :validationErros="validationErros" />
             </div>
 
             <div class="relative w-full">
               <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg">
-                Preferred Call Date (Optional)
+                {{ bs('preferred_call_date_optional', 'Preferred Call Date (Optional)') }}
               </label>
               <input type="date" v-model="form.preferred_call_date" class="can-exp-input" :min="getMinDate()"
                 @input="clearErrors('preferred_call_date')" />
@@ -122,35 +122,35 @@
       <!-- CONTACT INFORMATION (Hidden but auto-filled) -->
       <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
         <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-          <h4 class="text-white">Contact Information</h4>
+          <h4 class="text-white">{{ bs('contact_information', 'Contact Information') }}</h4>
         </div>
         <div class="p-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="relative w-full">
               <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg">
-                Contact Person Name <span class="text-red-500">*</span>
+                {{ bs('contact_information', 'Contact Person Name') }} <span class="text-red-500">*</span>
               </label>
               <input type="text" v-model="form.contact_name" class="can-exp-input bg-gray-50" placeholder="John Doe"
                 readonly />
-              <p class="text-xs text-gray-500 mt-1">From your account</p>
+              <p class="text-xs text-gray-500 mt-1">{{ bs('from_your_account', 'From your account') }}</p>
             </div>
 
             <div class="relative w-full">
               <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg">
-                Email <span class="text-red-500">*</span>
+                {{ bs('email_label', 'Email') }} <span class="text-red-500">*</span>
               </label>
               <input type="email" v-model="form.email" class="can-exp-input bg-gray-50" placeholder="email@example.com"
                 readonly />
-              <p class="text-xs text-gray-500 mt-1">From your account</p>
+              <p class="text-xs text-gray-500 mt-1">{{ bs('from_your_account', 'From your account<') }}</p>
             </div>
 
             <div class="relative w-full md:col-span-2">
               <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg">
-                Contact Number <span class="text-red-500">*</span>
+                {{ bs('contact_number_label', 'Contact Number ') }}<span class="text-red-500">*</span>
               </label>
               <input type="text" v-model="form.contact_number" class="can-exp-input" placeholder="+15551234567"
                 maxlength="15" @input="handlePhoneInput('contact_number')" @keypress="validatePhoneKeypress" />
-              <p class="text-xs text-gray-500 mt-1">Enter your contact number for this sponsorship (max 15 characters, numbers and + only)</p>
+              <p class="text-xs text-gray-500 mt-1">{{ bs('contact_number_help', 'Enter your contact number for this sponsorship (max 15 characters, numbers and + only)') }}</p>
               <Error v-if="submitted" fieldName="contact_number" :validationErros="validationErros" />
             </div>
           </div>
@@ -160,23 +160,23 @@
       <!-- SPONSORSHIP INFO -->
       <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
         <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-          <h4 class="text-white">Sponsorship Information</h4>
+          <h4 class="text-white">{{ bs('sponsorship_information', 'Sponsorship Information') }}</h4>
         </div>
         <div class="p-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="relative w-full md:col-span-2">
               <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg">
-                Company/Business Name <span class="text-red-500">*</span>
+                {{ bs('company_business_name', 'Company/Business Name ') }}<span class="text-red-500">*</span>
               </label>
               <input type="text" v-model="form.company_name" class="can-exp-input" placeholder="Your Company Inc."
                 @input="clearErrors('company_name')" />
-              <p class="text-sm text-gray-500 mt-1">This can be a different business than your previous sponsorships</p>
+              <p class="text-sm text-gray-500 mt-1">{{ bs('company_business_name_help', 'This can be a different business than your previous sponsorships') }}</p>
               <Error v-if="submitted" fieldName="company_name" :validationErros="validationErros" />
             </div>
 
             <div class="relative w-full md:col-span-2">
               <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg">
-                Company Website (Optional)
+                {{ bs('company_website', 'Company Website (Optional)') }}
               </label>
               <input type="url" v-model="form.url" class="can-exp-input" placeholder="https://yourcompany.com"
                 @input="clearErrors('url')" />
@@ -185,7 +185,7 @@
 
             <div class="relative w-full md:col-span-2">
               <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg">
-                Brief Description <span class="text-red-500">*</span>
+                {{ bs('brief_description', 'Brief Description') }}<span class="text-red-500">*</span>
               </label>
               <textarea v-model="form.summary" class="can-exp-input" rows="3"
                 :placeholder="'Brief description of your company and sponsorship...'"
@@ -195,7 +195,7 @@
 
             <div class="relative w-full md:col-span-2">
               <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg">
-                Detailed Description <span class="text-red-500">*</span>
+                {{ bs('detailed_description', 'Detailed Description') }} <span class="text-red-500">*</span>
               </label>
               <textarea v-model="form.detail_description" class="can-exp-input" rows="5"
                 :placeholder="'Detailed description of your company, products, or services...'"
@@ -205,7 +205,7 @@
 
             <div class="relative w-full md:col-span-2">
               <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg">
-                Additional Message (Optional)
+                {{ bs('additional_message_optional', 'Additional Message (Optional)') }}
               </label>
               <textarea v-model="form.message" class="can-exp-input" rows="3"
                 :placeholder="'Any additional information...'" @input="clearErrors('message')"></textarea>
@@ -217,19 +217,19 @@
       <!-- LOGO & FEATURED IMAGE -->
       <div class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
         <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-          <h4 class="text-white">Images (Optional)</h4>
+          <h4 class="text-white">{{ bs('images_optional', 'Images (Optional)') }}</h4>
         </div>
         <div class="p-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg">Company Logo</label>
+              <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg">{{ bs('company_logo', 'Company Logo') }}</label>
               <file-pond name="logo" ref="logo" class="filepond"
                 :label-idle="labelIdleLogo"
                 accepted-file-types="image/jpeg, image/png, image/jpg" :allow-multiple="false" :server="serverOptions"
                 v-on:processfile="handleLogoProcessed" v-on:removefile="handleLogoRemoved" />
             </div>
             <div>
-              <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg">Featured Image</label>
+              <label class="block text-gray-900 mb-2 text-base md:text-base lg:text-lg">{{ bs('featured_image', 'Featured Image') }}</label>
               <file-pond name="featured_image" ref="featured_image" class="filepond"
                 :label-idle="labelIdleFeatured"
                 accepted-file-types="image/jpeg, image/png, image/jpg" :allow-multiple="false" :server="serverOptions"
@@ -242,7 +242,7 @@
       <!-- PAYMENT SECTION (Only for "Enter Your Amount") -->
       <div v-if="!form.talk_to_us_first" class="bg-white rounded-lg overflow-hidden shadow-3xl my-6">
         <div class="px-4 py-3 sm:px-6 text-left bg-gradient-to-r from-primary via-primary to-secondary rounded-t-md">
-          <h4 class="text-white">Payment Method</h4>
+          <h4 class="text-white">{{ bs('label_payment_method', 'Payment Method') }}</h4>
         </div>
         <div class="p-6">
           <!-- Payment Method Selection -->
@@ -252,7 +252,7 @@
                 class="h-4 w-4 border-gray-300 accent-primary" @click="setPaymentMethod('stripe')"
                 :checked="form.payment_method == 'stripe'" />
               <label for="stripe" class="ml-2 block text-gray-900 font-medium">
-                Pay with Credit Card
+                {{ bs('pay_with_credit_card', 'Pay with Credit Card') }}
               </label>
             </div>
             <div class="flex items-center">
@@ -286,7 +286,7 @@
               <div class="h-auto bg-white w-full">
                 <!-- Cardholder Name -->
                 <div class="input_text relative mb-4">
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Cardholder Name</label>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">{{ bs('cardholder_name', 'Cardholder Name') }}</label>
                   <input v-model="form.cardholder_name" type="text" placeholder="John Doe" class="can-exp-input"
                     @input="clearErrors('cardholder_name')" />
                   <Error v-if="submitted" fieldName="cardholder_name" :validationErros="validationErros" />
@@ -294,7 +294,7 @@
 
                 <!-- Card Element -->
                 <div class="input_text relative mb-4">
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Card Number
+                  <label class="block text-sm font-medium text-gray-700 mb-1">{{ bs('card_number', 'Card Number') }}
                   </label>
                   <div ref="stripeCard" class="can-exp-input"></div>
                   <div id="card-errors" class="text-red-500 text-sm mt-1"></div>
@@ -310,12 +310,12 @@
       <!-- ACTION BUTTONS -->
       <div class="flex justify-between items-center pt-6 border-t">
         <a :href="sponsorSettingsUrl" class="text-gray-600 hover:text-gray-800">
-          ← Back to My Sponsorships
+          {{ bs('back_to_my_sponsorships', '← Back to My Sponsorships') }}
         </a>
         <button type="submit" class="button-exp-fill" :disabled="processing">
-          <span v-if="processing">Processing...</span>
-          <span v-else-if="form.talk_to_us_first">Submit Contact Request</span>
-          <span v-else>Complete Payment & Add Sponsorship</span>
+          <span v-if="processing">{{ bs('processing', 'Processing...') }}</span>
+          <span v-else-if="form.talk_to_us_first">{{ bs('submit_contact_request', 'Submit Contact Request') }}</span>
+          <span v-else>{{ bs('complete_payment_add_sponsorship', 'Complete Payment & Add Sponsorship') }}</span>
         </button>
       </div>
     </form>
@@ -351,6 +351,7 @@ export default {
     Error,
   },
   props: {
+    become_sponsor: { type: [Object, Boolean], default: null },
     sponsorSettingsUrl: {
       type: String,
       default: '/user/sponsor-settings'
@@ -417,7 +418,7 @@ export default {
     };
   },
   mounted() {
-    console.log(121212);
+    
     
     this.loadBeneficiaries();
 
@@ -505,6 +506,10 @@ export default {
     }
   },
   methods: {
+    bs(key, fallback) {
+      return this.become_sponsor[key] ?? fallback ?? '';
+    },
+    
     async loadBeneficiaries() {
       try {
         const response = await axios.get(`${process.env.MIX_WEB_API_URL}get-coffee-wall-beneficiaries`);

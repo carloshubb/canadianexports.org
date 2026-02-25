@@ -264,7 +264,13 @@
     @elseif(isset($page) && $page->template == null)
         @include('front.pages.about-us-template.index', ['page' => $page, 'lang' => $lang])
     @elseif(isset($page) && $page->template == 'webinar_template')
-        @include('front.pages.webinar_template.index', ['page' => $page, 'lang' => $lang])
+        @php
+            $webinarSetting = getWebinarSetting($lang, $page);
+            $webinarSettingDetail = isset($webinarSetting->webinarSettingDetail[0])
+                ? $webinarSetting->webinarSettingDetail[0]
+                : null;           
+        @endphp
+        @include('front.pages.webinar_template.index', ['page' => $page, 'lang' => $lang, 'webinarSettingDetail' => $webinarSettingDetail ?? null])
     @endif
     @if (Session::has('type') &&
             (Session::get('type') == 'success' || Session::get('type') == 'pre_success') &&
