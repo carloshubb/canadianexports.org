@@ -75,8 +75,8 @@ class HomeController extends Controller
 
         $validationRule = [
             'custom_amount' => $request->package == 'custom' ? 'required' : 'nullable',
-            'name' => $request->anonymous ? 'nullable' : 'required',
-            'email' => $request->anonymous ? 'nullable' : 'required',
+            'name' => 'nullable',
+            'email' => 'nullable',
             'payment_method' => 'required|in:stripe,paypal',
             'package_id' => $request->custom_amount ? 'nullable' : 'required|exists:coffee_wall_packages,id',
             'beneficiary_ids' => 'required|array|min:1',
