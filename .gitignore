@@ -4,7 +4,7 @@ storage
 
 
 .env
-public/images
+
 public/media
 public/storage
 public/css/app.css

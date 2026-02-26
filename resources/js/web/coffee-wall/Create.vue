@@ -883,11 +883,9 @@ export default {
                             window.location.href =
                                 res?.data?.data?.redirect_url;
                         } else {
-                            // Stripe or free donation success — capture donor name before clearing form
-                            const donorName = this.form.name || this.form.card_holder_name || 'you';
+                            // Stripe or free donation success — show same success modal whether or not Optional Donor Details were filled
                             this.clearForm();
 
-                            // Show success popup in three sections: title, text, Thank you button
                             Swal.fire({
                                 title: "Your coffee is now waiting for a business that needs it.",
                                 text: "Your kindness helps open doors for Canadian exporters who are working hard to grow. Thank you.",
@@ -904,7 +902,7 @@ export default {
                             });
                         }
                     } else {
-                        helper.swalErrorMessageForWeb(res.data.message);
+                        helper.swalErrorMessageForWeb(res.data.message || 'Something went wrong. Please try again.');
                     }
                 })
                 .catch((error) => {
@@ -912,14 +910,21 @@ export default {
                     this.validationErros = new ErrorHandling();
                     if (error.response && error.response.status == 422) {
                         this.validationErros.record(error.response.data.errors);
+                        // Show first validation error in a modal so user always sees feedback (e.g. when Optional Donor Details are not filled)
+                        const errors = error.response.data.errors;
+                        const firstKey = Object.keys(errors)[0];
+                        const firstMessage = firstKey && Array.isArray(errors[firstKey]) ? errors[firstKey][0] : null;
+                        helper.swalErrorMessageForWeb(firstMessage || 'Please check the form for errors.');
                     } else if (
                         error.response &&
                         error.response.data &&
                         error.response.data.status == "Error"
                     ) {
                         helper.swalErrorMessageForWeb(
-                            error.response.data.message
+                            error.response.data.message || 'Something went wrong. Please try again.'
                         );
+                    } else {
+                        helper.swalErrorMessageForWeb('Something went wrong. Please try again.');
                     }
                 });
         },
