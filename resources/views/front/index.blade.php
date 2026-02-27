@@ -27,6 +27,7 @@
     @endif
     @if (isset($page) && $page->template == 'home_template')
         @php
+            View::share('skip_ga_on_home', true);
             $homePageSetting = getHomePageSetting($lang, $page);
             $homePageSettingDetail = isset($homePageSetting->homePageSettingDetail[0])
                 ? $homePageSetting->homePageSettingDetail[0]
