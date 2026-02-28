@@ -89,7 +89,7 @@
                             </div>
                             <div class="relative w-full mb-3">
                                 <label class="mb-2 text-primary text-base md:text-base lg:text-lg"
-                                    for="">{{ isset($advSearchSetting['select_industry_label']) ? $advSearchSetting['select_industry_label'] : '' }}</label>
+                                    for="canadian-exporters">{{ isset($advSearchSetting['select_industry_label']) ? $advSearchSetting['select_industry_label'] : '' }}</label>
                                 @php
                                     $businessCategories = getAllBusinessCategories();
                                     $i2bs = getAllInquiries(0);
@@ -99,7 +99,7 @@
                                     class="{{ $categorySelected == 'canadian-exporters' ? 'block' : 'hidden' }}">
                                     <select
                                         class="js-example-basic-multiple appearance-none w-full can-exp-input pr-8 category-options"
-                                        id="canadian-exporters-select" name="canadian-exporters[]" multiple="multiple">
+                                        id="canadian-exporters-select" name="canadian-exporters[]">
                                         {{-- <option value="">
                                         {{ isset($advSearchSetting['select_industry_text']) ? $advSearchSetting['select_industry_text'] : '' }}
                                     </option> --}}
