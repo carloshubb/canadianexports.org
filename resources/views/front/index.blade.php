@@ -94,7 +94,7 @@
            
         @endphp
         @include('front.pages.become-sponsor-template.index', ['page' => $page, 'lang' => $lang, 'becomeSponsorSettingDetail' => $becomeSponsorSettingDetail])
-        @elseif(isset($page) && $page->template == 'sponsor_listing')
+    @elseif(isset($page) && $page->template == 'sponsor_listing')
         @php
             $sponsorPageSetting = getSponsorSetting($lang, $page);
             $sponsorPageSettingDetail = isset($sponsorPageSetting->sponsorPageSettingDetail[0])
@@ -131,43 +131,43 @@
         @endphp
         @include('front.pages.contact-for-rates-template.index', ['page' => $page, 'lang' => $lang])
 
-        @elseif(isset($page) && $page->template == 'scam_alert_template')
-        @php
-            $scamAlertSetting = getScamAlertSetting($lang, $page);
-            $scamAlertSettingDetail = isset($scamAlertSetting->scamAlertSettingDetail[0])
-                ? $scamAlertSetting->scamAlertSettingDetail[0]
-                : null;
-                // dd($scamAlertSetting);
-        @endphp
-        @include('front.pages.scam-alert-template.index', ['page' => $page, 'lang' => $lang])
-        @elseif(isset($page) && $page->template == 'success_stories_template')
-        @php
-            $successStoriesSetting = getSuccessStoriesSetting($lang, $page);
-            $successStoriesSettingDetail = isset($successStoriesSetting->successStoriesSettingDetail[0])
-                ? $successStoriesSetting->successStoriesSettingDetail[0]
-                : null;
-                // dd($scamAlertSetting);
-        @endphp
-        @include('front.pages.success_stories-template.index', ['page' => $page, 'lang' => $lang])
-        @elseif(isset($page) && $page->template == 'faq_exporter_template')
-        @php
-            $faqExporterSetting = getFaqExporterSetting($lang, $page);
-            $faqExporterSettingDetail = isset($faqExporterSetting->faqExporterSettingDetail[0])
-                ? $faqExporterSetting->faqExporterSettingDetail[0]
-                : null;
-                // dd($scamAlertSetting);
-        @endphp
-        @include('front.pages.faq-exporter-template.index', ['page' => $page, 'lang' => $lang])
-        @elseif(isset($page) && $page->template == 'faq_importer_template')
-        @php
-            $faqImporterSetting = getFaqImporterSetting($lang, $page);
-            $faqImporterSettingDetail = isset($faqImporterSetting->faqImporterSettingDetail[0])
-                ? $faqImporterSetting->faqImporterSettingDetail[0]
-                : null;
-                // dd($scamAlertSetting);
-        @endphp
-        @include('front.pages.faq-importer-template.index', ['page' => $page, 'lang' => $lang])
-        @elseif(isset($page) && $page->template == 'testimonial_template')
+    @elseif(isset($page) && $page->template == 'scam_alert_template')
+    @php
+        $scamAlertSetting = getScamAlertSetting($lang, $page);
+        $scamAlertSettingDetail = isset($scamAlertSetting->scamAlertSettingDetail[0])
+            ? $scamAlertSetting->scamAlertSettingDetail[0]
+            : null;
+            // dd($scamAlertSetting);
+    @endphp
+    @include('front.pages.scam-alert-template.index', ['page' => $page, 'lang' => $lang])
+    @elseif(isset($page) && $page->template == 'success_stories_template')
+    @php
+        $successStoriesSetting = getSuccessStoriesSetting($lang, $page);
+        $successStoriesSettingDetail = isset($successStoriesSetting->successStoriesSettingDetail[0])
+            ? $successStoriesSetting->successStoriesSettingDetail[0]
+            : null;
+            // dd($scamAlertSetting);
+    @endphp
+    @include('front.pages.success_stories-template.index', ['page' => $page, 'lang' => $lang])
+    @elseif(isset($page) && $page->template == 'faq_exporter_template')
+    @php
+        $faqExporterSetting = getFaqExporterSetting($lang, $page);
+        $faqExporterSettingDetail = isset($faqExporterSetting->faqExporterSettingDetail[0])
+            ? $faqExporterSetting->faqExporterSettingDetail[0]
+            : null;
+            // dd($scamAlertSetting);
+    @endphp
+    @include('front.pages.faq-exporter-template.index', ['page' => $page, 'lang' => $lang])
+    @elseif(isset($page) && $page->template == 'faq_importer_template')
+            @php
+                $faqImporterSetting = getFaqImporterSetting($lang, $page);
+                $faqImporterSettingDetail = isset($faqImporterSetting->faqImporterSettingDetail[0])
+                    ? $faqImporterSetting->faqImporterSettingDetail[0]
+                    : null;
+                    // dd($scamAlertSetting);
+            @endphp
+            @include('front.pages.faq-importer-template.index', ['page' => $page, 'lang' => $lang])
+    @elseif(isset($page) && $page->template == 'testimonial_template')
         @php
             $testimonialSetting = getTestimonialSetting($lang, $page);
             $testimonialSettingDetail = isset($testimonialSetting->testimonialSettingDetail[0])
@@ -237,7 +237,7 @@
             'lang' => $lang,
             'i2BSettingDetail' => $i2BSettingDetail,
         ])    
-        @elseif(isset($page) && $page->template == 'event_template')
+    @elseif(isset($page) && $page->template == 'event_template')
         @php
             $homePageSetting = getLatestHomePageSetting($lang, $page);
             $homePageSettingDetail = isset($homePageSetting->homePageSettingDetail[0])
@@ -260,19 +260,20 @@
         @include('front.pages.faq-importer-template.index', ['page' => $page, 'lang' => $lang])
     @elseif(isset($page) && $page->template == 'event_listing_template')
         @include('front.pages.event-listing-template.index', ['page' => $page, 'lang' => $lang])
-         @elseif(isset($page) && $page->template == 'sponser_listing_template')
+    @elseif(isset($page) && $page->template == 'sponser_listing_template')
         @include('front.pages.sponser-listing-template.index', ['page' => $page, 'lang' => $lang])
-    @elseif(isset($page) && $page->template == null)
-        @include('front.pages.about-us-template.index', ['page' => $page, 'lang' => $lang])
     @elseif(isset($page) && $page->template == 'webinar_template')
-        @php
+         @php
             $webinarSetting = getWebinarSetting($lang, $page);
             $webinarSettingDetail = isset($webinarSetting->webinarSettingDetail[0])
                 ? $webinarSetting->webinarSettingDetail[0]
                 : null;           
         @endphp
         @include('front.pages.webinar_template.index', ['page' => $page, 'lang' => $lang, 'webinarSettingDetail' => $webinarSettingDetail ?? null])
-    @endif
+    
+    @elseif(isset($page) && $page->template == null)
+        @include('front.pages.about-us-template.index', ['page' => $page, 'lang' => $lang])
+    
     @if (Session::has('type') &&
             (Session::get('type') == 'success' || Session::get('type') == 'pre_success') &&
             Session::has('message') &&
@@ -283,7 +284,8 @@
     @if (isset($page) && $page->template != 'online_business_directory_template')
     @include('front.pages.footer-banner')
     @endif
-@endsection
+    @endif
+    @endsection
 @section('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
